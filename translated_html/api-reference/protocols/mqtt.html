@@ -1,0 +1,989 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-MQTT — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_tls.html" rel="next" title="ESP-TLS"/>
+<link href="asio.html" rel="prev" title="ASIO port"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/protocols/mqtt.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/protocols/mqtt"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/protocols/mqtt.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პროტოკოლები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="asio.html">ASIO</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="mqtt.html#">ESP-MQTT</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#features">მახასიათებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#configuration">კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#events">ღონისძიებები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mqtt.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_tls.html">ESP-TLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_client.html">HTTP კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_server.html">HTTP სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_server.html">HTTPS სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="icmp_echo.html">ICMP Echo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_local_ctrl.html">ადგილობრივი კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mdns.html">mDNS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modbus.html">მოდბუსი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_websocket_client.html">Websocket კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_serial_slave_link.html">ESP სერიული მონა ბმული</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">აპლიკაციის პროტოკოლები</a> »</li>
+<li>ESP-MQTT</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/protocols/mqtt.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-mqtt">
+<h1>ESP-MQTT<a class="headerlink" href="mqtt.html#esp-mqtt" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="mqtt.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-MQTT არის MQTT პროტოკოლის კლიენტის იმპლემენტაცია (MQTT არის მსუბუქი გამოქვეყნების/გამოწერის შეტყობინებების პროტოკოლი).</p>
+</div>
+<div class="section" id="features">
+<h2>მახასიათებლები<a class="headerlink" href="mqtt.html#features" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>მხარს უჭერს MQTT-ს TCP-ის საშუალებით, SSL-ს mbedtls-ით, MQTT-ს Websocket-ის საშუალებით, MQTT-ს Websocket Secure-ის საშუალებით.</li>
+<li>მარტივი დაყენება URI-ით</li>
+<li>მრავალი ეგზემპლარი (მრავალი კლიენტი ერთ აპლიკაციაში)</li>
+<li>მხარდაჭერა გამოწერის, გამოქვეყნების, ავთენტიფიკაციის, ბოლო ანდერძის შეტყობინებების, შენახვის პინგების და QoS-ის 3 დონისთვის (ეს უნდა იყოს სრულად ფუნქციონალური კლიენტი).</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="mqtt.html#application-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/mqtt/tcp">პროტოკოლები/mqtt/tcp</a>: MQTT tcp-ის საშუალებით, ნაგულისხმევი პორტი 1883</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/mqtt/ssl">პროტოკოლები/mqtt/ssl</a>: MQTT tcp-ის მეშვეობით, ნაგულისხმევი პორტი 8883</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/mqtt/ssl_psk">პროტოკოლები/mqtt/ssl_psk</a>MQTT tcp-ის მეშვეობით, ავტორიზაციისთვის წინასწარ გაზიარებული გასაღებების გამოყენებით, ნაგულისხმევი პორტი 8883</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/mqtt/ws">პროტოკოლები/mqtt/ws</a>: MQTT Websocket-ის მეშვეობით, ნაგულისხმევი პორტი 80</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/mqtt/wss">პროტოკოლები/mqtt/wss</a>: MQTT Websocket Secure-ის მეშვეობით, ნაგულისხმევი პორტი 443</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="configuration">
+<h2>კონფიგურაცია<a class="headerlink" href="mqtt.html#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="uri">
+<h3>URI<a class="headerlink" href="mqtt.html#uri" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ამჟამად მხარდაჭერა <code class="docutils literal notranslate"><span class="pre">mqtt</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtts</span></code>, <code class="docutils literal notranslate"><span class="pre">ws</span></code>, <code class="docutils literal notranslate"><span class="pre">wss</span></code> სქემები</li>
+<li>MQTT TCP-ზე ნიმუშები:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">mqtt://mqtt.eclipse.org</span></code>MQTT TCP-ის მეშვეობით, ნაგულისხმევი პორტი 1883:</li>
+<li><code class="docutils literal notranslate"><span class="pre">mqtt://mqtt.eclipse.org:1884</span></code> MQTT TCP-ის საშუალებით, პორტი 1884:</li>
+<li><code class="docutils literal notranslate"><span class="pre">mqtt://username:password@mqtt.eclipse.org:1884</span></code> MQTT TCP-ის საშუალებით, პორტი 1884, მომხმარებლის სახელით და პაროლით</li>
+</ul>
+</li>
+<li>MQTT SSL-ის მეშვეობით ნიმუშები:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">mqtts://mqtt.eclipse.org</span></code>: MQTT SSL-ის საშუალებით, პორტი 8883</li>
+<li><code class="docutils literal notranslate"><span class="pre">mqtts://mqtt.eclipse.org:8884</span></code>: MQTT SSL-ის საშუალებით, პორტი 8884</li>
+</ul>
+</li>
+<li>MQTT Websocket-ის ნიმუშების გამოყენებით:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">ws://mqtt.eclipse.org:80/mqtt</span></code></li>
+</ul>
+</li>
+<li>MQTT Websocket Secure-ის მეშვეობით:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">wss://mqtt.eclipse.org:443/mqtt</span></code></li>
+</ul>
+</li>
+<li>მინიმალური კონფიგურაციები:</li>
+</ul>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">esp_mqtt_client_config_t</span> <span class="n">mqtt_cfg</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s2">"mqtt://mqtt.eclipse.org"</span><span class="p">,</span>
+    <span class="o">//</span> <span class="o">.</span><span class="n">user_context</span> <span class="o">=</span> <span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="p">)</span><span class="n">your_context</span>
+<span class="p">};</span>
+<span class="n">esp_mqtt_client_handle_t</span> <span class="n">client</span> <span class="o">=</span> <span class="n">esp_mqtt_client_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mqtt_cfg</span><span class="p">);</span>
+<span class="n">esp_mqtt_client_register_event</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">ESP_EVENT_ANY_ID</span><span class="p">,</span> <span class="n">mqtt_event_handler</span><span class="p">,</span> <span class="n">client</span><span class="p">);</span>
+<span class="n">esp_mqtt_client_start</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>შენიშვნა: სტანდარტულად, mqtt კლიენტი იყენებს მოვლენების ციკლის ბიბლიოთეკას დაკავშირებული mqtt მოვლენების (დაკავშირებული, გამოწერილი, გამოქვეყნებული და ა.შ.) გამოსაქვეყნებლად.</li>
+</ul>
+</div>
+<div class="section" id="ssl">
+<h3>SSL<a class="headerlink" href="mqtt.html#ssl" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>მიიღეთ სერტიფიკატი სერვერიდან, მაგალითად: <code class="docutils literal notranslate"><span class="pre">mqtt.eclipse.org</span></code>
+<code class="docutils literal notranslate"><span class="pre">openssl</span> <span class="pre">s_client</span> <span class="pre">-showcerts</span> <span class="pre">-connect</span> <span class="pre">mqtt.eclipse.org:8883</span> <span class="pre">&lt;/dev/null</span> <span class="pre">2&gt;/dev/null|openssl</span> <span class="pre">x509</span> <span class="pre">-outform</span> <span class="pre">PEM</span> <span class="pre">&gt;mqtt_eclipse_org.pem</span></code></li>
+<li>შეამოწმეთ ნიმუშის განაცხადი: <code class="docutils literal notranslate"><span class="pre">examples/mqtt_ssl</span></code></li>
+<li>კონფიგურაცია:</li>
+</ul>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">esp_mqtt_client_config_t</span> <span class="n">mqtt_cfg</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s2">"mqtts://mqtt.eclipse.org:8883"</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">event_handle</span> <span class="o">=</span> <span class="n">mqtt_event_handler</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">cert_pem</span> <span class="o">=</span> <span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mqtt_eclipse_org_pem_start</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>თუ სერტიფიკატი არ არის null-შეწყვეტილი, მაშინ <code class="docutils literal notranslate"><span class="pre">cert_len</span></code> ასევე უნდა დაყენდეს. SSL-თან დაკავშირებული სხვა კონფიგურაციის პარამეტრებია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">use_global_ca_store</span></code>: სერვერის სერტიფიკატის დასადასტურებლად გამოიყენეთ გლობალური სერტიფიკატების საცავი, იხილეთ <code class="docutils literal notranslate"><span class="pre">esp-tls.h</span></code> დამატებითი ინფორმაციისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">client_cert_pem</span></code>SSL ორმხრივი ავთენტიფიკაციისთვის, სერტიფიკატის მონაცემებზე მითითება PEM ან DER ფორმატში, ნაგულისხმევი მნიშვნელობაა NULL, არ არის საჭირო, თუ ორმხრივი ავთენტიფიკაცია არ არის საჭირო.</li>
+<li><code class="docutils literal notranslate"><span class="pre">client_cert_len</span></code>client_cert_pem-ის მიერ მითითებული ბუფერის სიგრძე. შესაძლოა იყოს 0 ნულოვანი ტერმინალით დასრულებული pem-ისთვის.</li>
+<li><code class="docutils literal notranslate"><span class="pre">client_key_pem</span></code>SSL ორმხრივი ავთენტიფიკაციისთვის, კერძო გასაღების მონაცემებზე მითითება PEM ან DER ფორმატში, ნაგულისხმევი მნიშვნელობაა NULL, არ არის საჭირო, თუ ორმხრივი ავთენტიფიკაცია არ არის საჭირო.</li>
+<li><code class="docutils literal notranslate"><span class="pre">client_key_len</span></code>client_key_pem-ის მიერ მითითებული ბუფერის სიგრძე. null-დასრულებული pem-ისთვის შესაძლოა იყოს 0.</li>
+<li><code class="docutils literal notranslate"><span class="pre">psk_hint_key</span></code>: esp_tls.h-ში განსაზღვრული PSK სტრუქტურის მითითება PSK ავთენტიფიკაციის ჩასართავად (როგორც სერტიფიკატის ვერიფიკაციის ალტერნატივა). თუ არა NULL და სერვერის/კლიენტის სერტიფიკატები NULL-ია, PSK ჩართულია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">alpn_protos</span></code>ALPN-ისთვის გამოსაყენებელი პროტოკოლების NULL-ით დასრულებული სია.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="last-will-and-testament">
+<h3>უკანასკნელი ანდერძი და აღთქმა<a class="headerlink" href="mqtt.html#last-will-and-testament" title="Permalink to this headline">¶</a></h3>
+<p>MQTT საშუალებას იძლევა, რომ ბოლო ანდერძისა და აღთქმის (LWT) შეტყობინებით სხვა კლიენტებს აცნობოს, როდესაც კლიენტი უპატივცემულოდ წყვეტს კავშირს. ეს კონფიგურირებულია შემდეგი ველებით <code class="docutils literal notranslate"><span class="pre">esp_mqtt_client_config_t</span></code>-სტრუქტურა.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">lwt_topic</span></code>: მითითება LWT შეტყობინების თემაზე</li>
+<li><code class="docutils literal notranslate"><span class="pre">lwt_msg</span></code>: LWT შეტყობინების მითითება</li>
+<li><code class="docutils literal notranslate"><span class="pre">lwt_msg_len</span></code>: LWT შეტყობინების სიგრძე, აუცილებელია, თუ <code class="docutils literal notranslate"><span class="pre">lwt_msg</span></code> არ არის ნულით დასრულებული</li>
+<li><code class="docutils literal notranslate"><span class="pre">lwt_qos</span></code>: LWT შეტყობინების მომსახურების ხარისხი</li>
+<li><code class="docutils literal notranslate"><span class="pre">lwt_retain</span></code>: განსაზღვრავს LWT შეტყობინების შენარჩუნების ფლაგს</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="other-configuration-parameters">
+<h3>სხვა კონფიგურაციის პარამეტრები<a class="headerlink" href="mqtt.html#other-configuration-parameters" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">disable_clean_session</span></code>: განსაზღვრავს დაკავშირების შეტყობინებისთვის სუფთა სესიის ფლაგს, ნაგულისხმევად სუფთა სესიაზეა მითითებული.</li>
+<li><code class="docutils literal notranslate"><span class="pre">keepalive</span></code>: განსაზღვრავს, რამდენ წამს დაელოდება კლიენტი პინგ პასუხს გათიშვის წინ, ნაგულისხმევი მნიშვნელობაა 120 წამი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">disable_auto_reconnect</span></code>: ჩართეთ კლიენტის სერვერთან ხელახლა დაკავშირების შეჩერება შეცდომების ან გათიშვის შემდეგ</li>
+<li><code class="docutils literal notranslate"><span class="pre">user_context</span></code>: მორგებული კონტექსტი, რომელიც გადაეცემა მოვლენის დამმუშავებელს</li>
+<li><code class="docutils literal notranslate"><span class="pre">task_prio</span></code>MQTT დავალების პრიორიტეტი, ნაგულისხმევად 5</li>
+<li><code class="docutils literal notranslate"><span class="pre">task_stack</span></code>MQTT დავალებების დასტის ზომა, ნაგულისხმევად 6144 ბაიტი, ამის დაყენება გადაფარავს menuconfig ის პარამეტრს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer_size</span></code>: MQTT გაგზავნის/მიღების ბუფერის ზომა, ნაგულისხმევი მნიშვნელობაა 1024 ბაიტი</li>
+<li><code class="docutils literal notranslate"><span class="pre">username</span></code>: მიუთითებს ბროკერთან დასაკავშირებლად გამოყენებულ მომხმარებლის სახელზე</li>
+<li><code class="docutils literal notranslate"><span class="pre">password</span></code>: ბროკერთან დასაკავშირებლად გამოყენებული პაროლის მითითება</li>
+<li><code class="docutils literal notranslate"><span class="pre">client_id</span></code>: კლიენტის ID-ზე მითითება, ნაგულისხმევად <code class="docutils literal notranslate"><span class="pre">ESP32_%CHIPID%</span></code> სადაც %CHIPID% არის MAC მისამართის ბოლო 3 ბაიტი თექვსმეტობით ფორმატში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>MQTT ბროკერის დომენი (ipv4 როგორც სტრიქონი), uri-ს დაყენება ამას გადაფარავს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">port</span></code>MQTT ბროკერის პორტი, UR-ში პორტის მითითებით, ამას გადაფარავს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">transport</span></code>: ადგენს ტრანსპორტის პროტოკოლს, uri-ს დაყენება ამას გადაფარავს</li>
+<li><code class="docutils literal notranslate"><span class="pre">refresh_connection_after_ms</span></code>: კავშირის განახლება ამ მნიშვნელობის შემდეგ (მილიწამებში)</li>
+<li><code class="docutils literal notranslate"><span class="pre">event_handle</span></code>: MQTT მოვლენების სახელური, როგორც უკუკავშირი მემკვიდრეობით რეჟიმში</li>
+<li><code class="docutils literal notranslate"><span class="pre">event_loop_handle</span></code>: MQTT მოვლენების ციკლის ბიბლიოთეკის სახელური</li>
+</ul>
+</div></blockquote>
+<p>მეტი ვარიანტისთვის <code class="docutils literal notranslate"><span class="pre">esp_mqtt_client_config_t</span></code>, გთხოვთ, იხილოთ ქვემოთ მოცემული API მითითება</p>
+</div>
+<div class="section" id="change-settings-in-project-configuration-menu">
+<h3>პარამეტრების შეცვლა პროექტის კონფიგურაციის მენიუში<a class="headerlink" href="mqtt.html#change-settings-in-project-configuration-menu" title="Permalink to this headline">¶</a></h3>
+<p>MQTT-ის პარამეტრების პოვნა შეგიძლიათ გამოყენებით <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code>, კომპონენტის კონფიგურაციის -&amp;gt; ESP-MQTT კონფიგურაციის ქვეშ</p>
+<p>შემდეგი პარამეტრები ხელმისაწვდომია:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../kconfig.html#config-mqtt-protocol-311"><span class="std std-ref">CONFIG_MQTT_PROTOCOL_311</span></a>: ჩართავს MQTT პროტოკოლის 3.1.1 ვერსიას</li>
+<li><a class="reference internal" href="../kconfig.html#config-mqtt-transport-ssl"><span class="std std-ref">CONFIG_MQTT_TRANSPORT_SSL</span></a>, <a class="reference internal" href="../kconfig.html#config-mqtt-transport-websocket"><span class="std std-ref">CONFIG_MQTT_TRANSPORT_WEBSOCKET</span></a>: ჩართავს MQTT-ის სპეციფიკურ სატრანსპორტო ფენას, როგორიცაა SSL, WEBSOCKET, WEBSOCKET_SECURE</li>
+<li><a class="reference internal" href="../kconfig.html#config-mqtt-custom-outbox"><span class="std std-ref">CONFIG_MQTT_CUSTOM_OUTBOX</span></a>: გამორთავს mqtt_outbox-ის ნაგულისხმევ იმპლემენტაციას, რათა კონკრეტული იმპლემენტაციის მიწოდება იყოს შესაძლებელი.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="events">
+<h2>ღონისძიებები<a class="headerlink" href="mqtt.html#events" title="Permalink to this headline">¶</a></h2>
+<p>MQTT კლიენტმა შეიძლება გამოაქვეყნოს შემდეგი მოვლენები:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_BEFORE_CONNECT</span></code>კლიენტი ინიციალიზებულია და ბროკერთან დაკავშირების დაწყებას აპირებს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_CONNECTED</span></code>კლიენტმა წარმატებით დაამყარა კავშირი ბროკერთან. კლიენტი ახლა მზადაა მონაცემების გასაგზავნად და მისაღებად.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_DISCONNECTED</span></code>კლიენტმა შეწყვიტა კავშირი მონაცემების წაკითხვის ან ჩაწერის შეუძლებლობის გამო, მაგ. სერვერის მიუწვდომლობის გამო.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_SUBSCRIBED</span></code>ბროკერმა დაადასტურა კლიენტის გამოწერის მოთხოვნა. მოვლენის მონაცემები შეიცავს გამოწერის შეტყობინების შეტყობინების ID-ს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_UNSUBSCRIBED</span></code>ბროკერმა დაადასტურა კლიენტის გამოწერის გაუქმების მოთხოვნა. მოვლენის მონაცემები შეიცავს გამოწერის გაუქმების შეტყობინების ID-ს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_PUBLISHED</span></code>ბროკერმა დაადასტურა კლიენტის გამოქვეყნებული შეტყობინება. ეს გამოქვეყნდება მხოლოდ მომსახურების ხარისხის 1 და 2 დონისთვის, რადგან 0 დონე არ იყენებს დადასტურებებს. მოვლენის მონაცემები შეიცავს გამოქვეყნებული შეტყობინების შეტყობინების ID-ს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_DATA</span></code>კლიენტმა მიიღო გამოქვეყნების შეტყობინება. მოვლენის მონაცემები შეიცავს: შეტყობინების ID-ს, გამოქვეყნებული თემის სახელს, მიღებულ მონაცემებს და მის სიგრძეს. მონაცემებისთვის, რომლებიც აღემატება შიდა ბუფერის ჯერადს <cite>MQTT_EVENT_DATA</cite> გამოქვეყნდება და <cite>current_data_offset</cite> და <cite>total_data_len</cite> ფრაგმენტული შეტყობინების თვალყურის დევნების მიზნით განახლებული მოვლენების მონაცემებიდან.</li>
+<li><code class="docutils literal notranslate"><span class="pre">MQTT_EVENT_ERROR</span></code>კლიენტს შეცდომა შეექმნა. <cite>esp_mqtt_error_type_t</cite> -დან <cite>error_handle</cite> იმ შემთხვევაში, მონაცემების გამოყენება შესაძლებელია შეცდომის ტიპის შემდგომი დასადგენად. შეცდომის ტიპი განსაზღვრავს, თუ რომელი ნაწილები <cite>error_handle</cite> სტრუქტურა შევსებულია.</li>
+</ul>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="mqtt.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="mqtt.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/mqtt/esp-mqtt/include/mqtt_client.h">mqtt/esp-mqtt/include/mqtt_client.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="mqtt.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv420esp_mqtt_client_initPK24esp_mqtt_client_config_t">
+<span id="_CPPv320esp_mqtt_client_initPK24esp_mqtt_client_config_t"></span><span id="_CPPv220esp_mqtt_client_initPK24esp_mqtt_client_config_t"></span><span id="esp_mqtt_client_init__esp_mqtt_client_config_tCP"></span><span class="target" id="mqtt__client_8h_1ac686bcd9a50d090377cfa18616de6181"></span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <code class="descname">esp_mqtt_client_init</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_config_t" title="esp_mqtt_client_config_t">esp_mqtt_client_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv420esp_mqtt_client_initPK24esp_mqtt_client_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონფიგურაციის საფუძველზე ქმნის mqtt კლიენტის სახელურს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>mqtt_client_handle if successfully created, NULL on error </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>mqtt კონფიგურაციის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_mqtt_client_set_uri24esp_mqtt_client_handle_tPKc">
+<span id="_CPPv323esp_mqtt_client_set_uri24esp_mqtt_client_handle_tPKc"></span><span id="_CPPv223esp_mqtt_client_set_uri24esp_mqtt_client_handle_tPKc"></span><span id="esp_mqtt_client_set_uri__esp_mqtt_client_handle_t.cCP"></span><span class="target" id="mqtt__client_8h_1a9cfde62e54d6924990bf9a67ebc3e854"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_set_uri</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <em class="property">კონსტ</em> char *<em>ური</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv423esp_mqtt_client_set_uri24esp_mqtt_client_handle_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ადგენს mqtt კავშირის URI-ს. ეს API ჩვეულებრივ გამოიყენება esp_mqtt_client_init-ში კონფიგურირებული URI-ს გადასაფარებლად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_FAIL if URI parse error, ESP_OK on success </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_mqtt_client_start24esp_mqtt_client_handle_t">
+<span id="_CPPv321esp_mqtt_client_start24esp_mqtt_client_handle_t"></span><span id="_CPPv221esp_mqtt_client_start24esp_mqtt_client_handle_t"></span><span id="esp_mqtt_client_start__esp_mqtt_client_handle_t"></span><span class="target" id="mqtt__client_8h_1a9ff83b825252a3de25589ed9298fa1d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_start</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv421esp_mqtt_client_start24esp_mqtt_client_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იწყებს mqtt კლიენტს უკვე შექმნილი კლიენტის სახელურით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK on success ESP_ERR_INVALID_ARG on wrong initialization ESP_FAIL on other error </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_mqtt_client_reconnect24esp_mqtt_client_handle_t">
+<span id="_CPPv325esp_mqtt_client_reconnect24esp_mqtt_client_handle_t"></span><span id="_CPPv225esp_mqtt_client_reconnect24esp_mqtt_client_handle_t"></span><span id="esp_mqtt_client_reconnect__esp_mqtt_client_handle_t"></span><span class="target" id="mqtt__client_8h_1a7c704b4ca7d16b96e59b8f62759a70d0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_reconnect</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv425esp_mqtt_client_reconnect24esp_mqtt_client_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს API, როგორც წესი, გამოიყენება კონკრეტული მოვლენის შემთხვევაში ხელახლა დაკავშირების იძულებით აღსადგენად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK on success ESP_FAIL if client is in invalid state </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_mqtt_client_stop24esp_mqtt_client_handle_t">
+<span id="_CPPv320esp_mqtt_client_stop24esp_mqtt_client_handle_t"></span><span id="_CPPv220esp_mqtt_client_stop24esp_mqtt_client_handle_t"></span><span id="esp_mqtt_client_stop__esp_mqtt_client_handle_t"></span><span class="target" id="mqtt__client_8h_1a857f1e77762f49eb72f6123d62985f2c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_stop</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv420esp_mqtt_client_stop24esp_mqtt_client_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აჩერებს mqtt კლიენტის დავალებებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK on success ESP_FAIL if client is in invalid state </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_mqtt_client_subscribe24esp_mqtt_client_handle_tPKci">
+<span id="_CPPv325esp_mqtt_client_subscribe24esp_mqtt_client_handle_tPKci"></span><span id="_CPPv225esp_mqtt_client_subscribe24esp_mqtt_client_handle_tPKci"></span><span id="esp_mqtt_client_subscribe__esp_mqtt_client_handle_t.cCP.i"></span><span class="target" id="mqtt__client_8h_1a8dca07b86caf956c3f71c82d751593ec"></span>int <code class="descname">esp_mqtt_client_subscribe</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <em class="property">კონსტ</em> char *<em>თემა</em>, int <em>კო-ები</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv425esp_mqtt_client_subscribe24esp_mqtt_client_handle_tPKci" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გამოწერა განსაზღვრულ თემაზე განსაზღვრული ხარისხის მქონე. </p>
+<p>შენიშვნები:<ul class="simple">
+<li>კლიენტი უნდა იყოს დაკავშირებული გამოწერის შეტყობინების გასაგზავნად</li>
+<li>ეს API შეიძლება შესრულდეს მომხმარებლის დავალებიდან ან mqtt მოვლენის უკუკავშირიდან, ანუ შიდა mqtt დავალებიდან ( API დაცულია შიდა mutex-ით, ამიტომ შეიძლება დაიბლოკოს, თუ მიმდინარეობს მონაცემთა მიღების უფრო ხანგრძლივი ოპერაცია.</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>message_id of the subscribe message on success -1 on failure </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">topic</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">qos</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_mqtt_client_unsubscribe24esp_mqtt_client_handle_tPKc">
+<span id="_CPPv327esp_mqtt_client_unsubscribe24esp_mqtt_client_handle_tPKc"></span><span id="_CPPv227esp_mqtt_client_unsubscribe24esp_mqtt_client_handle_tPKc"></span><span id="esp_mqtt_client_unsubscribe__esp_mqtt_client_handle_t.cCP"></span><span class="target" id="mqtt__client_8h_1a5dbc4e611973bd09082fd5decf31aa1f"></span>int <code class="descname">esp_mqtt_client_unsubscribe</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <em class="property">კონსტ</em> char *<em>თემა</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv427esp_mqtt_client_unsubscribe24esp_mqtt_client_handle_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის განსაზღვრული თემიდან გამოწერის გაუქმება. </p>
+<p>შენიშვნები:<ul class="simple">
+<li>გამოწერის გაუქმების შეტყობინების გასაგზავნად კლიენტი უნდა იყოს დაკავშირებული</li>
+<li>ის უსაფრთხოა ძაფებისთვის, გთხოვთ იხილოთ <code class="docutils literal notranslate"><span class="pre">esp_mqtt_client_subscribe</span></code> დეტალებისთვის</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>message_id of the subscribe message on success -1 on failure </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">topic</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_mqtt_client_publish24esp_mqtt_client_handle_tPKcPKciii">
+<span id="_CPPv323esp_mqtt_client_publish24esp_mqtt_client_handle_tPKcPKciii"></span><span id="_CPPv223esp_mqtt_client_publish24esp_mqtt_client_handle_tPKcPKciii"></span><span id="esp_mqtt_client_publish__esp_mqtt_client_handle_t.cCP.cCP.i.i.i"></span><span class="target" id="mqtt__client_8h_1a5b5cc7b7f948f635bfbcd67ac1519730"></span>int <code class="descname">esp_mqtt_client_publish</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <em class="property">კონსტ</em> char *<em>თემა</em>, <em class="property">კონსტ</em> char *<em>მონაცემები</em>, int <em>ლენ</em>, int <em>კო-ები</em>, int <em>შენარჩუნება</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv423esp_mqtt_client_publish24esp_mqtt_client_handle_tPKcPKciii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტმა ბროკერს გამოქვეყნების შეტყობინება უნდა გაუგზავნოს. </p>
+<p>შენიშვნები:<ul class="simple">
+<li>კლიენტს არ სჭირდება ინტერნეტთან დაკავშირება გამოქვეყნების შეტყობინების გასაგზავნად (თუმცა ყველა qos=0 შეტყობინება წაიშლება, qos&amp;gt;1 შეტყობინებები რიგში იქნება).</li>
+<li>ის უსაფრთხოა ძაფებისთვის, გთხოვთ იხილოთ <code class="docutils literal notranslate"><span class="pre">esp_mqtt_client_subscribe</span></code> დეტალებისთვის</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>message_id of the publish message (for QoS 0 message_id will always be zero) on success. -1 on failure. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">topic</span></code>: თემის სტრიქონი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: payload string (დაყენებულია NULL-ზე, იგზავნება ცარიელი payload შეტყობინება) </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: მონაცემთა სიგრძე, თუ დაყენებულია 0-ზე, სიგრძე გამოითვლება დატვირთვის სტრიქონიდან </li>
+<li><code class="docutils literal notranslate"><span class="pre">qos</span></code>: შეტყობინების გამოქვეყნების ხარისხი </li>
+<li><code class="docutils literal notranslate"><span class="pre">retain</span></code>: დროშის შენარჩუნება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_mqtt_client_destroy24esp_mqtt_client_handle_t">
+<span id="_CPPv323esp_mqtt_client_destroy24esp_mqtt_client_handle_t"></span><span id="_CPPv223esp_mqtt_client_destroy24esp_mqtt_client_handle_t"></span><span id="esp_mqtt_client_destroy__esp_mqtt_client_handle_t"></span><span class="target" id="mqtt__client_8h_1a5f877de7858f432346ad279f5c3ea275"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_destroy</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv423esp_mqtt_client_destroy24esp_mqtt_client_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ანადგურებს კლიენტის სახელურს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_mqtt_set_config24esp_mqtt_client_handle_tPK24esp_mqtt_client_config_t">
+<span id="_CPPv319esp_mqtt_set_config24esp_mqtt_client_handle_tPK24esp_mqtt_client_config_t"></span><span id="_CPPv219esp_mqtt_set_config24esp_mqtt_client_handle_tPK24esp_mqtt_client_config_t"></span><span id="esp_mqtt_set_config__esp_mqtt_client_handle_t.esp_mqtt_client_config_tCP"></span><span class="target" id="mqtt__client_8h_1adcbf54e70cb89e71e9f3eaa4bdd44d45"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_set_config</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_config_t" title="esp_mqtt_client_config_t">esp_mqtt_client_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv419esp_mqtt_set_config24esp_mqtt_client_handle_tPK24esp_mqtt_client_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონფიგურაციის სტრუქტურის დაყენება, რომელიც ჩვეულებრივ გამოიყენება კონფიგურაციის განახლებისას (მაგ. „before_connect“ მოვლენის დროს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_NO_MEM if failed to allocate ESP_OK on success </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური</li>
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>mqtt კონფიგურაციის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430esp_mqtt_client_register_event24esp_mqtt_client_handle_t19esp_mqtt_event_id_t19esp_event_handler_tPv">
+<span id="_CPPv330esp_mqtt_client_register_event24esp_mqtt_client_handle_t19esp_mqtt_event_id_t19esp_event_handler_tPv"></span><span id="_CPPv230esp_mqtt_client_register_event24esp_mqtt_client_handle_t19esp_mqtt_event_id_t19esp_event_handler_tPv"></span><span id="esp_mqtt_client_register_event__esp_mqtt_client_handle_t.esp_mqtt_event_id_t.esp_event_handler_t.voidP"></span><span class="target" id="mqtt__client_8h_1ac0c0594e5d079702bae63c9a93fc133b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_mqtt_client_register_event</code><span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <em>კლიენტი</em>, <a class="reference internal" href="mqtt.html#_CPPv419esp_mqtt_event_id_t" title="esp_mqtt_event_id_t">esp_mqtt_event_id_t</a> <em>ღონისძიება</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv419esp_event_handler_t" title="esp_event_handler_t">esp_event_handler_t</a> <em>მოვლენის_დამმუშავებელი</em>, void *<em>მოვლენის_დამმუშავებელი_არგ</em><span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv430esp_mqtt_client_register_event24esp_mqtt_client_handle_t19esp_mqtt_event_id_t19esp_event_handler_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არეგისტრირებს mqtt მოვლენას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_NO_MEM if failed to allocate ESP_OK on success </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code>mqtt კლიენტის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">event</span></code>: მოვლენის ტიპი </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_handler</span></code>: დამმუშავებლის უკუკავშირი </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_handler_arg</span></code>: დამმუშავებლების კონტექსტი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="mqtt.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv420esp_mqtt_error_codes">
+<span id="_CPPv320esp_mqtt_error_codes"></span><span id="_CPPv220esp_mqtt_error_codes"></span><span id="esp_mqtt_error_codes"></span><span class="target" id="structesp__mqtt__error__codes"></span><em class="property">სტრუქტურა </em><code class="descname">esp_mqtt_error_codes</code><a class="headerlink" href="mqtt.html#_CPPv420esp_mqtt_error_codes" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT შეცდომის კოდის სტრუქტურა, რომელიც უნდა გადაეცეს კონტექსტური ინფორმაციის სახით ERROR მოვლენაში. </p>
+<p>მნიშვნელოვანია: ეს სტრუქტურა ვრცელდება <code class="docutils literal notranslate"><a class="reference internal" href="esp_tls.html#structesp__tls__last__error"><span class="std std-ref"><span class="pre">esp_tls_last_error</span></span></a></code> შეცდომის სტრუქტურა და უკუთავსებადია მასთან (ამიტომ შეიძლება დაქვეითდეს და განიხილებოდეს, როგორც <code class="docutils literal notranslate"><a class="reference internal" href="esp_tls.html#structesp__tls__last__error"><span class="std std-ref"><span class="pre">esp_tls_last_error</span></span></a></code> შეცდომაა, მაგრამ რეკომენდებულია აპლიკაციების განახლება, თუ ადრე ამ გზით გამოიყენებოდა)</p>
+<p>გამოიყენეთ ეს სტრუქტურა პირდაპირ, ჯერ error_type-ის შემოწმებით და შემდეგ შესაბამისი შეცდომის კოდის შემოწმებით, შეცდომის წყაროდან გამომდინარე:</p>
+<p>| შეცდომის_ტიპი | დაკავშირებული წევრის ცვლადები | შენიშვნა | | MQTT_ERROR_TYPE_ESP_TLS | esp_tls_last_esp_err, esp_tls_stack_err, esp_tls_cert_verify_flags | შეცდომა დაფიქსირებულია esp-tls-დან | | MQTT_ERROR_TYPE_CONNECTION_REFUSED | connect_return_code | შიდა შეცდომა დაფიქსირებულია MQTT ბროკერის მიერ კავშირის დროს | </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N20esp_mqtt_error_codes20esp_tls_last_esp_errE">
+<span id="_CPPv3N20esp_mqtt_error_codes20esp_tls_last_esp_errE"></span><span id="_CPPv2N20esp_mqtt_error_codes20esp_tls_last_esp_errE"></span><span id="esp_mqtt_error_codes::esp_tls_last_esp_err__esp_err_t"></span><span class="target" id="structesp__mqtt__error__codes_1a206ad5b39241b01c46797ae037e2d730"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_tls_last_esp_err</code><a class="headerlink" href="mqtt.html#_CPPv4N20esp_mqtt_error_codes20esp_tls_last_esp_errE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბოლო esp_err კოდი მოხსენებულია esp-tls კომპონენტი დან </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20esp_mqtt_error_codes17esp_tls_stack_errE">
+<span id="_CPPv3N20esp_mqtt_error_codes17esp_tls_stack_errE"></span><span id="_CPPv2N20esp_mqtt_error_codes17esp_tls_stack_errE"></span><span id="esp_mqtt_error_codes::esp_tls_stack_err__i"></span><span class="target" id="structesp__mqtt__error__codes_1ad1a450bda2b3a1dfe0fc8ed5b32a2317"></span>int <code class="descname">esp_tls_stack_err</code><a class="headerlink" href="mqtt.html#_CPPv4N20esp_mqtt_error_codes17esp_tls_stack_errE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძირითადი tls დასტიდან მოხსენებული tls-ის სპეციფიკური შეცდომის კოდი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20esp_mqtt_error_codes25esp_tls_cert_verify_flagsE">
+<span id="_CPPv3N20esp_mqtt_error_codes25esp_tls_cert_verify_flagsE"></span><span id="_CPPv2N20esp_mqtt_error_codes25esp_tls_cert_verify_flagsE"></span><span id="esp_mqtt_error_codes::esp_tls_cert_verify_flags__i"></span><span class="target" id="structesp__mqtt__error__codes_1a12b447f898607f89b28d4d16e7d8f9ed"></span>int <code class="descname">esp_tls_cert_verify_flags</code><a class="headerlink" href="mqtt.html#_CPPv4N20esp_mqtt_error_codes25esp_tls_cert_verify_flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერტიფიკატის ვერიფიკაციის დროს ძირითადი tls დასტიდან tls ფლაგების შესახებ ინფორმაცია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20esp_mqtt_error_codes10error_typeE">
+<span id="_CPPv3N20esp_mqtt_error_codes10error_typeE"></span><span id="_CPPv2N20esp_mqtt_error_codes10error_typeE"></span><span id="esp_mqtt_error_codes::error_type__esp_mqtt_error_type_t"></span><span class="target" id="structesp__mqtt__error__codes_1ac00be6050fb287d73fe606f33353dce2"></span><a class="reference internal" href="mqtt.html#_CPPv421esp_mqtt_error_type_t" title="esp_mqtt_error_type_t">esp_mqtt_error_type_t</a> <code class="descname">error_type</code><a class="headerlink" href="mqtt.html#_CPPv4N20esp_mqtt_error_codes10error_typeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის ტიპი, რომელიც მიუთითებს შეცდომის წყაროზე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20esp_mqtt_error_codes19connect_return_codeE">
+<span id="_CPPv3N20esp_mqtt_error_codes19connect_return_codeE"></span><span id="_CPPv2N20esp_mqtt_error_codes19connect_return_codeE"></span><span id="esp_mqtt_error_codes::connect_return_code__esp_mqtt_connect_return_code_t"></span><span class="target" id="structesp__mqtt__error__codes_1a9d0e11a98316144b08a6eca24dd88e3a"></span><a class="reference internal" href="mqtt.html#_CPPv430esp_mqtt_connect_return_code_t" title="esp_mqtt_connect_return_code_t">esp_mqtt_connect_return_code_t</a> <code class="descname">connect_return_code</code><a class="headerlink" href="mqtt.html#_CPPv4N20esp_mqtt_error_codes19connect_return_codeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირი უარყოფილია, შეცდომის კოდი MQTT ბროკერისგან კავშირისას მოხსენებულია </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv416esp_mqtt_event_t">
+<span id="_CPPv316esp_mqtt_event_t"></span><span id="_CPPv216esp_mqtt_event_t"></span><span id="esp_mqtt_event_t"></span><span class="target" id="structesp__mqtt__event__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_mqtt_event_t</code><a class="headerlink" href="mqtt.html#_CPPv416esp_mqtt_event_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მოვლენის კონფიგურაციის სტრუქტურა </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t8event_idE">
+<span id="_CPPv3N16esp_mqtt_event_t8event_idE"></span><span id="_CPPv2N16esp_mqtt_event_t8event_idE"></span><span id="esp_mqtt_event_t::event_id__esp_mqtt_event_id_t"></span><span class="target" id="structesp__mqtt__event__t_1a8d39e94e410be510669137cc409ebf59"></span><a class="reference internal" href="mqtt.html#_CPPv419esp_mqtt_event_id_t" title="esp_mqtt_event_id_t">esp_mqtt_event_id_t</a> <code class="descname">event_id</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t8event_idE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მოვლენის ტიპი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t6clientE">
+<span id="_CPPv3N16esp_mqtt_event_t6clientE"></span><span id="_CPPv2N16esp_mqtt_event_t6clientE"></span><span id="esp_mqtt_event_t::client__esp_mqtt_client_handle_t"></span><span class="target" id="structesp__mqtt__event__t_1a98cc67a3e2bc2edff318a9b8e462f013"></span><a class="reference internal" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="esp_mqtt_client_handle_t">esp_mqtt_client_handle_t</a> <code class="descname">client</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t6clientE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT კლიენტის სახელური ამ ღონისძიებისთვის </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t12user_contextE">
+<span id="_CPPv3N16esp_mqtt_event_t12user_contextE"></span><span id="_CPPv2N16esp_mqtt_event_t12user_contextE"></span><span id="esp_mqtt_event_t::user_context__voidP"></span><span class="target" id="structesp__mqtt__event__t_1ab777fea2dd581f7a66332e328c453dc3"></span>void *<code class="descname">user_context</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t12user_contextE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მომხმარებლის კონტექსტი გადაეცა MQTT კლიენტის კონფიგურაციიდან </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t4dataE">
+<span id="_CPPv3N16esp_mqtt_event_t4dataE"></span><span id="_CPPv2N16esp_mqtt_event_t4dataE"></span><span id="esp_mqtt_event_t::data__cP"></span><span class="target" id="structesp__mqtt__event__t_1a775c7292c911598ba70d83de920aa13c"></span>char *<code class="descname">data</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t4dataE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ მოვლენასთან დაკავშირებული მონაცემები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t8data_lenE">
+<span id="_CPPv3N16esp_mqtt_event_t8data_lenE"></span><span id="_CPPv2N16esp_mqtt_event_t8data_lenE"></span><span id="esp_mqtt_event_t::data_len__i"></span><span class="target" id="structesp__mqtt__event__t_1a7138e57613333befa84b780259ffe9a0"></span>int <code class="descname">data_len</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t8data_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ მოვლენის მონაცემების სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t14total_data_lenE">
+<span id="_CPPv3N16esp_mqtt_event_t14total_data_lenE"></span><span id="_CPPv2N16esp_mqtt_event_t14total_data_lenE"></span><span id="esp_mqtt_event_t::total_data_len__i"></span><span class="target" id="structesp__mqtt__event__t_1ab1572c86f4daf8de8f073726b47bbc59"></span>int <code class="descname">total_data_len</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t14total_data_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემთა სრული სიგრძე (უფრო გრძელი მონაცემები მოწოდებულია მრავალი მოვლენით) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t19current_data_offsetE">
+<span id="_CPPv3N16esp_mqtt_event_t19current_data_offsetE"></span><span id="_CPPv2N16esp_mqtt_event_t19current_data_offsetE"></span><span id="esp_mqtt_event_t::current_data_offset__i"></span><span class="target" id="structesp__mqtt__event__t_1a8ced8992b9de3b739496cbb7a100529e"></span>int <code class="descname">current_data_offset</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t19current_data_offsetE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ მოვლენასთან დაკავშირებული მონაცემების ფაქტობრივი გადახრა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t5topicE">
+<span id="_CPPv3N16esp_mqtt_event_t5topicE"></span><span id="_CPPv2N16esp_mqtt_event_t5topicE"></span><span id="esp_mqtt_event_t::topic__cP"></span><span class="target" id="structesp__mqtt__event__t_1aaad657d5f5a42ff5e79cd27f370d7477"></span>char *<code class="descname">topic</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t5topicE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ ღონისძიებასთან დაკავშირებული თემა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t9topic_lenE">
+<span id="_CPPv3N16esp_mqtt_event_t9topic_lenE"></span><span id="_CPPv2N16esp_mqtt_event_t9topic_lenE"></span><span id="esp_mqtt_event_t::topic_len__i"></span><span class="target" id="structesp__mqtt__event__t_1aa2cb2fc24cf9b8226c1c294f81bb61ce"></span>int <code class="descname">topic_len</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t9topic_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ ღონისძიებასთან დაკავშირებული ამ ღონისძიების თემის სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t6msg_idE">
+<span id="_CPPv3N16esp_mqtt_event_t6msg_idE"></span><span id="_CPPv2N16esp_mqtt_event_t6msg_idE"></span><span id="esp_mqtt_event_t::msg_id__i"></span><span class="target" id="structesp__mqtt__event__t_1a2dac4c1bab157c73b759251dbe50d534"></span>int <code class="descname">msg_id</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t6msg_idE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT შეტყობინების ID </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t15session_presentE">
+<span id="_CPPv3N16esp_mqtt_event_t15session_presentE"></span><span id="_CPPv2N16esp_mqtt_event_t15session_presentE"></span><span id="esp_mqtt_event_t::session_present__i"></span><span class="target" id="structesp__mqtt__event__t_1a06fac53e30358c4d19d9d573b9fd91d6"></span>int <code class="descname">session_present</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t15session_presentE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT session_present-ის დროშა კავშირის მოვლენისთვის </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_mqtt_event_t12error_handleE">
+<span id="_CPPv3N16esp_mqtt_event_t12error_handleE"></span><span id="_CPPv2N16esp_mqtt_event_t12error_handleE"></span><span id="esp_mqtt_event_t::error_handle__esp_mqtt_error_codes_tP"></span><span class="target" id="structesp__mqtt__event__t_1a066c507f85d92fbd3e605c3685c907ec"></span><a class="reference internal" href="mqtt.html#_CPPv422esp_mqtt_error_codes_t" title="esp_mqtt_error_codes_t">esp_mqtt_შეცდომის_კოდები_t</a> *<code class="descname">error_handle</code><a class="headerlink" href="mqtt.html#_CPPv4N16esp_mqtt_event_t12error_handleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp-mqtt შეცდომის სახელური, მათ შორის esp-tls შეცდომები, ასევე შიდა mqtt შეცდომები </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv424esp_mqtt_client_config_t">
+<span id="_CPPv324esp_mqtt_client_config_t"></span><span id="_CPPv224esp_mqtt_client_config_t"></span><span id="esp_mqtt_client_config_t"></span><span class="target" id="structesp__mqtt__client__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_mqtt_client_config_t</code><a class="headerlink" href="mqtt.html#_CPPv424esp_mqtt_client_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT კლიენტის კონფიგურაციის სტრუქტურა </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t12event_handleE">
+<span id="_CPPv3N24esp_mqtt_client_config_t12event_handleE"></span><span id="_CPPv2N24esp_mqtt_client_config_t12event_handleE"></span><span id="esp_mqtt_client_config_t::event_handle__mqtt_event_callback_t"></span><span class="target" id="structesp__mqtt__client__config__t_1ac9322967df55b26a689778f880768f11"></span><a class="reference internal" href="mqtt.html#_CPPv421mqtt_event_callback_t" title="mqtt_event_callback_t">mqtt_event_callback_t</a> <code class="descname">event_handle</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t12event_handleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მოვლენების სახელური, როგორც უკუკავშირი მემკვიდრეობით რეჟიმში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t17event_loop_handleE">
+<span id="_CPPv3N24esp_mqtt_client_config_t17event_loop_handleE"></span><span id="_CPPv2N24esp_mqtt_client_config_t17event_loop_handleE"></span><span id="esp_mqtt_client_config_t::event_loop_handle__esp_event_loop_handle_t"></span><span class="target" id="structesp__mqtt__client__config__t_1ab7436f783a108562d38beb746c0fe6ef"></span><a class="reference internal" href="../system/esp_event.html#_CPPv423esp_event_loop_handle_t" title="esp_event_loop_handle_t">esp_event_loop_handle_t</a> <code class="descname">event_loop_handle</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t17event_loop_handleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მოვლენების ციკლის ბიბლიოთეკის სახელური </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t4hostE">
+<span id="_CPPv3N24esp_mqtt_client_config_t4hostE"></span><span id="_CPPv2N24esp_mqtt_client_config_t4hostE"></span><span id="esp_mqtt_client_config_t::host__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a7fdad85fcfffb3dc4f9c2cfa929056f7"></span><em class="property">კონსტ</em> char *<code class="descname">host</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t4hostE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT სერვერის დომენი (ipv4 როგორც სტრიქონი) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t3uriE">
+<span id="_CPPv3N24esp_mqtt_client_config_t3uriE"></span><span id="_CPPv2N24esp_mqtt_client_config_t3uriE"></span><span id="esp_mqtt_client_config_t::uri__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a9ba5575c53069b3dabadfb656d0e35e9"></span><em class="property">კონსტ</em> char *<code class="descname">uri</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t3uriE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სრული MQTT ბროკერის URI </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t4portE">
+<span id="_CPPv3N24esp_mqtt_client_config_t4portE"></span><span id="_CPPv2N24esp_mqtt_client_config_t4portE"></span><span id="esp_mqtt_client_config_t::port__uint32_t"></span><span class="target" id="structesp__mqtt__client__config__t_1a22afb5c27e5e6cebb4d8f6d1c5c8c54a"></span>uint32_t <code class="descname">port</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t4portE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT სერვერის პორტი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t9client_idE">
+<span id="_CPPv3N24esp_mqtt_client_config_t9client_idE"></span><span id="_CPPv2N24esp_mqtt_client_config_t9client_idE"></span><span id="esp_mqtt_client_config_t::client_id__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a6d4201882597f2d5778dd4f26e47c3f2"></span><em class="property">კონსტ</em> char *<code class="descname">client_id</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t9client_idE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის ნაგულისხმევი ID არის <code class="docutils literal notranslate"><span class="pre">ESP32_CHIPID%</span></code> სადაც CHIPID% არის MAC მისამართის ბოლო 3 ბაიტი თექვსმეტობით ფორმატში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t8usernameE">
+<span id="_CPPv3N24esp_mqtt_client_config_t8usernameE"></span><span id="_CPPv2N24esp_mqtt_client_config_t8usernameE"></span><span id="esp_mqtt_client_config_t::username__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a5cd76b2edd703c178c275570175bcff9"></span><em class="property">კონსტ</em> char *<code class="descname">username</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t8usernameE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მომხმარებლის სახელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t8passwordE">
+<span id="_CPPv3N24esp_mqtt_client_config_t8passwordE"></span><span id="_CPPv2N24esp_mqtt_client_config_t8passwordE"></span><span id="esp_mqtt_client_config_t::password__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a899d8f238ec79e49e5b82633bcdabe2f"></span><em class="property">კონსტ</em> char *<code class="descname">password</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t8passwordE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT პაროლი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t9lwt_topicE">
+<span id="_CPPv3N24esp_mqtt_client_config_t9lwt_topicE"></span><span id="_CPPv2N24esp_mqtt_client_config_t9lwt_topicE"></span><span id="esp_mqtt_client_config_t::lwt_topic__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1af322a84e5cc2bd90174247247214fed3"></span><em class="property">კონსტ</em> char *<code class="descname">lwt_topic</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t9lwt_topicE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LWT (ბოლო ანდერძისა და აღთქმის) შეტყობინების თემა (ნაგულისხმევად NULL) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t7lwt_msgE">
+<span id="_CPPv3N24esp_mqtt_client_config_t7lwt_msgE"></span><span id="_CPPv2N24esp_mqtt_client_config_t7lwt_msgE"></span><span id="esp_mqtt_client_config_t::lwt_msg__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1aa254b986d5018e34418e223053d5f023"></span><em class="property">კონსტ</em> char *<code class="descname">lwt_msg</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t7lwt_msgE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LWT შეტყობინება (ნაგულისხმევად NULL) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t7lwt_qosE">
+<span id="_CPPv3N24esp_mqtt_client_config_t7lwt_qosE"></span><span id="_CPPv2N24esp_mqtt_client_config_t7lwt_qosE"></span><span id="esp_mqtt_client_config_t::lwt_qos__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a8dc3842c3639f811c471be1ad4805d6d"></span>int <code class="descname">lwt_qos</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t7lwt_qosE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LWT შეტყობინების ხარისხის მაჩვენებლები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t10lwt_retainE">
+<span id="_CPPv3N24esp_mqtt_client_config_t10lwt_retainE"></span><span id="_CPPv2N24esp_mqtt_client_config_t10lwt_retainE"></span><span id="esp_mqtt_client_config_t::lwt_retain__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a220e90698d16bc7bce4dec9c5898208b"></span>int <code class="descname">lwt_retain</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t10lwt_retainE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LWT-ის შენარჩუნებული შეტყობინების დროშა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t11lwt_msg_lenE">
+<span id="_CPPv3N24esp_mqtt_client_config_t11lwt_msg_lenE"></span><span id="_CPPv2N24esp_mqtt_client_config_t11lwt_msg_lenE"></span><span id="esp_mqtt_client_config_t::lwt_msg_len__i"></span><span class="target" id="structesp__mqtt__client__config__t_1abbeb446d1e351e4fecc6d509b2a406c3"></span>int <code class="descname">lwt_msg_len</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t11lwt_msg_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LWT შეტყობინების სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t21disable_clean_sessionE">
+<span id="_CPPv3N24esp_mqtt_client_config_t21disable_clean_sessionE"></span><span id="_CPPv2N24esp_mqtt_client_config_t21disable_clean_sessionE"></span><span id="esp_mqtt_client_config_t::disable_clean_session__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a97346007dcfc54e10059293e98f38e44"></span>int <code class="descname">disable_clean_session</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t21disable_clean_sessionE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>mqtt clean session, ნაგულისხმევი clean_session არის true </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t9keepaliveE">
+<span id="_CPPv3N24esp_mqtt_client_config_t9keepaliveE"></span><span id="_CPPv2N24esp_mqtt_client_config_t9keepaliveE"></span><span id="esp_mqtt_client_config_t::keepalive__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a1c52b6c471523352b904f3b3d0cd4851"></span>int <code class="descname">keepalive</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t9keepaliveE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>mqtt keepalive, ნაგულისხმევი მნიშვნელობაა 120 წამი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t22disable_auto_reconnectE">
+<span id="_CPPv3N24esp_mqtt_client_config_t22disable_auto_reconnectE"></span><span id="_CPPv2N24esp_mqtt_client_config_t22disable_auto_reconnectE"></span><span id="esp_mqtt_client_config_t::disable_auto_reconnect__b"></span><span class="target" id="structesp__mqtt__client__config__t_1abe28b6c54df3b413c844501522df52ec"></span>bool <code class="descname">disable_auto_reconnect</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t22disable_auto_reconnectE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს mqtt კლიენტი ხელახლა დაუკავშირდება სერვერს (შეცდომების/გათიშვის შემთხვევაში). დააყენეთ disable_auto_reconnect=true გამორთვაზე. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t12user_contextE">
+<span id="_CPPv3N24esp_mqtt_client_config_t12user_contextE"></span><span id="_CPPv2N24esp_mqtt_client_config_t12user_contextE"></span><span id="esp_mqtt_client_config_t::user_context__voidP"></span><span class="target" id="structesp__mqtt__client__config__t_1a0f67866e7823e7527c3feb9a42300ed2"></span>void *<code class="descname">user_context</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t12user_contextE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაეცით მომხმარებლის კონტექსტი ამ პარამეტრს, შემდეგ კი შეგიძლიათ მიიღოთ ეს კონტექსტი <code class="docutils literal notranslate"><span class="pre">event-&gt;user_context</span></code> </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t9task_prioE">
+<span id="_CPPv3N24esp_mqtt_client_config_t9task_prioE"></span><span id="_CPPv2N24esp_mqtt_client_config_t9task_prioE"></span><span id="esp_mqtt_client_config_t::task_prio__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a124d1c11799b0bbb01ba98d278c2836e"></span>int <code class="descname">task_prio</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t9task_prioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT დავალების პრიორიტეტი, ნაგულისხმევი მნიშვნელობაა 5, შეიძლება შეიცვალოს <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code> </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t10task_stackE">
+<span id="_CPPv3N24esp_mqtt_client_config_t10task_stackE"></span><span id="_CPPv2N24esp_mqtt_client_config_t10task_stackE"></span><span id="esp_mqtt_client_config_t::task_stack__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a3fc8a30df723c0687286dbfa23c953f3"></span>int <code class="descname">task_stack</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t10task_stackE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT დავალებების დასტის ზომა, ნაგულისხმევია 6144 ბაიტი, შეიძლება შეიცვალოს <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code> </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t11buffer_sizeE">
+<span id="_CPPv3N24esp_mqtt_client_config_t11buffer_sizeE"></span><span id="_CPPv2N24esp_mqtt_client_config_t11buffer_sizeE"></span><span id="esp_mqtt_client_config_t::buffer_size__i"></span><span class="target" id="structesp__mqtt__client__config__t_1ac6dfaa4b711673cbbd23157f76d2e5a1"></span>int <code class="descname">buffer_size</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t11buffer_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT გაგზავნის/მიღების ბუფერის ზომა, ნაგულისხმევი მნიშვნელობაა 1024 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t8cert_pemE">
+<span id="_CPPv3N24esp_mqtt_client_config_t8cert_pemE"></span><span id="_CPPv2N24esp_mqtt_client_config_t8cert_pemE"></span><span id="esp_mqtt_client_config_t::cert_pem__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1a171270636cedfa1a4c430487ac472111"></span><em class="property">კონსტ</em> char *<code class="descname">cert_pem</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t8cert_pemE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერვერის ვერიფიკაციისთვის (SSL-ით) PEM ან DER ფორმატში სერტიფიკატის მონაცემების მითითება, ნაგულისხმევი მნიშვნელობაა NULL, სერვერის ვერიფიკაციისთვის საჭირო არ არის. PEM ფორმატს უნდა ჰქონდეს საბოლოო NULL სიმბოლო. DER ფორმატისთვის საჭიროა სიგრძის გადაცემა cert_len-ში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t8cert_lenE">
+<span id="_CPPv3N24esp_mqtt_client_config_t8cert_lenE"></span><span id="_CPPv2N24esp_mqtt_client_config_t8cert_lenE"></span><span id="esp_mqtt_client_config_t::cert_len__s"></span><span class="target" id="structesp__mqtt__client__config__t_1a21724409757f4fb83d65eb27d1545458"></span>size_t <code class="descname">cert_len</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t8cert_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>cert_pem-ის მიერ მითითებული ბუფერის სიგრძე. შესაძლოა იყოს 0 ნულოვანი ტერმინაციის მქონე pem-ისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t15client_cert_pemE">
+<span id="_CPPv3N24esp_mqtt_client_config_t15client_cert_pemE"></span><span id="_CPPv2N24esp_mqtt_client_config_t15client_cert_pemE"></span><span id="esp_mqtt_client_config_t::client_cert_pem__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1adfd9b59bcc9f02bcf727150afa3dac8a"></span><em class="property">კონსტ</em> char *<code class="descname">client_cert_pem</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t15client_cert_pemE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SSL ორმხრივი ავთენტიფიკაციისთვის PEM ან DER ფორმატში სერტიფიკატის მონაცემების მითითება, ნაგულისხმევი მნიშვნელობაა NULL, არ არის საჭირო, თუ ორმხრივი ავთენტიფიკაცია არ არის საჭირო. თუ ის NULL არ არის, ასევე <code class="docutils literal notranslate"><span class="pre">client_key_pem</span></code> აუცილებელია მიუთითოთ. PEM ფორმატს უნდა ჰქონდეს ბოლო NULL სიმბოლო. DER ფორმატისთვის საჭიროა სიგრძის გადაცემა client_cert_len-ში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t15client_cert_lenE">
+<span id="_CPPv3N24esp_mqtt_client_config_t15client_cert_lenE"></span><span id="_CPPv2N24esp_mqtt_client_config_t15client_cert_lenE"></span><span id="esp_mqtt_client_config_t::client_cert_len__s"></span><span class="target" id="structesp__mqtt__client__config__t_1a54fc909888a6dae1d003ad367ee4bc53"></span>size_t <code class="descname">client_cert_len</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t15client_cert_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>client_cert_pem-ის მიერ მითითებული ბუფერის სიგრძე. შესაძლოა იყოს 0 ნულოვანი ტერმინაციის მქონე pem-ისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t14client_key_pemE">
+<span id="_CPPv3N24esp_mqtt_client_config_t14client_key_pemE"></span><span id="_CPPv2N24esp_mqtt_client_config_t14client_key_pemE"></span><span id="esp_mqtt_client_config_t::client_key_pem__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1ae8075a2070ea985c37b811367c2e0442"></span><em class="property">კონსტ</em> char *<code class="descname">client_key_pem</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t14client_key_pemE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SSL ორმხრივი ავთენტიფიკაციისთვის PEM ან DER ფორმატში კერძო გასაღების მონაცემების მითითება, ნაგულისხმევი მნიშვნელობაა NULL, არ არის საჭირო, თუ ორმხრივი ავთენტიფიკაცია არ არის საჭირო. თუ ის NULL არ არის, ასევე <code class="docutils literal notranslate"><span class="pre">client_cert_pem</span></code> უნდა იყოს მითითებული. PEM ფორმატს უნდა ჰქონდეს ბოლო NULL სიმბოლო. DER ფორმატი მოითხოვს, რომ სიგრძე გადაეცეს client_key_len-ში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t14client_key_lenE">
+<span id="_CPPv3N24esp_mqtt_client_config_t14client_key_lenE"></span><span id="_CPPv2N24esp_mqtt_client_config_t14client_key_lenE"></span><span id="esp_mqtt_client_config_t::client_key_len__s"></span><span class="target" id="structesp__mqtt__client__config__t_1a5025acfb51c2ecf52e05f75ea7551fd9"></span>size_t <code class="descname">client_key_len</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t14client_key_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>client_key_pem-ის მიერ მითითებული ბუფერის სიგრძე. შესაძლოა იყოს 0 ნულოვანი ტერმინაციის მქონე pem-ისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t9transportE">
+<span id="_CPPv3N24esp_mqtt_client_config_t9transportE"></span><span id="_CPPv2N24esp_mqtt_client_config_t9transportE"></span><span id="esp_mqtt_client_config_t::transport__esp_mqtt_transport_t"></span><span class="target" id="structesp__mqtt__client__config__t_1ad3716bc32d9ce7927b93fa2907028117"></span><a class="reference internal" href="mqtt.html#_CPPv420esp_mqtt_transport_t" title="esp_mqtt_transport_t">esp_mqtt_transport_t</a> <code class="descname">transport</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t9transportE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უგულებელყოფს URI ტრანსპორტს </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t27refresh_connection_after_msE">
+<span id="_CPPv3N24esp_mqtt_client_config_t27refresh_connection_after_msE"></span><span id="_CPPv2N24esp_mqtt_client_config_t27refresh_connection_after_msE"></span><span id="esp_mqtt_client_config_t::refresh_connection_after_ms__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a11dd7e79c450f73a77e58d52b67fd2e0"></span>int <code class="descname">refresh_connection_after_ms</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t27refresh_connection_after_msE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირის განახლება ამ მნიშვნელობის შემდეგ (მილიწამებში) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t12psk_hint_keyE">
+<span id="_CPPv3N24esp_mqtt_client_config_t12psk_hint_keyE"></span><span id="_CPPv2N24esp_mqtt_client_config_t12psk_hint_keyE"></span><span id="esp_mqtt_client_config_t::psk_hint_key__psk_key_hintCP"></span><span class="target" id="structesp__mqtt__client__config__t_1adbdff1ae91e0af81e5af8fe5c8050547"></span><em class="property">კონსტ</em> <em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv412psk_key_hint" title="psk_key_hint">psk_key_hint</a> *<code class="descname">psk_hint_key</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t12psk_hint_keyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_tls.h-ში განსაზღვრული PSK სტრუქტურაზე მითითება PSK ავთენტიფიკაციის ჩასართავად (სერტიფიკატის ვერიფიკაციის ალტერნატივად). თუ არა NULL და სერვერის/კლიენტის სერტიფიკატები NULL-ია, PSK ჩართულია. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t19use_global_ca_storeE">
+<span id="_CPPv3N24esp_mqtt_client_config_t19use_global_ca_storeE"></span><span id="_CPPv2N24esp_mqtt_client_config_t19use_global_ca_storeE"></span><span id="esp_mqtt_client_config_t::use_global_ca_store__b"></span><span class="target" id="structesp__mqtt__client__config__t_1a47f28e328d199d8ed5bbc8e9e4c17b95"></span>bool <code class="descname">use_global_ca_store</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t19use_global_ca_storeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიყენეთ გლობალური ca_store ყველა იმ კავშირისთვის, რომელშიც ეს bool დაყენებულია. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t20reconnect_timeout_msE">
+<span id="_CPPv3N24esp_mqtt_client_config_t20reconnect_timeout_msE"></span><span id="_CPPv2N24esp_mqtt_client_config_t20reconnect_timeout_msE"></span><span id="esp_mqtt_client_config_t::reconnect_timeout_ms__i"></span><span class="target" id="structesp__mqtt__client__config__t_1aef1bff755d2eefa6d80f1cafbda195c8"></span>int <code class="descname">reconnect_timeout_ms</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t20reconnect_timeout_msE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ ავტომატური ხელახლა დაკავშირება გამორთულია, ამ მნიშვნელობის შემდეგ ხელახლა დაუკავშირდით ბროკერს მილიწამებში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t11alpn_protosE">
+<span id="_CPPv3N24esp_mqtt_client_config_t11alpn_protosE"></span><span id="_CPPv2N24esp_mqtt_client_config_t11alpn_protosE"></span><span id="esp_mqtt_client_config_t::alpn_protos__cCPP"></span><span class="target" id="structesp__mqtt__client__config__t_1ae5c0be3a7466dbc307ad7b9f4aa979be"></span><em class="property">კონსტ</em> char **<code class="descname">alpn_protos</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t11alpn_protosE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ALPN-ისთვის გამოსაყენებელი მხარდაჭერილი აპლიკაციების პროტოკოლების NULL-ით დასრულებული სია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t18clientkey_passwordE">
+<span id="_CPPv3N24esp_mqtt_client_config_t18clientkey_passwordE"></span><span id="_CPPv2N24esp_mqtt_client_config_t18clientkey_passwordE"></span><span id="esp_mqtt_client_config_t::clientkey_password__cCP"></span><span class="target" id="structesp__mqtt__client__config__t_1ae9f0588cd877165acafc58a4a2644cd9"></span><em class="property">კონსტ</em> char *<code class="descname">clientkey_password</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t18clientkey_passwordE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გასაღების გაშიფვრის პაროლის სტრიქონი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N24esp_mqtt_client_config_t22clientkey_password_lenE">
+<span id="_CPPv3N24esp_mqtt_client_config_t22clientkey_password_lenE"></span><span id="_CPPv2N24esp_mqtt_client_config_t22clientkey_password_lenE"></span><span id="esp_mqtt_client_config_t::clientkey_password_len__i"></span><span class="target" id="structesp__mqtt__client__config__t_1a6ee9efe3713c09ceb9d757b00915479d"></span>int <code class="descname">clientkey_password_len</code><a class="headerlink" href="mqtt.html#_CPPv4N24esp_mqtt_client_config_t22clientkey_password_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>clientkey_password-ის მიერ მითითებული პაროლის სტრიქონის სიგრძე </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="mqtt.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv424esp_mqtt_client_handle_t">
+<span id="_CPPv324esp_mqtt_client_handle_t"></span><span id="_CPPv224esp_mqtt_client_handle_t"></span><span id="esp_mqtt_client_handle_t"></span><span class="target" id="mqtt__client_8h_1aa32a33a6f15f0c3c0669c6cf6f6af3d4"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> esp_mqtt_client *<code class="descname">esp_mqtt_client_handle_t</code><a class="headerlink" href="mqtt.html#_CPPv424esp_mqtt_client_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv422esp_mqtt_error_codes_t">
+<span id="_CPPv322esp_mqtt_error_codes_t"></span><span id="_CPPv222esp_mqtt_error_codes_t"></span><span id="esp_mqtt_error_codes_t"></span><span class="target" id="mqtt__client_8h_1adb96212f5251bc456073b211261ffcf6"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="mqtt.html#_CPPv420esp_mqtt_error_codes" title="esp_mqtt_error_codes">esp_mqtt_შეცდომის_კოდები</a> <code class="descname">esp_mqtt_error_codes_t</code><a class="headerlink" href="mqtt.html#_CPPv422esp_mqtt_error_codes_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT შეცდომის კოდის სტრუქტურა, რომელიც უნდა გადაეცეს კონტექსტური ინფორმაციის სახით ERROR მოვლენაში. </p>
+<p>მნიშვნელოვანია: ეს სტრუქტურა ვრცელდება <code class="docutils literal notranslate"><a class="reference internal" href="esp_tls.html#structesp__tls__last__error"><span class="std std-ref"><span class="pre">esp_tls_last_error</span></span></a></code> შეცდომის სტრუქტურა და უკუთავსებადია მასთან (ამიტომ შეიძლება დაქვეითდეს და განიხილებოდეს, როგორც <code class="docutils literal notranslate"><a class="reference internal" href="esp_tls.html#structesp__tls__last__error"><span class="std std-ref"><span class="pre">esp_tls_last_error</span></span></a></code> შეცდომაა, მაგრამ რეკომენდებულია აპლიკაციების განახლება, თუ ადრე ამ გზით გამოიყენებოდა)</p>
+<p>გამოიყენეთ ეს სტრუქტურა პირდაპირ, ჯერ error_type-ის შემოწმებით და შემდეგ შესაბამისი შეცდომის კოდის შემოწმებით, შეცდომის წყაროდან გამომდინარე:</p>
+<p>| შეცდომის_ტიპი | დაკავშირებული წევრის ცვლადები | შენიშვნა | | MQTT_ERROR_TYPE_ESP_TLS | esp_tls_last_esp_err, esp_tls_stack_err, esp_tls_cert_verify_flags | შეცდომა დაფიქსირებულია esp-tls-დან | | MQTT_ERROR_TYPE_CONNECTION_REFUSED | connect_return_code | შიდა შეცდომა დაფიქსირებულია MQTT ბროკერის მიერ კავშირის დროს | </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv423esp_mqtt_event_handle_t">
+<span id="_CPPv323esp_mqtt_event_handle_t"></span><span id="_CPPv223esp_mqtt_event_handle_t"></span><span id="esp_mqtt_event_handle_t"></span><span class="target" id="mqtt__client_8h_1a3a20d2e793441bb4f2ef4de23d10b7da"></span><em class="property">typedef </em><a class="reference internal" href="mqtt.html#_CPPv416esp_mqtt_event_t" title="esp_mqtt_event_t">esp_mqtt_event_t</a> *<code class="descname">esp_mqtt_event_handle_t</code><a class="headerlink" href="mqtt.html#_CPPv423esp_mqtt_event_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv421mqtt_event_callback_t">
+<span id="_CPPv321mqtt_event_callback_t"></span><span id="_CPPv221mqtt_event_callback_t"></span><span id="mqtt_event_callback_t"></span><span class="target" id="mqtt__client_8h_1a3ace0b63edc79545b273015bc215c651"></span><em class="property">typedef </em><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">mqtt_event_callback_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="mqtt.html#_CPPv423esp_mqtt_event_handle_t" title="esp_mqtt_event_handle_t">esp_mqtt_event_handle_t</a> event<span class="sig-paren">)</span><a class="headerlink" href="mqtt.html#_CPPv421mqtt_event_callback_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="mqtt.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv419esp_mqtt_event_id_t">
+<span id="_CPPv319esp_mqtt_event_id_t"></span><span id="_CPPv219esp_mqtt_event_id_t"></span><span id="esp_mqtt_event_id_t"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_mqtt_event_id_t</code><a class="headerlink" href="mqtt.html#_CPPv419esp_mqtt_event_id_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT მოვლენების ტიპები. </p>
+<p>მომხმარებლის მოვლენების დამმუშავებელი იღებს კონტექსტურ მონაცემებს <code class="docutils literal notranslate"><a class="reference internal" href="mqtt.html#structesp__mqtt__event__t"><span class="std std-ref"><span class="pre">esp_mqtt_event_t</span></span></a></code> სტრუქტურა<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">user_context</span></code> - მომხმარებლის მონაცემები <code class="docutils literal notranslate"><a class="reference internal" href="mqtt.html#structesp__mqtt__client__config__t"><span class="std std-ref"><span class="pre">esp_mqtt_client_config_t</span></span></a></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">client</span></code> - mqtt კლიენტის სახელური</li>
+<li>სხვადასხვა მონაცემები, რომლებიც დამოკიდებულია მოვლენის ტიპზე </li>
+</ul>
+</p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv416MQTT_EVENT_ERROR">
+<span id="_CPPv316MQTT_EVENT_ERROR"></span><span id="_CPPv216MQTT_EVENT_ERROR"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021a1c05926ed3b69d298e253ab5477a2837"></span><code class="descname">MQTT_EVENT_ERROR</code> = 0<a class="headerlink" href="mqtt.html#_CPPv416MQTT_EVENT_ERROR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის მოვლენის შემთხვევაში, დამატებითი კონტექსტი: კავშირის დაბრუნების კოდი, შეცდომის სახელური <a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> (თუ მხარდაჭერილია) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420MQTT_EVENT_CONNECTED">
+<span id="_CPPv320MQTT_EVENT_CONNECTED"></span><span id="_CPPv220MQTT_EVENT_CONNECTED"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021a389dab7d667392932a622de052a25601"></span><code class="descname">MQTT_EVENT_CONNECTED</code><a class="headerlink" href="mqtt.html#_CPPv420MQTT_EVENT_CONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაკავშირებული მოვლენა, დამატებითი კონტექსტი: session_present დროშა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_EVENT_DISCONNECTED">
+<span id="_CPPv323MQTT_EVENT_DISCONNECTED"></span><span id="_CPPv223MQTT_EVENT_DISCONNECTED"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021aa46c6cfa863fb0b11718e3afbd2fe1f0"></span><code class="descname">MQTT_EVENT_DISCONNECTED</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_EVENT_DISCONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გათიშული მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421MQTT_EVENT_SUBSCRIBED">
+<span id="_CPPv321MQTT_EVENT_SUBSCRIBED"></span><span id="_CPPv221MQTT_EVENT_SUBSCRIBED"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021afd19f7aa79ef83e12e2dca624c897a7d"></span><code class="descname">MQTT_EVENT_SUBSCRIBED</code><a class="headerlink" href="mqtt.html#_CPPv421MQTT_EVENT_SUBSCRIBED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოწერილი ღონისძიება, დამატებითი კონტექსტი: msg_id </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_EVENT_UNSUBSCRIBED">
+<span id="_CPPv323MQTT_EVENT_UNSUBSCRIBED"></span><span id="_CPPv223MQTT_EVENT_UNSUBSCRIBED"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021a8c91781885051efe9b866c0a3892face"></span><code class="descname">MQTT_EVENT_UNSUBSCRIBED</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_EVENT_UNSUBSCRIBED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოწერის გაუქმების ღონისძიება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420MQTT_EVENT_PUBLISHED">
+<span id="_CPPv320MQTT_EVENT_PUBLISHED"></span><span id="_CPPv220MQTT_EVENT_PUBLISHED"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021af3ebab2f4e6e887c156370521df95ea9"></span><code class="descname">MQTT_EVENT_PUBLISHED</code><a class="headerlink" href="mqtt.html#_CPPv420MQTT_EVENT_PUBLISHED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოქვეყნებული მოვლენა, დამატებითი კონტექსტი: msg_id </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415MQTT_EVENT_DATA">
+<span id="_CPPv315MQTT_EVENT_DATA"></span><span id="_CPPv215MQTT_EVENT_DATA"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021a54e72585428883f87e5a77727a1b99e7"></span><code class="descname">MQTT_EVENT_DATA</code><a class="headerlink" href="mqtt.html#_CPPv415MQTT_EVENT_DATA" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემთა მოვლენა, დამატებითი კონტექსტი:<ul class="simple">
+<li>msg_id შეტყობინების ID</li>
+<li>თემის მითითება მიღებულ თემაზე</li>
+<li>topic_len თემის სიგრძე</li>
+<li>მიღებულ მონაცემებზე მონაცემების მაჩვენებელი</li>
+<li>ამ მოვლენის მონაცემების სიგრძე data_len</li>
+<li>ამ მოვლენის მიმდინარე მონაცემების current_data_offset ოფსეტი</li>
+<li>total_data_len მიღებული მონაცემების საერთო სიგრძე შენიშვნა: ერთი შეტყობინებისთვის შესაძლებელია მრავალი MQTT_EVENT_DATA-ს გაშვება, თუ ის შიდა ბუფერზე გრძელია. ამ შემთხვევაში, მხოლოდ პირველი მოვლენა შეიცავს თემის მაჩვენებელს და სიგრძეს, დანარჩენი კი შეიცავს მონაცემებს მხოლოდ მიმდინარე მონაცემების სიგრძით და მიმდინარე მონაცემთა ოფსეტის განახლებით. </li>
+</ul>
+</p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv425MQTT_EVENT_BEFORE_CONNECT">
+<span id="_CPPv325MQTT_EVENT_BEFORE_CONNECT"></span><span id="_CPPv225MQTT_EVENT_BEFORE_CONNECT"></span><span class="target" id="mqtt__client_8h_1ac7683a1edce4b5e816943006a3a8d021a63a3057bc3c852844f9ce85a7b20d90f"></span><code class="descname">MQTT_EVENT_BEFORE_CONNECT</code><a class="headerlink" href="mqtt.html#_CPPv425MQTT_EVENT_BEFORE_CONNECT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოვლენა ხდება დაკავშირებამდე </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv430esp_mqtt_connect_return_code_t">
+<span id="_CPPv330esp_mqtt_connect_return_code_t"></span><span id="_CPPv230esp_mqtt_connect_return_code_t"></span><span id="esp_mqtt_connect_return_code_t"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_mqtt_connect_return_code_t</code><a class="headerlink" href="mqtt.html#_CPPv430esp_mqtt_connect_return_code_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT კავშირის შეცდომის კოდები გავრცელდა ERROR მოვლენის მეშვეობით </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv424MQTT_CONNECTION_ACCEPTED">
+<span id="_CPPv324MQTT_CONNECTION_ACCEPTED"></span><span id="_CPPv224MQTT_CONNECTION_ACCEPTED"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40a2fdd911a8978b8df2254766c1e3fd050"></span><code class="descname">MQTT_CONNECTION_ACCEPTED</code> = 0<a class="headerlink" href="mqtt.html#_CPPv424MQTT_CONNECTION_ACCEPTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირი მიღებულია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv431MQTT_CONNECTION_REFUSE_PROTOCOL">
+<span id="_CPPv331MQTT_CONNECTION_REFUSE_PROTOCOL"></span><span id="_CPPv231MQTT_CONNECTION_REFUSE_PROTOCOL"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40ace539c2e51492a856c4a359811b4268d"></span><code class="descname">MQTT_CONNECTION_REFUSE_PROTOCOL</code><a class="headerlink" href="mqtt.html#_CPPv431MQTT_CONNECTION_REFUSE_PROTOCOL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT კავშირი უარყოფილია, მიზეზი: არასწორი პროტოკოლი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv434MQTT_CONNECTION_REFUSE_ID_REJECTED">
+<span id="_CPPv334MQTT_CONNECTION_REFUSE_ID_REJECTED"></span><span id="_CPPv234MQTT_CONNECTION_REFUSE_ID_REJECTED"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40abad20149335b341d257d4fb3a7061199"></span><code class="descname">MQTT_CONNECTION_REFUSE_ID_REJECTED</code><a class="headerlink" href="mqtt.html#_CPPv434MQTT_CONNECTION_REFUSE_ID_REJECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT-თან დაკავშირებაზე უარის თქმის მიზეზი: პირადობის დამადასტურებელი დოკუმენტი უარყოფილია. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv441MQTT_CONNECTION_REFUSE_SERVER_UNAVAILABLE">
+<span id="_CPPv341MQTT_CONNECTION_REFUSE_SERVER_UNAVAILABLE"></span><span id="_CPPv241MQTT_CONNECTION_REFUSE_SERVER_UNAVAILABLE"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40a46aed302289773e8c2d2b3b19d2cace9"></span><code class="descname">MQTT_CONNECTION_REFUSE_SERVER_UNAVAILABLE</code><a class="headerlink" href="mqtt.html#_CPPv441MQTT_CONNECTION_REFUSE_SERVER_UNAVAILABLE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT-თან დაკავშირებაზე უარის თქმის მიზეზი: სერვერი მიუწვდომელია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv435MQTT_CONNECTION_REFUSE_BAD_USERNAME">
+<span id="_CPPv335MQTT_CONNECTION_REFUSE_BAD_USERNAME"></span><span id="_CPPv235MQTT_CONNECTION_REFUSE_BAD_USERNAME"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40adf142a8ac1ffc9d0600221a8ef07ceb5"></span><code class="descname">MQTT_CONNECTION_REFUSE_BAD_USERNAME</code><a class="headerlink" href="mqtt.html#_CPPv435MQTT_CONNECTION_REFUSE_BAD_USERNAME" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT-თან დაკავშირებაზე უარის თქმის მიზეზი: არასწორი მომხმარებელი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv437MQTT_CONNECTION_REFUSE_NOT_AUTHORIZED">
+<span id="_CPPv337MQTT_CONNECTION_REFUSE_NOT_AUTHORIZED"></span><span id="_CPPv237MQTT_CONNECTION_REFUSE_NOT_AUTHORIZED"></span><span class="target" id="mqtt__client_8h_1acbe96fe95e06da0ce202ee9a0add4d40ad90a63784fb58dcdb24417ada388a684"></span><code class="descname">MQTT_CONNECTION_REFUSE_NOT_AUTHORIZED</code><a class="headerlink" href="mqtt.html#_CPPv437MQTT_CONNECTION_REFUSE_NOT_AUTHORIZED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT-თან დაკავშირებაზე უარის თქმის მიზეზი: არასწორი მომხმარებლის სახელი ან პაროლი </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421esp_mqtt_error_type_t">
+<span id="_CPPv321esp_mqtt_error_type_t"></span><span id="_CPPv221esp_mqtt_error_type_t"></span><span id="esp_mqtt_error_type_t"></span><span class="target" id="mqtt__client_8h_1ac5519aa6c71ade348ec5e5bb2d9d970f"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_mqtt_error_type_t</code><a class="headerlink" href="mqtt.html#_CPPv421esp_mqtt_error_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT კავშირის შეცდომის კოდები გავრცელდა ERROR მოვლენის მეშვეობით </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv420MQTT_ERROR_TYPE_NONE">
+<span id="_CPPv320MQTT_ERROR_TYPE_NONE"></span><span id="_CPPv220MQTT_ERROR_TYPE_NONE"></span><span class="target" id="mqtt__client_8h_1ac5519aa6c71ade348ec5e5bb2d9d970fab9ac86bb206c7f1a8680988d256414a6"></span><code class="descname">MQTT_ERROR_TYPE_NONE</code> = 0<a class="headerlink" href="mqtt.html#_CPPv420MQTT_ERROR_TYPE_NONE" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_ERROR_TYPE_ESP_TLS">
+<span id="_CPPv323MQTT_ERROR_TYPE_ESP_TLS"></span><span id="_CPPv223MQTT_ERROR_TYPE_ESP_TLS"></span><span class="target" id="mqtt__client_8h_1ac5519aa6c71ade348ec5e5bb2d9d970fae18ba5a2c3ac68b195424fe573e301f8"></span><code class="descname">MQTT_ERROR_TYPE_ESP_TLS</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_ERROR_TYPE_ESP_TLS" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv434MQTT_ERROR_TYPE_CONNECTION_REFUSED">
+<span id="_CPPv334MQTT_ERROR_TYPE_CONNECTION_REFUSED"></span><span id="_CPPv234MQTT_ERROR_TYPE_CONNECTION_REFUSED"></span><span class="target" id="mqtt__client_8h_1ac5519aa6c71ade348ec5e5bb2d9d970fab24b1505c31ca59377482f341bb73e25"></span><code class="descname">MQTT_ERROR_TYPE_CONNECTION_REFUSED</code><a class="headerlink" href="mqtt.html#_CPPv434MQTT_ERROR_TYPE_CONNECTION_REFUSED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_mqtt_transport_t">
+<span id="_CPPv320esp_mqtt_transport_t"></span><span id="_CPPv220esp_mqtt_transport_t"></span><span id="esp_mqtt_transport_t"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aad"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_mqtt_transport_t</code><a class="headerlink" href="mqtt.html#_CPPv420esp_mqtt_transport_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv422MQTT_TRANSPORT_UNKNOWN">
+<span id="_CPPv322MQTT_TRANSPORT_UNKNOWN"></span><span id="_CPPv222MQTT_TRANSPORT_UNKNOWN"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aada7e646eb7c70521978ac5b8b16c5c77b0"></span><code class="descname">MQTT_TRANSPORT_UNKNOWN</code> = 0x0<a class="headerlink" href="mqtt.html#_CPPv422MQTT_TRANSPORT_UNKNOWN" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_TRANSPORT_OVER_TCP">
+<span id="_CPPv323MQTT_TRANSPORT_OVER_TCP"></span><span id="_CPPv223MQTT_TRANSPORT_OVER_TCP"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aadad547f05248833cf06b40eab173ed1084"></span><code class="descname">MQTT_TRANSPORT_OVER_TCP</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_TRANSPORT_OVER_TCP" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT TCP-ზე, სქემის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">mqtt</span></code> </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_TRANSPORT_OVER_SSL">
+<span id="_CPPv323MQTT_TRANSPORT_OVER_SSL"></span><span id="_CPPv223MQTT_TRANSPORT_OVER_SSL"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aada990443456721abb2dc15fde97c9cc0cd"></span><code class="descname">MQTT_TRANSPORT_OVER_SSL</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_TRANSPORT_OVER_SSL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT SSL-ის საშუალებით, სქემის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">mqtts</span></code> </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422MQTT_TRANSPORT_OVER_WS">
+<span id="_CPPv322MQTT_TRANSPORT_OVER_WS"></span><span id="_CPPv222MQTT_TRANSPORT_OVER_WS"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aada96360bf3ceb3f1650bcebfbb51fd5d4a"></span><code class="descname">MQTT_TRANSPORT_OVER_WS</code><a class="headerlink" href="mqtt.html#_CPPv422MQTT_TRANSPORT_OVER_WS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT Websocket-ზე, სქემის გამოყენებით:: <code class="docutils literal notranslate"><span class="pre">ws</span></code> </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MQTT_TRANSPORT_OVER_WSS">
+<span id="_CPPv323MQTT_TRANSPORT_OVER_WSS"></span><span id="_CPPv223MQTT_TRANSPORT_OVER_WSS"></span><span class="target" id="mqtt__client_8h_1a543e6f53f0b091688eba50a7bb101aadacc33f9e8bf4635f8b81ebac0fe7a0148"></span><code class="descname">MQTT_TRANSPORT_OVER_WSS</code><a class="headerlink" href="mqtt.html#_CPPv423MQTT_TRANSPORT_OVER_WSS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MQTT Websocket Secure-ზე, სქემის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">wss</span></code> </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_tls.html" rel="next" title="ESP-TLS">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="asio.html" rel="prev" title="ASIO port"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

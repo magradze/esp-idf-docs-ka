@@ -1,0 +1,1731 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MCPWM — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="pcnt.html" rel="next" title="Pulse Counter"/>
+<link href="ledc.html" rel="prev" title="LED Control"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/mcpwm.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/mcpwm"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/mcpwm.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="mcpwm.html#">MCPWM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#contents">შინაარსი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#configure">კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#operate">მართვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#adjust">კორექტირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#capture">გადაღება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#fault-handler">შეცდომების დამმუშავებელი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#carrier">გადამზიდავი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#interrupts">შეწყვეტები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpwm.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>MCPWM</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/mcpwm.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="mcpwm">
+<h1>MCPWM<a class="headerlink" href="mcpwm.html#mcpwm" title="Permalink to this headline">¶</a></h1>
+<p>ESP32-ს აქვს ორი MCPWM ბლოკი, რომელთა გამოყენება შესაძლებელია სხვადასხვა ტიპის ძრავების სამართავად. თითოეულ ბლოკს აქვს PWM გამომავალი სიგნალების სამი წყვილი.</p>
+<div class="align-center figure" id="id3">
+<img alt="MCPWM Overview" src="../../_images/mcpwm-overview.png"/>
+<p class="caption"><span class="caption-text">MCPWM-ის მიმოხილვა</span></p>
+</div>
+<p>დოკუმენტაციაში დამატებით ერთი ერთეულის გამომავალი მონაცემები აღნიშნულია <code class="docutils literal notranslate"><span class="pre">PWMxA</span></code> / <code class="docutils literal notranslate"><span class="pre">PWMxB</span></code>.</p>
+<p>MCPWM ბლოკის უფრო დეტალური ბლოკ-დიაგრამა ნაჩვენებია ქვემოთ. თითოეული A/B წყვილი შეიძლება დამუშავდეს სამი ტაიმერიდან ნებისმიერით - ტაიმერი 0, 1 და 2. იგივე ტაიმერი შეიძლება გამოყენებულ იქნას PWM გამომავალი სიგნალების ერთზე მეტი წყვილის დასაჭერად. თითოეულ ბლოკს ასევე შეუძლია შეაგროვოს ისეთი შეყვანის სიგნალები, როგორიცაა <code class="docutils literal notranslate"><span class="pre">SYNC</span> <span class="pre">SIGNALS</span></code>, აღმოაჩინოს <code class="docutils literal notranslate"><span class="pre">FAULT</span> <span class="pre">SIGNALS</span></code> როგორიცაა ძრავის ჭარბი დენი ან ძაბვა, ასევე უკუკავშირის მიღება <code class="docutils literal notranslate"><span class="pre">CAPTURE</span> <span class="pre">SIGNALS</span></code> მაგალითად, როტორის პოზიციაზე.</p>
+<div class="align-center figure" id="id4">
+<span id="mcpwm-block-diagram"></span><img alt="MCPWM Block Diagram" src="../../_images/mcpwm-block-diagram.png"/>
+<p class="caption"><span class="caption-text">MCPWM ბლოკ-დიაგრამა</span></p>
+</div>
+<p>ამ API აღწერა იწყება MCPWM-ის კონფიგურაციით <strong>ტაიმერი</strong> და <strong>გენერატორი</strong> ქვემოდულები ძრავის მართვის ძირითადი ფუნქციონალურობის უზრუნველსაყოფად. შემდეგ განხილულია უფრო მოწინავე ქვემოდულები და ფუნქციონალურობა. <strong>შეცდომების დამმუშავებელი</strong>, სიგნალი <strong>გადაღება</strong>, <strong>გადამზიდავი</strong> და <strong>შეწყვეტები</strong>.</p>
+<div class="section" id="contents">
+<h2>შინაარსი<a class="headerlink" href="mcpwm.html#contents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="mcpwm.html#configure">კონფიგურაცია</a> გამომავალი მონაცემების ძირითადი ფუნქციონირება</li>
+<li><a class="reference internal" href="mcpwm.html#operate">მართვა</a> ძრავის მართვის გამომავალი სიგნალები</li>
+<li><a class="reference internal" href="mcpwm.html#adjust">კორექტირება</a> როგორ იმართება ძრავა</li>
+<li><a class="reference internal" href="mcpwm.html#capture">გადაღება</a> გარე სიგნალები გამოსავალზე დამატებითი კონტროლის უზრუნველსაყოფად</li>
+<li>გამოყენება <a class="reference internal" href="mcpwm.html#fault-handler">შეცდომების დამმუშავებელი</a> ხარვეზების აღმოსაჩენად და სამართავად</li>
+<li>დაამატეთ უფრო მაღალი სიხშირე <a class="reference internal" href="mcpwm.html#carrier">გადამზიდავი</a>, თუ გამომავალი სიგნალები გადის იზოლაციის ტრანსფორმატორის მეშვეობით</li>
+<li>კონფიგურაცია და დამუშავება <a class="reference internal" href="mcpwm.html#interrupts">შეწყვეტები</a>.</li>
+</ul>
+</div>
+<div class="section" id="configure">
+<h2>კონფიგურაცია<a class="headerlink" href="mcpwm.html#configure" title="Permalink to this headline">¶</a></h2>
+<p>კონფიგურაციის მასშტაბი დამოკიდებულია ძრავის ტიპზე, კერძოდ, რამდენი გამოსავალი და შემავალი სიგნალია საჭირო და როგორი იქნება სიგნალების თანმიმდევრობა ძრავის სამართავად.</p>
+<p>ამ შემთხვევაში ჩვენ აღვწერთ მარტივ კონფიგურაციას ჯაგრისიანი დენის ძრავის სამართავად, რომელიც იყენებს მხოლოდ MCPWM-ის არსებული რესურსების ნაწილს. ქვემოთ ნაჩვენებია სქემატური მაგალითი. ის მოიცავს <a class="reference external" href="https://en.wikipedia.org/wiki/H_bridge">H-ხიდი</a> ძრავზე (M) მიწოდებული ძაბვის პოლარიზაციის გადართვისა და მისი მართვისთვის საკმარისი დენის უზრუნველსაყოფად.</p>
+<div class="align-center figure" id="id5">
+<img alt="Example of Brushed DC Motor Control with MCPWM" src="../../_images/mcpwm-brushed-dc-control.png"/>
+<p class="caption"><span class="caption-text">MCPWM-ით ჯაგრისიანი DC ძრავის მართვის მაგალითი</span></p>
+</div>
+<p>კონფიგურაცია მოიცავს შემდეგ ნაბიჯებს:</p>
+<ol class="arabic simple">
+<li>ძრავის მართვისთვის გამოყენებული MPWn ერთეულის შერჩევა. ESP32-ის ბორტზე ხელმისაწვდომია ორი ერთეული, რომლებიც ჩამოთვლილია <a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_unit_t</span></code></a>.</li>
+<li>ორი GPIO s-ის, როგორც გამომავალი სიგნალის, ინიციალიზაცია არჩეულ ერთეულში გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti" title="mcpwm_gpio_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_gpio_init()</span></code></a>ორი გამომავალი სიგნალი, როგორც წესი, გამოიყენება ძრავის მარჯვნივ ან მარცხნივ ბრუნვის ბრძანებისთვის. ყველა ხელმისაწვდომი სიგნალის ვარიანტი ჩამოთვლილია <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_io_signals_t" title="mcpwm_io_signals_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_io_signals_t</span></code></a>ერთდროულად ერთზე მეტი პინის დასაყენებლად გამოიყენეთ ფუნქცია <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t" title="mcpwm_set_pin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_pin()</span></code></a> ერთად <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_pin_config_t" title="mcpwm_pin_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_pin_config_t</span></code></a>.</li>
+<li>ტაიმერის შერჩევა. მოწყობილობაში სამი ტაიმერია ხელმისაწვდომი. ტაიმერები ჩამოთვლილია <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_timer_t</span></code></a>.</li>
+<li>ტაიმერის სიხშირის და საწყისი სამუშაო რეჟიმის დაყენება <a class="reference internal" href="mcpwm.html#_CPPv414mcpwm_config_t" title="mcpwm_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_config_t</span></code></a> სტრუქტურა.</li>
+<li>მოწოდება <a class="reference internal" href="mcpwm.html#_CPPv410mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t" title="mcpwm_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_init()</span></code></a> ზემოთ მოცემული პარამეტრებით, რათა კონფიგურაცია ეფექტური იყოს.</li>
+</ol>
+</div>
+<div class="section" id="operate">
+<h2>მართვა<a class="headerlink" href="mcpwm.html#operate" title="Permalink to this headline">¶</a></h2>
+<p>MCPWM ბლოკთან დაკავშირებული ძრავის სამართავად, მაგალითად, მისი მარცხნივ ან მარჯვნივ მოსაბრუნებლად, ან სიჩქარის შესაცვლელად, ბლოკის გამოსავალზე უნდა მივმართოთ გარკვეული საკონტროლო სიგნალები. გამოსავლები ორგანიზებულია სამ წყვილად. წყვილში ისინი მონიშნულია როგორც „A“ და „B“ და თითოეული მათგანი იმართება ქვემოდულით, რომელსაც „გენერატორი“ ეწოდება. PWM სიგნალის უზრუნველსაყოფად, თავად ოპერატორი, რომელიც შეიცავს ორ გენერატორს, უნდა იყოს დათვლილი სამი ხელმისაწვდომი ტაიმერიდან ერთ-ერთით. API გასამარტივებლად, თითოეული ტაიმერი ავტომატურად ასოცირდება API თან, რათა იმართოს იგივე ინდექსის ოპერატორი, მაგალითად, ტაიმერი 0 ასოცირდება ოპერატორ 0-თან.</p>
+<p>გამომავალი სიგნალების კონტროლის შემდეგი ძირითადი გზები არსებობს:</p>
+<ul class="simple">
+<li>ჩვენ შეგვიძლია კონკრეტული სიგნალის სტაბილურად მაღალი ან სტაბილურად დაბალი მართვა ფუნქციით <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="mcpwm_set_signal_high"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_signal_high()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="mcpwm_set_signal_low"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_signal_low()</span></code></a>ეს ძრავას მაქსიმალური სიჩქარით აბრუნებს ან გაჩერდება. არჩეული გამომავალი A ან B სიჩქარიდან გამომდინარე, ძრავა მარჯვნივ ან მარცხნივ ბრუნავს.</li>
+<li>კიდევ ერთი ვარიანტია გამომავალი მონაცემების PWM სიგნალით მართვა გამოძახებით. <a class="reference internal" href="mcpwm.html#_CPPv411mcpwm_start12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_start()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv410mcpwm_stop12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_stop()</span></code></a>ძრავის სიჩქარე პროპორციული იქნება PWM სამუშაო სიმძლავრის.</li>
+<li>PWM-ის მოვალეობის შეცვლისთვის <a class="reference internal" href="mcpwm.html#_CPPv414mcpwm_set_duty12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_tf" title="mcpwm_set_duty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_duty()</span></code></a> და მიუთითეთ გადასახადის ღირებულება პროცენტებში. სურვილისამებრ, შეგიძლიათ დარეკოთ <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_set_duty_in_us12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t8uint32_t" title="mcpwm_set_duty_in_us"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_duty_in_us()</span></code></a>, თუ გსურთ მოვალეობის მიკროწამებში დაყენება. მიმდინარე დაყენებული მნიშვნელობის შემოწმება შესაძლებელია გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv414mcpwm_get_duty12mcpwm_unit_t13mcpwm_timer_t16mcpwm_operator_t" title="mcpwm_get_duty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_get_duty()</span></code></a>PWM სიგნალის ფაზის შეცვლა შესაძლებელია გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t" title="mcpwm_set_duty_type"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_duty_type()</span></code></a>მოვალეობა დაყენებულია ინდივიდუალურად თითოეული A და B გამოსავლისთვის, გამოყენებით <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_generator_t</span></code></a> კონკრეტული ფუნქციის გამოძახებებში. მოვალეობის მნიშვნელობა ეხება მაღალი ან დაბალი გამომავალი სიგნალის ხანგრძლივობას. ეს კონფიგურირებულია გამოძახებისას <a class="reference internal" href="mcpwm.html#_CPPv410mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t" title="mcpwm_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_init()</span></code></a>, როგორც განხილულია ნაწილში <a class="reference internal" href="mcpwm.html#configure">კონფიგურაცია</a>და ერთ-ერთი ვარიანტის არჩევა <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_duty_type_t" title="mcpwm_duty_type_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_duty_type_t</span></code></a>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გამოძახების ფუნქცია <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t" title="mcpwm_set_duty_type"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_duty_type()</span></code></a> ყოველ ჯერზე შემდეგ <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="mcpwm_set_signal_high"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_signal_high()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="mcpwm_set_signal_low"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_signal_low()</span></code></a> ადრე დაყენებული სამუშაო ციკლით გასაგრძელებლად.</p>
+</div>
+</div>
+<div class="section" id="adjust">
+<h2>კორექტირება<a class="headerlink" href="mcpwm.html#adjust" title="Permalink to this headline">¶</a></h2>
+<p>გამოსავალზე სიგნალის რეგულირებისა და ძრავის მუშაობის შეცვლის რამდენიმე გზა არსებობს.</p>
+<ul class="simple">
+<li>დააყენეთ კონკრეტული PWM სიხშირე დარეკვით <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_set_frequency12mcpwm_unit_t13mcpwm_timer_t8uint32_t" title="mcpwm_set_frequency"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_frequency()</span></code></a>ეს შეიძლება საჭირო გახდეს კონკრეტული ძრავისა და დრაივერის ელექტრული ან მექანიკური მახასიათებლების დასარეგულირებლად. დაყენებული სიხშირის შესამოწმებლად გამოიყენეთ ფუნქცია <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_get_frequency12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_get_frequency"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_get_frequency()</span></code></a>.</li>
+<li>შემოიღეთ მკვდარი დრო A და B გამოსავალებს შორის, როდესაც ისინი ცვლიან მდგომარეობას ძრავის ბრუნვის საპირისპირო მიმართულებით. ეს კეთდება ძრავის დრაივერის FET-ების ჩართვა/გამორთვის გადართვის დაყოვნების კომპენსირებისთვის. მკვდარი დროის პარამეტრები განსაზღვრულია <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_deadtime_type_t" title="mcpwm_deadtime_type_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_deadtime_type_t</span></code></a> და გააქტიურებულია დარეკვით <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_deadtime_enable12mcpwm_unit_t13mcpwm_timer_t21mcpwm_deadtime_type_t8uint32_t8uint32_t" title="mcpwm_deadtime_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_deadtime_enable()</span></code></a>ამ ფუნქციონალის გამოსართავად დარეკეთ <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_deadtime_disable12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_deadtime_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_deadtime_disable()</span></code></a>.</li>
+<li>ოპერატორის ქვემოდულების გამომავალი სიგნალების სინქრონიზაცია, მაგ. PWM0A/B და PWM1A/B აწევადი კიდის ზუსტად ერთსა და იმავე დროს დასაწყებად, ან მათი გადატანა ერთმანეთზე მოცემული ფაზით. სინქრონიზაცია გააქტიურებულია <code class="docutils literal notranslate"><span class="pre">SYNC</span> <span class="pre">SIGNALS</span></code> ნაჩვენებია <a class="reference internal" href="mcpwm.html#mcpwm-block-diagram"><span class="std std-ref">ბლოკ-დიაგრამა</span></a> ზემოთ მოცემული MCPWM-ის და განსაზღვრული <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_sync_signal_t" title="mcpwm_sync_signal_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_sync_signal_t</span></code></a>სიგნალის GPIO ზარზე დასაკავშირებლად <a class="reference internal" href="mcpwm.html#_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti" title="mcpwm_gpio_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_gpio_init()</span></code></a>შემდეგ შეგიძლიათ ჩართოთ სინქრონიზაცია ფუნქციასთან <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t" title="mcpwm_sync_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_sync_enable()</span></code></a>შეყვანის პარამეტრებად მოცემულია MCPWM ერთეული, სინქრონიზაციის ტაიმერი, სინქრონიზაციის სიგნალი და ფაზა ტაიმერის გადადების მიზნით.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">სინქრონიზაციის სიგნალები აღინიშნება ორი განსხვავებული ჩამოთვლით. პირველი <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_io_signals_t" title="mcpwm_io_signals_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_io_signals_t</span></code></a> გამოიყენება ფუნქციასთან ერთად <a class="reference internal" href="mcpwm.html#_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti" title="mcpwm_gpio_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_gpio_init()</span></code></a> სიგნალის შეყვანის წყაროდ GPIO არჩევისას. მეორე <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_sync_signal_t" title="mcpwm_sync_signal_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_sync_signal_t</span></code></a> გამოიყენება სინქრონიზაციის ჩართვის ან გამორთვის დროს <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t" title="mcpwm_sync_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_sync_enable()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_sync_disable12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_sync_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_sync_disable()</span></code></a>.</p>
+</div>
+<ul class="simple">
+<li>A/B გამომავალი სიგნალების შაბლონის შეცვლა შესაძლებელია MCPWM მრიცხველების მიერ ზემოთ, ქვემოთ და ზემოთ/ქვემოთ დათვლის ინსტრუქციის დაყენებით (თვლის მიმართულების ავტომატური შეცვლა). შესაბამისი კონფიგურაცია ხდება გამოძახებისას. <a class="reference internal" href="mcpwm.html#_CPPv410mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t" title="mcpwm_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_init()</span></code></a>, როგორც განხილულია ნაწილში <a class="reference internal" href="mcpwm.html#configure">კონფიგურაცია</a>და მრიცხველების ერთ-ერთი ტიპის არჩევა <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_counter_type_t" title="mcpwm_counter_type_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_counter_type_t</span></code></a>A/B PWM გამომავალი სიგნალების გენერირების ახსნისთვის იხილეთ <a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a>.</li>
+</ul>
+</div>
+<div class="section" id="capture">
+<h2>გადაღება<a class="headerlink" href="mcpwm.html#capture" title="Permalink to this headline">¶</a></h2>
+<p>BLDC (უსადნო დენის წყარო, იხილეთ ქვემოთ მოცემული სურათი) ძრავის მართვის ერთ-ერთი მოთხოვნა როტორის პოზიციის აღქმაა. ამ ამოცანის გასაადვილებლად, თითოეული MCPWM ბლოკი უზრუნველყოფს სამ აღქმის შესასვლელს სპეციალურ აპარატურასთან ერთად. აპარატურას შეუძლია შემავალი სიგნალის ზღვრის აღმოჩენა და სიგნალებს შორის დროის გაზომვა. შედეგად, მართვის პროგრამული უზრუნველყოფა უფრო მარტივია და CPU-ს სიმძლავრე შეიძლება გამოყენებულ იქნას სხვა ამოცანებისთვის.</p>
+<div class="align-center figure" id="id6">
+<img alt="Example of Brushless DC Motor Control with MCPWM" src="../../_images/mcpwm-bldc-control.png"/>
+<p class="caption"><span class="caption-text">MCPWM-ით უჯაგრისო DC ძრავის მართვის მაგალითი</span></p>
+</div>
+<p>აღბეჭდვის ფუნქცია შეიძლება გამოყენებულ იქნას სხვა ტიპის ძრავებისთვის ან ამოცანებისთვის. ფუნქციონალი ჩართულია ორ ეტაპად:</p>
+<ol class="arabic simple">
+<li>GPIO ის კონფიგურაცია ფუნქციების გამოძახებით აღების სიგნალის შეყვანის ფუნქციაზე რეაგირებისთვის. <a class="reference internal" href="mcpwm.html#_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti" title="mcpwm_gpio_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_gpio_init()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t" title="mcpwm_set_pin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_set_pin()</span></code></a>, რომლებიც აღწერილი იყო ნაწილში <a class="reference internal" href="mcpwm.html#configure">კონფიგურაცია</a>.</li>
+<li>ფუნქციონალურობის ჩართვა თავად გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_capture_enable12mcpwm_unit_t22mcpwm_capture_signal_t23mcpwm_capture_on_edge_t8uint32_t" title="mcpwm_capture_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_capture_enable()</span></code></a>სასურველი სიგნალის შეყვანის არჩევით <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="mcpwm_capture_signal_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_capture_signal_t</span></code></a>, სიგნალის კიდის დაყენება <a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_capture_on_edge_t" title="mcpwm_capture_on_edge_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_capture_on_edge_t</span></code></a> და სიგნალის რაოდენობის წინასწარი სკალერი.</li>
+</ol>
+<p>ზემოთ მოცემულ მეორე ეტაპზე ჩართულია 32-ბიტიანი ჩაწერის ტაიმერი. ტაიმერი უწყვეტად მუშაობს APB საათის მართვით. ტაქტური სიხშირე, როგორც წესი, 80 MHz-ია. თითოეულ ჩაწერის მოვლენაზე ჩაწერის ტაიმერის მნიშვნელობა ინახება დროის შტამპის რეგისტრში, რომლის შემოწმებაც შემდეგ შესაძლებელია გამოძახებით. <a class="reference internal" href="mcpwm.html#_CPPv430mcpwm_capture_signal_get_value12mcpwm_unit_t22mcpwm_capture_signal_t" title="mcpwm_capture_signal_get_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_capture_signal_get_value()</span></code></a>ბოლო სიგნალის კიდის შემოწმება შესაძლებელია <a class="reference internal" href="mcpwm.html#_CPPv429mcpwm_capture_signal_get_edge12mcpwm_unit_t22mcpwm_capture_signal_t" title="mcpwm_capture_signal_get_edge"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_capture_signal_get_edge()</span></code></a>.</p>
+<p>თუ აღარ არის საჭირო, აღების ფუნქცია შეიძლება გამორთული იყოს <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_capture_disable12mcpwm_unit_t22mcpwm_capture_signal_t" title="mcpwm_capture_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_capture_disable()</span></code></a>.</p>
+</div>
+<div class="section" id="fault-handler">
+<h2>შეცდომების დამმუშავებელი<a class="headerlink" href="mcpwm.html#fault-handler" title="Permalink to this headline">¶</a></h2>
+<p>MCPWM-ის თითოეულ ერთეულს შეუძლია გარე სიგნალების აღქმა, რომლებიც ინფორმაციას შეიცავს ძრავის, ძრავის დრაივერის ან MCPWM-თან დაკავშირებული ნებისმიერი სხვა მოწყობილობის გაუმართაობის შესახებ. თითოეულ ერთეულზე სამი ხარვეზის შეყვანაა, რომელთა გადამისამართება შესაძლებელია მომხმარებლის მიერ შერჩეულ GPIO 7. MCPWM შეიძლება კონფიგურირებული იყოს ისე, რომ ხარვეზის სიგნალის მიღებისას A/B გამოსავალზე შეასრულოს ოთხი წინასწარ განსაზღვრული მოქმედებიდან ერთ-ერთი:</p>
+<ul class="simple">
+<li>გამომავალი სიგნალის მიმდინარე მდგომარეობის დაბლოკვა</li>
+<li>გამომავალი სიმძლავრე დააწესეთ დაბალ დონეზე</li>
+<li>გამომავალი სიმძლავრის მაღალი დაყენება</li>
+<li>გამომავალი გადართვა</li>
+</ul>
+<p>მომხმარებელმა უნდა განსაზღვროს ძრავის შესაძლო გაუმართაობის რეჟიმები და რა ქმედებები უნდა განხორციელდეს კონკრეტული გაუმართაობის აღმოჩენისას, მაგალითად, ჯაგრისიანი ძრავისთვის ყველა გამოსავლის დაბალ ძაბვაზე გადართვა, ან საფეხუროვანი ძრავისთვის დენის მდგომარეობის დაბლოკვა და ა.შ. ამ მოქმედების შედეგად, ძრავა უნდა გადავიდეს უსაფრთხო მდგომარეობაში, რათა შემცირდეს გაუმართაობით გამოწვეული დაზიანების ალბათობა.</p>
+<p>შეცდომების დამმუშავებლის ფუნქცია ჩართულია ორ ეტაპად:</p>
+<ol class="arabic simple">
+<li>GPIO 7-ის კონფიგურაცია ხარვეზის სიგნალის შესასვლელებად მოქმედებისთვის. ეს კეთდება ანალოგიურად, როგორც ეს ზემოთ მოცემულ ნაწილში აღინიშნა აღების სიგნალებისთვის. ეს მოიცავს სიგნალის დონის დაყენებას ხარვეზის გამოსაწვევად, როგორც ეს განსაზღვრულია <a class="reference internal" href="mcpwm.html#_CPPv425mcpwm_fault_input_level_t" title="mcpwm_fault_input_level_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_fault_input_level_t</span></code></a>.</li>
+<li>შეცდომების დამმუშავებლის ინიციალიზაცია რომელიმეს გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv428mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="mcpwm_fault_set_oneshot_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_fault_set_oneshot_mode()</span></code></a> ან <a class="reference internal" href="mcpwm.html#_CPPv424mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="mcpwm_fault_set_cyc_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_fault_set_cyc_mode()</span></code></a>ეს ფუნქციები ადგენს რეჟიმს, რომლითაც MCPWM უნდა იმუშაოს გაუმართაობის სიგნალის არააქტიურობის შემდეგ. შესაძლებელია ორი რეჟიმი:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>MCPWM ერთეულის მდგომარეობა დაბლოკილი იქნება გადატვირთვამდე - <a class="reference internal" href="mcpwm.html#_CPPv428mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="mcpwm_fault_set_oneshot_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_fault_set_oneshot_mode()</span></code></a>.</li>
+<li>MCPWM განაახლებს მუშაობას, როგორც კი გაუმართაობის სიგნალი უმოქმედო გახდება - <a class="reference internal" href="mcpwm.html#_CPPv424mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="mcpwm_fault_set_cyc_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_fault_set_cyc_mode()</span></code></a>.</li>
+</ul>
+<p>ფუნქციის გამოძახების პარამეტრები მოიცავს სამი შეცდომის შეყვანიდან ერთ-ერთის შერჩევას, რომელიც განსაზღვრულია <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="mcpwm_fault_signal_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_fault_signal_t</span></code></a> და კონკრეტული მოქმედება A და B შედეგებზე, რომლებიც განსაზღვრულია <a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_action_on_pwmxa_t" title="mcpwm_action_on_pwmxa_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_action_on_pwmxa_t</span></code></a> და <a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_action_on_pwmxb_t" title="mcpwm_action_on_pwmxb_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_action_on_pwmxb_t</span></code></a>.</p>
+</div></blockquote>
+<p>კონკრეტული შეცდომის სიგნალი შეიძლება გამორთული იყოს გაშვების დროს გამოძახებით. <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_fault_deinit12mcpwm_unit_t20mcpwm_fault_signal_t" title="mcpwm_fault_deinit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_fault_deinit()</span></code></a>.</p>
+</div>
+<div class="section" id="carrier">
+<h2>გადამზიდავი<a class="headerlink" href="mcpwm.html#carrier" title="Permalink to this headline">¶</a></h2>
+<p>MCPWM-ს აქვს გადამტანი ქვემოდული, რომელიც გამოიყენება, თუ საჭიროა ძრავის დრაივერიდან გალვანური იზოლაცია A/B გამომავალი სიგნალების ტრანსფორმატორების მეშვეობით გავლის გზით. A და B გამომავალი სიგნალებიდან ნებისმიერი შეიძლება იყოს 100%-იან დატვირთვით და არ შეიცვალოს, როდესაც ძრავას სრული დატვირთვით სტაბილურად მუშაობა სჭირდება. არაცვლადი სიგნალების ტრანსფორმატორთან შეერთება პრობლემურია, ამიტომ სიგნალები მოდულირდება გადამტანი ქვემოდულით ცვლადი დენის ტალღის ფორმის შესაქმნელად, რაც შეერთებას შესაძლებელს ხდის.</p>
+<p>გადამზიდავი ქვემოდულის გამოსაყენებლად, ის ჯერ უნდა ინიციალიზებული იყოს გამოძახებით. <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_carrier_init12mcpwm_unit_t13mcpwm_timer_tPK22mcpwm_carrier_config_t" title="mcpwm_carrier_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_init()</span></code></a>მატარებლის პარამეტრები განსაზღვრულია <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_carrier_config_t" title="mcpwm_carrier_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_carrier_config_t</span></code></a> ფუნქციის გამოძახებისას გამოძახებული სტრუქტურა. შემდეგ გადამზიდავის ფუნქციონალურობის ჩართვა შესაძლებელია გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_carrier_enable12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_carrier_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_enable()</span></code></a>.</p>
+<p>გადამზიდავის პარამეტრების შესახებ შეტყობინება შეიძლება გაიგზავნოს გაშვების დროს, სპეციალური ფუნქციების გამოძახებით, რათა შეიცვალოს ცალკეული ველები. <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_carrier_config_t" title="mcpwm_carrier_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mcpwm_carrier_config_t</span></code></a> სტრუქტურა, მაგალითად <a class="reference internal" href="mcpwm.html#_CPPv424mcpwm_carrier_set_period12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="mcpwm_carrier_set_period"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_set_period()</span></code></a>, <a class="reference internal" href="mcpwm.html#_CPPv428mcpwm_carrier_set_duty_cycle12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="mcpwm_carrier_set_duty_cycle"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_set_duty_cycle()</span></code></a>, <a class="reference internal" href="mcpwm.html#_CPPv427mcpwm_carrier_output_invert12mcpwm_unit_t13mcpwm_timer_t23mcpwm_carrier_out_ivt_t" title="mcpwm_carrier_output_invert"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_output_invert()</span></code></a>და ა.შ.</p>
+<p>ეს მოიცავს კარიერის პირველი იმპულსის ხანგრძლივობის ჩართვას და დადგენას <a class="reference internal" href="mcpwm.html#_CPPv433mcpwm_carrier_oneshot_mode_enable12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="mcpwm_carrier_oneshot_mode_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_oneshot_mode_enable()</span></code></a>დამატებითი ინფორმაციისთვის იხილეთ „PWM გადამზიდავი ქვემოდულის“ განყოფილება. <a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a>.</p>
+<p>ოპერატორის ფუნქციონალურობის გამოსართავად დარეკეთ <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_carrier_disable12mcpwm_unit_t13mcpwm_timer_t" title="mcpwm_carrier_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_carrier_disable()</span></code></a>.</p>
+</div>
+<div class="section" id="interrupts">
+<h2>შეწყვეტები<a class="headerlink" href="mcpwm.html#interrupts" title="Permalink to this headline">¶</a></h2>
+<p>MCPWM შეფერხების დამმუშავებლის რეგისტრაცია შესაძლებელია გამოძახებით <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_isr_register12mcpwm_unit_tPFvPvEPviP13intr_handle_t" title="mcpwm_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mcpwm_isr_register()</span></code></a>.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="mcpwm.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>ძრავის კონტროლისთვის MCPWM-ის გამოყენების მაგალითები: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/mcpwm">პერიფერიული მოწყობილობები/mcpwm</a>:</p>
+<ul class="simple">
+<li>MCPWM-ის თითოეული ქვემოდულის გამოყენების დემონსტრირება - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/mcpwm/mcpwm_basic_config">პერიფერიული მოწყობილობები/mcpwm/mcpwm_basic_config</a></li>
+<li>BLDC (უჯაგრისო მუდმივი დენის) ძრავის მართვა ჰოლის სენსორის უკუკავშირით - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/mcpwm/mcpwm_bldc_control">პერიფერიული მოწყობილობები/mcpwm/mcpwm_bldc_control</a></li>
+<li>ფუნჯით გაფორმებული DC ძრავის კონტროლი - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/mcpwm/mcpwm_brushed_dc_control">პერიფერიული მოწყობილობები/mcpwm/mcpwm_brushed_dc_control</a></li>
+<li>სერვოძრავის კონტროლი - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/mcpwm/mcpwm_servo_control">პერიფერიული მოწყობილობები/mcpwm/mcpwm_სერვო_კონტროლი</a></li>
+</ul>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="mcpwm.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="mcpwm.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/soc/include/hal/mcpwm_types.h">soc/include/hal/mcpwm_types.h</a></li>
+</ul>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="mcpwm.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv412mcpwm_intr_t">
+<span id="_CPPv312mcpwm_intr_t"></span><span id="_CPPv212mcpwm_intr_t"></span><span id="mcpwm_intr_t"></span><span class="target" id="mcpwm__types_8h_1a3f3890323e2c84c1c01b4d570b6216fd"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_intr_t</code><a class="headerlink" href="mcpwm.html#_CPPv412mcpwm_intr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის შეფერხებები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_LL_INTR_CAP0">
+<span id="_CPPv318MCPWM_LL_INTR_CAP0"></span><span id="_CPPv218MCPWM_LL_INTR_CAP0"></span><span class="target" id="mcpwm__types_8h_1a3f3890323e2c84c1c01b4d570b6216fdadb6ffe1048a51c036378422ec3b0bec7"></span><code class="descname">MCPWM_LL_INTR_CAP0</code> = BIT(27)<a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_LL_INTR_CAP0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაღება 0 მოხდა. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_LL_INTR_CAP1">
+<span id="_CPPv318MCPWM_LL_INTR_CAP1"></span><span id="_CPPv218MCPWM_LL_INTR_CAP1"></span><span class="target" id="mcpwm__types_8h_1a3f3890323e2c84c1c01b4d570b6216fdaf88079ad5eabf117ff0d10dcd4630506"></span><code class="descname">MCPWM_LL_INTR_CAP1</code> = BIT(28)<a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_LL_INTR_CAP1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პირველი გადაღება მოხდა. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_LL_INTR_CAP2">
+<span id="_CPPv318MCPWM_LL_INTR_CAP2"></span><span id="_CPPv218MCPWM_LL_INTR_CAP2"></span><span class="target" id="mcpwm__types_8h_1a3f3890323e2c84c1c01b4d570b6216fda8cf01435366545164ae73a76ce8aa5e0"></span><code class="descname">MCPWM_LL_INTR_CAP2</code> = BIT(29)<a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_LL_INTR_CAP2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მე-2 გადაღება მოხდა. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420mcpwm_counter_type_t">
+<span id="_CPPv320mcpwm_counter_type_t"></span><span id="_CPPv220mcpwm_counter_type_t"></span><span id="mcpwm_counter_type_t"></span><span class="target" id="mcpwm__types_8h_1a6ac3506625317ae340fd60d366b4a0b0"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_counter_type_t</code><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_counter_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM მრიცხველის ტიპი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv416MCPWM_UP_COUNTER">
+<span id="_CPPv316MCPWM_UP_COUNTER"></span><span id="_CPPv216MCPWM_UP_COUNTER"></span><span class="target" id="mcpwm__types_8h_1a6ac3506625317ae340fd60d366b4a0b0a87afac4a8c1a93dcd0d3314678ed5059"></span><code class="descname">MCPWM_UP_COUNTER</code> = 1<a class="headerlink" href="mcpwm.html#_CPPv416MCPWM_UP_COUNTER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ასიმეტრიული MCPWM-ისთვის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_DOWN_COUNTER">
+<span id="_CPPv318MCPWM_DOWN_COUNTER"></span><span id="_CPPv218MCPWM_DOWN_COUNTER"></span><span class="target" id="mcpwm__types_8h_1a6ac3506625317ae340fd60d366b4a0b0a557650099ee7b63e84dae7ce93f1d1bb"></span><code class="descname">MCPWM_DOWN_COUNTER</code><a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_DOWN_COUNTER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ასიმეტრიული MCPWM-ისთვის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421MCPWM_UP_DOWN_COUNTER">
+<span id="_CPPv321MCPWM_UP_DOWN_COUNTER"></span><span id="_CPPv221MCPWM_UP_DOWN_COUNTER"></span><span class="target" id="mcpwm__types_8h_1a6ac3506625317ae340fd60d366b4a0b0a0be847ce98b24bddcdfafe1fc9ad583f"></span><code class="descname">MCPWM_UP_DOWN_COUNTER</code><a class="headerlink" href="mcpwm.html#_CPPv421MCPWM_UP_DOWN_COUNTER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიმეტრიული MCPWM-ისთვის, სიხშირე MCPWM სიხშირის დაყენებული სიხშირის ნახევარია. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_COUNTER_MAX">
+<span id="_CPPv317MCPWM_COUNTER_MAX"></span><span id="_CPPv217MCPWM_COUNTER_MAX"></span><span class="target" id="mcpwm__types_8h_1a6ac3506625317ae340fd60d366b4a0b0acd43023146a5263ca408557e841c040a"></span><code class="descname">MCPWM_COUNTER_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_COUNTER_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაქსიმალური მრიცხველის რეჟიმი </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417mcpwm_duty_type_t">
+<span id="_CPPv317mcpwm_duty_type_t"></span><span id="_CPPv217mcpwm_duty_type_t"></span><span id="mcpwm_duty_type_t"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bd"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_duty_type_t</code><a class="headerlink" href="mcpwm.html#_CPPv417mcpwm_duty_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM სამუშაო ციკლის რეჟიმის ტიპი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_DUTY_MODE_0">
+<span id="_CPPv317MCPWM_DUTY_MODE_0"></span><span id="_CPPv217MCPWM_DUTY_MODE_0"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bda3d59519f866c4e158b7a87845eb8a6b5"></span><code class="descname">MCPWM_DUTY_MODE_0</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_DUTY_MODE_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აქტიური მაღალი დატვირთვა, ანუ ასიმეტრიული MCPWM-ის მაღალი დროის პროპორციული სამუშაო ციკლი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_DUTY_MODE_1">
+<span id="_CPPv317MCPWM_DUTY_MODE_1"></span><span id="_CPPv217MCPWM_DUTY_MODE_1"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bda268587e1d115a342d3cb25795c9dc4a5"></span><code class="descname">MCPWM_DUTY_MODE_1</code><a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_DUTY_MODE_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აქტიური დაბალი დატვირთვა, ანუ ასიმეტრიული MCPWM-ის დაბალი დროის პროპორციული სამუშაო ციკლი, ფაზიდან გამოსული (ინვერტირებული) MCPWM </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv434MCPWM_HAL_GENERATOR_MODE_FORCE_LOW">
+<span id="_CPPv334MCPWM_HAL_GENERATOR_MODE_FORCE_LOW"></span><span id="_CPPv234MCPWM_HAL_GENERATOR_MODE_FORCE_LOW"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bda3fdf3bf3bbeaa59dfbf23e079a83248b"></span><code class="descname">MCPWM_HAL_GENERATOR_MODE_FORCE_LOW</code><a class="headerlink" href="mcpwm.html#_CPPv434MCPWM_HAL_GENERATOR_MODE_FORCE_LOW" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv435MCPWM_HAL_GENERATOR_MODE_FORCE_HIGH">
+<span id="_CPPv335MCPWM_HAL_GENERATOR_MODE_FORCE_HIGH"></span><span id="_CPPv235MCPWM_HAL_GENERATOR_MODE_FORCE_HIGH"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bda9c99b603c2da58c43d721732b6a0ff51"></span><code class="descname">MCPWM_HAL_GENERATOR_MODE_FORCE_HIGH</code><a class="headerlink" href="mcpwm.html#_CPPv435MCPWM_HAL_GENERATOR_MODE_FORCE_HIGH" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419MCPWM_DUTY_MODE_MAX">
+<span id="_CPPv319MCPWM_DUTY_MODE_MAX"></span><span id="_CPPv219MCPWM_DUTY_MODE_MAX"></span><span class="target" id="mcpwm__types_8h_1a36c0c0c3581ef0f99db0b9529592c1bda86d378e2fd16b1970625a97f2c6d56c0"></span><code class="descname">MCPWM_DUTY_MODE_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv419MCPWM_DUTY_MODE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სამუშაო ციკლის რეჟიმების რაოდენობა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421mcpwm_output_action_t">
+<span id="_CPPv321mcpwm_output_action_t"></span><span id="_CPPv221mcpwm_output_action_t"></span><span id="mcpwm_output_action_t"></span><span class="target" id="mcpwm__types_8h_1a26e292f759193f65a7aa34fc49f2c485"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_output_action_t</code><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM ირჩევს მოქმედებას, რომელიც უნდა განხორციელდეს გამომავალზე მოვლენის მოხდენისას. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv422MCPWM_ACTION_NO_CHANGE">
+<span id="_CPPv322MCPWM_ACTION_NO_CHANGE"></span><span id="_CPPv222MCPWM_ACTION_NO_CHANGE"></span><span class="target" id="mcpwm__types_8h_1a26e292f759193f65a7aa34fc49f2c485a8ba98498cabbbeaff4532d2d6027597b"></span><code class="descname">MCPWM_ACTION_NO_CHANGE</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv422MCPWM_ACTION_NO_CHANGE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამომავალში ცვლილება არ არის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422MCPWM_ACTION_FORCE_LOW">
+<span id="_CPPv322MCPWM_ACTION_FORCE_LOW"></span><span id="_CPPv222MCPWM_ACTION_FORCE_LOW"></span><span class="target" id="mcpwm__types_8h_1a26e292f759193f65a7aa34fc49f2c485ad79a6a6a5a4d96faad894bb1ecd84724"></span><code class="descname">MCPWM_ACTION_FORCE_LOW</code><a class="headerlink" href="mcpwm.html#_CPPv422MCPWM_ACTION_FORCE_LOW" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამცირეთ გამომავალი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MCPWM_ACTION_FORCE_HIGH">
+<span id="_CPPv323MCPWM_ACTION_FORCE_HIGH"></span><span id="_CPPv223MCPWM_ACTION_FORCE_HIGH"></span><span class="target" id="mcpwm__types_8h_1a26e292f759193f65a7aa34fc49f2c485ae94ebc5fa2af249919d9f98ad03205ea"></span><code class="descname">MCPWM_ACTION_FORCE_HIGH</code><a class="headerlink" href="mcpwm.html#_CPPv423MCPWM_ACTION_FORCE_HIGH" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაღალი გამომავალი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419MCPWM_ACTION_TOGGLE">
+<span id="_CPPv319MCPWM_ACTION_TOGGLE"></span><span id="_CPPv219MCPWM_ACTION_TOGGLE"></span><span class="target" id="mcpwm__types_8h_1a26e292f759193f65a7aa34fc49f2c485ac9c3c43e87cb6f690774c05c800d90c6"></span><code class="descname">MCPWM_ACTION_TOGGLE</code><a class="headerlink" href="mcpwm.html#_CPPv419MCPWM_ACTION_TOGGLE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამომავალი გადართვა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421mcpwm_deadtime_type_t">
+<span id="_CPPv321mcpwm_deadtime_type_t"></span><span id="_CPPv221mcpwm_deadtime_type_t"></span><span id="mcpwm_deadtime_type_t"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_deadtime_type_t</code><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_deadtime_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM დედლაინური ტიპები, რომლებიც გამოიყენება დედლაინური დროის გენერირებისთვის, RED აღნიშნავს კიდის ზრდად შეფერხებას, ხოლო FED - კლებად შეფერხებას. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv421MCPWM_DEADTIME_BYPASS">
+<span id="_CPPv321MCPWM_DEADTIME_BYPASS"></span><span id="_CPPv221MCPWM_DEADTIME_BYPASS"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a53c9af245923546cf5b47c5dff49044d"></span><code class="descname">MCPWM_DEADTIME_BYPASS</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv421MCPWM_DEADTIME_BYPASS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დედლაინის გვერდის ავლით </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416MCPWM_BYPASS_RED">
+<span id="_CPPv316MCPWM_BYPASS_RED"></span><span id="_CPPv216MCPWM_BYPASS_RED"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a875b2834fd97548f83564791be0e4e71"></span><code class="descname">MCPWM_BYPASS_RED</code><a class="headerlink" href="mcpwm.html#_CPPv416MCPWM_BYPASS_RED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = უცვლელი, MCPWMXB = კლებადი კიდის შეფერხება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416MCPWM_BYPASS_FED">
+<span id="_CPPv316MCPWM_BYPASS_FED"></span><span id="_CPPv216MCPWM_BYPASS_FED"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a205f8ab16fa02231a0fdd58f3a14c9dd"></span><code class="descname">MCPWM_BYPASS_FED</code><a class="headerlink" href="mcpwm.html#_CPPv416MCPWM_BYPASS_FED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = აღმავალი კიდის შეფერხება, MCPWMXB = ცვლილების გარეშე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422MCPWM_ACTIVE_HIGH_MODE">
+<span id="_CPPv322MCPWM_ACTIVE_HIGH_MODE"></span><span id="_CPPv222MCPWM_ACTIVE_HIGH_MODE"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62ac527f51a7d30ab519bc50d4a19463c14"></span><code class="descname">MCPWM_ACTIVE_HIGH_MODE</code><a class="headerlink" href="mcpwm.html#_CPPv422MCPWM_ACTIVE_HIGH_MODE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = კიდის აღმავალი შეფერხება, MCPWMXB = კიდის დაღმავალი შეფერხება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421MCPWM_ACTIVE_LOW_MODE">
+<span id="_CPPv321MCPWM_ACTIVE_LOW_MODE"></span><span id="_CPPv221MCPWM_ACTIVE_LOW_MODE"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a00e9865cb18629a8d0b76f00b8d912c3"></span><code class="descname">MCPWM_ACTIVE_LOW_MODE</code><a class="headerlink" href="mcpwm.html#_CPPv421MCPWM_ACTIVE_LOW_MODE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = მზარდი კიდის დაყოვნების დამატება, MCPWMXB = კლებადი კიდის დაყოვნების დამატება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv433MCPWM_ACTIVE_HIGH_COMPLIMENT_MODE">
+<span id="_CPPv333MCPWM_ACTIVE_HIGH_COMPLIMENT_MODE"></span><span id="_CPPv233MCPWM_ACTIVE_HIGH_COMPLIMENT_MODE"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62acd6c443b2d0d1b2e86b3bfdcf0b905a8"></span><code class="descname">MCPWM_ACTIVE_HIGH_COMPLIMENT_MODE</code><a class="headerlink" href="mcpwm.html#_CPPv433MCPWM_ACTIVE_HIGH_COMPLIMENT_MODE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = კიდის აღმავალი დაყოვნება, MCPWMXB = კიდის დაღმავალი დაყოვნების დამატება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv432MCPWM_ACTIVE_LOW_COMPLIMENT_MODE">
+<span id="_CPPv332MCPWM_ACTIVE_LOW_COMPLIMENT_MODE"></span><span id="_CPPv232MCPWM_ACTIVE_LOW_COMPLIMENT_MODE"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a6320216fc40845edfc74cca7db957b12"></span><code class="descname">MCPWM_ACTIVE_LOW_COMPLIMENT_MODE</code><a class="headerlink" href="mcpwm.html#_CPPv432MCPWM_ACTIVE_LOW_COMPLIMENT_MODE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = მზარდი კიდის შეფერხების დამატება, MCPWMXB = კლებადი კიდის შეფერხება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv431MCPWM_ACTIVE_RED_FED_FROM_PWMXA">
+<span id="_CPPv331MCPWM_ACTIVE_RED_FED_FROM_PWMXA"></span><span id="_CPPv231MCPWM_ACTIVE_RED_FED_FROM_PWMXA"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62a8e799334769ba9d17c2db33f2c072e83"></span><code class="descname">MCPWM_ACTIVE_RED_FED_FROM_PWMXA</code><a class="headerlink" href="mcpwm.html#_CPPv431MCPWM_ACTIVE_RED_FED_FROM_PWMXA" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = MCPWMXB = მზარდი კიდის შეფერხება, ასევე დაღმავალი კიდის შეფერხება, გენერირებული MCPWMXA-დან </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv431MCPWM_ACTIVE_RED_FED_FROM_PWMXB">
+<span id="_CPPv331MCPWM_ACTIVE_RED_FED_FROM_PWMXB"></span><span id="_CPPv231MCPWM_ACTIVE_RED_FED_FROM_PWMXB"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62af79bb42a93f2fe4f1fab6df3b71df241"></span><code class="descname">MCPWM_ACTIVE_RED_FED_FROM_PWMXB</code><a class="headerlink" href="mcpwm.html#_CPPv431MCPWM_ACTIVE_RED_FED_FROM_PWMXB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWMXA = MCPWMXB = აღმავალი კიდის შეფერხება, ასევე დაღმავალი კიდის შეფერხება, გენერირებული MCPWMXB-დან </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423MCPWM_DEADTIME_TYPE_MAX">
+<span id="_CPPv323MCPWM_DEADTIME_TYPE_MAX"></span><span id="_CPPv223MCPWM_DEADTIME_TYPE_MAX"></span><span class="target" id="mcpwm__types_8h_1ad226f7e23053987b51ab8b39f03ebe62ac1c051098a485f99e81bdd066981aebf"></span><code class="descname">MCPWM_DEADTIME_TYPE_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv423MCPWM_DEADTIME_TYPE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv419mcpwm_sync_signal_t">
+<span id="_CPPv319mcpwm_sync_signal_t"></span><span id="_CPPv219mcpwm_sync_signal_t"></span><span id="mcpwm_sync_signal_t"></span><span class="target" id="mcpwm__types_8h_1acc3758c3a3f69aa416212277a9e523c9"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_sync_signal_t</code><a class="headerlink" href="mcpwm.html#_CPPv419mcpwm_sync_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის სინქრონიზაციის სიგნალის შეყვანის არჩევა. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_SELECT_SYNC0">
+<span id="_CPPv318MCPWM_SELECT_SYNC0"></span><span id="_CPPv218MCPWM_SELECT_SYNC0"></span><span class="target" id="mcpwm__types_8h_1acc3758c3a3f69aa416212277a9e523c9a87b94a37782e18ce4119e4a6497562ef"></span><code class="descname">MCPWM_SELECT_SYNC0</code> = 4<a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_SELECT_SYNC0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სიგნალად აირჩიეთ SYNC0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_SELECT_SYNC1">
+<span id="_CPPv318MCPWM_SELECT_SYNC1"></span><span id="_CPPv218MCPWM_SELECT_SYNC1"></span><span class="target" id="mcpwm__types_8h_1acc3758c3a3f69aa416212277a9e523c9a46bb787c00d102cd64361d20a4ab9606"></span><code class="descname">MCPWM_SELECT_SYNC1</code><a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_SELECT_SYNC1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სიგნალად აირჩიეთ SYNC1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418MCPWM_SELECT_SYNC2">
+<span id="_CPPv318MCPWM_SELECT_SYNC2"></span><span id="_CPPv218MCPWM_SELECT_SYNC2"></span><span class="target" id="mcpwm__types_8h_1acc3758c3a3f69aa416212277a9e523c9a0458a16861f3da2a1299315e4e4aee05"></span><code class="descname">MCPWM_SELECT_SYNC2</code><a class="headerlink" href="mcpwm.html#_CPPv418MCPWM_SELECT_SYNC2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ SYNC2, როგორც შემავალი სიგნალი </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv423mcpwm_capture_on_edge_t">
+<span id="_CPPv323mcpwm_capture_on_edge_t"></span><span id="_CPPv223mcpwm_capture_on_edge_t"></span><span id="mcpwm_capture_on_edge_t"></span><span class="target" id="mcpwm__types_8h_1aed6ccd667aa705dc57fc9b2aa14b534e"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_capture_on_edge_t</code><a class="headerlink" href="mcpwm.html#_CPPv423mcpwm_capture_on_edge_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის შერჩევის აღება რომელი კიდიდან იწყება. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414MCPWM_NEG_EDGE">
+<span id="_CPPv314MCPWM_NEG_EDGE"></span><span id="_CPPv214MCPWM_NEG_EDGE"></span><span class="target" id="mcpwm__types_8h_1aed6ccd667aa705dc57fc9b2aa14b534eae23aeaeb55dee539d7f15d91a7a7544c"></span><code class="descname">MCPWM_NEG_EDGE</code> = BIT(0)<a class="headerlink" href="mcpwm.html#_CPPv414MCPWM_NEG_EDGE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უარყოფითი კიდის დაფიქსირება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414MCPWM_POS_EDGE">
+<span id="_CPPv314MCPWM_POS_EDGE"></span><span id="_CPPv214MCPWM_POS_EDGE"></span><span class="target" id="mcpwm__types_8h_1aed6ccd667aa705dc57fc9b2aa14b534eae006fedfac5468db09477be480652c72"></span><code class="descname">MCPWM_POS_EDGE</code> = BIT(1)<a class="headerlink" href="mcpwm.html#_CPPv414MCPWM_POS_EDGE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დადებითი მხარის დაფიქსირება </p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="mcpwm.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/mcpwm.h">დრაივერი/include/driver/mcpwm.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="mcpwm.html#functions" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p>doxygenfunction: ვერ ხერხდება doxygen xml გამომავალში „esp32-idf“ პროექტისთვის doxygen xml გამომავალში არგუმენტებით () ფუნქციისთვის „_Static_assert“ მრავალი დამთხვევის გარკვევა დირექტორიიდან: xml_in/. პოტენციური დამთხვევები:
+</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">_Static_assert</span><span class="p">(</span><span class="n">MCPWM_UNIT_MAX</span><span class="p">,</span> <span class="s2">"MCPWM unit number not equal to chip capabilities"</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">_Static_assert</span><span class="p">(</span><span class="n">sizeof</span><span class="p">(</span> <span class="n">ulp_insn_t</span> <span class="p">),</span> <span class="s2">"ULP coprocessor instruction size should be 4 bytes"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="function">
+<dt id="_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti">
+<span id="_CPPv315mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti"></span><span id="_CPPv215mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti"></span><span id="mcpwm_gpio_init__mcpwm_unit_t.mcpwm_io_signals_t.i"></span><span class="target" id="mcpwm_8h_1adacf7a12847d66037c24088fad46c745"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_gpio_init</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_io_signals_t" title="mcpwm_io_signals_t">mcpwm_io_signals_t</a> <em>io_სიგნალი</em>, int <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv415mcpwm_gpio_init12mcpwm_unit_t18mcpwm_io_signals_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს ფუნქცია ახდენს MCPWM-ისთვის თითოეული gpio სიგნალის ინიციალიზაციას. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function initializes one gpio at a time.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">io_signal</span></code>: MCPWM სიგნალების დაყენება, თითოეულ MCPWM ბლოკს აქვს 6 გამომავალი (MCPWMXA, MCPWMXB) და 9 შემავალი (SYNC_X, FAULT_X, CAP_X) &amp;#39;X&amp;#39; არის timer_num(0-2) </li>
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: დააყენეთ ეს MCPWM-ისთვის gpio-ს კონფიგურაციისთვის, თუ გსურთ gpio16-ის გამოყენება, gpio_num = 16</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t">
+<span id="_CPPv313mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t"></span><span id="_CPPv213mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t"></span><span id="mcpwm_set_pin__mcpwm_unit_t.mcpwm_pin_config_tCP"></span><span class="target" id="mcpwm_8h_1a9396d75e2dd63d9e6cafba9432069ffa"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_pin</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <em class="property">კონსტ</em> <a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_pin_config_t" title="mcpwm_pin_config_t">mcpwm_pin_config_t</a> *<em>mcpwm_pin</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv413mcpwm_set_pin12mcpwm_unit_tPK18mcpwm_pin_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM gpio სტრუქტურის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function can be used to initialize more then one gpio at a time.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_pin</span></code>MCPWM პინის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t">
+<span id="_CPPv310mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t"></span><span id="_CPPv210mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t"></span><span id="mcpwm_init__mcpwm_unit_t.mcpwm_timer_t.mcpwm_config_tCP"></span><span class="target" id="mcpwm_8h_1a0aa74c9279b839e128a49f7c84aba575"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_init</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="mcpwm.html#_CPPv414mcpwm_config_t" title="mcpwm_config_t">mcpwm_config_t</a> *<em>mcpwm_conf</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv410mcpwm_init12mcpwm_unit_t13mcpwm_timer_tPK14mcpwm_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM პარამეტრების ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: დააყენეთ MCPWM-ის ტაიმერის ნომერი (0-2), თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_conf</span></code>: სტრუქტურის კონფიგურაცია <a class="reference internal" href="mcpwm.html#structmcpwm__config__t"><span class="std std-ref">mcpwm_config_t</span></a></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419mcpwm_set_frequency12mcpwm_unit_t13mcpwm_timer_t8uint32_t">
+<span id="_CPPv319mcpwm_set_frequency12mcpwm_unit_t13mcpwm_timer_t8uint32_t"></span><span id="_CPPv219mcpwm_set_frequency12mcpwm_unit_t13mcpwm_timer_t8uint32_t"></span><span id="mcpwm_set_frequency__mcpwm_unit_t.mcpwm_timer_t.uint32_t"></span><span class="target" id="mcpwm_8h_1a7606a5e4da4551ea7fcb5dfbe7bd51bc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_frequency</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, uint32_t <em>სიხშირე</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv419mcpwm_set_frequency12mcpwm_unit_t13mcpwm_timer_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM ტაიმერის სიხშირის (ჰც-ებში) დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">frequency</span></code>: დააყენეთ თითოეული ტაიმერის სიხშირე ჰერცებში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414mcpwm_set_duty12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_tf">
+<span id="_CPPv314mcpwm_set_duty12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_tf"></span><span id="_CPPv214mcpwm_set_duty12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_tf"></span><span id="mcpwm_set_duty__mcpwm_unit_t.mcpwm_timer_t.mcpwm_generator_t.float"></span><span class="target" id="mcpwm_8h_1ad834e7a3cb8ab1d41155bdce14df84e1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_duty</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <em>თაობა</em>, float <em>მოვალეობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv414mcpwm_set_duty12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_tf" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თითოეული ოპერატორის სამუშაო ციკლის დაყენება (MCPWMXA/MCPWMXB) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: გენერატორის (MCPWMXA/MCPWMXB) დაყენება, &amp;#39;X&amp;#39; არის ოპერატორის ნომერი, რომელიც არჩეულია </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty</span></code>: თითოეული ოპერატორის სამუშაო ციკლის %-ში დაყენება (ანუ 62.3%-იანი სამუშაო ციკლისთვის, სამუშაო ციკლი = 62.3)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420mcpwm_set_duty_in_us12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t8uint32_t">
+<span id="_CPPv320mcpwm_set_duty_in_us12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t8uint32_t"></span><span id="_CPPv220mcpwm_set_duty_in_us12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t8uint32_t"></span><span id="mcpwm_set_duty_in_us__mcpwm_unit_t.mcpwm_timer_t.mcpwm_generator_t.uint32_t"></span><span class="target" id="mcpwm_8h_1ac46544f372c3394fc21b28b5298c260d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_duty_in_us</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <em>თაობა</em>, uint32_t <em>duty_in_us</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_set_duty_in_us12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ თითოეული ოპერატორის (MCPWMXA/MCPWMXB) სამუშაო ციკლი აშშ-ში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: გენერატორის (MCPWMXA/MCPWMXB) დაყენება, &amp;#39;x&amp;#39; არის არჩეული ოპერატორის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty_in_us</span></code>: თითოეული ოპერატორის მოვალეობის მნიშვნელობის მიკროწამებში დაყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t">
+<span id="_CPPv319mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t"></span><span id="_CPPv219mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t"></span><span id="mcpwm_set_duty_type__mcpwm_unit_t.mcpwm_timer_t.mcpwm_generator_t.mcpwm_duty_type_t"></span><span class="target" id="mcpwm_8h_1a8af7ea253399d1c160a27da1d4991758"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_duty_type</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <em>თაობა</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_duty_type_t" title="mcpwm_duty_type_t">mcpwm_duty_type_t</a> <em>მოვალეობის_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv419mcpwm_set_duty_type12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t17mcpwm_duty_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ აქტიურ რეჟიმში ან მაღალ, ან დაბალ (ფაზის გარეშე/ინვერსიული) </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call this function every time after mcpwm_set_signal_high or mcpwm_set_signal_low to resume with previously set duty cycle</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: გენერატორის (MCPWMXA/MCPWMXB) დაყენება, &amp;#39;x&amp;#39; არის არჩეული ოპერატორის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty_type</span></code>: აქტიური დაბალი ან აქტიური მაღალი დატვირთვის ტიპის დაყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419mcpwm_get_frequency12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv319mcpwm_get_frequency12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv219mcpwm_get_frequency12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_get_frequency__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1a10b9f857132b6a4a2e22a57b03037148"></span>uint32_t <code class="descname">mcpwm_get_frequency</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv419mcpwm_get_frequency12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ტაიმერის სიხშირე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ტაიმერის სიხშირე </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414mcpwm_get_duty12mcpwm_unit_t13mcpwm_timer_t16mcpwm_operator_t">
+<span id="_CPPv314mcpwm_get_duty12mcpwm_unit_t13mcpwm_timer_t16mcpwm_operator_t"></span><span id="_CPPv214mcpwm_get_duty12mcpwm_unit_t13mcpwm_timer_t16mcpwm_operator_t"></span><span id="mcpwm_get_duty__mcpwm_unit_t.mcpwm_timer_t.mcpwm_operator_t"></span><span class="target" id="mcpwm_8h_1a0a351870661f9c76cecb7faa0c0e8836"></span>float <code class="descname">mcpwm_get_duty</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv416mcpwm_operator_t" title="mcpwm_operator_t">mcpwm_operator_t</a> <em>თაობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv414mcpwm_get_duty12mcpwm_unit_t13mcpwm_timer_t16mcpwm_operator_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ თითოეული ოპერატორის სამუშაო ციკლი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>სამუშაო ციკლი თითოეული ოპერატორის პროცენტულ მაჩვენებელში (56.7 ნიშნავს, რომ სამუშაო დატვირთვა 56.7%-ია) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: გენერატორის (MCPWMXA/MCPWMXB) დაყენება, &amp;#39;x&amp;#39; არის არჩეული ოპერატორის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t">
+<span id="_CPPv321mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t"></span><span id="_CPPv221mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t"></span><span id="mcpwm_set_signal_high__mcpwm_unit_t.mcpwm_timer_t.mcpwm_generator_t"></span><span class="target" id="mcpwm_8h_1a72207c7da41ea7e138acc49c70a8afe6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_signal_high</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <em>თაობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_set_signal_high12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიყენეთ ეს ფუნქცია MCPWM სიგნალის მაღალ დონეზე დასაყენებლად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: ოპერატორის დაყენება (MCPWMXA/MCPWMXB), &amp;#39;x&amp;#39; არის ტაიმერის არჩეული ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t">
+<span id="_CPPv320mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t"></span><span id="_CPPv220mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t"></span><span id="mcpwm_set_signal_low__mcpwm_unit_t.mcpwm_timer_t.mcpwm_generator_t"></span><span class="target" id="mcpwm_8h_1a6c84105a9d8a08d766cbe7e510165fb3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_set_signal_low</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <em>თაობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_set_signal_low12mcpwm_unit_t13mcpwm_timer_t17mcpwm_generator_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიყენეთ ეს ფუნქცია MCPWM სიგნალის დაბალ დონეზე დასაყენებლად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">gen</span></code>: ოპერატორის დაყენება (MCPWMXA/MCPWMXB), &amp;#39;x&amp;#39; არის ტაიმერის არჩეული ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411mcpwm_start12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv311mcpwm_start12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv211mcpwm_start12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_start__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1a2a9c7f34a84d57bbc6036b2a6f1808e9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_start</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv411mcpwm_start12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ MCPWM სიგნალი ტაიმერ &amp;#39;x&amp;#39;-ზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410mcpwm_stop12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv310mcpwm_stop12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv210mcpwm_stop12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_stop__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1a910c3e5c947c0125d4677adf25e8aca3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_stop</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv410mcpwm_stop12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ MCPWM სიგნალი ტაიმერ &amp;#39;x&amp;#39;-ზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418mcpwm_carrier_init12mcpwm_unit_t13mcpwm_timer_tPK22mcpwm_carrier_config_t">
+<span id="_CPPv318mcpwm_carrier_init12mcpwm_unit_t13mcpwm_timer_tPK22mcpwm_carrier_config_t"></span><span id="_CPPv218mcpwm_carrier_init12mcpwm_unit_t13mcpwm_timer_tPK22mcpwm_carrier_config_t"></span><span id="mcpwm_carrier_init__mcpwm_unit_t.mcpwm_timer_t.mcpwm_carrier_config_tCP"></span><span class="target" id="mcpwm_8h_1aa5de3390f79e319884ba88c477dfbee6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_init</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_carrier_config_t" title="mcpwm_carrier_config_t">mcpwm_carrier_config_t</a> *<em>carrier_conf</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_carrier_init12mcpwm_unit_t13mcpwm_timer_tPK22mcpwm_carrier_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ოპერატორის კონფიგურაციის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">carrier_conf</span></code>: სტრუქტურის კონფიგურაცია <a class="reference internal" href="mcpwm.html#structmcpwm__carrier__config__t"><span class="std std-ref">mcpwm_carrier_config_t</span></a></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420mcpwm_carrier_enable12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv320mcpwm_carrier_enable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv220mcpwm_carrier_enable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_carrier_enable__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1af560325638c507b8525488aa4abd201e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_enable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_carrier_enable12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესაბამისი ტაიმერისთვის MCPWM გადამზიდავი ქვემოდულის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421mcpwm_carrier_disable12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv321mcpwm_carrier_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv221mcpwm_carrier_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_carrier_disable__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1a47e424787cc036c59edd94d209e79501"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_disable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_carrier_disable12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესაბამისი ტაიმერისთვის MCPWM გადამზიდავი ქვემოდულის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424mcpwm_carrier_set_period12mcpwm_unit_t13mcpwm_timer_t7uint8_t">
+<span id="_CPPv324mcpwm_carrier_set_period12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="_CPPv224mcpwm_carrier_set_period12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="mcpwm_carrier_set_period__mcpwm_unit_t.mcpwm_timer_t.uint8_t"></span><span class="target" id="mcpwm_8h_1a6660924a6fc79962eb6b798e84fd31b8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_set_period</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, uint8_t <em>გადამზიდავი_პერიოდი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv424mcpwm_carrier_set_period12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავის პერიოდის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">carrier_period</span></code>: თითოეული ტაიმერის გადამზიდავი პერიოდის დაყენება, გადამზიდავი პერიოდი = (carrier_period + 1)*800ns (carrier_period &amp;lt;= 15)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428mcpwm_carrier_set_duty_cycle12mcpwm_unit_t13mcpwm_timer_t7uint8_t">
+<span id="_CPPv328mcpwm_carrier_set_duty_cycle12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="_CPPv228mcpwm_carrier_set_duty_cycle12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="mcpwm_carrier_set_duty_cycle__mcpwm_unit_t.mcpwm_timer_t.uint8_t"></span><span class="target" id="mcpwm_8h_1abf63f95a319c77a6a74b79b86eeb25f7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_set_duty_cycle</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, uint8_t <em>carrier_duty</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv428mcpwm_carrier_set_duty_cycle12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავის duty_cycle-ის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">carrier_duty</span></code>: მატარებლის სამუშაო ციკლის დაყენება, მატარებლის სამუშაო ციკლი = carrier_duty*12.5% (chop_duty &amp;lt;= 7)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433mcpwm_carrier_oneshot_mode_enable12mcpwm_unit_t13mcpwm_timer_t7uint8_t">
+<span id="_CPPv333mcpwm_carrier_oneshot_mode_enable12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="_CPPv233mcpwm_carrier_oneshot_mode_enable12mcpwm_unit_t13mcpwm_timer_t7uint8_t"></span><span id="mcpwm_carrier_oneshot_mode_enable__mcpwm_unit_t.mcpwm_timer_t.uint8_t"></span><span class="target" id="mcpwm_8h_1a54107d8ece2c65b82b47d4db51b8c804"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_oneshot_mode_enable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, uint8_t <em>პულსის_სიგანე</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv433mcpwm_carrier_oneshot_mode_enable12mcpwm_unit_t13mcpwm_timer_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პირველი იმპულსის სიგანის ჩართვა და დაყენება გადამზიდავის ერთჯერადი რეჟიმით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">pulse_width</span></code>: პირველი იმპულსის სიგანის დაყენება ერთჯერადი რეჟიმში, სიგანე = (მატარებლის პერიოდი)*(პულსის_სიგანე +1) (პულსის_სიგანე &amp;lt;= 15)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434mcpwm_carrier_oneshot_mode_disable12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv334mcpwm_carrier_oneshot_mode_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv234mcpwm_carrier_oneshot_mode_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_carrier_oneshot_mode_disable__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1abd2b22aed602c75ea6525ba923ed3f40"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_oneshot_mode_disable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv434mcpwm_carrier_oneshot_mode_disable12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ერთჯერადი რეჟიმის გამორთვა, პირველი იმპულსის სიგანე = გადამტანის პერიოდი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427mcpwm_carrier_output_invert12mcpwm_unit_t13mcpwm_timer_t23mcpwm_carrier_out_ivt_t">
+<span id="_CPPv327mcpwm_carrier_output_invert12mcpwm_unit_t13mcpwm_timer_t23mcpwm_carrier_out_ivt_t"></span><span id="_CPPv227mcpwm_carrier_output_invert12mcpwm_unit_t13mcpwm_timer_t23mcpwm_carrier_out_ivt_t"></span><span id="mcpwm_carrier_output_invert__mcpwm_unit_t.mcpwm_timer_t.mcpwm_carrier_out_ivt_t"></span><span class="target" id="mcpwm_8h_1a5a038649dc9d95be0c91c512efcc140e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_carrier_output_invert</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_carrier_out_ivt_t" title="mcpwm_carrier_out_ivt_t">mcpwm_carrier_out_ivt_t</a> <em>carrier_ivt_mode</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv427mcpwm_carrier_output_invert12mcpwm_unit_t13mcpwm_timer_t23mcpwm_carrier_out_ivt_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავი გამომავალი ინვერსიის ჩართვა ან გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">carrier_ivt_mode</span></code>: გადამზიდავი გამომავალი ინვერსიის ჩართვა ან გამორთვა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421mcpwm_deadtime_enable12mcpwm_unit_t13mcpwm_timer_t21mcpwm_deadtime_type_t8uint32_t8uint32_t">
+<span id="_CPPv321mcpwm_deadtime_enable12mcpwm_unit_t13mcpwm_timer_t21mcpwm_deadtime_type_t8uint32_t8uint32_t"></span><span id="_CPPv221mcpwm_deadtime_enable12mcpwm_unit_t13mcpwm_timer_t21mcpwm_deadtime_type_t8uint32_t8uint32_t"></span><span id="mcpwm_deadtime_enable__mcpwm_unit_t.mcpwm_timer_t.mcpwm_deadtime_type_t.uint32_t.uint32_t"></span><span class="target" id="mcpwm_8h_1a7f826762e87e1cbb3bfbd1e0cb722d37"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_deadtime_enable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_deadtime_type_t" title="mcpwm_deadtime_type_t">mcpwm_deadtime_type_t</a> <em>dt_mode</em>, uint32_t <em>წითელი</em>, uint32_t <em>კვება</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_deadtime_enable12mcpwm_unit_t13mcpwm_timer_t21mcpwm_deadtime_type_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თითოეული MCPWM ტაიმერისთვის დედობრივი დროის ჩართვა და ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">dt_mode</span></code>: მკვდარი დროის რეჟიმის დაყენება </li>
+<li><code class="docutils literal notranslate"><span class="pre">red</span></code>: მზარდი კიდის შეფერხების დაყენება = წითელი * 100ns </li>
+<li><code class="docutils literal notranslate"><span class="pre">fed</span></code>: მზარდი კიდის შეფერხების დაყენება = fed*100ns</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422mcpwm_deadtime_disable12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv322mcpwm_deadtime_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv222mcpwm_deadtime_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_deadtime_disable__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1aa89cd3ab6ae054be7ecfcad7fbb531a3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_deadtime_disable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv422mcpwm_deadtime_disable12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM ტაიმერზე დედობრივი დროის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416mcpwm_fault_init12mcpwm_unit_t25mcpwm_fault_input_level_t20mcpwm_fault_signal_t">
+<span id="_CPPv316mcpwm_fault_init12mcpwm_unit_t25mcpwm_fault_input_level_t20mcpwm_fault_signal_t"></span><span id="_CPPv216mcpwm_fault_init12mcpwm_unit_t25mcpwm_fault_input_level_t20mcpwm_fault_signal_t"></span><span id="mcpwm_fault_init__mcpwm_unit_t.mcpwm_fault_input_level_t.mcpwm_fault_signal_t"></span><span class="target" id="mcpwm_8h_1adaf261243adc2c6106f396e903ca053c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_fault_init</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv425mcpwm_fault_input_level_t" title="mcpwm_fault_input_level_t">mcpwm_fault_input_level_t</a> <em>intput_level</em>, <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="mcpwm_fault_signal_t">mcpwm_fault_signal_t</a> <em>შეცდომის ნიშანი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv416mcpwm_fault_init12mcpwm_unit_t25mcpwm_fault_input_level_t20mcpwm_fault_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის ქვემოდულის ინიციალიზაცია, ამჟამად დაბალი დონის გააქტიურება არ არის მხარდაჭერილი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">intput_level</span></code>: შეცდომის სიგნალის დონის დაყენება, რაც გამოიწვევს შეცდომის წარმოქმნას </li>
+<li><code class="docutils literal notranslate"><span class="pre">fault_sig</span></code>: დააყენეთ შეცდომის პინი, რომელიც უნდა ჩართოთ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t">
+<span id="_CPPv328mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t"></span><span id="_CPPv228mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t"></span><span id="mcpwm_fault_set_oneshot_mode__mcpwm_unit_t.mcpwm_timer_t.mcpwm_fault_signal_t.mcpwm_output_action_t.mcpwm_output_action_t"></span><span class="target" id="mcpwm_8h_1a2de7116553ba3fe708b4a8c66338d241"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_fault_set_oneshot_mode</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="mcpwm_fault_signal_t">mcpwm_fault_signal_t</a> <em>შეცდომის ნიშანი</em>, <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <em>action_on_pwmxa</em>, <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <em>action_on_pwmxb</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv428mcpwm_fault_set_oneshot_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმართაობის აღმოჩენაზე დააყენეთ ერთჯერადი რეჟიმი, ერთჯერადი რეჟიმში გაუმართაობის გამოვლენის შემდეგ MCPWM სიგნალების აღსადგენად საჭიროა გადატვირთვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>currently low level triggering is not supported</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">fault_sig</span></code>: დააყენეთ შეცდომის პინი, რომელიც უნდა ჩართოთ ერთჯერადი რეჟიმისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">action_on_pwmxa</span></code>შეცდომის შემთხვევაში MCPWMXA-ზე განსახორციელებელი ქმედება: ან უცვლელი, ან მაღალი, ან დაბალი, ან გადამრთველი </li>
+<li><code class="docutils literal notranslate"><span class="pre">action_on_pwmxb</span></code>შეცდომის შემთხვევაში MCPWMXB-ზე განსახორციელებელი ქმედება: ან უცვლელი, ან მაღალი, ან დაბალი, ან გადამრთველი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t">
+<span id="_CPPv324mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t"></span><span id="_CPPv224mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t"></span><span id="mcpwm_fault_set_cyc_mode__mcpwm_unit_t.mcpwm_timer_t.mcpwm_fault_signal_t.mcpwm_output_action_t.mcpwm_output_action_t"></span><span class="target" id="mcpwm_8h_1a169b2bc2f03ea47a76ec149df8af03c6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_fault_set_cyc_mode</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="mcpwm_fault_signal_t">mcpwm_fault_signal_t</a> <em>შეცდომის ნიშანი</em>, <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <em>action_on_pwmxa</em>, <a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <em>action_on_pwmxb</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv424mcpwm_fault_set_cyc_mode12mcpwm_unit_t13mcpwm_timer_t20mcpwm_fault_signal_t21mcpwm_output_action_t21mcpwm_output_action_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმართაობის აღმოჩენის რეჟიმში დააყენეთ ციკლი-ციკლური რეჟიმი; ციკლურ რეჟიმში გაუმართაობის გამოვლენის შემდეგ, MCPWM სიგნალი განახლდება, როგორც კი გაუმართაობის სიგნალი არააქტიური გახდება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>currently low level triggering is not supported</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">fault_sig</span></code>: დააყენეთ შეცდომის პინი, რომელიც ციკლური რეჟიმისთვის უნდა იყოს ჩართული </li>
+<li><code class="docutils literal notranslate"><span class="pre">action_on_pwmxa</span></code>შეცდომის შემთხვევაში MCPWMXA-ზე განსახორციელებელი ქმედება: ან უცვლელი, ან მაღალი, ან დაბალი, ან გადამრთველი </li>
+<li><code class="docutils literal notranslate"><span class="pre">action_on_pwmxb</span></code>შეცდომის შემთხვევაში MCPWMXB-ზე განსახორციელებელი ქმედება: ან უცვლელი, ან მაღალი, ან დაბალი, ან გადამრთველი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418mcpwm_fault_deinit12mcpwm_unit_t20mcpwm_fault_signal_t">
+<span id="_CPPv318mcpwm_fault_deinit12mcpwm_unit_t20mcpwm_fault_signal_t"></span><span id="_CPPv218mcpwm_fault_deinit12mcpwm_unit_t20mcpwm_fault_signal_t"></span><span id="mcpwm_fault_deinit__mcpwm_unit_t.mcpwm_fault_signal_t"></span><span class="target" id="mcpwm_8h_1a82f424b91c64e5cf1f459ab90455d588"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_fault_deinit</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="mcpwm_fault_signal_t">mcpwm_fault_signal_t</a> <em>შეცდომის ნიშანი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_fault_deinit12mcpwm_unit_t20mcpwm_fault_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმართაობის სიგნალის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">fault_sig</span></code>: შეცდომის პინი, რომლის გამორთვაც საჭიროა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420mcpwm_capture_enable12mcpwm_unit_t22mcpwm_capture_signal_t23mcpwm_capture_on_edge_t8uint32_t">
+<span id="_CPPv320mcpwm_capture_enable12mcpwm_unit_t22mcpwm_capture_signal_t23mcpwm_capture_on_edge_t8uint32_t"></span><span id="_CPPv220mcpwm_capture_enable12mcpwm_unit_t22mcpwm_capture_signal_t23mcpwm_capture_on_edge_t8uint32_t"></span><span id="mcpwm_capture_enable__mcpwm_unit_t.mcpwm_capture_signal_t.mcpwm_capture_on_edge_t.uint32_t"></span><span class="target" id="mcpwm_8h_1a15893fc87b7bef3b02465313ccccfe87"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_capture_enable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="mcpwm_capture_signal_t">mcpwm_capture_signal_t</a> <em>cap_sig</em>, <a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_capture_on_edge_t" title="mcpwm_capture_on_edge_t">mcpwm_capture_on_edge_t</a> <em>cap_edge</em>, uint32_t <em>პულსის_რაოდენობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_capture_enable12mcpwm_unit_t22mcpwm_capture_signal_t23mcpwm_capture_on_edge_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩაწერის ქვემოდულის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cap_edge</span></code>: დააფიქსირეთ დაჭერის კიდი, BIT(0) - უარყოფითი კიდი, BIT(1) - დადებითი კიდი </li>
+<li><code class="docutils literal notranslate"><span class="pre">cap_sig</span></code>: აღბეჭდვის PIN კოდი, რომელიც უნდა ჩაირთოს </li>
+<li><code class="docutils literal notranslate"><span class="pre">num_of_pulse</span></code>: ითვლის დროს აღმავალ/დამავალ კიდურებს შორის 2 *-ს შორის (ნახსენები იმპულსები), მრიცხველი იყენებს APB_CLK-ს</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421mcpwm_capture_disable12mcpwm_unit_t22mcpwm_capture_signal_t">
+<span id="_CPPv321mcpwm_capture_disable12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="_CPPv221mcpwm_capture_disable12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="mcpwm_capture_disable__mcpwm_unit_t.mcpwm_capture_signal_t"></span><span class="target" id="mcpwm_8h_1acee1093b016440e8bdf361dfb1b9292f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_capture_disable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="mcpwm_capture_signal_t">mcpwm_capture_signal_t</a> <em>cap_sig</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv421mcpwm_capture_disable12mcpwm_unit_t22mcpwm_capture_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ გადაღების სიგნალი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cap_sig</span></code>: აღბეჭდვის PIN კოდი, რომლის გამორთვაც საჭიროა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430mcpwm_capture_signal_get_value12mcpwm_unit_t22mcpwm_capture_signal_t">
+<span id="_CPPv330mcpwm_capture_signal_get_value12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="_CPPv230mcpwm_capture_signal_get_value12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="mcpwm_capture_signal_get_value__mcpwm_unit_t.mcpwm_capture_signal_t"></span><span class="target" id="mcpwm_8h_1a51f51a6fb7d56a84145080cc9e817d96"></span>uint32_t <code class="descname">mcpwm_capture_signal_get_value</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="mcpwm_capture_signal_t">mcpwm_capture_signal_t</a> <em>cap_sig</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv430mcpwm_capture_signal_get_value12mcpwm_unit_t22mcpwm_capture_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ დაჭერის ღირებულება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Captured value </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cap_sig</span></code>: პინის დაჭერა, რომელზეც უნდა გაიზომოს მნიშვნელობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429mcpwm_capture_signal_get_edge12mcpwm_unit_t22mcpwm_capture_signal_t">
+<span id="_CPPv329mcpwm_capture_signal_get_edge12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="_CPPv229mcpwm_capture_signal_get_edge12mcpwm_unit_t22mcpwm_capture_signal_t"></span><span id="mcpwm_capture_signal_get_edge__mcpwm_unit_t.mcpwm_capture_signal_t"></span><span class="target" id="mcpwm_8h_1ac979ef7b778fc677b214d384a4ef83a7"></span>uint32_t <code class="descname">mcpwm_capture_signal_get_edge</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="mcpwm_capture_signal_t">mcpwm_capture_signal_t</a> <em>cap_sig</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv429mcpwm_capture_signal_get_edge12mcpwm_unit_t22mcpwm_capture_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ დაჭერის კიდის სიგნალი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Capture signal edge: 1 - positive edge, 2 - negtive edge </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cap_sig</span></code>: რომლის კიდის დაჭერის პინი უნდა განისაზღვროს</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t">
+<span id="_CPPv317mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t"></span><span id="_CPPv217mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t"></span><span id="mcpwm_sync_enable__mcpwm_unit_t.mcpwm_timer_t.mcpwm_sync_signal_t.uint32_t"></span><span class="target" id="mcpwm_8h_1a2931bcbf771e4bce21315c522ac34b7e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_sync_enable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="mcpwm.html#_CPPv419mcpwm_sync_signal_t" title="mcpwm_sync_signal_t">mcpwm_sync_signal_t</a> <em>სინქრონიზაციის_ნიშანი</em>, uint32_t <em>ფაზის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv417mcpwm_sync_enable12mcpwm_unit_t13mcpwm_timer_t19mcpwm_sync_signal_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სინქრონიზაციის ქვემოდულის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sync_sig</span></code>: დააყენეთ სინქრონიზაციის პინი, რომელიც უნდა ჩართოთ </li>
+<li><code class="docutils literal notranslate"><span class="pre">phase_val</span></code>: ფაზის მნიშვნელობა 1/1000-ში (86.7%-ისთვის, ფაზის_მნიშვნელობა = 867), რომელზე გადადის ტაიმერი სინქრონიზაციის სიგნალზე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418mcpwm_sync_disable12mcpwm_unit_t13mcpwm_timer_t">
+<span id="_CPPv318mcpwm_sync_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="_CPPv218mcpwm_sync_disable12mcpwm_unit_t13mcpwm_timer_t"></span><span id="mcpwm_sync_disable__mcpwm_unit_t.mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1ac543180916512c2f119e8d32c3103d25"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_sync_disable</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, <a class="reference internal" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="mcpwm_timer_t">mcpwm_timer_t</a> <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_sync_disable12mcpwm_unit_t13mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემულ ტაიმერზე სინქრონიზაციის ქვემოდულის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: MCPWM-ის ტაიმერის ნომრის (0-2) დაყენება, თითოეულ MCPWM ერთეულს აქვს 3 ტაიმერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418mcpwm_isr_register12mcpwm_unit_tPFvPvEPviP13intr_handle_t">
+<span id="_CPPv318mcpwm_isr_register12mcpwm_unit_tPFvPvEPviP13intr_handle_t"></span><span id="_CPPv218mcpwm_isr_register12mcpwm_unit_tPFvPvEPviP13intr_handle_t"></span><span class="target" id="mcpwm_8h_1a3ae42d0ed49facb89f6bbdcbc9d6cc92"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mcpwm_isr_register</code><span class="sig-paren">(</span><a class="reference internal" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="mcpwm_unit_t">mcpwm_unit_t</a> <em>mcpwm_num</em>, void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_isr_register12mcpwm_unit_tPFvPvEPviP13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM შეწყვეტის დამმუშავებლის რეგისტრაცია, დამმუშავებელი არის ISR. დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG ფუნქციის მაჩვენებლის შეცდომა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mcpwm_num</span></code>: MCPWM ერთეულის დაყენება (0-1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>: შეწყვეტის დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>მომხმარებლის მიერ მოწოდებული არგუმენტი, რომელიც გადაეცემა დამმუშავებელ ფუნქციას. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: დამაბრუნებელი სახელური. თუ არ არის NULL, შეწყვეტის სახელური აქ დაბრუნდება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="mcpwm.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418mcpwm_pin_config_t">
+<span id="_CPPv318mcpwm_pin_config_t"></span><span id="_CPPv218mcpwm_pin_config_t"></span><span id="mcpwm_pin_config_t"></span><span class="target" id="structmcpwm__pin__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">mcpwm_pin_config_t</code><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_pin_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM პინის ნომერი. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm0a_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm0a_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm0a_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm0a_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a4ef589dd51e5c5485c00b095118b4dc8"></span>int <code class="descname">mcpwm0a_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm0a_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm0b_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm0b_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm0b_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm0b_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1aab4327ebbdcfb96a8eb70f43945ae79b"></span>int <code class="descname">mcpwm0b_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm0b_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm1a_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm1a_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm1a_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm1a_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a86bfa501b12d4b702c7413c726fc0e13"></span>int <code class="descname">mcpwm1a_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm1a_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm1b_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm1b_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm1b_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm1b_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1aa195af57c5464f70dc64d817865a945b"></span>int <code class="descname">mcpwm1b_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm1b_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm2a_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm2a_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm2a_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm2a_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a4ab5a01db2032c24563122d3b1252ef1"></span>int <code class="descname">mcpwm2a_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm2a_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t15mcpwm2b_out_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t15mcpwm2b_out_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t15mcpwm2b_out_numE"></span><span id="mcpwm_pin_config_t::mcpwm2b_out_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a0a9b71fed7ea508006928c299a9b2bd3"></span>int <code class="descname">mcpwm2b_out_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t15mcpwm2b_out_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t18mcpwm_sync0_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t18mcpwm_sync0_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t18mcpwm_sync0_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_sync0_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1ab3b73825950b9f93ed78d0373f32bfd6"></span>int <code class="descname">mcpwm_sync0_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t18mcpwm_sync0_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC0 პინში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t18mcpwm_sync1_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t18mcpwm_sync1_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t18mcpwm_sync1_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_sync1_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1aabe1f3bf46b2e344c2c399dffe8ee8ed"></span>int <code class="descname">mcpwm_sync1_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t18mcpwm_sync1_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC1 პინში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t18mcpwm_sync2_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t18mcpwm_sync2_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t18mcpwm_sync2_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_sync2_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a9f63e5eb464621c3793a2726bde0d6ef"></span>int <code class="descname">mcpwm_sync2_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t18mcpwm_sync2_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC2 პინში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t19mcpwm_fault0_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t19mcpwm_fault0_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t19mcpwm_fault0_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_fault0_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1af06295cfb4aa89e517d1e9d35c0b0c27"></span>int <code class="descname">mcpwm_fault0_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t19mcpwm_fault0_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT0 პინში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t19mcpwm_fault1_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t19mcpwm_fault1_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t19mcpwm_fault1_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_fault1_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a60e87bf6ebfa2b59a07f7751fa581cb0"></span>int <code class="descname">mcpwm_fault1_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t19mcpwm_fault1_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT1 ქინძისთავში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t19mcpwm_fault2_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t19mcpwm_fault2_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t19mcpwm_fault2_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_fault2_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a6f3f54b576f88cda3bb5ae2cb13e3e59"></span>int <code class="descname">mcpwm_fault2_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t19mcpwm_fault2_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT2 ქინძისთავში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t17mcpwm_cap0_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t17mcpwm_cap0_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t17mcpwm_cap0_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_cap0_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1af4c8129534cd256cc914454008f54493"></span>int <code class="descname">mcpwm_cap0_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t17mcpwm_cap0_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP0 ქინძისთავში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t17mcpwm_cap1_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t17mcpwm_cap1_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t17mcpwm_cap1_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_cap1_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a4ab521c5c8eda1bc7a74a140f556fbb0"></span>int <code class="descname">mcpwm_cap1_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t17mcpwm_cap1_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP1 ქინძისთავში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18mcpwm_pin_config_t17mcpwm_cap2_in_numE">
+<span id="_CPPv3N18mcpwm_pin_config_t17mcpwm_cap2_in_numE"></span><span id="_CPPv2N18mcpwm_pin_config_t17mcpwm_cap2_in_numE"></span><span id="mcpwm_pin_config_t::mcpwm_cap2_in_num__i"></span><span class="target" id="structmcpwm__pin__config__t_1a478727af9c6cf6b08de159521e799bac"></span>int <code class="descname">mcpwm_cap2_in_num</code><a class="headerlink" href="mcpwm.html#_CPPv4N18mcpwm_pin_config_t17mcpwm_cap2_in_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP2 ქინძისთავში </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv414mcpwm_config_t">
+<span id="_CPPv314mcpwm_config_t"></span><span id="_CPPv214mcpwm_config_t"></span><span id="mcpwm_config_t"></span><span class="target" id="structmcpwm__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">mcpwm_config_t</code><a class="headerlink" href="mcpwm.html#_CPPv414mcpwm_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM კონფიგურაციის სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N14mcpwm_config_t9frequencyE">
+<span id="_CPPv3N14mcpwm_config_t9frequencyE"></span><span id="_CPPv2N14mcpwm_config_t9frequencyE"></span><span id="mcpwm_config_t::frequency__uint32_t"></span><span class="target" id="structmcpwm__config__t_1aefe815065ec55b2bd044482bf40546fb"></span>uint32_t <code class="descname">frequency</code><a class="headerlink" href="mcpwm.html#_CPPv4N14mcpwm_config_t9frequencyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის სიხშირის დაყენება ჰერცებში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14mcpwm_config_t6cmpr_aE">
+<span id="_CPPv3N14mcpwm_config_t6cmpr_aE"></span><span id="_CPPv2N14mcpwm_config_t6cmpr_aE"></span><span id="mcpwm_config_t::cmpr_a__float"></span><span class="target" id="structmcpwm__config__t_1ae228a5c4d6c71a64096085213e2d7def"></span>float <code class="descname">cmpr_a</code><a class="headerlink" href="mcpwm.html#_CPPv4N14mcpwm_config_t6cmpr_aE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ოპერატორ a(MCPWMXA)-სთვის დააყენეთ % სამუშაო ციკლი, ანუ 62.3%-იანი სამუშაო ციკლისთვის, duty_a = 62.3 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14mcpwm_config_t6cmpr_bE">
+<span id="_CPPv3N14mcpwm_config_t6cmpr_bE"></span><span id="_CPPv2N14mcpwm_config_t6cmpr_bE"></span><span id="mcpwm_config_t::cmpr_b__float"></span><span class="target" id="structmcpwm__config__t_1a6d7b556c1e2be8edd49cb326845d82c0"></span>float <code class="descname">cmpr_b</code><a class="headerlink" href="mcpwm.html#_CPPv4N14mcpwm_config_t6cmpr_bE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ოპერატორ b(MCPWMXB)-სთვის დააყენეთ % სამუშაო ციკლი, ანუ 48%-იანი სამუშაო ციკლისთვის, duty_b = 48.0 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14mcpwm_config_t9duty_modeE">
+<span id="_CPPv3N14mcpwm_config_t9duty_modeE"></span><span id="_CPPv2N14mcpwm_config_t9duty_modeE"></span><span id="mcpwm_config_t::duty_mode__mcpwm_duty_type_t"></span><span class="target" id="structmcpwm__config__t_1ab40ab2756cf83d1874e19170373ae6e3"></span><a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_duty_type_t" title="mcpwm_duty_type_t">mcpwm_duty_type_t</a> <code class="descname">duty_mode</code><a class="headerlink" href="mcpwm.html#_CPPv4N14mcpwm_config_t9duty_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სამუშაო ციკლის ტიპის დაყენება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14mcpwm_config_t12counter_modeE">
+<span id="_CPPv3N14mcpwm_config_t12counter_modeE"></span><span id="_CPPv2N14mcpwm_config_t12counter_modeE"></span><span id="mcpwm_config_t::counter_mode__mcpwm_counter_type_t"></span><span class="target" id="structmcpwm__config__t_1a66ee1f9c881d068a3dc63540d3466425"></span><a class="reference internal" href="mcpwm.html#_CPPv420mcpwm_counter_type_t" title="mcpwm_counter_type_t">mcpwm_counter_type_t</a> <code class="descname">counter_mode</code><a class="headerlink" href="mcpwm.html#_CPPv4N14mcpwm_config_t12counter_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM მრიცხველის ტიპის დაყენება </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv422mcpwm_carrier_config_t">
+<span id="_CPPv322mcpwm_carrier_config_t"></span><span id="_CPPv222mcpwm_carrier_config_t"></span><span id="mcpwm_carrier_config_t"></span><span class="target" id="structmcpwm__carrier__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">mcpwm_carrier_config_t</code><a class="headerlink" href="mcpwm.html#_CPPv422mcpwm_carrier_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM კონფიგურაციის გადამზიდავის სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N22mcpwm_carrier_config_t14carrier_periodE">
+<span id="_CPPv3N22mcpwm_carrier_config_t14carrier_periodE"></span><span id="_CPPv2N22mcpwm_carrier_config_t14carrier_periodE"></span><span id="mcpwm_carrier_config_t::carrier_period__uint8_t"></span><span class="target" id="structmcpwm__carrier__config__t_1a306d513650c1e426376a9f01df2b9bf7"></span>uint8_t <code class="descname">carrier_period</code><a class="headerlink" href="mcpwm.html#_CPPv4N22mcpwm_carrier_config_t14carrier_periodE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ გადამზიდავი პერიოდი = (გადამზიდავი პერიოდი + 1)*800ns, გადამზიდავი პერიოდი უნდა იყოს &amp;lt; 16 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22mcpwm_carrier_config_t12carrier_dutyE">
+<span id="_CPPv3N22mcpwm_carrier_config_t12carrier_dutyE"></span><span id="_CPPv2N22mcpwm_carrier_config_t12carrier_dutyE"></span><span id="mcpwm_carrier_config_t::carrier_duty__uint8_t"></span><span class="target" id="structmcpwm__carrier__config__t_1a0ed9736fa9782d34e25d4e13cc63921b"></span>uint8_t <code class="descname">carrier_duty</code><a class="headerlink" href="mcpwm.html#_CPPv4N22mcpwm_carrier_config_t12carrier_dutyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ carrier-ის სამუშაო ციკლი, carrier_duty უნდა იყოს 8-ზე ნაკლები (ზრდა ყოველ 12.5%-ზე). </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22mcpwm_carrier_config_t17pulse_width_in_osE">
+<span id="_CPPv3N22mcpwm_carrier_config_t17pulse_width_in_osE"></span><span id="_CPPv2N22mcpwm_carrier_config_t17pulse_width_in_osE"></span><span id="mcpwm_carrier_config_t::pulse_width_in_os__uint8_t"></span><span class="target" id="structmcpwm__carrier__config__t_1a05f8ad34647f4a9470fb83314c456edd"></span>uint8_t <code class="descname">pulse_width_in_os</code><a class="headerlink" href="mcpwm.html#_CPPv4N22mcpwm_carrier_config_t17pulse_width_in_osE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ერთჯერადი გასროლის რეჟიმში პირველი იმპულსის სიგანის დაყენება = (გადამტანის პერიოდი)*(პულსის_სიგანე_ინ_ოს + 1), უნდა იყოს 16-ზე ნაკლები. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22mcpwm_carrier_config_t15carrier_os_modeE">
+<span id="_CPPv3N22mcpwm_carrier_config_t15carrier_os_modeE"></span><span id="_CPPv2N22mcpwm_carrier_config_t15carrier_os_modeE"></span><span id="mcpwm_carrier_config_t::carrier_os_mode__mcpwm_carrier_os_t"></span><span class="target" id="structmcpwm__carrier__config__t_1a3d9cb0d2f27254bd93e4d3007b0fa5c2"></span><a class="reference internal" href="mcpwm.html#_CPPv418mcpwm_carrier_os_t" title="mcpwm_carrier_os_t">mcpwm_carrier_os_t</a> <code class="descname">carrier_os_mode</code><a class="headerlink" href="mcpwm.html#_CPPv4N22mcpwm_carrier_config_t15carrier_os_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ოპერატორის ერთჯერადი რეჟიმის ჩართვა ან გამორთვა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22mcpwm_carrier_config_t16carrier_ivt_modeE">
+<span id="_CPPv3N22mcpwm_carrier_config_t16carrier_ivt_modeE"></span><span id="_CPPv2N22mcpwm_carrier_config_t16carrier_ivt_modeE"></span><span id="mcpwm_carrier_config_t::carrier_ivt_mode__mcpwm_carrier_out_ivt_t"></span><span class="target" id="structmcpwm__carrier__config__t_1ad56d4a206ac9c639dde977bca263205e"></span><a class="reference internal" href="mcpwm.html#_CPPv423mcpwm_carrier_out_ivt_t" title="mcpwm_carrier_out_ivt_t">mcpwm_carrier_out_ivt_t</a> <code class="descname">carrier_ivt_mode</code><a class="headerlink" href="mcpwm.html#_CPPv4N22mcpwm_carrier_config_t16carrier_ivt_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავის გამომავალი ინვერსია </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="mcpwm.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.MCPWM_OPR_A">
+<span class="target" id="mcpwm_8h_1a130ece2e51c89b1498de2f341adc858d"></span><code class="descname">MCPWM_OPR_A</code><a class="headerlink" href="mcpwm.html#c.MCPWM_OPR_A" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_OPR_B">
+<span class="target" id="mcpwm_8h_1aa1c4afd7657ec2fee136fe320a5c272f"></span><code class="descname">MCPWM_OPR_B</code><a class="headerlink" href="mcpwm.html#c.MCPWM_OPR_B" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_OPR_MAX">
+<span class="target" id="mcpwm_8h_1a02845949dd122a90193aa66ad4e07ec7"></span><code class="descname">MCPWM_OPR_MAX</code><a class="headerlink" href="mcpwm.html#c.MCPWM_OPR_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_NO_CHANGE_IN_MCPWMXA">
+<span class="target" id="mcpwm_8h_1a152d3abf42fe26341ca752710eb0409b"></span><code class="descname">MCPWM_NO_CHANGE_IN_MCPWMXA</code><a class="headerlink" href="mcpwm.html#c.MCPWM_NO_CHANGE_IN_MCPWMXA" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_FORCE_MCPWMXA_LOW">
+<span class="target" id="mcpwm_8h_1ad73326c64d316a0d8a7d4c259f97c44b"></span><code class="descname">MCPWM_FORCE_MCPWMXA_LOW</code><a class="headerlink" href="mcpwm.html#c.MCPWM_FORCE_MCPWMXA_LOW" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_FORCE_MCPWMXA_HIGH">
+<span class="target" id="mcpwm_8h_1a99d6d949be081d093b958e425d4aed8d"></span><code class="descname">MCPWM_FORCE_MCPWMXA_HIGH</code><a class="headerlink" href="mcpwm.html#c.MCPWM_FORCE_MCPWMXA_HIGH" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_TOG_MCPWMXA">
+<span class="target" id="mcpwm_8h_1a7a9dd88d9dfd286a00651c49fc4ee146"></span><code class="descname">MCPWM_TOG_MCPWMXA</code><a class="headerlink" href="mcpwm.html#c.MCPWM_TOG_MCPWMXA" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_NO_CHANGE_IN_MCPWMXB">
+<span class="target" id="mcpwm_8h_1a378debf4fab67ad0bf18c3d1dac93847"></span><code class="descname">MCPWM_NO_CHANGE_IN_MCPWMXB</code><a class="headerlink" href="mcpwm.html#c.MCPWM_NO_CHANGE_IN_MCPWMXB" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_FORCE_MCPWMXB_LOW">
+<span class="target" id="mcpwm_8h_1a64395279137f7a878e4c6ad8ae0dede2"></span><code class="descname">MCPWM_FORCE_MCPWMXB_LOW</code><a class="headerlink" href="mcpwm.html#c.MCPWM_FORCE_MCPWMXB_LOW" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_FORCE_MCPWMXB_HIGH">
+<span class="target" id="mcpwm_8h_1a79715d1a9d5f72b306a2760205d1ffbf"></span><code class="descname">MCPWM_FORCE_MCPWMXB_HIGH</code><a class="headerlink" href="mcpwm.html#c.MCPWM_FORCE_MCPWMXB_HIGH" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.MCPWM_TOG_MCPWMXB">
+<span class="target" id="mcpwm_8h_1ad8b22bb2a63fb989623a3f8d4aa8f2ae"></span><code class="descname">MCPWM_TOG_MCPWMXB</code><a class="headerlink" href="mcpwm.html#c.MCPWM_TOG_MCPWMXB" title="Permalink to this definition">¶</a></dt>
+<dd><p></p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="mcpwm.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416mcpwm_operator_t">
+<span id="_CPPv316mcpwm_operator_t"></span><span id="_CPPv216mcpwm_operator_t"></span><span id="mcpwm_operator_t"></span><span class="target" id="mcpwm_8h_1a4e005bd76b506cd6d1bbe1b3a9d8d415"></span><em class="property">typedef </em><a class="reference internal" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="mcpwm_generator_t">mcpwm_generator_t</a> <code class="descname">mcpwm_operator_t</code><a class="headerlink" href="mcpwm.html#_CPPv416mcpwm_operator_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv423mcpwm_action_on_pwmxa_t">
+<span id="_CPPv323mcpwm_action_on_pwmxa_t"></span><span id="_CPPv223mcpwm_action_on_pwmxa_t"></span><span id="mcpwm_action_on_pwmxa_t"></span><span class="target" id="mcpwm_8h_1a774856e729a709df0a5e4c48f2abf88e"></span><em class="property">typedef </em><a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <code class="descname">mcpwm_action_on_pwmxa_t</code><a class="headerlink" href="mcpwm.html#_CPPv423mcpwm_action_on_pwmxa_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p></p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv423mcpwm_action_on_pwmxb_t">
+<span id="_CPPv323mcpwm_action_on_pwmxb_t"></span><span id="_CPPv223mcpwm_action_on_pwmxb_t"></span><span id="mcpwm_action_on_pwmxb_t"></span><span class="target" id="mcpwm_8h_1acac5d3fa2e5b590dfbf26a1b7cb012f0"></span><em class="property">typedef </em><a class="reference internal" href="mcpwm.html#_CPPv421mcpwm_output_action_t" title="mcpwm_output_action_t">mcpwm_output_action_t</a> <code class="descname">mcpwm_action_on_pwmxb_t</code><a class="headerlink" href="mcpwm.html#_CPPv423mcpwm_action_on_pwmxb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p></p>
+</dd></dl>
+</div>
+<div class="section" id="id2">
+<h3>ჩამოთვლები<a class="headerlink" href="mcpwm.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv418mcpwm_io_signals_t">
+<span id="_CPPv318mcpwm_io_signals_t"></span><span id="_CPPv218mcpwm_io_signals_t"></span><span id="mcpwm_io_signals_t"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068b"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_io_signals_t</code><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_io_signals_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>IO სიგნალები MCPWM-ისთვის. </p>
+<p><ul class="simple">
+<li>6 MCPWM გამომავალი პინი, რომლებიც წარმოქმნიან PWM სიგნალებს</li>
+<li>3 MCPWM შეცდომის შეყვანის პინი ისეთი გაუმართაობების აღმოსაჩენად, როგორიცაა ჭარბი დენი, ჭარბი ძაბვა და ა.შ.</li>
+<li>3 MCPWM სინქრონიზაციის შეყვანის პინი MCPWM გამომავალი სიგნალების სინქრონიზაციისთვის</li>
+<li>3 MCPWM შეყვანის პინი კონტროლირებადი ძრავებიდან უკუკავშირის შესაგროვებლად, მაგ. ჰოლის სენსორების გამოყენებით </li>
+</ul>
+</p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM0A">
+<span id="_CPPv37MCPWM0A"></span><span id="_CPPv27MCPWM0A"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba2a29b8e6e1ff56a972790dcd0dd1f69e"></span><code class="descname">MCPWM0A</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv47MCPWM0A" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM0A გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM0B">
+<span id="_CPPv37MCPWM0B"></span><span id="_CPPv27MCPWM0B"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068bab9848dd3c75be2d68517d70625d8bb6d"></span><code class="descname">MCPWM0B</code><a class="headerlink" href="mcpwm.html#_CPPv47MCPWM0B" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM0B გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM1A">
+<span id="_CPPv37MCPWM1A"></span><span id="_CPPv27MCPWM1A"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068bacf3da519561bc349c030b4bd088b28e5"></span><code class="descname">MCPWM1A</code><a class="headerlink" href="mcpwm.html#_CPPv47MCPWM1A" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM1A გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM1B">
+<span id="_CPPv37MCPWM1B"></span><span id="_CPPv27MCPWM1B"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba2eab006bea4a650d7511c0f5e722cf72"></span><code class="descname">MCPWM1B</code><a class="headerlink" href="mcpwm.html#_CPPv47MCPWM1B" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM1B გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM2A">
+<span id="_CPPv37MCPWM2A"></span><span id="_CPPv27MCPWM2A"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068babe6966182444187a1104f63fc025eda2"></span><code class="descname">MCPWM2A</code><a class="headerlink" href="mcpwm.html#_CPPv47MCPWM2A" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM2A გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv47MCPWM2B">
+<span id="_CPPv37MCPWM2B"></span><span id="_CPPv27MCPWM2B"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068badbe762ce01930c122ee8ed3b89644258"></span><code class="descname">MCPWM2B</code><a class="headerlink" href="mcpwm.html#_CPPv47MCPWM2B" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PWM2B გამომავალი პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412MCPWM_SYNC_0">
+<span id="_CPPv312MCPWM_SYNC_0"></span><span id="_CPPv212MCPWM_SYNC_0"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba0df14847c2bab1c2f9032afe10640322"></span><code class="descname">MCPWM_SYNC_0</code><a class="headerlink" href="mcpwm.html#_CPPv412MCPWM_SYNC_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC0 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412MCPWM_SYNC_1">
+<span id="_CPPv312MCPWM_SYNC_1"></span><span id="_CPPv212MCPWM_SYNC_1"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba623c0fb0238625c326bfdd6272f4d86c"></span><code class="descname">MCPWM_SYNC_1</code><a class="headerlink" href="mcpwm.html#_CPPv412MCPWM_SYNC_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC1 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412MCPWM_SYNC_2">
+<span id="_CPPv312MCPWM_SYNC_2"></span><span id="_CPPv212MCPWM_SYNC_2"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068bae074cc706b73ba276dd3e72fc2151ca3"></span><code class="descname">MCPWM_SYNC_2</code><a class="headerlink" href="mcpwm.html#_CPPv412MCPWM_SYNC_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SYNC2 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_FAULT_0">
+<span id="_CPPv313MCPWM_FAULT_0"></span><span id="_CPPv213MCPWM_FAULT_0"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068badcd9f77e70599cf5f6bdd06ff6e09840"></span><code class="descname">MCPWM_FAULT_0</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_FAULT_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT0 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_FAULT_1">
+<span id="_CPPv313MCPWM_FAULT_1"></span><span id="_CPPv213MCPWM_FAULT_1"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba98b0d6dfa08a23f7c8d62a9dee2d72de"></span><code class="descname">MCPWM_FAULT_1</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_FAULT_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT1 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_FAULT_2">
+<span id="_CPPv313MCPWM_FAULT_2"></span><span id="_CPPv213MCPWM_FAULT_2"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba8e6c3b49da618dc08d7c58ef7566bea4"></span><code class="descname">MCPWM_FAULT_2</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_FAULT_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>FAULT2 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv411MCPWM_CAP_0">
+<span id="_CPPv311MCPWM_CAP_0"></span><span id="_CPPv211MCPWM_CAP_0"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068ba2eaba586ac1a329cd06047bd6a7044fe"></span><code class="descname">MCPWM_CAP_0</code> = 84<a class="headerlink" href="mcpwm.html#_CPPv411MCPWM_CAP_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP0 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv411MCPWM_CAP_1">
+<span id="_CPPv311MCPWM_CAP_1"></span><span id="_CPPv211MCPWM_CAP_1"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068bac7c6393dc13c9311918c42a37be5869b"></span><code class="descname">MCPWM_CAP_1</code><a class="headerlink" href="mcpwm.html#_CPPv411MCPWM_CAP_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP1 შეყვანის პინი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv411MCPWM_CAP_2">
+<span id="_CPPv311MCPWM_CAP_2"></span><span id="_CPPv211MCPWM_CAP_2"></span><span class="target" id="mcpwm_8h_1a763801244a37a3c2cc9e73c0488c068baf1eb539fac5c28b66cc30ce0d126f894"></span><code class="descname">MCPWM_CAP_2</code><a class="headerlink" href="mcpwm.html#_CPPv411MCPWM_CAP_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAP2 შეყვანის პინი </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv412mcpwm_unit_t">
+<span id="_CPPv312mcpwm_unit_t"></span><span id="_CPPv212mcpwm_unit_t"></span><span id="mcpwm_unit_t"></span><span class="target" id="mcpwm_8h_1a8b6f0999f2e2a659e82e19b59ff59296"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_unit_t</code><a class="headerlink" href="mcpwm.html#_CPPv412mcpwm_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ერთეული. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv412MCPWM_UNIT_0">
+<span id="_CPPv312MCPWM_UNIT_0"></span><span id="_CPPv212MCPWM_UNIT_0"></span><span class="target" id="mcpwm_8h_1a8b6f0999f2e2a659e82e19b59ff59296afcc9a2b0a5431a50665d33c62891d1e5"></span><code class="descname">MCPWM_UNIT_0</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv412MCPWM_UNIT_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არჩეულია MCPWM ერთეული 0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412MCPWM_UNIT_1">
+<span id="_CPPv312MCPWM_UNIT_1"></span><span id="_CPPv212MCPWM_UNIT_1"></span><span class="target" id="mcpwm_8h_1a8b6f0999f2e2a659e82e19b59ff59296a0fc1aba23e06163f5ff8d07057534a24"></span><code class="descname">MCPWM_UNIT_1</code><a class="headerlink" href="mcpwm.html#_CPPv412MCPWM_UNIT_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არჩეულია MCPWM ბლოკი 1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414MCPWM_UNIT_MAX">
+<span id="_CPPv314MCPWM_UNIT_MAX"></span><span id="_CPPv214MCPWM_UNIT_MAX"></span><span class="target" id="mcpwm_8h_1a8b6f0999f2e2a659e82e19b59ff59296a2078a23f4863faa2b87b43b8760addff"></span><code class="descname">MCPWM_UNIT_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv414MCPWM_UNIT_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32-ზე MCPWM ერთეულების რაოდენობა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv413mcpwm_timer_t">
+<span id="_CPPv313mcpwm_timer_t"></span><span id="_CPPv213mcpwm_timer_t"></span><span id="mcpwm_timer_t"></span><span class="target" id="mcpwm_8h_1a94e1ded6100c13d1291d86456a91ac98"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_timer_t</code><a class="headerlink" href="mcpwm.html#_CPPv413mcpwm_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ტაიმერი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_TIMER_0">
+<span id="_CPPv313MCPWM_TIMER_0"></span><span id="_CPPv213MCPWM_TIMER_0"></span><span class="target" id="mcpwm_8h_1a94e1ded6100c13d1291d86456a91ac98a20fa9994a4d4cdb3f857f573f8cc3587"></span><code class="descname">MCPWM_TIMER_0</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_TIMER_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ტაიმერი0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_TIMER_1">
+<span id="_CPPv313MCPWM_TIMER_1"></span><span id="_CPPv213MCPWM_TIMER_1"></span><span class="target" id="mcpwm_8h_1a94e1ded6100c13d1291d86456a91ac98a7dddbfcd38d78a89002ca4db516d9440"></span><code class="descname">MCPWM_TIMER_1</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_TIMER_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ტაიმერი 1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_TIMER_2">
+<span id="_CPPv313MCPWM_TIMER_2"></span><span id="_CPPv213MCPWM_TIMER_2"></span><span class="target" id="mcpwm_8h_1a94e1ded6100c13d1291d86456a91ac98a2e395991c29f1c088424778204c5e5da"></span><code class="descname">MCPWM_TIMER_2</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_TIMER_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ტაიმერი 2 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415MCPWM_TIMER_MAX">
+<span id="_CPPv315MCPWM_TIMER_MAX"></span><span id="_CPPv215MCPWM_TIMER_MAX"></span><span class="target" id="mcpwm_8h_1a94e1ded6100c13d1291d86456a91ac98aa8f10b29c7557d6fc7c2823e4e1e71ca"></span><code class="descname">MCPWM_TIMER_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv415MCPWM_TIMER_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32-ზე MCPWM ტაიმერების რაოდენობა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417mcpwm_generator_t">
+<span id="_CPPv317mcpwm_generator_t"></span><span id="_CPPv217mcpwm_generator_t"></span><span id="mcpwm_generator_t"></span><span class="target" id="mcpwm_8h_1a94e71182638c5763cb58c099f88d8ced"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_generator_t</code><a class="headerlink" href="mcpwm.html#_CPPv417mcpwm_generator_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWM ოპერატორი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv411MCPWM_GEN_A">
+<span id="_CPPv311MCPWM_GEN_A"></span><span id="_CPPv211MCPWM_GEN_A"></span><span class="target" id="mcpwm_8h_1a94e71182638c5763cb58c099f88d8ceda0d389af85543d06bc85daaaa25dace55"></span><code class="descname">MCPWM_GEN_A</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv411MCPWM_GEN_A" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWMXA, სადაც &amp;#39;X&amp;#39; ოპერატორის ნომერია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv411MCPWM_GEN_B">
+<span id="_CPPv311MCPWM_GEN_B"></span><span id="_CPPv211MCPWM_GEN_B"></span><span class="target" id="mcpwm_8h_1a94e71182638c5763cb58c099f88d8cedaaf5fdd196bd3147c76cd3e3dd5378415"></span><code class="descname">MCPWM_GEN_B</code><a class="headerlink" href="mcpwm.html#_CPPv411MCPWM_GEN_B" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ MCPWMXB, სადაც &amp;#39;X&amp;#39; ოპერატორის ნომერია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413MCPWM_GEN_MAX">
+<span id="_CPPv313MCPWM_GEN_MAX"></span><span id="_CPPv213MCPWM_GEN_MAX"></span><span class="target" id="mcpwm_8h_1a94e71182638c5763cb58c099f88d8ceda36638b4f3113b27ff888e40da6757c5f"></span><code class="descname">MCPWM_GEN_MAX</code><a class="headerlink" href="mcpwm.html#_CPPv413MCPWM_GEN_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის თითოეული ოპერატორისთვის გენერატორების რაოდენობა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418mcpwm_carrier_os_t">
+<span id="_CPPv318mcpwm_carrier_os_t"></span><span id="_CPPv218mcpwm_carrier_os_t"></span><span id="mcpwm_carrier_os_t"></span><span class="target" id="mcpwm_8h_1a8537945dcb597d8eabb0960b805617a0"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_carrier_os_t</code><a class="headerlink" href="mcpwm.html#_CPPv418mcpwm_carrier_os_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM მატარებლის ერთჯერადი რეჟიმი, ამ რეჟიმში შესაძლებელია მატარებლის პირველი იმპულსის სიგანის დაპროგრამება. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv422MCPWM_ONESHOT_MODE_DIS">
+<span id="_CPPv322MCPWM_ONESHOT_MODE_DIS"></span><span id="_CPPv222MCPWM_ONESHOT_MODE_DIS"></span><span class="target" id="mcpwm_8h_1a8537945dcb597d8eabb0960b805617a0a92ba4939ab9cc7cfcf9c320ad43b1230"></span><code class="descname">MCPWM_ONESHOT_MODE_DIS</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv422MCPWM_ONESHOT_MODE_DIS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ერთჯერადი რეჟიმის ჩართვა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421MCPWM_ONESHOT_MODE_EN">
+<span id="_CPPv321MCPWM_ONESHOT_MODE_EN"></span><span id="_CPPv221MCPWM_ONESHOT_MODE_EN"></span><span class="target" id="mcpwm_8h_1a8537945dcb597d8eabb0960b805617a0a3183194cc67d48492a982ca4b891558e"></span><code class="descname">MCPWM_ONESHOT_MODE_EN</code><a class="headerlink" href="mcpwm.html#_CPPv421MCPWM_ONESHOT_MODE_EN" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ერთჯერადი რეჟიმის გამორთვა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv423mcpwm_carrier_out_ivt_t">
+<span id="_CPPv323mcpwm_carrier_out_ivt_t"></span><span id="_CPPv223mcpwm_carrier_out_ivt_t"></span><span id="mcpwm_carrier_out_ivt_t"></span><span class="target" id="mcpwm_8h_1a8a993c5b98d9c6f8b3b0b30cb8b81ec5"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_carrier_out_ivt_t</code><a class="headerlink" href="mcpwm.html#_CPPv423mcpwm_carrier_out_ivt_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM გადამზიდავი გამომავალი ინვერსია, მაღალი სიხშირის გადამზიდავი სიგნალი აქტიურია, როდესაც MCPWM სიგნალი მაღალია. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv425MCPWM_CARRIER_OUT_IVT_DIS">
+<span id="_CPPv325MCPWM_CARRIER_OUT_IVT_DIS"></span><span id="_CPPv225MCPWM_CARRIER_OUT_IVT_DIS"></span><span class="target" id="mcpwm_8h_1a8a993c5b98d9c6f8b3b0b30cb8b81ec5af7a8b997e7a7f95aaf58be966ed1d1ba"></span><code class="descname">MCPWM_CARRIER_OUT_IVT_DIS</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv425MCPWM_CARRIER_OUT_IVT_DIS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავი გამომავალი ინვერსიის ჩართვა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424MCPWM_CARRIER_OUT_IVT_EN">
+<span id="_CPPv324MCPWM_CARRIER_OUT_IVT_EN"></span><span id="_CPPv224MCPWM_CARRIER_OUT_IVT_EN"></span><span class="target" id="mcpwm_8h_1a8a993c5b98d9c6f8b3b0b30cb8b81ec5a5374a57707683c4e080c59a97cce0926"></span><code class="descname">MCPWM_CARRIER_OUT_IVT_EN</code><a class="headerlink" href="mcpwm.html#_CPPv424MCPWM_CARRIER_OUT_IVT_EN" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადამზიდავი გამომავალი ინვერსიის გამორთვა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420mcpwm_fault_signal_t">
+<span id="_CPPv320mcpwm_fault_signal_t"></span><span id="_CPPv220mcpwm_fault_signal_t"></span><span id="mcpwm_fault_signal_t"></span><span class="target" id="mcpwm_8h_1a895419acd0a2957be60c78e50fe48cf7"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_fault_signal_t</code><a class="headerlink" href="mcpwm.html#_CPPv420mcpwm_fault_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის შეცდომის სიგნალის შეყვანა. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv415MCPWM_SELECT_F0">
+<span id="_CPPv315MCPWM_SELECT_F0"></span><span id="_CPPv215MCPWM_SELECT_F0"></span><span class="target" id="mcpwm_8h_1a895419acd0a2957be60c78e50fe48cf7a03fa39edd6777d6a90877e97385f932e"></span><code class="descname">MCPWM_SELECT_F0</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv415MCPWM_SELECT_F0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ F0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415MCPWM_SELECT_F1">
+<span id="_CPPv315MCPWM_SELECT_F1"></span><span id="_CPPv215MCPWM_SELECT_F1"></span><span class="target" id="mcpwm_8h_1a895419acd0a2957be60c78e50fe48cf7aac51233c7f749daab3a5c134cfffd9cb"></span><code class="descname">MCPWM_SELECT_F1</code><a class="headerlink" href="mcpwm.html#_CPPv415MCPWM_SELECT_F1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ F1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415MCPWM_SELECT_F2">
+<span id="_CPPv315MCPWM_SELECT_F2"></span><span id="_CPPv215MCPWM_SELECT_F2"></span><span class="target" id="mcpwm_8h_1a895419acd0a2957be60c78e50fe48cf7ab15735411f294d6698737b9e170dc7ee"></span><code class="descname">MCPWM_SELECT_F2</code><a class="headerlink" href="mcpwm.html#_CPPv415MCPWM_SELECT_F2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ F2 </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv425mcpwm_fault_input_level_t">
+<span id="_CPPv325mcpwm_fault_input_level_t"></span><span id="_CPPv225mcpwm_fault_input_level_t"></span><span id="mcpwm_fault_input_level_t"></span><span class="target" id="mcpwm_8h_1a8cde4bed4b4f9c01dc925d9e70bb7d34"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_fault_input_level_t</code><a class="headerlink" href="mcpwm.html#_CPPv425mcpwm_fault_input_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM ირჩევს შეცდომის სიგნალის გამშვები დონის არჩევას. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv419MCPWM_LOW_LEVEL_TGR">
+<span id="_CPPv319MCPWM_LOW_LEVEL_TGR"></span><span id="_CPPv219MCPWM_LOW_LEVEL_TGR"></span><span class="target" id="mcpwm_8h_1a8cde4bed4b4f9c01dc925d9e70bb7d34a0b10d5b845b672f90906b20375f32dfd"></span><code class="descname">MCPWM_LOW_LEVEL_TGR</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv419MCPWM_LOW_LEVEL_TGR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმართაობის მდგომარეობა წარმოიქმნება, როდესაც გაუმართაობის შეყვანის სიგნალი მაღალიდან დაბალზე გადადის, ამჟამად არ არის მხარდაჭერილი. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420MCPWM_HIGH_LEVEL_TGR">
+<span id="_CPPv320MCPWM_HIGH_LEVEL_TGR"></span><span id="_CPPv220MCPWM_HIGH_LEVEL_TGR"></span><span class="target" id="mcpwm_8h_1a8cde4bed4b4f9c01dc925d9e70bb7d34adb0e2d1b35f51ab360be8aaffe5bd859"></span><code class="descname">MCPWM_HIGH_LEVEL_TGR</code><a class="headerlink" href="mcpwm.html#_CPPv420MCPWM_HIGH_LEVEL_TGR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმართაობის მდგომარეობა წარმოიქმნება, როდესაც გაუმართაობის შეყვანის სიგნალი დაბალიდან მაღალზე ეცემა. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv422mcpwm_capture_signal_t">
+<span id="_CPPv322mcpwm_capture_signal_t"></span><span id="_CPPv222mcpwm_capture_signal_t"></span><span id="mcpwm_capture_signal_t"></span><span class="target" id="mcpwm_8h_1a6381e0ec59337745f5709fa0a81046c7"></span><em class="property">ჩამოთვლა </em><code class="descname">mcpwm_capture_signal_t</code><a class="headerlink" href="mcpwm.html#_CPPv422mcpwm_capture_signal_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>MCPWM-ის შეყვანის აღების სიგნალის შერჩევა. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_SELECT_CAP0">
+<span id="_CPPv317MCPWM_SELECT_CAP0"></span><span id="_CPPv217MCPWM_SELECT_CAP0"></span><span class="target" id="mcpwm_8h_1a6381e0ec59337745f5709fa0a81046c7a974a9ddeada4a67ac29887cb65faf7ef"></span><code class="descname">MCPWM_SELECT_CAP0</code> = 0<a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_SELECT_CAP0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ CAP0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_SELECT_CAP1">
+<span id="_CPPv317MCPWM_SELECT_CAP1"></span><span id="_CPPv217MCPWM_SELECT_CAP1"></span><span class="target" id="mcpwm_8h_1a6381e0ec59337745f5709fa0a81046c7a3260144d213165f2f39f6622c349e775"></span><code class="descname">MCPWM_SELECT_CAP1</code><a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_SELECT_CAP1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ CAP1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417MCPWM_SELECT_CAP2">
+<span id="_CPPv317MCPWM_SELECT_CAP2"></span><span id="_CPPv217MCPWM_SELECT_CAP2"></span><span class="target" id="mcpwm_8h_1a6381e0ec59337745f5709fa0a81046c7a84a2d502a3a67fad38c404c24b27ec90"></span><code class="descname">MCPWM_SELECT_CAP2</code><a class="headerlink" href="mcpwm.html#_CPPv417MCPWM_SELECT_CAP2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის სახით აირჩიეთ CAP2 </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="pcnt.html" rel="next" title="Pulse Counter">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="ledc.html" rel="prev" title="LED Control"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

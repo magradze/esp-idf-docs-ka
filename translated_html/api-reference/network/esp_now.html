@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-NOW — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_mesh.html" rel="next" title="ESP-MESH Programming Guide"/>
+<link href="esp_smartconfig.html" rel="prev" title="SmartConfig"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/network/esp_now.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/network/esp_now"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/network/esp_now.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ქსელური მუშაობა</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#wi-fi">Wi-Fi</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="esp_wifi.html">Wi-Fi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_smartconfig.html">ჭკვიანი კონფიგურაცია</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="esp_now.html#">ESP-NOW</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_mesh.html">ESP ბადე</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ethernet">Ethernet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#application-layer">აპლიკაციის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">ქსელური კომუნიკაციის API 8 წმ</a> »</li>
+<li>ESP-NOW</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/network/esp_now.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-now">
+<h1>ESP-NOW<a class="headerlink" href="esp_now.html#esp-now" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/network/esp_now.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_now.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-NOW არის უკავშირო Wi-Fi საკომუნიკაციო პროტოკოლის სახეობა, რომელიც განისაზღვრება Espressif-ის მიერ. ESP-NOW-ში, აპლიკაციის მონაცემები კაფსულირებულია მომწოდებლის სპეციფიკურ სამოქმედო ჩარჩოში და შემდეგ გადაიცემა ერთი Wi-Fi მოწყობილობიდან მეორეზე კავშირის გარეშე. CBC-MAC პროტოკოლის (CCMP) გამოყენებით CTR გამოიყენება სამოქმედო ჩარჩოს უსაფრთხოების მიზნით დასაცავად. ESP-NOW ფართოდ გამოიყენება ჭკვიან განათებაში, დისტანციურ მართვაში, სენსორებში და ა.შ.</p>
+</div>
+<div class="section" id="frame-format">
+<h2>ჩარჩოს ფორმატი<a class="headerlink" href="esp_now.html#frame-format" title="Permalink to this headline">¶</a></h2>
+<p>ESP-NOW იყენებს მომწოდებლის სპეციფიკურ მოქმედების ჩარჩოს ESP-NOW მონაცემების გადასაცემად. ESP-NOW-ის ნაგულისხმევი ბიტური სიჩქარეა 1 Mbps. მომწოდებლის სპეციფიკური მოქმედების ჩარჩოს ფორმატი შემდეგია:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>------------------------------------------------------------------------------------------------------------
+| MAC Header | Category Code | Organization Identifier | Random Values | Vendor Specific Content |   FCS   |
+------------------------------------------------------------------------------------------------------------
+  24 bytes         1 byte              3 bytes               4 bytes             7~255 bytes        4 bytes
+</pre></div>
+</div>
+<ul class="simple">
+<li>კატეგორიის კოდი: კატეგორიის კოდის ველში დაყენებულია მნიშვნელობა (127), რომელიც მიუთითებს მომწოდებლის სპეციფიკურ კატეგორიაზე.</li>
+<li>ორგანიზაციის იდენტიფიკატორი: ორგანიზაციის იდენტიფიკატორი შეიცავს უნიკალურ იდენტიფიკატორს (0x18fe34), რომელიც წარმოადგენს Espressif-ის მიერ გამოყენებულ MAC მისამართის პირველ სამ ბაიტს.</li>
+<li>შემთხვევითი მნიშვნელობა: შეყვანილი შემთხვევითი მნიშვნელობა გამოიყენება სარელეო შეტევების თავიდან ასაცილებლად.</li>
+<li>მომწოდებლის სპეციფიკური კონტენტი: მომწოდებლის სპეციფიკური კონტენტი შეიცავს მომწოდებლის სპეციფიკურ ველებს შემდეგნაირად:</li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-------------------------------------------------------------------------------
+| Element ID | Length | Organization Identifier | Type | Version |    Body    |
+-------------------------------------------------------------------------------
+    1 byte     1 byte            3 bytes         1 byte   1 byte   0~250 bytes
+</pre></div>
+</div>
+<ul class="simple">
+<li>ელემენტის ID: ელემენტის ID ველში დაყენებულია მნიშვნელობა (221), რაც მიუთითებს მომწოდებლის სპეციფიკურ ელემენტზე.</li>
+<li>სიგრძე: სიგრძე არის ორგანიზაციის იდენტიფიკატორის, ტიპის, ვერსიისა და ძირითადი ნაწილის მთლიანი სიგრძე.</li>
+<li>ორგანიზაციის იდენტიფიკატორი: ორგანიზაციის იდენტიფიკატორი შეიცავს უნიკალურ იდენტიფიკატორს (0x18fe34), რომელიც წარმოადგენს Espressif-ის მიერ გამოყენებულ MAC მისამართის პირველ სამ ბაიტს.</li>
+<li>ტიპი: ტიპის ველს აქვს მნიშვნელობა (4), რაც მიუთითებს ESP-NOW-ზე.</li>
+<li>ვერსია: ველი „ვერსია“ დაყენებულია ESP-NOW-ის ვერსიაზე.</li>
+<li>სხეული: სხეული შეიცავს ESP-NOW მონაცემებს.</li>
+</ul>
+<p>რადგან ESP-NOW არ არის კავშირის გარეშე, MAC სათაური ოდნავ განსხვავდება სტანდარტული ჩარჩოების სათაურისგან. FrameControl ველის FromDS და ToDS ბიტები ორივე 0-ის ტოლია. პირველი მისამართის ველი დაყენებულია დანიშნულების მისამართზე. მეორე მისამართის ველი დაყენებულია წყაროს მისამართზე. მესამე მისამართის ველი დაყენებულია სამაუწყებლო მისამართზე (0xff:0xff:0xff:0xff:0xff:0xff).</p>
+</div>
+<div class="section" id="security">
+<h2>უსაფრთხოება<a class="headerlink" href="esp_now.html#security" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>ESP-NOW uses the CCMP method, which is described in IEEE Std. 802.11-2012, to protect the vendor-specific action frame. The Wi-Fi device maintains a Primary Master Key (PMK) and several Local Master Keys (LMK). The lengths of both PMK and LMk are 16 bytes.</dt>
+<dd><ul class="first last simple">
+<li>PMK გამოიყენება LMK-ის AES-128 ალგორითმით დაშიფვრისთვის. ზარი <code class="docutils literal notranslate"><span class="pre">esp_now_set_pmk()</span></code> PMK-ის დასაყენებლად. თუ PMK არ არის დაყენებული, გამოყენებული იქნება ნაგულისხმევი PMK.</li>
+<li>დაწყვილებული მოწყობილობის LMK გამოიყენება მომწოდებლის სპეციფიკური მოქმედების ჩარჩოს CCMP მეთოდით დაშიფვრისთვის. სხვადასხვა LMK-ების მაქსიმალური რაოდენობა ექვსია. თუ დაწყვილებული მოწყობილობის LMK არ არის დაყენებული, მომწოდებლის სპეციფიკური მოქმედების ჩარჩო არ დაიშიფრება.</li>
+</ul>
+</dd>
+</dl>
+<p>მულტიკასტის მომწოდებლისთვის სპეციფიკური მოქმედების ჩარჩოს დაშიფვრა მხარდაჭერილი არ არის.</p>
+</div>
+<div class="section" id="initialization-and-de-initialization">
+<h2>ინიციალიზაცია და დეინიციალიზაცია<a class="headerlink" href="esp_now.html#initialization-and-de-initialization" title="Permalink to this headline">¶</a></h2>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_now_init()</span></code> ESP-NOW-ის ინიციალიზაციისთვის და <code class="docutils literal notranslate"><span class="pre">esp_now_deinit()</span></code> ESP-NOW-ის დეინიციალიზაციისთვის. ESP-NOW მონაცემები უნდა გადაიცეს Wi-Fi გაშვების შემდეგ, ამიტომ რეკომენდებულია Wi-Fi გაშვება ESP-NOW-ის ინიციალიზაციამდე და Wi-Fi შეჩერება ESP-NOW-ის დეინიციალიზაციის შემდეგ. როდესაც <code class="docutils literal notranslate"><span class="pre">esp_now_deinit()</span></code> გამოძახების შემთხვევაში, დაწყვილებული მოწყობილობების ყველა ინფორმაცია წაიშლება.</p>
+</div>
+<div class="section" id="add-paired-device">
+<h2>დაწყვილებული მოწყობილობის დამატება<a class="headerlink" href="esp_now.html#add-paired-device" title="Permalink to this headline">¶</a></h2>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_now_add_peer()</span></code> ამ მოწყობილობაზე მონაცემების გაგზავნამდე, მოწყობილობის დასამატებლად დაწყვილებული მოწყობილობების სიაში. დაწყვილებული მოწყობილობების მაქსიმალური რაოდენობა ოცი. თუ უსაფრთხოება ჩართულია, LMK უნდა იყოს დაყენებული. თქვენ შეგიძლიათ ESP-NOW მონაცემების გაგზავნა როგორც სადგურის, ასევე SoftAP ინტერფეისის საშუალებით. ESP-NOW მონაცემების გაგზავნამდე დარწმუნდით, რომ ინტერფეისი ჩართულია. მაუწყებლობის მონაცემების გაგზავნამდე უნდა დაემატოს მოწყობილობა, რომელსაც აქვს გადაცემის MAC მისამართი. დაწყვილებული მოწყობილობების არხის დიაპაზონი 0-დან 14-მდეა. თუ არხი დაყენებულია 0-ზე, მონაცემები გაიგზავნება მიმდინარე არხზე. წინააღმდეგ შემთხვევაში, არხი უნდა დაყენდეს, როგორც არხი, რომელზეც ლოკალური მოწყობილობაა.</p>
+</div>
+<div class="section" id="send-esp-now-data">
+<h2>ESP-NOW მონაცემების გაგზავნა<a class="headerlink" href="esp_now.html#send-esp-now-data" title="Permalink to this headline">¶</a></h2>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_now_send()</span></code> ESP-NOW მონაცემების გასაგზავნად და <code class="docutils literal notranslate"><span class="pre">esp_now_register_send_cb</span></code> უკუკავშირის ფუნქციის რეგისტრაციისთვის. ის დააბრუნებს <cite>ESP_NOW_SEND_SUCCESS</cite> უკუკავშირის ფუნქციის გაგზავნისას, თუ მონაცემები წარმატებით მიიღება MAC დონეზე. წინააღმდეგ შემთხვევაში, ის დააბრუნებს <cite>ESP_NOW_SEND_FAIL</cite>ESP-NOW-ის მიერ მონაცემების გაგზავნის შეუძლებლობას რამდენიმე მიზეზი შეიძლება იწვევდეს. მაგალითად, დანიშნულების მოწყობილობა არ არსებობს; მოწყობილობების არხები არ არის იგივე; ეთერში გადაცემისას მოქმედების ჩარჩო იკარგება და ა.შ. არ არის გარანტირებული, რომ აპლიკაციის დონე მიიღებს მონაცემებს. საჭიროების შემთხვევაში, ESP-NOW მონაცემების მიღებისას, უკან გააგზავნეთ დადასტურების მონაცემები. თუ დადასტურების მონაცემების ვადის ამოწურვას იღებთ, ხელახლა გადაეცით ESP-NOW მონაცემები. დუბლიკატი მონაცემების წასაშლელად ESP-NOW მონაცემებს ასევე შეიძლება მიენიჭოს თანმიმდევრობის ნომერი.</p>
+<p>თუ ESP-NOW მონაცემების დიდი რაოდენობაა გასაგზავნი, დარეკეთ <code class="docutils literal notranslate"><span class="pre">esp_now_send()</span></code> ერთდროულად 250 ბაიტზე ნაკლები ან ტოლი მონაცემების გაგზავნა. გაითვალისწინეთ, რომ ორ ESP-NOW მონაცემს შორის ძალიან მოკლე ინტერვალმა შეიძლება გამოიწვიოს უკუკავშირის ფუნქციის გაგზავნის დარღვევა. ამიტომ, რეკომენდებულია შემდეგი ESP-NOW მონაცემების გაგზავნა წინა გაგზავნის უკუკავშირის ფუნქციის გაგზავნის შემდეგ. გაგზავნის უკუკავშირის ფუნქცია მუშაობს მაღალი პრიორიტეტის მქონე Wi-Fi დავალებიდან. ამიტომ, ნუ შეასრულებთ ხანგრძლივ ოპერაციებს უკუკავშირის ფუნქციაში. ამის ნაცვლად, განათავსეთ საჭირო მონაცემები რიგში და დაამუშავეთ ისინი დაბალი პრიორიტეტის მქონე დავალებიდან.</p>
+</div>
+<div class="section" id="receiving-esp-now-data">
+<h2>ESP-NOW მონაცემების მიღება<a class="headerlink" href="esp_now.html#receiving-esp-now-data" title="Permalink to this headline">¶</a></h2>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_now_register_recv_cb</span></code> მიმღები უკუკავშირის ფუნქციის რეგისტრაციისთვის. ESP-NOW-ის მიღებისას გამოიძახეთ მიმღები უკუკავშირის ფუნქცია. მიმღები უკუკავშირის ფუნქცია ასევე მუშაობს Wi-Fi დავალებიდან. ამიტომ, ნუ შეასრულებთ ხანგრძლივ ოპერაციებს უკუკავშირის ფუნქციაში. ამის ნაცვლად, განათავსეთ საჭირო მონაცემები რიგში და დაამუშავეთ ისინი დაბალი პრიორიტეტის დავალებიდან.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_now.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_now.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_wifi/include/esp_now.h">esp_wifi/include/esp_now.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_now.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv412esp_now_initv">
+<span id="_CPPv312esp_now_initv"></span><span id="_CPPv212esp_now_initv"></span><span id="esp_now_init__void"></span><span class="target" id="group__ESPNOW__APIs_1gaf267b85c98e5402fe718c0d1592ae69a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv412esp_now_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW ფუნქციის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_INTERNAL: შიდა შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_now_deinitv">
+<span id="_CPPv314esp_now_deinitv"></span><span id="_CPPv214esp_now_deinitv"></span><span id="esp_now_deinit__void"></span><span class="target" id="group__ESPNOW__APIs_1ga6f8442de3bc871c5cde8d158c9a58d10"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv414esp_now_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW ფუნქციის დეინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_now_get_versionP8uint32_t">
+<span id="_CPPv319esp_now_get_versionP8uint32_t"></span><span id="_CPPv219esp_now_get_versionP8uint32_t"></span><span id="esp_now_get_version__uint32_tP"></span><span class="target" id="group__ESPNOW__APIs_1ga1cf530693be2e3178e7bb46486bf212f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_get_version</code><span class="sig-paren">(</span>uint32_t *<em>ვერსია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv419esp_now_get_versionP8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ESPNOW-ის ვერსია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">version</span></code>: ESPNOW-ის ვერსია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_now_register_recv_cb17esp_now_recv_cb_t">
+<span id="_CPPv324esp_now_register_recv_cb17esp_now_recv_cb_t"></span><span id="_CPPv224esp_now_register_recv_cb17esp_now_recv_cb_t"></span><span id="esp_now_register_recv_cb__esp_now_recv_cb_t"></span><span class="target" id="group__ESPNOW__APIs_1gac75e3938ce80166a76655aeef2f9ffc7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_register_recv_cb</code><span class="sig-paren">(</span><a class="reference internal" href="esp_now.html#_CPPv417esp_now_recv_cb_t" title="esp_now_recv_cb_t">esp_now_recv_cb_t</a> <em>ცენტრალური ბიტი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv424esp_now_register_recv_cb17esp_now_recv_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების მიღების უკუკავშირის ფუნქციის რეგისტრაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_INTERNAL: შიდა შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cb</span></code>: ESPNOW მონაცემების მიღების უკუკავშირის ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_now_unregister_recv_cbv">
+<span id="_CPPv326esp_now_unregister_recv_cbv"></span><span id="_CPPv226esp_now_unregister_recv_cbv"></span><span id="esp_now_unregister_recv_cb__void"></span><span class="target" id="group__ESPNOW__APIs_1ga366b29318b95c1cca23b6acd985acfb6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_unregister_recv_cb</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv426esp_now_unregister_recv_cbv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების მიღების უკუკავშირის ფუნქციის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_now_register_send_cb17esp_now_send_cb_t">
+<span id="_CPPv324esp_now_register_send_cb17esp_now_send_cb_t"></span><span id="_CPPv224esp_now_register_send_cb17esp_now_send_cb_t"></span><span id="esp_now_register_send_cb__esp_now_send_cb_t"></span><span class="target" id="group__ESPNOW__APIs_1ga63d4df6c10acc7b1cc0f59cd9078d2be"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_register_send_cb</code><span class="sig-paren">(</span><a class="reference internal" href="esp_now.html#_CPPv417esp_now_send_cb_t" title="esp_now_send_cb_t">esp_now_send_cb_t</a> <em>ცენტრალური ბიტი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv424esp_now_register_send_cb17esp_now_send_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების გაგზავნის უკუკავშირის ფუნქციის რეგისტრაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_INTERNAL: შიდა შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cb</span></code>: ESPNOW მონაცემების გაგზავნის უკუკავშირის ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_now_unregister_send_cbv">
+<span id="_CPPv326esp_now_unregister_send_cbv"></span><span id="_CPPv226esp_now_unregister_send_cbv"></span><span id="esp_now_unregister_send_cb__void"></span><span class="target" id="group__ESPNOW__APIs_1ga53149295b16612fd4c925962857997d6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_unregister_send_cb</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv426esp_now_unregister_send_cbv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების გაგზავნის უკუკავშირის ფუნქციის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_now_sendPK7uint8_tPK7uint8_t6size_t">
+<span id="_CPPv312esp_now_sendPK7uint8_tPK7uint8_t6size_t"></span><span id="_CPPv212esp_now_sendPK7uint8_tPK7uint8_t6size_t"></span><span id="esp_now_send__uint8_tCP.uint8_tCP.s"></span><span class="target" id="group__ESPNOW__APIs_1ga8ccfc713ba6e16627423c5008a819ccc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_send</code><span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *<em>peer_addr</em>, <em class="property">კონსტ</em> uint8_t *<em>მონაცემები</em>, size_t <em>ლენ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv412esp_now_sendPK7uint8_tPK7uint8_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის მონაცემების გაგზავნა. </p>
+<p><dl class="docutils">
+<dt><strong>ყურადღება</strong></dt>
+<dd>1. If peer_addr is not NULL, send data to the peer whose MAC address matches peer_addr </dd>
+<dt><strong>ყურადღება</strong></dt>
+<dd>2. If peer_addr is NULL, send data to all of the peers that are added to the peer list </dd>
+<dt><strong>ყურადღება</strong></dt>
+<dd>3. The maximum length of data must be less than ESP_NOW_MAX_DATA_LEN </dd>
+<dt><strong>ყურადღება</strong></dt>
+<dd>4. The buffer pointed to by data argument does not need to be valid after esp_now_send returns</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_INTERNAL: შიდა შეცდომა</li>
+<li>ESP_ERR_ESPNOW_NO_MEM: მეხსიერება ამოწურულია</li>
+<li>ESP_ERR_ESPNOW_NOT_FOUND : ვერ მოიძებნა თანაბართან კავშირი</li>
+<li>ESP_ERR_ESPNOW_IF: მიმდინარე WiFi ინტერფეისი არ ემთხვევა თანატოლის ინტერფეისს. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_addr</span></code>: თანატოლის MAC მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: გასაგზავნი მონაცემები </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: მონაცემების სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_now_add_peerPK19esp_now_peer_info_t">
+<span id="_CPPv316esp_now_add_peerPK19esp_now_peer_info_t"></span><span id="_CPPv216esp_now_add_peerPK19esp_now_peer_info_t"></span><span id="esp_now_add_peer__esp_now_peer_info_tCP"></span><span class="target" id="group__ESPNOW__APIs_1ga7446c06b6bd0a4f320a7f0a4078a289d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_add_peer</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="esp_now.html#_CPPv419esp_now_peer_info_t" title="esp_now_peer_info_t">esp_now_peer_info_t</a> *<em>თანატოლი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv416esp_now_add_peerPK19esp_now_peer_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაამატეთ თანატოლთა სია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_FULL: თანატოლების სია სავსეა</li>
+<li>ESP_ERR_ESPNOW_NO_MEM: მეხსიერება ამოწურულია</li>
+<li>ESP_ERR_ESPNOW_EXIST : კვანძი არსებობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer</span></code>: თანატოლების ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_now_del_peerPK7uint8_t">
+<span id="_CPPv316esp_now_del_peerPK7uint8_t"></span><span id="_CPPv216esp_now_del_peerPK7uint8_t"></span><span id="esp_now_del_peer__uint8_tCP"></span><span class="target" id="group__ESPNOW__APIs_1ga17a676ab477367503fbe034b34b525d1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_del_peer</code><span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *<em>peer_addr</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv416esp_now_del_peerPK7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თანატოლის წაშლა თანატოლების სიიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_NOT_FOUND : ვერ მოიძებნა თანაბართან კავშირი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_addr</span></code>: თანატოლის MAC მისამართი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_now_mod_peerPK19esp_now_peer_info_t">
+<span id="_CPPv316esp_now_mod_peerPK19esp_now_peer_info_t"></span><span id="_CPPv216esp_now_mod_peerPK19esp_now_peer_info_t"></span><span id="esp_now_mod_peer__esp_now_peer_info_tCP"></span><span class="target" id="group__ESPNOW__APIs_1gacf6f3b0e1882575f4c86a16c86975e39"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_mod_peer</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="esp_now.html#_CPPv419esp_now_peer_info_t" title="esp_now_peer_info_t">esp_now_peer_info_t</a> *<em>თანატოლი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv416esp_now_mod_peerPK19esp_now_peer_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თანატოლის შეცვლა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_FULL: თანატოლების სია სავსეა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer</span></code>: თანატოლების ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_now_get_peerPK7uint8_tP19esp_now_peer_info_t">
+<span id="_CPPv316esp_now_get_peerPK7uint8_tP19esp_now_peer_info_t"></span><span id="_CPPv216esp_now_get_peerPK7uint8_tP19esp_now_peer_info_t"></span><span id="esp_now_get_peer__uint8_tCP.esp_now_peer_info_tP"></span><span class="target" id="group__ESPNOW__APIs_1gaba93694db5b7d68ad6bf177e3ef3e08f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_get_peer</code><span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *<em>peer_addr</em>, <a class="reference internal" href="esp_now.html#_CPPv419esp_now_peer_info_t" title="esp_now_peer_info_t">esp_now_peer_info_t</a> *<em>თანატოლი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv416esp_now_get_peerPK7uint8_tP19esp_now_peer_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ პირი, რომლის MAC მისამართი ემთხვევა პირთა სიიდან peer_addr-ს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_NOT_FOUND : ვერ მოიძებნა თანაბართან კავშირი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_addr</span></code>: თანატოლის MAC მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">peer</span></code>: თანატოლების ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_now_fetch_peerbP19esp_now_peer_info_t">
+<span id="_CPPv318esp_now_fetch_peerbP19esp_now_peer_info_t"></span><span id="_CPPv218esp_now_fetch_peerbP19esp_now_peer_info_t"></span><span id="esp_now_fetch_peer__b.esp_now_peer_info_tP"></span><span class="target" id="group__ESPNOW__APIs_1gab5cdb474072ff35a8517f5450694acbe"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_fetch_peer</code><span class="sig-paren">(</span>bool <em>თავი_დან</em>, <a class="reference internal" href="esp_now.html#_CPPv419esp_now_peer_info_t" title="esp_now_peer_info_t">esp_now_peer_info_t</a> *<em>თანატოლი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv418esp_now_fetch_peerbP19esp_now_peer_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თანატოლის მოძიება თანატოლების სიიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_ESPNOW_NOT_FOUND : ვერ მოიძებნა თანაბართან კავშირი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">from_head</span></code>: სიის თავიდან მოძიება თუ არა </li>
+<li><code class="docutils literal notranslate"><span class="pre">peer</span></code>: თანატოლების ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_now_is_peer_existPK7uint8_t">
+<span id="_CPPv321esp_now_is_peer_existPK7uint8_t"></span><span id="_CPPv221esp_now_is_peer_existPK7uint8_t"></span><span id="esp_now_is_peer_exist__uint8_tCP"></span><span class="target" id="group__ESPNOW__APIs_1gab6724e43b30d9e7c236b30a431aafd2b"></span>bool <code class="descname">esp_now_is_peer_exist</code><span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *<em>peer_addr</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv421esp_now_is_peer_existPK7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თანატოლი არსებობს თუ არა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>მართალია: თანატოლი არსებობს</li>
+<li>ცრუ: თანაბარა არ არსებობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">peer_addr</span></code>: თანატოლის MAC მისამართი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_now_get_peer_numP18esp_now_peer_num_t">
+<span id="_CPPv320esp_now_get_peer_numP18esp_now_peer_num_t"></span><span id="_CPPv220esp_now_get_peer_numP18esp_now_peer_num_t"></span><span id="esp_now_get_peer_num__esp_now_peer_num_tP"></span><span class="target" id="group__ESPNOW__APIs_1ga0974cd458c9622ccff33a036eed90c69"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_get_peer_num</code><span class="sig-paren">(</span><a class="reference internal" href="esp_now.html#_CPPv418esp_now_peer_num_t" title="esp_now_peer_num_t">esp_now_peer_num_t</a> *<em>ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv420esp_now_get_peer_numP18esp_now_peer_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ თანატოლების რაოდენობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">num</span></code>: თანატოლების რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415esp_now_set_pmkPK7uint8_t">
+<span id="_CPPv315esp_now_set_pmkPK7uint8_t"></span><span id="_CPPv215esp_now_set_pmkPK7uint8_t"></span><span id="esp_now_set_pmk__uint8_tCP"></span><span class="target" id="group__ESPNOW__APIs_1ga91d558b92ab5beec60a518fa04d775ab"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_now_set_pmk</code><span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *<em>პმკ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv415esp_now_set_pmkPK7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ ძირითადი მასტერ გასაღები. </p>
+<p><dl class="docutils">
+<dt><strong>ყურადღება</strong></dt>
+<dd>1. primary master key is used to encrypt local master key</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_ESPNOW_NOT_INIT: ESPNOW არ არის ინიციალიზებული</li>
+<li>ESP_ERR_ESPNOW_ARG: არასწორი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pmk</span></code>: ძირითადი მასტერ-გასაღები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_now.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv417esp_now_peer_info">
+<span id="_CPPv317esp_now_peer_info"></span><span id="_CPPv217esp_now_peer_info"></span><span id="esp_now_peer_info"></span><span class="target" id="structesp__now__peer__info"></span><em class="property">სტრუქტურა </em><code class="descname">esp_now_peer_info</code><a class="headerlink" href="esp_now.html#_CPPv417esp_now_peer_info" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის თანატოლების ინფორმაციის პარამეტრები. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info9peer_addrE">
+<span id="_CPPv3N17esp_now_peer_info9peer_addrE"></span><span id="_CPPv2N17esp_now_peer_info9peer_addrE"></span><span id="esp_now_peer_info::peer_addr__uint8_tA"></span><span class="target" id="structesp__now__peer__info_1ae9f5500b248a6ba7a05c8272bf8b0c5b"></span>uint8_t <code class="descname">peer_addr</code>[<code class="descname">ESP_NOW_ETH_ALEN</code>]<a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info9peer_addrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის პირთა MAC მისამართი, რომელიც ასევე არის სადგურის ან პროგრამული უზრუნველყოფის MAC მისამართი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info3lmkE">
+<span id="_CPPv3N17esp_now_peer_info3lmkE"></span><span id="_CPPv2N17esp_now_peer_info3lmkE"></span><span id="esp_now_peer_info::lmk__uint8_tA"></span><span class="target" id="structesp__now__peer__info_1ab88af5a4967526436461d367c25f18b8"></span>uint8_t <code class="descname">lmk</code>[<code class="descname">ESP_NOW_KEY_LEN</code>]<a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info3lmkE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW peer-ის ლოკალური მასტერ გასაღები, რომელიც გამოიყენება მონაცემების დაშიფვრისთვის </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info7channelE">
+<span id="_CPPv3N17esp_now_peer_info7channelE"></span><span id="_CPPv2N17esp_now_peer_info7channelE"></span><span id="esp_now_peer_info::channel__uint8_t"></span><span class="target" id="structesp__now__peer__info_1a51a122de026dcd84844f1d03eed1dfe9"></span>uint8_t <code class="descname">channel</code><a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info7channelE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Wi-Fi არხი, რომელსაც პირი იყენებს ESPNOW მონაცემების გასაგზავნად/მისაღებად. თუ მნიშვნელობა 0-ია, გამოიყენეთ მიმდინარე არხი, რომელზეც სადგური ან softap მუშაობს. სხვა შემთხვევაში, ის უნდა დაყენდეს, როგორც არხი, რომელზეც სადგური ან softap მუშაობს. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info5ifidxE">
+<span id="_CPPv3N17esp_now_peer_info5ifidxE"></span><span id="_CPPv2N17esp_now_peer_info5ifidxE"></span><span id="esp_now_peer_info::ifidx__wifi_interface_t"></span><span class="target" id="structesp__now__peer__info_1a8654fff80b3c890cc495b06ceb4eee35"></span><a class="reference internal" href="esp_wifi.html#_CPPv416wifi_interface_t" title="wifi_interface_t">wifi_interface_t</a> <code class="descname">ifidx</code><a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info5ifidxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Wi-Fi ინტერფეისი, რომელსაც peer იყენებს ESPNOW მონაცემების გასაგზავნად/მისაღებად </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info7encryptE">
+<span id="_CPPv3N17esp_now_peer_info7encryptE"></span><span id="_CPPv2N17esp_now_peer_info7encryptE"></span><span id="esp_now_peer_info::encrypt__b"></span><span class="target" id="structesp__now__peer__info_1aedc05c5b5bcfdaf22d91a2cecf56d3fb"></span>bool <code class="descname">encrypt</code><a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info7encryptE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემები, რომლებსაც ეს თანამონაწილე აგზავნის/იღებს, დაშიფრულია თუ არა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17esp_now_peer_info4privE">
+<span id="_CPPv3N17esp_now_peer_info4privE"></span><span id="_CPPv2N17esp_now_peer_info4privE"></span><span id="esp_now_peer_info::priv__voidP"></span><span class="target" id="structesp__now__peer__info_1a89e13f5c9425c6bfa9f03fa9e07bb398"></span>void *<code class="descname">priv</code><a class="headerlink" href="esp_now.html#_CPPv4N17esp_now_peer_info4privE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის თანატოლების პირადი მონაცემები </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv416esp_now_peer_num">
+<span id="_CPPv316esp_now_peer_num"></span><span id="_CPPv216esp_now_peer_num"></span><span id="esp_now_peer_num"></span><span class="target" id="structesp__now__peer__num"></span><em class="property">სტრუქტურა </em><code class="descname">esp_now_peer_num</code><a class="headerlink" href="esp_now.html#_CPPv416esp_now_peer_num" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის ამჟამად არსებული თანატოლების რაოდენობა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N16esp_now_peer_num9total_numE">
+<span id="_CPPv3N16esp_now_peer_num9total_numE"></span><span id="_CPPv2N16esp_now_peer_num9total_numE"></span><span id="esp_now_peer_num::total_num__i"></span><span class="target" id="structesp__now__peer__num_1ae49c234f9b7e9d30b5e244c830c326be"></span>int <code class="descname">total_num</code><a class="headerlink" href="esp_now.html#_CPPv4N16esp_now_peer_num9total_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის პარტნიორების საერთო რაოდენობა, მაქსიმალური მნიშვნელობაა ESP_NOW_MAX_TOTAL_PEER_NUM </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16esp_now_peer_num11encrypt_numE">
+<span id="_CPPv3N16esp_now_peer_num11encrypt_numE"></span><span id="_CPPv2N16esp_now_peer_num11encrypt_numE"></span><span id="esp_now_peer_num::encrypt_num__i"></span><span class="target" id="structesp__now__peer__num_1a8a87b1a626986e3f64aa2beeae0a0c85"></span>int <code class="descname">encrypt_num</code><a class="headerlink" href="esp_now.html#_CPPv4N16esp_now_peer_num11encrypt_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაშიფრული ESPNOW თანატოლების რაოდენობა, მაქსიმალური მნიშვნელობაა ESP_NOW_MAX_ENCRYPT_PEER_NUM </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_now.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_BASE">
+<span class="target" id="group__ESPNOW__APIs_1ga66d4c1722c2367e7438b9cb8eba907d6"></span><code class="descname">ESP_ERR_ESPNOW_BASE</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_BASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის შეცდომების რიცხვითი ბაზა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_NOT_INIT">
+<span class="target" id="group__ESPNOW__APIs_1gad4988fadb7f0114f04addb6dc4ff0408"></span><code class="descname">ESP_ERR_ESPNOW_NOT_INIT</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_NOT_INIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW არ არის ინიციალიზებული. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_ARG">
+<span class="target" id="group__ESPNOW__APIs_1gaf05e12bad8edd40a2cabc052e08b97a9"></span><code class="descname">ESP_ERR_ESPNOW_ARG</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_ARG" title="Permalink to this definition">¶</a></dt>
+<dd><p>არასწორი არგუმენტი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_NO_MEM">
+<span class="target" id="group__ESPNOW__APIs_1gad261a3db9c88e616bfc2deafd0f829f1"></span><code class="descname">ESP_ERR_ESPNOW_NO_MEM</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_NO_MEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>მეხსიერება ამოწურულია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_FULL">
+<span class="target" id="group__ESPNOW__APIs_1ga55282c45163c3231c2ce31646610b554"></span><code class="descname">ESP_ERR_ESPNOW_FULL</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_FULL" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის თანატოლების სია სავსეა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_NOT_FOUND">
+<span class="target" id="group__ESPNOW__APIs_1ga8bc3494fa5d82cda82136656a19a63ff"></span><code class="descname">ESP_ERR_ESPNOW_NOT_FOUND</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის პარტნიორი ვერ მოიძებნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_INTERNAL">
+<span class="target" id="group__ESPNOW__APIs_1gae7ea961a51279d2d61188e93e1137e5a"></span><code class="descname">ESP_ERR_ESPNOW_INTERNAL</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_INTERNAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>შიდა შეცდომა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_EXIST">
+<span class="target" id="group__ESPNOW__APIs_1ga55115c56b3a31ef8fd3d6b3d21753e2d"></span><code class="descname">ESP_ERR_ESPNOW_EXIST</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_EXIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის თანატოლი არსებობდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESPNOW_IF">
+<span class="target" id="group__ESPNOW__APIs_1ga64221584fe47b0e33521a52b9441bdd6"></span><code class="descname">ESP_ERR_ESPNOW_IF</code><a class="headerlink" href="esp_now.html#c.ESP_ERR_ESPNOW_IF" title="Permalink to this definition">¶</a></dt>
+<dd><p>ინტერფეისის შეცდომა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_NOW_ETH_ALEN">
+<span class="target" id="group__ESPNOW__APIs_1gad83fa90b838ed7a9ad52eef62b388d5e"></span><code class="descname">ESP_NOW_ETH_ALEN</code><a class="headerlink" href="esp_now.html#c.ESP_NOW_ETH_ALEN" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის პარტნიორის MAC მისამართის სიგრძე </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_NOW_KEY_LEN">
+<span class="target" id="group__ESPNOW__APIs_1gac31a48c10823e55d084daa4ac3bfdb0e"></span><code class="descname">ESP_NOW_KEY_LEN</code><a class="headerlink" href="esp_now.html#c.ESP_NOW_KEY_LEN" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის ლოკალური მთავარი გასაღების სიგრძე </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_NOW_MAX_TOTAL_PEER_NUM">
+<span class="target" id="group__ESPNOW__APIs_1ga7f8ec30806f5e102c5aaae955b18741d"></span><code class="descname">ESP_NOW_MAX_TOTAL_PEER_NUM</code><a class="headerlink" href="esp_now.html#c.ESP_NOW_MAX_TOTAL_PEER_NUM" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW-ის თანატოლების მაქსიმალური რაოდენობა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_NOW_MAX_ENCRYPT_PEER_NUM">
+<span class="target" id="group__ESPNOW__APIs_1ga5f2f658fb193a58d8ad02c29869fa667"></span><code class="descname">ESP_NOW_MAX_ENCRYPT_PEER_NUM</code><a class="headerlink" href="esp_now.html#c.ESP_NOW_MAX_ENCRYPT_PEER_NUM" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW დაშიფრული თანატოლების მაქსიმალური რაოდენობა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_NOW_MAX_DATA_LEN">
+<span class="target" id="group__ESPNOW__APIs_1ga10f976e543cd321ea6c455f9d52e3705"></span><code class="descname">ESP_NOW_MAX_DATA_LEN</code><a class="headerlink" href="esp_now.html#c.ESP_NOW_MAX_DATA_LEN" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESPNOW მონაცემების მაქსიმალური სიგრძე, რომელიც იგზავნება ერთდროულად </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_now.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv419esp_now_peer_info_t">
+<span id="_CPPv319esp_now_peer_info_t"></span><span id="_CPPv219esp_now_peer_info_t"></span><span id="esp_now_peer_info_t"></span><span class="target" id="group__ESPNOW__APIs_1ga3d98a8346c04740a1a2dc2718c62a167"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_now.html#_CPPv417esp_now_peer_info" title="esp_now_peer_info">esp_now_peer_info</a> <code class="descname">esp_now_peer_info_t</code><a class="headerlink" href="esp_now.html#_CPPv419esp_now_peer_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის თანატოლების ინფორმაციის პარამეტრები. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418esp_now_peer_num_t">
+<span id="_CPPv318esp_now_peer_num_t"></span><span id="_CPPv218esp_now_peer_num_t"></span><span id="esp_now_peer_num_t"></span><span class="target" id="group__ESPNOW__APIs_1ga85b5c84ce176c5517a206c7319234a16"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_now.html#_CPPv416esp_now_peer_num" title="esp_now_peer_num">esp_now_peer_num</a> <code class="descname">esp_now_peer_num_t</code><a class="headerlink" href="esp_now.html#_CPPv418esp_now_peer_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის ამჟამად არსებული კოლეგების რაოდენობა. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417esp_now_recv_cb_t">
+<span id="_CPPv317esp_now_recv_cb_t"></span><span id="_CPPv217esp_now_recv_cb_t"></span><span id="esp_now_recv_cb_t"></span><span class="target" id="group__ESPNOW__APIs_1ga51a49c92b795c7d8499225f5208db8f4"></span><em class="property">typedef </em>void (*<code class="descname">esp_now_recv_cb_t</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *mac_addr, <em class="property">კონსტ</em> uint8_t *data, int data_len<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv417esp_now_recv_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების მიღების უკუკავშირის ფუნქცია. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mac_addr</span></code>: თანატოლის MAC მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: მიღებული მონაცემები </li>
+<li><code class="docutils literal notranslate"><span class="pre">data_len</span></code>მიღებული მონაცემების სიგრძე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417esp_now_send_cb_t">
+<span id="_CPPv317esp_now_send_cb_t"></span><span id="_CPPv217esp_now_send_cb_t"></span><span id="esp_now_send_cb_t"></span><span class="target" id="group__ESPNOW__APIs_1ga393b851dfbc415d15dfaf162b8033e87"></span><em class="property">typedef </em>void (*<code class="descname">esp_now_send_cb_t</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *mac_addr, <a class="reference internal" href="esp_now.html#_CPPv421esp_now_send_status_t" title="esp_now_send_status_t">esp_now_send_status_t</a> status<span class="sig-paren">)</span><a class="headerlink" href="esp_now.html#_CPPv417esp_now_send_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების გაგზავნის უკუკავშირის ფუნქცია. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mac_addr</span></code>: თანატოლის MAC მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">status</span></code>ESPNOW მონაცემების გაგზავნის სტატუსი (წარმატებით ან წარუმატებლობით) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="esp_now.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv421esp_now_send_status_t">
+<span id="_CPPv321esp_now_send_status_t"></span><span id="_CPPv221esp_now_send_status_t"></span><span id="esp_now_send_status_t"></span><span class="target" id="group__ESPNOW__APIs_1gaf8e38dd4a563236dad63e3d580b89e71"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_now_send_status_t</code><a class="headerlink" href="esp_now.html#_CPPv421esp_now_send_status_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების გაგზავნის სტატუსი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv420ESP_NOW_SEND_SUCCESS">
+<span id="_CPPv320ESP_NOW_SEND_SUCCESS"></span><span id="_CPPv220ESP_NOW_SEND_SUCCESS"></span><span class="target" id="group__ESPNOW__APIs_1ggaf8e38dd4a563236dad63e3d580b89e71a9f72dd501d56f627eeda98542b5f9120"></span><code class="descname">ESP_NOW_SEND_SUCCESS</code> = 0<a class="headerlink" href="esp_now.html#_CPPv420ESP_NOW_SEND_SUCCESS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW-ის მონაცემების გაგზავნა წარმატებით დასრულდა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_NOW_SEND_FAIL">
+<span id="_CPPv317ESP_NOW_SEND_FAIL"></span><span id="_CPPv217ESP_NOW_SEND_FAIL"></span><span class="target" id="group__ESPNOW__APIs_1ggaf8e38dd4a563236dad63e3d580b89e71a45a19b451ea1a0a508101a23d20975cd"></span><code class="descname">ESP_NOW_SEND_FAIL</code><a class="headerlink" href="esp_now.html#_CPPv417ESP_NOW_SEND_FAIL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESPNOW მონაცემების გაგზავნა ვერ მოხერხდა </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_mesh.html" rel="next" title="ESP-MESH Programming Guide">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_smartconfig.html" rel="prev" title="SmartConfig"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

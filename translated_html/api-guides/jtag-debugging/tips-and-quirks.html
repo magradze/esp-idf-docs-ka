@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>რჩევები და უცნაურობები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../linker-script-generation.html" rel="next" title="Linker Script Generation"/>
+<link href="debugging-examples.html" rel="prev" title="Debugging Examples"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/jtag-debugging/tips-and-quirks.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/jtag-debugging/tips-and-quirks"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/jtag-debugging/tips-and-quirks.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">JTAG-ის გამართვა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#introduction">შესავალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#how-it-works">როგორ მუშაობს?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#selecting-jtag-adapter">JTAG ადაპტერის შერჩევა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#setup-of-openocd">OpenOCD-ის დაყენება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#configuring-esp32-target">ESP32 Target-ის კონფიგურაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#launching-debugger">დებაგერის გაშვება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-examples">გამართვის მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#building-openocd-from-sources">OpenOCD-ის შექმნა წყაროებიდან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tips-and-quirks">რჩევები და უცნაურობები</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="using-debugger.html">დებაგერის გამოყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging-examples.html">გამართვის მაგალითები</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="tips-and-quirks.html#">რჩევები და უცნაურობები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირების ბიბლიოთეკა</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="index.html">JTAG-ის გამართვა</a> »</li>
+<li>რჩევები და უცნაურობები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/jtag-debugging/tips-and-quirks.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="tips-and-quirks">
+<h1>რჩევები და უცნაურობები<a class="headerlink" href="tips-and-quirks.html#tips-and-quirks" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/jtag-debugging/tips-and-quirks.html">[中文]</a></p>
+<p>ეს განყოფილება წარმოადგენს სახელმძღვანელოს სხვადასხვა ნაწილიდან მოხსენიებული ყველა რჩევისა და უცნაურობის კრებულს.</p>
+<div class="section" id="breakpoints-and-watchpoints-available">
+<span id="jtag-debugging-tip-breakpoints"></span><h2>ხელმისაწვდომია შემაკავებელი და სათვალთვალო წერტილები<a class="headerlink" href="tips-and-quirks.html#breakpoints-and-watchpoints-available" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 გამართვა ger მხარს უჭერს 2 აპარატურულად დანერგილ წყვეტის წერტილს და 64 პროგრამულ უზრუნველყოფას. აპარატურული წყვეტის წერტილები დანერგილია ESP32 ჩიპის ლოგიკით და მათი დაყენება შესაძლებელია კოდის ნებისმიერ წერტილში: ფლეშ მეხსიერება ში ან IRAM პროგრამის რეგიონებში. გარდა ამისა, OpenOCD-ის მიერ დანერგილია პროგრამული წყვეტის წერტილების 2 ტიპი: ფლეშ მეხსიერება (32-მდე) და IRAM (32-მდე) წყვეტის წერტილები. ამჟამად GDB-ს არ შეუძლია პროგრამული წყვეტის წერტილების დაყენება ფლეშ მეხსიერება ში. ამიტომ, სანამ ეს შეზღუდვა არ მოიხსნება, ეს წყვეტის წერტილები OpenOCD-ის მიერ უნდა იყოს ემულირებული, როგორც აპარატურული (იხ. <a class="reference internal" href="tips-and-quirks.html#jtag-debugging-tip-where-breakpoints"><span class="std std-ref">ქვემოთ</span></a> დეტალებისთვის). ESP32 ასევე მხარს უჭერს ორ საკონტროლო წერტილს, ამიტომ ორი ცვლადის ცვლილებაზე დაკვირვება ან წაკითხვა შესაძლებელია GDB ბრძანებით. <code class="docutils literal notranslate"><span class="pre">watch</span> <span class="pre">myVariable</span></code>გაითვალისწინეთ, რომ menuconfig ვარიანტი <a class="reference internal" href="../../api-reference/kconfig.html#config-freertos-watchpoint-end-of-stack"><span class="std std-ref">CONFIG_FREE RTOS _WATCHPOINT_END_OF_STACK</span></a> იყენებს მეორე საკონტროლო წერტილს და არ მოგვცემს მოსალოდნელ შედეგებს, თუ მის გამოყენებას OpenOCD / GDB-შიც შეეცდებით. დეტალური აღწერილობისთვის იხილეთ menuconfig ის დახმარება.</p>
+</div>
+<div class="section" id="what-else-should-i-know-about-breakpoints">
+<span id="jtag-debugging-tip-where-breakpoints"></span><h2>კიდევ რა უნდა ვიცოდე შესვენების წერტილების შესახებ?<a class="headerlink" href="tips-and-quirks.html#what-else-should-i-know-about-breakpoints" title="Permalink to this headline">¶</a></h2>
+<p>პროგრამული უზრუნველყოფის ფლეშ მეხსიერება ones-ის გამოყენებით აპარატურის წყვეტის წერტილების ნაწილის ემულაცია ნიშნავს, რომ GDB ბრძანება <code class="docutils literal notranslate"><span class="pre">hb</span> <span class="pre">myFunction</span></code> რომელიც გამოიძახება ფლეშ მეხსიერება ში ფუნქციისთვის, გამოიყენებს სუფთა აპარატურულ წყვეტის წერტილს, თუ ის ხელმისაწვდომია, წინააღმდეგ შემთხვევაში გამოიყენება 32 პროგრამული ფლეშ მეხსიერება წყვეტის წერტილიდან ერთ-ერთი. იგივე წესი ვრცელდება <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">myFunction</span></code>-მსგავსი ბრძანებები. ამ შემთხვევაში GDB თავად გადაწყვეტს, თუ რა ტიპის შესვენების წერტილი დააყენოს. თუ <code class="docutils literal notranslate"><span class="pre">myFunction</span></code> ჩასაწერ რეგიონში (IRAM) განთავსებული იქნება პროგრამული უზრუნველყოფის IRAM-ის შესვენების წერტილი, წინააღმდეგ შემთხვევაში აპარატურის ან პროგრამული უზრუნველყოფის ფლეშ მეხსიერება შესვენების წერტილი გამოიყენება ისე, როგორც ეს კეთდება <code class="docutils literal notranslate"><span class="pre">hb</span></code> ბრძანება.</p>
+</div>
+<div class="section" id="flash-mappings-vs-sw-flash-breakpoints">
+<span id="jtag-debugging-tip-flash-mappings"></span><h2>ფლეშის შესაბამისობები პროგრამული უზრუნველყოფის ფლეშის შესვენების წერტილებთან შედარებით<a class="headerlink" href="tips-and-quirks.html#flash-mappings-vs-sw-flash-breakpoints" title="Permalink to this headline">¶</a></h2>
+<p>პროგრამული უზრუნველყოფის წყვეტის წერტილების დასაყენებლად/გასასუფთავებლად ფლეშ მეხსიერება ში, OpenOCD-ს სჭირდება მათი ფლეშ მეხსიერება მისამართების ცოდნა. ESP32 მისამართების სივრციდან ფლეშ მეხსიერება ში გადასვლისთვის, OpenOCD იყენებს ფლეშ მეხსიერება ში არსებული პროგრამის კოდის რეგიონების შესაბამისობებს. ეს შესაბამისობები ინახება სურათის სათაურში, რომელიც წინასწარ არის განკუთვნილი ორობითი მონაცემების (კოდის და მონაცემთა სეგმენტების) დასაპროგრამებლად და სპეციფიკურია ფლეშ მეხსიერება ში ჩაწერილი თითოეული აპლიკაციის სურათისთვის. ამგვარად, პროგრამული ფლეშ მეხსიერება წყვეტის წერტილების მხარდასაჭერად, OpenOCD-მ უნდა იცოდეს, თუ სად მდებარეობს გამართვა ging-ის ქვეშ მყოფი აპლიკაციის სურათი ფლეშ მეხსიერება ში. ნაგულისხმევად, OpenOCD კითხულობს დანაყოფების ცხრილი 0x8000-ზე და იყენებს პირველი ნაპოვნი აპლიკაციის სურათიდან შესაბამისობებს, მაგრამ შეიძლება იყოს შემთხვევები, როდესაც ეს არ იმუშავებს, მაგალითად, დანაყოფების ცხრილი არ არის ფლეშ მეხსიერება სტანდარტულ ადგილას ან შეიძლება იყოს რამდენიმე სურათი: ერთი ქარხნული და ორი OTA და შეიძლება დაგჭირდეთ რომელიმე მათგანის გამართვა. გამართვა ging-ის ყველა შესაძლო სცენარის დასაფარად, OpenOCD მხარს უჭერს სპეციალურ ბრძანებას, რომლის გამოყენებაც შესაძლებელია აპლიკაციის სურათის გამართვა ზე თვითნებური ადგილმდებარეობის დასაყენებლად. ბრძანებას აქვს შემდეგი ფორმატი:</p>
+<p><code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">appimage_offset</span> <span class="pre">&lt;offset&gt;</span></code></p>
+<p>ოფსეტი უნდა იყოს თექვსმეტობითი ფორმატით. ნაგულისხმევ ქცევაზე დასაბრუნებლად შეგიძლიათ მიუთითოთ <code class="docutils literal notranslate"><span class="pre">-1</span></code> როგორც ოფსეტი.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>რადგან GDB OpenOCD-დან მეხსიერების რუკას მხოლოდ ერთხელ ითხოვს მასთან დაკავშირებისას, ეს ბრძანება უნდა იყოს მითითებული TCL კონფიგურაციის ფაილებში ან გადაეცეს OpenOCD-ს მისი ბრძანების ხაზის მეშვეობით. ამ უკანასკნელ შემთხვევაში, ბრძანების ხაზი ასე უნდა გამოიყურებოდეს:</p>
+<p><code class="docutils literal notranslate"><span class="pre">openocd</span> <span class="pre">-f</span> <span class="pre">board/esp32-wrover-kit-3.3v.cfg.cfg</span> <span class="pre">-c</span> <span class="pre">"init;</span> <span class="pre">halt;</span> <span class="pre">esp32</span> <span class="pre">appimage_offset</span> <span class="pre">0x210000"</span></code></p>
+<p class="last">კიდევ ერთი ვარიანტია ამ ბრძანების შესრულება OpenOCD telnet სესიის საშუალებით და შემდეგ GDB-ის დაკავშირება, თუმცა, როგორც ჩანს, ეს ნაკლებად მოსახერხებელია.</p>
+</div>
+</div>
+<div class="section" id="why-stepping-with-next-does-not-bypass-subroutine-calls">
+<span id="jtag-debugging-tip-why-next-works-as-step"></span><h2>რატომ არ გვერდს უვლის „შემდეგი“-ს გამოყენებით ქვერუტინის გამოძახებებს?<a class="headerlink" href="tips-and-quirks.html#why-stepping-with-next-does-not-bypass-subroutine-calls" title="Permalink to this headline">¶</a></h2>
+<p>კოდის გავლისას <code class="docutils literal notranslate"><span class="pre">next</span></code> ბრძანების გამოყენებით, GDB კოდში შინაგანად აყენებს წყვეტის წერტილს (ორი ხელმისაწვდომიდან ერთს) ქვერუტინის გამოძახებების გვერდის ავლის მიზნით. ეს ფუნქციონალი არ იმუშავებს, თუ ორი ხელმისაწვდომი წყვეტის წერტილი უკვე დაყენებულია კოდის სხვაგან. თუ ასეა, წაშალეთ წყვეტის წერტილები, რათა გქონდეთ ერთი „სათადარიგო“. ორივე წყვეტის წერტილის უკვე გამოყენების შემდეგ, კოდში გადადით შემდეგი სქემით: <code class="docutils literal notranslate"><span class="pre">next</span></code> ბრძანება იმუშავებს ისევე, როგორც <code class="docutils literal notranslate"><span class="pre">step</span></code> command და გამართვა ger შეაღწევენ ქვერუტინის გამოძახებებში.</p>
+</div>
+<div class="section" id="support-options-for-openocd-at-compile-time">
+<span id="jtag-debugging-tip-code-options"></span><h2>OpenOCD-ის მხარდაჭერის ვარიანტები კომპილაცია დროს<a class="headerlink" href="tips-and-quirks.html#support-options-for-openocd-at-compile-time" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF აქვს OpenOCD გამართვა ging-ის მხარდაჭერის რამდენიმე ვარიანტი, რომელთა დაყენება შესაძლებელია კომპილაცია დროს:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../api-reference/kconfig.html#config-esp32-debug-ocdaware"><span class="std std-ref">CONFIG_ESP32_DEBUG_OCDAWARE</span></a> ნაგულისხმევად ჩართულია. თუ პანიკის ან დაუმუშავებელი გამონაკლისის წარმოქმნა მოხდება და JTAG გამართვა ger დაკავშირებულია (ანუ OpenOCD მუშაობს), ESP-IDF გადაიქცევა გამართვა ger-ად.</li>
+<li><a class="reference internal" href="../../api-reference/kconfig.html#config-freertos-watchpoint-end-of-stack"><span class="std std-ref">CONFIG_FREE RTOS _WATCHPOINT_END_OF_STACK</span></a> (ნაგულისხმევად გამორთულია) ნებისმიერი დავალებების დასტის ბოლოს აყენებს საკონტროლო წერტილის ინდექსს 1 (ორიდან მეორეს). ეს გამართვა დავალებების დასტის გადავსების ყველაზე ზუსტი გზაა. დამატებითი ინფორმაციისთვის დააწკაპუნეთ ბმულზე.</li>
+</ul>
+<p>გთხოვთ, იხილოთ <a class="reference internal" href="../../get-started/index.html#get-started-configure"><span class="std std-ref">პროექტის კონფიგურაცია მენიუ</span></a> მენიუში კომპილაცია პარამეტრების დაყენების შესახებ დამატებითი ინფორმაციისთვის.</p>
+</div>
+<div class="section" id="freertos-support">
+<span id="jtag-debugging-tip-freertos-support"></span><h2>უფასო RTOS მხარდაჭერა<a class="headerlink" href="tips-and-quirks.html#freertos-support" title="Permalink to this headline">¶</a></h2>
+<p>OpenOCD-ს აქვს ESP-IDF RTOS აშკარა მხარდაჭერა. GDB-ს შეუძლია RTOS ნაკადებად დანახვა. მათი ნახვა შესაძლებელია GDB-ის გამოყენებით. <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">threads</span></code> ბრძანებით, კონკრეტულ დავალებაზე გადასვლა ხდება <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">n</span></code>, თან <code class="docutils literal notranslate"><span class="pre">n</span></code> რაც ძაფის ნომერია. უფასო RTOS ამოცნობა შეიძლება გამორთოთ სამიზნის კონფიგურაციაში. დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="tips-and-quirks.html#jtag-debugging-tip-openocd-configure-target"><span class="std std-ref">OpenOCD-ის კონფიგურაცია კონკრეტული სამიზნისთვის</span></a>.</p>
+</div>
+<div class="section" id="why-to-set-spi-flash-voltage-in-openocd-configuration">
+<span id="jtag-debugging-tip-code-flash-voltage"></span><h2>რატომ უნდა დავაყენოთ SPI ფლეშ მეხსიერება ძაბვა OpenOCD კონფიგურაციაში?<a class="headerlink" href="tips-and-quirks.html#why-to-set-spi-flash-voltage-in-openocd-configuration" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის MTDI პინი, რომელიც JTAG კომუნიკაციისთვის გამოყენებულ ოთხ პინს შორისაა, ასევე ESP32-ის ერთ-ერთი ჩამტვირთავი პინია. ჩართვისას ESP32 იღებს MTDI-ზე ორობით დონეს, რათა დააყენოს შიდა ძაბვის რეგულატორი, რომელიც გამოიყენება გარე SPI ფლეშ მეხსიერება ჩიპისთვის დენის მიწოდებისთვის. თუ ჩართვისას MDTI პინზე ორობითი დონე დაბალია, ძაბვის რეგულატორი დაყენებულია 3.3 ვოლტზე, თუ ის მაღალია, მაშინ ძაბვა დაყენებულია 1.8 ვოლტზე. MTDI პინს უნდა ჰქონდეს ასაწევი ძაბვა ან შეიძლება დაეყრდნოს შიდა სუსტ ასაწევ რეზისტორს (იხ. <a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">ESP32 სერიის მონაცემთა ფურცელი</a> დეტალებისთვის), გამოყენებული SPI ჩიპის ტიპის მიხედვით. JTAG-ის მიერთების შემდეგ, ის ცვლის ამოსაწევ ან ამოსაწევ რეზისტორს, რომელიც ჩატვირთვას ასრულებს.</p>
+<p>ამ პრობლემის მოსაგვარებლად OpenOCD-ის დაფის კონფიგურაციის ფაილი (მაგ. <code class="docutils literal notranslate"><span class="pre">boards\esp-wroom-32.cfg</span></code> ESP32-WROOM-32 მოდულისთვის) უზრუნველყოფს <code class="docutils literal notranslate"><span class="pre">ESP32_FLASH_VOLTAGE</span></code> პარამეტრი უმოქმედო მდგომარეობის დასაყენებლად <code class="docutils literal notranslate"><span class="pre">TDO</span></code> ხაზი მითითებულ ორობით დონემდე დააკავშირეთ, რითაც მცირდება აპლიკაციის არასწორი ჩატვირთვის შანსი არასწორი ფლეშ მეხსიერება ძაბვის გამო.</p>
+<p>შეამოწმეთ JTAG-თან დაკავშირებული ESP32 მოდულის სპეციფიკაცია, რა არის SPI ფლეშ მეხსიერება ჩიპის კვების წყაროს ძაბვა. შემდეგ დააყენეთ <code class="docutils literal notranslate"><span class="pre">ESP32_FLASH_VOLTAGE</span></code> შესაბამისად. WROOM მოდულების უმეტესობა იყენებს 3.3 ვოლტიან ფლეშ მეხსიერება , ხოლო WROVER მოდულები - 1.8 ვოლტიან ფლეშ მეხსიერება .</p>
+</div>
+<div class="section" id="optimize-jtag-speed">
+<span id="jtag-debugging-tip-optimize-jtag-speed"></span><h2>JTAG სიჩქარის ოპტიმიზაცია<a class="headerlink" href="tips-and-quirks.html#optimize-jtag-speed" title="Permalink to this headline">¶</a></h2>
+<p>მონაცემთა გადაცემის უფრო მაღალი სიჩქარის მისაღწევად და დაკარგული პაკეტების რაოდენობის მინიმიზაციისთვის რეკომენდებულია JTAG საათის სიხშირის ოპტიმიზაცია, რათა ის იყოს მაქსიმალური და ამავდროულად უზრუნველყოფილი იყოს JTAG-ის სტაბილური მუშაობა. ამისათვის გამოიყენეთ შემდეგი რჩევები.</p>
+<ol class="arabic simple">
+<li>JTAG ტაქტური სიხშირის ზედა ზღვარი არის 20 MHz, თუ CPU მუშაობს 80 MHz-ზე, ან 26 MHz, თუ CPU მუშაობს 160 MHz ან 240 MHz-ზე.</li>
+<li>კონკრეტული JTAG ადაპტერისა და შემაერთებელი კაბელების სიგრძის მიხედვით, შეიძლება დაგჭირდეთ JTAG სიხშირის 20/26 MHz-ზე დაბლა შემცირება.</li>
+<li>კერძოდ, შეამცირეთ სიხშირე, თუ DSR/DIR შეცდომებს მიიღებთ (და ისინი არ უკავშირდება OpenOCD-ის მიერ მეხსიერების დიაპაზონიდან წაკითხვის მცდელობას იქ ფიზიკური მეხსიერების გარეშე).</li>
+<li>ESP-WROVER-KIT სტაბილურად მუშაობს 20/26 MHz სიხშირეზე.</li>
+</ol>
+</div>
+<div class="section" id="what-is-the-meaning-of-debugger-s-startup-commands">
+<span id="jtag-debugging-tip-debugger-startup-commands"></span><h2>რას ნიშნავს გამართვა ger-ის გაშვების ბრძანებები?<a class="headerlink" href="tips-and-quirks.html#what-is-the-meaning-of-debugger-s-startup-commands" title="Permalink to this headline">¶</a></h2>
+<p>გაშვებისას, გამართვა ger გასცემს ბრძანებების თანმიმდევრობას ჩიპის გადასატვირთად და კოდის კონკრეტულ ხაზზე მისი შესაჩერებლად. ეს თანმიმდევრობა (ნაჩვენებია ქვემოთ) მომხმარებლის მიერ არის განსაზღვრული, რათა ყველაზე მოსახერხებელ/შესაფერის ხაზზე აიღოს და გამართვა ging დაიწყოს.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">remote</span> <span class="pre">hardware-watchpoint-limit</span> <span class="pre">2</span></code> — GDB-ის შეზღუდვა ESP32-ის მიერ მხარდაჭერილი ორი აპარატურის საკონტროლო წერტილის გამოყენებით. დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://sourceware.org/gdb/onlinedocs/gdb/Remote-Configuration.html">https://sourceware.org/gdb/onlinedocs/gdb/Remote-Configuration.html</a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">reset</span> <span class="pre">halt</span></code> — ჩიპის გადატვირთვა და პროცესორების გაჩერება</li>
+<li><code class="docutils literal notranslate"><span class="pre">flushregs</span></code> — მონიტორი (<code class="docutils literal notranslate"><span class="pre">mon</span></code>) ბრძანებას არ შეუძლია GDB-ს აცნობოს სამიზნის მდგომარეობის შეცვლის შესახებ. GDB ჩათვლის, რომ სამიზნეს ადრე არსებული ნებისმიერი დასტა ჰქონდა. <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">reset</span> <span class="pre">halt</span></code> კვლავ ძალაში იქნება. სინამდვილეში, გადატვირთვის შემდეგ სამიზნე მდგომარეობა შეიცვლება და შესრულება <code class="docutils literal notranslate"><span class="pre">flushregs</span></code> არის გზა, რათა GDB აიძულოთ სამიზნიდან ახალი მდგომარეობა მიიღოს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">thb</span> <span class="pre">app_main</span></code> — ჩასვით დროებითი აპარატურის შემაჩერებელი წერტილი <code class="docutils literal notranslate"><span class="pre">app_main</span></code>საჭიროების შემთხვევაში, აქ სხვა ფუნქციის სახელი ჩაწერეთ</li>
+<li><code class="docutils literal notranslate"><span class="pre">c</span></code> — განაახლეთ პროგრამა. შემდეგ ის გაჩერდება ჩასმულ შესვენების წერტილზე <code class="docutils literal notranslate"><span class="pre">app_main</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="configuration-of-openocd-for-specific-target">
+<span id="jtag-debugging-tip-openocd-configure-target"></span><h2>OpenOCD-ის კონფიგურაცია კონკრეტული სამიზნისთვის<a class="headerlink" href="tips-and-quirks.html#configuration-of-openocd-for-specific-target" title="Permalink to this headline">¶</a></h2>
+<p>OpenOCD-ს უნდა ეცნობოს, რომელი JTAG ადაპტერი გამოიყენოს და რომელი პროცესორია დაკავშირებული, რომელთანაც JTAG ადაპტერია დაკავშირებული. ამისათვის გამოიყენეთ არსებული <strong>დაფა</strong> კონფიგურაციის ფაილები, რომლებიც მდებარეობს OpenOCD-ში <code class="docutils literal notranslate"><span class="pre">share/openocd/scripts/board</span></code> საქაღალდე.</p>
+<p>მაგალითად, თუ ESP-WROVER-KIT-ს დაუკავშირდებით დაინსტალირებული ESP-WROOM-32 მოდულით (იხილეთ ნაწილი <a class="reference internal" href="../../hw-reference/modules-and-boards-previous.html#esp-modules-and-boards-esp-wrover-kit-v1"><span class="std std-ref">ESP-WROVER-KIT V1 / ESP32 DevKitJ V1</span></a>), გამოიყენეთ შემდეგი კონფიგურაციის ფაილები:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">board/esp32-wrover-kit-3.3v.cfg</span></code></li>
+</ul>
+<p>სურვილისამებრ, კონფიგურაცია თავად მოამზადეთ. ამისათვის შეგიძლიათ შეამოწმოთ არსებული ფაილები და შეცვალოთ ისინი თქვენი კონკრეტული აპარატურის შესაბამისად. ქვემოთ მოცემულია ხელმისაწვდომი კონფიგურაციის პარამეტრების შეჯამება <strong>დაფა</strong> კონფიგურაცია.</p>
+<div class="section" id="adapter-s-clock-speed">
+<h3>ადაპტერის საათის სიჩქარე<a class="headerlink" href="tips-and-quirks.html#adapter-s-clock-speed" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>adapter_khz 20000
+</pre></div>
+</div>
+<p>იხილეთ <a class="reference internal" href="tips-and-quirks.html#jtag-debugging-tip-optimize-jtag-speed"><span class="std std-ref">JTAG სიჩქარის ოპტიმიზაცია</span></a> ინსტრუქციისთვის, თუ როგორ დააყენოთ ეს მნიშვნელობა.</p>
+</div>
+<div class="section" id="single-core-debugging">
+<h3>ერთბირთვიანი გამართვა ging<a class="headerlink" href="tips-and-quirks.html#single-core-debugging" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set ESP32_ONLYCPU 1
+</pre></div>
+</div>
+<p>კომენტარებში დაწერეთ ეს სტრიქონი ორმაგი ბირთვის გამართვა ging-ისთვის.</p>
+</div>
+<div class="section" id="disable-rtos-support">
+<h3>RTOS მხარდაჭერის გამორთვა<a class="headerlink" href="tips-and-quirks.html#disable-rtos-support" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set ESP32_RTOS none
+</pre></div>
+</div>
+<p>RTOS მხარდაჭერისთვის დააკომენტარეთ ეს სტრიქონი.</p>
+</div>
+<div class="section" id="power-supply-voltage-of-esp32-s-spi-flash-chip">
+<h3>ESP32-ის SPI ფლეშ მეხსიერება ჩიპის კვების წყაროს ძაბვა<a class="headerlink" href="tips-and-quirks.html#power-supply-voltage-of-esp32-s-spi-flash-chip" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set ESP32_FLASH_VOLTAGE 1.8
+</pre></div>
+</div>
+<p>3.3 ვოლტის დასაყენებლად, კომენტარებში დაწერეთ ეს ხაზი, მითითება: <a class="reference internal" href="tips-and-quirks.html#jtag-debugging-tip-code-flash-voltage"><span class="std std-ref">რატომ უნდა დავაყენოთ SPI ფლეშ მეხსიერება ძაბვა OpenOCD კონფიგურაციაში?</span></a></p>
+</div>
+<div class="section" id="configuration-file-for-esp32-targets">
+<h3>კონფიგურაციის ფაილი ESP32 სამიზნეებისთვის<a class="headerlink" href="tips-and-quirks.html#configuration-file-for-esp32-targets" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>source [find target/esp32.cfg]
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">არ შეცვალოთ <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">[find</span> <span class="pre">target/esp32.cfg]</span></code> ხაზი, თუ არ იცნობთ OpenOCD-ის შიდა ელემენტებს.</p>
+</div>
+<p>ამჟამად <code class="docutils literal notranslate"><span class="pre">target/esp32.cfg</span></code> ESP32 სამიზნეებისთვის (esp108 და esp32) ერთადერთი კონფიგურაციის ფაილი რჩება. მხარდაჭერილი კონფიგურაციების მატრიცა შემდეგია:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="33%"/>
+<col width="33%"/>
+<col width="33%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ორმაგი/ერთჯერადი</th>
+<th class="head">RTOS</th>
+<th class="head">გამოყენებული სამიზნე</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ორმაგი</td>
+<td>უფასო RTOS</td>
+<td>esp32</td>
+</tr>
+<tr class="row-odd"><td>მარტოხელა</td>
+<td>უფასო RTOS</td>
+<td>esp108 (*)</td>
+</tr>
+<tr class="row-even"><td>ორმაგი</td>
+<td>არცერთი</td>
+<td>esp108</td>
+</tr>
+<tr class="row-odd"><td>მარტოხელა</td>
+<td>არცერთი</td>
+<td>esp108</td>
+</tr>
+</tbody>
+</table>
+<p>(*) — ჩვენ ვგეგმავთ ამის გამოსწორებას და შემდგომ კომიტებში ერთბირთვიანი გამართვა ging-ის esp32 სამიზნე მხარდაჭერის დამატებას.</p>
+</div></blockquote>
+<p>შეხედე შიგნით <code class="docutils literal notranslate"><span class="pre">board/esp-wroom-32.cfg</span></code> თითოეული კონფიგურაციის პარამეტრის გარდა, კომენტარებში მოცემული დამატებითი ინფორმაციისთვის.</p>
+</div>
+</div>
+<div class="section" id="how-debugger-resets-esp32">
+<span id="jtag-debugging-tip-reset-by-debugger"></span><h2>როგორ აღადგენს გამართვა ger ESP32-ს?<a class="headerlink" href="tips-and-quirks.html#how-debugger-resets-esp32" title="Permalink to this headline">¶</a></h2>
+<p>დაფის გადატვირთვა შესაძლებელია შეყვანით <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">reset</span></code> ან <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">reset</span> <span class="pre">halt</span></code> GDB-ში.</p>
+</div>
+<div class="section" id="do-not-use-jtag-pins-for-something-else">
+<span id="jtag-debugging-tip-jtag-pins-reconfigured"></span><h2>არ გამოიყენოთ JTAG პინები სხვა რამისთვის<a class="headerlink" href="tips-and-quirks.html#do-not-use-jtag-pins-for-something-else" title="Permalink to this headline">¶</a></h2>
+<p>JTAG-ის მუშაობა შეიძლება შეფერხდეს, თუ JTAG-ის პინებთან ESP32 მოდულისა და JTAG ადაპტერის გარდა სხვა კომპიუტერული მოწყობილობაა დაკავშირებული. ESP32 JTAG იყენებს შემდეგ პინებს:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%"/>
+<col width="50%"/>
+<col width="41%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"> </th>
+<th class="head">ESP32 JTAG პინი</th>
+<th class="head">JTAG სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>MTDO / GPIO 15 ტერმინალი</td>
+<td>დაგეგმვა</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>MTDI / GPIO 12</td>
+<td>TDI</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>MTCK / GPIO 13</td>
+<td>TCK</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>MTMS / GPIO 14</td>
+<td>TMS</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>JTAG კომუნიკაცია, სავარაუდოდ, შეწყდება, თუ მომხმარებლის აპლიკაცია შეცვლის JTAG პინების კონფიგურაციას. თუ OpenOCD სწორად ინიციალიზაციას ახდენს (აღმოაჩენს ორ Tensilica ბირთვს), მაგრამ კარგავს სინქრონიზაციას და პროგრამის გაშვებისას ბევრ DTR/DIR შეცდომას გამოავლენს, სავარაუდოა, რომ აპლიკაცია ხელახლა აკონფიგურირებს JTAG პინებს სხვა რამესთან, ან მომხმარებელს დაავიწყდა Vtar-ის მიერთება JTAG ადაპტერთან, რომელსაც ეს სჭირდებოდა.</p>
+<p>ქვემოთ მოცემულია ამონარიდი GDB-ის მიერ დაფიქსირებული შეცდომების სერიიდან, მას შემდეგ, რაც აპლიკაციამ შეაბიჯა კოდში, რომელმაც MTDO / GPIO 15 შეყვანად გადააკონფიგურირა:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cpu0: xtensa_resume (line 431): DSR (FFFFFFFF) indicates target still busy!
+cpu0: xtensa_resume (line 431): DSR (FFFFFFFF) indicates DIR instruction generated an exception!
+cpu0: xtensa_resume (line 431): DSR (FFFFFFFF) indicates DIR instruction generated an overrun!
+cpu1: xtensa_resume (line 431): DSR (FFFFFFFF) indicates target still busy!
+cpu1: xtensa_resume (line 431): DSR (FFFFFFFF) indicates DIR instruction generated an exception!
+cpu1: xtensa_resume (line 431): DSR (FFFFFFFF) indicates DIR instruction generated an overrun!
+</pre></div>
+</div>
+</div>
+<div class="section" id="jtag-and-esp32-wroom-32-at-firmware-compatibility-issue">
+<span id="jtag-debugging-tip-at-firmware-issue"></span><h2>JTAG-ისა და ESP32-WROOM-32 AT პროგრამული უზრუნველყოფა თავსებადობის პრობლემა<a class="headerlink" href="tips-and-quirks.html#jtag-and-esp32-wroom-32-at-firmware-compatibility-issue" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-WROOM სერიის მოდულები წინასწარ აღჭურვილია ფლეშ მეხსიერება ით AT პროგრამული უზრუნველყოფა ით. ეს პროგრამული უზრუნველყოფა კონფიგურირებას უკეთებს GPIO 12-დან GPIO 15-მდე პინებს, როგორც SPI მონა ინტერფეისს, რაც შეუძლებელს ხდის JTAG-ის გამოყენებას.</p>
+<p>JTAG-ის ხელმისაწვდომობის უზრუნველსაყოფად, შექმენით ახალი პროგრამული უზრუნველყოფა , რომელიც არ გამოიყენებს JTAG კომუნიკაციისთვის განკუთვნილ GPIO 12-დან GPIO 15-მდე პინებს. ამის შემდეგ, ფლეშ მეხსიერება ით, თქვენს მოდულში ჩასვით პროგრამული უზრუნველყოფა . იხილეთ აგრეთვე <a class="reference internal" href="tips-and-quirks.html#jtag-debugging-tip-jtag-pins-reconfigured"><span class="std std-ref">არ გამოიყენოთ JTAG პინები სხვა რამისთვის</span></a>.</p>
+</div>
+<div class="section" id="reporting-issues-with-openocd-gdb">
+<span id="jtag-debugging-tip-reporting-issues"></span><h2>OpenOCD / GDB-თან დაკავშირებული პრობლემების შესახებ შეტყობინება<a class="headerlink" href="tips-and-quirks.html#reporting-issues-with-openocd-gdb" title="Permalink to this headline">¶</a></h2>
+<p>თუ OpenOCD-ის ან GDB პროგრამებთან დაკავშირებით პრობლემას წააწყდებით და ინტერნეტში არსებული რესურსების მოძიებით გამოსავალს ვერ პოულობთ, გახსენით პრობლემა OpenOCD-ის პრობლემების თვალთვალის განყოფილებაში. <a class="reference external" href="https://github.com/espressif/openocd-esp32/issues">https://github.com/espressif/openocd-esp32/issues</a>.</p>
+<ol class="arabic simple">
+<li>პრობლემის ანგარიშში მიუთითეთ თქვენი კონფიგურაციის დეტალები:<ol class="loweralpha">
+<li>JTAG ადაპტერის ტიპი.</li>
+<li>ESP-IDF ის გამოშვება, რომელიც გამოიყენება კომპილაცია ისთვის და გამართვა ზე გადაყვანილი აპლიკაციის ჩატვირთვა.</li>
+<li>გამართვა გინგისთვის გამოყენებული ოპერაციული სისტემის დეტალები.</li>
+<li>ოპერაციული სისტემა მშობლიურად მუშაობს კომპიუტერზე თუ ვირტუალურ მანქანაზე?</li>
+</ol>
+</li>
+<li>შექმენით მარტივი მაგალითი, რომელიც წარმოადგენს დაკვირვებული პრობლემისთვის. აღწერეთ მისი რეპროდუცირების ნაბიჯები. ასეთ მაგალითში გამართვა ging-ზე გავლენას არ უნდა მოახდენდეს Wi-Fi დასტის მიერ შემოღებული არადეტერმინისტული ქცევა, ამიტომ პრობლემების რეპროდუცირება, სავარაუდოდ, უფრო ადვილი იქნება, თუ ერთხელ მაინც წააწყდებით.</li>
+</ol>
+<ol class="arabic" start="3">
+<li><p class="first">გამართვა ging სესიის ჟურნალების მოსამზადებლად ბრძანებების გასაშვებად დამატებითი პარამეტრების დამატებით.</p>
+<p>OpenOCD:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openocd -l openocd_log.txt -d <span class="m">3</span> -f board/esp32-wrover-kit-3.3v.cfg
+</pre></div>
+</div>
+<p>ფაილში ამ გზით შესვლა ხელს შეუშლის ინფორმაციის ტერმინალზე ჩვენებას. ეს შეიძლება კარგი იყოს მოწოდებული ინფორმაციის რაოდენობის გათვალისწინებით, როდესაც გამართვა დონე იზრდება. <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">3</span></code> დაყენებულია. თუ მაინც გსურთ ეკრანზე ჟურნალის ნახვა, მაშინ გამოიყენეთ სხვა ბრძანება:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openocd -d <span class="m">3</span> -f board/esp32-wrover-kit-3.3v.cfg <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee openocd.log
+</pre></div>
+</div>
+</div></blockquote>
+<p>დებაგერი:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xtensa-esp32-elf-gdb -ex <span class="s2">"set remotelogfile gdb_log.txt"</span> &lt;all other options&gt;
+</pre></div>
+</div>
+<p>სურვილისამებრ დაამატეთ ბრძანება <code class="docutils literal notranslate"><span class="pre">remotelogfile</span> <span class="pre">gdb_log.txt</span></code> რომ <code class="docutils literal notranslate"><span class="pre">gdbinit</span></code> ფაილი.</p>
+</div></blockquote>
+</li>
+<li><p class="first">ორივეს მიმაგრება <code class="docutils literal notranslate"><span class="pre">openocd_log.txt</span></code> და <code class="docutils literal notranslate"><span class="pre">gdb_log.txt</span></code> ფაილები თქვენი პრობლემის ანგარიშში.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../linker-script-generation.html" rel="next" title="Linker Script Generation">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="debugging-examples.html" rel="prev" title="Debugging Examples"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

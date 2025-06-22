@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SPIFFS ფაილური სისტემა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="vfs.html" rel="next" title="Virtual filesystem component"/>
+<link href="spi_flash.html" rel="prev" title="SPI Flash API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/spiffs.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/storage/spiffs"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/storage/spiffs.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">შენახვა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fatfs.html">FAT ფაილური სისტემა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mass_mfg.html">მასობრივი წარმოების კომუნალური მომსახურება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvs_flash.html">არასტაბილური საცავი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvs_partition_gen.html">NVS დანაყოფების გენერირების პროგრამა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc.html">SD/SDIO/MMC დრაივერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_flash.html">SPI Flash და Partition API s</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="spiffs.html#">SPIFFS ფაილური სისტემა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#notes">შენიშვნები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#tools">ხელსაწყოები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#see-also">აგრეთვე იხილეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spiffs.html#high-level-api-reference">მაღალი დონის API ცნობარი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vfs.html">ვირტუალური ფაილური სისტემა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wear-levelling.html">ცვეთის გასწორება</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">შენახვის API</a> »</li>
+<li>SPIFFS ფაილური სისტემა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/storage/spiffs.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="spiffs-filesystem">
+<h1>SPIFFS ფაილური სისტემა<a class="headerlink" href="spiffs.html#spiffs-filesystem" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/storage/spiffs.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="spiffs.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>SPIFFS არის ფაილური სისტემა, რომელიც განკუთვნილია ჩაშენებულ სამიზნეებზე SPI NOR ფლეშ მეხსიერება მოწყობილობებისთვის. ის მხარს უჭერს ცვეთის გასწორებას, ფაილური სისტემის თანმიმდევრულობის შემოწმებას და სხვა.</p>
+</div>
+<div class="section" id="notes">
+<h2>შენიშვნები<a class="headerlink" href="spiffs.html#notes" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>ამჟამად, SPIFFS არ უჭერს მხარს დირექტორიებს, ის ქმნის ბრტყელ სტრუქტურას. თუ SPIFFS დამონტაჟებულია <code class="docutils literal notranslate"><span class="pre">/spiffs</span></code>, შემდეგ კი ფაილის შექმნა ბილიკით <code class="docutils literal notranslate"><span class="pre">/spiffs/tmp/myfile.txt</span></code> შექმნის ფაილს სახელწოდებით <code class="docutils literal notranslate"><span class="pre">/tmp/myfile.txt</span></code> SPIFFS-ში, ნაცვლად <code class="docutils literal notranslate"><span class="pre">myfile.txt</span></code> დირექტორიაში <code class="docutils literal notranslate"><span class="pre">/spiffs/tmp</span></code>.</li>
+<li>ეს არ არის რეალურ დროში დასტა. ერთ ჩაწერის ოპერაციას შეიძლება გაცილებით მეტი დრო დასჭირდეს, ვიდრე მეორეს.</li>
+<li>ამ ეტაპზე ის არ აფიქსირებს და არ ამუშავებს არასწორ ბლოკებს.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="tools">
+<h2>ხელსაწყოები<a class="headerlink" href="spiffs.html#tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spiffsgen-py">
+<h3>spiffsgen.py<a class="headerlink" href="spiffs.html#spiffsgen-py" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/spiffs/spiffsgen.py">spiffsgen.py</a> არის მხოლოდ ჩაწერის უფლების მქონე Python SPIFFS იმპლემენტაცია, რომელიც გამოიყენება ფაილური სისტემის სურათების შესაქმნელად მასპინძელი საქაღალდის შიგთავსიდან. გამოსაყენებლად <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code>, გახსენით ტერმინალი და გაუშვით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">spiffsgen</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">image_size</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">base_dir</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>საჭირო არგუმენტები შემდეგია:</p>
+<ul class="simple">
+<li><strong>სურათის ზომა</strong>: იმ დანაყოფის ზომა, რომელზეც შექმნილი SPIFFS გამოსახულება განთავსდება ფლეშ მეხსიერება ed.</li>
+<li><strong>ბაზის_დირექტორია</strong>დირექტორია, რომლისთვისაც უნდა შეიქმნას SPIFFS სურათი.</li>
+<li><strong>გამომავალი_ფაილი</strong>: SPIFFS გამოსახულების გამომავალი ფაილი.</li>
+</ul>
+<p>ასევე არსებობს სხვა არგუმენტები, რომლებიც აკონტროლებენ სურათების გენერირებას. ამ არგუმენტების დოკუმენტაცია შეგიძლიათ იხილოთ ინსტრუმენტის დახმარებაში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">spiffsgen</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>ეს არასავალდებულო არგუმენტები შეესაბამება SPIFFS-ის შესაძლო აწყობის კონფიგურაციას. სწორი სურათის გენერირებისთვის, გთხოვთ, დარწმუნდეთ, რომ იყენებთ იგივე არგუმენტებს/კონფიგურაციას, რაც გამოყენებული იყო SPIFFS-ის ასაწყობად. სახელმძღვანელოდ, დახმარების შედეგი მიუთითებს SPIFFS-ის აწყობის კონფიგურაციას, რომელსაც შეესაბამება არგუმენტი. იმ შემთხვევებში, როდესაც ეს არგუმენტები არ არის მითითებული, გამოყენებული იქნება დახმარების შედეგს ნაჩვენები ნაგულისხმევი მნიშვნელობები.</p>
+<p>როდესაც სურათი იქმნება, მისი ფლეშ მეხსიერება რედაქტირება შესაძლებელია გამოყენებით <code class="docutils literal notranslate"><span class="pre">esptool.py</span></code> ან <code class="docutils literal notranslate"><span class="pre">parttool.py</span></code>.</p>
+<p>გარდა იმისა, რომ გამოძახებულია, <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code> დამოუკიდებელი, ბრძანების ხაზიდან ან სკრიპტიდან ხელით გაშვებით, ასევე შესაძლებელია მისი გამოძახება <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code> პირდაპირ აწყობის სისტემიდან დარეკვით <code class="docutils literal notranslate"><span class="pre">spiffs_create_partition_image</span></code>.</p>
+<p>მწარმოებელი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SPIFFS_IMAGE_FLASH_IN_PROJECT := ...
+SPIFFS_IMAGE_DEPENDS := ...
+$(eval $(call spiffs_create_partition_image,&lt;partition&gt;,&lt;base_dir&gt;))
+</pre></div>
+</div>
+<p>CMake:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spiffs_create_partition_image</span><span class="p">(</span><span class="o">&lt;</span><span class="n">partition</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">base_dir</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">FLASH_IN_PROJECT</span><span class="p">]</span> <span class="p">[</span><span class="n">DEPENDS</span> <span class="n">dep</span> <span class="n">dep</span> <span class="n">dep</span><span class="o">...</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>ეს უფრო მოსახერხებელია, რადგან აწყობის კონფიგურაცია ავტომატურად გადაეცემა ინსტრუმენტს, რაც უზრუნველყოფს, რომ გენერირებული სურათი ვალიდურია ამ აწყობისთვის. ამის მაგალითია, როდესაც <em>სურათის ზომა</em> საჭიროა დამოუკიდებელი გამოძახებისთვის, მხოლოდ <em>დანაყოფი</em> გამოყენებისას სახელი აუცილებელია <code class="docutils literal notranslate"><span class="pre">spiffs_create_partition_image</span></code> – სურათის ზომა ავტომატურად მიიღება პროექტის დანაყოფების ცხრილი .</p>
+<p>Make-სა და CMake-ს შორის სტრუქტურული განსხვავებების გამო, მნიშვნელოვანია აღინიშნოს, რომ: - Make-სთვის <code class="docutils literal notranslate"><span class="pre">spiffs_create_partition_image</span></code> უნდა გამოიძახოს პროექტიდან Makefile - CMake-სთვის <code class="docutils literal notranslate"><span class="pre">spiffs_create_partition_image</span></code> უნდა გამოიძახოს კომპონენტი CMakeLists.txt ფაილებიდან ერთ-ერთიდან</p>
+<p>სურვილისამებრ, მომხმარებელს შეუძლია აირჩიოს სურათის ავტომატურად ფლეშ მეხსიერება რედაქტირება აპლიკაციის ბინარულ ფაილებთან, დანაყოფების ცხრილი თან და ა.შ. ერთად.
+<code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">flash</span></code> ან <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">flash</span></code> მითითებით <code class="docutils literal notranslate"><span class="pre">FLASH_IN_PROJECT</span></code>მაგალითად,</p>
+<p>დამზადებაში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SPIFFS_IMAGE_FLASH_IN_PROJECT := 1
+$(eval $(call spiffs_create_partition_image,&lt;partition&gt;,&lt;base_dir&gt;))
+</pre></div>
+</div>
+<p>CMake-ში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spiffs_create_partition_image</span><span class="p">(</span><span class="n">my_spiffs_partition</span> <span class="n">my_folder</span> <span class="n">FLASH_IN_PROJECT</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>თუ FLASH_IN_PROJECT/SPIFFS_IMAGE_FLASH_IN_PROJECT არ არის მითითებული, სურათი მაინც გენერირდება, მაგრამ მისი ხელით ფლეშ მეხსიერება მოგიწევთ <code class="docutils literal notranslate"><span class="pre">esptool.py</span></code>, <code class="docutils literal notranslate"><span class="pre">parttool.py</span></code>, ან მორგებული აწყობის სისტემის სამიზნე.</p>
+<p>არსებობს შემთხვევები, როდესაც ბაზის დირექტორიის შინაარსი თავად გენერირდება შექმნის დროს. მომხმარებლებს შეუძლიათ გამოიყენონ DEPENDS/SPIFFS_IMAGE_DEPENDS იმ სამიზნეების მითითებისთვის, რომლებიც უნდა შესრულდეს გამოსახულების გენერირებამდე.</p>
+<p>დამზადებაში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dep:
+    ...
+
+SPIFFS_IMAGE_DEPENDS := dep
+$(eval $(call spiffs_create_partition_image,&lt;partition&gt;,&lt;base_dir&gt;))
+</pre></div>
+</div>
+<p>CMake-ში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">add_custom_target</span><span class="p">(</span><span class="n">dep</span> <span class="n">COMMAND</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="n">spiffs_create_partition_image</span><span class="p">(</span><span class="n">my_spiffs_partition</span> <span class="n">my_folder</span> <span class="n">DEPENDS</span> <span class="n">dep</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>+მაგალითისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/storage/spiffsgen">შენახვა/სპიფსგენი</a>.</p>
+</div>
+<div class="section" id="mkspiffs">
+<h3>მსპიფები<a class="headerlink" href="spiffs.html#mkspiffs" title="Permalink to this headline">¶</a></h3>
+<p>SPIFFS დანაყოფის სურათების შესაქმნელად კიდევ ერთი ინსტრუმენტია <a class="reference external" href="https://github.com/igrr/mkspiffs">მსპიფები</a>მსგავსი <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code>, მისი გამოყენება შესაძლებელია მოცემული საქაღალდიდან სურათის შესაქმნელად და შემდეგ ფლეშ მეხსიერება გამოყენებით ამ სურათის შესაქმნელად <code class="docutils literal notranslate"><span class="pre">esptool.py</span></code></p>
+<p>ამისათვის თქვენ უნდა მიიღოთ შემდეგი პარამეტრები:</p>
+<ul class="simple">
+<li><strong>ბლოკის ზომა</strong>: 4096 (სტანდარტული SPI Flash-ისთვის)</li>
+<li><strong>გვერდის ზომა</strong>: 256 (სტანდარტული SPI Flash-ისთვის)</li>
+<li><strong>სურათის ზომა</strong>: დანაყოფის ზომა ბაიტებში (შეგიძლიათ მიიღოთ დანაყოფების ცხრილი დან)</li>
+<li><strong>დანაყოფის ოფსეტი</strong>დანაყოფის საწყისი მისამართი (შეგიძლიათ მიიღოთ დანაყოფების ცხრილი დან)</li>
+</ul>
+<p>საქაღალდის 1 მეგაბაიტიან გამოსახულებაში ჩასართავად, გაუშვით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkspiffs</span> <span class="o">-</span><span class="n">c</span> <span class="p">[</span><span class="n">src_folder</span><span class="p">]</span> <span class="o">-</span><span class="n">b</span> <span class="mi">4096</span> <span class="o">-</span><span class="n">p</span> <span class="mi">256</span> <span class="o">-</span><span class="n">s</span> <span class="mh">0x100000</span> <span class="n">spiffs</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>გამოსახულების ESP32-ზე 0x110000 ოფსეტით ფლეშ მეხსიერება , შეასრულეთ შემდეგი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">chip</span> <span class="n">esp32</span> <span class="o">--</span><span class="n">port</span> <span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">--</span><span class="n">baud</span> <span class="p">[</span><span class="n">baud</span><span class="p">]</span> <span class="n">write_flash</span> <span class="o">-</span><span class="n">z</span> <span class="mh">0x110000</span> <span class="n">spiffs</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<div class="section" id="notes-on-which-spiffs-tool-to-use">
+<h4>შენიშვნები, თუ რომელი SPIFFS ინსტრუმენტი გამოვიყენოთ<a class="headerlink" href="spiffs.html#notes-on-which-spiffs-tool-to-use" title="Permalink to this headline">¶</a></h4>
+<p>ზემოთ წარმოდგენილი ორი ინსტრუმენტი ძალიან მსგავს ფუნქციონალურობას გვთავაზობს. თუმცა, არსებობს მიზეზები, რის გამოც ერთი მეორეზე უპირატესობა უნდა მიანიჭოთ, გამოყენების შემთხვევის მიხედვით.</p>
+<p>გამოყენება <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code> შემდეგ შემთხვევებში: 1. თუ გსურთ უბრალოდ SPIFFS გამოსახულების გენერირება აწყობის დროს. <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code> ეს ძალიან მოსახერხებელია, რადგან ფუნქციები/ბრძანებები თავად აწყობის სისტემიდან არის მოწოდებული. 2. თუ ჰოსტს არ აქვს ხელმისაწვდომი C/C++ კომპილაცია r, რადგან <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code> კომპილაციას არ საჭიროებს.</p>
+<p>გამოყენება <code class="docutils literal notranslate"><span class="pre">mkspiffs</span></code> შემდეგ შემთხვევებში: 1. თუ სურათების გენერირებასთან ერთად SPIFFS სურათების გახსნა გჭირდებათ. ამჟამად ეს შეუძლებელია <code class="docutils literal notranslate"><span class="pre">spiffsgen.py</span></code>. 2. თუ თქვენ გაქვთ გარემო, სადაც Python-ის ინტერპრეტატორი არ არის ხელმისაწვდომი, მაგრამ მასპინძელი კომპილაცია r ხელმისაწვდომია. წინააღმდეგ შემთხვევაში, ვადამდელი კომპილაცია d <code class="docutils literal notranslate"><span class="pre">mkspiffs</span></code> ბინარულ ფაილს შეუძლია ამ საქმის შესრულება. თუმცა, არ არსებობს სისტემის ინტეგრაცია <code class="docutils literal notranslate"><span class="pre">mkspiffs</span></code> და მომხმარებელმა უნდა შეასრულოს შესაბამისი სამუშაო: კომპილაცია <code class="docutils literal notranslate"><span class="pre">mkspiffs</span></code> აწყობის დროს (თუ pre- კომპილაცია d ორობითი ფაილი არ გამოიყენება), გამომავალი ფაილებისთვის აწყობის წესების/სამიზნეების შექმნა, ინსტრუმენტზე შესაბამისი პარამეტრების გადაცემა და ა.შ.</p>
+</div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>აგრეთვე იხილეთ<a class="headerlink" href="spiffs.html#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../api-guides/partition-tables.html"><span class="doc">დანაყოფების ცხრილის დოკუმენტაცია</span></a></li>
+</ul>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="spiffs.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>SPIFFS-ის გამოყენების მაგალითი მოცემულია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/storage/spiffs">საწყობი/სპიფები</a> დირექტორია. ეს მაგალითი ახდენს SPIFFS დანაყოფის ინიციალიზაციას და მონტაჟს, შემდეგ კი მონაცემებს იწერს და კითხულობს მისგან POSIX-ისა და C ბიბლიოთეკის API s-ის გამოყენებით. დამატებითი ინფორმაციისთვის იხილეთ README.md ფაილი მაგალითის დირექტორიაში.</p>
+</div>
+<div class="section" id="high-level-api-reference">
+<h2>მაღალი დონის API ცნობარი<a class="headerlink" href="spiffs.html#high-level-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="spiffs.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/spiffs/include/esp_spiffs.h">სპიფები/ჩართე/esp_spiffs.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="spiffs.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv423esp_vfs_spiffs_registerPK21esp_vfs_spiffs_conf_t">
+<span id="_CPPv323esp_vfs_spiffs_registerPK21esp_vfs_spiffs_conf_t"></span><span id="_CPPv223esp_vfs_spiffs_registerPK21esp_vfs_spiffs_conf_t"></span><span id="esp_vfs_spiffs_register__esp_vfs_spiffs_conf_tCP"></span><span class="target" id="esp__spiffs_8h_1a22884e61c20b1eb47b2433384c142b0b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_spiffs_register</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="spiffs.html#_CPPv421esp_vfs_spiffs_conf_t" title="esp_vfs_spiffs_conf_t">esp_vfs_spiffs_conf_t</a> *<em>კონფესი</em><span class="sig-paren">)</span><a class="headerlink" href="spiffs.html#_CPPv423esp_vfs_spiffs_registerPK21esp_vfs_spiffs_conf_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPIFFS-ის რეგისტრაცია და VFS-ზე დამონტაჟება მოცემული გზის პრეფიქსით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NO_MEM თუ ობიექტების გამოყოფა ვერ მოხერხდა</li>
+<li>ESP_ERR_INVALID_STATE, თუ უკვე დამონტაჟებულია ან დანაყოფი დაშიფრულია</li>
+<li>ESP_ERR_NOT_FOUND თუ SPIFFS-ის დანაყოფი ვერ მოიძებნა</li>
+<li>ESP_FAIL, თუ მონტაჟი ან ფორმატირება ვერ ხერხდება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">conf</span></code>: მითითება <a class="reference internal" href="spiffs.html#structesp__vfs__spiffs__conf__t"><span class="std std-ref">esp_vfs_spiffs_conf_t</span></a> კონფიგურაციის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_vfs_spiffs_unregisterPKc">
+<span id="_CPPv325esp_vfs_spiffs_unregisterPKc"></span><span id="_CPPv225esp_vfs_spiffs_unregisterPKc"></span><span id="esp_vfs_spiffs_unregister__cCP"></span><span class="target" id="esp__spiffs_8h_1a5102c648b052fc2db4dfa65737fbe888"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_spiffs_unregister</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>დანაყოფის_ეტიკეტი</em><span class="sig-paren">)</span><a class="headerlink" href="spiffs.html#_CPPv425esp_vfs_spiffs_unregisterPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-დან SPIFFS-ის რეგისტრაციის გაუქმება და დემონტაჟი</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE უკვე გაუქმებულია რეგისტრაციაზე </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition_label</span></code>იგივე იარლიყი, რაც გადაეცა esp_vfs_spiffs_register-ს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_spiffs_mountedPKc">
+<span id="_CPPv318esp_spiffs_mountedPKc"></span><span id="_CPPv218esp_spiffs_mountedPKc"></span><span id="esp_spiffs_mounted__cCP"></span><span class="target" id="esp__spiffs_8h_1a7d717d49ab365dd4e13578f97bd4825d"></span>bool <code class="descname">esp_spiffs_mounted</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>დანაყოფის_ეტიკეტი</em><span class="sig-paren">)</span><a class="headerlink" href="spiffs.html#_CPPv418esp_spiffs_mountedPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამოწმეთ, დამონტაჟებულია თუ არა SPIFFS</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>მართალია, თუ დამონტაჟებულია</li>
+<li>ცრუ, თუ არ არის დამონტაჟებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition_label</span></code>არასავალდებულოა, შესამოწმებელი დანაყოფის იარლიყი. თუ არ არის მითითებული, გამოიყენება პირველი დანაყოფი ქვეტიპით=spiffs.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_spiffs_formatPKc">
+<span id="_CPPv317esp_spiffs_formatPKc"></span><span id="_CPPv217esp_spiffs_formatPKc"></span><span id="esp_spiffs_format__cCP"></span><span class="target" id="esp__spiffs_8h_1a25c9968f444715dca56e77797b7c8eb8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_spiffs_format</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>დანაყოფის_ეტიკეტი</em><span class="sig-paren">)</span><a class="headerlink" href="spiffs.html#_CPPv417esp_spiffs_formatPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPIFFS დანაყოფის ფორმატირება</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_FAIL შეცდომაზე </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition_label</span></code>იგივე იარლიყი, რაც გადაეცა esp_vfs_spiffs_register-ს. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415esp_spiffs_infoPKcP6size_tP6size_t">
+<span id="_CPPv315esp_spiffs_infoPKcP6size_tP6size_t"></span><span id="_CPPv215esp_spiffs_infoPKcP6size_tP6size_t"></span><span id="esp_spiffs_info__cCP.sP.sP"></span><span class="target" id="esp__spiffs_8h_1ae0c787bee510e91a7ba299fd5313d02a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_spiffs_info</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>დანაყოფის_ეტიკეტი</em>, size_t *<em>სულ_ბაიტები</em>, size_t *<em>გამოყენებული_ბაიტები</em><span class="sig-paren">)</span><a class="headerlink" href="spiffs.html#_CPPv415esp_spiffs_infoPKcP6size_tP6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინფორმაცია SPIFFS-ის შესახებ</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ არ არის დამონტაჟებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition_label</span></code>იგივე იარლიყი, რაც გადაეცა esp_vfs_spiffs_register-ს </li>
+<li><code class="docutils literal notranslate"><span class="pre">total_bytes</span></code>ფაილური სისტემის ზომა: </li>
+<li><code class="docutils literal notranslate"><span class="pre">used_bytes</span></code>ფაილურ სისტემაში ამჟამად გამოყენებული ბაიტები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="spiffs.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv421esp_vfs_spiffs_conf_t">
+<span id="_CPPv321esp_vfs_spiffs_conf_t"></span><span id="_CPPv221esp_vfs_spiffs_conf_t"></span><span id="esp_vfs_spiffs_conf_t"></span><span class="target" id="structesp__vfs__spiffs__conf__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_vfs_spiffs_conf_t</code><a class="headerlink" href="spiffs.html#_CPPv421esp_vfs_spiffs_conf_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_vfs_spiffs_register-ის კონფიგურაციის სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N21esp_vfs_spiffs_conf_t9base_pathE">
+<span id="_CPPv3N21esp_vfs_spiffs_conf_t9base_pathE"></span><span id="_CPPv2N21esp_vfs_spiffs_conf_t9base_pathE"></span><span id="esp_vfs_spiffs_conf_t::base_path__cCP"></span><span class="target" id="structesp__vfs__spiffs__conf__t_1add2c60af836f5dc9526885adc3a3d1c8"></span><em class="property">კონსტ</em> char *<code class="descname">base_path</code><a class="headerlink" href="spiffs.html#_CPPv4N21esp_vfs_spiffs_conf_t9base_pathE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფაილურ სისტემასთან დაკავშირებული ფაილის გზის პრეფიქსი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21esp_vfs_spiffs_conf_t15partition_labelE">
+<span id="_CPPv3N21esp_vfs_spiffs_conf_t15partition_labelE"></span><span id="_CPPv2N21esp_vfs_spiffs_conf_t15partition_labelE"></span><span id="esp_vfs_spiffs_conf_t::partition_label__cCP"></span><span class="target" id="structesp__vfs__spiffs__conf__t_1ae228e117d84f2f03ffc947165f3ad10e"></span><em class="property">კონსტ</em> char *<code class="descname">partition_label</code><a class="headerlink" href="spiffs.html#_CPPv4N21esp_vfs_spiffs_conf_t15partition_labelE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არასავალდებულო, გამოსაყენებელი SPIFFS დანაყოფის იარლიყი. თუ დაყენებულია NULL-ზე, გამოყენებული იქნება პირველი დანაყოფი ქვეტიპით=spiffs. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21esp_vfs_spiffs_conf_t9max_filesE">
+<span id="_CPPv3N21esp_vfs_spiffs_conf_t9max_filesE"></span><span id="_CPPv2N21esp_vfs_spiffs_conf_t9max_filesE"></span><span id="esp_vfs_spiffs_conf_t::max_files__s"></span><span class="target" id="structesp__vfs__spiffs__conf__t_1a8498ca07df2b1f8bf23578718fe58d43"></span>size_t <code class="descname">max_files</code><a class="headerlink" href="spiffs.html#_CPPv4N21esp_vfs_spiffs_conf_t9max_filesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაქსიმალური რაოდენობის ფაილები, რომლებიც შეიძლება ერთდროულად გაიხსნას. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21esp_vfs_spiffs_conf_t22format_if_mount_failedE">
+<span id="_CPPv3N21esp_vfs_spiffs_conf_t22format_if_mount_failedE"></span><span id="_CPPv2N21esp_vfs_spiffs_conf_t22format_if_mount_failedE"></span><span id="esp_vfs_spiffs_conf_t::format_if_mount_failed__b"></span><span class="target" id="structesp__vfs__spiffs__conf__t_1af657485432b43e27cf4a983cba3fcccc"></span>bool <code class="descname">format_if_mount_failed</code><a class="headerlink" href="spiffs.html#_CPPv4N21esp_vfs_spiffs_conf_t22format_if_mount_failedE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ მნიშვნელობა არის „true“, ფაილურ სისტემას დააფორმატებს, თუ მისი დამონტაჟება ვერ მოხერხდება. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="vfs.html" rel="next" title="Virtual filesystem component">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="spi_flash.html" rel="prev" title="SPI Flash API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

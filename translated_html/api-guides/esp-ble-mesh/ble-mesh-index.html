@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-BLE-MESH — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="ble-mesh-feature-list.html" rel="next" title="ESP-BLE-MESH Feature List"/>
+<link href="../error-handling.html" rel="prev" title="Error Handling"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/esp-ble-mesh/ble-mesh-index.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/esp-ble-mesh/ble-mesh-index"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/esp-ble-mesh/ble-mesh-index.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="ble-mesh-index.html#">ESP-BLE-MESH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#getting-started-with-esp-ble-mesh">ESP-BLE-MESH-ის გამოყენების დაწყება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-examples">ESP-BLE-MESH მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-demo-videos">ESP-BLE-MESH დემო ვიდეოები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-faq">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-feature-list.html">ESP-BLE-MESH ფუნქციების სია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-architecture.html">ESP-BLE-MESH არქიტექტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-faq.html">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-terminology.html">ESP-BLE-MESH ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#bluetooth-sig-documentation">Bluetooth SIG დოკუმენტაცია</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li>ESP-BLE-MESH</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/esp-ble-mesh/ble-mesh-index.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-ble-mesh">
+<h1>ESP-BLE-MESH<a class="headerlink" href="ble-mesh-index.html#esp-ble-mesh" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/esp-ble-mesh/ble-mesh-index.html">[中文]</a></p>
+<p>Bluetooth ® mesh ქსელი უზრუნველყოფს მრავალ-მრავალ (m:m) მოწყობილობათა კომუნიკაციას და ოპტიმიზებულია მასშტაბური მოწყობილობების ქსელების შესაქმნელად.</p>
+<p>მოწყობილობებმა შეიძლება გადასცენ მონაცემები სხვა მოწყობილობებს, რომლებიც არ იმყოფებიან წყაროს მოწყობილობის პირდაპირ რადიო დიაპაზონში. ამ გზით, mesh ქსელებს შეუძლიათ მოიცავონ ძალიან დიდ ფიზიკურ არეალს და შეიცავდეს მოწყობილობების დიდ რაოდენობას. ის იდეალურად შეეფერება შენობების ავტომატიზაციის, სენსორული ქსელების და სხვა ნივთების ინტერნეტის გადაწყვეტილებებს, სადაც ათობით, ასობით ან ათასობით მოწყობილობას სჭირდება ერთმანეთთან საიმედო და უსაფრთხო კომუნიკაცია.</p>
+<p>Bluetooth mesh არ არის უკაბელო საკომუნიკაციო ტექნოლოგია, არამედ ქსელური ტექნოლოგიაა. ეს ტექნოლოგია დამოკიდებულია Bluetooth Low Energy (BLE)-ზე - უკაბელო საკომუნიკაციო პროტოკოლების დასტაზე.</p>
+<p>Zephyr Bluetooth Mesh სტეკის საფუძველზე აგებული ESP-BLE-MESH იმპლემენტაცია მხარს უჭერს მოწყობილობების უზრუნველყოფას და კვანძის კონტროლს. ის ასევე მხარს უჭერს კვანძის ისეთ ფუნქციებს, როგორიცაა Proxy, Relay, Low power და Friend.</p>
+<p>გთხოვთ, იხილოთ <a class="reference internal" href="ble-mesh-architecture.html"><span class="doc">ESP-BLE-MESH არქიტექტურა</span></a> ESP-BLE-MESH არქიტექტურის იმპლემენტაციის შესახებ ინფორმაციისთვის და <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html"><span class="doc">ESP-BLE-MESH API მითითება</span></a> შესაბამისი API შესახებ ინფორმაციისთვის 8.</p>
+<p>ESP-BLE-MESH დანერგილი და სერტიფიცირებულია უახლესი Mesh Profile v1.0.1-ის საფუძველზე, მომხმარებლებს შეუძლიათ მიმართონ <a class="reference external" href="https://launchstudio.bluetooth.com/ListingDetails/94304">აქ</a> ESP-BLE-MESH-ის სერტიფიცირების დეტალებისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ ESP32-ისთვის mesh-ის Wi-Fi ზე დაფუძნებულ იმპლემენტაციას ეძებთ, გთხოვთ, გაეცნოთ Espressif-ის სხვა პროდუქტს, სახელწოდებით ESP-MESH. დამატებითი ინფორმაციისა და დოკუმენტაციისთვის იხილეთ <a class="reference internal" href="../../api-reference/network/esp_mesh.html"><span class="doc">ESP-MESH</span></a>.</p>
+</div>
+<div class="section" id="getting-started-with-esp-ble-mesh">
+<span id="getting-started-with-ble-mesh"></span><h2>ESP-BLE-MESH-ის გამოყენების დაწყება<a class="headerlink" href="ble-mesh-index.html#getting-started-with-esp-ble-mesh" title="Permalink to this headline">¶</a></h2>
+<p>ეს განყოფილება განკუთვნილია იმისთვის, რომ დაგეხმაროთ ESP-BLE-MESH-ის გამოყენებაში Espressif-ის ESP32 ჩიპზე დაფუძნებული აპარატურისთვის.</p>
+<p>ჩვენ ვაპირებთ სამი კვანძისგან შემდგარი მცირე ESP-BLE-MESH ქსელის დაყენებისა და მუშაობის პროცესის დემონსტრირებას. ეს პროცესი მოიცავს მოწყობილობების უზრუნველყოფას და კვანძების კონფიგურაციას, შემდეგ კი კონკრეტულ კვანძებზე არსებული ზოგადი OnOff სერვერის მოდელებისთვის ჩართვის/გამორთვის ბრძანებების გაგზავნას.</p>
+<p>თუ ESP-IDF ში ახალი ხართ, გთხოვთ, ჯერ დააყენოთ განვითარების გარემო, კომპილაცია , ფლეშ მეხსიერება და გაუშვათ მაგალითის აპლიკაცია, რომელიც შეესაბამება ESP-IDF ზედა დონეს. <a class="reference internal" href="../../get-started/index.html"><span class="doc">დაწყება</span></a> დოკუმენტაცია.</p>
+<div class="section" id="what-you-need">
+<h3>რა გჭირდებათ<a class="headerlink" href="ble-mesh-index.html#what-you-need" title="Permalink to this headline">¶</a></h3>
+<p>აპარატურა:</p>
+<ul class="simple">
+<li>სამი ESP32 დაფა, იხ. <a class="reference internal" href="ble-mesh-index.html#get-started-ble-mesh-check-hardware"><span class="std std-ref">ვარიანტები</span></a>.</li>
+<li>USB კაბელები პლატების დასაკავშირებლად.</li>
+<li>კომპიუტერი კონფიგურირებულია ESP-IDF ით.</li>
+<li>მობილური ტელეფონი ან პლანშეტი Android-ის ან iOS-ის ოპერაციული სისტემით.</li>
+</ul>
+<p>პროგრამული უზრუნველყოფა:</p>
+<ul>
+<li><p class="first">განაცხადის მაგალითი <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server">bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server</a> კოდი ESP32 დაფებზე ჩასატვირთად.</p>
+</li>
+<li><p class="first">მობილური აპლიკაცია: <strong>nRF ბადე</strong> Android-ის ან iOS-ისთვის. სურვილისამებრ, შეგიძლიათ გამოიყენოთ სხვა აპლიკაციები:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/EspressifApp/EspBLEMeshForAndroid/releases/tag/v1.0.0">EspBleMesh</a> Android აპლიკაცია</li>
+<li>Silicon Labs-ის Android ან iOS აპლიკაცია</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="installation-step-by-step">
+<h3>ინსტალაცია ეტაპობრივად<a class="headerlink" href="ble-mesh-index.html#installation-step-by-step" title="Permalink to this headline">¶</a></h3>
+<p>ეს არის დეტალური გზამკვლევი, რომელიც ინსტალაციის პროცესს გაგიძღვებათ.</p>
+<div class="section" id="step-1-check-hardware">
+<span id="get-started-ble-mesh-check-hardware"></span><h4>ნაბიჯი 1. აპარატურის შემოწმება<a class="headerlink" href="ble-mesh-index.html#step-1-check-hardware" title="Permalink to this headline">¶</a></h4>
+<p>ორივე <a class="reference external" href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a> და <a class="reference external" href="https://www.espressif.com/en/products/hardware/esp-wrover-kit/overview">ESP-WROVER-KIT</a> ESP-BLE-MESH იმპლემენტაციისთვის მხარდაჭერილია დეველოპერული დაფები. კონკრეტული დაფის არჩევა შეგიძლიათ menuconfig მეშვეობით: <code class="code docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> &amp;gt; <code class="docutils literal notranslate"><span class="pre">Example</span> <span class="pre">Configuration</span></code> &amp;gt; <code class="docutils literal notranslate"><span class="pre">Board</span> <span class="pre">selection</span> <span class="pre">for</span> <span class="pre">ESP-BLE-MESH</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ გამოყენებას გეგმავთ <a class="reference external" href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a>, შეაერთეთ RGB LED GPIO 25, 26 და 27 პინებთან.</p>
+</div>
+</div>
+<div class="section" id="step-2-configure-software">
+<h4>ნაბიჯი 2. პროგრამული უზრუნველყოფის კონფიგურაცია<a class="headerlink" href="ble-mesh-index.html#step-2-configure-software" title="Permalink to this headline">¶</a></h4>
+<p>შეიყვანეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server">bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server</a> მაგალითი დირექტორია, გაშვება <code class="code docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> თქვენი დაფის ასარჩევად და შემდეგ გასაშვებად <code class="code docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">build</span></code> მაგალითისთვის კომპილაცია .</p>
+</div>
+<div class="section" id="step-3-upload-application-to-nodes">
+<h4>ნაბიჯი 3. აპლიკაციის ატვირთვა Nodes-ში<a class="headerlink" href="ble-mesh-index.html#step-3-upload-application-to-nodes" title="Permalink to this headline">¶</a></h4>
+<p>შემდეგ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server">bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server</a> მაგალითია კომპილაცია d წარმატებით, მომხმარებლებს შეუძლიათ გაუშვან <code class="code docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">flash</span></code> ატვირთვა ში იგივე გენერირებული ორობითი ფაილები სამივე დეველოპერულ დაფაზე უნდა განთავსდეს.</p>
+<p>როგორც კი დაფები ჩაირთვება, თითოეულ დაფაზე RGB LED უნდა ჩაირთოს. <strong>მწვანე</strong>.</p>
+<div class="figure align-center" id="id3">
+<img alt="../../_images/ble-mesh-device-power-on.png" src="../../_images/ble-mesh-device-power-on.png"/>
+<p class="caption"><span class="caption-text">ESP-BLE-MESH მოწყობილობების ჩართვა</span></p>
+</div>
+</div>
+<div class="section" id="step-4-provision-nodes">
+<h4>ნაბიჯი 4. უზრუნველყოფის კვანძები<a class="headerlink" href="ble-mesh-index.html#step-4-provision-nodes" title="Permalink to this headline">¶</a></h4>
+<p>ამ განყოფილებაში ჩვენ გამოვიყენებთ <strong>nRF Mesh Android</strong> აპლიკაცია, რომელიც აჩვენებს, თუ როგორ უნდა მოამზადოთ მოწყობილობა, რომელიც არ არის მომარაგებული. მომხმარებლებს ასევე შეუძლიათ მისი iOS ვერსიის ჩამოტვირთვა App Store-დან.</p>
+<div class="section" id="scanner">
+<h5>4.1 სკანერი<a class="headerlink" href="ble-mesh-index.html#scanner" title="Permalink to this headline">¶</a></h5>
+<p>სკანერი აპლიკაციის ფუნქციაა, რომელიც გამოიყენება დიაპაზონში არსებული გაუმართავი მოწყობილობების მოსაძებნად. გახსენით აპლიკაცია, დააჭირეთ <strong>სკანერი</strong> ქვედა ნაწილში და დაიწყება ძებნა. ცოტა ხნის შემდეგ უნდა დავინახოთ სამი გაუმართავი მოწყობილობა.</p>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-scanner.png"><img alt="../../_images/ble-mesh-scanner.png" src="../../_images/ble-mesh-scanner.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - სკანერი</span></p>
+</div>
+</div>
+<div class="section" id="identify">
+<h5>4.2 იდენტიფიცირება<a class="headerlink" href="ble-mesh-index.html#identify" title="Permalink to this headline">¶</a></h5>
+<p>მომხმარებლებს შეუძლიათ აირჩიონ ნებისმიერი არამოწოდებული მოწყობილობა, შემდეგ აპლიკაცია შეეცდება კავშირის დამყარებას არჩეულ მოწყობილობასთან. BLE კავშირის წარმატებით დამყარების შემდეგ (ზოგჯერ მომხმარებლებს რამდენჯერმე სჭირდებათ კავშირის დასამყარებლად) და შესაბამისი ESP-BLE-MESH GATT სერვისის აღმოჩენის შემდეგ, მომხმარებლებს შეეძლებათ ნახონ <strong>იდენტიფიცირება</strong> ინტერფეისის ღილაკი ეკრანზე. IDENTIFY ოპერაციის გამოყენება შესაძლებელია იმის სათქმელად, თუ რომელი მოწყობილობა იქნება უზრუნველყოფილი.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">IDENTIFY ოპერაციას ასევე სჭირდება გარკვეული თანამშრომლობა მოწყობილობის მხრიდან, რის შემდეგაც მომხმარებლებს შეეძლებათ ნახონ, რომელი მოწყობილობაა დანერგვის პროცესში. ამჟამად, როდესაც დააჭირეთ <strong>იდენტიფიცირება</strong> ინტერფეისის ღილაკის შემთხვევაში, მოწყობილობიდან არანაირი ნიშანი არ ჩანს, სერიული მონიტორის ჟურნალის გარდა.</p>
+</div>
+<p>შემდეგ <strong>იდენტიფიცირება</strong> ინტერფეისის ღილაკზე დაჭერის შემდეგ, მომხმარებლებს შეუძლიათ ნახონ <strong>დებულება</strong> ინტერფეისის ღილაკი.</p>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-identify-provision.png"><img alt="../../_images/ble-mesh-identify-provision.png" src="../../_images/ble-mesh-identify-provision.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - IDENTIFY - PROVISION</span></p>
+</div>
+</div>
+<div class="section" id="provision">
+<h5>4.3 დებულება<a class="headerlink" href="ble-mesh-index.html#provision" title="Permalink to this headline">¶</a></h5>
+<p>შემდეგ, აპლიკაცია შეეცდება გაუმართავი მოწყობილობის მიწოდებას. მოწყობილობის წარმატებით მიწოდების შემდეგ, დაფაზე RGB LED ინდიკატორი გამოირთვება და აპლიკაცია განახორციელებს შემდეგ პროცედურებს:</p>
+<ol class="arabic simple">
+<li>კვანძთან კავშირის გაწყვეტა</li>
+<li>სცადეთ კვანძთან ხელახლა დაკავშირება</li>
+<li>წარმატებით დაუკავშირდით და აღმოაჩინეთ ESP-BLE-MESH GATT სერვისი</li>
+<li>მიიღეთ კვანძის კომპოზიციის მონაცემები და დაამატეთ მას AppKey</li>
+</ol>
+<p>როდესაც ყველა პროცედურა დასრულდება, კვანძი სწორად იქნება კონფიგურირებული. და დაჭერის შემდეგ <strong>კარგი</strong>მომხმარებლებს შეუძლიათ დაინახონ, რომ უნიქასთ მისამართი მინიჭებულია და კვანძის კომპოზიციის მონაცემები წარმატებით არის გაშიფრული.</p>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-config-complete.png"><img alt="../../_images/ble-mesh-config-complete.png" src="../../_images/ble-mesh-config-complete.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - კონფიგურაცია დასრულებულია</span></p>
+</div>
+<p>ზოგჯერ პროცედურა 2-ში, აპლიკაციამ შეიძლება ვერ შეძლოს კვანძთან ხელახლა დაკავშირება. ამ შემთხვევაში, ღილაკზე დაჭერის შემდეგ <strong>კარგი</strong>, მომხმარებლებს შეუძლიათ დაინახონ, რომ მხოლოდ კვანძის unicast მისამართია მინიჭებული, მაგრამ კომპოზიციის მონაცემები არ არის მიღებული. შემდეგ მომხმარებლებს უნდა დააჭირონ <strong>დაკავშირება</strong> ზედა მარჯვენა კუთხეში, ეკრანზე გამოჩნდება ადრე მოწოდებული კვანძი, რომლის არჩევაც მომხმარებლებმა და კვანძთან დაკავშირება უნდა სცადონ.</p>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-initial-config-fail.png"><img alt="../../_images/ble-mesh-initial-config-fail.png" src="../../_images/ble-mesh-initial-config-fail.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - საწყისი კონფიგურაცია ვერ მოხერხდა</span></p>
+</div>
+<p>წარმატებით დაკავშირების შემდეგ, აპლიკაცია აჩვენებს ინტერფეისის ღილაკებს, რომელთა გამოყენება შესაძლებელია კომპოზიციის მონაცემების მისაღებად და AppKey-ს დასამატებლად.</p>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-reconnect-initial-config.png"><img alt="../../_images/ble-mesh-reconnect-initial-config.png" src="../../_images/ble-mesh-reconnect-initial-config.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - ხელახლა დაკავშირება - საწყისი კონფიგურაცია</span></p>
+</div>
+<p>თუ მოწყობილობა მეორე ან მესამეა, რომელიც აპლიკაციით არის უზრუნველყოფილი და ღილაკზე დაჭერის შემდეგ <strong>დაკავშირება</strong>მომხმარებლებს ეკრანზე ორი ან სამი კვანძის დანახვა შეუძლიათ. ამ სიტუაციაში, მომხმარებლებს შეუძლიათ აირჩიონ ნებისმიერი მოწყობილობა დასაკავშირებლად და წარმატების შემდეგ დაბრუნდნენ მთავარ ეკრანზე, რათა აირჩიონ კონფიგურირებადი კვანძი.</p>
+<p>აქ მოცემულია სამი მოწყობილობის მაგალითი, რომლებიც ჩამოთვლილია.</p>
+<ul class="simple">
+<li>მარცხენა სურათზე ჩანს, რომ მესამე მოწყობილობა წარმატებით არის უზრუნველყოფილი, მაგრამ აპლიკაციამ ვერ შეძლო მასთან დაკავშირება. როდესაც ის ცდილობს მესამე კვანძთან ხელახლა დაკავშირებას, აპლიკაციაში სამი კვანძი ჩანს.</li>
+<li>მარჯვენა სურათზე ჩანს, რომ ნებისმიერ კვანძთან წარმატებით დაკავშირების შემდეგ, აპლიკაცია აჩვენებს სამივე კვანძის ინფორმაციას. მომხმარებლებს შეუძლიათ დაინახონ, რომ აპლიკაციას აქვს პირველი და მეორე კვანძების შემადგენლობის მონაცემები, მაგრამ მესამესთვის მას მხოლოდ უნიქასტის მისამართი აქვს მინიჭებული, ხოლო შემადგენლობის მონაცემები უცნობია.</li>
+</ul>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-reconnect-three.png"><img alt="../../_images/ble-mesh-reconnect-three.png" src="../../_images/ble-mesh-reconnect-three.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - ხელახლა დაკავშირება - სამი კვანძი</span></p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h5>4.4 კონფიგურაცია<a class="headerlink" href="ble-mesh-index.html#configuration" title="Permalink to this headline">¶</a></h5>
+<p>როდესაც უზრუნველყოფა და საწყისი კონფიგურაცია დასრულდება, მომხმარებლებს შეუძლიათ დაიწყონ კვანძის კონფიგურაცია, მაგალითად, AppKey-ის ელემენტებით თითოეულ მოდელთან დაკავშირება, მასზე პუბლიკაციის ინფორმაციის დაყენება და ა.შ.</p>
+<p>ქვემოთ მოცემული მაგალითი გვიჩვენებს, თუ როგორ უნდა დააკავშიროთ AppKey Generic OnOff Server Model-თან პირველადი ელემენტის ფარგლებში.</p>
+<div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-model-bind-appkey.png"><img alt="../../_images/ble-mesh-model-bind-appkey.png" src="../../_images/ble-mesh-model-bind-appkey.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - მოდელის შეკავშირების AppKey</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">AppKey-ის კონფიგურაციის სერვერის მოდელთან დაკავშირება საჭირო არ არის, რადგან ის DevKey-ს მხოლოდ ზედა ტრანსპორტის დონეზე შეტყობინებების დაშიფვრისთვის იყენებს.</p>
+</div>
+</div>
+</div>
+<div class="section" id="step-5-operate-network">
+<h4>ნაბიჯი 5. ქსელის მართვა<a class="headerlink" href="ble-mesh-index.html#step-5-operate-network" title="Permalink to this headline">¶</a></h4>
+<p>მას შემდეგ, რაც სამი ელემენტის ფარგლებში არსებული ყველა ზოგადი OnOff სერვერის მოდელი შესაბამისი AppKey-ით იქნება დაკავშირებული, მომხმარებლებს შეუძლიათ აპლიკაციის გამოყენება RGB LED-ის ჩასართავად/გამოსართავად.</p>
+<p>ში <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server">bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server</a> მაგალითად, პირველი ზოგადი OnOff სერვერის მოდელი გამოიყენება კონტროლისთვის <strong>წითელი</strong> ფერი, მეორე გამოიყენება კონტროლისთვის <strong>მწვანე</strong> ფერი და მესამე გამოიყენება კონტროლისთვის <strong>ლურჯი</strong> ფერი</p>
+<div class="figure align-center" id="id11">
+<a class="reference internal image-reference" href="../../_images/ble-mesh-generic-onoff.png"><img alt="../../_images/ble-mesh-generic-onoff.png" src="../../_images/ble-mesh-generic-onoff.png" style="height: 370px;"/></a>
+<p class="caption"><span class="caption-text">nRF Mesh - ზოგადი OnOff კონტროლი</span></p>
+</div>
+<p>ქვემოთ მოცემულ ეკრანის სურათზე ნაჩვენებია სხვადასხვა ფერის სხვადასხვა დაფა.</p>
+<div class="figure align-center" id="id12">
+<img alt="../../_images/ble-mesh-three-nodes-on.png" src="../../_images/ble-mesh-three-nodes-on.png"/>
+<p class="caption"><span class="caption-text">სამი ESP-BLE-MESH კვანძი ჩართულია</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამისთვის <strong>nRF ბადე</strong> iOS აპლიკაციაში [ვერსია 1.0.4], როდესაც კვანძი შეიცავს ერთზე მეტ ელემენტს, აპლიკაცია არ მუშაობს სწორად. თუ მომხმარებლები ცდილობენ მეორე ან მესამე ზოგადი OnOff სერვერის მოდელის ჩართვას/გამორთვას, აპლიკაციის მიერ გაგზავნილი შეტყობინება მიმართული იქნება პირველადი ელემენტის ფარგლებში არსებულ პირველ ზოგად OnOff სერვერის მოდელზე.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="esp-ble-mesh-examples">
+<span id="id1"></span><h2>ESP-BLE-MESH მაგალითები<a class="headerlink" href="ble-mesh-index.html#esp-ble-mesh-examples" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server/tutorial/BLE_Mesh_Node_OnOff_Server_Example_Walkthrough.md">ESP-BLE-MESH კვანძის OnOff სერვერი </a> - ნაჩვენებია ESP-BLE-MESH-ის გამოყენება, როგორც კვანძისა, რომელსაც აქვს კონფიგურაციის სერვერის მოდელი და ზოგადი OnOff სერვერის მოდელი. ESP-BLE-MESH პროვიზერს შემდეგ შეუძლია მოამზადოს დაუმონტაჟებელი მოწყობილობა და აკონტროლოს RGB LED, რომელიც წარმოადგენს ჩართვას/გამორთვის მდგომარეობას, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_server">მაგალითის კოდი </a>.</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_client/tutorial/BLE_Mesh_Node_OnOff_Client_Example_Walkthrough.md">ESP-BLE-MESH კვანძის OnOff კლიენტი </a> - გვიჩვენებს, თუ როგორ მუშაობს კვანძში Generic OnOff Client მოდელი. კვანძს აქვს კონფიგურაციის სერვერის მოდელი და Generic OnOff Client მოდელი, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_node/onoff_client">მაგალითის კოდი </a>.</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_provisioner/tutorial/BLE_Mesh_Provisioner_Example_Walkthrough.md">ESP-BLE-MESH პროვაიდერი </a> - გვიჩვენებს, თუ როგორ შეუძლია მოწყობილობას იმოქმედოს, როგორც ESP-BLE-MESH პროვაიდერმა მოწყობილობების უზრუნველყოფისთვის. პროვაიდერს აქვს კონფიგურაციის სერვერის მოდელი, კონფიგურაციის კლიენტის მოდელი და ზოგადი OnOff კლიენტის მოდელი, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_provisioner">მაგალითის კოდი </a>.</li>
+<li>ESP-BLE-MESH სწრაფი უზრუნველყოფა - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_fast_provision/ble_mesh_fast_prov_client/tutorial/BLE_Mesh_Fast_Prov_Client_Example_Walkthrough.md">კლიენტი </a> და <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_fast_provision/ble_mesh_fast_prov_server/tutorial/BLE_Mesh_Fast_Prov_Server_Example_Walkthrough.md">სერვერი </a> - ეს მაგალითი გამოიყენება იმის საჩვენებლად, თუ რამდენად სწრაფია ბადისებრი ქსელის შექმნა. 100 მოწყობილობის უზრუნველყოფას არაუმეტეს 60 წამი სჭირდება, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_fast_provision/ble_mesh_fast_prov_client">კლიენტის კოდის მაგალითი </a> და <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_fast_provision/ble_mesh_fast_prov_server">სერვერის კოდის მაგალითი </a>.</li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_wifi_coexist/tutorial/BLE_Mesh_WiFi_Coexist_Example_Walkthrough.md">ESP-BLE-MESH და Wi-Fi თანაარსებობა </a> - მაგალითი, რომელიც აჩვენებს ESP32-ის Wi-Fi და Bluetooth (BLE/BR/EDR) თანაარსებობის ფუნქციას. მარტივად რომ ვთქვათ, მომხმარებლებს შეუძლიათ გამოიყენონ Wi-Fi Bluetooth გამოყენებისას, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_wifi_coexist">მაგალითის კოდი </a>.</li>
+<li>ESP-BLE-MESH კვანძის კონსოლი - მაგალითი, რომელიც ახორციელებს BLE Mesh კვანძის ძირითად ფუნქციებს. ამ მაგალითში კვანძის სკანირება და უზრუნველყოფა შესაძლებელია Provisioner-ის მიერ და პასუხის გაცემა Provisioner-ისგან get/set შეტყობინებაზე, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_console/ble_mesh_node">კვანძის კოდის მაგალითი </a> და <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_console/ble_mesh_provisioner">პროვიზერის კოდის მაგალითი </a>.</li>
+</ul>
+</div>
+<div class="section" id="esp-ble-mesh-demo-videos">
+<span id="id2"></span><h2>ESP-BLE-MESH დემო ვიდეოები<a class="headerlink" href="ble-mesh-index.html#esp-ble-mesh-demo-videos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://download.espressif.com/BLE_MESH/Docs4Customers/esp-ble-mesh-demo.mp4">ESP-BLE-MESH კვანძების უზრუნველყოფა სმარტფონის აპლიკაციის გამოყენებით</a></li>
+<li><a class="reference external" href="http://download.espressif.com/BLE_MESH/BLE_Mesh_Demo/V0.4_Demo_Fast_Provision/ESP32_BLE_Mesh_Fast_Provision.mp4">Espressif-ის სწრაფი უზრუნველყოფა ESP-BLE-MESH აპლიკაციის გამოყენებით</a></li>
+<li><a class="reference external" href="http://download.espressif.com/BLE_MESH/BLE_Mesh_Demo/V0.5_Demo_Coexistence/ESP_BLE_MESH_%26_WIFI_Coexistence.mp4">ესპრესო ESP-BLE-MESH და Wi-Fi თანაარსებობა</a></li>
+</ul>
+</div>
+<div class="section" id="esp-ble-mesh-faq">
+<h2>ESP-BLE-MESH-ის ხშირად დასმული კითხვები<a class="headerlink" href="ble-mesh-index.html#esp-ble-mesh-faq" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-provisioner-development"><span class="std std-ref">1. პროვაიდერის განვითარება</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-node-development"><span class="std std-ref">2. კვანძის განვითარება</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-ble-mesh-and-wi-fi-coexistence"><span class="std std-ref">3. ESP-BLE-MESH და Wi-Fi თანაარსებობა</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-fast-provisioning"><span class="std std-ref">4. სწრაფი უზრუნველყოფა</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-log-help"><span class="std std-ref">5. დახმარება ჟურნალში</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-example-help"><span class="std std-ref">6. დახმარების მაგალითი</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-others"><span class="std std-ref">7. სხვები</span></a></li>
+</ul>
+</div>
+<div class="section" id="related-documents">
+<h2>დაკავშირებული დოკუმენტები<a class="headerlink" href="ble-mesh-index.html#related-documents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ble-mesh-feature-list.html">ESP-BLE-MESH ფუნქციების სია</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ble-mesh-architecture.html">ESP-BLE-MESH არქიტექტურა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ble-mesh-faq.html">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ble-mesh-terminology.html">ESP-BLE-MESH ტერმინოლოგია</a></li>
+</ul>
+</div>
+<div class="section" id="bluetooth-sig-documentation">
+<h3>Bluetooth SIG დოკუმენტაცია<a class="headerlink" href="ble-mesh-index.html#bluetooth-sig-documentation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=429633">BLE Mesh Core სპეციფიკაცია</a></li>
+<li><a class="reference external" href="https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=429634">BLE Mesh მოდელის სპეციფიკაცია</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/an-intro-to-bluetooth-mesh-part1">შესავალი Bluetooth Mesh-ში, ნაწილი 1</a> / <a class="reference external" href="http://blog.bluetooth.com/an-intro-to-bluetooth-mesh-part2">ნაწილი 2</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/the-fundamental-concepts-of-bluetooth-mesh-networking-part-1">Bluetooth Mesh Networking-ის ფუნდამენტური კონცეფციები, ნაწილი 1</a> / <a class="reference external" href="http://blog.bluetooth.com/the-fundamental-concepts-of-bluetooth-mesh-networking-part-2">ნაწილი 2</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/bluetooth-mesh-networking-series-friendship">Bluetooth Mesh ქსელი: მეგობრობა</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/management-of-devices-bluetooth-mesh-network">მოწყობილობების მართვა Bluetooth Mesh ქსელში</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/bluetooth-mesh-security-overview">Bluetooth Mesh უსაფრთხოების მიმოხილვა</a></li>
+<li><a class="reference external" href="http://blog.bluetooth.com/provisioning-a-bluetooth-mesh-network-part-1">Bluetooth დებულება, Mesh ქსელი, ნაწილი 1</a> / <a class="reference external" href="http://blog.bluetooth.com/provisioning-a-bluetooth-mesh-network-part-2">ნაწილი 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ble-mesh-feature-list.html" rel="next" title="ESP-BLE-MESH Feature List">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../error-handling.html" rel="prev" title="Error Handling"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

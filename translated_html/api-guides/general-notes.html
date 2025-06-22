@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ზოგადი შენიშვნები ESP-IDF პროგრამირების შესახებ — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="hlinterrupts.html" rel="next" title="High-Level Interrupts"/>
+<link href="freertos-smp.html" rel="prev" title="ESP-IDF FreeRTOS SMP Changes"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/general-notes.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/general-notes"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/general-notes.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="general-notes.html#">ზოგადი შენიშვნები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="general-notes.html#application-startup-flow">აპლიკაციის გაშვების ნაკადი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#first-stage-bootloader">პირველი ეტაპის ჩამტვირთავი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#second-stage-bootloader">მეორე ეტაპის ჩამტვირთავი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#application-startup">აპლიკაციის გაშვება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="general-notes.html#application-memory-layout">აპლიკაციის მეხსიერების განლაგება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#iram-instruction-ram">IRAM (ინსტრუქციის ოპერატიული მეხსიერება)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#irom-code-executed-from-flash">IROM (Flash-დან შესრულებული კოდი)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#rtc-fast-memory">RTC სწრაფი მეხსიერება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#dram-data-ram">DRAM (მონაცემთა ოპერატიული მეხსიერება)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#drom-data-stored-in-flash">DROM (მონაცემები, რომლებიც ინახება Flash-ში)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="general-notes.html#rtc-slow-memory">RTC ნელი მეხსიერება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="general-notes.html#dma-capable-requirement">DMA-ს შესაძლებლობების მოთხოვნა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ზოგადი შენიშვნები ESP-IDF პროგრამირების შესახებ</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/general-notes.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="general-notes-about-esp-idf-programming">
+<h1>ზოგადი შენიშვნები ESP-IDF პროგრამირების შესახებ<a class="headerlink" href="general-notes.html#general-notes-about-esp-idf-programming" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/general-notes.html">[中文]</a></p>
+<div class="section" id="application-startup-flow">
+<h2>აპლიკაციის გაშვების ნაკადი<a class="headerlink" href="general-notes.html#application-startup-flow" title="Permalink to this headline">¶</a></h2>
+<p>ეს შენიშვნა განმარტავს სხვადასხვა ნაბიჯებს, რომლებიც უნდა შესრულდეს მანამდე <code class="docutils literal notranslate"><span class="pre">app_main</span></code> ESP-IDF აპლიკაციის ფუნქციას უწოდებენ.</p>
+<p>გაშვების პროცესის მაღალი დონის ხედი შემდეგია:</p>
+<ol class="arabic simple">
+<li>ROM-ში პირველი საფეხურის ჩამტვირთავი მეორე საფეხურის ჩამტვირთავი გამოსახულებას ფლეშ მეხსიერება 0x1000 ოფსეტიდან ოპერატიულ მეხსიერებაში (IRAM და DRAM) ტვირთავს.</li>
+<li>მეორე ეტაპი ჩამტვირთავი ფლეშ მეხსიერება დან იტვირთება დანაყოფების ცხრილი და main app-ის გამოსახულება. Main app მოიცავს როგორც RAM სეგმენტებს, ასევე მხოლოდ წასაკითხ სეგმენტებს, რომლებიც ფლეშ მეხსიერება ქეშის მეშვეობით არის მიმაგრებული.</li>
+<li>აპლიკაციის მთავარი სურათი სრულდება. ამ ეტაპზე შესაძლებელია მეორე CPU-ს და RTOS დამგეგმავის გაშვება.</li>
+</ol>
+<p>ეს პროცესი დეტალურად არის ახსნილი შემდეგ ნაწილებში.</p>
+<div class="section" id="first-stage-bootloader">
+<h3>პირველი ეტაპის ჩამტვირთავი<a class="headerlink" href="general-notes.html#first-stage-bootloader" title="Permalink to this headline">¶</a></h3>
+<p>SoC-ის გადატვირთვის შემდეგ, PRO CPU დაუყოვნებლივ დაიწყებს მუშაობას, შეასრულებს გადატვირთვის ვექტორულ კოდს, ხოლო APP CPU გადატვირთვის რეჟიმში დარჩება. გაშვების პროცესის დროს, PRO CPU ასრულებს ყველა ინიციალიზაციას. APP CPU-ს გადატვირთვა გაუქმებულია <code class="docutils literal notranslate"><span class="pre">call_start_cpu0</span></code> აპლიკაციის გაშვების კოდის ფუნქცია. გადატვირთვის ვექტორული კოდი მდებარეობს ESP32 ჩიპის ნიღბის ROM-ში 0x40000400 მისამართზე და მისი შეცვლა შეუძლებელია.</p>
+<p>გადატვირთვის ვექტორიდან გამოძახებული გაშვების კოდი განსაზღვრავს ჩატვირთვის რეჟიმს შემოწმებით <code class="docutils literal notranslate"><span class="pre">GPIO_STRAP_REG</span></code> დარეგისტრირდით ბუტსტრეპ პინის მდგომარეობებზე. გადატვირთვის მიზეზიდან გამომდინარე, შემდეგი ხდება:</p>
+<ol class="arabic simple">
+<li>ღრმა ძილის მდგომარეობიდან გადატვირთვა: თუ მნიშვნელობა <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE6_REG</span></code> არ არის ნულოვანი და RTC მეხსიერების CRC მნიშვნელობა <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE7_REG</span></code> ძალაშია, გამოიყენეთ <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE6_REG</span></code> როგორც შესვლის წერტილის მისამართი და დაუყოვნებლივ გადადით მასზე. თუ <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE6_REG</span></code> ნულის ტოლია, ან <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE7_REG</span></code> შეიცავს არასწორ CRC-ს, ან კოდის გამოძახების შემდეგ <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STORE6_REG</span></code> აბრუნებს, გააგრძელეთ ჩატვირთვა ისე, თითქოს ეს ჩართვისას გადატვირთვა იყო. <strong>შენიშვნა</strong>: ამ ეტაპზე მორგებული კოდის გასაშვებად, გათვალისწინებულია ღრმა ძილის stub მექანიზმი. იხილეთ <a class="reference internal" href="deep-sleep-stub.html"><span class="doc">ღრმა ძილი</span></a> დოკუმენტაცია ამისათვის.</li>
+<li>ჩართვისას გადატვირთვისთვის, პროგრამული უზრუნველყოფის SOC-ის გადატვირთვისთვის და Watchdog-ის SOC-ის გადატვირთვისთვის: შეამოწმეთ <code class="docutils literal notranslate"><span class="pre">GPIO_STRAP_REG</span></code> რეგისტრაცია, თუ მოთხოვნილია UART ან SDIO ჩამოტვირთვის რეჟიმი. ამ შემთხვევაში, დააკონფიგურირეთ UART ან SDIO და დაელოდეთ კოდის ჩამოტვირთვას. წინააღმდეგ შემთხვევაში, გააგრძელეთ ჩატვირთვა ისე, თითქოს ეს პროგრამული უზრუნველყოფის CPU-ს გადატვირთვის გამო მოხდა.</li>
+<li>პროგრამული უზრუნველყოფის CPU-ს გადატვირთვისა და Watchdog CPU-ს გადატვირთვისთვის: დააკონფიგურირეთ SPI ფლეშ მეხსიერება EFUSE მნიშვნელობების საფუძველზე და შეეცადეთ ჩატვირთოთ კოდი ფლეშ მეხსიერება დან. ეს ნაბიჯი უფრო დეტალურად არის აღწერილი შემდეგ აბზაცებში. თუ ფლეშ მეხსიერება დან კოდის ჩატვირთვა ვერ მოხერხდა, გახსენით BASIC ინტერპრეტატორი ოპერატიულ მეხსიერებაში და ჩართეთ იგი. გაითვალისწინეთ, რომ RTC Watchdog კვლავ ჩართულია, როდესაც ეს ხდება, ამიტომ თუ ინტერპრეტატორი არ მიიღებს რაიმე შეყვანას, Watchdog რამდენიმე ასეულ მილიწამში გადატვირთავს SOC-ს, მთელი პროცესის გამეორებით. თუ ინტერპრეტატორი მიიღებს რაიმე შეყვანას UART-დან, ის გამორთავს Watchdog-ს.</li>
+</ol>
+<p>აპლიკაციის ორობითი იმიჯი იტვირთება ფლეშ მეხსიერება დან, მისამართიდან 0x1000. ფლეშ მეხსიერება ის პირველი 4 კბ სექტორი გამოიყენება უსაფრთხო ჩატვირთვის IV-ის და აპლიკაციის იმიჯის ხელმოწერის შესანახად. დამატებითი ინფორმაციისთვის, გთხოვთ, იხილოთ უსაფრთხო ჩატვირთვის დოკუმენტაცია.</p>
+</div>
+<div class="section" id="second-stage-bootloader">
+<h3>მეორე ეტაპის ჩამტვირთავი<a class="headerlink" href="general-notes.html#second-stage-bootloader" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF ში, ბინარული გამოსახულება, რომელიც ფლეშ მეხსიერება ში 0x1000 ოფსეტზეა განთავსებული, მეორე ეტაპის ჩამტვირთავი ია. მეორე ეტაპის ჩამტვირთავი საწყისი კოდი ხელმისაწვდომია ESP-IDF კომპონენტი s/ ჩამტვირთავი დირექტორიაში. გაითვალისწინეთ, რომ ეს განლაგება არ არის ერთადერთი შესაძლებელი ESP32 ჩიპისთვის. შესაძლებელია სრულფუნქციური აპლიკაციის დაწერა, რომელიც იმუშავებს, როდესაც ფლეშ მეხსიერება 0x1000 ოფსეტზეა გადაყვანილი, მაგრამ ეს ამ დოკუმენტის ფარგლებს სცილდება. მეორე ეტაპი ჩამტვირთავი გამოიყენება ESP-IDF ში ფლეშ მეხსიერება განლაგების მოქნილობის დასამატებლად ( დანაყოფების ცხრილი s-ის გამოყენებით) და ფლეშ მეხსიერება დაშიფვრასთან, უსაფრთხო ჩატვირთვასთან და ეთერში განახლებებთან (OTA) დაკავშირებული სხვადასხვა ნაკადების განხორციელების უზრუნველსაყოფად.</p>
+<p>როდესაც პირველი ეტაპის ჩამტვირთავი ასრულებს მეორე ეტაპის ჩამტვირთავი შემოწმებას და ჩატვირთვას, ის გადადის მეორე ეტაპის ჩამტვირთავი შესვლის წერტილზე, რომელიც მდებარეობს ორობითი გამოსახულების სათაურში.</p>
+<p>მეორე ეტაპის ჩამტვირთავი კითხულობს დანაყოფების ცხრილი , რომელიც ნაპოვნია 0x8000 ოფსეტზე. იხ. <a class="reference internal" href="partition-tables.html"><span class="doc">დანაყოფების ცხრილი ე ტერმინალი</span></a> დამატებითი ინფორმაციისთვის დოკუმენტაცია. ჩამტვირთავი პოულობს ქარხნულ და OTA დანაყოფებს და წყვეტს, რომელი ჩატვირთოს, ნაპოვნი მონაცემების საფუძველზე. <em>OTA ინფორმაცია</em> დანაყოფი.</p>
+<p>არჩეული დანაყოფისთვის, მეორე ეტაპის ჩამტვირთავი კოპირებს მონაცემებისა და კოდის სექციებს, რომლებიც დაკავშირებულია IRAM-სა და DRAM-ში, მათ ჩატვირთვის მისამართებზე. სექციებისთვის, რომლებსაც აქვთ ჩატვირთვის მისამართები DROM და IROM რეგიონებში, ფლეშ მეხსიერება MMU კონფიგურირებულია სწორი შესაბამისობის უზრუნველსაყოფად. გაითვალისწინეთ, რომ მეორე ეტაპის ჩამტვირთავი აკონფიგურირებს ფლეშ მეხსიერება MMU-ს როგორც PRO, ასევე APP CPU-სთვის, მაგრამ ის მხოლოდ რთავს ფლეშ მეხსიერება MMU-ს PRO CPU-სთვის. ამის მიზეზი ის არის, რომ მეორე ეტაპის ჩამტვირთავი კოდი იტვირთება მეხსიერების რეგიონში, რომელსაც იყენებს APP CPU ქეში. APP CPU-სთვის ქეშის ჩართვის მოვალეობა გადაეცემა აპლიკაციას. კოდის ჩატვირთვისა და ფლეშ მეხსიერება MMU-ს დაყენების შემდეგ, მეორე ეტაპის ჩამტვირთავი გადადის აპლიკაციის შესვლის წერტილზე, რომელიც მდებარეობს ორობითი გამოსახულების სათაურში.</p>
+<p>ამჟამად, აპლიკაციის დანაყოფის შერჩევის ლოგიკის პერსონალიზებისთვის ჩამტვირთავი ზე აპლიკაციაში განსაზღვრული კაუჭების დამატება შეუძლებელია. მაგალითად, ეს შეიძლება საჭირო გახდეს GPIO ის მდგომარეობიდან გამომდინარე აპლიკაციის სხვადასხვა სურათის ჩასატვირთად. მომავალში ESP-IDF ს დაემატება ასეთი პერსონალიზაციის ფუნქციები. ამ ეტაპზე, ჩამტვირთავი პერსონალიზება შესაძლებელია ჩამტვირთავი კომპონენტი აპლიკაციის დირექტორიაში კოპირებით და იქ საჭირო ცვლილებების შეტანით. ამ შემთხვევაში, ESP-IDF აწყობის სისტემა კომპილაცია კომპონენტი ს აპლიკაციის დირექტორიაში ESP-IDF კომპონენტი ის ნაცვლად გამოიყენებს.</p>
+</div>
+<div class="section" id="application-startup">
+<h3>აპლიკაციის გაშვება<a class="headerlink" href="general-notes.html#application-startup" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF აპლიკაციის შესვლის წერტილი არის <code class="docutils literal notranslate"><span class="pre">call_start_cpu0</span></code> ფუნქცია, რომელიც ნაპოვნია <code class="docutils literal notranslate"><span class="pre">components/esp32/cpu_start.c</span></code>ამ ფუნქციის ორი ძირითადი ფუნქციაა გროვის გამანაწილებლის ჩართვა და APP CPU-ს შესვლის წერტილზე გადასვლა. <code class="docutils literal notranslate"><span class="pre">call_start_cpu1</span></code>PRO CPU-ზე კოდი ადგენს APP CPU-ს შესვლის წერტილს, აუქმებს APP CPU-ს გადატვირთვას და ელოდება APP CPU-ზე გაშვებული კოდის მიერ გლობალური დროშის დაყენებას, რაც მიუთითებს, რომ ის დაიწყო. ამის შემდეგ, PRO CPU გადადის <code class="docutils literal notranslate"><span class="pre">start_cpu0</span></code> ფუნქცია და APP CPU გადადის <code class="docutils literal notranslate"><span class="pre">start_cpu1</span></code> ფუნქცია.</p>
+<p>ორივე <code class="docutils literal notranslate"><span class="pre">start_cpu0</span></code> და <code class="docutils literal notranslate"><span class="pre">start_cpu1</span></code> სუსტი ფუნქციებია, რაც იმას ნიშნავს, რომ მათი გადაფარვა შესაძლებელია აპლიკაციაში, თუ საჭიროა ინიციალიზაციის თანმიმდევრობის რაიმე აპლიკაციისთვის სპეციფიკური ცვლილება. ნაგულისხმევი იმპლემენტაცია <code class="docutils literal notranslate"><span class="pre">start_cpu0</span></code> ჩართავს ან ინიციალიზაციას უკეთებს კომპონენტი s-ს, ში გაკეთებული არჩევანის მიხედვით. <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>გთხოვთ, იხილოთ ამ ფუნქციის საწყისი კოდი <code class="docutils literal notranslate"><span class="pre">components/esp32/cpu_start.c</span></code> შესრულებული ნაბიჯების განახლებული სიისთვის. გაითვალისწინეთ, რომ ამ ეტაპზე გამოიძახება აპლიკაციაში არსებული ნებისმიერი C++ გლობალური კონსტრუქტორი. როგორც კი ყველა აუცილებელი კომპონენტი ინიციალიზაცია მოხდება, <em>მთავარი ამოცანა</em> იქმნება და Free RTOS დამგეგმავი გაეშვება.</p>
+<p>მიუხედავად იმისა, რომ PRO CPU ახორციელებს ინიციალიზაციას <code class="docutils literal notranslate"><span class="pre">start_cpu0</span></code> ფუნქცია, APP CPU ბრუნავს <code class="docutils literal notranslate"><span class="pre">start_cpu1</span></code> ფუნქცია, რომელიც ელოდება დამგეგმავის გაშვებას PRO CPU-ზე. მას შემდეგ, რაც დამგეგმავი გაშვებულია PRO CPU-ზე, APP CPU-ზე არსებული კოდი ასევე გაუშვებს დამგეგმავს.</p>
+<p>მთავარი ამოცანა არის ამოცანა, რომელიც შესრულებულია <code class="docutils literal notranslate"><span class="pre">app_main</span></code> ფუნქცია. ძირითადი დავალებების დასტის ზომისა და პრიორიტეტის კონფიგურაცია შესაძლებელია <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>აპლიკაციას შეუძლია გამოიყენოს ეს დავალება აპლიკაციის სპეციფიკური საწყისი დაყენებისთვის, მაგალითად, სხვა დავალებების გასაშვებად. აპლიკაციას ასევე შეუძლია გამოიყენოს მთავარი დავალება მოვლენების ციკლებისთვის და სხვა ზოგადი დანიშნულების აქტივობებისთვის. თუ <code class="docutils literal notranslate"><span class="pre">app_main</span></code> ფუნქცია აბრუნებს, მთავარი ამოცანა წაიშლება.</p>
+</div>
+</div>
+<div class="section" id="application-memory-layout">
+<span id="memory-layout"></span><h2>აპლიკაციის მეხსიერების განლაგება<a class="headerlink" href="general-notes.html#application-memory-layout" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 ჩიპს აქვს მოქნილი მეხსიერების განლაგების ფუნქციები. ეს განყოფილება აღწერს, თუ როგორ იყენებს ESP-IDF ამ ფუნქციებს ნაგულისხმევად.</p>
+<p>ESP-IDF ში აპლიკაციის კოდი შეიძლება განთავსდეს შემდეგი მეხსიერების რეგიონებიდან ერთ-ერთში.</p>
+<div class="section" id="iram-instruction-ram">
+<h3>IRAM (ინსტრუქციის ოპერატიული მეხსიერება)<a class="headerlink" href="general-notes.html#iram-instruction-ram" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF გამოყოფს ნაწილს <cite>Internal SRAM0</cite> ინსტრუქციის ოპერატიული მეხსიერების რეგიონი (განსაზღვრულია ტექნიკური საცნობარო სახელმძღვანელოში). გარდა პირველი 64 კბ ბლოკისა, რომელიც გამოიყენება PRO და APP CPU ქეშებისთვის, ამ მეხსიერების დანარჩენი დიაპაზონი (ანუ <code class="docutils literal notranslate"><span class="pre">0x40080000</span></code> რომ <code class="docutils literal notranslate"><span class="pre">0x400A0000</span></code>) გამოიყენება აპლიკაციის იმ ნაწილების შესანახად, რომლებიც ოპერატიული მეხსიერებადან უნდა იმუშაოს.</p>
+<p>ESP-IDF ის რამდენიმე კომპონენტი და WiFi დასტის ნაწილები ამ რეგიონში თავსდება ლინკერის სკრიპტის გამოყენებით.</p>
+<p>თუ რაიმე აპლიკაციის კოდის IRAM-ში განთავსებაა საჭირო, ეს შეიძლება გაკეთდეს შემდეგი მეთოდის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">IRAM_ATTR</span></code> განსაზღვრეთ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include "esp_attr.h"</span>
+
+<span class="n">void</span> <span class="n">IRAM_ATTR</span> <span class="n">gpio_isr_handler</span><span class="p">(</span><span class="n">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="o">//</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>აქ მოცემულია შემთხვევები, როდესაც აპლიკაციის ნაწილები შეიძლება ან უნდა განთავსდეს IRAM-ში.</p>
+<ul class="simple">
+<li>შეფერხების დამმუშავებლები უნდა განთავსდეს IRAM-ში, თუ <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code> გამოიყენება შეწყვეტის დამმუშავებლის რეგისტრაციისას. ამ შემთხვევაში, ISR-ს შეუძლია გამოიძახოს მხოლოდ IRAM-ში განთავსებული ფუნქციები ან ROM-ში არსებული ფუნქციები. <em>შენიშვნა 1:</em> ყველა Free RTOS API ამჟამად მოთავსებულია IRAM-ში, ამიტომ შეწყვეტის დამმუშავებლებიდან მათი გამოძახება უსაფრთხოა. თუ ISR მოთავსებულია IRAM-ში, ISR-ის მიერ გამოყენებული ყველა მუდმივი მონაცემი და ISR-დან გამოძახებული ფუნქციები (მათ შორის, მაგრამ არა მხოლოდ, <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span></code> მასივები), უნდა განთავსდეს DRAM-ში <code class="docutils literal notranslate"><span class="pre">DRAM_ATTR</span></code>.</li>
+<li>ფლეშ მეხსიერება -დან კოდის ჩატვირთვასთან დაკავშირებული ჯარიმის შესამცირებლად, შესაძლოა, IRAM-ში გარკვეული დროის კრიტიკული კოდი განთავსდეს. ESP32 ფლეშ მეხსიერება დან კოდსა და მონაცემებს 32 კბ ქეშის საშუალებით კითხულობს. ზოგიერთ შემთხვევაში, IRAM-ში ფუნქციის განთავსებამ შეიძლება შეამციროს ქეშის შეცდომით გამოწვეული შეფერხებები.</li>
+</ul>
+</div>
+<div class="section" id="irom-code-executed-from-flash">
+<h3>IROM (Flash-დან შესრულებული კოდი)<a class="headerlink" href="general-notes.html#irom-code-executed-from-flash" title="Permalink to this headline">¶</a></h3>
+<p>თუ ფუნქცია არ არის ცალსახად განთავსებული IRAM ან RTC მეხსიერებაში, ის თავსდება ფლეშ მეხსიერება ში. მექანიზმი, რომლითაც Flash MMU გამოიყენება ფლეშ მეხსიერება დან კოდის შესრულებისთვის, აღწერილია ტექნიკურ სახელმძღვანელოში. ESP-IDF ათავსებს კოდს, რომელიც უნდა შესრულდეს ფლეშ მეხსიერება დან, დასაწყისიდან. <code class="docutils literal notranslate"><span class="pre">0x400D0000</span> <span class="pre">—</span> <span class="pre">0x40400000</span></code> რეგიონი. გაშვებისას, მეორე ეტაპის ჩამტვირთავი ინიციალიზაციას უკეთებს Flash MMU-ს, რათა ფლეშ მეხსიერება ში კოდის მდებარეობა ამ რეგიონის დასაწყისში მონიშნოს. ამ რეგიონზე წვდომა გამჭვირვალედ ინახება ქეშირებაში ორი 32 კბ ბლოკის გამოყენებით. <code class="docutils literal notranslate"><span class="pre">0x40070000</span></code> — <code class="docutils literal notranslate"><span class="pre">0x40080000</span></code> დიაპაზონი.</p>
+<p>გაითვალისწინეთ, რომ გარეთ კოდი <code class="docutils literal notranslate"><span class="pre">0x40000000</span> <span class="pre">—</span> <span class="pre">0x40400000</span></code> შესაძლოა, რეგიონი Window ABI-ით მიუწვდომელი იყოს <code class="docutils literal notranslate"><span class="pre">CALLx</span></code> ინსტრუქციის მიხედვით, ამიტომ განსაკუთრებული სიფრთხილეა საჭირო, თუ <code class="docutils literal notranslate"><span class="pre">0x40400000</span> <span class="pre">—</span> <span class="pre">0x40800000</span></code> ან <code class="docutils literal notranslate"><span class="pre">0x40800000</span> <span class="pre">—</span> <span class="pre">0x40C00000</span></code> რეგიონებს აპლიკაცია იყენებს. ESP-IDF ნაგულისხმევად ამ რეგიონებს არ იყენებს.</p>
+</div>
+<div class="section" id="rtc-fast-memory">
+<h3>RTC სწრაფი მეხსიერება<a class="headerlink" href="general-notes.html#rtc-fast-memory" title="Permalink to this headline">¶</a></h3>
+<p>კოდი, რომელიც უნდა შესრულდეს ღრმა ძილის რეჟიმიდან გამოღვიძების შემდეგ, უნდა მოთავსდეს RTC მეხსიერებაში. გთხოვთ, იხილოთ დეტალური აღწერა <a class="reference internal" href="deep-sleep-stub.html"><span class="doc">ღრმა ძილი</span></a> დოკუმენტაცია.</p>
+</div>
+<div class="section" id="dram-data-ram">
+<h3>DRAM (მონაცემთა ოპერატიული მეხსიერება)<a class="headerlink" href="general-notes.html#dram-data-ram" title="Permalink to this headline">¶</a></h3>
+<p>არამუდმივი სტატიკური მონაცემები და ნულოვანი ინიციალიზაციის მონაცემები ლინკერის მიერ 256 კბაიტში თავსდება. <code class="docutils literal notranslate"><span class="pre">0x3FFB0000</span> <span class="pre">— 0x3FFF0000</span></code> რეგიონი. გაითვალისწინეთ, რომ ეს რეგიონი მცირდება 64 კბ-ით (საწყისი მისამართის გადატანით <code class="docutils literal notranslate"><span class="pre">0x3FFC0000</span></code>) თუ გამოიყენება Bluetooth სტეკი. ამ რეგიონის სიგრძე ასევე მცირდება 16 კბ-ით ან 32 კბ-ით, თუ გამოიყენება კვალის მეხსიერება. სტატიკური მონაცემების განთავსების შემდეგ ამ რეგიონში დარჩენილი მთელი სივრცე გამოიყენება გაშვების გროვისთვის.</p>
+<p>მუდმივი მონაცემები ასევე შეიძლება განთავსდეს DRAM-ში, მაგალითად, თუ ის გამოიყენება ISR-ში (იხილეთ შენიშვნები ზემოთ მოცემულ IRAM განყოფილებაში). ამისათვის, <code class="docutils literal notranslate"><span class="pre">DRAM_ATTR</span></code> განსაზღვრა შეიძლება გამოყენებულ იქნას:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DRAM_ATTR</span> <span class="n">const</span> <span class="n">char</span><span class="p">[]</span> <span class="n">format_string</span> <span class="o">=</span> <span class="s2">"%p </span><span class="si">%x</span><span class="s2">"</span><span class="p">;</span>
+<span class="n">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">format_string</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ცხადია, მისი გამოყენება არ არის რეკომენდებული <code class="docutils literal notranslate"><span class="pre">printf</span></code> და სხვა გამომავალი ფუნქციები ISR-ებში. გამართვა მნიშვნელობების გამოსათვლელად გამოიყენეთ <code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGx</span></code> მაკროები ISR-ებიდან ჟურნალირებისას. დარწმუნდით, რომ ორივე <code class="docutils literal notranslate"><span class="pre">TAG</span></code> და ფორმატის სტრიქონი მოთავსებულია <code class="docutils literal notranslate"><span class="pre">DRAM</span></code> იმ შემთხვევაში.</p>
+<p>მაკრო <code class="docutils literal notranslate"><span class="pre">__NOINIT_ATTR</span></code> შეიძლება გამოყენებულ იქნას როგორც ატრიბუტი მონაცემების განსათავსებლად <code class="docutils literal notranslate"><span class="pre">.noinit</span></code> სექცია. ამ სექციაში განთავსებული მნიშვნელობები არ ინიციალიზებული იქნება გაშვებისას და შეინარჩუნებს თავის მნიშვნელობას პროგრამული უზრუნველყოფის გადატვირთვის შემდეგ.</p>
+<p>მაგალითი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__NOINIT_ATTR</span> <span class="n">uint32_t</span> <span class="n">noinit_data</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="drom-data-stored-in-flash">
+<h3>DROM (მონაცემები, რომლებიც ინახება Flash-ში)<a class="headerlink" href="general-notes.html#drom-data-stored-in-flash" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევად, ლინკერი კონსტანტურ მონაცემებს 4 მბ-იან რეგიონში ათავსებს (<code class="docutils literal notranslate"><span class="pre">0x3F400000</span> <span class="pre">— 0x3F800000</span></code>), რომელიც გამოიყენება გარე ფლეშ მეხსიერება მეხსიერებაზე წვდომისთვის Flash MMU-სა და ქეშის მეშვეობით. გამონაკლისს წარმოადგენს ლიტერალური კონსტანტები, რომლებიც კომპილაცია r-ის მიერ ჩაშენებულია აპლიკაციის კოდში.</p>
+</div>
+<div class="section" id="rtc-slow-memory">
+<h3>RTC ნელი მეხსიერება<a class="headerlink" href="general-notes.html#rtc-slow-memory" title="Permalink to this headline">¶</a></h3>
+<p>RTC მეხსიერებიდან (ანუ ღრმა ძილის stub კოდი) გაშვებული კოდის მიერ გამოყენებული გლობალური და სტატიკური ცვლადები უნდა მოთავსდეს RTC ნელ მეხსიერებაში. გთხოვთ, იხილოთ დეტალური აღწერა. <a class="reference internal" href="deep-sleep-stub.html"><span class="doc">ღრმა ძილი</span></a> დოკუმენტაცია.</p>
+<p>ატრიბუტის მაკრო სახელწოდებით <code class="docutils literal notranslate"><span class="pre">RTC_NOINIT_ATTR</span></code> შეიძლება გამოყენებულ იქნას მონაცემების ამ ტიპის მეხსიერებაში განსათავსებლად. ამ სექციაში მოთავსებული მნიშვნელობები ინარჩუნებს თავის მნიშვნელობას ღრმა ძილიდან გაღვიძების შემდეგ.</p>
+<p>მაგალითი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RTC_NOINIT_ATTR</span> <span class="n">uint32_t</span> <span class="n">rtc_noinit_data</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dma-capable-requirement">
+<h2>DMA-ს შესაძლებლობების მოთხოვნა<a class="headerlink" href="general-notes.html#dma-capable-requirement" title="Permalink to this headline">¶</a></h2>
+<p>DMA კონტროლერების უმეტესობას (მაგ. SPI, sdmmc და ა.შ.) აქვს მოთხოვნები, რომ გამგზავნი/მიმღები ბუფერები უნდა განთავსდეს DRAM-ში და იყოს სიტყვიერი გასწორებული. ჩვენ გირჩევთ, DMA ბუფერები მოათავსოთ სტატიკურ ცვლადებში და არა სტეკში. გამოიყენეთ მაკრო. <code class="docutils literal notranslate"><span class="pre">DMA_ATTR</span></code>
+გლობალური/ლოკალური სტატიკური ცვლადების გამოცხადება, როგორიცაა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DMA_ATTR</span> <span class="n">uint8_t</span> <span class="n">buffer</span><span class="p">[]</span><span class="o">=</span><span class="s2">"I want to send something"</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="o">//</span> <span class="n">initialization</span> <span class="n">code</span><span class="o">...</span>
+    <span class="n">spi_transaction_t</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">tx_buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span>
+    <span class="p">};</span>
+    <span class="n">spi_device_transmit</span><span class="p">(</span> <span class="n">spi</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp</span> <span class="p">);</span>
+    <span class="o">//</span> <span class="n">other</span> <span class="n">stuff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ან:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">DMA_ATTR</span> <span class="n">static</span> <span class="n">uint8_t</span> <span class="n">buffer</span><span class="p">[]</span><span class="o">=</span><span class="s2">"I want to send something"</span><span class="p">;</span>
+    <span class="o">//</span> <span class="n">initialization</span> <span class="n">code</span><span class="o">...</span>
+    <span class="n">spi_transaction_t</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">tx_buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span>
+    <span class="p">};</span>
+    <span class="n">spi_device_transmit</span><span class="p">(</span> <span class="n">spi</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp</span> <span class="p">);</span>
+    <span class="o">//</span> <span class="n">other</span> <span class="n">stuff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>DMA ბუფერების დასტაში განთავსება კვლავ დაშვებულია, თუმცა უნდა გაითვალისწინოთ:</p>
+<ol class="arabic">
+<li><p class="first">არასოდეს სცადოთ ამის გაკეთება, თუ დასტა pSRAM-შია. თუ დავალების დასტა pSRAM-შია განთავსებული, უნდა გადაიდგას რამდენიმე ნაბიჯი, როგორც ეს აღწერილია <a class="reference internal" href="external-ram.html"><span class="doc">გარე ოპერატიული მეხსიერების მხარდაჭერა</span></a> (სულ მცირე <code class="docutils literal notranslate"><span class="pre">SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY</span></code> ოფცია ჩართულია menuconfig ში). დარწმუნდით, რომ თქვენი დავალება არ არის pSRAM-ში.</p>
+</li>
+<li><p class="first">მაკროს გამოყენება <code class="docutils literal notranslate"><span class="pre">WORD_ALIGNED_ATTR</span></code> ფუნქციებში ცვლადების წინ, რათა ისინი სათანადო პოზიციებზე განვათავსოთ, მაგალითად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uint8_t</span> <span class="n">stuff</span><span class="p">;</span>
+    <span class="n">WORD_ALIGNED_ATTR</span> <span class="n">uint8_t</span> <span class="n">buffer</span><span class="p">[]</span><span class="o">=</span><span class="s2">"I want to send something"</span><span class="p">;</span>   <span class="o">//</span><span class="ow">or</span> <span class="n">the</span> <span class="n">buffer</span> <span class="n">will</span> <span class="n">be</span> <span class="n">placed</span> <span class="n">right</span> <span class="n">after</span> <span class="n">stuff</span><span class="o">.</span>
+    <span class="o">//</span> <span class="n">initialization</span> <span class="n">code</span><span class="o">...</span>
+    <span class="n">spi_transaction_t</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">tx_buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span>
+    <span class="p">};</span>
+    <span class="n">spi_device_transmit</span><span class="p">(</span> <span class="n">spi</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp</span> <span class="p">);</span>
+    <span class="o">//</span> <span class="n">other</span> <span class="n">stuff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="hlinterrupts.html" rel="next" title="High-Level Interrupts">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="freertos-smp.html" rel="prev" title="ESP-IDF FreeRTOS SMP Changes"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

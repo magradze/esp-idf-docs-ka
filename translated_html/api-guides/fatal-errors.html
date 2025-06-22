@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ფატალური შეცდომები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../security/flash-encryption.html" rel="next" title="Flash Encryption"/>
+<link href="external-ram.html" rel="prev" title="Support for external RAM"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/fatal-errors.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/fatal-errors"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/fatal-errors.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="fatal-errors.html#">ფატალური შეცდომები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#panic-handler">პანიკის მართვის სპეციალისტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#register-dump-and-backtrace">რეგისტრაციის დემპინგი და უკუკვლევა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#gdb-stub">GDB Stub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#guru-meditation-errors">გურუს მედიტაციის შეცდომები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#illegalinstruction">უკანონო ინსტრუქცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#instrfetchprohibited">InstrFetchაკრძალულია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#loadprohibited-storeprohibited">ჩატვირთვა აკრძალულია, შენახვა აკრძალულია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#integerdividebyzero">მთელი რიცხვის გაყოფა ნულზე</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#loadstorealignment">LoadStoreAlignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#loadstoreerror">შენახვის ჩატვირთვის შეცდომა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#unhandled-debug-exception">დაუმუშავებელი გამართვა გამონაკლისი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#interrupt-wdt-timeout-on-cpu0-cpu1">CPU0 / CPU1-ზე wdt-ის შეწყვეტის დროის ამოწურვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#cache-disabled-but-cached-memory-region-accessed">ქეში გამორთულია, მაგრამ ქეშირებული მეხსიერების რეგიონი განხილულია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fatal-errors.html#other-fatal-errors">სხვა ფატალური შეცდომები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#brownout">დაღლილობა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#corrupt-heap">კორუმპირებული გროვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fatal-errors.html#stack-smashing">სტეკის დანგრევა</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ფატალური შეცდომები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/fatal-errors.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="fatal-errors">
+<h1>ფატალური შეცდომები<a class="headerlink" href="fatal-errors.html#fatal-errors" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/fatal-errors.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="fatal-errors.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>გარკვეულ სიტუაციებში, პროგრამის შესრულების გაგრძელება კარგად განსაზღვრული გზით შეუძლებელია. ESP-IDF -ში ეს სიტუაციები მოიცავს:</p>
+<ul class="simple">
+<li>CPU-ს გამონაკლისები: უკანონო ინსტრუქცია, ჩატვირთვის/შენახვის გასწორების შეცდომა, ჩატვირთვის/შენახვის აკრძალული შეცდომა, ორმაგი გამონაკლისი.</li>
+<li>სისტემური დონის შემოწმებები და დაცვის ზომები:<ul>
+<li><a class="reference internal" href="../api-reference/system/wdts.html"><span class="doc">შეწყვეტის მცველი</span></a> ტაიმ-აუტი</li>
+<li><a class="reference internal" href="../api-reference/system/wdts.html"><span class="doc">დავალების მაკონტროლებელი</span></a> ტაიმ-აუტი (მხოლოდ ფატალურია, თუ <a class="reference internal" href="../api-reference/kconfig.html#config-esp-task-wdt-panic"><span class="std std-ref">CONFIG_ESP_TASK_WDT_PANIC</span></a> დაყენებულია)</li>
+<li>ქეშზე წვდომის შეცდომა</li>
+<li>ძაბვის ვარდნის აღმოჩენის მოვლენა</li>
+<li>დასტის გადავსება</li>
+<li>დასტის დარტყმისგან დაცვის შემოწმება</li>
+<li>გროვის მთლიანობის შემოწმება</li>
+</ul>
+</li>
+<li>წარუმატებელი მტკიცებები, მეშვეობით <code class="docutils literal notranslate"><span class="pre">assert</span></code>, <code class="docutils literal notranslate"><span class="pre">configASSERT</span></code> და მსგავსი მაკროები.</li>
+</ul>
+<p>ეს სახელმძღვანელო განმარტავს ESP-IDF ში ამ შეცდომების მოსაგვარებლად გამოყენებულ პროცედურას და იძლევა რჩევებს შეცდომების გამოსწორების შესახებ.</p>
+</div>
+<div class="section" id="panic-handler">
+<h2>პანიკის მართვის სპეციალისტი<a class="headerlink" href="fatal-errors.html#panic-handler" title="Permalink to this headline">¶</a></h2>
+<p>ყველა შეცდომის მიზეზი, რომელიც ჩამოთვლილია <a class="reference internal" href="fatal-errors.html#overview">მიმოხილვა</a> დამუშავდება <em>პანიკის მართვა</em>.</p>
+<p>პანიკის დამმუშავებელი დაიწყება შეცდომის მიზეზის კონსოლზე დაბეჭდვით. CPU-ს გამონაკლისების შემთხვევაში, შეტყობინება მსგავსი იქნება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Guru</span> <span class="n">Meditation</span> <span class="n">Error</span><span class="p">:</span> <span class="n">Core</span> <span class="mi">0</span> <span class="n">panic</span><span class="s1">'ed (IllegalInstruction). Exception was unhandled.</span>
+</pre></div>
+</div>
+<p>სისტემის დონის ზოგიერთი შემოწმების შემთხვევაში (შეფერხების მაკონტროლებელი, ქეშზე წვდომის შეცდომა), შეტყობინება მსგავსი იქნება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Guru</span> <span class="n">Meditation</span> <span class="n">Error</span><span class="p">:</span> <span class="n">Core</span> <span class="mi">0</span> <span class="n">panic</span><span class="s1">'ed (Cache disabled but cached memory region accessed)</span>
+</pre></div>
+</div>
+<p>ყველა შემთხვევაში, შეცდომის მიზეზი ფრჩხილებში იქნება დაბეჭდილი. იხილეთ <a class="reference internal" href="fatal-errors.html#guru-meditation-errors">გურუს მედიტაციის შეცდომები</a> შესაძლო შეცდომების მიზეზების სიისთვის.</p>
+<p>პანიკის დამმუშავებლის შემდგომი ქცევის დაყენება შესაძლებელია გამოყენებით <a class="reference internal" href="../api-reference/kconfig.html#config-esp32-panic"><span class="std std-ref">CONFIG_ESP32_PANIC</span></a> კონფიგურაციის არჩევანი. ხელმისაწვდომი ვარიანტებია:</p>
+<ul>
+<li><p class="first">რეგისტრების დაბეჭდვა და გადატვირთვა (<code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_PRINT_REBOOT</span></code>) — ნაგულისხმევი ვარიანტი.</p>
+<p>ეს დაბეჭდავს რეგისტრის მნიშვნელობებს გამონაკლისის წერტილში, დაბეჭდავს უკუკავშირს და გადატვირთავს ჩიპს.</p>
+</li>
+<li><p class="first">რეგისტრების ბეჭდვა და შეჩერება (<code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_PRINT_HALT</span></code>)</p>
+<p>ზემოთ მოცემული ვარიანტის მსგავსი, მაგრამ გადატვირთვის ნაცვლად შეჩერება. პროგრამის გადასატვირთად საჭიროა გარე გადატვირთვა.</p>
+</li>
+<li><p class="first">ჩუმი გადატვირთვა (<code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_SILENT_REBOOT</span></code>)</p>
+<p>არ დაბეჭდოთ რეგისტრები და არ გამოიყენოთ უკუკავშირი, დაუყოვნებლივ გადატვირთეთ ჩიპი.</p>
+</li>
+<li><p class="first">GDB Stub-ის გამოძახება (<code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_GDBSTUB</span></code>)</p>
+<p>გაუშვით GDB სერვერი, რომელსაც შეუძლია GDB-სთან კომუნიკაცია კონსოლის UART პორტის საშუალებით. იხილეთ <a class="reference internal" href="fatal-errors.html#gdb-stub">GDB Stub</a> დამატებითი დეტალებისთვის.</p>
+</li>
+</ul>
+<p>პანიკის დამმუშავებლის ქცევაზე გავლენას ახდენს კონფიგურაციის ორი სხვა ვარიანტი.</p>
+<ul>
+<li><p class="first">თუ <a class="reference internal" href="../api-reference/kconfig.html#config-esp32-debug-ocdaware"><span class="std std-ref">CONFIG_ESP32_DEBUG_OCDAWARE</span></a> თუ ჩართულია (რაც ნაგულისხმევია), პანიკის დამმუშავებელი აღმოაჩენს, დაკავშირებულია თუ არა JTAG გამართვა ger. თუ ასეა, შესრულება შეჩერდება და კონტროლი გადაეცემა გამართვა ger-ს. ამ შემთხვევაში რეგისტრები და უკუკავშირი არ იგზავნება კონსოლზე და GDBStub / Core Dump ფუნქციები არ გამოიყენება.</p>
+</li>
+<li><p class="first">თუ <a class="reference internal" href="core_dump.html"><span class="doc">ბირთვის ნაგავსაყრელი</span></a> ფუნქცია ჩართულია (<code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_ENABLE_COREDUMP_TO_FLASH</span></code> ან <code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_ENABLE_COREDUMP_TO_UART</span></code> პარამეტრები), შემდეგ სისტემის მდგომარეობა (დავალებების დასტები და რეგისტრები) გადაიცემა Flash-ზე ან UART-ზე, შემდგომი ანალიზისთვის.</p>
+</li>
+<li><p class="first">თუ <a class="reference internal" href="../api-reference/kconfig.html#config-esp-panic-handler-iram"><span class="std std-ref">CONFIG_ESP_PANIC_HANDLER_IRAM</span></a> თუ გამორთულია (ნაგულისხმევად გამორთულია), პანიკის დამმუშავებლის კოდი მოთავსებულია ფლეშ მეხსიერება მეხსიერებაში და არა IRAM-ში. ეს ნიშნავს, რომ თუ ESP-IDF გაითიშება, ხოლო ფლეშ მეხსიერება ქეში გამორთულია, პანიკის დამმუშავებელი ავტომატურად ხელახლა ჩართავს ფლეშ მეხსიერება ქეშს GDB Stub-ის ან Core Dump-ის გაშვებამდე. ეს ზრდის გარკვეულ მცირე რისკს, თუ ავარიის დროს ფლეშ მეხსიერება ქეშის სტატუსიც დაზიანდება.</p>
+<p>თუ ეს პარამეტრი ჩართულია, პანიკის დამმუშავებლის კოდი თავსდება IRAM-ში. ეს საშუალებას აძლევს პანიკის დამმუშავებელს იმუშაოს ქეშის ხელახლა ჩართვის გარეშე. ეს შეიძლება საჭირო იყოს გამართვა ავარიებთან დაკავშირებული ზოგიერთი რთული პრობლემის გადასაჭრელად, როდესაც ფლეშ მეხსიერება ქეში გამორთულია (მაგალითად, SPI ფლეშ მეხსიერება ში ჩაწერისას).</p>
+</li>
+</ul>
+<p>შემდეგი დიაგრამა ასახავს პანიკის მოპყრობის მქონე პირთა ქცევას:</p>
+<div class="figure align-center" id="id1">
+<div><a class="reference internal image-reference" href="../_images/blockdiag-22776548ae95d5078e3bcc31e14c99215ae269f0.png"><img height="1020.0" src="../_images/blockdiag-22776548ae95d5078e3bcc31e14c99215ae269f0.png" width="960.0"/></a></div><p class="caption"><span class="caption-text">პანიკის მართვის ბლოკ-სქემა (გადიდებისთვის დააწკაპუნეთ)</span><a class="headerlink" href="fatal-errors.html#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="register-dump-and-backtrace">
+<h2>რეგისტრაციის დემპინგი და უკუკვლევა<a class="headerlink" href="fatal-errors.html#register-dump-and-backtrace" title="Permalink to this headline">¶</a></h2>
+<p>თუ <code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_SILENT_REBOOT</span></code> ოფცია ჩართულია, პანიკის დამმუშავებელი ბეჭდავს CPU-ს ზოგიერთ რეგისტრს და უკუკავშირს კონსოლზე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Core</span> <span class="mi">0</span> <span class="n">register</span> <span class="n">dump</span><span class="p">:</span>
+<span class="n">PC</span>      <span class="p">:</span> <span class="mh">0x400e14ed</span>  <span class="n">PS</span>      <span class="p">:</span> <span class="mh">0x00060030</span>  <span class="n">A0</span>      <span class="p">:</span> <span class="mh">0x800d0805</span>  <span class="n">A1</span>      <span class="p">:</span> <span class="mh">0x3ffb5030</span>
+<span class="n">A2</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A3</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A4</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A5</span>      <span class="p">:</span> <span class="mh">0x3ffb50dc</span>
+<span class="n">A6</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A7</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A8</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A9</span>      <span class="p">:</span> <span class="mh">0x3ffb5000</span>
+<span class="n">A10</span>     <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A11</span>     <span class="p">:</span> <span class="mh">0x3ffb2bac</span>  <span class="n">A12</span>     <span class="p">:</span> <span class="mh">0x40082d1c</span>  <span class="n">A13</span>     <span class="p">:</span> <span class="mh">0x06ff1ff8</span>
+<span class="n">A14</span>     <span class="p">:</span> <span class="mh">0x3ffb7078</span>  <span class="n">A15</span>     <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">SAR</span>     <span class="p">:</span> <span class="mh">0x00000014</span>  <span class="n">EXCCAUSE</span><span class="p">:</span> <span class="mh">0x0000001d</span>
+<span class="n">EXCVADDR</span><span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">LBEG</span>    <span class="p">:</span> <span class="mh">0x4000c46c</span>  <span class="n">LEND</span>    <span class="p">:</span> <span class="mh">0x4000c477</span>  <span class="n">LCOUNT</span>  <span class="p">:</span> <span class="mh">0xffffffff</span>
+
+<span class="n">Backtrace</span><span class="p">:</span> <span class="mh">0x400e14ed</span><span class="p">:</span><span class="mh">0x3ffb5030</span> <span class="mh">0x400d0802</span><span class="p">:</span><span class="mh">0x3ffb5050</span>
+</pre></div>
+</div>
+<p>დაბეჭდილი რეგისტრის მნიშვნელობები არის გამონაკლისის ჩარჩოში არსებული რეგისტრის მნიშვნელობები, ანუ მნიშვნელობები იმ მომენტში, როდესაც მოხდა CPU გამონაკლისი ან სხვა ფატალური შეცდომა.</p>
+<p>რეგისტრის დემპინგი არ იბეჭდება, თუ პანიკის დამმუშავებელი შესრულდა შედეგად. <code class="docutils literal notranslate"><span class="pre">abort()</span></code> ზარი.</p>
+<p>ზოგიერთ შემთხვევაში, მაგალითად, შეწყვეტის მაკონტროლებელი სისტემის დროის ამოწურვისას, პანიკის დამმუშავებელმა შეიძლება დაბეჭდოს დამატებითი CPU რეგისტრები (EPC1-EPC4) და სხვა CPU-ზე გაშვებული კოდის რეგისტრები/უკუკვლევა.</p>
+<p>უკუკვლევადობის ხაზი შეიცავს PC:SP წყვილებს, სადაც PC არის პროგრამის მთვლელი და SP არის სტეკის მაჩვენებელი, მიმდინარე დავალების თითოეული სტეკის ჩარჩოსთვის. თუ ISR-ში ფატალური შეცდომა მოხდება, უკუკვლევადობა შეიძლება მოიცავდეს PC:SP წყვილებს როგორც შეწყვეტილი დავალებიდან, ასევე ISR-დან.</p>
+<p>თუ <a class="reference internal" href="tools/idf-monitor.html"><span class="doc">IDF მონიტორი</span></a> გამოყენების შემთხვევაში, პროგრამის მრიცხველის მნიშვნელობები გარდაიქმნება კოდის ადგილმდებარეობებად (ფუნქციის სახელი, ფაილის სახელი და ხაზის ნომერი) და გამომავალს დაემატება დამატებითი ხაზები:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Core</span> <span class="mi">0</span> <span class="n">register</span> <span class="n">dump</span><span class="p">:</span>
+<span class="n">PC</span>      <span class="p">:</span> <span class="mh">0x400e14ed</span>  <span class="n">PS</span>      <span class="p">:</span> <span class="mh">0x00060030</span>  <span class="n">A0</span>      <span class="p">:</span> <span class="mh">0x800d0805</span>  <span class="n">A1</span>      <span class="p">:</span> <span class="mh">0x3ffb5030</span>
+<span class="mh">0x400e14ed</span><span class="p">:</span> <span class="n">app_main</span> <span class="n">at</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">esp</span><span class="o">/</span><span class="n">example</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">36</span>
+
+<span class="n">A2</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A3</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A4</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A5</span>      <span class="p">:</span> <span class="mh">0x3ffb50dc</span>
+<span class="n">A6</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A7</span>      <span class="p">:</span> <span class="mh">0x00000001</span>  <span class="n">A8</span>      <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A9</span>      <span class="p">:</span> <span class="mh">0x3ffb5000</span>
+<span class="n">A10</span>     <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">A11</span>     <span class="p">:</span> <span class="mh">0x3ffb2bac</span>  <span class="n">A12</span>     <span class="p">:</span> <span class="mh">0x40082d1c</span>  <span class="n">A13</span>     <span class="p">:</span> <span class="mh">0x06ff1ff8</span>
+<span class="mh">0x40082d1c</span><span class="p">:</span> <span class="n">_calloc_r</span> <span class="n">at</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">esp</span><span class="o">/</span><span class="n">esp</span><span class="o">-</span><span class="n">idf</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">newlib</span><span class="o">/</span><span class="n">syscalls</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">51</span>
+
+<span class="n">A14</span>     <span class="p">:</span> <span class="mh">0x3ffb7078</span>  <span class="n">A15</span>     <span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">SAR</span>     <span class="p">:</span> <span class="mh">0x00000014</span>  <span class="n">EXCCAUSE</span><span class="p">:</span> <span class="mh">0x0000001d</span>
+<span class="n">EXCVADDR</span><span class="p">:</span> <span class="mh">0x00000000</span>  <span class="n">LBEG</span>    <span class="p">:</span> <span class="mh">0x4000c46c</span>  <span class="n">LEND</span>    <span class="p">:</span> <span class="mh">0x4000c477</span>  <span class="n">LCOUNT</span>  <span class="p">:</span> <span class="mh">0xffffffff</span>
+
+<span class="n">Backtrace</span><span class="p">:</span> <span class="mh">0x400e14ed</span><span class="p">:</span><span class="mh">0x3ffb5030</span> <span class="mh">0x400d0802</span><span class="p">:</span><span class="mh">0x3ffb5050</span>
+<span class="mh">0x400e14ed</span><span class="p">:</span> <span class="n">app_main</span> <span class="n">at</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">esp</span><span class="o">/</span><span class="n">example</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">36</span>
+
+<span class="mh">0x400d0802</span><span class="p">:</span> <span class="n">main_task</span> <span class="n">at</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">esp</span><span class="o">/</span><span class="n">esp</span><span class="o">-</span><span class="n">idf</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">esp32</span><span class="o">/</span><span class="n">cpu_start</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">470</span>
+</pre></div>
+</div>
+<p>ფატალური შეცდომის ადგილის მოსაძებნად, გადახედეთ ხაზებს, რომლებიც მოსდევს „უკანა კვალის“ ხაზს. ფატალური შეცდომის ადგილმდებარეობა ზედა ხაზია, ხოლო შემდგომი ხაზები აჩვენებს გამოძახების დასტას.</p>
+</div>
+<div class="section" id="gdb-stub">
+<h2>GDB Stub<a class="headerlink" href="fatal-errors.html#gdb-stub" title="Permalink to this headline">¶</a></h2>
+<p>თუ <code class="docutils literal notranslate"><span class="pre">CONFIG_ESP32_PANIC_GDBSTUB</span></code> თუ ოფცია ჩართულია, პანიკის დამმუშავებელი არ გადატვირთავს ჩიპს ფატალური შეცდომის შემთხვევაში. ამის ნაცვლად, ის გაუშვებს GDB დისტანციურ პროტოკოლის სერვერს, რომელსაც ჩვეულებრივ GDB Stub-ს უწოდებენ. როდესაც ეს მოხდება, მასპინძელ კომპიუტერზე გაშვებულ GDB ინსტანციას შეიძლება მიეცეს ESP32 UART პორტთან დაკავშირების ინსტრუქცია.</p>
+<p>თუ <a class="reference internal" href="tools/idf-monitor.html"><span class="doc">IDF მონიტორი</span></a> თუ გამოიყენება, GDB ავტომატურად იწყება, როდესაც UART-ზე GDB Stub მოთხოვნა აღმოჩენილია. გამომავალი ასე გამოიყურება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Entering gdb stub now.
+$T0b#e6GNU gdb (crosstool-NG crosstool-ng-1.22.0-80-gff1f415) 7.10
+Copyright (C) 2015 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=x86_64-build_apple-darwin16.3.0 --target=xtensa-esp32-elf".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+Find the GDB manual and other documentation resources online at:
+&lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from /Users/user/esp/example/build/example.elf...done.
+Remote debugging using /dev/cu.usbserial-31301
+0x400e1b41 in app_main ()
+    at /Users/user/esp/example/main/main.cpp:36
+36      *((int*) 0) = 0;
+(gdb)
+</pre></div>
+</div>
+<p>GDB მოთხოვნის გამოყენება შესაძლებელია CPU რეგისტრების, ლოკალური და სტატიკური ცვლადების და მეხსიერებაში არსებული თვითნებური მდებარეობების შესამოწმებლად. შეუძლებელია წყვეტის წერტილების დაყენება, კომპიუტერის შეცვლა ან შესრულების გაგრძელება. პროგრამის გადატვირთვისთვის, გამოდით GDB-დან და შეასრულეთ გარე გადატვირთვა: Ctrl-T Ctrl-R IDF მონიტორში ან დეველოპერის დაფაზე გარე გადატვირთვის ღილაკის გამოყენებით.</p>
+</div>
+<div class="section" id="guru-meditation-errors">
+<h2>გურუს მედიტაციის შეცდომები<a class="headerlink" href="fatal-errors.html#guru-meditation-errors" title="Permalink to this headline">¶</a></h2>
+<p>ეს განყოფილება განმარტავს სხვადასხვა შეცდომის გამომწვევი მიზეზის მნიშვნელობას, რომელიც ფრჩხილებში იბეჭდება შემდეგ <code class="docutils literal notranslate"><span class="pre">Guru</span> <span class="pre">Meditation</span> <span class="pre">Error:</span> <span class="pre">Core</span> <span class="pre">panic'ed</span></code> შეტყობინება.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">იხილეთ <a class="reference external" href="https://en.wikipedia.org/wiki/Guru_Meditation">ვიკიპედიის სტატია</a> „გურუ მედიტაციის“ ისტორიული წარმოშობისთვის.</p>
+</div>
+<div class="section" id="illegalinstruction">
+<h3>უკანონო ინსტრუქცია<a class="headerlink" href="fatal-errors.html#illegalinstruction" title="Permalink to this headline">¶</a></h3>
+<p>ეს CPU გამონაკლისი მიუთითებს, რომ შესრულებული ინსტრუქცია არ იყო სწორი ინსტრუქცია. ამ შეცდომის ყველაზე გავრცელებული მიზეზებია:</p>
+<ul class="simple">
+<li>Free RTOS დავალების ფუნქცია დაბრუნდა. Free RTOS ში, თუ დავალების ფუნქციას სჭირდება შეწყვეტა, მან უნდა გამოიძახოს <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a> ფუნქცია და წაშალოს საკუთარი თავი, დაბრუნების ნაცვლად.</li>
+<li>SPI ფლეშ მეხსიერება დან შემდეგი ინსტრუქციის ჩატვირთვა ვერ მოხერხდა. ეს ჩვეულებრივ ხდება, თუ:<ul>
+<li>აპლიკაციამ SPI ფლეშ მეხსიერება პინები სხვა ფუნქციის სახით ( GPIO , UART და ა.შ.) ხელახლა დააკონფიგურირა. SPI ფლეშ მეხსიერება პინების შესახებ დამატებითი ინფორმაციისთვის იხილეთ ჩიპის ან მოდულის აპარატურის დიზაინის სახელმძღვანელო პრინციპები და მონაცემთა ცხრილი.</li>
+<li>ზოგიერთი გარე მოწყობილობა შემთხვევით დაუკავშირდა SPI ფლეშ მეხსიერება პინებს და ხელი შეუშალა ESP32-სა და SPI ფლეშ მეხსიერება შორის კომუნიკაციას.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="instrfetchprohibited">
+<h3>InstrFetchაკრძალულია<a class="headerlink" href="fatal-errors.html#instrfetchprohibited" title="Permalink to this headline">¶</a></h3>
+<p>ეს CPU გამონაკლისი მიუთითებს, რომ CPU-ს არ შეეძლო ინსტრუქციის ჩატვირთვა, რადგან ინსტრუქციის მისამართი არ ეკუთვნოდა ინსტრუქციის RAM-ის ან ROM-ის ვალიდურ რეგიონს.</p>
+<p>როგორც წესი, ეს ნიშნავს ფუნქციის მაჩვენებლის გამოძახების მცდელობას, რომელიც ვალიდურ კოდზე არ მიუთითებს. <code class="docutils literal notranslate"><span class="pre">PC</span></code> (პროგრამის მრიცხველის) რეგისტრი შეიძლება გამოყენებულ იქნას როგორც ინდიკატორი: ის იქნება ნული ან შეიცავს ნაგვის მნიშვნელობას (არა <code class="docutils literal notranslate"><span class="pre">0x4xxxxxxx</span></code>).</p>
+</div>
+<div class="section" id="loadprohibited-storeprohibited">
+<h3>ჩატვირთვა აკრძალულია, შენახვა აკრძალულია<a class="headerlink" href="fatal-errors.html#loadprohibited-storeprohibited" title="Permalink to this headline">¶</a></h3>
+<p>ეს CPU გამონაკლისი ხდება მაშინ, როდესაც აპლიკაცია ცდილობს არასწორი მეხსიერების მდებარეობიდან წაკითხვას ან ჩაწერას. ჩაწერილი/წაკითხული მისამართი მოიძებნება შემდეგში: <code class="docutils literal notranslate"><span class="pre">EXCVADDR</span></code> რეგისტრაცია რეგისტრის დემპში. თუ ეს მისამართი ნულის ტოლია, ეს ჩვეულებრივ ნიშნავს, რომ აპლიკაციამ სცადა NULL მაჩვენებლის დერეფერენსირება. თუ ეს მისამართი ნულთან ახლოსაა, ეს ჩვეულებრივ ნიშნავს, რომ აპლიკაციამ სცადა სტრუქტურის წევრზე წვდომა, მაგრამ სტრუქტურის მაჩვენებელი NULL იყო. თუ ეს მისამართი სხვა რამ არის (ნაგვის მნიშვნელობა, არა <code class="docutils literal notranslate"><span class="pre">0x3fxxxxxx</span></code> - <code class="docutils literal notranslate"><span class="pre">0x6xxxxxxx</span></code> დიაპაზონი), ეს სავარაუდოდ ნიშნავს, რომ მონაცემებზე წვდომისთვის გამოყენებული მაჩვენებელი ან არ იყო ინიციალიზებული, ან დაზიანებული იყო.</p>
+</div>
+<div class="section" id="integerdividebyzero">
+<h3>მთელი რიცხვის გაყოფა ნულზე<a class="headerlink" href="fatal-errors.html#integerdividebyzero" title="Permalink to this headline">¶</a></h3>
+<p>აპლიკაციამ სცადა მთელი რიცხვის ნულზე გაყოფა.</p>
+</div>
+<div class="section" id="loadstorealignment">
+<h3>LoadStoreAlignment<a class="headerlink" href="fatal-errors.html#loadstorealignment" title="Permalink to this headline">¶</a></h3>
+<p>აპლიკაციამ სცადა მეხსიერების მდებარეობის წაკითხვა ან ჩაწერა და მისამართის გასწორება არ ემთხვეოდა ჩატვირთვას/შენახვის ზომას. მაგალითად, 32-ბიტიანი ჩატვირთვა შესაძლებელია მხოლოდ 4-ბაიტიანი გასწორებული მისამართიდან, ხოლო 16-ბიტიანი ჩატვირთვა შესაძლებელია მხოლოდ 2-ბაიტიანი გასწორებული მისამართიდან.</p>
+</div>
+<div class="section" id="loadstoreerror">
+<h3>შენახვის ჩატვირთვის შეცდომა<a class="headerlink" href="fatal-errors.html#loadstoreerror" title="Permalink to this headline">¶</a></h3>
+<p>აპლიკაციამ სცადა 8 ან 16 ბიტიანი ჩატვირთვა/შენახვის განხორციელება მეხსიერების რეგიონიდან, რომელიც მხოლოდ 32 ბიტიან ჩატვირთვას/შენახვას უჭერს მხარს. მაგალითად, დერეფერენსინგი <code class="docutils literal notranslate"><span class="pre">char*</span></code> მაჩვენებელი, რომელიც მიუთითებს ინსტრუქციის მეხსიერებაზე, გამოიწვევს ასეთ შეცდომას.</p>
+</div>
+<div class="section" id="unhandled-debug-exception">
+<h3>დაუმუშავებელი გამართვა გამონაკლისი<a class="headerlink" href="fatal-errors.html#unhandled-debug-exception" title="Permalink to this headline">¶</a></h3>
+<p>ამას, როგორც წესი, მოჰყვება შეტყობინება, როგორიცაა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Debug</span> <span class="n">exception</span> <span class="n">reason</span><span class="p">:</span> <span class="n">Stack</span> <span class="n">canary</span> <span class="n">watchpoint</span> <span class="n">triggered</span> <span class="p">(</span><span class="n">task_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ეს შეცდომა მიუთითებს, რომ აპლიკაციამ დასტის დასრულების შემდეგ ჩაიწერა. <code class="docutils literal notranslate"><span class="pre">task_name</span></code> დავალება. გაითვალისწინეთ, რომ ყველა სტეკის გადავსება არ გამოიწვევს ამ შეცდომას. შესაძლებელია, რომ დავალება ჩაიწეროს სტეკის კანარის მდებარეობის მიღმა მდებარე სტეკში, ამ შემთხვევაში საკონტროლო წერტილი არ გააქტიურდება.</p>
+</div>
+<div class="section" id="interrupt-wdt-timeout-on-cpu0-cpu1">
+<h3>CPU0 / CPU1-ზე wdt-ის შეწყვეტის დროის ამოწურვა<a class="headerlink" href="fatal-errors.html#interrupt-wdt-timeout-on-cpu0-cpu1" title="Permalink to this headline">¶</a></h3>
+<p>მიუთითებს, რომ შეწყვეტის მაკონტროლებელი დროის ამოწურვა მოხდა. იხილეთ <a class="reference internal" href="../api-reference/system/wdts.html"><span class="doc">მეთვალყურე ძაღლები</span></a> დამატებითი ინფორმაციისთვის.</p>
+</div>
+<div class="section" id="cache-disabled-but-cached-memory-region-accessed">
+<h3>ქეში გამორთულია, მაგრამ ქეშირებული მეხსიერების რეგიონი განხილულია<a class="headerlink" href="fatal-errors.html#cache-disabled-but-cached-memory-region-accessed" title="Permalink to this headline">¶</a></h3>
+<p>ზოგიერთ სიტუაციაში ESP-IDF დროებით გამორთავს წვდომას გარე SPI Flash-სა და SPI RAM-ზე ქეშის საშუალებით. მაგალითად, ეს ხდება spi_ ფლეშ მეხსიერება შემთხვევაში. API გამოიყენება SPI Flash-ის რეგიონების წასაკითხად/ჩასაწერად/წასაშლელად/mmap-ის შესაქმნელად. ასეთ სიტუაციებში, დავალებები შეჩერებულია და შეფერხების დამმუშავებლები არ არის რეგისტრირებული. <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code> გამორთულია. დარწმუნდით, რომ ამ დროშით რეგისტრირებულ ნებისმიერ შეფერხების დამმუშავებელს აქვს IRAM/DRAM-ში არსებული ყველა კოდი და მონაცემი. იხილეთ <a class="reference internal" href="../api-reference/storage/spi_flash.html#iram-safe-interrupt-handlers"><span class="std std-ref">SPI-ის ფლეშ მეხსიერება API დოკუმენტაცია</span></a> დამატებითი დეტალებისთვის.</p>
+</div>
+</div>
+<div class="section" id="other-fatal-errors">
+<h2>სხვა ფატალური შეცდომები<a class="headerlink" href="fatal-errors.html#other-fatal-errors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="brownout">
+<h3>დაღლილობა<a class="headerlink" href="fatal-errors.html#brownout" title="Permalink to this headline">¶</a></h3>
+<p>ESP32-ს აქვს ჩაშენებული დენის გათიშვის დეტექტორი, რომელიც ნაგულისხმევად ჩართულია. დენის გათიშვის დეტექტორს შეუძლია სისტემის გადატვირთვა გამოიწვიოს, თუ კვების ძაბვა უსაფრთხო დონეს დაბლა დაეშვება. დენის გათიშვის დეტექტორის კონფიგურაცია შესაძლებელია <a class="reference internal" href="../api-reference/kconfig.html#config-esp32-brownout-det"><span class="std std-ref">CONFIG_ESP32_BROWNOUT_DET</span></a> და <a class="reference internal" href="../api-reference/kconfig.html#config-esp32-brownout-det-lvl-sel"><span class="std std-ref">CONFIG_ESP32_BROWNOUT_DET_LVL_SEL</span></a> პარამეტრები. როდესაც დენის ვარდნის დეტექტორი აქტიურდება, იბეჭდება შემდეგი შეტყობინება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Brownout</span> <span class="n">detector</span> <span class="n">was</span> <span class="n">triggered</span>
+</pre></div>
+</div>
+<p>შეტყობინების დაბეჭდვის შემდეგ ჩიპი გადატვირთულია.</p>
+<p>გაითვალისწინეთ, რომ თუ კვების ძაბვა სწრაფი ტემპით ეცემა, კონსოლზე შესაძლოა შეტყობინების მხოლოდ ნაწილი გამოჩნდეს.</p>
+</div>
+<div class="section" id="corrupt-heap">
+<h3>კორუმპირებული გროვა<a class="headerlink" href="fatal-errors.html#corrupt-heap" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF heap-ის იმპლემენტაცია შეიცავს heap სტრუქტურის რამდენიმე გაშვების დროს შემოწმებას. menuconfig ში შესაძლებელია დამატებითი შემოწმებების („Heap Poisoning“) ჩართვა. თუ ერთ-ერთი შემოწმება ვერ მოხერხდა, დაიბეჭდება შემდეგის მსგავსი შეტყობინება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CORRUPT</span> <span class="n">HEAP</span><span class="p">:</span> <span class="n">Bad</span> <span class="n">tail</span> <span class="n">at</span> <span class="mh">0x3ffe270a</span><span class="o">.</span> <span class="n">Expected</span> <span class="mh">0xbaad5678</span> <span class="n">got</span> <span class="mh">0xbaac5678</span>
+<span class="n">assertion</span> <span class="s2">"head != NULL"</span> <span class="n">failed</span><span class="p">:</span> <span class="n">file</span> <span class="s2">"/Users/user/esp/esp-idf/components/heap/multi_heap_poisoning.c"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">201</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">multi_heap_free</span>
+<span class="n">abort</span><span class="p">()</span> <span class="n">was</span> <span class="n">called</span> <span class="n">at</span> <span class="n">PC</span> <span class="mh">0x400dca43</span> <span class="n">on</span> <span class="n">core</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>კონსულტაცია <a class="reference internal" href="../api-reference/system/heap_debug.html"><span class="doc">გროვის მეხსიერების გამართვა</span></a> დოკუმენტაცია დამატებითი ინფორმაციისთვის.</p>
+</div>
+<div class="section" id="stack-smashing">
+<h3>სტეკის დარტყმა<a class="headerlink" href="fatal-errors.html#stack-smashing" title="Permalink to this headline">¶</a></h3>
+<p>დასტის დარტყმისგან დაცვა (GCC-ის მიხედვით) <code class="docutils literal notranslate"><span class="pre">-fstack-protector*</span></code> flags) შეიძლება ჩაირთოს ESP-IDF ში გამოყენებით <a class="reference internal" href="../api-reference/kconfig.html#config-compiler-stack-check-mode"><span class="std std-ref">CONFIG_COMPILER_STACK_CHECK_MODE</span></a> ვარიანტი. თუ დასტის შეჯახება გამოვლინდება, დაიბეჭდება შემდეგის მსგავსი შეტყობინება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Stack smashing protect failure!
+
+abort() was called at PC 0x400d2138 on core 0
+
+Backtrace: 0x4008e6c0:0x3ffc1780 0x4008e8b7:0x3ffc17a0 0x400d2138:0x3ffc17c0 0x400e79d5:0x3ffc17e0 0x400e79a7:0x3ffc1840 0x400e79df:0x3ffc18a0 0x400e2235:0x3ffc18c0 0x400e1916:0x3ffc18f0 0x400e19cd:0x3ffc1910 0x400e1a11:0x3ffc1930 0x400e1bb2:0x3ffc1950 0x400d2c44:0x3ffc1a80
+0
+</pre></div>
+</div>
+<p>უკუკავშირი უნდა მიუთითებდეს იმ ფუნქციაზე, სადაც მოხდა დასტის შეჯახება. შეამოწმეთ ფუნქციის კოდი ლოკალურ მასივებზე შეუზღუდავი წვდომისთვის.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../security/flash-encryption.html" rel="next" title="Flash Encryption">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="external-ram.html" rel="prev" title="Support for external RAM"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

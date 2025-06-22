@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-BLE-MESH არქიტექტურა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="ble-mesh-faq.html" rel="next" title="ESP-BLE-MESH FAQ"/>
+<link href="ble-mesh-feature-list.html" rel="prev" title="ESP-BLE-MESH Feature List"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/esp-ble-mesh/ble-mesh-architecture.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/esp-ble-mesh/ble-mesh-architecture"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/esp-ble-mesh/ble-mesh-architecture.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ble-mesh-index.html">ESP-BLE-MESH</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#getting-started-with-esp-ble-mesh">ESP-BLE-MESH-ის გამოყენების დაწყება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-examples">ESP-BLE-MESH მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-demo-videos">ESP-BLE-MESH დემო ვიდეოები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-faq">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="ble-mesh-index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-feature-list.html">ESP-BLE-MESH ფუნქციების სია</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="ble-mesh-architecture.html#">ESP-BLE-MESH არქიტექტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-faq.html">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-terminology.html">ESP-BLE-MESH ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#bluetooth-sig-documentation">Bluetooth SIG დოკუმენტაცია</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="ble-mesh-index.html">ESP-BLE-MESH</a> »</li>
+<li>ESP-BLE-MESH არქიტექტურა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/esp-ble-mesh/ble-mesh-architecture.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-ble-mesh-architecture">
+<h1>ESP-BLE-MESH არქიტექტურა<a class="headerlink" href="ble-mesh-architecture.html#esp-ble-mesh-architecture" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/esp-ble-mesh/ble-mesh-architecture.html">[中文]</a></p>
+<p>ეს დოკუმენტი წარმოგიდგენთ ESP-BLE-MESH არქიტექტურის მიმოხილვას, ESP-BLE-MESH არქიტექტურის იმპლემენტაციას, ასევე ESP-BLE-MESH დამხმარე რუტინებს.</p>
+<ul class="simple">
+<li>ESP-BLE-MESH არქიტექტურის მიმოხილვა<ul>
+<li>აღწერს ESP-BLE-MESH არქიტექტურის ხუთ ძირითად ნაწილს და თითოეული ნაწილის ფუნქციონალურობას.</li>
+</ul>
+</li>
+<li>ESP-BLE-MESH არქიტექტურის იმპლემენტაცია<ul>
+<li>აღწერს ESP-BLE-MESH ფაილების ძირითად ფუნქციებს, ფაილებსა და ESP-BLE-MESH არქიტექტურას შორის შესაბამისობას და ფაილებს შორის გამოძახების ინტერფეისს.</li>
+</ul>
+</li>
+<li>ESP-BLE-MESH დამხმარე რუტინები<ul>
+<li>აღწერეთ ESP-BLE-MESH-ის დამხმარე რუტინები, როგორიცაა Mesh ქსელის მართვა, Mesh-ის ფუნქციები და ა.შ.</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="esp-ble-mesh-architecture-overview">
+<h2>1. ESP-BLE-MESH არქიტექტურის მიმოხილვა<a class="headerlink" href="ble-mesh-architecture.html#esp-ble-mesh-architecture-overview" title="Permalink to this headline">¶</a></h2>
+<p>ამჟამად ESP-BLE-MESH-მა დანერგა Mesh Profile-ის ფუნქციების უმეტესობა და Mesh Model სპეციფიკაციაში განსაზღვრული ყველა კლიენტის მოდელი. დაკარგული ფუნქციები/მოდელები დამუშავების პროცესშია და მალე იქნება ხელმისაწვდომი. ESP-BLE-MESH არქიტექტურას მიენიჭა ოფიციალური Bluetooth <a class="reference external" href="https://launchstudio.bluetooth.com/ListingDetails/76255">სერტიფიკაცია</a>.</p>
+<div class="figure align-center" id="id1">
+<img alt="../../_images/esp-ble-mesh-architecture.png" src="../../_images/esp-ble-mesh-architecture.png"/>
+<p class="caption"><span class="caption-text">სურათი 1.1 ESP-BLE-MESH არქიტექტურის დიაგრამა</span></p>
+</div>
+<p>ESP-BLE-MESH არქიტექტურა ხუთ ძირითად ნაწილს მოიცავს:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Protocol</span> <span class="pre">Stack</span></code><ul>
+<li><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code> პასუხისმგებელია ESP-BLE-MESH კვანძების შეტყობინებების დამუშავებაზე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Provisioning</span></code> პასუხისმგებელია ESP-BLE-MESH მოწყობილობების ნაკადის უზრუნველყოფაზე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Models</span></code> პასუხისმგებელია SIG-ის მიერ განსაზღვრული მოდელების დანერგვაზე.</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Management</span></code><ul>
+<li>ახორციელებს ქსელის მართვის რამდენიმე პროცედურას, მათ შორის კვანძის წაშლის პროცედურას, IV ინდექსის აღდგენის პროცედურას და ა.შ.</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">Features</span></code><ul>
+<li>მოიცავს რამდენიმე ESP-BLE-MESH ფუნქციას, მაგ. დაბალი სიმძლავრის ფუნქციას, მეგობრის ფუნქციას, რელეს ფუნქციას და ა.შ.</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Bearer</span> <span class="pre">Layer</span></code><ul>
+<li>მოიცავს <code class="docutils literal notranslate"><span class="pre">Advertising</span> <span class="pre">Bearer</span></code> და <code class="docutils literal notranslate"><span class="pre">GATT</span> <span class="pre">Bearer</span></code>მატარებელი ფენა გადამწყვეტია ESP-BLE-MESH პროტოკოლის დასტისთვის, რომელიც აგებულია Bluetooth Low-Energy ტექნოლოგიაზე, რადგან პროტოკოლის დასტამ უნდა გამოიყენოს მატარებელი ფენა მონაცემების BLE სარეკლამო არხისა და კავშირის არხის მეშვეობით გადასაცემად.</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">Applications</span></code><ul>
+<li>ESP-BLE-MESH პროტოკოლის დასტაზე დაყრდნობით და <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Models</span></code>.</li>
+<li>API დარეკვით და Event-ის დამუშავებით, <code class="docutils literal notranslate"><span class="pre">Applications</span></code> ურთიერთქმედება <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code> და <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Provisioning</span></code> ESP-BLE-MESH პროტოკოლის დასტაში, ასევე მოდელების სერიაში, რომელიც მოწოდებულია <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Models</span></code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="mesh-protocol-stack">
+<h2>1.1 Mesh პროტოკოლის დასტა<a class="headerlink" href="ble-mesh-architecture.html#mesh-protocol-stack" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mesh-networking">
+<h3>1.1.1 ბადისებრი ქსელი<a class="headerlink" href="ble-mesh-architecture.html#mesh-networking" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code> პროტოკოლის დასტის არქიტექტურაში ახორციელებს შემდეგ ფუნქციებს:</p>
+<ul class="simple">
+<li>Mesh ქსელში კვანძებს შორის კომუნიკაცია.</li>
+<li>შეტყობინებების დაშიფვრა და გაშიფვრა Mesh ქსელში.</li>
+<li>Mesh ქსელის რესურსების მართვა (ქსელის გასაღები, IV ინდექსი და ა.შ.).</li>
+<li>Mesh ქსელის შეტყობინებების სეგმენტაცია და ხელახლა აწყობა.</li>
+<li>შეტყობინებების მოდელის შესაბამისობა სხვადასხვა მოდელებს შორის.</li>
+<li>მეტი ფუნქციისთვის, გთხოვთ, იხილოთ <a class="reference internal" href="ble-mesh-feature-list.html"><span class="doc">ESP-BLE-MESH ფუნქციების სია</span></a>.</li>
+</ul>
+<p>განხორციელება <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code> ფუნქციები იერარქიულ სტრუქტურაზეა დაფუძნებული. თითოეული ფენის ფუნქციები ნაჩვენებია ცხრილში 1.1:</p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">ცხრილი 1.1. ბადისებრი ქსელის არქიტექტურის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფენა</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>წვდომის ფენა</td>
+<td>წვდომის დონე არა მხოლოდ განსაზღვრავს აპლიკაციის მონაცემების ფორმატს, არამედ განსაზღვრავს და აკონტროლებს ზედა სატრანსპორტო დონის მიერ განხორციელებულ მონაცემთა პაკეტების დაშიფვრასა და გაშიფვრას.</td>
+</tr>
+<tr class="row-odd"><td>ზედა სატრანსპორტო ფენა</td>
+<td>ზედა სატრანსპორტო ფენა შიფრავს, გაშიფრავს და ავთენტიფიკაციას უკეთებს აპლიკაციის მონაცემებს წვდომის დონიდან და მისგან; ის ასევე ამუშავებს სპეციალურ შეტყობინებებს, რომლებსაც „ტრანსპორტის კონტროლის შეტყობინებები“ ეწოდება, მათ შორის „მეგობრობასთან“ და „გულისცემის“ შეტყობინებებთან დაკავშირებულ შეტყობინებებს.</td>
+</tr>
+<tr class="row-even"><td>ქვედა სატრანსპორტო ფენა</td>
+<td>ქვედა სატრანსპორტო ფენა ახორციელებს PDU-ს სეგმენტაციას და ხელახლა აწყობას.</td>
+</tr>
+<tr class="row-odd"><td>ქსელის ფენა</td>
+<td>ქსელის დონე განსაზღვრავს ქსელური შეტყობინებების მისამართის ტიპსა და ფორმატს და ახორციელებს მოწყობილობის რელეის ფუნქციას.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-provisioning">
+<h3>1.1.2 ბადისებრი ქსელის უზრუნველყოფა<a class="headerlink" href="ble-mesh-architecture.html#mesh-provisioning" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Provisioning</span></code> პროტოკოლის დასტის არქიტექტურაში ახორციელებს შემდეგ ფუნქციებს:</p>
+<ul class="simple">
+<li>დაუმონტაჟებელი მოწყობილობების უზრუნველყოფა.</li>
+<li>Mesh ქსელის რესურსების განაწილება (unicast მისამართი, IV ინდექსი, NetKey და ა.შ.).</li>
+<li>უზრუნველყოფის დროს მხარდაჭერილია ოთხი ავტორიზაციის მეთოდი.</li>
+<li>მეტი ფუნქციისთვის, გთხოვთ, იხილოთ <a class="reference internal" href="ble-mesh-feature-list.html"><span class="doc">ESP-BLE-MESH ფუნქციების სია</span></a>.</li>
+</ul>
+<p>განხორციელება <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Provisioning</span></code> ფუნქციები იერარქიულ სტრუქტურაზეა დაფუძნებული. თითოეული ფენის ფუნქციები ნაჩვენებია ცხრილში 1.2:</p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">ცხრილი 1.2 ბადისებრი რესურსების უზრუნველყოფის არქიტექტურის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფენა</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PDU-ების უზრუნველყოფა</td>
+<td>სხვადასხვა ფენიდან PDU-ების უზრუნველყოფა ხორციელდება უზრუნველყოფის პროტოკოლის გამოყენებით.</td>
+</tr>
+<tr class="row-odd"><td>ზოგადი უზრუნველყოფის PDU/Proxy PDU</td>
+<td>უზრუნველყოფის PDU-ები გადაეცემა არაუზრუნველყოფილ მოწყობილობას ზოგადი უზრუნველყოფის ფენის ან პროქსი პროტოკოლის ფენის გამოყენებით.</td>
+</tr>
+<tr class="row-even"><td>PB-ADV/PB-GATT</td>
+<td>ეს ფენები განსაზღვრავს, თუ როგორ გადაიცემა პროვიზირების PDU-ები ტრანზაქციების სახით, რომელთა სეგმენტირება და ხელახლა აწყობა შესაძლებელია.</td>
+</tr>
+<tr class="row-odd"><td>სარეკლამო/მომსახურების სერვისი</td>
+<td>უზრუნველყოფის მატარებლები განსაზღვრავენ, თუ როგორ იქმნება სესიები ისე, რომ ზოგადი უზრუნველყოფის ფენიდან ტრანზაქციები გადაეცეს ერთ მოწყობილობას.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-models">
+<h3>1.1.3 ბადისებრი მოდელები<a class="headerlink" href="ble-mesh-architecture.html#mesh-models" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Models</span></code> პროტოკოლის დასტის არქიტექტურაში ახორციელებს შემდეგ ფუნქციებს:</p>
+<ul class="simple">
+<li>კონფიგურაციის კლიენტი/სერვერის მოდელები</li>
+<li>კლიენტის/სერვერის ჯანმრთელობის მოდელები</li>
+<li>ზოგადი კლიენტის/სერვერის მოდელები</li>
+<li>სენსორის კლიენტი/სერვერის მოდელები</li>
+<li>დროისა და სცენების კლიენტ/სერვერის მოდელები</li>
+<li>განათების კლიენტი/სერვერის მოდელები</li>
+</ul>
+<p>თითოეული ფენის ფუნქციები ნაჩვენებია ცხრილში 1.3:</p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">ცხრილი 1.3 ბადისებრი მოდელების არქიტექტურის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფენა</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>მოდელის ფენა</td>
+<td>მოდელის დონე ნერგავს მოდელებს, რომლებიც გამოიყენება ტიპიური მომხმარებლის სცენარების მუშაობის სტანდარტიზაციისთვის, მათ შორის ზოგადი კლიენტ/სერვერის მოდელები, სენსორების კლიენტ/სერვერის მოდელები, დროისა და სცენების კლიენტ/სერვერის მოდელები, განათების კლიენტ/სერვერის მოდელები და რამდენიმე მომწოდებლის მოდელი.</td>
+</tr>
+<tr class="row-odd"><td>საძირკვლის მოდელის ფენა</td>
+<td>საძირკვლის მოდელის ფენა ახორციელებს ESP-BLE-MESH კონფიგურაციასთან, მართვასთან, თვითდიაგნოსტიკასთან და ა.შ. დაკავშირებულ მოდელებს.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="mesh-network-management">
+<h2>1.2 ბადისებრი ქსელის მართვა<a class="headerlink" href="ble-mesh-architecture.html#mesh-network-management" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Management</span></code> ახორციელებს შემდეგ ფუნქციებს:</p>
+<ul class="simple">
+<li>კვანძის ქსელიდან მოსაშორებლად გამოიყენება კვანძის ამოღების პროცედურა.</li>
+<li>IV ინდექსის აღდგენის პროცედურა გამოიყენება კვანძის IV ინდექსის აღსადგენად.</li>
+<li>კვანძების IV ინდექსის განახლებისთვის გამოიყენება IV განახლების პროცედურა.</li>
+<li>გასაღების განახლების პროცედურა გამოიყენება კვანძების NetKey-ის, AppKey-ის და ა.შ. განახლებისთვის.</li>
+<li>ქსელის შექმნის პროცედურა გამოიყენება mesh ქსელის შესაქმნელად.</li>
+<li>NVS საცავი გამოიყენება კვანძის ქსელური ინფორმაციის შესანახად.</li>
+</ul>
+</div>
+<div class="section" id="mesh-features">
+<h2>1.3 ბადისებრი მახასიათებლები<a class="headerlink" href="ble-mesh-architecture.html#mesh-features" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Features</span></code> მოიცავს შემდეგ ვარიანტებს:</p>
+<ul class="simple">
+<li>დაბალი ენერგიის ფუნქცია გამოიყენება კვანძის ენერგომოხმარების შესამცირებლად.</li>
+<li>მეგობრობის ფუნქცია გამოიყენება დაბალი სიმძლავრის კვანძებისთვის შეტყობინებების შესანახად.</li>
+<li>რელეის ფუნქცია გამოიყენება კვანძის მიერ სარეკლამო მატარებლის მეშვეობით მიღებული ქსელის PDU-ების რელევანტურ/გადასამისამართებლად.</li>
+<li>პროქსი სერვერი/კლიენტი პროქსი პროტოკოლში ორი კვანძის როლია, რომლებიც კვანძებს საშუალებას აძლევს გაგზავნონ და მიიღონ ქსელის PDU-ები, mesh beacon-ები, პროქსი კონფიგურაციის შეტყობინებები და უზრუნველყონ PDU-ები კავშირზე ორიენტირებული მატარებლის მეშვეობით.</li>
+</ul>
+</div>
+<div class="section" id="mesh-bearer-layer">
+<h2>1.4 ბადისებრი მატარებლის ფენა<a class="headerlink" href="ble-mesh-architecture.html#mesh-bearer-layer" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Bearers</span></code> პროტოკოლის დასტის არქიტექტურაში პასუხისმგებელნი არიან მონაცემების გადაცემაზე ESP-BLE-MESH პროტოკოლის დასტასა და Bluetooth დაბალი ენერგიის ბირთვს შორის.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Bearers</span></code> შეიძლება იქნას აღებული, როგორც გადამზიდავი ფენა Bluetooth Low Energy Core-ის საფუძველზე, რომელიც ახორციელებს ESP-BLE-MESH პროტოკოლის დასტის მონაცემების მიღებისა და გადაცემის ფუნქციას.</p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">ცხრილი 1.3 ბადისებრი მატარებლების აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფენა</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GATT-ის მატარებელი</td>
+<td>GATT-ის მატარებელი იყენებს პროქსი პროტოკოლს გადაცემისა და მიღებისთვის. <code class="docutils literal notranslate"><span class="pre">Proxy</span> <span class="pre">PDUs</span></code> ორ მოწყობილობას შორის GATT კავშირის საშუალებით.</td>
+</tr>
+<tr class="row-odd"><td>რეკლამის მატარებელი</td>
+<td>სარეკლამო მატარებლის გამოყენებისას, mesh პაკეტი გაიგზავნება სარეკლამო მონაცემებში. <code class="docutils literal notranslate"><span class="pre">Bluetooth</span> <span class="pre">Low</span> <span class="pre">Energy</span> <span class="pre">advertising</span> <span class="pre">PDU</span></code> Mesh Message AD ტიპის გამოყენებით.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-applications">
+<h2>1.5 ბადისებრი აპლიკაციები<a class="headerlink" href="ble-mesh-architecture.html#mesh-applications" title="Permalink to this headline">¶</a></h2>
+<p>ის <code class="docutils literal notranslate"><span class="pre">Applications</span></code> პროტოკოლების დასტის არქიტექტურაში შესაბამისი ფუნქციების განხორციელება შესაძლებელია ESP-BLE-MESH პროტოკოლების დასტის მიერ მოწოდებული API გამოძახებით და პროტოკოლების დასტის მიერ მოხსენებული მოვლენის დამუშავებით. არსებობს რამდენიმე გავრცელებული გამოყენება, როგორიცაა კარიბჭე, განათება და ა.შ.</p>
+<p>აპლიკაციის ფენებს შორის ურთიერთქმედება（<code class="docutils literal notranslate"><span class="pre">Applications</span></code>) და <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">/</span> <span class="pre">Event</span></code></p>
+<ul>
+<li><p class="first">აპლიკაციის დონე იძახებს API</p>
+<ul class="simple">
+<li>უზრუნველყოფისთვის გამოიძახეთ უზრუნველყოფასთან დაკავშირებული API .</li>
+<li>შეტყობინებების გასაგზავნად დაურეკეთ მოდელთან დაკავშირებულ API .</li>
+<li>მოწყობილობის შესახებ ადგილობრივი ინფორმაციის მისაღებად გამოიძახეთ device-attributes-related API .</li>
+</ul>
+</li>
+<li><p class="first">აპლიკაციის დონის პროცესების მოვლენა</p>
+<p>აპლიკაციის დონე შექმნილია მოვლენებზე დაყრდნობით, რომლებიც პარამეტრებს აპლიკაციის დონეზე გადასცემენ. მოვლენები ძირითადად ორ კატეგორიად იყოფა.</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>The events completed by calling API.</dt>
+<dd><ul class="first last">
+<li>როგორიცაა კვანძები, რომლებიც აგზავნიან შეტყობინებებს.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>The events that the protocol stack actively reports to the application layer.</dt>
+<dd><ul class="first last">
+<li>მოვლენა, რომელსაც პროტოკოლის დასტა აქტიურად იუწყება.</li>
+<li>მოვლენა, რომლის შესახებაც მოდელი აქტიურად იუწყება.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">მოვლენა იტყობინება აპლიკაციის დონის მიერ რეგისტრირებული უკუკავშირის ფუნქციის მიერ და უკუკავშირის ფუნქცია ასევე შეიცავს მოვლენის შესაბამის დამუშავებას.</p>
+</li>
+</ul>
+<p>ურთიერთქმედება <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">/</span> <span class="pre">Event</span></code> და ESP-BLE-MESH პროტოკოლის დასტა</p>
+<ul class="simple">
+<li>API რომელსაც მომხმარებელი იყენებს, ძირითადად იძახებს მიერ მოწოდებულ ფუნქციებს <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code>, <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Provisioning</span></code> და <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Models</span></code>.</li>
+<li>ურთიერთქმედება <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">/</span> <span class="pre">Event</span></code> და პროტოკოლის დასტა არ ფუნქციონირებს პროტოკოლის დასტის იერარქიაში. მაგალითად, API არ იძახებს ფუნქციებს, რომლებიც დაკავშირებულია <code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Layer</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="esp-ble-mesh-architecture-implementation">
+<h2>2. ESP-BLE-MESH არქიტექტურის იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#esp-ble-mesh-architecture-implementation" title="Permalink to this headline">¶</a></h2>
+<p>ESP-BLE-MESH არქიტექტურის დიზაინი და იმპლემენტაცია დაფუძნებულია ფენებსა და მოდულებზე. დეტალურად, 2.1 ნაწილი (Mesh Networking-ის იმპლემენტაცია), 2.2 ნაწილი (Mesh Provisioning-ის იმპლემენტაცია) და 2.3 ნაწილი (Mesh Bearers-ის იმპლემენტაცია) დაფუძნებულია ფენებზე, ხოლო 2.4 ნაწილი (Mesh Models-ის იმპლემენტაცია) - მოდულებზე.</p>
+<ul class="simple">
+<li><strong>ფენებზე დაფუძნებული მიდგომა</strong>ფენებზე დაფუძნებული მიდგომით, არქიტექტურა შექმნილია Mesh Profile Specification-ში მითითებული ფენების მიხედვით. თითოეულ ფენას აქვს თავისი უნიკალური ფაილები, რომლებიც მოიცავს ამ ფენის API -ს და ა.შ. კონკრეტული დიზაინი ნაჩვენებია ნახაზ 2.1-ში.</li>
+<li><strong>მოდულზე დაფუძნებული მიდგომა</strong>ყველა ფაილი ახორციელებს დამოუკიდებელ ფუნქციას, რომლის გამოძახებაც სხვა პროგრამების მიერ არის შესაძლებელი.</li>
+</ul>
+<div class="figure align-center" id="id6">
+<img alt="../../_images/esp-ble-mesh-interface.png" src="../../_images/esp-ble-mesh-interface.png"/>
+<p class="caption"><span class="caption-text">სურათი 2.1 ESP-BLE-MESH არქიტექტურის იმპლემენტაციის დიაგრამა</span></p>
+</div>
+<p>ESP-BLE-MESH არქიტექტურის დიზაინი იყენებს ფენებზე დაფუძნებულ მიდგომას. ფენების თანმიმდევრობა, რომლითაც მონაცემთა პაკეტები მუშავდება, ფიქსირებულია, ანუ პაკეტების დამუშავება შექმნის <code class="docutils literal notranslate"><span class="pre">message</span> <span class="pre">flow</span></code>ამგვარად, პროტოკოლის დასტის ინტერფეისის დიაგრამიდან შეტყობინებების ნაკადები ნაჩვენებია ნახაზ 2.1-ში.</p>
+</div>
+<div class="section" id="mesh-protocol-stack-implementation">
+<h2>2.1 Mesh Protocol Stack-ის იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-protocol-stack-implementation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mesh-networking-implementation">
+<h3>2.1.1 ბადისებრი ქსელის იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-networking-implementation" title="Permalink to this headline">¶</a></h3>
+<p>ფაილების სია და თითოეულ ფაილში განხორციელებული ფუნქციები <code class="docutils literal notranslate"><span class="pre">Mesh</span> <span class="pre">Networking</span></code> ნაჩვენებია ცხრილში 2.1:</p>
+<table border="1" class="docutils" id="id7">
+<caption><span class="caption-text">ცხრილი 2.1 Mesh ქსელის ფაილის აღწერა :widths: 40 150 :header-rows: 1</span><a class="headerlink" href="ble-mesh-architecture.html#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%"/>
+<col width="50%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ფაილი</td>
+<td>ფუნქციონალურობა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/access.c">წვდომა.c </a></td>
+<td>ESP-BLE-MESH წვდომის ფენა</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/transport.c">ტრანსპორტი.გ </a></td>
+<td>ESP-BLE-MESH ქვედა/ზედა ტრანსპორტის ფენა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/net.c">net.c </a></td>
+<td>ESP-BLE-MESH ქსელის ფენა</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/adv.c">adv.c </a></td>
+<td>დავალება, რომელიც გამოიყენება ESP-BLE-MESH სარეკლამო პაკეტების გასაგზავნად, უკუკავშირი, რომელიც გამოიყენება მიღებული სარეკლამო პაკეტების დასამუშავებლად და API ფუნქციონალები, რომლებიც გამოიყენება adv ბუფერების განაწილებისთვის.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-provisioning-implementation">
+<h3>2.1.2 ბადისებრი ქსელის უზრუნველყოფის იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-provisioning-implementation" title="Permalink to this headline">¶</a></h3>
+<p>Mesh Provisioning-ის იმპლემენტაცია ორ ნაწილად იყოფა Node/Provisioner-ის თანაარსებობის გამო.</p>
+<p>კონკრეტული ფაილები, რომლებიც უზრუნველყოფენ Node-ის უზრუნველყოფის განხორციელებას, ნაჩვენებია ცხრილში 2.2:</p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">ცხრილი 2.2 ბადისებრი ქსელის უზრუნველყოფა (კვანძი) ფაილის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფაილი</th>
+<th class="head">ფუნქციონალურობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/prov.c">პროვ.გ </a></td>
+<td>ESP-BLE-MESH კვანძის უზრუნველყოფა (PB-ADV და PB-GATT)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/proxy.c">proxy.c </a></td>
+<td>ESP-BLE-MESH პროქსი სერვერთან დაკავშირებული ფუნქციონალურობა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/beacon.c">შუქურა.c </a></td>
+<td>API გამოიყენება ESP-BLE-MESH შუქურების დასამუშავებლად</td>
+</tr>
+</tbody>
+</table>
+<p>სპეციფიკური ფაილები, რომლებიც ახორციელებენ Provisioner-ის ფუნქციებს, ნაჩვენებია ცხრილში 2.3:</p>
+<table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">ცხრილი 2.3 Mesh-ის უზრუნველყოფა (Provisioner) ფაილის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფაილი</th>
+<th class="head">ფუნქციონალურობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/provisioner_prov.c">provisioner_prov.c </a></td>
+<td>ESP-BLE-MESH პროვიზერის უზრუნველყოფა (PB-ADV და PB-GATT)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/provisioner_proxy.c">provisioner_proxy.c </a></td>
+<td>ESP-BLE-MESH პროქსი კლიენტთან დაკავშირებული ფუნქციონალურობა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/provisioner_beacon.c">provisioner_beacon.c </a></td>
+<td>ESP-BLE-MESH პროვაიდერი იღებს მოწყობილობის არამოწოდებულ შუქურას</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-models-implementation">
+<h3>2.1.3 ბადისებრი მოდელების იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-models-implementation" title="Permalink to this headline">¶</a></h3>
+<p>ბადისებრი მოდელები გამოიყენება მოდელის კონკრეტული ფუნქციების კვანძებში განსახორციელებლად. სერვერის მოდელი გამოიყენება კვანძის სტატუსის შესანარჩუნებლად. კლიენტის მოდელი გამოიყენება კვანძის მდგომარეობის მისაღებად და შესაცვლელად.</p>
+<table border="1" class="colwidths-given docutils" id="id10">
+<caption><span class="caption-text">ცხრილი 2.4 ბადისებრი მოდელების ფაილის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფაილი</th>
+<th class="head">ფუნქციონალურობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/cfg_cli.c">cfg_cli.c </a></td>
+<td>კონფიგურაციის კლიენტის შეტყობინებების გაგზავნა და შესაბამისი საპასუხო შეტყობინებების მიღება</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/cfg_srv.c">cfg_srv.c </a></td>
+<td>კონფიგურაციის კლიენტის შეტყობინებების მიღება და შესაბამისი საპასუხო შეტყობინებების გაგზავნა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/health_cli.c">health_cli.c </a></td>
+<td>გაუგზავნეთ შეტყობინებები ჯანმრთელობის კლიენტებს და მიიღეთ შესაბამისი საპასუხო შეტყობინებები</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/health_srv.c">health_srv.c </a></td>
+<td>მიიღეთ ჯანმრთელობის კლიენტის შეტყობინებები და გაგზავნეთ შესაბამისი საპასუხო შეტყობინებები</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/client/client_common.c">client_common.c </a></td>
+<td>ESP-BLE-MESH მოდელთან დაკავშირებული ოპერაციები</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/client/generic_client.c">generic_client.c </a></td>
+<td>ESP-BLE-MESH ზოგადი კლიენტის შეტყობინებების გაგზავნა და შესაბამისი საპასუხო შეტყობინებების მიღება</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/client/lighting_client.c">lighting_client.c </a></td>
+<td>ESP-BLE-MESH განათების კლიენტის შეტყობინებების გაგზავნა და შესაბამისი საპასუხო შეტყობინებების მიღება</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/client/sensor_client.c">sensor_client.c </a></td>
+<td>ESP-BLE-MESH სენსორის კლიენტის შეტყობინებების გაგზავნა და შესაბამისი საპასუხო შეტყობინებების მიღება</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/client/time_scene_client.c">time_scene_client.c </a></td>
+<td>ESP-BLE-MESH Time Scene კლიენტის შეტყობინებების გაგზავნა და შესაბამისი საპასუხო შეტყობინებების მიღება</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/server/generic_server.c">generic_server.c </a></td>
+<td>მიიღეთ ESP-BLE-MESH ზოგადი კლიენტის შეტყობინებები და გაგზავნეთ შესაბამისი საპასუხო შეტყობინებები</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/server/lighting_server.c">lighting_server.c </a></td>
+<td>ESP-BLE-MESH განათების კლიენტის შეტყობინებების მიღება და შესაბამისი საპასუხო შეტყობინებების გაგზავნა</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/server/sensor_server.c">sensor_server.c </a></td>
+<td>ESP-BLE-MESH სენსორის კლიენტის შეტყობინებების მიღება და შესაბამისი საპასუხო შეტყობინებების გაგზავნა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_models/server/time_scene_server.c">time_scene_server.c </a></td>
+<td>მიიღეთ ESP-BLE-MESH Time Scene კლიენტის შეტყობინებები და გაგზავნეთ შესაბამისი საპასუხო შეტყობინებები</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mesh-bearers-implementation">
+<h3>2.2 ბადისებრი მატარებლების იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-bearers-implementation" title="Permalink to this headline">¶</a></h3>
+<p>Mesh Bearers-ის იმპლემენტაციისას სრულად გათვალისწინებულია პორტაბელურობა. როდესაც ESP-BLE-MESH პროტოკოლის დასტა სხვა პლატფორმებზე პორტირდება, მომხმარებლებს მხოლოდ მისი შეცვლა სჭირდებათ. <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/mesh_bearer_adapt.c">mesh_bearer_adapt.c </a>.</p>
+<table border="1" class="colwidths-given docutils" id="id11">
+<caption><span class="caption-text">ცხრილი 2.5 ბადის მატარებლების ფაილის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფაილი</th>
+<th class="head">ფუნქციონალურობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/mesh_bearer_adapt.c">mesh_bearer_adapt.c </a></td>
+<td>ESP-BLE-MESH Bearer Layer ადაპტერი, ეს ფაილი უზრუნველყოფს ინტერფეისებს, რომლებიც გამოიყენება ESP-BLE-MESH ADV და GATT-თან დაკავშირებული პაკეტების მისაღებად და გასაგზავნად.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last"><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/mesh_bearer_adapt.c">mesh_bearer_adapt.c </a> არის განხორციელება <code class="docutils literal notranslate"><span class="pre">Advertising</span> <span class="pre">Bearer</span></code> და <code class="docutils literal notranslate"><span class="pre">GATT</span> <span class="pre">Bearer</span></code> Mesh Networking-ის ჩარჩო .</p>
+</div>
+</div>
+<div class="section" id="mesh-applications-implementation">
+<h3>2.3 Mesh აპლიკაციების იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#mesh-applications-implementation" title="Permalink to this headline">¶</a></h3>
+<p>ჩვენ მოგაწოდეთ აპლიკაციის მაგალითების სერია მომხმარებლის განვითარებისთვის, ხოლო მომხმარებლებს შეუძლიათ შეიმუშაონ პროდუქტები მათ საფუძველზე. <a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-examples"><span class="std std-ref">ESP-BLE-MESH მაგალითები</span></a>.</p>
+</div>
+</div>
+<div class="section" id="auxiliary-routine">
+<h2>3. დამხმარე რუტინა<a class="headerlink" href="ble-mesh-architecture.html#auxiliary-routine" title="Permalink to this headline">¶</a></h2>
+<p>დამხმარე რუტინა გულისხმობს ESP-BLE-MESH პროტოკოლის დასტაში არსებულ დამატებით ფუნქციებს. დამხმარე რუტინის დიზაინი, როგორც წესი, კოდის შეკვეცვას ახორციელებს <a class="reference internal" href="../../api-reference/kconfig.html#config-ble-mesh"><span class="std std-ref">CONFIG_BLE_MESH</span></a>.</p>
+<div class="section" id="features">
+<h3>3.1 მახასიათებლები<a class="headerlink" href="ble-mesh-architecture.html#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>დაბალი სიმძლავრე</li>
+<li>მეგობარი</li>
+<li>ესტაფეტა</li>
+<li>პროქსი კლიენტი/სერვერი</li>
+</ul>
+</div>
+<div class="section" id="network-management">
+<h3>3.2 ქსელის მართვა<a class="headerlink" href="ble-mesh-architecture.html#network-management" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>კვანძის მოცილების პროცედურა</li>
+<li>IV ინდექსის აღდგენის პროცედურა</li>
+<li>IV განახლების პროცედურა</li>
+<li>გასაღების განახლების პროცედურა</li>
+<li>ქსელის შექმნის პროცედურა</li>
+<li>NVS საცავი</li>
+</ul>
+</div>
+<div class="section" id="auxiliary-routine-implementation">
+<h3>3.3 დამხმარე რუტინის იმპლემენტაცია<a class="headerlink" href="ble-mesh-architecture.html#auxiliary-routine-implementation" title="Permalink to this headline">¶</a></h3>
+<p>დამოუკიდებელი მოდულის დიზაინის არჩევისას, გასათვალისწინებელია ორი ძირითადი ფაქტორი:</p>
+<ul class="simple">
+<li>მოდულის იერარქიულად განხორციელება შეუძლებელია და ის შეიძლება იყოს სრულიად დამოუკიდებელი, რაც ნიშნავს, რომ ის არ არის დამოკიდებული სხვა მოდულების განხორციელებაზე.</li>
+<li>მოდულში არსებული ფუნქციები განმეორებით იქნება გამოყენებული, ამიტომ მიზანშეწონილია მისი მოდულად დაპროექტება. დამოუკიდებელი მოდული ნაჩვენებია ცხრილში 3.1:</li>
+</ul>
+<table border="1" class="colwidths-given docutils" id="id12">
+<caption><span class="caption-text">ცხრილი 3.1 მოდულის ფაილის აღწერა</span><a class="headerlink" href="ble-mesh-architecture.html#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%"/>
+<col width="79%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფაილი</th>
+<th class="head">ფუნქციონალურობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/lpn.c">lpn.c </a></td>
+<td>ESP-BLE-MESH დაბალი სიმძლავრის ფუნქციონალი</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/friend.c">მეგობარი.გ </a></td>
+<td>ESP-BLE-MESH მეგობრის ფუნქციონალობა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/net.c">net.c </a></td>
+<td>ESP-BLE-MESH რელეის ფუნქცია, ქსელის შექმნა, IV განახლების პროცედურა, IV ინდექსის აღდგენის პროცედურა, გასაღების განახლების პროცედურასთან დაკავშირებული ფუნქციონალურობა</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/proxy.c">proxy.c </a></td>
+<td>ESP-BLE-MESH პროქსი სერვერთან დაკავშირებული ფუნქციონალურობა</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/provisioner_proxy.c">provisioner_proxy.c </a></td>
+<td>ESP-BLE-MESH პროქსი კლიენტთან დაკავშირებული ფუნქციონალურობა</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/settings.c">პარამეტრები.c </a></td>
+<td>ESP-BLE-MESH კვანძის NVS შენახვის ფუნქციონალი</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/esp_ble_mesh/mesh_core/mesh_main.c">mesh_main.c </a></td>
+<td>ESP-BLE-MESH კვანძის მოხსნასთან დაკავშირებული ფუნქციონალი</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ble-mesh-faq.html" rel="next" title="ESP-BLE-MESH FAQ">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="ble-mesh-feature-list.html" rel="prev" title="ESP-BLE-MESH Feature List"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

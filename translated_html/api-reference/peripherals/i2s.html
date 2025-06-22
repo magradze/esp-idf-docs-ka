@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>I2S — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="ledc.html" rel="next" title="LED Control"/>
+<link href="i2c.html" rel="prev" title="I2C Driver"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/i2s.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/i2s"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/i2s.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="i2s.html#">I2S</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="i2s.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2s.html#functional-overview">ფუნქციური მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2s.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2s.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>I2S</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/i2s.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="i2s">
+<h1>I2S<a class="headerlink" href="i2s.html#i2s" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="i2s.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>I2S (Inter-IC Sound) არის სერიული, სინქრონული საკომუნიკაციო პროტოკოლი, რომელიც ჩვეულებრივ გამოიყენება აუდიო მონაცემების ორ ციფრულ აუდიო მოწყობილობას შორის გადასაცემად.</p>
+<p>ESP32 აერთიანებს ორ I2S კონტროლერს, რომლებიც ცნობილია როგორც I2S0 და I2S1, რომელთა გამოყენება შესაძლებელია აუდიო და ვიდეო ციფრული მონაცემების სტრიმინგისთვის.</p>
+<p>I2S ავტობუსი შედგება შემდეგი ხაზებისგან:</p>
+<ul class="simple">
+<li>ბიტის საათის ხაზი</li>
+<li>არხის არჩევის ხაზი</li>
+<li>სერიული მონაცემების ხაზი</li>
+</ul>
+<p>თითოეულ I2S კონტროლერს აქვს შემდეგი ფუნქციები, რომელთა კონფიგურაცია შესაძლებელია I2S დრაივერის გამოყენებით:</p>
+<ul class="simple">
+<li>მუშაობა სისტემის მთავარი ან დამხმარე სისტემის სახით</li>
+<li>შეუძლია იმოქმედოს როგორც გადამცემი ან მიმღები</li>
+<li>სპეციალური DMA კონტროლერი, რომელიც საშუალებას იძლევა ნიმუშის მონაცემების ნაკადის, CPU-ს მიერ თითოეული ნიმუშის კოპირების საჭიროების გარეშე.</li>
+</ul>
+<p>თითოეულ კონტროლერს შეუძლია ნახევრად დუპლექსური კომუნიკაციის რეჟიმში მუშაობა. ამრიგად, ორი კონტროლერის გაერთიანება შესაძლებელია სრულ დუპლექსურ კომუნიკაციის დასამყარებლად.</p>
+<p>I2S0 გამომავალი სიგნალის პირდაპირ ციფრულ-ანალოგური გადამყვანის (DAC) გამომავალ არხებზე ( GPIO 25 და GPIO 26) გადამისამართება შესაძლებელია პირდაპირი ანალოგური გამომავალი სიგნალის მისაღებად გარე I2S კოდეკების ჩართვის გარეშე. I2S0 ასევე შეიძლება გამოყენებულ იქნას PDM (პულსის სიმკვრივის მოდულაცია) სიგნალების გადასაცემად.</p>
+<p>I2S პერიფერიული მოწყობილობები ასევე მხარს უჭერენ LCD რეჟიმს მონაცემების პარალელური ავტობუსით გადასაცემად, როგორც ამას ზოგიერთი LCD დისპლეი და კამერის მოდული იყენებს. LCD რეჟიმს აქვს შემდეგი ოპერაციული რეჟიმები:</p>
+<ul class="simple">
+<li>LCD მთავარი გადაცემის რეჟიმი</li>
+<li>კამერის მონა მიღების რეჟიმი</li>
+<li>ADC/DAC რეჟიმი</li>
+</ul>
+<p>დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf#page=306">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>მაღალი სიზუსტის საათის აპლიკაციებისთვის გამოიყენეთ APLL_CLK საათის წყარო, რომლის სიხშირის დიაპაზონია 16 ~ 128 MHz. APLL_CLK საათის წყაროს ჩართვა შეგიძლიათ შემდეგი პარამეტრების დაყენებით: <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">i2s_config_t::use_apll</span></code> რომ <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>.</p>
+<p>თუ <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">i2s_config_t::use_apll</span></code> = <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> და <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">i2s_config_t::fixed_mclk</span></code> &amp;gt; <code class="docutils literal notranslate"><span class="pre">0</span></code>, მაშინ I2S-ის მთავარი საათის გამომავალი სიხშირე ტოლი იქნება -ის მნიშვნელობისა <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">i2s_config_t::fixed_mclk</span></code>, რაც ნიშნავს, რომ mclk სიხშირეს მომხმარებელი იძლევა და არა დრაივერი გამოთვლის.</p>
+<p class="last">სიტყვის შერჩევის ხაზის ტაქტური სიხშირე, რომელსაც აქ აუდიო მარცხნივ-მარჯვნივ ტაქტური სიხშირე (LRCK) ეწოდება, ყოველთვის მთავარი ტაქტური გამომავალი სიხშირის გამყოფია და რომლისთვისაც ყოველთვის მართალია შემდეგი: 0 &amp;lt; MCLK/LRCK/არხები/ბიტები ნიმუშზე &amp;lt; 64.</p>
+</div>
+</div>
+<div class="section" id="functional-overview">
+<h2>ფუნქციური მიმოხილვა<a class="headerlink" href="i2s.html#functional-overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-the-driver">
+<h3>დრაივერის ინსტალაცია<a class="headerlink" href="i2s.html#installing-the-driver" title="Permalink to this headline">¶</a></h3>
+<p>I2S დრაივერის დასაინსტალირებლად გამოიყენეთ ფუნქცია :cpp:func`i2s_driver_install` და მიუთითეთ შემდეგი არგუმენტები:</p>
+<ul class="simple">
+<li>პორტის ნომერი</li>
+<li>სტრუქტურა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2s_config_t</span></code> განსაზღვრული კომუნიკაციის პარამეტრებით</li>
+<li>ღონისძიების რიგის ზომა და სახელური</li>
+</ul>
+<p>კონფიგურაციის მაგალითი:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">i2s_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// i2s port number</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">i2s_config_t</span> <span class="n">i2s_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">I2S_MODE_MASTER</span> <span class="o">|</span> <span class="n">I2S_MODE_TX</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">bits_per_sample</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">channel_format</span> <span class="o">=</span> <span class="n">I2S_CHANNEL_FMT_RIGHT_LEFT</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">communication_format</span> <span class="o">=</span> <span class="n">I2S_COMM_FORMAT_I2S</span> <span class="o">|</span> <span class="n">I2S_COMM_FORMAT_I2S_MSB</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">intr_alloc_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// default interrupt priority</span>
+    <span class="p">.</span><span class="n">dma_buf_count</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">dma_buf_len</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">use_apll</span> <span class="o">=</span> <span class="nb">false</span>
+<span class="p">};</span>
+
+<span class="n">i2s_driver_install</span><span class="p">(</span><span class="n">I2S_NUM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i2s_config</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-communication-pins">
+<h3>საკომუნიკაციო პინების დაყენება<a class="headerlink" href="i2s.html#setting-communication-pins" title="Permalink to this headline">¶</a></h3>
+<p>დრაივერის ინსტალაციის შემდეგ, დააკონფიგურირეთ ფიზიკური GPIO პინები, რომლებზეც სიგნალები გადამისამართდება. ამისათვის გამოიძახეთ ფუნქცია :cpp:func`i2s_set_pin` და გადაეცით მას შემდეგი არგუმენტები:</p>
+<ul class="simple">
+<li>პორტის ნომერი</li>
+<li>სტრუქტურა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2s_pin_config_t</span></code> GPIO განსაზღვრა, რომელზეც დრაივერმა უნდა გადაამისამართოს BCK, WS, DATA გამომავალი და DATA შემავალი სიგნალები. თუ გსურთ კონკრეტული სიგნალისთვის ამჟამად გამოყოფილი pin ნომრის შენარჩუნება, ან თუ ეს სიგნალი არ გამოიყენება, მაშინ გადაეცით მაკრო <code class="xref c c-macro docutils literal notranslate"><span class="pre">I2S_PIN_NO_CHANGE</span></code>იხილეთ ქვემოთ მოცემული მაგალითი.</li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">i2s_pin_config_t</span> <span class="n">pin_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">bck_io_num</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">ws_io_num</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">data_out_num</span> <span class="o">=</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">data_in_num</span> <span class="o">=</span> <span class="n">I2S_PIN_NO_CHANGE</span>
+<span class="p">};</span>
+
+<span class="n">i2s_set_pin</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pin_config</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-i2s-communication">
+<h3>I2S კომუნიკაციის გაშვება<a class="headerlink" href="i2s.html#running-i2s-communication" title="Permalink to this headline">¶</a></h3>
+<p>გადაცემის შესასრულებლად:</p>
+<ul class="simple">
+<li>მონაცემების მომზადება გაგზავნისთვის</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="i2s.html#_CPPv49i2s_write10i2s_port_tPKv6size_tP6size_t10TickType_t" title="i2s_write"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_write()</span></code></a> და გადაეცით მას მონაცემთა ბუფერის მისამართი და მონაცემთა სიგრძე</li>
+</ul>
+<p>ფუნქცია მონაცემებს I2S DMA Tx ბუფერში ჩაწერს და შემდეგ მონაცემები ავტომატურად გადაიცემა.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">i2s_write</span><span class="p">(</span><span class="n">I2S_NUM</span><span class="p">,</span> <span class="n">samples_data</span><span class="p">,</span> <span class="p">((</span><span class="n">bits</span><span class="o">+</span><span class="mi">8</span><span class="p">)</span><span class="o">/</span><span class="mi">16</span><span class="p">)</span><span class="o">*</span><span class="n">SAMPLE_PER_CYCLE</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i2s_bytes_write</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>მიღებული მონაცემების აღსადგენად, გამოიყენეთ ფუნქცია <a class="reference internal" href="i2s.html#_CPPv48i2s_read10i2s_port_tPv6size_tP6size_t10TickType_t" title="i2s_read"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_read()</span></code></a>ის მონაცემებს I2S DMA Rx ბუფერიდან ამოიღებს, მას შემდეგ, რაც მონაცემებს I2S კონტროლერი მიიღებს.</p>
+<p>I2S დრაივერის დროებით შეჩერება შეგიძლიათ ფუნქციის გამოძახებით <a class="reference internal" href="i2s.html#_CPPv48i2s_stop10i2s_port_t" title="i2s_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_stop()</span></code></a>, რომელიც გამორთავს I2S Tx/Rx მოწყობილობებს მანამ, სანამ ფუნქცია არ <a class="reference internal" href="i2s.html#_CPPv49i2s_start10i2s_port_t" title="i2s_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_start()</span></code></a> გამოიძახება. თუ ფუნქცია :cpp:func`i2s_driver_install` გამოიყენება, დრაივერი ავტომატურად ჩაირთვება და გამორიცხავს გამოძახების საჭიროებას. <a class="reference internal" href="i2s.html#_CPPv49i2s_start10i2s_port_t" title="i2s_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_start()</span></code></a>.</p>
+</div>
+<div class="section" id="deleting-the-driver">
+<h3>დრაივერის წაშლა<a class="headerlink" href="i2s.html#deleting-the-driver" title="Permalink to this headline">¶</a></h3>
+<p>თუ დამყარებული კომუნიკაცია აღარ არის საჭირო, მძღოლის გადაყვანა გამოყოფილი რესურსების გასათავისუფლებლად შესაძლებელია დარეკვით. <a class="reference internal" href="i2s.html#_CPPv420i2s_driver_uninstall10i2s_port_t" title="i2s_driver_uninstall"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2s_driver_uninstall()</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="i2s.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>I2S დრაივერის კოდის მაგალითი შეგიძლიათ იხილოთ დირექტორიაში <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/i2s">პერიფერიული მოწყობილობები/i2s</a>.</p>
+<p>გარდა ამისა, I2S დრაივერის კონფიგურაციის ორი მოკლე მაგალითია.</p>
+<div class="section" id="i2s-configuration">
+<h3>I2S კონფიგურაცია<a class="headerlink" href="i2s.html#i2s-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/i2s.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"freertos/queue.h"</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">i2s_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// i2s port number</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">i2s_config_t</span> <span class="n">i2s_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">I2S_MODE_MASTER</span> <span class="o">|</span> <span class="n">I2S_MODE_TX</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">bits_per_sample</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">channel_format</span> <span class="o">=</span> <span class="n">I2S_CHANNEL_FMT_RIGHT_LEFT</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">communication_format</span> <span class="o">=</span> <span class="n">I2S_COMM_FORMAT_I2S</span> <span class="o">|</span> <span class="n">I2S_COMM_FORMAT_I2S_MSB</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">intr_alloc_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// default interrupt priority</span>
+    <span class="p">.</span><span class="n">dma_buf_count</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">dma_buf_len</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">use_apll</span> <span class="o">=</span> <span class="nb">false</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">i2s_pin_config_t</span> <span class="n">pin_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">bck_io_num</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">ws_io_num</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">data_out_num</span> <span class="o">=</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">data_in_num</span> <span class="o">=</span> <span class="n">I2S_PIN_NO_CHANGE</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+
+    <span class="n">i2s_driver_install</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i2s_config</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//install and start i2s driver</span>
+
+    <span class="n">i2s_set_pin</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pin_config</span><span class="p">);</span>
+
+    <span class="n">i2s_set_sample_rates</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="mi">22050</span><span class="p">);</span> <span class="c1">//set sample rates</span>
+
+    <span class="n">i2s_driver_uninstall</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">);</span> <span class="c1">//stop &amp; destroy i2s driver</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-i2s-to-use-internal-dac-for-analog-output">
+<h3>I2S-ის კონფიგურაცია ანალოგური გამოსავლისთვის შიდა DAC-ის გამოსაყენებლად<a class="headerlink" href="i2s.html#configuring-i2s-to-use-internal-dac-for-analog-output" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/i2s.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"freertos/queue.h"</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">i2s_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// i2s port number</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">i2s_config_t</span> <span class="n">i2s_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">I2S_MODE_MASTER</span> <span class="o">|</span> <span class="n">I2S_MODE_TX</span> <span class="o">|</span> <span class="n">I2S_MODE_DAC_BUILT_IN</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">bits_per_sample</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span> <span class="cm">/* the DAC module will only take the 8bits from MSB */</span>
+    <span class="p">.</span><span class="n">channel_format</span> <span class="o">=</span> <span class="n">I2S_CHANNEL_FMT_RIGHT_LEFT</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">communication_format</span> <span class="o">=</span> <span class="n">I2S_COMM_FORMAT_I2S_MSB</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">intr_alloc_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// default interrupt priority</span>
+    <span class="p">.</span><span class="n">dma_buf_count</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">dma_buf_len</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">use_apll</span> <span class="o">=</span> <span class="nb">false</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+
+    <span class="n">i2s_driver_install</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i2s_config</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//install and start i2s driver</span>
+
+    <span class="n">i2s_set_pin</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> <span class="c1">//for internal DAC, this will enable both of the internal channels</span>
+
+    <span class="c1">//You can call i2s_set_dac_mode to set built-in DAC output mode.</span>
+    <span class="c1">//i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN);</span>
+
+    <span class="n">i2s_set_sample_rates</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">,</span> <span class="mi">22050</span><span class="p">);</span> <span class="c1">//set sample rates</span>
+
+    <span class="n">i2s_driver_uninstall</span><span class="p">(</span><span class="n">i2s_num</span><span class="p">);</span> <span class="c1">//stop &amp; destroy i2s driver</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="i2s.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="i2s.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/i2s.h">დრაივერი/ჩართე/დრაივერი/i2s.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="i2s.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv411i2s_set_pin10i2s_port_tPK16i2s_pin_config_t">
+<span id="_CPPv311i2s_set_pin10i2s_port_tPK16i2s_pin_config_t"></span><span id="_CPPv211i2s_set_pin10i2s_port_tPK16i2s_pin_config_t"></span><span id="i2s_set_pin__i2s_port_t.i2s_pin_config_tCP"></span><span class="target" id="i2s_8h_1a2ce18d11da5504aeaf41fb63850e6966"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_set_pin</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, <em class="property">კონსტ</em> i2s_pin_config_t *<em>ქინძისთავი</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv411i2s_set_pin10i2s_port_tPK16i2s_pin_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ I2S პინის ნომერი. </p>
+<p><p>პინის კონფიგურაციის სტრუქტურის შიგნით, დააყენეთ I2S_PIN_NO_CHANGE ნებისმიერი პინისთვის, სადაც მიმდინარე კონფიგურაცია არ უნდა შეიცვალოს.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The I2S peripheral output signals can be connected to multiple GPIO pads. However, the I2S peripheral input signal can only be connected to one GPIO pad.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0 ან I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">pin</span></code>I2S პინის სტრუქტურა, ან NULL 2-არხიანი 8-ბიტიანი შიდა DAC პინის კონფიგურაციის დასაყენებლად ( GPIO 25 და GPIO 26)</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>if *pin is set as NULL, this function will initialize both of the built-in DAC channels by default. if you don’t want this to happen and you want to initialize only one of the DAC channels, you can call i2s_set_dac_mode instead.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL IO შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2s_set_dac_mode14i2s_dac_mode_t">
+<span id="_CPPv316i2s_set_dac_mode14i2s_dac_mode_t"></span><span id="_CPPv216i2s_set_dac_mode14i2s_dac_mode_t"></span><span id="i2s_set_dac_mode__i2s_dac_mode_t"></span><span class="target" id="i2s_8h_1a48a25f8b856386465b8d8805c3367ed1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_set_dac_mode</code><span class="sig-paren">(</span>i2s_dac_mode_t <em>dac_mode</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv416i2s_set_dac_mode14i2s_dac_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ I2S DAC რეჟიმი, I2S ჩაშენებული DAC სტანდარტულად გამორთულია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Built-in DAC functions are only supported on I2S0 for current ESP32 chip. If either of the built-in DAC channel are enabled, the other one can not be used as RTC DAC function at the same time.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">dac_mode</span></code>: DAC რეჟიმის კონფიგურაციები - იხილეთ i2s_dac_mode_t</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418i2s_driver_install10i2s_port_tPK12i2s_config_tiPv">
+<span id="_CPPv318i2s_driver_install10i2s_port_tPK12i2s_config_tiPv"></span><span id="_CPPv218i2s_driver_install10i2s_port_tPK12i2s_config_tiPv"></span><span id="i2s_driver_install__i2s_port_t.i2s_config_tCP.i.voidP"></span><span class="target" id="i2s_8h_1a197f725027015d3ce54b3c0885d7f301"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_driver_install</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, <em class="property">კონსტ</em> i2s_config_t *<em>i2s_config</em>, int <em>რიგის_ზომა</em>, void *<em>i2s_queue</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv418i2s_driver_install10i2s_port_tPK12i2s_config_tiPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააინსტალირეთ და გაუშვით I2S დრაივერი. </p>
+<p><p>ეს ფუნქცია უნდა გამოიძახოს I2S დრაივერის ნებისმიერი წაკითხვის/ჩაწერის ოპერაციის დაწყებამდე.</p>
+<dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">i2s_config</span></code>: I2S კონფიგურაციები - იხილეთ i2s_config_t სტრუქტურა</li>
+<li><code class="docutils literal notranslate"><span class="pre">queue_size</span></code>I2S მოვლენების რიგის ზომა/სიღრმე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">i2s_queue</span></code>I2S მოვლენის რიგის სახელური, თუ დაყენებულია NULL, დრაივერი არ გამოიყენებს მოვლენის რიგს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_NO_MEM მეხსიერება ამოწურულია </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2s_driver_uninstall10i2s_port_t">
+<span id="_CPPv320i2s_driver_uninstall10i2s_port_t"></span><span id="_CPPv220i2s_driver_uninstall10i2s_port_t"></span><span id="i2s_driver_uninstall__i2s_port_t"></span><span class="target" id="i2s_8h_1a91d6dc5f63e757a22134ad14368bf59e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_driver_uninstall</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv420i2s_driver_uninstall10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S დრაივერის დეინსტალაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv49i2s_write10i2s_port_tPKv6size_tP6size_t10TickType_t">
+<span id="_CPPv39i2s_write10i2s_port_tPKv6size_tP6size_t10TickType_t"></span><span id="_CPPv29i2s_write10i2s_port_tPKv6size_tP6size_t10TickType_t"></span><span id="i2s_write__i2s_port_t.voidCP.s.sP.TickType_t"></span><span class="target" id="i2s_8h_1aa7a2f49d7d727b868309785bd6091e78"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_write</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, <em class="property">კონსტ</em> void *<em>src</em>, size_t <em>ზომა</em>, size_t *<em>ბაიტები_დაწერილი</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv49i2s_write10i2s_port_tPKv6size_tP6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემების ჩაწერა I2S DMA გადაცემის ბუფერში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>: წყაროს მისამართი ჩასაწერად</li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: მონაცემთა ზომა ბაიტებში</li>
+<li><code class="docutils literal notranslate"><span class="pre">bytes_written</span></code>ჩაწერილი ბაიტების რაოდენობა, თუ ტაიმ-აუტი გაქრება, შედეგი გადაცემულ ზომაზე ნაკლები იქნება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: TX ბუფერის ლოდინის დროის ამოწურვა RTOS ტიკებში. თუ ამ რაოდენობის ტიკები გაივლის DMA გადაცემის ბუფერში სივრცის გათავისუფლების გარეშე, მაშინ ფუნქცია დააბრუნებს შედეგს (გაითვალისწინეთ, რომ თუ მონაცემები DMA ბუფერში ნაწილებად იწერება, საერთო ოპერაციას შეიძლება მაინც ამ დროის ამოწურვაზე მეტი დრო დასჭირდეს). პორტმა MAX_DELAY გაიცემა დროის ამოწურვის გარეშე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2s_write_expand10i2s_port_tPKv6size_t6size_t6size_tP6size_t10TickType_t">
+<span id="_CPPv316i2s_write_expand10i2s_port_tPKv6size_t6size_t6size_tP6size_t10TickType_t"></span><span id="_CPPv216i2s_write_expand10i2s_port_tPKv6size_t6size_t6size_tP6size_t10TickType_t"></span><span id="i2s_write_expand__i2s_port_t.voidCP.s.s.s.sP.TickType_t"></span><span class="target" id="i2s_8h_1a158cce57ef1e213d4a6df678c3f1c6f2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_write_expand</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, <em class="property">კონსტ</em> void *<em>src</em>, size_t <em>ზომა</em>, size_t <em>src_bits</em>, size_t <em>aim_bits</em>, size_t *<em>ბაიტები_დაწერილი</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv416i2s_write_expand10i2s_port_tPKv6size_t6size_t6size_tP6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემების ჩაწერა I2S DMA გადაცემის ბუფერში, ნიმუშზე ბიტების რაოდენობის გაზრდის პარალელურად. მაგალითად, 16-ბიტიანი PCM-ის 32-ბიტიან PCM-მდე გაფართოება. </p>
+<p><p>წყაროს ბუფერში მონაცემების ფორმატი განისაზღვრება I2S კონფიგურაციით (იხ. </p>
+i2s_config_t).<dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>: წყაროს მისამართი ჩასაწერად</li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: მონაცემთა ზომა ბაიტებში</li>
+<li><code class="docutils literal notranslate"><span class="pre">src_bits</span></code>წყაროს აუდიო ბიტი</li>
+<li><code class="docutils literal notranslate"><span class="pre">aim_bits</span></code>სასურველი ბიტი, არაუმეტეს 32-ისა და უნდა იყოს src_bits-ზე მეტი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">bytes_written</span></code>ჩაწერილი ბაიტების რაოდენობა, თუ ტაიმ-აუტი გაქრება, შედეგი გადაცემულ ზომაზე ნაკლები იქნება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: TX ბუფერის ლოდინის დროის ამოწურვა RTOS ტიკებში. თუ ამ რაოდენობის ტიკები გაივლის DMA გადაცემის ბუფერში სივრცის გათავისუფლების გარეშე, მაშინ ფუნქცია დააბრუნებს შედეგს (გაითვალისწინეთ, რომ თუ მონაცემები DMA ბუფერში ნაწილებად იწერება, საერთო ოპერაციას შეიძლება მაინც ამ დროის ამოწურვაზე მეტი დრო დასჭირდეს). პორტმა MAX_DELAY გაიცემა დროის ამოწურვის გარეშე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv48i2s_read10i2s_port_tPv6size_tP6size_t10TickType_t">
+<span id="_CPPv38i2s_read10i2s_port_tPv6size_tP6size_t10TickType_t"></span><span id="_CPPv28i2s_read10i2s_port_tPv6size_tP6size_t10TickType_t"></span><span id="i2s_read__i2s_port_t.voidP.s.sP.TickType_t"></span><span class="target" id="i2s_8h_1a8bab083696294ab14ef0142699a251b2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_read</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, void *<em>დანიშნულების ადგილი</em>, size_t <em>ზომა</em>, size_t *<em>ბაიტები_წაკითხვა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv48i2s_read10i2s_port_tPv6size_tP6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემების წაკითხვა I2S DMA მიმღები ბუფერიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the built-in ADC mode is enabled, we should call i2s_adc_start and i2s_adc_stop around the whole reading process, to prevent the data getting corrupted.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">dest</span></code>: წასაკითხი დანიშნულების მისამართი</li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: მონაცემთა ზომა ბაიტებში</li>
+<li><code class="docutils literal notranslate"><span class="pre">bytes_read</span></code>წაკითხული ბაიტების რაოდენობა, თუ ტაიმ-აუტი გაქრება, წაკითხული ბაიტების რაოდენობა გადაცემულ ზომაზე ნაკლები იქნება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>RX ბუფერის ლოდინის დროის ამოწურვა RTOS ტიკებში. თუ ამ რაოდენობის ტიკები გაივლის ისე, რომ DMA მიღების ბუფერში ბაიტები არ გახდება ხელმისაწვდომი, მაშინ ფუნქცია დააბრუნებს შედეგს (გაითვალისწინეთ, რომ თუ მონაცემები DMA ბუფერიდან ნაწილებად იკითხება, საერთო ოპერაციას შეიძლება მაინც ამ დროის ამოწურვაზე მეტი დრო დასჭირდეს). portMAX_DELAY-ის გადაცემა დროის ამოწურვის გარეშე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2s_set_sample_rates10i2s_port_t8uint32_t">
+<span id="_CPPv320i2s_set_sample_rates10i2s_port_t8uint32_t"></span><span id="_CPPv220i2s_set_sample_rates10i2s_port_t8uint32_t"></span><span id="i2s_set_sample_rates__i2s_port_t.uint32_t"></span><span class="target" id="i2s_8h_1a8a1008af1535b19d06f1e0114733ffde"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_set_sample_rates</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, uint32_t <em>შეფასება</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv420i2s_set_sample_rates10i2s_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S RX და TX-ისთვის გამოყენებული სინჯის სიხშირის დაყენება. </p>
+<p>ბიტური ტაქტორის სიხშირე განისაზღვრება შერჩევის სიხშირით და i2s_config_t კონფიგურაციის პარამეტრებით (არხების რაოდენობა, bits_per_sample).</p>
+<p><code class="docutils literal notranslate"><span class="pre">bit_clock</span> <span class="pre">=</span> <span class="pre">rate</span> <span class="pre">*</span> <span class="pre">(number</span> <span class="pre">of</span> <span class="pre">channels)</span> <span class="pre">*</span> <span class="pre">bits_per_sample</span></code></p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_NO_MEM მეხსიერება ამოწურულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">rate</span></code>I2S შერჩევის სიხშირე (მაგ.: 8000, 44100…)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv48i2s_stop10i2s_port_t">
+<span id="_CPPv38i2s_stop10i2s_port_t"></span><span id="_CPPv28i2s_stop10i2s_port_t"></span><span id="i2s_stop__i2s_port_t"></span><span class="target" id="i2s_8h_1abcb0ba25089037093623872c8b99e955"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_stop</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv48i2s_stop10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S დრაივერის შეჩერება. </p>
+<p>i2s_driver_uninstall()-ის გამოძახებამდე i2s_stop()-ის გამოძახება საჭირო არ არის.</p>
+<p>გამორთავს I2S TX/RX-ს, სანამ i2s_start() არ გამოიძახება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv49i2s_start10i2s_port_t">
+<span id="_CPPv39i2s_start10i2s_port_t"></span><span id="_CPPv29i2s_start10i2s_port_t"></span><span id="i2s_start__i2s_port_t"></span><span class="target" id="i2s_8h_1a6106ae68d9633ea34af9437e6d5c6fc8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_start</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv49i2s_start10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S დრაივერის გაშვება. </p>
+<p>i2s_driver_install() ფუნქციის შემდეგ ამ ფუნქციის გამოძახება აუცილებელი არ არის (ის ავტომატურად ირთვება), თუმცა აუცილებელია მისი გამოძახება i2s_stop() ფუნქციის შემდეგ.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2s_zero_dma_buffer10i2s_port_t">
+<span id="_CPPv319i2s_zero_dma_buffer10i2s_port_t"></span><span id="_CPPv219i2s_zero_dma_buffer10i2s_port_t"></span><span id="i2s_zero_dma_buffer__i2s_port_t"></span><span class="target" id="i2s_8h_1a898dd58adaeaf93f34a22b82ab8de4d3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_zero_dma_buffer</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv419i2s_zero_dma_buffer10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>TX DMA ბუფერის შიგთავსი ნულზე გაათანაბრეთ. </p>
+<p>ნულბაიტიან ნიმუშებს TX DMA ბუფერში აგზავნის მანამ, სანამ ის არ გაივსება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411i2s_set_clk10i2s_port_t8uint32_t21i2s_bits_per_sample_t13i2s_channel_t">
+<span id="_CPPv311i2s_set_clk10i2s_port_t8uint32_t21i2s_bits_per_sample_t13i2s_channel_t"></span><span id="_CPPv211i2s_set_clk10i2s_port_t8uint32_t21i2s_bits_per_sample_t13i2s_channel_t"></span><span id="i2s_set_clk__i2s_port_t.uint32_t.i2s_bits_per_sample_t.i2s_channel_t"></span><span class="target" id="i2s_8h_1a4260acb96f9793aa86767424a03d1b87"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_set_clk</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em>, uint32_t <em>შეფასება</em>, i2s_bits_per_sample_t <em>ბიტები</em>, i2s_channel_t <em>ჩ</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv411i2s_set_clk10i2s_port_t8uint32_t21i2s_bits_per_sample_t13i2s_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S RX და TX-ისთვის გამოყენებული საათისა და ბიტის სიგანის დაყენება. </p>
+<p>i2s_set_sample_rates()-ის მსგავსია, მაგრამ ასევე ადგენს ბიტის სიგანეს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_NO_MEM მეხსიერება ამოწურულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+<li><code class="docutils literal notranslate"><span class="pre">rate</span></code>I2S შერჩევის სიხშირე (მაგ.: 8000, 44100…)</li>
+<li><code class="docutils literal notranslate"><span class="pre">bits</span></code>I2S ბიტის სიგანე (I2S_BITS_PER_SAMPLE_16BIT, I2S_BITS_PER_SAMPLE_24BIT, I2S_BITS_PER_SAMPLE_32BIT)</li>
+<li><code class="docutils literal notranslate"><span class="pre">ch</span></code>: I2S არხი, (I2S_CHANNEL_MONO, I2S_CHANNEL_STEREO)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411i2s_get_clk10i2s_port_t">
+<span id="_CPPv311i2s_get_clk10i2s_port_t"></span><span id="_CPPv211i2s_get_clk10i2s_port_t"></span><span id="i2s_get_clk__i2s_port_t"></span><span class="target" id="i2s_8h_1aaee5b79812f8ba88b9645fc936f1267e"></span>float <code class="descname">i2s_get_clk</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv411i2s_get_clk10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ საათი კონკრეტულ პორტის ნომერზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>i2s დრაივერის მიერ დაყენებული ფაქტობრივი საათი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>: I2S_NUM_0, I2S_NUM_1</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2s_set_adc_mode10adc_unit_t14adc1_channel_t">
+<span id="_CPPv316i2s_set_adc_mode10adc_unit_t14adc1_channel_t"></span><span id="_CPPv216i2s_set_adc_mode10adc_unit_t14adc1_channel_t"></span><span id="i2s_set_adc_mode__adc_unit_t.adc1_channel_t"></span><span class="target" id="i2s_8h_1aa29c9d2cea2716a583fefdf60e0373b9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_set_adc_mode</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_unit</em>, <a class="reference internal" href="adc.html#_CPPv414adc1_channel_t" title="adc1_channel_t">adc1_channel_t</a> <em>adc_არხი</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv416i2s_set_adc_mode10adc_unit_t14adc1_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S DMA-სთვის ჩაშენებული ADC რეჟიმის დაყენება, ეს ფუნქცია ინიციალიზაციას გაუკეთებს ADC პანელს და დააყენებს ADC პარამეტრებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_unit</span></code>SAR ADC ერთეულის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">adc_channel</span></code>ADC არხის ინდექსი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414i2s_adc_enable10i2s_port_t">
+<span id="_CPPv314i2s_adc_enable10i2s_port_t"></span><span id="_CPPv214i2s_adc_enable10i2s_port_t"></span><span id="i2s_adc_enable__i2s_port_t"></span><span class="target" id="i2s_8h_1aee95564f09194d81af8dc9f2ad50ac25"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_adc_enable</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv414i2s_adc_enable10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ I2S ჩაშენებული ADC რეჟიმის გამოყენება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function would acquire the lock of ADC to prevent the data getting corrupted during the I2S peripheral is being used to do fully continuous ADC sampling.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_INVALID_STATE დრაივერის მდგომარეობის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>i2s პორტის ინდექსი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415i2s_adc_disable10i2s_port_t">
+<span id="_CPPv315i2s_adc_disable10i2s_port_t"></span><span id="_CPPv215i2s_adc_disable10i2s_port_t"></span><span id="i2s_adc_disable__i2s_port_t"></span><span class="target" id="i2s_8h_1a382c911e0f7d2f0ee862788958e99e82"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2s_adc_disable</code><span class="sig-paren">(</span>i2s_port_t <em>i2s_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2s.html#_CPPv415i2s_adc_disable10i2s_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეწყვიტეთ I2S-ის ჩაშენებული ADC რეჟიმის გამოყენება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function would release the lock of ADC so that other tasks can use ADC. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_INVALID_STATE დრაივერის მდგომარეობის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2s_num</span></code>i2s პორტის ინდექსი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="i2s.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416i2s_isr_handle_t">
+<span id="_CPPv316i2s_isr_handle_t"></span><span id="_CPPv216i2s_isr_handle_t"></span><span id="i2s_isr_handle_t"></span><span class="target" id="i2s_8h_1a722f160b2879ebc43a5ec2193f6cb323"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">i2s_isr_handle_t</code><a class="headerlink" href="i2s.html#_CPPv416i2s_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ledc.html" rel="next" title="LED Control">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="i2c.html" rel="prev" title="I2C Driver"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

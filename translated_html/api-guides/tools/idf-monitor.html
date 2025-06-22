@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IDF მონიტორი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../../get-started/toolchain-setup-scratch.html" rel="next" title="Customized Setup of Toolchain"/>
+<link href="../../get-started/eclipse-setup.html" rel="prev" title="Build and Flash with Eclipse IDE"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/tools/idf-monitor.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/tools/idf-monitor"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/tools/idf-monitor.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../get-started/index.html">დაწყება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#introduction">შესავალი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-1-install-prerequisites">ნაბიჯი 1. წინაპირობების ინსტალაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-3-set-up-the-tools">ნაბიჯი 3. ხელსაწყოების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-4-set-up-the-environment-variables">ნაბიჯი 4. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-8-build-the-project">ნაბიჯი 8. პროექტის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-9-flash-onto-the-device">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#step-10-monitor">ნაბიჯი 10. მონიტორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../get-started/index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../get-started/index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../get-started/establish-serial-connection.html">სერიული კავშირის დამყარება ESP32-თან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../get-started/eclipse-setup.html">Eclipse IDE-ს გამოყენებით აწყობა და ფლეშ-პროგრამირება</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="idf-monitor.html#">IDF მონიტორი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="idf-monitor.html#keyboard-shortcuts">კლავიატურის მალსახმობები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-monitor.html#idf-specific-features">IDF-ის სპეციფიკური მახასიათებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-monitor.html#known-issues-with-idf-monitor">IDF მონიტორის ცნობილი პრობლემები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../get-started/toolchain-setup-scratch.html">Toolchain-ის მორგებული დაყენება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../get-started-legacy/index.html">დაწყება (Legacy GNU Make)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../../get-started/index.html">დაწყება</a> »</li>
+<li>IDF მონიტორი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/tools/idf-monitor.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="idf-monitor">
+<h1>IDF მონიტორი<a class="headerlink" href="idf-monitor.html#idf-monitor" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/tools/idf-monitor.html">[中文]</a></p>
+<p>IDF მონიტორინგის ინსტრუმენტი ძირითადად სერიული ტერმინალის პროგრამაა, რომელიც სერიულ მონაცემებს გადასცემს სამიზნე მოწყობილობის სერიული პორტი და მისგან.14 ის ასევე უზრუნველყოფს IDF-ისთვის დამახასიათებელ ზოგიერთ ფუნქციას.</p>
+<p>ამ ინსტრუმენტის გაშვება შესაძლებელია IDF პროექტიდან შემდეგი გზით: <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">monitor</span></code>.</p>
+<p>(GNU Make-ის მემკვიდრეობითი სისტემისთვის, გაუშვით <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">monitor</span></code>.)</p>
+<div class="section" id="keyboard-shortcuts">
+<h2>კლავიატურის მალსახმობები<a class="headerlink" href="idf-monitor.html#keyboard-shortcuts" title="Permalink to this headline">¶</a></h2>
+<p>IDF მონიტორთან მარტივი ურთიერთქმედებისთვის გამოიყენეთ ცხრილში მოცემული კლავიატურის მალსახმობები.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%"/>
+<col width="24%"/>
+<col width="68%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">კლავიატურის მალსახმობი</th>
+<th class="head">მოქმედება</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Ctrl+]</td>
+<td>პროგრამიდან გასვლა</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td>Ctrl+T</td>
+<td>მენიუს გაქცევის ღილაკი</td>
+<td>დააჭირეთ და მიჰყევით ქვემოთ მოცემული ერთ-ერთი ღილაკის გამოყენებით.</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li>Ctrl+T</li>
+</ul>
+</td>
+<td>მენიუს სიმბოლოს გაგზავნა დისტანციურ მაუწყებელზე</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li>Ctrl+]</li>
+</ul>
+</td>
+<td>გაგზავნეთ გასასვლელი სიმბოლო თავად დისტანციურ მაუწყებელზე</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li>Ctrl+P</li>
+</ul>
+</td>
+<td>RTS ხაზის მეშვეობით აპლიკაციის შესაჩერებლად, სამიზნე ჩამტვირთავი 4-ში გადაიტანეთ</td>
+<td>სამიზნეს RTS ხაზის მეშვეობით (თუ დაკავშირებულია) ჩამტვირთავი ში აღადგენს, ისე, რომ დაფა არაფერს გაუშვებს. სასარგებლოა, როდესაც სხვა მოწყობილობის ჩატვირთვის ლოდინი გჭირდებათ.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li>Ctrl+R</li>
+</ul>
+</td>
+<td>სამიზნე დაფის გადატვირთვა RTS-ის საშუალებით</td>
+<td>გადატვირთავს სამიზნე დაფას და ხელახლა ჩართავს აპლიკაციას RTS ხაზის მეშვეობით (თუ დაკავშირებულია).</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li>Ctrl+F</li>
+</ul>
+</td>
+<td>პროექტის შექმნა და ფლეშ მეხსიერება</td>
+<td>პროექტის გასაშვებად idf_monitor-ს აჩერებს <code class="docutils literal notranslate"><span class="pre">flash</span></code> target-ს, შემდეგ კი idf_monitor-ს განაახლებს. ნებისმიერი შეცვლილი საწყისი ფაილი ხელახლა ჩაიწერება კომპილაცია d-ში და შემდეგ ხელახლა ჩაიწერება ფლეშ მეხსიერება ed-ში.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li>Ctrl+A (ან A)</li>
+</ul>
+</td>
+<td>მხოლოდ აპლიკაციის შექმნა და ფლეშ მეხსიერება</td>
+<td>აჩერებს idf_monitor-ს გასაშვებად. <code class="docutils literal notranslate"><span class="pre">app-flash</span></code> target, შემდეგ კი განაახლებს idf_monitor-ს. მსგავსია <code class="docutils literal notranslate"><span class="pre">flash</span></code> სამიზნე, მაგრამ მხოლოდ მთავარი აპლიკაციაა აგებული და ფლეშ მეხსიერება გამოცემული.</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li>Ctrl+Y</li>
+</ul>
+</td>
+<td>ჟურნალის გამომავალი ბეჭდვის შეჩერება/განახლება ეკრანზე</td>
+<td>გააქტიურებისას ყველა შემომავალი სერიული მონაცემის გაუქმება. საშუალებას იძლევა სწრაფად შეჩერდეს და შემოწმდეს ჟურნალის გამომავალი მონაცემები მონიტორის გამორთვის გარეშე.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li>Ctrl+L</li>
+</ul>
+</td>
+<td>ჟურნალის შეჩერების/განახლების გამომავალი ფაილში შენახულია</td>
+<td>ქმნის ფაილს პროექტის დირექტორიაში და გამომავალი იწერება ამ ფაილში მანამ, სანამ ეს არ გამოირთვება იმავე კლავიატურის მალსახმობით (ან IDF Monitor არ გამოირთვება).</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li>Ctrl+H (ან H)</li>
+</ul>
+</td>
+<td>კლავიატურის ყველა მალსახმობის ჩვენება</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li>Ctrl+X (ან X)</li>
+</ul>
+</td>
+<td>პროგრამიდან გასვლა</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p>დაჭერილი ნებისმიერი ღილაკი, გარდა <code class="docutils literal notranslate"><span class="pre">Ctrl-]</span></code> და <code class="docutils literal notranslate"><span class="pre">Ctrl-T</span></code>, გაიგზავნება სერიული პორტი მეშვეობით.</p>
+</div>
+<div class="section" id="idf-specific-features">
+<h2>IDF-ის სპეციფიკური მახასიათებლები<a class="headerlink" href="idf-monitor.html#idf-specific-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="automatic-address-decoding">
+<h3>ავტომატური მისამართის დეკოდირება<a class="headerlink" href="idf-monitor.html#automatic-address-decoding" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც ESP-IDF გამოიტანს ფორმის თექვსმეტობითი კოდის მისამართს <code class="docutils literal notranslate"><span class="pre">0x4_______</span></code>, IDF მონიტორი იყენებს <a class="reference external" href="https://sourceware.org/binutils/docs/binutils/addr2line.html">addr2line</a> რომ წყაროს კოდში მოძებნოთ მდებარეობა და იპოვოთ ფუნქციის სახელი.</p>
+<p>თუ ESP-IDF აპლიკაცია გაითიშება და პანიკაში ჩავარდება, წარმოიქმნება რეგისტრის დემპი და უკუკავშირი, როგორიცაა შემდეგი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Guru Meditation Error of type StoreProhibited occurred on core  0. Exception was unhandled.
+Register dump:
+PC      : 0x400f360d  PS      : 0x00060330  A0      : 0x800dbf56  A1      : 0x3ffb7e00
+A2      : 0x3ffb136c  A3      : 0x00000005  A4      : 0x00000000  A5      : 0x00000000
+A6      : 0x00000000  A7      : 0x00000080  A8      : 0x00000000  A9      : 0x3ffb7dd0
+A10     : 0x00000003  A11     : 0x00060f23  A12     : 0x00060f20  A13     : 0x3ffba6d0
+A14     : 0x00000047  A15     : 0x0000000f  SAR     : 0x00000019  EXCCAUSE: 0x0000001d
+EXCVADDR: 0x00000000  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000
+
+Backtrace: 0x400f360d:0x3ffb7e00 0x400dbf56:0x3ffb7e20 0x400dbf5e:0x3ffb7e40 0x400dbf82:0x3ffb7e60 0x400d071d:0x3ffb7e90
+</pre></div>
+</div>
+<p>IDF Monitor-ი დამატებით დეტალებს ამატებს ნაგავს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Guru Meditation Error of type StoreProhibited occurred on core  0. Exception was unhandled.
+Register dump:
+PC      : 0x400f360d  PS      : 0x00060330  A0      : 0x800dbf56  A1      : 0x3ffb7e00
+0x400f360d: do_something_to_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:57
+(inlined by) inner_dont_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:52
+A2      : 0x3ffb136c  A3      : 0x00000005  A4      : 0x00000000  A5      : 0x00000000
+A6      : 0x00000000  A7      : 0x00000080  A8      : 0x00000000  A9      : 0x3ffb7dd0
+A10     : 0x00000003  A11     : 0x00060f23  A12     : 0x00060f20  A13     : 0x3ffba6d0
+A14     : 0x00000047  A15     : 0x0000000f  SAR     : 0x00000019  EXCCAUSE: 0x0000001d
+EXCVADDR: 0x00000000  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000
+
+Backtrace: 0x400f360d:0x3ffb7e00 0x400dbf56:0x3ffb7e20 0x400dbf5e:0x3ffb7e40 0x400dbf82:0x3ffb7e60 0x400d071d:0x3ffb7e90
+0x400f360d: do_something_to_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:57
+(inlined by) inner_dont_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:52
+0x400dbf56: still_dont_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:47
+0x400dbf5e: dont_crash at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:42
+0x400dbf82: app_main at /home/gus/esp/32/idf/examples/get-started/hello_world/main/./hello_world_main.c:33
+0x400d071d: main_task at /home/gus/esp/32/idf/components/esp32/./cpu_start.c:254
+</pre></div>
+</div>
+<p>თითოეული მისამართის გაშიფვრისთვის, IDF Monitor ფონზე შემდეგ ბრძანებას ასრულებს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>xtensa-esp32-elf-addr2line -pfiaC -e build/PROJECT.elf ADDRESS
+</pre></div>
+</div>
+</div>
+<div class="section" id="launching-gdb-with-gdbstub">
+<h3>GDB-ის გაშვება GDBStub-ით<a class="headerlink" href="idf-monitor.html#launching-gdb-with-gdbstub" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევად, თუ esp-idf ითიშება, პანიკის დამმუშავებელი ბეჭდავს შესაბამის რეგისტრებს და სტეკის დემპს (ზემოთ მოცემულების მსგავსი) სერიული პორტი განმავლობაში. შემდეგ ის გადატვირთავს დაფას.</p>
+<p>სურვილისამებრ, პანიკის დამმუშავებლის კონფიგურაცია შესაძლებელია GDBStub-ის გასაშვებად, ინსტრუმენტისა, რომელსაც შეუძლია კომუნიკაცია  <a class="reference external" href="https://sourceware.org/gdb/download/onlinedocs/">GDB</a> პროექტი გამართვა ger. GDBStub საშუალებას იძლევა წაიკითხოს მეხსიერება, შეისწავლოს გამოძახების დასტის ჩარჩოები და ცვლადები და ა.შ. ის არ არის ისეთი მრავალმხრივი, როგორც JTAG გამართვა ging, მაგრამ ეს მეთოდი არ საჭიროებს რაიმე სპეციალურ აპარატურას.</p>
+<p>GDBStub-ის ჩასართავად, გახსენით პროექტის კონფიგურაცია მენიუ (<code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code>) და დააყენეთ <a class="reference internal" href="../../api-reference/kconfig.html#config-esp32-panic"><span class="std std-ref">CONFIG_ESP32_PANIC</span></a> რომ <code class="docutils literal notranslate"><span class="pre">Invoke</span> <span class="pre">GDBStub</span></code>.</p>
+<p>ამ შემთხვევაში, თუ პანიკის დამმუშავებელი გააქტიურდება, როგორც კი IDF Monitor დაინახავს, რომ GDBStub ჩაიტვირთა, ის ავტომატურად აჩერებს სერიულ მონიტორინგს და გაუშვებს GDB-ს საჭირო არგუმენტებით. GDB-დან გასვლის შემდეგ, დაფა გადატვირთულია RTS სერიული ხაზის მეშვეობით. თუ ეს ხაზი არ არის დაკავშირებული, გთხოვთ, ხელით გადატვირთოთ დაფა მისი გადატვირთვის ღილაკზე დაჭერით.</p>
+<p>ფონზე, IDF Monitor ასრულებს შემდეგ ბრძანებას:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>xtensa-esp32-elf-gdb -ex "set serial baud BAUD" -ex "target remote PORT" -ex interrupt build/PROJECT.elf
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-filtering">
+<h3>გამომავალი ფილტრაცია<a class="headerlink" href="idf-monitor.html#output-filtering" title="Permalink to this headline">¶</a></h3>
+<p>IDF მონიტორის გამოძახება შესაძლებელია როგორც <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">monitor</span> <span class="pre">--print-filter="xyz"</span></code>, სადაც <code class="docutils literal notranslate"><span class="pre">--print-filter</span></code> არის გამომავალი ფილტრაციის პარამეტრი. ნაგულისხმევი მნიშვნელობა ცარიელი სტრიქონია, რაც ნიშნავს, რომ ყველაფერი იბეჭდება.</p>
+<p>დასაბეჭდი ინფორმაციის შეზღუდვა შეიძლება განისაზღვროს სერიის სახით <code class="docutils literal notranslate"><span class="pre">&lt;tag&gt;:&lt;log_level&gt;</span></code> ნივთები, სადაც <code class="docutils literal notranslate"><span class="pre">&lt;tag&gt;</span></code> არის თეგის სტრიქონი და <code class="docutils literal notranslate"><span class="pre">&lt;log_level&gt;</span></code> არის გადასაღებ მოედანზე არსებული პერსონაჟი <code class="docutils literal notranslate"><span class="pre">{N,</span> <span class="pre">E,</span> <span class="pre">W,</span> <span class="pre">I,</span> <span class="pre">D,</span> <span class="pre">V,</span> <span class="pre">*}</span></code> დონეზე მითითებით <a class="reference internal" href="../../api-reference/system/log.html"><span class="doc">ხე-ტყე</span></a>.</p>
+<p>მაგალითად, <code class="docutils literal notranslate"><span class="pre">PRINT_FILTER="tag1:W"</span></code> ემთხვევა და ბეჭდავს მხოლოდ დაწერილ გამოსავალს <code class="docutils literal notranslate"><span class="pre">ESP_LOGW("tag1",</span> <span class="pre">...)</span></code> ან უფრო დაბალი სიტყვათა დონეზე, მაგ. <code class="docutils literal notranslate"><span class="pre">ESP_LOGE("tag1",</span> <span class="pre">...)</span></code>არ არის მითითებული <code class="docutils literal notranslate"><span class="pre">&lt;log_level&gt;</span></code> ან გამოყენებით <code class="docutils literal notranslate"><span class="pre">*</span></code> ნაგულისხმევად დაყენებულია Verbose დონეზე.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გამოიყენეთ პირველადი ჟურნალირება კომპილაციის დროს არასაჭირო გამომავალი მონაცემების გამოსართავად. <a class="reference internal" href="../../api-reference/system/log.html"><span class="doc">ჟურნალის ბიბლიოთეკა</span></a>IDF მონიტორით გამომავალი ფილტრაცია მეორადი გადაწყვეტაა, რომელიც შეიძლება სასარგებლო იყოს ფილტრაციის პარამეტრების რეგულირებისთვის აპლიკაციის ხელახალი კომპილაციის გარეშე.</p>
+</div>
+<p>თქვენი აპლიკაციის თეგები არ უნდა შეიცავდეს ინტერვალებს და ვარსკვლავებს <code class="docutils literal notranslate"><span class="pre">*</span></code>და წერტილ-მძიმეები <code class="docutils literal notranslate"><span class="pre">:</span></code> რომ თავსებადი იყოს გამომავალი ფილტრაციის ფუნქციასთან.</p>
+<p>თუ თქვენს აპლიკაციაში გამომავალი მონაცემების ბოლო სტრიქონს არ მოჰყვება გადატანის სიმბოლო, გამომავალი მონაცემების ფილტრაცია შეიძლება დაიბნეს, ანუ მონიტორი დაიწყებს ხაზის ბეჭდვას და მოგვიანებით აღმოაჩენს, რომ ხაზი არ უნდა დაეწერათ. ეს ცნობილი პრობლემაა და მისი თავიდან აცილება შესაძლებელია გადატანის სიმბოლოს დამატებით (განსაკუთრებით მაშინ, როდესაც ამის შემდეგ მაშინვე არ მოჰყვება გამომავალი).</p>
+</div>
+<div class="section" id="examples-of-filtering-rules">
+<h3>ფილტრაციის წესების მაგალითები:<a class="headerlink" href="idf-monitor.html#examples-of-filtering-rules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">*</span></code> შეიძლება გამოყენებულ იქნას ნებისმიერი თეგის შესატყვისად. თუმცა, სტრიქონი
+<code class="docutils literal notranslate"><span class="pre">PRINT_FILTER="*:I</span> <span class="pre">tag1:E"</span></code> რაც შეეხება <code class="docutils literal notranslate"><span class="pre">tag1</span></code> მხოლოდ შეცდომებს ბეჭდავს, რადგან წესი <code class="docutils literal notranslate"><span class="pre">tag1</span></code> წესთან შედარებით უფრო მაღალი პრიორიტეტი აქვს <code class="docutils literal notranslate"><span class="pre">*</span></code>.</li>
+<li>ნაგულისხმევი (ცარიელი) წესი ეკვივალენტურია <code class="docutils literal notranslate"><span class="pre">*:V</span></code> რადგან ყველა ტეგის Verbose დონეზე ან უფრო დაბალ დონეზე შესაბამისობაში მოყვანა ყველაფრის შესაბამისობას ნიშნავს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">"*:N"</span></code> თრგუნავს არა მხოლოდ ჟურნალირების ფუნქციებიდან მიღებულ მონაცემებს, არამედ მის მიერ შესრულებულ ბეჭდვებსაც. <code class="docutils literal notranslate"><span class="pre">printf</span></code>და ა.შ. ამის თავიდან ასაცილებლად გამოიყენეთ <code class="docutils literal notranslate"><span class="pre">*:E</span></code> ან უფრო მაღალი სიტყვასიტყვითობის დონე.</li>
+<li>წესები <code class="docutils literal notranslate"><span class="pre">"tag1:V"</span></code>, <code class="docutils literal notranslate"><span class="pre">"tag1:v"</span></code>, <code class="docutils literal notranslate"><span class="pre">"tag1:"</span></code>, <code class="docutils literal notranslate"><span class="pre">"tag1:*"</span></code>და <code class="docutils literal notranslate"><span class="pre">"tag1"</span></code>
+ეკვივალენტურია.</li>
+<li>წესი <code class="docutils literal notranslate"><span class="pre">"tag1:W</span> <span class="pre">tag1:E"</span></code> უდრის <code class="docutils literal notranslate"><span class="pre">"tag1:E"</span></code> რადგან ერთი და იგივე ტეგის სახელის ნებისმიერი შემდგომი გამოჩენა წინას ცვლის.</li>
+<li>წესი <code class="docutils literal notranslate"><span class="pre">"tag1:I</span> <span class="pre">tag2:W"</span></code> მხოლოდ ანაბეჭდები <code class="docutils literal notranslate"><span class="pre">tag1</span></code> ინფორმაციის სიზუსტის დონეზე ან უფრო დაბალ დონეზე და <code class="docutils literal notranslate"><span class="pre">tag2</span></code> გაფრთხილების დეტალიზაციის დონეზე ან უფრო დაბალ დონეზე.</li>
+<li>წესი <code class="docutils literal notranslate"><span class="pre">"tag1:I</span> <span class="pre">tag2:W</span> <span class="pre">tag3:N"</span></code> არსებითად წინას ეკვივალენტურია, რადგან <code class="docutils literal notranslate"><span class="pre">tag3:N</span></code> განსაზღვრავს, რომ <code class="docutils literal notranslate"><span class="pre">tag3</span></code> არ უნდა დაიბეჭდოს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">tag3:N</span></code> წესში <code class="docutils literal notranslate"><span class="pre">"tag1:I</span> <span class="pre">tag2:W</span> <span class="pre">tag3:N</span> <span class="pre">*:V"</span></code> უფრო მნიშვნელოვანია, რადგან მის გარეშე <code class="docutils literal notranslate"><span class="pre">tag3:N</span></code> ის <code class="docutils literal notranslate"><span class="pre">tag3</span></code> შეტყობინებები შეიძლება დაბეჭდილიყო; შეცდომები <code class="docutils literal notranslate"><span class="pre">tag1</span></code> და <code class="docutils literal notranslate"><span class="pre">tag2</span></code> დაიბეჭდება მითითებულ (ან უფრო დაბალ) დეტალურ დონეზე და ყველაფერი დანარჩენი დაიბეჭდება ნაგულისხმევად.</li>
+</ul>
+</div>
+<div class="section" id="a-more-complex-filtering-example">
+<h3>უფრო რთული ფილტრაციის მაგალითი<a class="headerlink" href="idf-monitor.html#a-more-complex-filtering-example" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი ჟურნალის ფრაგმენტი მიღებული იქნა ფილტრაციის პარამეტრების გარეშე:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>load:0x40078000,len:13564
+entry 0x40078d4c
+E (31) esp_image: image at 0x30000 has invalid magic byte
+W (31) esp_image: image at 0x30000 has invalid SPI mode 255
+E (39) boot: Factory app partition is not bootable
+I (568) cpu_start: Pro cpu up.
+I (569) heap_init: Initializing. RAM available for dynamic allocation:
+I (603) cpu_start: Pro cpu start user code
+D (309) light_driver: [light_init, 74]:status: 1, mode: 2
+D (318) vfs: esp_vfs_register_fd_range is successful for range &lt;54; 64) and VFS ID 1
+I (328) wifi: wifi driver task: 3ffdbf84, prio:23, stack:4096, core=0
+</pre></div>
+</div>
+<p>ფილტრაციის პარამეტრებისთვის დაფიქსირებული გამომავალი <code class="docutils literal notranslate"><span class="pre">PRINT_FILTER="wifi</span> <span class="pre">esp_image:E</span> <span class="pre">light_driver:I"</span></code> ქვემოთ მოცემულია:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>E (31) esp_image: image at 0x30000 has invalid magic byte
+I (328) wifi: wifi driver task: 3ffdbf84, prio:23, stack:4096, core=0
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">options</span> <span class="pre">``PRINT_FILTER="light_driver:D</span> <span class="pre">esp_image:N</span> <span class="pre">boot:N</span> <span class="pre">cpu_start:N</span> <span class="pre">vfs:N</span> <span class="pre">wifi:N</span> <span class="pre">*:V"</span></code> აჩვენეთ შემდეგი გამომავალი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>load:0x40078000,len:13564
+entry 0x40078d4c
+I (569) heap_init: Initializing. RAM available for dynamic allocation:
+D (309) light_driver: [light_init, 74]:status: 1, mode: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="known-issues-with-idf-monitor">
+<h2>IDF მონიტორის ცნობილი პრობლემები<a class="headerlink" href="idf-monitor.html#known-issues-with-idf-monitor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issues-observed-on-windows">
+<h3>Windows-ზე დაფიქსირებული პრობლემები<a class="headerlink" href="idf-monitor.html#issues-observed-on-windows" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>თუ Windows გარემოში მიიღებთ შეცდომას „winpty: ბრძანება ვერ მოიძებნა“, გამოასწორეთ ის ბრძანების გაშვებით <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-S</span> <span class="pre">winpty</span></code>.</li>
+<li>ისრის ღილაკები, ისევე როგორც ზოგიერთი სხვა ღილაკი, არ მუშაობს GDB-ში Windows-ის კონსოლის შეზღუდვების გამო.</li>
+<li>ზოგჯერ, როდესაც „idf.py“ ან „make“ იხურება, ის შეიძლება 30 წამამდე გაჩერდეს, სანამ IDF Monitor განაახლებს მუშაობას.</li>
+<li>როდესაც „gdb“ გაშვებულია, ის შეიძლება ცოტა ხნით გაჩერდეს, სანამ GDBStub-თან კომუნიკაციას დაიწყებს.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../../get-started/toolchain-setup-scratch.html" rel="next" title="Customized Setup of Toolchain">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../../get-started/eclipse-setup.html" rel="prev" title="Build and Flash with Eclipse IDE"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

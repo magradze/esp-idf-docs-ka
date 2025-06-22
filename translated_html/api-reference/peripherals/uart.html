@@ -1,0 +1,1932 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UART — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../protocols/index.html" rel="next" title="Application Protocols"/>
+<link href="touch_pad.html" rel="prev" title="Touch Sensor"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/uart.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/uart"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/uart.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="uart.html#">UART</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="uart.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uart.html#functional-overview">ფუნქციური მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uart.html#overview-of-rs485-specific-communication-options">RS485 სპეციფიკური კომუნიკაციის ვარიანტების მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uart.html#application-examples">გამოყენების მაგალითები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uart.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>UART</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/uart.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="uart">
+<h1>UART<a class="headerlink" href="uart.html#uart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="uart.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>უნივერსალური ასინქრონული მიმღები/გადამცემი (UART) არის აპარატურული ფუნქცია, რომელიც კომუნიკაციას (ანუ დროის მოთხოვნებს და მონაცემთა ჩარჩოებს) ფართოდ ადაპტირებული ასინქრონული სერიული საკომუნიკაციო ინტერფეისების გამოყენებით, როგორიცაა RS232, RS422, RS485. UART უზრუნველყოფს ფართოდ გავრცელებულ და იაფ მეთოდს სხვადასხვა მოწყობილობებს შორის სრული ან ნახევრად დუპლექსური მონაცემთა გაცვლის განსახორციელებლად.</p>
+<p>ESP32 ჩიპს აქვს სამი UART კონტროლერი (UART0, UART1 და UART2), რომლებიც პროგრამირების სიმარტივისა და მოქნილობისთვის იდენტური რეგისტრების ნაკრებით გამოირჩევიან. თითოეული UART კონტროლერი დამოუკიდებლად კონფიგურირებადია ისეთი პარამეტრებით, როგორიცაა ბოდის სიჩქარე , მონაცემთა ბიტის სიგრძე, ბიტების თანმიმდევრობა, გაჩერების ბიტების რაოდენობა, პარიტეტის ბიტი და ა.შ. ყველა კონტროლერი თავსებადია სხვადასხვა მწარმოებლის UART-თან თავსებად მოწყობილობებთან და ასევე შეუძლია ინფრაწითელი მონაცემთა ასოციაციის პროტოკოლების (IrDA) მხარდაჭერა.</p>
+</div>
+<div class="section" id="functional-overview">
+<h2>ფუნქციური მიმოხილვა<a class="headerlink" href="uart.html#functional-overview" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ მიმოხილვაში აღწერილია, თუ როგორ უნდა დაამყაროთ კომუნიკაცია ESP32-სა და სხვა UART მოწყობილობებს შორის UART დრაივერის ფუნქციებისა და მონაცემთა ტიპების გამოყენებით. მიმოხილვა ასახავს პროგრამირების ტიპურ სამუშაო პროცესს და დაყოფილია ქვემოთ მოცემულ სექციებად:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="uart.html#uart-api-setting-communication-parameters"><span class="std std-ref">კომუნიკაციის პარამეტრების დაყენება</span></a> - ბოდის სიჩქარე , მონაცემთა ბიტების, გაჩერების ბიტების და ა.შ. დაყენება.</li>
+<li><a class="reference internal" href="uart.html#uart-api-setting-communication-pins"><span class="std std-ref">საკომუნიკაციო პინების დაყენება</span></a> - მოწყობილობასთან დასაკავშირებლად პინების მინიჭება.</li>
+<li><a class="reference internal" href="uart.html#uart-api-driver-installation"><span class="std std-ref">დრაივერის ინსტალაცია</span></a> - ESP32-ის რესურსების გამოყოფა UART დრაივერისთვის.</li>
+<li><a class="reference internal" href="uart.html#uart-api-running-uart-communication"><span class="std std-ref">UART კომუნიკაციის გაშვება</span></a> - მონაცემების გაგზავნა/მიღება</li>
+<li><a class="reference internal" href="uart.html#uart-api-using-interrupts"><span class="std std-ref">შეფერხებების გამოყენება</span></a> - შეფერხებების გამოწვევა კონკრეტულ საკომუნიკაციო მოვლენებზე</li>
+<li><a class="reference internal" href="uart.html#uart-api-deleting-driver"><span class="std std-ref">დრაივერის წაშლა</span></a> - გამოყოფილი რესურსების გათავისუფლება, თუ UART კომუნიკაცია აღარ არის საჭირო</li>
+</ol>
+<p>1-დან 3-მდე ნაბიჯები მოიცავს კონფიგურაციის ეტაპს. მე-4 ეტაპზე UART იწყებს მუშაობას. მე-5 და მე-6 ნაბიჯები არასავალდებულოა.</p>
+<p>UART დრაივერის ფუნქციები სამივე UART კონტროლერის იდენტიფიცირებას ახდენს <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_port_t</span></code>ეს იდენტიფიკაცია საჭიროა ყველა შემდეგი ფუნქციის გამოძახებისთვის.</p>
+<div class="section" id="setting-communication-parameters">
+<span id="uart-api-setting-communication-parameters"></span><h3>კომუნიკაციის პარამეტრების დაყენება<a class="headerlink" href="uart.html#setting-communication-parameters" title="Permalink to this headline">¶</a></h3>
+<p>UART კომუნიკაციის პარამეტრების კონფიგურაცია შესაძლებელია ერთ ნაბიჯში ან ინდივიდუალურად, რამდენიმე ნაბიჯში.</p>
+<div class="section" id="single-step">
+<h4>ერთი ნაბიჯი<a class="headerlink" href="uart.html#single-step" title="Permalink to this headline">¶</a></h4>
+<p>ფუნქციის გამოძახება <a class="reference internal" href="uart.html#_CPPv417uart_param_config11uart_port_tPK13uart_config_t" title="uart_param_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_param_config()</span></code></a> და გადაეცით მას <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_config_t</span></code> სტრუქტურა. ის <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_config_t</span></code> სტრუქტურა უნდა შეიცავდეს ყველა საჭირო პარამეტრს. იხილეთ ქვემოთ მოცემული მაგალითი.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">uart_num</span> <span class="o">=</span> <span class="n">UART_NUM_2</span><span class="p">;</span>
+<span class="n">uart_config_t</span> <span class="n">uart_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">baud_rate</span> <span class="o">=</span> <span class="mi">115200</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">data_bits</span> <span class="o">=</span> <span class="n">UART_DATA_8_BITS</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">parity</span> <span class="o">=</span> <span class="n">UART_PARITY_DISABLE</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">stop_bits</span> <span class="o">=</span> <span class="n">UART_STOP_BITS_1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">flow_ctrl</span> <span class="o">=</span> <span class="n">UART_HW_FLOWCTRL_CTS_RTS</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">rx_flow_ctrl_thresh</span> <span class="o">=</span> <span class="mi">122</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="c1">// Configure UART parameters</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">uart_param_config</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uart_config</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-steps">
+<h4>მრავალი ნაბიჯი<a class="headerlink" href="uart.html#multiple-steps" title="Permalink to this headline">¶</a></h4>
+<p>კონკრეტული პარამეტრების ინდივიდუალურად კონფიგურაციისთვის, ქვემოთ მოცემული ცხრილიდან გამოძახებით, გამოიყენეთ სპეციალური ფუნქცია. ეს ფუნქციები ასევე სასარგებლოა ერთი პარამეტრის ხელახლა კონფიგურაციის შემთხვევაში.</p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">ფუნქციები კონკრეტული პარამეტრების ინდივიდუალურად კონფიგურაციისთვის</span><a class="headerlink" href="uart.html#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="30%"/>
+<col width="70%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">კონფიგურაციის პარამეტრი</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ბაუდის სიჩქარე</td>
+<td><a class="reference internal" href="uart.html#_CPPv417uart_set_baudrate11uart_port_t8uint32_t" title="uart_set_baudrate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_baudrate()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>გადაცემული ბიტების რაოდენობა</td>
+<td><a class="reference internal" href="uart.html#_CPPv420uart_set_word_length11uart_port_t18uart_word_length_t" title="uart_set_word_length"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_word_length()</span></code></a> შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_word_length_t</span></code></td>
+</tr>
+<tr class="row-even"><td>პარიტეტის კონტროლი</td>
+<td><a class="reference internal" href="uart.html#_CPPv415uart_set_parity11uart_port_t13uart_parity_t" title="uart_set_parity"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_parity()</span></code></a> შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_parity_t</span></code></td>
+</tr>
+<tr class="row-odd"><td>გაჩერების ბიტების რაოდენობა</td>
+<td><a class="reference internal" href="uart.html#_CPPv418uart_set_stop_bits11uart_port_t16uart_stop_bits_t" title="uart_set_stop_bits"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_stop_bits()</span></code></a> შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_stop_bits_t</span></code></td>
+</tr>
+<tr class="row-even"><td>აპარატურის ნაკადის კონტროლის რეჟიმი</td>
+<td><a class="reference internal" href="uart.html#_CPPv421uart_set_hw_flow_ctrl11uart_port_t21uart_hw_flowcontrol_t7uint8_t" title="uart_set_hw_flow_ctrl"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_hw_flow_ctrl()</span></code></a> შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_hw_flowcontrol_t</span></code></td>
+</tr>
+<tr class="row-odd"><td>კომუნიკაციის რეჟიმი</td>
+<td><a class="reference internal" href="uart.html#_CPPv413uart_set_mode11uart_port_t11uart_mode_t" title="uart_set_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_mode()</span></code></a> შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_mode_t</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>ზემოთ ჩამოთვლილ თითოეულ ფუნქციას აქვს <code class="docutils literal notranslate"><span class="pre">_get_</span></code> მიმდინარე დაყენებული ბოდის სიჩქარე შესამოწმებლად, გამოძახეთ <a class="reference internal" href="uart.html#_CPPv417uart_get_baudrate11uart_port_tP8uint32_t" title="uart_get_baudrate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_get_baudrate()</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="setting-communication-pins">
+<span id="uart-api-setting-communication-pins"></span><h3>საკომუნიკაციო პინების დაყენება<a class="headerlink" href="uart.html#setting-communication-pins" title="Permalink to this headline">¶</a></h3>
+<p>კომუნიკაციის პარამეტრების დაყენების შემდეგ, დააკონფიგურირეთ ფიზიკური GPIO პინები, რომლებთანაც დაკავშირებული იქნება სხვა UART მოწყობილობა. ამისათვის გამოიძახეთ ფუნქცია <a class="reference internal" href="uart.html#_CPPv412uart_set_pin11uart_port_tiiii" title="uart_set_pin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_pin()</span></code></a> და მიუთითეთ GPIO პინის ნომრები, რომლებზეც დრაივერმა უნდა გადასცეს Tx, Rx, RTS და CTS სიგნალები. თუ გსურთ კონკრეტული სიგნალისთვის ამჟამად გამოყოფილი პინის ნომრის შენარჩუნება, გადაეცით მაკრო <a class="reference internal" href="uart.html#c.UART_PIN_NO_CHANGE" title="UART_PIN_NO_CHANGE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_PIN_NO_CHANGE</span></code></a>.</p>
+<p>იგივე მაკრო უნდა იყოს მითითებული იმ პინებისთვის, რომლებიც არ იქნება გამოყენებული.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set UART pins(TX: IO16 (UART2 default), RX: IO17 (UART2 default), RTS: IO18, CTS: IO19)</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">uart_set_pin</span><span class="p">(</span><span class="n">UART_NUM_2</span><span class="p">,</span> <span class="n">UART_PIN_NO_CHANGE</span><span class="p">,</span> <span class="n">UART_PIN_NO_CHANGE</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="driver-installation">
+<span id="uart-api-driver-installation"></span><h3>დრაივერის ინსტალაცია<a class="headerlink" href="uart.html#driver-installation" title="Permalink to this headline">¶</a></h3>
+<p>საკომუნიკაციო პინების დაყენების შემდეგ, დააინსტალირეთ დრაივერი დარეკვით <a class="reference internal" href="uart.html#_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti" title="uart_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_driver_install()</span></code></a> და მიუთითეთ შემდეგი პარამეტრები:</p>
+<ul class="simple">
+<li>Tx რგოლის ბუფერის ზომა</li>
+<li>Rx რგოლის ბუფერის ზომა</li>
+<li>ღონისძიების რიგის სახელური და ზომა</li>
+<li>დროშები შეფერხების გამოსაყოფად</li>
+</ul>
+<p>ფუნქცია გამოყოფს UART დრაივერისთვის საჭირო ESP32 რესურსებს.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Setup UART buffered IO with event queue</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">uart_buffer_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">QueueHandle_t</span> <span class="n">uart_queue</span><span class="p">;</span>
+<span class="c1">// Install UART driver using an event queue here</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">uart_driver_install</span><span class="p">(</span><span class="n">UART_NUM_2</span><span class="p">,</span> <span class="n">uart_buffer_size</span><span class="p">,</span> \
+                                        <span class="n">uart_buffer_size</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uart_queue</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>ამ ნაბიჯის დასრულების შემდეგ, შეგიძლიათ დააკავშიროთ გარე UART მოწყობილობა და შეამოწმოთ კომუნიკაცია.</p>
+</div>
+<div class="section" id="running-uart-communication">
+<span id="uart-api-running-uart-communication"></span><h3>UART კომუნიკაციის გაშვება<a class="headerlink" href="uart.html#running-uart-communication" title="Permalink to this headline">¶</a></h3>
+<p>სერიულ კომუნიკაციას აკონტროლებს თითოეული UART კონტროლერის სასრული მდგომარეობის მანქანა (FSM).</p>
+<p>მონაცემების გაგზავნის პროცესი მოიცავს შემდეგ ნაბიჯებს:</p>
+<ol class="arabic simple">
+<li>მონაცემების ჩაწერა Tx FIFO ბუფერში</li>
+<li>FSM ახდენს მონაცემების სერიალიზაციას</li>
+<li>FSM აგზავნის მონაცემებს</li>
+</ol>
+<p>მონაცემთა მიღების პროცესი მსგავსია, მაგრამ ნაბიჯები საპირისპიროა:</p>
+<ol class="arabic simple">
+<li>FSM ამუშავებს შემომავალ სერიულ ნაკადს და ახდენს მის პარალელიზებას.</li>
+<li>FSM მონაცემებს Rx FIFO ბუფერში წერს.</li>
+<li>წაიკითხეთ მონაცემები Rx FIFO ბუფერიდან</li>
+</ol>
+<p>ამრიგად, აპლიკაცია შემოიფარგლება მონაცემების ჩაწერითა და წაკითხვით შესაბამისი ბუფერიდან. <a class="reference internal" href="uart.html#_CPPv416uart_write_bytes11uart_port_tPKc6size_t" title="uart_write_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_write_bytes()</span></code></a> და <a class="reference internal" href="uart.html#_CPPv415uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t" title="uart_read_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_read_bytes()</span></code></a> შესაბამისად, ხოლო FSM დანარჩენს გააკეთებს.</p>
+<div class="section" id="transmitting">
+<h4>გადაცემა<a class="headerlink" href="uart.html#transmitting" title="Permalink to this headline">¶</a></h4>
+<p>მონაცემების გადაცემისთვის მომზადების შემდეგ, გამოიძახეთ ფუნქცია <a class="reference internal" href="uart.html#_CPPv416uart_write_bytes11uart_port_tPKc6size_t" title="uart_write_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_write_bytes()</span></code></a> და გადასცეს მას მონაცემთა ბუფერის მისამართი და მონაცემთა სიგრძე. ფუნქცია დააკოპირებს მონაცემებს Tx რგოლის ბუფერში (ან დაუყოვნებლივ, ან საკმარისი სივრცის გაჩენის შემდეგ) და შემდეგ გამოვა. როდესაც Tx FIFO ბუფერში თავისუფალი ადგილი იქნება, შეწყვეტის სერვისის რუტინა (ISR) ფონურ რეჟიმში გადააქვს მონაცემებს Tx რგოლის ბუფერიდან Tx FIFO ბუფერში. ქვემოთ მოცემული კოდი აჩვენებს ამ ფუნქციის გამოყენებას.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Write data to UART.</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">test_str</span> <span class="o">=</span> <span class="s">"This is a test string.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="n">uart_write_bytes</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_str</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">test_str</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>ფუნქცია <a class="reference internal" href="uart.html#_CPPv427uart_write_bytes_with_break11uart_port_tPKc6size_ti" title="uart_write_bytes_with_break"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_write_bytes_with_break()</span></code></a> მსგავსია <a class="reference internal" href="uart.html#_CPPv416uart_write_bytes11uart_port_tPKc6size_t" title="uart_write_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_write_bytes()</span></code></a> მაგრამ გადაცემის ბოლოს ემატება სერიული შეწყვეტის სიგნალი. „სერიული შეწყვეტის სიგნალი“ ნიშნავს Tx ხაზის დაბალ ძაბვაზე შენარჩუნებას ერთ მონაცემთა ჩარჩოზე მეტი ხნის განმავლობაში.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Write data to UART, end with a break signal.</span>
+<span class="n">uart_write_bytes_with_break</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="s">"test break</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">strlen</span><span class="p">(</span><span class="s">"test break</span><span class="se">\n</span><span class="s">"</span><span class="p">),</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Tx FIFO ბუფერში მონაცემების ჩაწერის კიდევ ერთი ფუნქციაა <a class="reference internal" href="uart.html#_CPPv413uart_tx_chars11uart_port_tPKc8uint32_t" title="uart_tx_chars"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_tx_chars()</span></code></a>. განსხვავებით <a class="reference internal" href="uart.html#_CPPv416uart_write_bytes11uart_port_tPKc6size_t" title="uart_write_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_write_bytes()</span></code></a>, ეს ფუნქცია არ დაიბლოკება მანამ, სანამ თავისუფალი ადგილი არ იქნება. ამის ნაცვლად, ის ჩაწერს ყველა მონაცემს, რომელიც მყისიერად მოთავსდება აპარატურულ Tx FIFO-ში და შემდეგ დააბრუნებს ჩაწერილი ბაიტების რაოდენობას.</p>
+<p>არსებობს „თანმხლები“ ფუნქცია <a class="reference internal" href="uart.html#_CPPv417uart_wait_tx_done11uart_port_t10TickType_t" title="uart_wait_tx_done"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_wait_tx_done()</span></code></a> რომელიც აკონტროლებს Tx FIFO ბუფერის სტატუსს და აბრუნებს მას, როგორც კი ის ცარიელი იქნება.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Wait for packet to be sent</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">uart_num</span> <span class="o">=</span> <span class="n">UART_NUM_2</span><span class="p">;</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">uart_wait_tx_done</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span> <span class="c1">// wait timeout is 100 RTOS ticks (TickType_t)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="receiving">
+<h4>მიღება<a class="headerlink" href="uart.html#receiving" title="Permalink to this headline">¶</a></h4>
+<p>მას შემდეგ, რაც მონაცემები მიიღება UART-ის მიერ და შენახულია Rx FIFO ბუფერში, მისი მოძიება საჭიროა ფუნქციის გამოყენებით <a class="reference internal" href="uart.html#_CPPv415uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t" title="uart_read_bytes"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_read_bytes()</span></code></a>მონაცემების წაკითხვამდე, შეგიძლიათ შეამოწმოთ Rx FIFO ბუფერში არსებული ბაიტების რაოდენობა . <a class="reference internal" href="uart.html#_CPPv426uart_get_buffered_data_len11uart_port_tP6size_t" title="uart_get_buffered_data_len"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_get_buffered_data_len()</span></code></a>ამ ფუნქციების გამოყენების მაგალითი ქვემოთ მოცემულია.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Read data from UART.</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">uart_num</span> <span class="o">=</span> <span class="n">UART_NUM_2</span><span class="p">;</span>
+<span class="kt">uint8_t</span> <span class="n">data</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">uart_get_buffered_data_len</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="p">(</span><span class="kt">size_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">length</span><span class="p">));</span>
+<span class="n">length</span> <span class="o">=</span> <span class="n">uart_read_bytes</span><span class="p">(</span><span class="n">uart_num</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>თუ Rx FIFO ბუფერში არსებული მონაცემები აღარ არის საჭირო, შეგიძლიათ ბუფერი გაასუფთაოთ გამოძახებით. <a class="reference internal" href="uart.html#_CPPv410uart_flush11uart_port_t" title="uart_flush"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_flush()</span></code></a>.</p>
+</div>
+<div class="section" id="software-flow-control">
+<h4>პროგრამული უზრუნველყოფის ნაკადის კონტროლი<a class="headerlink" href="uart.html#software-flow-control" title="Permalink to this headline">¶</a></h4>
+<p>თუ აპარატურის ნაკადის კონტროლი გამორთულია, შეგიძლიათ ხელით დააყენოთ RTS და DTR სიგნალის დონეები ფუნქციების გამოყენებით <a class="reference internal" href="uart.html#_CPPv412uart_set_rts11uart_port_ti" title="uart_set_rts"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_rts()</span></code></a> და <a class="reference internal" href="uart.html#_CPPv412uart_set_dtr11uart_port_ti" title="uart_set_dtr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_dtr()</span></code></a> შესაბამისად.</p>
+</div>
+<div class="section" id="communication-mode-selection">
+<h4>კომუნიკაციის რეჟიმის შერჩევა<a class="headerlink" href="uart.html#communication-mode-selection" title="Permalink to this headline">¶</a></h4>
+<p>UART კონტროლერი მხარს უჭერს კომუნიკაციის რამდენიმე რეჟიმს. რეჟიმის არჩევა შესაძლებელია ფუნქციის გამოყენებით. <a class="reference internal" href="uart.html#_CPPv413uart_set_mode11uart_port_t11uart_mode_t" title="uart_set_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_mode()</span></code></a>კონკრეტული რეჟიმის არჩევის შემდეგ, UART დრაივერი შესაბამისად დაარეგულირებს დაკავშირებული UART მოწყობილობის ქცევას. მაგალითად, მას შეუძლია აკონტროლოს RS485 დრაივერის ჩიპი RTS ხაზის გამოყენებით, რათა უზრუნველყოს ნახევრად დუპლექსური RS485 კომუნიკაცია.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>// Setup UART in rs485 half duplex mode
+ESP_ERROR_CHECK<span class="o">(</span>uart_set_mode<span class="o">(</span>uart_num, UART_MODE_RS485_HALF_DUPLEX<span class="o">))</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-interrupts">
+<span id="uart-api-using-interrupts"></span><h3>შეფერხებების გამოყენება<a class="headerlink" href="uart.html#using-interrupts" title="Permalink to this headline">¶</a></h3>
+<p>არსებობს მრავალი შეფერხება, რომელთა გენერირება შესაძლებელია კონკრეტული UART მდგომარეობების ან აღმოჩენილი შეცდომების შემდეგ. ხელმისაწვდომი შეფერხებების სრული სია მოცემულია <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf#page=342">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a> (PDF). კონკრეტული შეფერხებების ჩართვა ან გამორთვა შეგიძლიათ დარეკვით <a class="reference internal" href="uart.html#_CPPv421uart_enable_intr_mask11uart_port_t8uint32_t" title="uart_enable_intr_mask"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_enable_intr_mask()</span></code></a> ან <a class="reference internal" href="uart.html#_CPPv422uart_disable_intr_mask11uart_port_t8uint32_t" title="uart_disable_intr_mask"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_disable_intr_mask()</span></code></a> შესაბამისად. ყველა შეფერხების ნიღაბი ხელმისაწვდომია როგორც <code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_INTR_MASK</span></code>.</p>
+<p>ნაგულისხმევად, <a class="reference internal" href="uart.html#_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti" title="uart_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_driver_install()</span></code></a> ფუნქცია აინსტალირებს დრაივერის შიდა შეფერხების დამმუშავებელს Tx და Rx რგოლის ბუფერების სამართავად და უზრუნველყოფს მაღალი დონის API ფუნქციებს, როგორიცაა მოვლენები (იხილეთ ქვემოთ). ასევე შესაძლებელია ქვედა დონის შეფერხების დამმუშავებლის რეგისტრაცია <a class="reference internal" href="uart.html#_CPPv417uart_isr_register11uart_port_tPFvPvEPviP17uart_isr_handle_t" title="uart_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_isr_register()</span></code></a>და მისი ხელახლა გასათავისუფლებლად გამოიყენეთ <a class="reference internal" href="uart.html#_CPPv413uart_isr_free11uart_port_t" title="uart_isr_free"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_isr_free()</span></code></a>ზოგიერთი UART დრაივერის ფუნქცია, რომელიც იყენებს Tx და Rx რგოლის ბუფერებს, მოვლენებს და ა.შ., ამ შემთხვევაში ავტომატურად არ იმუშავებს - აუცილებელია შეფერხებების დამუშავება პირდაპირ ISR-ში. მორგებული დამმუშავებლის იმპლემენტაციის შიგნით, შეფერხების სტატუსის ბიტების გასუფთავება <a class="reference internal" href="uart.html#_CPPv422uart_clear_intr_status11uart_port_t8uint32_t" title="uart_clear_intr_status"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_clear_intr_status()</span></code></a>.</p>
+<p>API უზრუნველყოფს მოსახერხებელ გზას ამ დოკუმენტში განხილული კონკრეტული შეფერხებების დასამუშავებლად, მათი სპეციალურ ფუნქციებში შეფუთვით:</p>
+<ul>
+<li><p class="first"><strong>მოვლენების აღმოჩენა</strong>: რამდენიმე მოვლენაა განსაზღვრული <a class="reference internal" href="uart.html#_CPPv417uart_event_type_t" title="uart_event_type_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_event_type_t</span></code></a> რომელიც შეიძლება მომხმარებლის აპლიკაციას გადაეცეს Free RTOS რიგის ფუნქციონალის გამოყენებით. თქვენ შეგიძლიათ ჩართოთ ეს ფუნქცია დარეკვისას <a class="reference internal" href="uart.html#_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti" title="uart_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_driver_install()</span></code></a> აღწერილია <a class="reference internal" href="uart.html#uart-api-driver-installation"><span class="std std-ref">დრაივერის ინსტალაცია</span></a>მოვლენების აღმოჩენის გამოყენების მაგალითი შეგიძლიათ იხილოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart_events">პერიფერიული მოწყობილობები/uart_events</a>.</p>
+</li>
+<li><p class="first"><strong>FIFO სივრცის ზღვარი ან გადაცემის დროის ლიმიტი მიღწეულია</strong>Tx და Rx FIFO ბუფერებს შეუძლიათ გამოიწვიონ შეფერხება, როდესაც ისინი შევსებულია სიმბოლოების კონკრეტული რაოდენობით, ან მონაცემების გაგზავნის ან მიღების ვადის ამოწურვისას. ამ შეფერხებების გამოსაყენებლად, გააკეთეთ შემდეგი:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სტრუქტურაში მათი შეყვანით, დააკონფიგურირეთ ბუფერის სიგრძისა და დროის ამოწურვის შესაბამისი ზღურბლოვანი მნიშვნელობები. <a class="reference internal" href="uart.html#_CPPv418uart_intr_config_t" title="uart_intr_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">uart_intr_config_t</span></code></a> და დარეკვა <a class="reference internal" href="uart.html#_CPPv416uart_intr_config11uart_port_tPK18uart_intr_config_t" title="uart_intr_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_intr_config()</span></code></a></li>
+<li>ჩართეთ შეფერხებები ფუნქციების გამოყენებით <a class="reference internal" href="uart.html#_CPPv419uart_enable_tx_intr11uart_port_tii" title="uart_enable_tx_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_enable_tx_intr()</span></code></a> და <a class="reference internal" href="uart.html#_CPPv419uart_enable_rx_intr11uart_port_t" title="uart_enable_rx_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_enable_rx_intr()</span></code></a></li>
+<li>გამორთეთ ეს შეფერხებები შესაბამისი ფუნქციების გამოყენებით <a class="reference internal" href="uart.html#_CPPv420uart_disable_tx_intr11uart_port_t" title="uart_disable_tx_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_disable_tx_intr()</span></code></a> ან <a class="reference internal" href="uart.html#_CPPv420uart_disable_rx_intr11uart_port_t" title="uart_disable_rx_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_disable_rx_intr()</span></code></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>ნიმუშის აღმოჩენა</strong>შეფერხება, რომელიც აქტიურდება ერთი და იგივე სიმბოლოს „ნიმუშის“ რამდენჯერმე მიღების/გაგზავნის აღმოჩენისას. ეს ფუნქციონალი დემონსტრირებულია მაგალითში. <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_events">პერიფერიული მოწყობილობები/uart/uart_events</a>მისი გამოყენება შესაძლებელია, მაგალითად, ბრძანების სტრიქონის ამოსაცნობად, რომელსაც მოსდევს ბრძანების სტრიქონის ბოლოს დამატებული იდენტური სიმბოლოების კონკრეტული რაოდენობა („ნიმუში“). ხელმისაწვდომია შემდეგი ფუნქციები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ამ შეფერხების კონფიგურაცია და ჩართვა გამოყენებით <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_enable_pattern_det_intr()</span></code></li>
+<li>შეფერხების გამორთვა გამოყენებით <a class="reference internal" href="uart.html#_CPPv429uart_disable_pattern_det_intr11uart_port_t" title="uart_disable_pattern_det_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_disable_pattern_det_intr()</span></code></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="uart.html#macros" title="Permalink to this headline">¶</a></h3>
+<p>API ასევე განსაზღვრავს რამდენიმე მაკროს. მაგალითად, <code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_FIFO_LEN</span></code> განსაზღვრავს აპარატურული FIFO ბუფერების სიგრძეს; <code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_BITRATE_MAX</span></code> იძლევა მაქსიმალურ ბოდის სიჩქარე , რომელსაც მხარს უჭერენ UART კონტროლერები და ა.შ.</p>
+</div>
+<div class="section" id="deleting-a-driver">
+<span id="uart-api-deleting-driver"></span><h3>დრაივერის წაშლა<a class="headerlink" href="uart.html#deleting-a-driver" title="Permalink to this headline">¶</a></h3>
+<p>თუ კომუნიკაცია დამყარდა <a class="reference internal" href="uart.html#_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti" title="uart_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_driver_install()</span></code></a> აღარ არის საჭირო, მძღოლის გადაყვანა შესაძლებელია გამოყოფილი რესურსების გასათავისუფლებლად დარეკვით <a class="reference internal" href="uart.html#_CPPv418uart_driver_delete11uart_port_t" title="uart_driver_delete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_driver_delete()</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="overview-of-rs485-specific-communication-options">
+<h2>RS485 სპეციფიკური კომუნიკაციის ვარიანტების მიმოხილვა<a class="headerlink" href="uart.html#overview-of-rs485-specific-communication-options" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">შემდეგ განყოფილებაში გამოყენებული იქნება <code class="docutils literal notranslate"><span class="pre">[UART_REGISTER_NAME].[UART_FIELD_BIT]</span></code> UART რეგისტრის ველების/ბიტების სანახავად. კონკრეტული ოფციის ბიტის შესახებ დამატებითი ინფორმაციის მისაღებად, გახსენით <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf#page=344">რეესტრის შეჯამება ESP32 ტექნიკურ სახელმძღვანელოში</a> (PDF), გამოიყენეთ რეგისტრის სახელი რეგისტრის აღწერაზე გადასასვლელად და შემდეგ იპოვეთ ველი/ბიტი.</p>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485_EN</span></code>ამ ბიტის დაყენება ჩართავს RS485 კომუნიკაციის რეჟიმის მხარდაჭერას.</li>
+<li><code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485TX_RX_EN</span></code>თუ ეს ბიტი დაყენებულია, გადამცემის გამომავალი სიგნალი ციკლურად დაუბრუნდება მიმღების შემავალ სიგნალს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485RXBY_TX_EN</span></code>: თუ ეს ბიტი დაყენებულია, გადამცემი კვლავ გაგზავნის მონაცემებს, თუ მიმღები დაკავებულია (ავტომატურად მოიშორებს შეჯახებებს აპარატურით).</li>
+</ul>
+<p>ESP32-ის RS485 UART აპარატურას შეუძლია დატაგრამის გადაცემის დროს სიგნალის შეჯახების აღმოჩენა და შეფერხების გენერირება. <code class="docutils literal notranslate"><span class="pre">UART_RS485_CLASH_INT</span></code> თუ ეს შეფერხება ჩართულია. ტერმინი „კოლიზია“ ნიშნავს, რომ გადაცემული დატაგრამა არ უდრის მეორე ბოლოში მიღებულს. მონაცემთა კოლიზია, როგორც წესი, ასოცირდება ავტობუსზე სხვა აქტიური მოწყობილობების არსებობასთან ან შეიძლება მოხდეს ავტობუსის შეცდომების გამო.</p>
+<p>შეჯახების აღმოჩენის ფუნქცია საშუალებას იძლევა შეჯახებების მართვა, როდესაც მათი შეფერხებები გააქტიურებულია და გააქტიურებულია. <code class="docutils literal notranslate"><span class="pre">UART_RS485_FRM_ERR_INT</span></code> და <code class="docutils literal notranslate"><span class="pre">UART_RS485_PARITY_ERR_INT</span></code> შეიძლება გამოყენებულ იქნას შეჯახების აღმოჩენის ფუნქციასთან ერთად, RS485 რეჟიმში ჩარჩოს შეცდომებისა და პარიტეტის ბიტის შეცდომების შესაბამისად გასაკონტროლებლად. ეს ფუნქციონალი მხარდაჭერილია UART დრაივერში და მისი გამოყენება შესაძლებელია შემდეგის არჩევით: <code class="xref cpp cpp-enumerator docutils literal notranslate"><span class="pre">UART_MODE_RS485_APP_CTRL</span></code> რეჟიმი (იხილეთ ფუნქცია) <a class="reference internal" href="uart.html#_CPPv413uart_set_mode11uart_port_t11uart_mode_t" title="uart_set_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_mode()</span></code></a>).</p>
+<p>შეჯახების აღმოჩენის ფუნქციას შეუძლია იმუშაოს A და C წრედებთან (იხილეთ ნაწილი <a class="reference internal" href="uart.html#interface-connection-options">ინტერფეისის დაკავშირების პარამეტრები</a>). A ან B სქემის გამოყენების შემთხვევაში, ავტობუსის მძღოლის DE პინთან დაკავშირებული RTS პინი უნდა კონტროლდებოდეს მომხმარებლის აპლიკაციის მიერ. გამოიყენეთ ფუნქცია <a class="reference internal" href="uart.html#_CPPv423uart_get_collision_flag11uart_port_tPb" title="uart_get_collision_flag"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_get_collision_flag()</span></code></a> იმის შესამოწმებლად, აღმართულია თუ არა შეჯახების აღმოჩენის დროშა.</p>
+<p>ESP32-ის UART კონტროლერები თავად არ უჭერენ მხარს ნახევრად დუპლექსურ კომუნიკაციას, რადგან მათ არ შეუძლიათ RS485 ავტობუსის დრაივერის ~RE/DE შესასვლელთან დაკავშირებული RTS პინის ავტომატური კონტროლი. თუმცა, ნახევრად დუპლექსური კომუნიკაციის მიღწევა შესაძლებელია UART დრაივერის მიერ RTS პინის პროგრამული უზრუნველყოფის კონტროლის გზით. ამის ჩართვა შესაძლებელია შემდეგი არჩევით: <code class="xref cpp cpp-enumerator docutils literal notranslate"><span class="pre">UART_MODE_RS485_HALF_DUPLEX</span></code> რეჟიმი დარეკვისას <a class="reference internal" href="uart.html#_CPPv413uart_set_mode11uart_port_t11uart_mode_t" title="uart_set_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_mode()</span></code></a>.</p>
+<p>როგორც კი ჰოსტი დაიწყებს მონაცემების ჩაწერას Tx FIFO ბუფერში, UART დრაივერი ავტომატურად ადასტურებს RTS პინს (ლოგიკური 1); როგორც კი მონაცემთა ბოლო ბიტი გადაიცემა, დრაივერი ხსნის RTS პინის ადასტურებას (ლოგიკური 0). ამ რეჟიმის გამოსაყენებლად, პროგრამულ უზრუნველყოფას დასჭირდება აპარატურის ნაკადის კონტროლის ფუნქციის გამორთვა. ეს რეჟიმი მუშაობს ქვემოთ ნაჩვენებ ყველა გამოყენებულ სქემასთან.</p>
+<div class="section" id="interface-connection-options">
+<h3>ინტერფეისის დაკავშირების პარამეტრები<a class="headerlink" href="uart.html#interface-connection-options" title="Permalink to this headline">¶</a></h3>
+<p>ამ განყოფილებაში მოცემულია სქემების მაგალითები, რომლებიც აჩვენებენ ESP32-ის RS485 ინტერფეისის კავშირის ძირითად ასპექტებს.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<ul class="last simple">
+<li>ქვემოთ მოცემული სქემები აკეთებს <strong>არა</strong> აუცილებლად შეიცავს <strong>ყველა საჭირო ელემენტი</strong>.</li>
+<li>ის <strong>ანალოგური მოწყობილობები</strong> ADM483 და ADM2483 არის RS485 გადამცემ-მიმღებების მაგალითები. <strong>შეიძლება შეიცვალოს</strong> სხვა მსგავს გადამცემებთან ერთად.</li>
+</ul>
+</div>
+<div class="section" id="circuit-a-collision-detection-circuit">
+<h4>წრე A: შეჯახების აღმოჩენის წრედი<a class="headerlink" href="uart.html#circuit-a-collision-detection-circuit" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        VCC ---------------+
+                           |
+                   +-------x-------+
+        RXD &lt;------| R             |
+                   |              B|----------&lt;&gt; B
+        TXD ------&gt;| D    ADM483   |
+ESP32              |               |     RS485 bus side
+        RTS ------&gt;| DE            |
+                   |              A|----------&lt;&gt; A
+              +----| /RE           |
+              |    +-------x-------+
+              |            |
+             GND          GND
+</pre></div>
+</div>
+<p>ეს სქემა სასურველია, რადგან ის საშუალებას იძლევა შეჯახების აღმოჩენისა და ამავდროულად საკმაოდ მარტივია. ხაზის დრაივერში მიმღები მუდმივად ჩართულია, რაც UART-ს საშუალებას აძლევს აკონტროლოს RS485 ავტობუსი. ექოს ჩახშობა ხორციელდება ESP32 აპარატურის მიერ, როდესაც ბიტი <code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485TX_RX_EN</span></code> ჩართულია.</p>
+</div>
+<div class="section" id="circuit-b-manual-switching-transmitter-receiver-without-collision-detection">
+<h4>წრე B: გადამცემი/მიმღების ხელით გადართვა შეჯახების აღმოჩენის გარეშე<a class="headerlink" href="uart.html#circuit-b-manual-switching-transmitter-receiver-without-collision-detection" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        VCC ---------------+
+                           |
+                   +-------x-------+
+        RXD &lt;------| R             |
+                   |              B|-----------&lt;&gt; B
+        TXD ------&gt;| D    ADM483   |
+ESP32              |               |     RS485 bus side
+        RTS --+---&gt;| DE            |
+              |    |              A|-----------&lt;&gt; A
+              +----| /RE           |
+                   +-------x-------+
+                           |
+                          GND
+</pre></div>
+</div>
+<p>ეს სქემა არ იძლევა შეჯახების აღმოჩენის საშუალებას. ის თრგუნავს ნულ ბაიტებს, რომლებსაც აპარატურა იღებს, როდესაც ბიტი <code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485TX_RX_EN</span></code> დაყენებულია. ბიტი <code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485RXBY_TX_EN</span></code> ამ შემთხვევაში არ გამოიყენება.</p>
+</div>
+<div class="section" id="circuit-c-auto-switching-transmitter-receiver">
+<h4>წრე C: გადამცემის/მიმღების ავტომატური გადართვა<a class="headerlink" href="uart.html#circuit-c-auto-switching-transmitter-receiver" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> VCC1 &lt;-------------------+-----------+           +-------------------+----&gt; VCC2
+               10K ____   |           |           |                   |
+              +---|____|--+       +---x-----------x---+    10K ____   |
+              |                   |                   |   +---|____|--+ GND2
+RX &lt;----------+-------------------| RXD               |   |
+                   10K ____       |                  A|---+---------------&lt;&gt; A (+)
+              +-------|____|------| PV    ADM2483     |   |    ____  120
+              |   ____            |                   |   +---|____|---+  RS485 bus side
+      VCC1 &lt;--+--|____|--+-------&gt;| DE                |                |
+              10K        |        |                  B|---+------------+--&lt;&gt; B (-)
+                      ---+    +--&gt;| /RE               |   |    ____
+         10K          |       |   |                   |   +---|____|---+
+        ____       | /-C      +---| TXD               |    10K         |
+TX &gt;---|____|--B___|/   NPN   |   |                   |                |
+                   |\         |   +---x-----------x---+                |
+                   | \-E      |       |           |                    |
+                      |       |       |           |                    |
+                     GND1    GND1    GND1        GND2                 GND2
+</pre></div>
+</div>
+<p>ეს გალვანურად იზოლირებული წრედი არ საჭიროებს RTS პინის კონტროლს პროგრამული უზრუნველყოფის ან დრაივერის მიერ, რადგან ის ავტომატურად აკონტროლებს გადამცემ-მიმღების მიმართულებას. თუმცა, ის მოითხოვს ნულოვანი ბაიტების დათრგუნვას გადაცემის დროს დაყენებით. <code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485RXBY_TX_EN</span></code> 1-მდე და <code class="docutils literal notranslate"><span class="pre">UART_RS485_CONF_REG.UART_RS485TX_RX_EN</span></code> 0-მდე. ამ კონფიგურაციას შეუძლია იმუშაოს ნებისმიერ RS485 UART რეჟიმში ან თუნდაც <code class="xref cpp cpp-enumerator docutils literal notranslate"><span class="pre">UART_MODE_UART</span></code>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="application-examples">
+<h2>გამოყენების მაგალითები<a class="headerlink" href="uart.html#application-examples" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ ცხრილში აღწერილია დირექტორიაში არსებული კოდის მაგალითები <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/">პერიფერიული მოწყობილობები/quart/</a>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="35%"/>
+<col width="65%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">კოდის მაგალითი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_echo">პერიფერიული მოწყობილობები/uart/uart_echo</a></td>
+<td>UART პარამეტრების კონფიგურაცია, UART დრაივერის ინსტალაცია და UART1 ინტერფეისის მეშვეობით კითხვა/ჩაწერა.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_events">პერიფერიული მოწყობილობები/uart/uart_events</a></td>
+<td>სხვადასხვა საკომუნიკაციო მოვლენის შესახებ ინფორმაციის მიწოდება, ნიმუშების ამოცნობის შეფერხებების გამოყენებით.</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_async_rxtxtasks">პერიფერიული მოწყობილობები/uart/uart_async_rxtxtasks</a></td>
+<td>მონაცემების გადაცემა და მიღება ორ ცალკეულ Free RTOS დავალებაში ერთი და იგივე UART-ის საშუალებით.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_select">პერიფერიული მოწყობილობები/uart/uart_select</a></td>
+<td>UART ფაილის აღწერილობებისთვის სინქრონული შეყვანის/გამოყვანის მულტიპლექსირების გამოყენება.</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_echo_rs485">პერიფერიული მოწყობილობები/uart/uart_echo_rs485</a></td>
+<td>UART დრაივერის დაყენება RS485 ინტერფეისით ნახევრად დუპლექსურ რეჟიმში კომუნიკაციისთვის. ეს მაგალითი მსგავსია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_echo">პერიფერიული მოწყობილობები/uart/uart_echo</a> მაგრამ საშუალებას იძლევა კომუნიკაციის ESP32 ქინძისთავებთან დაკავშირებული RS485 ინტერფეისის ჩიპის მეშვეობით.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/nmea0183_parser">პერიფერიული მოწყობილობები/uart/nmea0183_parser</a></td>
+<td>GPS ინფორმაციის მიღება GPS-დან UART პერიფერიული მოწყობილობის მეშვეობით მიღებული NMEA0183 განცხადებების ანალიზით.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="uart.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="uart.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/uart.h">დრაივერი/ინკლუზია/დრაივერი/uart.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="uart.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti">
+<span id="_CPPv319uart_driver_install11uart_port_tiiiP13QueueHandle_ti"></span><span id="_CPPv219uart_driver_install11uart_port_tiiiP13QueueHandle_ti"></span><span id="uart_driver_install__uart_port_t.i.i.i.QueueHandle_tP.i"></span><span class="target" id="uart_8h_1af668e653f7b0af9dbf55cdb5be839ec9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_driver_install</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>rx_ბუფერის_ზომა</em>, int <em>tx_ბუფერის_ზომა</em>, int <em>რიგის_ზომა</em>, <a class="reference internal" href="../system/freertos.html#_CPPv413QueueHandle_t" title="QueueHandle_t">რიგის სახელური_t</a> *<em>uart_queue</em>, int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv419uart_driver_install11uart_port_tiiiP13QueueHandle_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააინსტალირეთ UART დრაივერი და დააყენეთ UART ნაგულისხმევ კონფიგურაციაზე. </p>
+<p>UART ISR დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Rx_buffer_size should be greater than UART_FIFO_LEN. Tx_buffer_size should be either zero or greater than UART_FIFO_LEN.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_buffer_size</span></code>UART RX რგოლის ბუფერის ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">tx_buffer_size</span></code>: UART TX რგოლის ბუფერის ზომა. თუ ნულზეა დაყენებული, დრაივერი არ გამოიყენებს TX ბუფერს, TX ფუნქცია დაბლოკავს დავალებას მანამ, სანამ ყველა მონაცემი არ გაიგზავნება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">queue_size</span></code>UART მოვლენების რიგის ზომა/სიღრმე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">uart_queue</span></code>: UART მოვლენის რიგის სახელური (პარამეტრის გარეშე). წარმატების შემთხვევაში, აქ იწერება ახალი რიგის სახელური UART მოვლენებზე წვდომის უზრუნველსაყოფად. თუ დაყენებულია NULL-ზე, დრაივერი არ გამოიყენებს მოვლენების რიგს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. აქ არ დააყენოთ ESP_INTR_FLAG_IRAM (დრაივერის ISR დამმუშავებელი არ მდებარეობს IRAM-ში)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418uart_driver_delete11uart_port_t">
+<span id="_CPPv318uart_driver_delete11uart_port_t"></span><span id="_CPPv218uart_driver_delete11uart_port_t"></span><span id="uart_driver_delete__uart_port_t"></span><span class="target" id="uart_8h_1af14d79ece50100374ef756b6eb4675d5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_driver_delete</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv418uart_driver_delete11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART დრაივერის დეინსტალაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424uart_is_driver_installed11uart_port_t">
+<span id="_CPPv324uart_is_driver_installed11uart_port_t"></span><span id="_CPPv224uart_is_driver_installed11uart_port_t"></span><span id="uart_is_driver_installed__uart_port_t"></span><span class="target" id="uart_8h_1a381a64f7f548b370e081ff193a4210e7"></span>bool <code class="descname">uart_is_driver_installed</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv424uart_is_driver_installed11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოწმებს, დაინსტალირებულია თუ არა დრაივერი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ნამდვილი დრაივერი დაინსტალირებულია</li>
+<li>ცრუ დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_set_word_length11uart_port_t18uart_word_length_t">
+<span id="_CPPv320uart_set_word_length11uart_port_t18uart_word_length_t"></span><span id="_CPPv220uart_set_word_length11uart_port_t18uart_word_length_t"></span><span id="uart_set_word_length__uart_port_t.uart_word_length_t"></span><span class="target" id="uart_8h_1a808676f2b0888e32d32845867dee2696"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_word_length</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_word_length_t <em>data_bit</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_set_word_length11uart_port_t18uart_word_length_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART მონაცემთა ბიტების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">data_bit</span></code>UART მონაცემთა ბიტები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_get_word_length11uart_port_tP18uart_word_length_t">
+<span id="_CPPv320uart_get_word_length11uart_port_tP18uart_word_length_t"></span><span id="_CPPv220uart_get_word_length11uart_port_tP18uart_word_length_t"></span><span id="uart_get_word_length__uart_port_t.uart_word_length_tP"></span><span class="target" id="uart_8h_1a23e265fcff2bccfb9767317acebffb5f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_word_length</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_word_length_t *<em>data_bit</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_get_word_length11uart_port_tP18uart_word_length_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ UART მონაცემთა ბიტის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატებით დასრულდა, შედეგი ჩაიწერება (*data_bit)-ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">data_bit</span></code>: UART მონაცემთა ბიტების მნიშვნელობის მისაღებად მითითებული მაჩვენებელი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418uart_set_stop_bits11uart_port_t16uart_stop_bits_t">
+<span id="_CPPv318uart_set_stop_bits11uart_port_t16uart_stop_bits_t"></span><span id="_CPPv218uart_set_stop_bits11uart_port_t16uart_stop_bits_t"></span><span id="uart_set_stop_bits__uart_port_t.uart_stop_bits_t"></span><span class="target" id="uart_8h_1a557ff2a2cd3d3d83acc072df8af9e4bf"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_stop_bits</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_stop_bits_t <em>stop_bits</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv418uart_set_stop_bits11uart_port_t16uart_stop_bits_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART გაჩერების ბიტების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL წარუმატებლობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">stop_bits</span></code>UART გაჩერების ბიტები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418uart_get_stop_bits11uart_port_tP16uart_stop_bits_t">
+<span id="_CPPv318uart_get_stop_bits11uart_port_tP16uart_stop_bits_t"></span><span id="_CPPv218uart_get_stop_bits11uart_port_tP16uart_stop_bits_t"></span><span id="uart_get_stop_bits__uart_port_t.uart_stop_bits_tP"></span><span class="target" id="uart_8h_1abdc7f04203ccda3e93a3c0f77dbcfd09"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_stop_bits</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_stop_bits_t *<em>stop_bits</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv418uart_get_stop_bits11uart_port_tP16uart_stop_bits_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ UART გაჩერების ბიტის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატებით დასრულდა, შედეგი ჩაიწერება (*stop_bit)-ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">stop_bits</span></code>: UART გაჩერების ბიტების მნიშვნელობის მისაღებად მითითებული მაჩვენებელი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415uart_set_parity11uart_port_t13uart_parity_t">
+<span id="_CPPv315uart_set_parity11uart_port_t13uart_parity_t"></span><span id="_CPPv215uart_set_parity11uart_port_t13uart_parity_t"></span><span id="uart_set_parity__uart_port_t.uart_parity_t"></span><span class="target" id="uart_8h_1a8b637bcc5b144866907fe2af67047b3b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_parity</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_parity_t <em>პარიტეტის_რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv415uart_set_parity11uart_port_t13uart_parity_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART პარიტეტის რეჟიმის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">parity_mode</span></code>: uart პარიტეტის კონფიგურაციის ნუმირება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415uart_get_parity11uart_port_tP13uart_parity_t">
+<span id="_CPPv315uart_get_parity11uart_port_tP13uart_parity_t"></span><span id="_CPPv215uart_get_parity11uart_port_tP13uart_parity_t"></span><span id="uart_get_parity__uart_port_t.uart_parity_tP"></span><span class="target" id="uart_8h_1abcbfeedc6a77806fd0ba3fa7534ee073"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_parity</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_parity_t *<em>პარიტეტის_რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv415uart_get_parity11uart_port_tP13uart_parity_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ UART პარიტეტის რეჟიმის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატებით დასრულდა, შედეგი მოთავსდება (*პარიტეტის_რეჟიმში) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">parity_mode</span></code>: UART პარიტეტის რეჟიმის მნიშვნელობის მიღების მაჩვენებელი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417uart_set_baudrate11uart_port_t8uint32_t">
+<span id="_CPPv317uart_set_baudrate11uart_port_t8uint32_t"></span><span id="_CPPv217uart_set_baudrate11uart_port_t8uint32_t"></span><span id="uart_set_baudrate__uart_port_t.uint32_t"></span><span class="target" id="uart_8h_1a77efdf5168e7269213a98298dacb5d58"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_baudrate</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t <em>ბაუდრეიტი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv417uart_set_baudrate11uart_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ UART ბოდის სიჩქარე . </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">baudrate</span></code>: UART ბოდის სიჩქარე .</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417uart_get_baudrate11uart_port_tP8uint32_t">
+<span id="_CPPv317uart_get_baudrate11uart_port_tP8uint32_t"></span><span id="_CPPv217uart_get_baudrate11uart_port_tP8uint32_t"></span><span id="uart_get_baudrate__uart_port_t.uint32_tP"></span><span class="target" id="uart_8h_1a409b45d7f0e70b3ef495538faeab11d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_baudrate</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t *<em>ბაუდრეიტი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv417uart_get_baudrate11uart_port_tP8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ UART ბოდის სიჩქარე კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატებით დასრულდა, შედეგი ჩაიწერება (*baudrate)-ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">baudrate</span></code>: UART ბოდის სიჩქარე ის მნიშვნელობის მიღების მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421uart_set_line_inverse11uart_port_t8uint32_t">
+<span id="_CPPv321uart_set_line_inverse11uart_port_t8uint32_t"></span><span id="_CPPv221uart_set_line_inverse11uart_port_t8uint32_t"></span><span id="uart_set_line_inverse__uart_port_t.uint32_t"></span><span class="target" id="uart_8h_1adeaf7062ad7d6763f4713c67f7685151"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_line_inverse</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t <em>ინვერსიული_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv421uart_set_line_inverse11uart_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART ხაზის ინვერსიული რეჟიმის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">inverse_mask</span></code>: აირჩიეთ სადენები, რომელთა ინვერსიაც საჭიროა. OR წითელი ნიღბის გამოყენებით <code class="docutils literal notranslate"><span class="pre">uart_signal_inv_t</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421uart_set_hw_flow_ctrl11uart_port_t21uart_hw_flowcontrol_t7uint8_t">
+<span id="_CPPv321uart_set_hw_flow_ctrl11uart_port_t21uart_hw_flowcontrol_t7uint8_t"></span><span id="_CPPv221uart_set_hw_flow_ctrl11uart_port_t21uart_hw_flowcontrol_t7uint8_t"></span><span id="uart_set_hw_flow_ctrl__uart_port_t.uart_hw_flowcontrol_t.uint8_t"></span><span class="target" id="uart_8h_1a3d4457ec08abdc9dbae7a5f4f1031002"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_hw_flow_ctrl</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_hw_flowcontrol_t <em>flow_ctrl</em>, uint8_t <em>rx_thresh</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv421uart_set_hw_flow_ctrl11uart_port_t21uart_hw_flowcontrol_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპარატურის ნაკადის კონტროლის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">flow_ctrl</span></code>აპარატურის ნაკადის კონტროლის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_thresh</span></code>აპარატურის RX ნაკადის კონტროლის ზღვარი (0 ~ UART_FIFO_LEN). rx_thresh მნიშვნელობა დაყენდება მხოლოდ მაშინ, როდესაც UART_HW_FLOWCTRL_RTS დაყენებულია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421uart_set_sw_flow_ctrl11uart_port_tb7uint8_t7uint8_t">
+<span id="_CPPv321uart_set_sw_flow_ctrl11uart_port_tb7uint8_t7uint8_t"></span><span id="_CPPv221uart_set_sw_flow_ctrl11uart_port_tb7uint8_t7uint8_t"></span><span id="uart_set_sw_flow_ctrl__uart_port_t.b.uint8_t.uint8_t"></span><span class="target" id="uart_8h_1aa3473b99b93b1671bc38c17e09ed72f3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_sw_flow_ctrl</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, bool <em>ჩართვა</em>, uint8_t <em>rx_thresh_xon</em>, uint8_t <em>rx_thresh_xoff</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv421uart_set_sw_flow_ctrl11uart_port_tb7uint8_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პროგრამული უზრუნველყოფის ნაკადის კონტროლის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART_NUM_0, UART_NUM_1 ან UART_NUM_2 </li>
+<li><code class="docutils literal notranslate"><span class="pre">enable</span></code>: ჩართვა ან გამორთვა </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_thresh_xon</span></code>: დაბალი წყლის ნიშნული </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_thresh_xoff</span></code>: წყლის მაღალი ნიშნული</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421uart_get_hw_flow_ctrl11uart_port_tP21uart_hw_flowcontrol_t">
+<span id="_CPPv321uart_get_hw_flow_ctrl11uart_port_tP21uart_hw_flowcontrol_t"></span><span id="_CPPv221uart_get_hw_flow_ctrl11uart_port_tP21uart_hw_flowcontrol_t"></span><span id="uart_get_hw_flow_ctrl__uart_port_t.uart_hw_flowcontrol_tP"></span><span class="target" id="uart_8h_1abb10d50ebdb733917ba941226fb52164"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_hw_flow_ctrl</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_hw_flowcontrol_t *<em>flow_ctrl</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv421uart_get_hw_flow_ctrl11uart_port_tP21uart_hw_flowcontrol_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ UART აპარატურის ნაკადის კონტროლის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატებით დასრულდა, შედეგი შეინახება (*flow_ctrl)-ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">flow_ctrl</span></code>: ნაკადის კონტროლის სხვადასხვა რეჟიმის ვარიანტი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422uart_clear_intr_status11uart_port_t8uint32_t">
+<span id="_CPPv322uart_clear_intr_status11uart_port_t8uint32_t"></span><span id="_CPPv222uart_clear_intr_status11uart_port_t8uint32_t"></span><span id="uart_clear_intr_status__uart_port_t.uint32_t"></span><span class="target" id="uart_8h_1afc1fb2f0c77a5711af1dad15013285ee"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_clear_intr_status</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t <em>clr_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv422uart_clear_intr_status11uart_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეფერხების სტატუსის გასუფთავება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">clr_mask</span></code>გასასუფთავებელი შეფერხების სტატუსის ბიტის ნიღაბი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421uart_enable_intr_mask11uart_port_t8uint32_t">
+<span id="_CPPv321uart_enable_intr_mask11uart_port_t8uint32_t"></span><span id="_CPPv221uart_enable_intr_mask11uart_port_t8uint32_t"></span><span id="uart_enable_intr_mask__uart_port_t.uint32_t"></span><span class="target" id="uart_8h_1ac1e5f3bf85282611dfdf91fbcf9ab5b0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_enable_intr_mask</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t <em>enable_mask</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv421uart_enable_intr_mask11uart_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეფერხების ჩართვის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">enable_mask</span></code>: ჩართვის ბიტების ბიტის ნიღაბი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422uart_disable_intr_mask11uart_port_t8uint32_t">
+<span id="_CPPv322uart_disable_intr_mask11uart_port_t8uint32_t"></span><span id="_CPPv222uart_disable_intr_mask11uart_port_t8uint32_t"></span><span id="uart_disable_intr_mask__uart_port_t.uint32_t"></span><span class="target" id="uart_8h_1a2529c04af335aa09b089cd092f9496a1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_disable_intr_mask</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint32_t <em>გამორთვის_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv422uart_disable_intr_mask11uart_port_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეწყვეტის ჩართვის ბიტების გასუფთავება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">disable_mask</span></code>გამორთვის ბიტების ბიტის ნიღაბი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419uart_enable_rx_intr11uart_port_t">
+<span id="_CPPv319uart_enable_rx_intr11uart_port_t"></span><span id="_CPPv219uart_enable_rx_intr11uart_port_t"></span><span id="uart_enable_rx_intr__uart_port_t"></span><span class="target" id="uart_8h_1aeaf76305bb1e7ec4ffd1c71799bb2e24"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_enable_rx_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv419uart_enable_rx_intr11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX შეწყვეტის ჩართვა (RX_FULL &amp;amp; RX_TIMEOUT INTERRUPT) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_disable_rx_intr11uart_port_t">
+<span id="_CPPv320uart_disable_rx_intr11uart_port_t"></span><span id="_CPPv220uart_disable_rx_intr11uart_port_t"></span><span id="uart_disable_rx_intr__uart_port_t"></span><span class="target" id="uart_8h_1adff6c82a2fe5d3bd46a30f48972f282c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_disable_rx_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_disable_rx_intr11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX შეწყვეტის გამორთვა (RX_FULL &amp;amp; RX_TIMEOUT INTERRUPT) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_disable_tx_intr11uart_port_t">
+<span id="_CPPv320uart_disable_tx_intr11uart_port_t"></span><span id="_CPPv220uart_disable_tx_intr11uart_port_t"></span><span id="uart_disable_tx_intr__uart_port_t"></span><span class="target" id="uart_8h_1a17d5cc483b5b24d89b2610e04640dd00"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_disable_tx_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_disable_tx_intr11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART TX შეწყვეტის გამორთვა (TX_FULL &amp;amp; TX_TIMEOUT INTERRUPT) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419uart_enable_tx_intr11uart_port_tii">
+<span id="_CPPv319uart_enable_tx_intr11uart_port_tii"></span><span id="_CPPv219uart_enable_tx_intr11uart_port_tii"></span><span id="uart_enable_tx_intr__uart_port_t.i.i"></span><span class="target" id="uart_8h_1afdb256b93e7c57731a7745f08fdf07f8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_enable_tx_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>ჩართვა</em>, int <em>თრეში</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv419uart_enable_tx_intr11uart_port_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART TX შეწყვეტის ჩართვა (TX_FULL &amp;amp; TX_TIMEOUT INTERRUPT) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">enable</span></code>: 1: ჩართვა; 0: გამორთვა </li>
+<li><code class="docutils literal notranslate"><span class="pre">thresh</span></code>: TX შეწყვეტის ზღვარი, 0 ~ UART_FIFO_LEN</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417uart_isr_register11uart_port_tPFvPvEPviP17uart_isr_handle_t">
+<span id="_CPPv317uart_isr_register11uart_port_tPFvPvEPviP17uart_isr_handle_t"></span><span id="_CPPv217uart_isr_register11uart_port_tPFvPvEPviP17uart_isr_handle_t"></span><span class="target" id="uart_8h_1a2413646de281325acb5b771e48150f69"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_isr_register</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="uart.html#_CPPv417uart_isr_handle_t" title="uart_isr_handle_t">uart_isr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv417uart_isr_register11uart_port_tPFvPvEPviP17uart_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დარეგისტრირდით UART შეწყვეტის დამმუშავებელზე (ISR). </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>UART ISR handler will be attached to the same CPU core that this function is running on.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: დაბრუნების სახელურის მაჩვენებელი. თუ არ არის NULL, შეწყვეტის სახელური აქ დაბრუნდება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413uart_isr_free11uart_port_t">
+<span id="_CPPv313uart_isr_free11uart_port_t"></span><span id="_CPPv213uart_isr_free11uart_port_t"></span><span id="uart_isr_free__uart_port_t"></span><span class="target" id="uart_8h_1a6394bf24366f7d850034e3949ee57b32"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_isr_free</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv413uart_isr_free11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თავისუფალი UART შეფერხების დამმუშავებელი რეგისტრირებულია uart_isr_register-ის მიერ. უნდა გამოიძახოს იმავე ბირთვზე, რომელზეც გამოიძახეს uart_isr_register. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412uart_set_pin11uart_port_tiiii">
+<span id="_CPPv312uart_set_pin11uart_port_tiiii"></span><span id="_CPPv212uart_set_pin11uart_port_tiiii"></span><span id="uart_set_pin__uart_port_t.i.i.i.i"></span><span class="target" id="uart_8h_1a9fae9b92aa2400b4098500fad67bf130"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_pin</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>tx_io_num</em>, int <em>rx_io_num</em>, int <em>rts_io_num</em>, int <em>cts_io_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv412uart_set_pin11uart_port_tiiii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ UART პინის ნომერი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Internal signal can be output to multiple GPIO pads. Only one GPIO pad can connect with input signal.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Instead of GPIO number a macro ‘UART_PIN_NO_CHANGE’ may be provided to keep the currently allocated pin.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">tx_io_num</span></code>: UART TX pin GPIO ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_io_num</span></code>: UART RX პინის GPIO ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">rts_io_num</span></code>: UART RTS პინის GPIO ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cts_io_num</span></code>: UART CTS პინის GPIO ნომერი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412uart_set_rts11uart_port_ti">
+<span id="_CPPv312uart_set_rts11uart_port_ti"></span><span id="_CPPv212uart_set_rts11uart_port_ti"></span><span id="uart_set_rts__uart_port_t.i"></span><span class="target" id="uart_8h_1a6005ed5198bccb515f3a45332651fe3f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_rts</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv412uart_set_rts11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ხელით დააყენეთ UART RTS პინის დონე. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>UART must be configured with hardware flow control disabled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: 1: RTS გამომავალი დაბალი (აქტიური); 0: RTS გამომავალი მაღალი (ბლოკირებული)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412uart_set_dtr11uart_port_ti">
+<span id="_CPPv312uart_set_dtr11uart_port_ti"></span><span id="_CPPv212uart_set_dtr11uart_port_ti"></span><span id="uart_set_dtr__uart_port_t.i"></span><span class="target" id="uart_8h_1af03a824b0b24952fc20c26ec0927dc40"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_dtr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv412uart_set_dtr11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ხელით დააყენეთ UART DTR პინის დონე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: 1: DTR გამომავალი დაბალი; 0: DTR გამომავალი მაღალი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_set_tx_idle_num11uart_port_t8uint16_t">
+<span id="_CPPv320uart_set_tx_idle_num11uart_port_t8uint16_t"></span><span id="_CPPv220uart_set_tx_idle_num11uart_port_t8uint16_t"></span><span id="uart_set_tx_idle_num__uart_port_t.uint16_t"></span><span class="target" id="uart_8h_1a698ddea081872eb46338cc23aaeac599"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_tx_idle_num</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint16_t <em>უმოქმედო_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_set_tx_idle_num11uart_port_t8uint16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ UART უმოქმედო ინტერვალი მას შემდეგ, რაც tx FIFO ცარიელი იქნება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">idle_num</span></code>: უმოქმედო ინტერვალი FIFO-ს გაგზავნის შემდეგ (ერთეული: დრო, რომელიც საჭიროა ერთი ბიტის გასაგზავნად მიმდინარე ბაუდრაიტით)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417uart_param_config11uart_port_tPK13uart_config_t">
+<span id="_CPPv317uart_param_config11uart_port_tPK13uart_config_t"></span><span id="_CPPv217uart_param_config11uart_port_tPK13uart_config_t"></span><span id="uart_param_config__uart_port_t.uart_config_tCP"></span><span class="target" id="uart_8h_1a26909ef7d30875c035d74febd31fc444"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_param_config</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> uart_config_t *<em>uart_config</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv417uart_param_config11uart_port_tPK13uart_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART კონფიგურაციის პარამეტრების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">uart_config</span></code>: UART პარამეტრის პარამეტრები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416uart_intr_config11uart_port_tPK18uart_intr_config_t">
+<span id="_CPPv316uart_intr_config11uart_port_tPK18uart_intr_config_t"></span><span id="_CPPv216uart_intr_config11uart_port_tPK18uart_intr_config_t"></span><span id="uart_intr_config__uart_port_t.uart_intr_config_tCP"></span><span class="target" id="uart_8h_1a2a4c7d4dc9d293e98505a903e99c200f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_intr_config</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> <a class="reference internal" href="uart.html#_CPPv418uart_intr_config_t" title="uart_intr_config_t">uart_intr_config_t</a> *<em>intr_conf</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv416uart_intr_config11uart_port_tPK18uart_intr_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეფერხებების კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_conf</span></code>UART შეფერხების პარამეტრები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417uart_wait_tx_done11uart_port_t10TickType_t">
+<span id="_CPPv317uart_wait_tx_done11uart_port_t10TickType_t"></span><span id="_CPPv217uart_wait_tx_done11uart_port_t10TickType_t"></span><span id="uart_wait_tx_done__uart_port_t.TickType_t"></span><span class="target" id="uart_8h_1adee69c880882e652759d03f2614d95af"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_wait_tx_done</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv417uart_wait_tx_done11uart_port_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ სანამ UART TX FIFO არ დაცარიელდება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_ERR_TIMEOUT ტაიმვატი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: ტაიმ-აუტი, RTOS ტიკის დათვლა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413uart_tx_chars11uart_port_tPKc8uint32_t">
+<span id="_CPPv313uart_tx_chars11uart_port_tPKc8uint32_t"></span><span id="_CPPv213uart_tx_chars11uart_port_tPKc8uint32_t"></span><span id="uart_tx_chars__uart_port_t.cCP.uint32_t"></span><span class="target" id="uart_8h_1aca552dc1f99b6ed8d74b81d835344eba"></span>int <code class="descname">uart_tx_chars</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> char *<em>ბუფერი</em>, uint32_t <em>ლენ</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv413uart_tx_chars11uart_port_tPKc8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული ბუფერიდან და სიგრძიდან მონაცემების UART პორტში გაგზავნა. </p>
+<p>ეს ფუნქცია არ დაელოდება TX FIFO-ში საკმარის ადგილს. ის უბრალოდ შეავსებს ხელმისაწვდომ TX FIFO-ს და დააბრუნებს მას, როდესაც FIFO შეივსება. <dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should only be used when UART TX buffer is not enabled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) პარამეტრის შეცდომა</li>
+<li>OTHERS (&amp;gt;=0) TX FIFO-ში გადაგზავნილი ბაიტების რაოდენობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: მონაცემთა ბუფერის მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: გასაგზავნი მონაცემების სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416uart_write_bytes11uart_port_tPKc6size_t">
+<span id="_CPPv316uart_write_bytes11uart_port_tPKc6size_t"></span><span id="_CPPv216uart_write_bytes11uart_port_tPKc6size_t"></span><span id="uart_write_bytes__uart_port_t.cCP.s"></span><span class="target" id="uart_8h_1a4c2411719e618a486919676f592559e8"></span>int <code class="descname">uart_write_bytes</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> char *<em>src</em>, size_t <em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv416uart_write_bytes11uart_port_tPKc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული ბუფერიდან და სიგრძიდან მონაცემების UART პორტში გაგზავნა. </p>
+<p>თუ UART დრაივერის პარამეტრი &amp;#39;tx_buffer_size&amp;#39; დაყენებულია ნულზე: ეს ფუნქცია არ დაბრუნდება მანამ, სანამ ყველა მონაცემი არ გაიგზავნება, ან სულ მცირე TX FIFO-ში არ იქნება გადატანილი.</p>
+<p>წინააღმდეგ შემთხვევაში, თუ &amp;#39;tx_buffer_size&amp;#39; &amp;gt; 0, ეს ფუნქცია დაბრუნდება ყველა მონაცემის tx რგოლის ბუფერში კოპირების შემდეგ, UART ISR შემდეგ თანდათანობით გადაიტანს მონაცემებს რგოლის ბუფერიდან TX FIFO-ში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) პარამეტრის შეცდომა</li>
+<li>OTHERS (&amp;gt;=0) TX FIFO-ში გადაგზავნილი ბაიტების რაოდენობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>: მონაცემთა ბუფერის მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: გასაგზავნი მონაცემების სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427uart_write_bytes_with_break11uart_port_tPKc6size_ti">
+<span id="_CPPv327uart_write_bytes_with_break11uart_port_tPKc6size_ti"></span><span id="_CPPv227uart_write_bytes_with_break11uart_port_tPKc6size_ti"></span><span id="uart_write_bytes_with_break__uart_port_t.cCP.s.i"></span><span class="target" id="uart_8h_1a77b44b6ad999b97a2e6b23e3a981c874"></span>int <code class="descname">uart_write_bytes_with_break</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> char *<em>src</em>, size_t <em>ზომა</em>, int <em>brk_len</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv427uart_write_bytes_with_break11uart_port_tPKc6size_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული ბუფერიდან და სიგრძიდან მონაცემების UART პორტში გაგზავნა. </p>
+<p>თუ UART დრაივერის პარამეტრი &amp;#39;tx_buffer_size&amp;#39; დაყენებულია ნულზე: ეს ფუნქცია არ დააბრუნებს მანამ, სანამ ყველა მონაცემი და შესვენების სიგნალი არ გაიგზავნება. ყველა მონაცემის გაგზავნის შემდეგ, გაგზავნეთ შესვენების სიგნალი.</p>
+<p>წინააღმდეგ შემთხვევაში, თუ &amp;#39;tx_buffer_size&amp;#39; &amp;gt; 0, ეს ფუნქცია დაბრუნდება ყველა მონაცემის tx რგოლის ბუფერში კოპირების შემდეგ, შემდეგ UART ISR თანდათანობით გადაიტანს მონაცემებს რგოლის ბუფერიდან TX FIFO-ში. ყველა მონაცემის გაგზავნის შემდეგ, გაიგზავნება შესვენების სიგნალი.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) პარამეტრის შეცდომა</li>
+<li>OTHERS (&amp;gt;=0) TX FIFO-ში გადაგზავნილი ბაიტების რაოდენობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>: მონაცემთა ბუფერის მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: გასაგზავნი მონაცემების სიგრძე </li>
+<li><code class="docutils literal notranslate"><span class="pre">brk_len</span></code>: შესვენების სიგნალის ხანგრძლივობა (ერთეული: დრო, რომელიც საჭიროა ერთი ბიტის მიმდინარე ბაუდრის სიჩქარით გასაგზავნად)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t">
+<span id="_CPPv315uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t"></span><span id="_CPPv215uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t"></span><span id="uart_read_bytes__uart_port_t.uint8_tP.uint32_t.TickType_t"></span><span class="target" id="uart_8h_1ada873c6deef1c1b23f76b3bc6e886339"></span>int <code class="descname">uart_read_bytes</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uint8_t *<em>ბუფი</em>, uint32_t <em>სიგრძე</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv415uart_read_bytes11uart_port_tP7uint8_t8uint32_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART-ის მიერ UART ბუფერიდან წაკითხული ბაიტები. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) შეცდომა</li>
+<li>OTHERS (&amp;gt;=0) UART FIFO-დან წაკითხული ბაიტების რაოდენობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: ბუფერის მაჩვენებელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">length</span></code>: მონაცემთა სიგრძე </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: sTimeout, RTOS ე ტიკის რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410uart_flush11uart_port_t">
+<span id="_CPPv310uart_flush11uart_port_t"></span><span id="_CPPv210uart_flush11uart_port_t"></span><span id="uart_flush__uart_port_t"></span><span class="target" id="uart_8h_1a1d6df979239b59c1d04ec3ef3db99127"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_flush</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv410uart_flush11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>uart_flush_input-ის მეტსახელი. UART რგოლის ბუფერის გასუფთავება. ეს გააუქმებს UART RX ბუფერში არსებულ ყველა მონაცემს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Instead of waiting the data sent out, this function will clear UART rx buffer. In order to send all the data in tx FIFO, we can use uart_wait_tx_done function. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416uart_flush_input11uart_port_t">
+<span id="_CPPv316uart_flush_input11uart_port_t"></span><span id="_CPPv216uart_flush_input11uart_port_t"></span><span id="uart_flush_input__uart_port_t"></span><span class="target" id="uart_8h_1a068def261085c0aea676689328e5a255"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_flush_input</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv416uart_flush_input11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეყვანის ბუფერის გასუფთავება, რგოლის ბუფერში არსებული ყველა მონაცემის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In order to send all the data in tx FIFO, we can use uart_wait_tx_done function. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426uart_get_buffered_data_len11uart_port_tP6size_t">
+<span id="_CPPv326uart_get_buffered_data_len11uart_port_tP6size_t"></span><span id="_CPPv226uart_get_buffered_data_len11uart_port_tP6size_t"></span><span id="uart_get_buffered_data_len__uart_port_t.sP"></span><span class="target" id="uart_8h_1a40f71f946b85f3029c6b21cb0ee320f9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_buffered_data_len</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, size_t *<em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv426uart_get_buffered_data_len11uart_port_tP6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART იღებს RX რგოლის ბუფერს ქეშირებული მონაცემების სიგრძე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: size_t-ის მაჩვენებელი ქეშირებული მონაცემების სიგრძის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429uart_disable_pattern_det_intr11uart_port_t">
+<span id="_CPPv329uart_disable_pattern_det_intr11uart_port_t"></span><span id="_CPPv229uart_disable_pattern_det_intr11uart_port_t"></span><span id="uart_disable_pattern_det_intr__uart_port_t"></span><span class="target" id="uart_8h_1a8e37088bdce71c0137e52fd8b6786130"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_disable_pattern_det_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv429uart_disable_pattern_det_intr11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART გამორთავს შაბლონის აღმოჩენის ფუნქციას. შექმნილია ისეთი აპლიკაციებისთვის, როგორიცაა „AT ბრძანებები“. როდესაც აპარატურა აღმოაჩენს ერთი და იგივე სიმბოლოს სერიას, გააქტიურდება შეფერხება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433uart_enable_pattern_det_baud_intr11uart_port_tc7uint8_tiii">
+<span id="_CPPv333uart_enable_pattern_det_baud_intr11uart_port_tc7uint8_tiii"></span><span id="_CPPv233uart_enable_pattern_det_baud_intr11uart_port_tc7uint8_tiii"></span><span id="uart_enable_pattern_det_baud_intr__uart_port_t.c.uint8_t.i.i.i"></span><span class="target" id="uart_8h_1a75b4baae672b70742aca9d2d9a0dd437"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_enable_pattern_det_baud_intr</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, char <em>pattern_chr</em>, uint8_t <em>chr_num</em>, int <em>chr_tout</em>, int <em>პოსტ_უმოქმედო</em>, int <em>წინასწარი_უმოქმედობა</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv433uart_enable_pattern_det_baud_intr11uart_port_tc7uint8_tiii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART ჩართავს შაბლონის აღმოჩენის ფუნქციას. შექმნილია ისეთი აპლიკაციებისთვის, როგორიცაა „AT ბრძანებები“. როდესაც აპარატურა აღმოაჩენს ერთი და იგივე სიმბოლოს სერიას, გააქტიურდება შეფერხება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_FAIL პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">pattern_chr</span></code>: ნიმუშის ხასიათი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">chr_num</span></code>: სიმბოლოს ნომერი, 8 ბიტიანი მნიშვნელობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">chr_tout</span></code>: თითოეული შაბლონის სიმბოლოებს შორის ინტერვალის ამოწურვა, 16 ბიტიანი მნიშვნელობა, ერთეული არის თქვენს მიერ კონფიგურირებული ბაუდის სიჩქარის ციკლი. როდესაც ხანგრძლივობა ამ მნიშვნელობაზე მეტია, ის ამ მონაცემებს at_cmd სიმბოლოდ არ მიიღებს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">post_idle</span></code>: ბოლო ნიმუშის სიმბოლოს შემდეგ უმოქმედობის დრო, 16 ბიტიანი მნიშვნელობა, ერთეული არის თქვენს მიერ კონფიგურირებული ბაუდის სიჩქარის ციკლი. როდესაც ხანგრძლივობა ამ მნიშვნელობაზე ნაკლებია, ის არ მიიღებს წინა მონაცემებს ბოლო at_cmd სიმბოლოდ. </li>
+<li><code class="docutils literal notranslate"><span class="pre">pre_idle</span></code>: პირველი ნიმუშის სიმბოლოს, 16 ბიტიანი მნიშვნელობის, ერთეულის უმოქმედობის დრო არის თქვენს მიერ კონფიგურირებული ბაუდის სიჩქარის ციკლი. როდესაც ხანგრძლივობა ამ მნიშვნელობაზე ნაკლებია, ის ამ მონაცემებს არ მიიღებს, როგორც პირველ at_cmd სიმბოლოს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_pattern_pop_pos11uart_port_t">
+<span id="_CPPv320uart_pattern_pop_pos11uart_port_t"></span><span id="_CPPv220uart_pattern_pop_pos11uart_port_t"></span><span id="uart_pattern_pop_pos__uart_port_t"></span><span class="target" id="uart_8h_1a884eb8de9121304cce469cfa9292f0be"></span>int <code class="descname">uart_pattern_pop_pos</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_pattern_pop_pos11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბუფერში დააბრუნეთ უახლოესი აღმოჩენილი ნიმუშის პოზიცია. აღმოჩენილი ნიმუშის პოზიციები ინახება რიგში, ეს ფუნქცია მოაშორებს პირველი ნიმუშის პოზიციას რიგში და გადაიტანს მაჩვენებელს ნიმუშის შემდეგ პოზიციაზე. </p>
+<p><p>შემდეგი API s შეცვლის ნიმუშის პოზიციის ინფორმაციას: uart_flush_input, uart_read_bytes, uart_driver_delete, uart_pop_pattern_pos. ნიმუშის აღმოჩენის ფუნქციის გამოყენებისას, აპლიკაციის პასუხისმგებლობაა უზრუნველყოს ნიმუშის რიგში და rx მონაცემთა ბუფერზე ატომური წვდომა.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the RX buffer is full and flow control is not enabled, the detected pattern may not be found in the rx buffer due to overflow.</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) მიმდინარე ინდექსის ან პარამეტრის შეცდომის ნიმუში ვერ მოიძებნა</li>
+<li>სხვები - ნიმუშის პოზიცია rx ბუფერში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420uart_pattern_get_pos11uart_port_t">
+<span id="_CPPv320uart_pattern_get_pos11uart_port_t"></span><span id="_CPPv220uart_pattern_get_pos11uart_port_t"></span><span id="uart_pattern_get_pos__uart_port_t"></span><span class="target" id="uart_8h_1a190fdc0b4d7b0e5e865b0cfb38383069"></span>int <code class="descname">uart_pattern_get_pos</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv420uart_pattern_get_pos11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბუფერში უახლოესი აღმოჩენილი ნიმუშის პოზიციის დაბრუნება. აღმოჩენილი ნიმუშის პოზიციები რიგში ინახება. ეს ფუნქცია რიგში არაფერს აკეთებს. </p>
+<p><p>შემდეგი API s შეცვლის ნიმუშის პოზიციის ინფორმაციას: uart_flush_input, uart_read_bytes, uart_driver_delete, uart_pop_pattern_pos. ნიმუშის აღმოჩენის ფუნქციის გამოყენებისას, აპლიკაციის პასუხისმგებლობაა უზრუნველყოს ნიმუშის რიგში და rx მონაცემთა ბუფერზე ატომური წვდომა.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the RX buffer is full and flow control is not enabled, the detected pattern may not be found in the rx buffer due to overflow.</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) მიმდინარე ინდექსის ან პარამეტრის შეცდომის ნიმუში ვერ მოიძებნა</li>
+<li>სხვები - ნიმუშის პოზიცია rx ბუფერში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424uart_pattern_queue_reset11uart_port_ti">
+<span id="_CPPv324uart_pattern_queue_reset11uart_port_ti"></span><span id="_CPPv224uart_pattern_queue_reset11uart_port_ti"></span><span id="uart_pattern_queue_reset__uart_port_t.i"></span><span class="target" id="uart_8h_1a0e61a66fc42555cadd072adb907dd882"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_pattern_queue_reset</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>რიგის_სიგრძე</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv424uart_pattern_queue_reset11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოყავით ახალი მეხსიერება მოცემული სიგრძით, რათა შეინახოთ აღმოჩენილი ნიმუშის პოზიცია rx ბუფერში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NO_MEM მეხსიერება არ არის საკმარისი</li>
+<li>ESP_ERR_INVALID_STATE დრაივერი არ არის დაინსტალირებული</li>
+<li>ESP_FAIL პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტის ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">queue_length</span></code>: აღმოჩენილი ნიმუშის რიგის მაქსიმალური სიგრძე. თუ რიგის სიგრძე საკმარისად დიდი არ არის, შესაძლოა ნიმუშის ზოგიერთი პოზიცია დაიკარგოს. დააყენეთ ეს მნიშვნელობა მონაცემთა ბუფერში ერთდროულად შენახული ნიმუშების მაქსიმალურ რაოდენობაზე. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413uart_set_mode11uart_port_t11uart_mode_t">
+<span id="_CPPv313uart_set_mode11uart_port_t11uart_mode_t"></span><span id="_CPPv213uart_set_mode11uart_port_t11uart_mode_t"></span><span id="uart_set_mode__uart_port_t.uart_mode_t"></span><span class="target" id="uart_8h_1a950b10bb3fd5226fba28b633e92b4a53"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_mode</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, uart_mode_t <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv413uart_set_mode11uart_port_t11uart_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART-მა დააყენა კომუნიკაციის რეჟიმი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function must be executed after uart_driver_install(), when the driver object is initialized. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>კონფიგურაციისთვის UART ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: UART UART რეჟიმის დაყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426uart_set_rx_full_threshold11uart_port_ti">
+<span id="_CPPv326uart_set_rx_full_threshold11uart_port_ti"></span><span id="_CPPv226uart_set_rx_full_threshold11uart_port_ti"></span><span id="uart_set_rx_full_threshold__uart_port_t.i"></span><span class="target" id="uart_8h_1a6f2e39bb9f9cc06de718aa448864b991"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_rx_full_threshold</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>ზღვარი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv426uart_set_rx_full_threshold11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ uart-ის ზღურბლის მნიშვნელობა RX fifo full-ისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If application is using higher baudrate and it is observed that bytes in hardware RX fifo are overwritten then this threshold can be reduced</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_INVALID_STATE დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART_NUM_0, UART_NUM_1 ან UART_NUM_2 </li>
+<li><code class="docutils literal notranslate"><span class="pre">threshold</span></code>ზღურბლის მნიშვნელობა, რომლის ზემოთაც გენერირდება RX fifo სრული შეწყვეტა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427uart_set_tx_empty_threshold11uart_port_ti">
+<span id="_CPPv327uart_set_tx_empty_threshold11uart_port_ti"></span><span id="_CPPv227uart_set_tx_empty_threshold11uart_port_ti"></span><span id="uart_set_tx_empty_threshold__uart_port_t.i"></span><span class="target" id="uart_8h_1a7b9de7af2eb0ceea108d17e1e73be505"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_tx_empty_threshold</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>ზღვარი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv427uart_set_tx_empty_threshold11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ uart ზღურბლის მნიშვნელობები TX fifo-ს ცარიელი არქივისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_INVALID_STATE დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART_NUM_0, UART_NUM_1 ან UART_NUM_2 </li>
+<li><code class="docutils literal notranslate"><span class="pre">threshold</span></code>ზღურბლის მნიშვნელობა, რომლის ქვემოთაც გენერირდება TX fifo-ს ცარიელი შეწყვეტა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419uart_set_rx_timeout11uart_port_tK7uint8_t">
+<span id="_CPPv319uart_set_rx_timeout11uart_port_tK7uint8_t"></span><span id="_CPPv219uart_set_rx_timeout11uart_port_tK7uint8_t"></span><span id="uart_set_rx_timeout__uart_port_t.uint8_tC"></span><span class="target" id="uart_8h_1a005d64fa971ebf3005e60f2adbf2fe0c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_rx_timeout</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, <em class="property">კონსტ</em> uint8_t <em>ტოუტ_თრეში</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv419uart_set_rx_timeout11uart_port_tK7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART-მა დააწესა TOUT ფუნქციის ზღვრული დროის ამოწურვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_ERR_INVALID_STATE დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>კონფიგურაციისთვის UART ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">tout_thresh</span></code>ეს პარამეტრი განსაზღვრავს uart სიმბოლოების პერიოდებში დროის ამოწურვის ზღვარს. ზღურბლის მაქსიმალური მნიშვნელობაა 126. tout_thresh = 1, განსაზღვრავს TOUT შეწყვეტის დროის ამოწურვას, რომელიც უდრის ერთი სიმბოლოს (~11 ბიტი) გადაცემის დროს მიმდინარე ბაუდრაიტზე. თუ დრო ამოიწურება, გააქტიურდება UART_RXFIFO_TOUT_INT შეწყვეტა. თუ tout_thresh == 0, TOUT ფუნქცია გამორთულია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423uart_get_collision_flag11uart_port_tPb">
+<span id="_CPPv323uart_get_collision_flag11uart_port_tPb"></span><span id="_CPPv223uart_get_collision_flag11uart_port_tPb"></span><span id="uart_get_collision_flag__uart_port_t.bP"></span><span class="target" id="uart_8h_1a010dea3538b131eb120886e92896de5d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_collision_flag</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, bool *<em>შეჯახების_დროშა</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv423uart_get_collision_flag11uart_port_tPb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს შეჯახების აღმოჩენის დროშას RS485 რეჟიმისთვის. ფუნქცია აბრუნებს შეჯახების აღმოჩენის დროშას collision_flag-ის მიერ მითითებულ ცვლადში. *collision_flag = true, თუ შეჯახება აღმოჩენილია, წინააღმდეგ შემთხვევაში ის ტოლია false-ის. ეს ფუნქცია უნდა შესრულდეს ფაქტობრივი გადაცემის დასრულებისას (uart_write_bytes()-ის შემდეგ). </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>მაქსიმალური პორტის ნომრის კონფიგურაციისთვის UART ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">collision_flag</span></code>: bool ტიპის ცვლადზე მითითება შეჯახების დროშის დასაბრუნებლად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425uart_set_wakeup_threshold11uart_port_ti">
+<span id="_CPPv325uart_set_wakeup_threshold11uart_port_ti"></span><span id="_CPPv225uart_set_wakeup_threshold11uart_port_ti"></span><span id="uart_set_wakeup_threshold__uart_port_t.i"></span><span class="target" id="uart_8h_1a236f5ce8e193ce043cf6401201606f95"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_wakeup_threshold</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int <em>გაღვიძების_ზღური</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv425uart_set_wakeup_threshold11uart_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ RX პინის სიგნალის კიდეების რაოდენობა მსუბუქი ძილის რეჟიმში გაღვიძებისთვის. </p>
+<p>UART-ის გამოყენება შესაძლებელია სისტემის მსუბუქი ძილის რეჟიმიდან გამოსასვლელად. ეს ფუნქცია მუშაობს RX პინზე დადებითი კიდეების რაოდენობის დათვლით და რაოდენობის ზღურბლთან შედარებით. როდესაც რაოდენობა ზღურბლს გადააჭარბებს, სისტემა მსუბუქი ძილის რეჟიმიდან გამოიღვიძებს. ეს ფუნქცია საშუალებას გაძლევთ დააყენოთ ზღურბლის მნიშვნელობა.</p>
+<p>კიდეების რაოდენობაში ასევე მონაწილეობს გაჩერების ბიტი და პარიტეტის ბიტები (თუ ჩართულია). მაგალითად, ასო „a“ ASCII კოდით 97, მავთულზე კოდირებულია როგორც 0100001101 (8n1 კონფიგურაციით), დაწყების და გაჩერების ბიტებიც შედის. ამ თანმიმდევრობას აქვს 3 დადებითი კიდე (გადასვლები 0-დან 1-მდე). ამიტომ, სისტემის გასაღვიძებლად, როდესაც „a“ იგზავნება, დააყენეთ wakeup_threshold=3.</p>
+<p>UART არ იღებს გაღვიძების სიგნალის მიმღებ სიმბოლოს (ანუ მისი მიღება UART FIFO-დან შეუძლებელია). ბოდის სიჩქარე დან გამომდინარე, მის შემდეგ რამდენიმე სიმბოლოც არ იქნება მიღებული. გაითვალისწინეთ, რომ როდესაც ჩიპი შედის და გამოდის მსუბუქი ძილის რეჟიმში, APB სიხშირე შეიცვლება. იმისათვის, რომ UART-ს ყოველთვის ჰქონდეს სწორი ბოდის სიჩქარე , აირჩიეთ REF_TICK, როგორც UART საათის წყარო, uart_config_t-ში use_ref_tick ველის true-ზე დაყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>in ESP32, the wakeup signal can only be input via IO_MUX (i.e. GPIO3 should be configured as function_1 to wake up UART0, GPIO9 should be configured as function_5 to wake up UART1), UART2 does not support light sleep wakeup feature.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG, თუ uart_num არასწორია ან wakeup_threshold [3, 0x3ff] დიაპაზონის გარეთაა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">wakeup_threshold</span></code>: RX კიდეების რაოდენობა მსუბუქი ძილის დროს გაღვიძებისთვის, მნიშვნელობა არის 3 .. 0x3ff. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425uart_get_wakeup_threshold11uart_port_tPi">
+<span id="_CPPv325uart_get_wakeup_threshold11uart_port_tPi"></span><span id="_CPPv225uart_get_wakeup_threshold11uart_port_tPi"></span><span id="uart_get_wakeup_threshold__uart_port_t.iP"></span><span class="target" id="uart_8h_1a12e939ff165ec4b92cb31fc31b0026d0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_get_wakeup_threshold</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, int *<em>გაღვიძების ზღვარი</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv425uart_get_wakeup_threshold11uart_port_tPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ RX პინის სიგნალის კიდეების რაოდენობა მსუბუქი ძილის დროს გაღვიძებისთვის. </p>
+<p>UART გაღვიძების ფუნქციის ახსნისთვის იხილეთ uart_set_wakeup_threshold-ის აღწერა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ out_wakeup_threshold არის NULL </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART ნომერი, მაქსიმალური პორტის ნომერია (UART_NUM_MAX -1). </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_wakeup_threshold</span></code>: გამომავალი, დაყენებულია მოცემული UART-ისთვის გაღვიძების ზღურბლის მიმდინარე მნიშვნელობაზე. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425uart_wait_tx_idle_polling11uart_port_t">
+<span id="_CPPv325uart_wait_tx_idle_polling11uart_port_t"></span><span id="_CPPv225uart_wait_tx_idle_polling11uart_port_t"></span><span id="uart_wait_tx_idle_polling__uart_port_t"></span><span class="target" id="uart_8h_1aa39fced9ad0635dcea4aa40a27ff88c3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_wait_tx_idle_polling</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv425uart_wait_tx_idle_polling11uart_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ სანამ UART გადაცემის მეხსიერება არ დაცარიელდება და ბოლო სიმბოლოს გაგზავნა დაკმაყოფილდება (გამოკითხვის რეჟიმი). </p>
+<p><ul class="simple">
+<li><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul>
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418uart_set_loop_back11uart_port_tb">
+<span id="_CPPv318uart_set_loop_back11uart_port_tb"></span><span id="_CPPv218uart_set_loop_back11uart_port_tb"></span><span id="uart_set_loop_back__uart_port_t.b"></span><span class="target" id="uart_8h_1aedb483c522e2a9a9d2638dc1b24f64ca"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">uart_set_loop_back</code><span class="sig-paren">(</span>uart_port_t <em>uart_num</em>, bool <em>loop_back_en</em><span class="sig-paren">)</span><a class="headerlink" href="uart.html#_CPPv418uart_set_loop_back11uart_port_tb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააკონფიგურირეთ TX სიგნალის ციკლი RX მოდულზე, მხოლოდ სატესტო გამოყენებისთვის. </p>
+<p><ul class="simple">
+<li><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul>
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">loop_back_en</span></code>დააყენეთ ture ისე, რომ ჩაერთოს loop back ფუნქცია, წინააღმდეგ შემთხვევაში დააყენეთ false-ზე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="uart.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418uart_intr_config_t">
+<span id="_CPPv318uart_intr_config_t"></span><span id="_CPPv218uart_intr_config_t"></span><span id="uart_intr_config_t"></span><span class="target" id="structuart__intr__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">uart_intr_config_t</code><a class="headerlink" href="uart.html#_CPPv418uart_intr_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეწყვეტის კონფიგურაციის პარამეტრები uart_intr_config ფუნქციისთვის. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18uart_intr_config_t16intr_enable_maskE">
+<span id="_CPPv3N18uart_intr_config_t16intr_enable_maskE"></span><span id="_CPPv2N18uart_intr_config_t16intr_enable_maskE"></span><span id="uart_intr_config_t::intr_enable_mask__uint32_t"></span><span class="target" id="structuart__intr__config__t_1ad3c56b1600d50d45a51dd2744d0d53c9"></span>uint32_t <code class="descname">intr_enable_mask</code><a class="headerlink" href="uart.html#_CPPv4N18uart_intr_config_t16intr_enable_maskE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შეწყვეტის ჩართვის ნიღაბი, აირჩიეთ UART_XXXX_INT_ENA_M-დან UART_INT_ENA_REG(i)-ში, დააკავშირეთ bit-ით ან ოპერატორით. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18uart_intr_config_t17rx_timeout_threshE">
+<span id="_CPPv3N18uart_intr_config_t17rx_timeout_threshE"></span><span id="_CPPv2N18uart_intr_config_t17rx_timeout_threshE"></span><span id="uart_intr_config_t::rx_timeout_thresh__uint8_t"></span><span class="target" id="structuart__intr__config__t_1a861a3257789ed271105b5ba2c9d99b5f"></span>uint8_t <code class="descname">rx_timeout_thresh</code><a class="headerlink" href="uart.html#_CPPv4N18uart_intr_config_t17rx_timeout_threshE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART ტაიმ-აუტის შეწყვეტის ზღვარი (ერთეული: ერთი ბაიტის გაგზავნის დრო) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18uart_intr_config_t24txfifo_empty_intr_threshE">
+<span id="_CPPv3N18uart_intr_config_t24txfifo_empty_intr_threshE"></span><span id="_CPPv2N18uart_intr_config_t24txfifo_empty_intr_threshE"></span><span id="uart_intr_config_t::txfifo_empty_intr_thresh__uint8_t"></span><span class="target" id="structuart__intr__config__t_1a3f3f3b2b515287fcc7daab310e3a98bb"></span>uint8_t <code class="descname">txfifo_empty_intr_thresh</code><a class="headerlink" href="uart.html#_CPPv4N18uart_intr_config_t24txfifo_empty_intr_threshE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART TX ცარიელი შეწყვეტის ზღვარი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18uart_intr_config_t18rxfifo_full_threshE">
+<span id="_CPPv3N18uart_intr_config_t18rxfifo_full_threshE"></span><span id="_CPPv2N18uart_intr_config_t18rxfifo_full_threshE"></span><span id="uart_intr_config_t::rxfifo_full_thresh__uint8_t"></span><span class="target" id="structuart__intr__config__t_1a40aa067bfc76dba1abd37d48651b9345"></span>uint8_t <code class="descname">rxfifo_full_thresh</code><a class="headerlink" href="uart.html#_CPPv4N18uart_intr_config_t18rxfifo_full_threshE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX სრული შეფერხების ზღვარი. </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv412uart_event_t">
+<span id="_CPPv312uart_event_t"></span><span id="_CPPv212uart_event_t"></span><span id="uart_event_t"></span><span class="target" id="structuart__event__t"></span><em class="property">სტრუქტურა </em><code class="descname">uart_event_t</code><a class="headerlink" href="uart.html#_CPPv412uart_event_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART მოვლენების რიგში გამოყენებული მოვლენის სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N12uart_event_t4typeE">
+<span id="_CPPv3N12uart_event_t4typeE"></span><span id="_CPPv2N12uart_event_t4typeE"></span><span id="uart_event_t::type__uart_event_type_t"></span><span class="target" id="structuart__event__t_1a35e079bbfb879b8fd1bfc281653ffea4"></span><a class="reference internal" href="uart.html#_CPPv417uart_event_type_t" title="uart_event_type_t">uart_event_type_t</a> <code class="descname">type</code><a class="headerlink" href="uart.html#_CPPv4N12uart_event_t4typeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART მოვლენის ტიპი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12uart_event_t4sizeE">
+<span id="_CPPv3N12uart_event_t4sizeE"></span><span id="_CPPv2N12uart_event_t4sizeE"></span><span id="uart_event_t::size__s"></span><span class="target" id="structuart__event__t_1aaa4b10a03d29e3ff21214d39a0c6e6df"></span>size_t <code class="descname">size</code><a class="headerlink" href="uart.html#_CPPv4N12uart_event_t4sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART_DATA მოვლენისთვის UART მონაცემთა ზომა </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>მაკროები<a class="headerlink" href="uart.html#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.UART_NUM_0">
+<span class="target" id="uart_8h_1a1ff2a5848c984accefb979c2cbf03a84"></span><code class="descname">UART_NUM_0</code><a class="headerlink" href="uart.html#c.UART_NUM_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>UART პორტი 0 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_1">
+<span class="target" id="uart_8h_1ab32576f48bb81a52c5660a774f530f7c"></span><code class="descname">UART_NUM_1</code><a class="headerlink" href="uart.html#c.UART_NUM_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>UART პორტი 1 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_MAX">
+<span class="target" id="uart_8h_1a8ad5c73ef675f6ddfbb3c39fdd87e79d"></span><code class="descname">UART_NUM_MAX</code><a class="headerlink" href="uart.html#c.UART_NUM_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>UART პორტის მაქს. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.UART_PIN_NO_CHANGE">
+<span class="target" id="uart_8h_1ab33b16f9bc23412d5d31f76d134a36db"></span><code class="descname">UART_PIN_NO_CHANGE</code><a class="headerlink" href="uart.html#c.UART_PIN_NO_CHANGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>uart_set_pin ფუნქციის კონსტანტა, რომელიც მიუთითებს, რომ UART pin არ უნდა შეიცვალოს. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="uart.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417uart_isr_handle_t">
+<span id="_CPPv317uart_isr_handle_t"></span><span id="_CPPv217uart_isr_handle_t"></span><span id="uart_isr_handle_t"></span><span class="target" id="uart_8h_1a3f041e20057aa29e3733adba8e84b484"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">uart_isr_handle_t</code><a class="headerlink" href="uart.html#_CPPv417uart_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="uart.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417uart_event_type_t">
+<span id="_CPPv317uart_event_type_t"></span><span id="_CPPv217uart_event_type_t"></span><span id="uart_event_type_t"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94caf"></span><em class="property">ჩამოთვლა </em><code class="descname">uart_event_type_t</code><a class="headerlink" href="uart.html#_CPPv417uart_event_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რგოლის ბუფერში გამოყენებული UART მოვლენების ტიპები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv49UART_DATA">
+<span id="_CPPv39UART_DATA"></span><span id="_CPPv29UART_DATA"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafab8cffca7dac643fb53ca35bd20214882"></span><code class="descname">UART_DATA</code><a class="headerlink" href="uart.html#_CPPv49UART_DATA" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART მონაცემთა მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv410UART_BREAK">
+<span id="_CPPv310UART_BREAK"></span><span id="_CPPv210UART_BREAK"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa4986147e23cc46ab8c2aa7e151d09571"></span><code class="descname">UART_BREAK</code><a class="headerlink" href="uart.html#_CPPv410UART_BREAK" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART შესვენების მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416UART_BUFFER_FULL">
+<span id="_CPPv316UART_BUFFER_FULL"></span><span id="_CPPv216UART_BUFFER_FULL"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa12578023d68c7c43e33bac855ad394fd"></span><code class="descname">UART_BUFFER_FULL</code><a class="headerlink" href="uart.html#_CPPv416UART_BUFFER_FULL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX ბუფერის სრული მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413UART_FIFO_OVF">
+<span id="_CPPv313UART_FIFO_OVF"></span><span id="_CPPv213UART_FIFO_OVF"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafad4404c87268f285a8b5551efc4fa121e"></span><code class="descname">UART_FIFO_OVF</code><a class="headerlink" href="uart.html#_CPPv413UART_FIFO_OVF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART FIFO გადავსების მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414UART_FRAME_ERR">
+<span id="_CPPv314UART_FRAME_ERR"></span><span id="_CPPv214UART_FRAME_ERR"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa32a1926931bdd145a394fccbd75ec4f0"></span><code class="descname">UART_FRAME_ERR</code><a class="headerlink" href="uart.html#_CPPv414UART_FRAME_ERR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX ჩარჩოს შეცდომის მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415UART_PARITY_ERR">
+<span id="_CPPv315UART_PARITY_ERR"></span><span id="_CPPv215UART_PARITY_ERR"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa93e1a6617858153f2c39c1ec54cbfade"></span><code class="descname">UART_PARITY_ERR</code><a class="headerlink" href="uart.html#_CPPv415UART_PARITY_ERR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART RX პარიტეტის მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415UART_DATA_BREAK">
+<span id="_CPPv315UART_DATA_BREAK"></span><span id="_CPPv215UART_DATA_BREAK"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa1c2eb56d729c73b734c7997d4ca5aabe"></span><code class="descname">UART_DATA_BREAK</code><a class="headerlink" href="uart.html#_CPPv415UART_DATA_BREAK" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART TX მონაცემები და შესვენების მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416UART_PATTERN_DET">
+<span id="_CPPv316UART_PATTERN_DET"></span><span id="_CPPv216UART_PATTERN_DET"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa8d13ac936522dd215489629e89c07b1e"></span><code class="descname">UART_PATTERN_DET</code><a class="headerlink" href="uart.html#_CPPv416UART_PATTERN_DET" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART ნიმუში აღმოჩენილია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414UART_EVENT_MAX">
+<span id="_CPPv314UART_EVENT_MAX"></span><span id="_CPPv214UART_EVENT_MAX"></span><span class="target" id="uart_8h_1aa33921674d20cc4e8c996134afc94cafa4aebcf28effb5c6f8a42abf2f957025b"></span><code class="descname">UART_EVENT_MAX</code><a class="headerlink" href="uart.html#_CPPv414UART_EVENT_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART მოვლენის მაქსიმალური ინდექსი </p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="gpio-lookup-macros">
+<h3>GPIO მაკროების ძიება<a class="headerlink" href="uart.html#gpio-lookup-macros" title="Permalink to this headline">¶</a></h3>
+<p>UART პერიფერიულ მოწყობილობებს აქვთ გამოყოფილი IO_MUX პინები, რომლებთანაც ისინი პირდაპირ არიან დაკავშირებული. თუმცა, სიგნალების სხვა პინებზე გადამისამართება ასევე შესაძლებელია ნაკლებად პირდაპირი GPIO მატრიცის გამოყენებით. პირდაპირი მარშრუტების გამოსაყენებლად, თქვენ უნდა იცოდეთ, რომელი პინია UART არხისთვის გამოყოფილი IO_MUX პინი. GPIO საძიებო მაკროები ამარტივებს IO_MUX პინების პოვნისა და მინიჭების პროცესს. თქვენ ირჩევთ მაკროს IO_MUX პინის ნომრის ან საჭირო UART არხის სახელის საფუძველზე და მაკრო დაგიბრუნებთ შესაბამის ანალოგს. იხილეთ რამდენიმე მაგალითი ქვემოთ.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ეს მაკროები სასარგებლოა, თუ გჭირდებათ ძალიან მაღალი UART ბოდის სიჩქარე s (40 MHz-ზე მეტი), რაც ნიშნავს, რომ მოგიწევთ მხოლოდ IO_MUX პინების გამოყენება. სხვა შემთხვევებში, ამ მაკროების იგნორირება შესაძლებელია და შეგიძლიათ გამოიყენოთ GPIO მატრიცა, რადგან ის საშუალებას გაძლევთ დააკონფიგურიროთ ნებისმიერი GPIO პინი ნებისმიერი UART ფუნქციისთვის.</p>
+</div>
+<ol class="arabic simple">
+<li><a class="reference internal" href="uart.html#c.UART_NUM_2_TXD_DIRECT_GPIO_NUM" title="UART_NUM_2_TXD_DIRECT_GPIO_NUM"><code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_NUM_2_TXD_DIRECT_GPIO_NUM</span></code></a> აბრუნებს UART არხის 2 TXD პინის IO_MUX პინის ნომერს (პინი 17).</li>
+<li><a class="reference internal" href="uart.html#c.UART_GPIO19_DIRECT_CHANNEL" title="UART_GPIO19_DIRECT_CHANNEL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_GPIO19_DIRECT_CHANNEL</span></code></a> აბრუნებს GPIO 19-ის UART ნომერს, როდესაც ის დაკავშირებულია UART პერიფერიულ მოწყობილობასთან IO_MUX-ის საშუალებით (ეს არის UART_NUM_0).</li>
+<li><a class="reference internal" href="uart.html#c.UART_CTS_GPIO19_DIRECT_CHANNEL" title="UART_CTS_GPIO19_DIRECT_CHANNEL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">UART_CTS_GPIO19_DIRECT_CHANNEL</span></code></a> აბრუნებს GPIO 19-ის UART ნომერს, როდესაც ის გამოიყენება როგორც UART CTS პინი IO_MUX-ის საშუალებით (ეს არის UART_NUM_0). ზემოთ მოცემული მაკროს მსგავსია, მაგრამ განსაზღვრავს პინის ფუნქციას, რომელიც ასევე IO_MUX მინიჭების ნაწილია.</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h3>სათაურის ფაილი<a class="headerlink" href="uart.html#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/soc/esp32/include/soc/uart_channel.h">soc/esp32/include/soc/uart_channel.h</a></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>მაკროები<a class="headerlink" href="uart.html#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.UART_GPIO1_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a6fb19dd35e19a437dec6ca20be29c404"></span><code class="descname">UART_GPIO1_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO1_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_0_TXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a4ab5e5c94a9556ead2793f5a68af3afd"></span><code class="descname">UART_NUM_0_TXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_0_TXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO3_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a23ff6432cc0d68a25e9b27b5dc28dbdf"></span><code class="descname">UART_GPIO3_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO3_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_0_RXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1aca381368a6e05cff9200b77dd4dc2bf4"></span><code class="descname">UART_NUM_0_RXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_0_RXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO19_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1abca2bd587531baf1631bd8a477f0ad4a"></span><code class="descname">UART_GPIO19_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO19_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_0_CTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1ad7940688e6ec4496ed17a81d6d354a97"></span><code class="descname">UART_NUM_0_CTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_0_CTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO22_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a6fb3a840724b1c5d7ba47021e5c7e311"></span><code class="descname">UART_GPIO22_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO22_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_0_RTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1af457a79776f98060888f6f0a9a27b79e"></span><code class="descname">UART_NUM_0_RTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_0_RTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_TXD_GPIO1_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a2f8568148849fb4d2fa0aba17cd917d5"></span><code class="descname">UART_TXD_GPIO1_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_TXD_GPIO1_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RXD_GPIO3_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a29d5b99a331678c1167226d2460fb0c0"></span><code class="descname">UART_RXD_GPIO3_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RXD_GPIO3_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_CTS_GPIO19_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1ad2172581e12249dcdb163d712ef76385"></span><code class="descname">UART_CTS_GPIO19_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_CTS_GPIO19_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RTS_GPIO22_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1ac3dace4019793969c2430b7e359da903"></span><code class="descname">UART_RTS_GPIO22_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RTS_GPIO22_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO10_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a70486c8fc843401aff662a37fcbfcae7"></span><code class="descname">UART_GPIO10_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO10_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_1_TXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a5fb6488f5a99387c238badc165118fd4"></span><code class="descname">UART_NUM_1_TXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_1_TXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO9_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a4e44f1ede468c53a5fc2edef860f4c22"></span><code class="descname">UART_GPIO9_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO9_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_1_RXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1ac8e7a0dd4765f17cf9d63d58b6b0392c"></span><code class="descname">UART_NUM_1_RXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_1_RXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO6_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a5fa7550534fc91100759cc78eac358e5"></span><code class="descname">UART_GPIO6_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO6_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_1_CTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a421e448ceee48e3474ade6fc6c622865"></span><code class="descname">UART_NUM_1_CTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_1_CTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO11_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a71755294f25bd925e5a96fc67c5c3283"></span><code class="descname">UART_GPIO11_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO11_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_1_RTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a99b0fe2db1a3b890a6b55fee80ba384d"></span><code class="descname">UART_NUM_1_RTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_1_RTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_TXD_GPIO10_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a9087a36aa316960c9fa5a5e90776e45f"></span><code class="descname">UART_TXD_GPIO10_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_TXD_GPIO10_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RXD_GPIO9_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1ae847cfb380d6a58bd3fc7cffce2f8f2c"></span><code class="descname">UART_RXD_GPIO9_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RXD_GPIO9_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_CTS_GPIO6_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a6ba8a20cf6e43120616d7309bd7de87d"></span><code class="descname">UART_CTS_GPIO6_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_CTS_GPIO6_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RTS_GPIO11_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a58afc23f574af5c052678011213dc0e6"></span><code class="descname">UART_RTS_GPIO11_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RTS_GPIO11_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO17_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a45d5b0d2c783a45588bec65c8c770725"></span><code class="descname">UART_GPIO17_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO17_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_2_TXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a7e18107d9b36c11fba3e647996cf332c"></span><code class="descname">UART_NUM_2_TXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_2_TXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO16_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a83580b4739a47a86dc5f825042796f7d"></span><code class="descname">UART_GPIO16_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO16_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_2_RXD_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a402b85523b39359b02ef726d5446cfb4"></span><code class="descname">UART_NUM_2_RXD_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_2_RXD_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO8_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a6d7318c574156c7b4eb43c9482a85035"></span><code class="descname">UART_GPIO8_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO8_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_2_CTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1a53aa8254a8d434e09b0d0e9be6cde2c0"></span><code class="descname">UART_NUM_2_CTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_2_CTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_GPIO7_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a42d5b419247fc2a113df36bf230c8eba"></span><code class="descname">UART_GPIO7_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_GPIO7_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_NUM_2_RTS_DIRECT_GPIO_NUM">
+<span class="target" id="uart__channel_8h_1acaba9047762ae543076d07dd2d649f8f"></span><code class="descname">UART_NUM_2_RTS_DIRECT_GPIO_NUM</code><a class="headerlink" href="uart.html#c.UART_NUM_2_RTS_DIRECT_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_TXD_GPIO17_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a38c430f9ffcd6bf1b44608798079e339"></span><code class="descname">UART_TXD_GPIO17_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_TXD_GPIO17_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RXD_GPIO16_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a2ed6f576dea8a88cb8103afc0b5d07a7"></span><code class="descname">UART_RXD_GPIO16_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RXD_GPIO16_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_CTS_GPIO8_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1a505eb5143c533d3f274977a368377a38"></span><code class="descname">UART_CTS_GPIO8_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_CTS_GPIO8_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.UART_RTS_GPIO7_DIRECT_CHANNEL">
+<span class="target" id="uart__channel_8h_1aee8248c2a5c3a23baaad3bd2396a3bb0"></span><code class="descname">UART_RTS_GPIO7_DIRECT_CHANNEL</code><a class="headerlink" href="uart.html#c.UART_RTS_GPIO7_DIRECT_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../protocols/index.html" rel="next" title="Application Protocols">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="touch_pad.html" rel="prev" title="Touch Sensor"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,888 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>კონტროლერი და VHCI — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="bt_common.html" rel="next" title="BT COMMON"/>
+<link href="index.html" rel="prev" title="Bluetooth API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/bluetooth/controller_vhci.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/bluetooth/controller_vhci"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/bluetooth/controller_vhci.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Bluetooth</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="controller_vhci.html#">Bluetooth კონტროლერი და VHCI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="controller_vhci.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller_vhci.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller_vhci.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bt_common.html">Bluetooth საერთო</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bt_le.html">Bluetooth ტერმინალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classic_bt.html">Bluetooth კლასიკური</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimble/index.html">NimBLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp-ble-mesh.html">ESP-BLE-MESH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">Bluetooth API</a> »</li>
+<li>კონტროლერი და VHCI</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/bluetooth/controller_vhci.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="controller-vhci">
+<h1>კონტროლერი და VHCI<a class="headerlink" href="controller_vhci.html#controller-vhci" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="controller_vhci.html#overview" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="../template.html">ინსტრუქციები</a></p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="controller_vhci.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>შემოწმება <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/bluedroid/hci">ბლუთუზი/ბლუდროიდი/HCI</a> ESP-IDF examples-ში არსებული საქაღალდე, რომელიც შეიცავს შემდეგ აპლიკაციას:</p>
+<ul class="simple">
+<li>ეს არის BLE რეკლამის დემო ვერსია ვირტუალური HCI ინტერფეისით. გაგზავნეთ Reset/ADV_PARAM/ADV_DATA/ADV_ENABLE HCI ბრძანება BLE რეკლამისთვის - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/bluedroid/hci/controller_vhci_ble_adv">ბლუთუზი/ბლუდროიდი/hci/controller_vhci_ble_adv</a>.</li>
+</ul>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="controller_vhci.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="controller_vhci.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/include/esp_bt.h">bt/include/esp_bt.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="controller_vhci.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv420esp_ble_tx_power_set20esp_ble_power_type_t17esp_power_level_t">
+<span id="_CPPv320esp_ble_tx_power_set20esp_ble_power_type_t17esp_power_level_t"></span><span id="_CPPv220esp_ble_tx_power_set20esp_ble_power_type_t17esp_power_level_t"></span><span id="esp_ble_tx_power_set__esp_ble_power_type_t.esp_power_level_t"></span><span class="target" id="esp__bt_8h_1a97c91c039845ee2faab7361f601cb0cb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ble_tx_power_set</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv420esp_ble_power_type_t" title="esp_ble_power_type_t">esp_ble_power_type_t</a> <em>power_type</em>, <a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> <em>სიმძლავრის_დონე</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv420esp_ble_tx_power_set20esp_ble_power_type_t17esp_power_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE TX დენის დაყენება. კავშირის Tx დენის დაყენება მხოლოდ კავშირის დამყარების შემდეგ უნდა მოხდეს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">power_type</span></code>: : რომელი ტიპის გადამცემი სიმძლავრე, შეიძლება დაყენდეს რეკლამა/კავშირი/ნაგულისხმევი და ა.შ. </li>
+<li><code class="docutils literal notranslate"><span class="pre">power_level</span></code>: სიმძლავრის დონე (ინდექსი), რომელიც შეესაბამება აბსოლუტურ მნიშვნელობას (dbm) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_ble_tx_power_get20esp_ble_power_type_t">
+<span id="_CPPv320esp_ble_tx_power_get20esp_ble_power_type_t"></span><span id="_CPPv220esp_ble_tx_power_get20esp_ble_power_type_t"></span><span id="esp_ble_tx_power_get__esp_ble_power_type_t"></span><span class="target" id="esp__bt_8h_1a9a52095f5a28e7a0e147ff7e753a2925"></span><a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> <code class="descname">esp_ble_tx_power_get</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv420esp_ble_power_type_t" title="esp_ble_power_type_t">esp_ble_power_type_t</a> <em>power_type</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv420esp_ble_tx_power_get20esp_ble_power_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE TX დენის მიღება. კავშირი. Tx დენის მიღება მხოლოდ კავშირის შექმნის შემდეგ უნდა მოხდეს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>&gt;= 0 - Power level, &lt; 0 - Invalid </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">power_type</span></code>: : რომელი ტიპის გადამცემი სიმძლავრე, შეიძლება დაყენდეს რეკლამა/კავშირი/ნაგულისხმევი და ა.შ. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_bredr_tx_power_set17esp_power_level_t17esp_power_level_t">
+<span id="_CPPv322esp_bredr_tx_power_set17esp_power_level_t17esp_power_level_t"></span><span id="_CPPv222esp_bredr_tx_power_set17esp_power_level_t17esp_power_level_t"></span><span id="esp_bredr_tx_power_set__esp_power_level_t.esp_power_level_t"></span><span class="target" id="esp__bt_8h_1a6740ad5e895045b9221b2c88650a98d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bredr_tx_power_set</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> <em>მინიმალური_სიმძლავრის_დონე</em>, <a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> <em>მაქსიმალური_სიმძლავრის_დონე</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv422esp_bredr_tx_power_set17esp_power_level_t17esp_power_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BR/EDR გადამცემი სიმძლავრის დაყენება. BR/EDR გადამცემი სიმძლავრის კონტროლი გამოიყენებს სიმძლავრეს მინიმალური და მაქსიმალური მნიშვნელობების დიაპაზონში. სიმძლავრის დონე გავლენას მოახდენს BR/EDR გადამცემი სიმძლავრის გლობალურ რაოდენობაზე, როგორიცაა მოთხოვნა, გვერდი, კავშირი და ა.შ. გთხოვთ, გამოიძახოთ ფუნქცია esp_bt_controller_enable-ის შემდეგ და ნებისმიერი ფუნქციის წინ, რომელიც იწვევს RF გადამცემს. ამგვარად, შეგიძლიათ გამოიძახოთ ფუნქცია აღმოჩენის, პროფილის ინიციალიზაციის და ა.შ. განხორციელებამდე. მაგალითად, თუ გსურთ, რომ BR/EDR-მა გამოიყენოს ახალი გადამცემი სიმძლავრე შეკითხვის შესასრულებლად, ეს ფუნქცია უნდა გამოიძახოთ შეკითხვის შესრულებამდე. სხვა სიტყვებით რომ ვთქვათ, თუ ამ ფუნქციას გამოიძახებთ, როდესაც BR/EDR არის შეკითხვის(ING) რეჟიმში, გთხოვთ, ხელახლა გამოიძახოთ შეკითხვები ამ ფუნქციის გამოძახების შემდეგ. მინიმალური სიმძლავრის ნაგულისხმევი დონეა ESP_PWR_LVL_N0, ხოლო მაქსიმალური სიმძლავრის დონეა ESP_PWR_LVL_P3. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">min_power_level</span></code>მინიმალური სიმძლავრის დონე </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_power_level</span></code>მაქსიმალური სიმძლავრის დონე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_bredr_tx_power_getP17esp_power_level_tP17esp_power_level_t">
+<span id="_CPPv322esp_bredr_tx_power_getP17esp_power_level_tP17esp_power_level_t"></span><span id="_CPPv222esp_bredr_tx_power_getP17esp_power_level_tP17esp_power_level_t"></span><span id="esp_bredr_tx_power_get__esp_power_level_tP.esp_power_level_tP"></span><span class="target" id="esp__bt_8h_1a1e44b86dbe725ddb3e5c3215a92840fe"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bredr_tx_power_get</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> *<em>მინიმალური_სიმძლავრის_დონე</em>, <a class="reference internal" href="controller_vhci.html#_CPPv417esp_power_level_t" title="esp_power_level_t">esp_power_level_t</a> *<em>მაქსიმალური_სიმძლავრის_დონე</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv422esp_bredr_tx_power_getP17esp_power_level_tP17esp_power_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ BR/EDR გადამცემი სიმძლავრე. თუ არგუმენტი არ არის NULL, მაშინ შეინახეთ შესაბამისი მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">min_power_level</span></code>მინიმალური სიმძლავრის დონე </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_power_level</span></code>მაქსიმალური სიმძლავრის დონე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_bredr_sco_datapath_set19esp_sco_data_path_t">
+<span id="_CPPv326esp_bredr_sco_datapath_set19esp_sco_data_path_t"></span><span id="_CPPv226esp_bredr_sco_datapath_set19esp_sco_data_path_t"></span><span id="esp_bredr_sco_datapath_set__esp_sco_data_path_t"></span><span class="target" id="esp__bt_8h_1ad46ee66d0a12e2b2716ec8a71b65ab70"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bredr_sco_datapath_set</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv419esp_sco_data_path_t" title="esp_sco_data_path_t">esp_sco_data_path_t</a> <em>მონაცემთა_გზა</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv426esp_bredr_sco_datapath_set19esp_sco_data_path_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SCO მონაცემთა გზის ნაგულისხმევი დაყენება უნდა გამოიძახოთ კონტროლერის ჩართვის შემდეგ და (e)SCO კავშირის დამყარებამდე </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">data_path</span></code>SCO მონაცემთა გზა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_bt_controller_initP26esp_bt_controller_config_t">
+<span id="_CPPv322esp_bt_controller_initP26esp_bt_controller_config_t"></span><span id="_CPPv222esp_bt_controller_initP26esp_bt_controller_config_t"></span><span id="esp_bt_controller_init__esp_bt_controller_config_tP"></span><span class="target" id="esp__bt_8h_1ac42f1ff3a691751e68f762aef227f0b2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_controller_init</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv426esp_bt_controller_config_t" title="esp_bt_controller_config_t">esp_bt_controller_config_t</a> *<em>cfg</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv422esp_bt_controller_initP26esp_bt_controller_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დავალების და სხვა რესურსების გამოსაყოფად BT კონტროლერის ინიციალიზაცია. ეს ფუნქცია მხოლოდ ერთხელ უნდა გამოიძახონ, სანამ სხვა BT ფუნქციები გამოიძახება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>BT კონტროლერის საწყისი კონფიგურაცია. წინა ვერსიისგან განსხვავებით, „cfg“-ში არის რეჟიმი და გარკვეული კავშირის კონფიგურაცია კონტროლერის სამუშაო რეჟიმის კონფიგურაციისა და საჭირო რესურსის განაწილებისთვის. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_bt_controller_deinitv">
+<span id="_CPPv324esp_bt_controller_deinitv"></span><span id="_CPPv224esp_bt_controller_deinitv"></span><span id="esp_bt_controller_deinit__void"></span><span class="target" id="esp__bt_8h_1a6b4f4dc9cbf60befe4c9762474f2b68e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_controller_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv424esp_bt_controller_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რესურსის გასათავისუფლებლად და დავალების წასაშლელად მოახდინეთ BT კონტროლერის დეინიციალიზაცია. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს მხოლოდ ერთხელ, სხვა BT ფუნქციების გამოძახების შემდეგ. <dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_bt_controller_enable13esp_bt_mode_t">
+<span id="_CPPv324esp_bt_controller_enable13esp_bt_mode_t"></span><span id="_CPPv224esp_bt_controller_enable13esp_bt_mode_t"></span><span id="esp_bt_controller_enable__esp_bt_mode_t"></span><span class="target" id="esp__bt_8h_1a761867a85f3fb3f0d36e97666aed433a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_controller_enable</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv413esp_bt_mode_t" title="esp_bt_mode_t">esp_bt_mode_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv424esp_bt_controller_enable13esp_bt_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BT კონტროლერის ჩართვა. ცნობილი პრობლემის გამო, კონტროლერის რეჟიმის დინამიურად შესაცვლელად esp_bt_controller_enable() ფუნქციის მეორედ გამოძახება შეუძლებელია. კონტროლერის რეჟიმის შესაცვლელად, გამოიძახეთ esp_bt_controller_disable() ფუნქცია და შემდეგ გამოიძახეთ esp_bt_controller_enable() ფუნქცია ახალი რეჟიმით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: : ჩასართავი რეჟიმი (BLE/BT/BTDM). API ის თავსებადობისთვის, შეინახეთ ეს არგუმენტი. ეს რეჟიმი უნდა იყოს იგივე, რაც esp_bt_controller_init()-ის „cfg“-ში მოცემული რეჟიმი. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_bt_controller_disablev">
+<span id="_CPPv325esp_bt_controller_disablev"></span><span id="_CPPv225esp_bt_controller_disablev"></span><span id="esp_bt_controller_disable__void"></span><span class="target" id="esp__bt_8h_1a12e0a1f6dd686843a27246e3f1eafee7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_controller_disable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv425esp_bt_controller_disablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BT კონტროლერის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_bt_controller_get_statusv">
+<span id="_CPPv328esp_bt_controller_get_statusv"></span><span id="_CPPv228esp_bt_controller_get_statusv"></span><span id="esp_bt_controller_get_status__void"></span><span class="target" id="esp__bt_8h_1abdbb34d86a449e25bc66279e671d4408"></span><a class="reference internal" href="controller_vhci.html#_CPPv426esp_bt_controller_status_t" title="esp_bt_controller_status_t">esp_bt_controller_status_t</a> <code class="descname">esp_bt_controller_get_status</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv428esp_bt_controller_get_statusv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Get BT კონტროლერი ინიციალიზებული/დეინიციალიზებული/ჩართული/გამორთულია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>status value </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434esp_vhci_host_check_send_availablev">
+<span id="_CPPv334esp_vhci_host_check_send_availablev"></span><span id="_CPPv234esp_vhci_host_check_send_availablev"></span><span id="esp_vhci_host_check_send_available__void"></span><span class="target" id="esp__bt_8h_1af351f87224219c040352fdc7cd436386"></span>bool <code class="descname">esp_vhci_host_check_send_available</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv434esp_vhci_host_check_send_availablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_vhci_host_check_send_available გამოიყენება იმის აქტიურად შესამოწმებლად, შეუძლია თუ არა ჰოსტს პაკეტის გაგზავნა კონტროლერთან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>true for ready to send, false means cannot send packet </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_vhci_host_send_packetP7uint8_t8uint16_t">
+<span id="_CPPv325esp_vhci_host_send_packetP7uint8_t8uint16_t"></span><span id="_CPPv225esp_vhci_host_send_packetP7uint8_t8uint16_t"></span><span id="esp_vhci_host_send_packet__uint8_tP.uint16_t"></span><span class="target" id="esp__bt_8h_1aac26f3fcd110bdc080c3e21cb0badd16"></span>void <code class="descname">esp_vhci_host_send_packet</code><span class="sig-paren">(</span>uint8_t *<em>მონაცემები</em>, uint16_t <em>ლენ</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv425esp_vhci_host_send_packetP7uint8_t8uint16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_vhci_host_send_packet მასპინძელი პაკეტის კონტროლერთან გაგზავნას </p>
+<p>ეს ფუნქცია არ უნდა გამოიძახოს კრიტიკული სექციიდან ან მაშინ, როდესაც დამგეგმავი შეჩერებულია.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: პაკეტის წერტილი </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: პაკეტის სიგრძე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431esp_vhci_host_register_callbackPK24esp_vhci_host_callback_t">
+<span id="_CPPv331esp_vhci_host_register_callbackPK24esp_vhci_host_callback_t"></span><span id="_CPPv231esp_vhci_host_register_callbackPK24esp_vhci_host_callback_t"></span><span id="esp_vhci_host_register_callback__esp_vhci_host_callback_tCP"></span><span class="target" id="esp__bt_8h_1abf64fbb55572df00e583b3a2383b9dc0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vhci_host_register_callback</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="controller_vhci.html#_CPPv424esp_vhci_host_callback_t" title="esp_vhci_host_callback_t">esp_vhci_host_callback_t</a> *<em>უკუკავშირი</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv431esp_vhci_host_register_callbackPK24esp_vhci_host_callback_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_vhci_host_register_callback არეგისტრირებს vhci მითითების უკუკავშირის სტრუქტურას, რომელიც განსაზღვრულია vhci_host_callback სტრუქტურით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, ESP_FAIL - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">callback</span></code>: <a class="reference internal" href="controller_vhci.html#structesp__vhci__host__callback"><span class="std std-ref">esp_vhci_host_callback</span></a> ტიპის ცვლადი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429esp_bt_controller_mem_release13esp_bt_mode_t">
+<span id="_CPPv329esp_bt_controller_mem_release13esp_bt_mode_t"></span><span id="_CPPv229esp_bt_controller_mem_release13esp_bt_mode_t"></span><span id="esp_bt_controller_mem_release__esp_bt_mode_t"></span><span class="target" id="esp__bt_8h_1a92d1ee8bfa956acee4d03dc87c64b75a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_controller_mem_release</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv413esp_bt_mode_t" title="esp_bt_mode_t">esp_bt_mode_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv429esp_bt_controller_mem_release13esp_bt_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_bt_controller_mem_release კონტროლერის მეხსიერების გათავისუფლება რეჟიმის მიხედვით </p>
+<p>ეს ფუნქცია ათავისუფლებს BSS-ს, მონაცემებს და კონტროლერის სხვა ნაწილებს heap-ში. საერთო ზომა დაახლოებით 70 ათასი ბაიტია.</p>
+<p>esp_bt_controller_mem_release(mode) უნდა გამოიძახონ მხოლოდ esp_bt_controller_init()-მდე ან esp_bt_controller_deinit()-ის შემდეგ.</p>
+<p>გაითვალისწინეთ, რომ BT კონტროლერის მეხსიერების გათავისუფლების შემდეგ, პროცესის შებრუნება შეუძლებელია. ეს ნიშნავს, რომ თქვენ არ შეგიძლიათ გამოიყენოთ Bluetooth რეჟიმი, რომელიც ამ ფუნქციით გაათავისუფლეთ.</p>
+<p>თუ თქვენი პროგრამული უზრუნველყოფა მოგვიანებით განაახლებს Bluetooth კონტროლერის რეჟიმს (BLE -&amp;gt; BT Classic ან disabled -&amp;gt; enabled), მაშინ არ გამოიძახოთ ეს ფუნქცია.</p>
+<p>თუ აპლიკაცია მხოლოდ BLE-ს გამოსაყენებლად გამოიძახებს esp_bt_controller_enable(ESP_BT_MODE_BLE)-ს, მაშინ უსაფრთხოა ინიციალიზაციის დროს esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT)-ის გამოძახება გამოუყენებელი BT Classic მეხსიერების გასათავისუფლებლად.</p>
+<p>თუ რეჟიმია ESP_BT_MODE_BTDM, მაშინ შეიძლება სასარგებლო იყოს API esp_bt_mem_release(ESP_BT_MODE_BTDM)-ის გამოძახება, რომელიც შინაგანად გამოიძახებს esp_bt_controller_mem_release(ESP_BT_MODE_BTDM)-ს და დამატებით გამოუშვებს BSS-ს და BT/BLE ჰოსტის დასტის მიერ მოხმარებულ მონაცემებს heap-ში. გამოყენების შესახებ დამატებითი ინფორმაციისთვის იხილეთ esp_bt_mem_release() ფუნქციის დოკუმენტაცია.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: : რეჟიმი მეხსიერების გათავისუფლებას ცდილობს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_bt_mem_release13esp_bt_mode_t">
+<span id="_CPPv318esp_bt_mem_release13esp_bt_mode_t"></span><span id="_CPPv218esp_bt_mem_release13esp_bt_mode_t"></span><span id="esp_bt_mem_release__esp_bt_mode_t"></span><span class="target" id="esp__bt_8h_1afe1c8b7d1f5937f39afab8257ee3699e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_mem_release</code><span class="sig-paren">(</span><a class="reference internal" href="controller_vhci.html#_CPPv413esp_bt_mode_t" title="esp_bt_mode_t">esp_bt_mode_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv418esp_bt_mem_release13esp_bt_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_bt_mem_release გამოშვების კონტროლერის მეხსიერება და BT/BLE ჰოსტის დასტის BSS და მონაცემთა სექცია რეჟიმის მიხედვით </p>
+<p>ეს ფუნქცია თავდაპირველად ათავისუფლებს კონტროლერის მეხსიერებას esp_bt_controller_mem_release()-ის შიდა გამოძახებით. გარდა ამისა, თუ რეჟიმი დაყენებულია ESP_BT_MODE_BTDM-ზე, ის ასევე ათავისუფლებს BSS-ს და BT/BLE ჰოსტის დასტის მიერ მოხმარებულ მონაცემებს heap-ში.</p>
+<p>გაითვალისწინეთ, რომ BT მეხსიერების გათავისუფლების შემდეგ, პროცესის შებრუნება შეუძლებელია. ეს ნიშნავს, რომ თქვენ არ შეგიძლიათ გამოიყენოთ Bluetooth რეჟიმი, რომელიც ამ ფუნქციით გაათავისუფლეთ.</p>
+<p>თუ თქვენი პროგრამული უზრუნველყოფა მოგვიანებით განაახლებს Bluetooth კონტროლერის რეჟიმს (BLE -&amp;gt; BT Classic ან disabled -&amp;gt; enabled), მაშინ არ გამოიძახოთ ეს ფუნქცია.</p>
+<p>თუ მიმდინარე ჩატვირთვის ციკლში Bluetooth-ის გამოყენებას არასდროს აპირებთ, შეგიძლიათ გამოიძახოთ esp_bt_mem_release(ESP_BT_MODE_BTDM) esp_bt_controller_init-მდე ან esp_bt_controller_deinit-ის შემდეგ.</p>
+<p>მაგალითად, თუ მომხმარებელი Bluetooth-ს მხოლოდ WiFi კონფიგურაციის დასაყენებლად იყენებს და პროდუქტის სხვა ოპერაციებში არ იყენებს. ასეთ შემთხვევებში, WiFi კონფიგურაციის მიღების შემდეგ, შეგიძლიათ Bluetooth-ის გამორთვა/წაშლა და მისი მეხსიერების გათავისუფლება. ქვემოთ მოცემულია API ების თანმიმდევრობა, რომლებიც უნდა გამოიძახოთ ასეთი სცენარებისთვის: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">esp_bluedroid_disable</span><span class="p">();</span>
+ <span class="n">esp_bluedroid_deinit</span><span class="p">();</span>
+ <span class="n">esp_bt_controller_disable</span><span class="p">();</span>
+ <span class="n">esp_bt_controller_deinit</span><span class="p">();</span>
+ <span class="n">esp_bt_mem_release</span><span class="p">(</span><span class="n">ESP_BT_MODE_BTDM</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In case of NimBLE host, to release BSS and data memory to heap, the mode needs to be set to ESP_BT_MODE_BTDM as controller is dual mode. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK - success, other - failed </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: : რეჟიმი, რომლის მეხსიერებაც უნდა გათავისუფლდეს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_bt_sleep_enablev">
+<span id="_CPPv319esp_bt_sleep_enablev"></span><span id="_CPPv219esp_bt_sleep_enablev"></span><span id="esp_bt_sleep_enable__void"></span><span class="target" id="esp__bt_8h_1a89330ae47d843d9a8f0239776aafd391"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_sleep_enable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv419esp_bt_sleep_enablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოდემის ძილის რეჟიმში გადასასვლელად Bluetooth-ის ჩართვა </p>
+<p>გაითვალისწინეთ, რომ ეს ფუნქცია არ უნდა გამოიძახოთ esp_bt_controller_enable()-მდე.</p>
+<p>ამჟამად Bluetooth მოდემის ძილის რეჟიმის ორი ვარიანტი არსებობს: ერთი არის ORIG რეჟიმი და მეორე არის EVED რეჟიმი. EVED რეჟიმი განკუთვნილია მხოლოდ BLE-სთვის.</p>
+<p>ORIG რეჟიმისთვის: Bluetooth მოდემის ძილის რეჟიმი კონტროლერის გაშვებისას ნაგულისხმევად ჩართულია, თუ დაყენებულია CONFIG_BTDM_MODEM_SLEEP და არჩეულია „ORIG რეჟიმი“. ORIG მოდემის ძილის რეჟიმში, Bluetooth კონტროლერი გამორთავს რამდენიმე კომპონენტი წამს და დროდადრო შეაჩერებს მუშაობას, თუ დასამუშავებელი მოვლენა არ არის; და გაიღვიძებს დაგეგმილი ინტერვალის მიხედვით და განაახლებს მუშაობას. მას ასევე შეუძლია უფრო ადრე გაიღვიძოს გარე მოთხოვნის შემთხვევაში „esp_bt_controller_wakeup_request“ ფუნქციის გამოყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>სხვა: ვერ მოხერხდა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_bt_sleep_disablev">
+<span id="_CPPv320esp_bt_sleep_disablev"></span><span id="_CPPv220esp_bt_sleep_disablev"></span><span id="esp_bt_sleep_disable__void"></span><span class="target" id="esp__bt_8h_1aa9059c2adc45724634afe9ca058f69a4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_bt_sleep_disable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv420esp_bt_sleep_disablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth მოდემის ძილის რეჟიმის გამორთვა </p>
+<p>გაითვალისწინეთ, რომ ეს ფუნქცია არ უნდა გამოიძახოთ esp_bt_controller_enable()-მდე.</p>
+<p>თუ esp_bt_sleep_disable() გამოიძახება, Bluetooth კონტროლერს არ ექნება მოდემის ძილის რეჟიმში გადასვლის უფლება;</p>
+<p>თუ ORIG მოდემის ძილის რეჟიმი გამოიყენება, თუ ეს ფუნქცია გამოიძახება, Bluetooth კონტროლერი შეიძლება მაშინვე არ გაიღვიძოს, თუ ის ამ დროს მიძინებულ მდგომარეობაშია. ამ შემთხვევაში, esp_bt_controller_wakeup_request() შეიძლება გამოყენებულ იქნას გაღვიძების დროის შესამცირებლად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>სხვა: ვერ მოხერხდა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429esp_bt_controller_is_sleepingv">
+<span id="_CPPv329esp_bt_controller_is_sleepingv"></span><span id="_CPPv229esp_bt_controller_is_sleepingv"></span><span id="esp_bt_controller_is_sleeping__void"></span><span class="target" id="esp__bt_8h_1a1fc78e358f86076c2c6ef93ec903cf75"></span>bool <code class="descname">esp_bt_controller_is_sleeping</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv429esp_bt_controller_is_sleepingv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იმის შესამოწმებლად, ჩართულია თუ არა მოდემის ძილის რეჟიმი, Bluetooth კონტროლერი ამჟამად ძილის რეჟიმშია თუ არა. </p>
+<p>გაითვალისწინეთ, რომ ეს ფუნქცია არ უნდა გამოიძახონ esp_bt_controller_enable()-მდე. ეს ფუნქცია უნდა იქნას გამოყენებული მოდემის ძილის ORIG რეჟიმში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>true if in modem sleep state, false otherwise </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_bt_controller_wakeup_requestv">
+<span id="_CPPv332esp_bt_controller_wakeup_requestv"></span><span id="_CPPv232esp_bt_controller_wakeup_requestv"></span><span id="esp_bt_controller_wakeup_request__void"></span><span class="target" id="esp__bt_8h_1a6f27cd1b993f160e8095dd75a1b8957e"></span>void <code class="descname">esp_bt_controller_wakeup_request</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv432esp_bt_controller_wakeup_requestv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერს ძილის რეჟიმის დროს ძილის მდგომარეობიდან გამოღვიძების მოთხოვნა </p>
+<p>გაითვალისწინეთ, რომ ეს ფუნქცია არ უნდა გამოიძახონ esp_bt_controller_enable()-მდე. გაითვალისწინეთ, რომ ეს ფუნქცია უნდა იქნას გამოყენებული მოდემის ძილის ORIG რეჟიმში. გაითვალისწინეთ, რომ ამ მოთხოვნის შემდეგ, Bluetooth კონტროლერი შეიძლება კვლავ შევიდეს ძილის რეჟიმში, თუ მოდემის ძილის რეჟიმი ჩართულია.</p>
+<p>პროფილირება აჩვენებს, რომ ამ მოთხოვნის შემდეგ მოდემის ძილის რეჟიმიდან გამოსვლას რამდენიმე მილიწამი სჭირდება. როგორც წესი, 32kHz XTAL-ის გამოყენებისას, მთავარ XTAL-თან შედარებით, უფრო მეტი დროა საჭირო, რადგან პირველი, როგორც Bluetooth-ის დაბალი სიმძლავრის საათის წყარო, უფრო დაბალი სიხშირეა. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_ble_scan_dupilcate_list_flushv">
+<span id="_CPPv333esp_ble_scan_dupilcate_list_flushv"></span><span id="_CPPv233esp_ble_scan_dupilcate_list_flushv"></span><span id="esp_ble_scan_dupilcate_list_flush__void"></span><span class="target" id="esp__bt_8h_1a7d78bf09335cc19e641a5e1f25beceda"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ble_scan_dupilcate_list_flush</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv433esp_ble_scan_dupilcate_list_flushv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სკანირებული დუბლიკატების სიის ხელით გასუფთავება. </p>
+<p>გაითვალისწინეთ, რომ სკანირებული დუბლიკატების სია ავტომატურად გაიწმინდება, როდესაც ფილტრში მოწყობილობების მაქსიმალური რაოდენობა მიიღწევა, რომლის კონფიგურაციაც menuconfig ში იქნება შესაძლებელი.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>სხვა: ვერ მოხერხდა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="controller_vhci.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv426esp_bt_controller_config_t">
+<span id="_CPPv326esp_bt_controller_config_t"></span><span id="_CPPv226esp_bt_controller_config_t"></span><span id="esp_bt_controller_config_t"></span><span class="target" id="structesp__bt__controller__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_bt_controller_config_t</code><a class="headerlink" href="controller_vhci.html#_CPPv426esp_bt_controller_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერის კონფიგურაციის პარამეტრები დამოკიდებულია კონფიგურაციის ნიღაბზე. კონფიგურაციის ნიღაბი მიუთითებს ჩართული ფუნქციების შესახებ, რაც ნიშნავს კონფიგურაციის ნიღბით ჩართული ზოგიერთი ფუნქციის ზოგიერთ ვარიანტს ან პარამეტრს. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t26controller_task_stack_sizeE">
+<span id="_CPPv3N26esp_bt_controller_config_t26controller_task_stack_sizeE"></span><span id="_CPPv2N26esp_bt_controller_config_t26controller_task_stack_sizeE"></span><span id="esp_bt_controller_config_t::controller_task_stack_size__uint16_t"></span><span class="target" id="structesp__bt__controller__config__t_1a0756c8942601f60a789f1b1e8b08e808"></span>uint16_t <code class="descname">controller_task_stack_size</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t26controller_task_stack_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth კონტროლერის დავალებების დასტის ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t20controller_task_prioE">
+<span id="_CPPv3N26esp_bt_controller_config_t20controller_task_prioE"></span><span id="_CPPv2N26esp_bt_controller_config_t20controller_task_prioE"></span><span id="esp_bt_controller_config_t::controller_task_prio__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1aac8caa5dbcc3fd857cfa0fe25089bbd7"></span>uint8_t <code class="descname">controller_task_prio</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t20controller_task_prioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth კონტროლერის დავალების პრიორიტეტი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t11hci_uart_noE">
+<span id="_CPPv3N26esp_bt_controller_config_t11hci_uart_noE"></span><span id="_CPPv2N26esp_bt_controller_config_t11hci_uart_noE"></span><span id="esp_bt_controller_config_t::hci_uart_no__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a725ef7f9198916fb915ddd8f76e2ad1b"></span>uint8_t <code class="descname">hci_uart_no</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t11hci_uart_noE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ UART1/2-ს იყენებთ HCI IO ინტერფეისად, მიუთითეთ UART ნომერი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t17hci_uart_baudrateE">
+<span id="_CPPv3N26esp_bt_controller_config_t17hci_uart_baudrateE"></span><span id="_CPPv2N26esp_bt_controller_config_t17hci_uart_baudrateE"></span><span id="esp_bt_controller_config_t::hci_uart_baudrate__uint32_t"></span><span class="target" id="structesp__bt__controller__config__t_1abb711c13de3d228dce8874d716cfb202"></span>uint32_t <code class="descname">hci_uart_baudrate</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t17hci_uart_baudrateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ UART1/2-ს იყენებთ როგორც HCI IO ინტერფეისს, მიუთითეთ UART ბაუდრაიტი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t19scan_duplicate_modeE">
+<span id="_CPPv3N26esp_bt_controller_config_t19scan_duplicate_modeE"></span><span id="_CPPv2N26esp_bt_controller_config_t19scan_duplicate_modeE"></span><span id="esp_bt_controller_config_t::scan_duplicate_mode__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1af670f5a837831babad85982ed4d710f4"></span>uint8_t <code class="descname">scan_duplicate_mode</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t19scan_duplicate_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დუბლიკატის სკანირების რეჟიმი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t19scan_duplicate_typeE">
+<span id="_CPPv3N26esp_bt_controller_config_t19scan_duplicate_typeE"></span><span id="_CPPv2N26esp_bt_controller_config_t19scan_duplicate_typeE"></span><span id="esp_bt_controller_config_t::scan_duplicate_type__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a0585a86fb9d6ea0c31177518d9ffba0a"></span>uint8_t <code class="descname">scan_duplicate_type</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t19scan_duplicate_typeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დუბლიკატის ტიპის სკანირება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t15normal_adv_sizeE">
+<span id="_CPPv3N26esp_bt_controller_config_t15normal_adv_sizeE"></span><span id="_CPPv2N26esp_bt_controller_config_t15normal_adv_sizeE"></span><span id="esp_bt_controller_config_t::normal_adv_size__uint16_t"></span><span class="target" id="structesp__bt__controller__config__t_1a6c204f564758099821d6a6d16e9c2868"></span>uint16_t <code class="descname">normal_adv_size</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t15normal_adv_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სკანირებული დუბლიკატის ჩვეულებრივი ზომის რეკლამირება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t13mesh_adv_sizeE">
+<span id="_CPPv3N26esp_bt_controller_config_t13mesh_adv_sizeE"></span><span id="_CPPv2N26esp_bt_controller_config_t13mesh_adv_sizeE"></span><span id="esp_bt_controller_config_t::mesh_adv_size__uint16_t"></span><span class="target" id="structesp__bt__controller__config__t_1ad09f283c3ec79ba32fb82115cb3814d8"></span>uint16_t <code class="descname">mesh_adv_size</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t13mesh_adv_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დუბლიკატის სკანირებისთვის mesh-ის გაფართოებული ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t22send_adv_reserved_sizeE">
+<span id="_CPPv3N26esp_bt_controller_config_t22send_adv_reserved_sizeE"></span><span id="_CPPv2N26esp_bt_controller_config_t22send_adv_reserved_sizeE"></span><span id="esp_bt_controller_config_t::send_adv_reserved_size__uint16_t"></span><span class="target" id="structesp__bt__controller__config__t_1a3755641bb378793812a18f7b0a0b7219"></span>uint16_t <code class="descname">send_adv_reserved_size</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t22send_adv_reserved_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერის მინიმალური მეხსიერების მნიშვნელობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t21controller_debug_flagE">
+<span id="_CPPv3N26esp_bt_controller_config_t21controller_debug_flagE"></span><span id="_CPPv2N26esp_bt_controller_config_t21controller_debug_flagE"></span><span id="esp_bt_controller_config_t::controller_debug_flag__uint32_t"></span><span class="target" id="structesp__bt__controller__config__t_1a47c806fb582e2067a3140cd22eaf3061"></span>uint32_t <code class="descname">controller_debug_flag</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t21controller_debug_flagE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერის გამართვა ჟურნალის დროშა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t4modeE">
+<span id="_CPPv3N26esp_bt_controller_config_t4modeE"></span><span id="_CPPv2N26esp_bt_controller_config_t4modeE"></span><span id="esp_bt_controller_config_t::mode__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1aed1945121d00434079a868bc33a5e446"></span>uint8_t <code class="descname">mode</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t4modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერის რეჟიმი: BR/EDR, BLE ან ორმაგი რეჟიმი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t12ble_max_connE">
+<span id="_CPPv3N26esp_bt_controller_config_t12ble_max_connE"></span><span id="_CPPv2N26esp_bt_controller_config_t12ble_max_connE"></span><span id="esp_bt_controller_config_t::ble_max_conn__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a2125ebe9e95b06cf4fc446f5f99fcded"></span>uint8_t <code class="descname">ble_max_conn</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t12ble_max_connE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE მაქსიმალური კავშირის რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t15bt_max_acl_connE">
+<span id="_CPPv3N26esp_bt_controller_config_t15bt_max_acl_connE"></span><span id="_CPPv2N26esp_bt_controller_config_t15bt_max_acl_connE"></span><span id="esp_bt_controller_config_t::bt_max_acl_conn__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a4ab6567ef52e8a997bbfd7835324a2af"></span>uint8_t <code class="descname">bt_max_acl_conn</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t15bt_max_acl_connE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BR/EDR მაქსიმალური ACL კავშირის ნომრები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t15bt_sco_datapathE">
+<span id="_CPPv3N26esp_bt_controller_config_t15bt_sco_datapathE"></span><span id="_CPPv2N26esp_bt_controller_config_t15bt_sco_datapathE"></span><span id="esp_bt_controller_config_t::bt_sco_datapath__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a1f68b7112ec4abae13db11c1b7f36a1c"></span>uint8_t <code class="descname">bt_sco_datapath</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t15bt_sco_datapathE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SCO მონაცემთა გზა, ანუ HCI ან PCM მოდული </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t12auto_latencyE">
+<span id="_CPPv3N26esp_bt_controller_config_t12auto_latencyE"></span><span id="_CPPv2N26esp_bt_controller_config_t12auto_latencyE"></span><span id="esp_bt_controller_config_t::auto_latency__b"></span><span class="target" id="structesp__bt__controller__config__t_1af8d7a2dfd8f3a03e6ab7ebf3ab172d5b"></span>bool <code class="descname">auto_latency</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t12auto_latencyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE ავტომატური შეყოვნება, გამოიყენება კლასიკური BT მუშაობის გასაუმჯობესებლად </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t16bt_max_sync_connE">
+<span id="_CPPv3N26esp_bt_controller_config_t16bt_max_sync_connE"></span><span id="_CPPv2N26esp_bt_controller_config_t16bt_max_sync_connE"></span><span id="esp_bt_controller_config_t::bt_max_sync_conn__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1ac224e3317cc134a5f51461b50d705739"></span>uint8_t <code class="descname">bt_max_sync_conn</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t16bt_max_sync_connE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BR/EDR მაქსიმალური ACL კავშირის ნომრები. ძალაშია menuconfig ში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t7ble_scaE">
+<span id="_CPPv3N26esp_bt_controller_config_t7ble_scaE"></span><span id="_CPPv2N26esp_bt_controller_config_t7ble_scaE"></span><span id="esp_bt_controller_config_t::ble_sca__uint8_t"></span><span class="target" id="structesp__bt__controller__config__t_1a74f68aa5cbfacbda41d79b6370cd4595"></span>uint8_t <code class="descname">ble_sca</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t7ble_scaE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE დაბალი სიმძლავრის კრისტალის სიზუსტის ინდექსი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_bt_controller_config_t5magicE">
+<span id="_CPPv3N26esp_bt_controller_config_t5magicE"></span><span id="_CPPv2N26esp_bt_controller_config_t5magicE"></span><span id="esp_bt_controller_config_t::magic__uint32_t"></span><span class="target" id="structesp__bt__controller__config__t_1af46869c5762287ea94744b5c49f80fe3"></span>uint32_t <code class="descname">magic</code><a class="headerlink" href="controller_vhci.html#_CPPv4N26esp_bt_controller_config_t5magicE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაგიური რიცხვი </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv422esp_vhci_host_callback">
+<span id="_CPPv322esp_vhci_host_callback"></span><span id="_CPPv222esp_vhci_host_callback"></span><span id="esp_vhci_host_callback"></span><span class="target" id="structesp__vhci__host__callback"></span><em class="property">სტრუქტურა </em><code class="descname">esp_vhci_host_callback</code><a class="headerlink" href="controller_vhci.html#_CPPv422esp_vhci_host_callback" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><a class="reference internal" href="controller_vhci.html#structesp__vhci__host__callback"><span class="std std-ref">esp_vhci_host_callback</span></a> გამოიყენება vhci-ის გამოძახების მასპინძლის ფუნქციისთვის, რათა აცნობოს მასპინძლს, თუ რა უნდა გააკეთოს. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N22esp_vhci_host_callback26notify_host_send_availableE">
+<span id="_CPPv3N22esp_vhci_host_callback26notify_host_send_availableE"></span><span id="_CPPv2N22esp_vhci_host_callback26notify_host_send_availableE"></span><span class="target" id="structesp__vhci__host__callback_1a1f59e4e8a21d5cdd898c49e9f3aac49e"></span>void (*<code class="descname">notify_host_send_available</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv4N22esp_vhci_host_callback26notify_host_send_availableE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირი გამოიყენება იმის შესატყობინებლად, რომ ჰოსტს შეუძლია პაკეტის გაგზავნა კონტროლერთან </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22esp_vhci_host_callback16notify_host_recvE">
+<span id="_CPPv3N22esp_vhci_host_callback16notify_host_recvE"></span><span id="_CPPv2N22esp_vhci_host_callback16notify_host_recvE"></span><span class="target" id="structesp__vhci__host__callback_1aa1469e21291a01054d38fa788bea676e"></span>int (*<code class="descname">notify_host_recv</code>)<span class="sig-paren">(</span>uint8_t *data, uint16_t len<span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#_CPPv4N22esp_vhci_host_callback16notify_host_recvE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირი გამოიყენება იმის შესატყობინებლად, რომ კონტროლერს აქვს მასპინძელთან გასაგზავნი პაკეტი </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="controller_vhci.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_BT_CONTROLLER_CONFIG_MAGIC_VAL">
+<span class="target" id="esp__bt_8h_1aa6060d913345aa45d89771504a65fde2"></span><code class="descname">ESP_BT_CONTROLLER_CONFIG_MAGIC_VAL</code><a class="headerlink" href="controller_vhci.html#c.ESP_BT_CONTROLLER_CONFIG_MAGIC_VAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.BT_CONTROLLER_INIT_CONFIG_DEFAULT">
+<span class="target" id="esp__bt_8h_1a683fbbdfdcbd71906b19cc95effe3654"></span><code class="descname">BT_CONTROLLER_INIT_CONFIG_DEFAULT</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="controller_vhci.html#c.BT_CONTROLLER_INIT_CONFIG_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="controller_vhci.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv424esp_vhci_host_callback_t">
+<span id="_CPPv324esp_vhci_host_callback_t"></span><span id="_CPPv224esp_vhci_host_callback_t"></span><span id="esp_vhci_host_callback_t"></span><span class="target" id="esp__bt_8h_1acc5e2059ee0759982719fa998805c39b"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="controller_vhci.html#_CPPv422esp_vhci_host_callback" title="esp_vhci_host_callback">esp_vhci_host_callback</a> <code class="descname">esp_vhci_host_callback_t</code><a class="headerlink" href="controller_vhci.html#_CPPv424esp_vhci_host_callback_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><a class="reference internal" href="controller_vhci.html#structesp__vhci__host__callback"><span class="std std-ref">esp_vhci_host_callback</span></a> გამოიყენება vhci-ის გამოძახების მასპინძლის ფუნქციისთვის, რათა აცნობოს მასპინძლს, თუ რა უნდა გააკეთოს. </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="controller_vhci.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv413esp_bt_mode_t">
+<span id="_CPPv313esp_bt_mode_t"></span><span id="_CPPv213esp_bt_mode_t"></span><span id="esp_bt_mode_t"></span><span class="target" id="esp__bt_8h_1a9861ef3ac455a4b2875219d457073de4"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_bt_mode_t</code><a class="headerlink" href="controller_vhci.html#_CPPv413esp_bt_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth რეჟიმი კონტროლერის ჩართვის/გამორთვისთვის. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv416ESP_BT_MODE_IDLE">
+<span id="_CPPv316ESP_BT_MODE_IDLE"></span><span id="_CPPv216ESP_BT_MODE_IDLE"></span><span class="target" id="esp__bt_8h_1a9861ef3ac455a4b2875219d457073de4a479cab8a16f9567cb00a7940564d3943"></span><code class="descname">ESP_BT_MODE_IDLE</code> = 0x00<a class="headerlink" href="controller_vhci.html#_CPPv416ESP_BT_MODE_IDLE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth არ მუშაობს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415ESP_BT_MODE_BLE">
+<span id="_CPPv315ESP_BT_MODE_BLE"></span><span id="_CPPv215ESP_BT_MODE_BLE"></span><span class="target" id="esp__bt_8h_1a9861ef3ac455a4b2875219d457073de4aedb9bdfab09a30a92faa66165dc35c36"></span><code class="descname">ESP_BT_MODE_BLE</code> = 0x01<a class="headerlink" href="controller_vhci.html#_CPPv415ESP_BT_MODE_BLE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE რეჟიმის გაშვება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422ESP_BT_MODE_CLASSIC_BT">
+<span id="_CPPv322ESP_BT_MODE_CLASSIC_BT"></span><span id="_CPPv222ESP_BT_MODE_CLASSIC_BT"></span><span class="target" id="esp__bt_8h_1a9861ef3ac455a4b2875219d457073de4a9fab3664192991a2bd656ba090c1da85"></span><code class="descname">ESP_BT_MODE_CLASSIC_BT</code> = 0x02<a class="headerlink" href="controller_vhci.html#_CPPv422ESP_BT_MODE_CLASSIC_BT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლასიკური BT რეჟიმის გაშვება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416ESP_BT_MODE_BTDM">
+<span id="_CPPv316ESP_BT_MODE_BTDM"></span><span id="_CPPv216ESP_BT_MODE_BTDM"></span><span class="target" id="esp__bt_8h_1a9861ef3ac455a4b2875219d457073de4a3d0aa499ec6f785eeaa44765e8585cb3"></span><code class="descname">ESP_BT_MODE_BTDM</code> = 0x03<a class="headerlink" href="controller_vhci.html#_CPPv416ESP_BT_MODE_BTDM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ორმაგი რეჟიმის გაშვება </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv412__anonymous0">
+<span id="_CPPv312__anonymous0"></span><span id="_CPPv212__anonymous0"></span><span id="__anonymous0"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><em class="property">ჩამოთვლა </em><code class="descname"><strong>[anonymous]</strong></code><a class="headerlink" href="controller_vhci.html#_CPPv412__anonymous0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE ძილის საათის სიზუსტე (SCA), ble_sca ველის მნიშვნელობები <a class="reference internal" href="controller_vhci.html#structesp__bt__controller__config__t"><span class="std std-ref">esp_bt_controller_config_t</span></a>ამჟამად მხარდაჭერილია მხოლოდ ESP_BLE_SCA_500PPM და ESP_BLE_SCA_250PPM. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_BLE_SCA_500PPM">
+<span id="_CPPv318ESP_BLE_SCA_500PPM"></span><span id="_CPPv218ESP_BLE_SCA_500PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55bae3cc98172b1d0813a01ec74b1165fdc9"></span><code class="descname">ESP_BLE_SCA_500PPM</code> = 0<a class="headerlink" href="controller_vhci.html#_CPPv418ESP_BLE_SCA_500PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 500 ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_BLE_SCA_250PPM">
+<span id="_CPPv318ESP_BLE_SCA_250PPM"></span><span id="_CPPv218ESP_BLE_SCA_250PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55bab89dc9696dab24eaa0b9e80cf3140f17"></span><code class="descname">ESP_BLE_SCA_250PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv418ESP_BLE_SCA_250PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 250 ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_BLE_SCA_150PPM">
+<span id="_CPPv318ESP_BLE_SCA_150PPM"></span><span id="_CPPv218ESP_BLE_SCA_150PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55ba00893a68c39f13eb06c7541cfbf04bde"></span><code class="descname">ESP_BLE_SCA_150PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv418ESP_BLE_SCA_150PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 150ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_BLE_SCA_100PPM">
+<span id="_CPPv318ESP_BLE_SCA_100PPM"></span><span id="_CPPv218ESP_BLE_SCA_100PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55ba612987fa49629ea86e27678aba4b0994"></span><code class="descname">ESP_BLE_SCA_100PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv418ESP_BLE_SCA_100PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 100ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_BLE_SCA_75PPM">
+<span id="_CPPv317ESP_BLE_SCA_75PPM"></span><span id="_CPPv217ESP_BLE_SCA_75PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3fac3aa43388de0e279790979bb25992"></span><code class="descname">ESP_BLE_SCA_75PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv417ESP_BLE_SCA_75PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 75ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_BLE_SCA_50PPM">
+<span id="_CPPv317ESP_BLE_SCA_50PPM"></span><span id="_CPPv217ESP_BLE_SCA_50PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55ba1097649f0b69359ff285b2455b1501d2"></span><code class="descname">ESP_BLE_SCA_50PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv417ESP_BLE_SCA_50PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 50ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_BLE_SCA_30PPM">
+<span id="_CPPv317ESP_BLE_SCA_30PPM"></span><span id="_CPPv217ESP_BLE_SCA_30PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55baac0869e1a6fafab9569e4fe29f5f5b6a"></span><code class="descname">ESP_BLE_SCA_30PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv417ESP_BLE_SCA_30PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 30ppm-ზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_BLE_SCA_20PPM">
+<span id="_CPPv317ESP_BLE_SCA_20PPM"></span><span id="_CPPv217ESP_BLE_SCA_20PPM"></span><span class="target" id="esp__bt_8h_1a06fc87d81c62e9abb8790b6e5713c55ba92cbd612ebb468bcf90f2d685028e9d3"></span><code class="descname">ESP_BLE_SCA_20PPM</code><a class="headerlink" href="controller_vhci.html#_CPPv417ESP_BLE_SCA_20PPM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE SCA 20ppm-ზე </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv426esp_bt_controller_status_t">
+<span id="_CPPv326esp_bt_controller_status_t"></span><span id="_CPPv226esp_bt_controller_status_t"></span><span id="esp_bt_controller_status_t"></span><span class="target" id="esp__bt_8h_1a699e8644da180659eea493a48fab1a1c"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_bt_controller_status_t</code><a class="headerlink" href="controller_vhci.html#_CPPv426esp_bt_controller_status_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth კონტროლერის ჩართვა/გამორთვა/ინიციალიზაცია/დეინიციალიზაცია. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv429ESP_BT_CONTROLLER_STATUS_IDLE">
+<span id="_CPPv329ESP_BT_CONTROLLER_STATUS_IDLE"></span><span id="_CPPv229ESP_BT_CONTROLLER_STATUS_IDLE"></span><span class="target" id="esp__bt_8h_1a699e8644da180659eea493a48fab1a1ca71a4f3cca6ddd074789df5c742ecd4cd"></span><code class="descname">ESP_BT_CONTROLLER_STATUS_IDLE</code> = 0<a class="headerlink" href="controller_vhci.html#_CPPv429ESP_BT_CONTROLLER_STATUS_IDLE" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv431ESP_BT_CONTROLLER_STATUS_INITED">
+<span id="_CPPv331ESP_BT_CONTROLLER_STATUS_INITED"></span><span id="_CPPv231ESP_BT_CONTROLLER_STATUS_INITED"></span><span class="target" id="esp__bt_8h_1a699e8644da180659eea493a48fab1a1caaa124ea9a4086d9bea6edafeb232b776"></span><code class="descname">ESP_BT_CONTROLLER_STATUS_INITED</code><a class="headerlink" href="controller_vhci.html#_CPPv431ESP_BT_CONTROLLER_STATUS_INITED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv432ESP_BT_CONTROLLER_STATUS_ENABLED">
+<span id="_CPPv332ESP_BT_CONTROLLER_STATUS_ENABLED"></span><span id="_CPPv232ESP_BT_CONTROLLER_STATUS_ENABLED"></span><span class="target" id="esp__bt_8h_1a699e8644da180659eea493a48fab1a1ca12a31f96f1fef6235a2bcc41d0189de6"></span><code class="descname">ESP_BT_CONTROLLER_STATUS_ENABLED</code><a class="headerlink" href="controller_vhci.html#_CPPv432ESP_BT_CONTROLLER_STATUS_ENABLED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv428ESP_BT_CONTROLLER_STATUS_NUM">
+<span id="_CPPv328ESP_BT_CONTROLLER_STATUS_NUM"></span><span id="_CPPv228ESP_BT_CONTROLLER_STATUS_NUM"></span><span class="target" id="esp__bt_8h_1a699e8644da180659eea493a48fab1a1ca2432e977675d820cd1046343fae95410"></span><code class="descname">ESP_BT_CONTROLLER_STATUS_NUM</code><a class="headerlink" href="controller_vhci.html#_CPPv428ESP_BT_CONTROLLER_STATUS_NUM" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_ble_power_type_t">
+<span id="_CPPv320esp_ble_power_type_t"></span><span id="_CPPv220esp_ble_power_type_t"></span><span id="esp_ble_power_type_t"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19c"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_ble_power_type_t</code><a class="headerlink" href="controller_vhci.html#_CPPv420esp_ble_power_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>BLE გადამცემი სიმძლავრის ტიპი ESP_BLE_PWR_TYPE_CONN_HDL0-8: თითოეული კავშირისთვის და დაყენდება მხოლოდ კავშირის დასრულების შემდეგ. გათიშვისას, შესაბამისი გადამცემი სიმძლავრე არ იმოქმედებს. ESP_BLE_PWR_TYPE_ADV: რეკლამირების/სკანირების პასუხისთვის. ESP_BLE_PWR_TYPE_SCAN: სკანირებისთვის. ESP_BLE_PWR_TYPE_DEFAULT: თუ თითოეული კავშირის გადამცემი სიმძლავრე არ არის დაყენებული, ის გამოიყენებს ამ ნაგულისხმევ მნიშვნელობას. თუ არც სკანირების რეჟიმშია და არც გაფართოებულ რეჟიმში, ის გამოიყენებს ამ ნაგულისხმევ მნიშვნელობას. თუ არცერთი სიმძლავრის ტიპი არ არის დაყენებული, სისტემა გამოიყენებს ESP_PWR_LVL_P3-ს, როგორც ნაგულისხმევ მნიშვნელობას ADV/SCAN/CONN0-9-ისთვის. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL0">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL0"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL0"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca713168bdcbc7ce48b6111a758a508c96"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL0</code> = 0<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 0 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL1">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL1"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL1"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca5cb1c7b57712880615187d3440ca99c1"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL1</code> = 1<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL2">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL2"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL2"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19caf5f4783d39d9eb73ca0e0a75942e1cd7"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL2</code> = 2<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 2 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL3">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL3"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL3"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca32734ae530a1d76372c7c7b6d0f404ba"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL3</code> = 3<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL3" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 3 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL4">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL4"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL4"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca405303beed5a7d162e9b7cc348477c64"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL4</code> = 4<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL4" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 4 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL5">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL5"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL5"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca9c48a1ff2bd7101d97484c42d08021d9"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL5</code> = 5<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL5" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 5 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL6">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL6"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL6"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca995d11260c264e3659646459b2d39732"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL6</code> = 6<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL6" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 6 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL7">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL7"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL7"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca45be7a2d31ce91599b9c28fc5ed2f001"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL7</code> = 7<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL7" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 7 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL8">
+<span id="_CPPv326ESP_BLE_PWR_TYPE_CONN_HDL8"></span><span id="_CPPv226ESP_BLE_PWR_TYPE_CONN_HDL8"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca2014b5c4a0e9415ef6bd627ac0c28060"></span><code class="descname">ESP_BLE_PWR_TYPE_CONN_HDL8</code> = 8<a class="headerlink" href="controller_vhci.html#_CPPv426ESP_BLE_PWR_TYPE_CONN_HDL8" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეერთების სახელურისთვის 8 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420ESP_BLE_PWR_TYPE_ADV">
+<span id="_CPPv320ESP_BLE_PWR_TYPE_ADV"></span><span id="_CPPv220ESP_BLE_PWR_TYPE_ADV"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca73bb4e4d36ae9c8d9137d27cc1f9763a"></span><code class="descname">ESP_BLE_PWR_TYPE_ADV</code> = 9<a class="headerlink" href="controller_vhci.html#_CPPv420ESP_BLE_PWR_TYPE_ADV" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეკლამისთვის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_BLE_PWR_TYPE_SCAN">
+<span id="_CPPv321ESP_BLE_PWR_TYPE_SCAN"></span><span id="_CPPv221ESP_BLE_PWR_TYPE_SCAN"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19cad4ebb6208263f1d13e039ec051a65019"></span><code class="descname">ESP_BLE_PWR_TYPE_SCAN</code> = 10<a class="headerlink" href="controller_vhci.html#_CPPv421ESP_BLE_PWR_TYPE_SCAN" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სკანირებისთვის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_BLE_PWR_TYPE_DEFAULT">
+<span id="_CPPv324ESP_BLE_PWR_TYPE_DEFAULT"></span><span id="_CPPv224ESP_BLE_PWR_TYPE_DEFAULT"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca1b7b487b2da0a0d060fd35e41bd1a793"></span><code class="descname">ESP_BLE_PWR_TYPE_DEFAULT</code> = 11<a class="headerlink" href="controller_vhci.html#_CPPv424ESP_BLE_PWR_TYPE_DEFAULT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ნაგულისხმევად, თუ სხვა არ არის დაყენებული, ის გამოიყენებს ნაგულისხმევ მნიშვნელობას </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420ESP_BLE_PWR_TYPE_NUM">
+<span id="_CPPv320ESP_BLE_PWR_TYPE_NUM"></span><span id="_CPPv220ESP_BLE_PWR_TYPE_NUM"></span><span class="target" id="esp__bt_8h_1a81248817e4a9f339d03c36fbf319b19ca222149b54c78062a8544effeebf6fe4c"></span><code class="descname">ESP_BLE_PWR_TYPE_NUM</code> = 12<a class="headerlink" href="controller_vhci.html#_CPPv420ESP_BLE_PWR_TYPE_NUM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>TYPE ნომრები </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417esp_power_level_t">
+<span id="_CPPv317esp_power_level_t"></span><span id="_CPPv217esp_power_level_t"></span><span id="esp_power_level_t"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_power_level_t</code><a class="headerlink" href="controller_vhci.html#_CPPv417esp_power_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth TX power level(index), ეს უბრალოდ power(dbm)-ის შესაბამისი ინდექსია. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv415ESP_PWR_LVL_N12">
+<span id="_CPPv315ESP_PWR_LVL_N12"></span><span id="_CPPv215ESP_PWR_LVL_N12"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009acb2b11379230ad506c4e3b23181c8261"></span><code class="descname">ESP_PWR_LVL_N12</code> = 0<a class="headerlink" href="controller_vhci.html#_CPPv415ESP_PWR_LVL_N12" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება -12dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N9">
+<span id="_CPPv314ESP_PWR_LVL_N9"></span><span id="_CPPv214ESP_PWR_LVL_N9"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a56dcd57b968b7e4feeeacd7bfa1dbd59"></span><code class="descname">ESP_PWR_LVL_N9</code> = 1<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N9" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება -9dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N6">
+<span id="_CPPv314ESP_PWR_LVL_N6"></span><span id="_CPPv214ESP_PWR_LVL_N6"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a8a7fd99f4fb611ef97ef1b5725417e3e"></span><code class="descname">ESP_PWR_LVL_N6</code> = 2<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N6" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება -6dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N3">
+<span id="_CPPv314ESP_PWR_LVL_N3"></span><span id="_CPPv214ESP_PWR_LVL_N3"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009add09ce9e46379d448f37bc672703c851"></span><code class="descname">ESP_PWR_LVL_N3</code> = 3<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N3" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება -3dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N0">
+<span id="_CPPv314ESP_PWR_LVL_N0"></span><span id="_CPPv214ESP_PWR_LVL_N0"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009aaef7bb34acc40ecb99fc44ed9919228b"></span><code class="descname">ESP_PWR_LVL_N0</code> = 4<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება 0dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P3">
+<span id="_CPPv314ESP_PWR_LVL_P3"></span><span id="_CPPv214ESP_PWR_LVL_P3"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009ad356d171e5d2dea8637c6379da2950df"></span><code class="descname">ESP_PWR_LVL_P3</code> = 5<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P3" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება +3dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P6">
+<span id="_CPPv314ESP_PWR_LVL_P6"></span><span id="_CPPv214ESP_PWR_LVL_P6"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a459b248d28616ba1d65624b525338730"></span><code class="descname">ESP_PWR_LVL_P6</code> = 6<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P6" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება +6dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P9">
+<span id="_CPPv314ESP_PWR_LVL_P9"></span><span id="_CPPv214ESP_PWR_LVL_P9"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a328c629c1ac87fd5e293d73a15d1eb45"></span><code class="descname">ESP_PWR_LVL_P9</code> = 7<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P9" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეესაბამება +9dbm-ს </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415ESP_PWR_LVL_N14">
+<span id="_CPPv315ESP_PWR_LVL_N14"></span><span id="_CPPv215ESP_PWR_LVL_N14"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a0e505b3b580d312abc6118349faf3b1f"></span><code class="descname">ESP_PWR_LVL_N14</code> = ESP_PWR_LVL_N12<a class="headerlink" href="controller_vhci.html#_CPPv415ESP_PWR_LVL_N14" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! -14dbm-ზე დაყენება სინამდვილეში -12dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415ESP_PWR_LVL_N11">
+<span id="_CPPv315ESP_PWR_LVL_N11"></span><span id="_CPPv215ESP_PWR_LVL_N11"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a4c9c40a06efdae726044a84b8004319a"></span><code class="descname">ESP_PWR_LVL_N11</code> = ESP_PWR_LVL_N9<a class="headerlink" href="controller_vhci.html#_CPPv415ESP_PWR_LVL_N11" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! -11dbm-ზე დაყენება სინამდვილეში -9dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N8">
+<span id="_CPPv314ESP_PWR_LVL_N8"></span><span id="_CPPv214ESP_PWR_LVL_N8"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a13d81af4dc5e25f6ad4a47a754fb6991"></span><code class="descname">ESP_PWR_LVL_N8</code> = ESP_PWR_LVL_N6<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N8" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! -8dbm-ზე დაყენება სინამდვილეში -6dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N5">
+<span id="_CPPv314ESP_PWR_LVL_N5"></span><span id="_CPPv214ESP_PWR_LVL_N5"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a7c188846bfa8a86f2b5a2eede3e5f6e7"></span><code class="descname">ESP_PWR_LVL_N5</code> = ESP_PWR_LVL_N3<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N5" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! -5dbm-ზე დაყენება სინამდვილეში -3dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_N2">
+<span id="_CPPv314ESP_PWR_LVL_N2"></span><span id="_CPPv214ESP_PWR_LVL_N2"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a691b558775cbee0308557f3be1f13425"></span><code class="descname">ESP_PWR_LVL_N2</code> = ESP_PWR_LVL_N0<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_N2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! -2dbm-ზე დაყენება რეალურად 0dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P1">
+<span id="_CPPv314ESP_PWR_LVL_P1"></span><span id="_CPPv214ESP_PWR_LVL_P1"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009ac043f49a13c5995ccd3485c29d87aeeb"></span><code class="descname">ESP_PWR_LVL_P1</code> = ESP_PWR_LVL_P3<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! +1dbm-ზე დაყენება სინამდვილეში +3dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P4">
+<span id="_CPPv314ESP_PWR_LVL_P4"></span><span id="_CPPv214ESP_PWR_LVL_P4"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a075ed79a99b8c6ee7bd80cb3d36f4cab"></span><code class="descname">ESP_PWR_LVL_P4</code> = ESP_PWR_LVL_P6<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P4" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! +4dbm-ზე დაყენება სინამდვილეში +6dbm-ს გამოიწვევს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_PWR_LVL_P7">
+<span id="_CPPv314ESP_PWR_LVL_P7"></span><span id="_CPPv214ESP_PWR_LVL_P7"></span><span class="target" id="esp__bt_8h_1aaffee2888a1597a4282393f41ed5e009a9aca1e83e52640195838aca1205f713e"></span><code class="descname">ESP_PWR_LVL_P7</code> = ESP_PWR_LVL_P9<a class="headerlink" href="controller_vhci.html#_CPPv414ESP_PWR_LVL_P7" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუთავსებადობა! +7dbm-ზე დაყენება სინამდვილეში +9dbm-ს გამოიწვევს. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv419esp_sco_data_path_t">
+<span id="_CPPv319esp_sco_data_path_t"></span><span id="_CPPv219esp_sco_data_path_t"></span><span id="esp_sco_data_path_t"></span><span class="target" id="esp__bt_8h_1a1e1c2f9d09823ba525b363e1865ae3b2"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_sco_data_path_t</code><a class="headerlink" href="controller_vhci.html#_CPPv419esp_sco_data_path_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth აუდიო მონაცემების ტრანსპორტირების გზა. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SCO_DATA_PATH_HCI">
+<span id="_CPPv321ESP_SCO_DATA_PATH_HCI"></span><span id="_CPPv221ESP_SCO_DATA_PATH_HCI"></span><span class="target" id="esp__bt_8h_1a1e1c2f9d09823ba525b363e1865ae3b2acb868b85fe9c06a6726071dcb17c2ff5"></span><code class="descname">ESP_SCO_DATA_PATH_HCI</code> = 0<a class="headerlink" href="controller_vhci.html#_CPPv421ESP_SCO_DATA_PATH_HCI" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემები HCI ტრანსპორტირების შესახებ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SCO_DATA_PATH_PCM">
+<span id="_CPPv321ESP_SCO_DATA_PATH_PCM"></span><span id="_CPPv221ESP_SCO_DATA_PATH_PCM"></span><span class="target" id="esp__bt_8h_1a1e1c2f9d09823ba525b363e1865ae3b2a69504d3de243dad385bd1af9fed77c2d"></span><code class="descname">ESP_SCO_DATA_PATH_PCM</code> = 1<a class="headerlink" href="controller_vhci.html#_CPPv421ESP_SCO_DATA_PATH_PCM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემები PCM ინტერფეისით </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="bt_common.html" rel="next" title="BT COMMON">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Bluetooth API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

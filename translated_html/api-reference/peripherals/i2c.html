@@ -1,0 +1,1155 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>I2C დრაივერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="i2s.html" rel="next" title="I2S"/>
+<link href="gpio.html" rel="prev" title="GPIO &amp; RTC GPIO"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/i2c.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/i2c"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/i2c.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="i2c.html#">I2C</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="i2c.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2c.html#driver-features">დრაივერის მახასიათებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2c.html#driver-usage">დრაივერის გამოყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2c.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="i2c.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>I2C დრაივერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/i2c.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="i2c-driver">
+<h1>I2C დრაივერი<a class="headerlink" href="i2c.html#i2c-driver" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="i2c.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>I2C არის სერიული, სინქრონული, ნახევრად დუპლექსური საკომუნიკაციო პროტოკოლი, რომელიც საშუალებას იძლევა ერთსა და იმავე ავტობუსზე მრავალი მთავარი და დამხმარე მოწყობილობის თანაარსებობა. I2C ავტობუსს ორი ხაზი აქვს: სერიული მონაცემთა ხაზი (SDA) და სერიული საათის ხაზი (SCL). ორივე ხაზს სჭირდება გამწევი რეზისტორები.</p>
+<p>ისეთი უპირატესობებით, როგორიცაა სიმარტივე და დაბალი წარმოების ღირებულება, I2C ძირითადად გამოიყენება დაბალი სიჩქარის პერიფერიული მოწყობილობების მცირე დისტანციებზე (ერთი ფუტის ფარგლებში) კომუნიკაციისთვის.</p>
+<p>ESP32-ს აქვს ორი I2C კონტროლერი (ასევე მოიხსენიება როგორც პორტები), რომლებიც პასუხისმგებელნი არიან ორ I2C ავტობუსზე კომუნიკაციის დამუშავებაზე. თითოეულ I2C კონტროლერს შეუძლია იმუშაოს როგორც მასტერ-ს ან მონა-კონტროლერს. მაგალითად, ერთ კონტროლერს შეუძლია ერთდროულად იმოქმედოს როგორც მასტერ-კონტროლერმა, ხოლო მეორე - მონა-კონტროლერმა.</p>
+</div>
+<div class="section" id="driver-features">
+<h2>დრაივერის მახასიათებლები<a class="headerlink" href="i2c.html#driver-features" title="Permalink to this headline">¶</a></h2>
+<p>I2C დრაივერი არეგულირებს მოწყობილობების კომუნიკაციას I2C ავტობუსის მეშვეობით. დრაივერი მხარს უჭერს შემდეგ ფუნქციებს:</p>
+<ul class="simple">
+<li>ბაიტების კითხვა და ჩაწერა Master რეჟიმში</li>
+<li>მონა რეჟიმი</li>
+<li>რეგისტრების კითხვა და ჩაწერა, რომლებსაც თავის მხრივ მთავარი მეხსიერება კითხულობს/წერს.</li>
+</ul>
+</div>
+<div class="section" id="driver-usage">
+<h2>დრაივერის გამოყენება<a class="headerlink" href="i2c.html#driver-usage" title="Permalink to this headline">¶</a></h2>
+<p>შემდეგი სექციები აღწერს I2C დრაივერის კონფიგურაციისა და მუშაობის ტიპურ ნაბიჯებს:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="i2c.html#i2c-api-configure-driver"><span class="std std-ref">კონფიგურაცია</span></a> - ინიციალიზაციის პარამეტრების დაყენება (მასტერ ან მონა რეჟიმი, SDA და SCL-ისთვის GPIO პინები, საათის სიხშირე და ა.შ.)</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-install-driver"><span class="std std-ref">დრაივერის ინსტალაცია</span></a>- გაააქტიურეთ დრაივერი ორი I2C კონტროლერიდან ერთ-ერთზე, როგორც მასტერ ან მონა</li>
+<li>იმისდა მიხედვით, თუ დრაივერს მთავარი თუ დაქვემდებარებული დრაივერისთვის აკონფიგურირებთ, აირჩიეთ შესაბამისი ელემენტი.<ol class="loweralpha">
+<li><a class="reference internal" href="i2c.html#i2c-api-master-mode"><span class="std std-ref">კომუნიკაცია, როგორც ოსტატი</span></a> - კომუნიკაციების მართვა (მასტერი)</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-slave-mode"><span class="std std-ref">კომუნიკაცია, როგორც მონა</span></a> - უპასუხეთ მასტერის (მონისგან) შეტყობინებებს</li>
+</ol>
+</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-interrupt-handling"><span class="std std-ref">შეფერხების დამუშავება</span></a> - I2C შეფერხებების კონფიგურაცია და მომსახურება</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-customized-configuration"><span class="std std-ref">მორგებული კონფიგურაცია</span></a> - შეცვალეთ I2C კომუნიკაციის ნაგულისხმევი პარამეტრები (დროები, ბიტების თანმიმდევრობა და ა.შ.)</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-error-handling"><span class="std std-ref">შეცდომების დამუშავება</span></a> - როგორ ამოვიცნოთ და გავუმკლავდეთ დრაივერის კონფიგურაციისა და კომუნიკაციის შეცდომებს</li>
+<li><a class="reference internal" href="i2c.html#i2c-api-delete-driver"><span class="std std-ref">დრაივერის წაშლა</span></a>- გაათავისუფლეთ I2C დრაივერის მიერ გამოყენებული რესურსები კომუნიკაციის დასრულებისას</li>
+</ol>
+<div class="section" id="configuration">
+<span id="i2c-api-configure-driver"></span><h3>კონფიგურაცია<a class="headerlink" href="i2c.html#configuration" title="Permalink to this headline">¶</a></h3>
+<p>I2C კომუნიკაციის დასამყარებლად, დაიწყეთ დრაივერის კონფიგურაციით. ეს კეთდება სტრუქტურის პარამეტრების დაყენებით. <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_config_t</span></code>:</p>
+<ul>
+<li><p class="first">I2C-ის დაყენება <strong>ოპერაციის რეჟიმი</strong> - მონა ან ბატონი <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_mode_t</span></code></p>
+</li>
+<li><p class="first">კონფიგურაცია <strong>საკომუნიკაციო პინები</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>SDA და SCL სიგნალებისთვის GPIO პინების მინიჭება</li>
+<li>დააყენეთ, ჩაირთოს თუ არა ESP32-ის შიდა pull-up-ები</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">(მხოლოდ მთავარი) დააყენეთ I2C პორტი (მხოლოდ მთავარი) <strong>საათის სიჩქარე</strong></p>
+</li>
+<li><p class="first">(მხოლოდ დაქვემდებარებული) კონფიგურაცია გაუკეთეთ შემდეგს</p>
+<blockquote>
+<div><ul class="simple">
+<li>ჩართვა თუ არა <strong>10 ბიტიანი მისამართის რეჟიმი</strong></li>
+<li>განსაზღვრა <strong>მონა მისამართი</strong></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>ამის შემდეგ, მოცემული I2C პორტის კონფიგურაციის ინიციალიზაცია. ამისათვის გამოიძახეთ ფუნქცია <a class="reference internal" href="i2c.html#_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t" title="i2c_param_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_param_config()</span></code></a> და გადაეცით მას პორტის ნომერი და სტრუქტურა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_config_t</span></code>.</p>
+<p>ამ ეტაპზე, <a class="reference internal" href="i2c.html#_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t" title="i2c_param_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_param_config()</span></code></a> ასევე ადგენს I2C კონფიგურაციის რამდენიმე სხვა პარამეტრს ნაგულისხმევ მნიშვნელობებზე, რომლებიც განსაზღვრულია I2C სპეციფიკაციით. მნიშვნელობების და მათი შეცვლის შესახებ დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="i2c.html#i2c-api-customized-configuration"><span class="std std-ref">მორგებული კონფიგურაცია</span></a>.</p>
+</div>
+<div class="section" id="install-driver">
+<span id="i2c-api-install-driver"></span><h3>დრაივერის ინსტალაცია<a class="headerlink" href="i2c.html#install-driver" title="Permalink to this headline">¶</a></h3>
+<p>I2C დრაივერის კონფიგურაციის შემდეგ, დააინსტალირეთ იგი ფუნქციის გამოძახებით <a class="reference internal" href="i2c.html#_CPPv418i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti" title="i2c_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_driver_install()</span></code></a> შემდეგი პარამეტრებით:</p>
+<ul class="simple">
+<li>პორტის ნომერი, ორი პორტის ნომრიდან ერთ-ერთი <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_port_t</span></code></li>
+<li>ბატონი ან მონა, შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_mode_t</span></code></li>
+<li>(მხოლოდ დაქვემდებარებული პროგრამა) მონაცემთა გაგზავნისა და მიღებისთვის გამოყოფილი ბუფერების ზომა. რადგან I2C არის მასტერ-ცენტრული ავტობუსი, მონაცემები დაქვემდებარებული პროგრამიდან მასტერზე შეიძლება გადავიდეს მხოლოდ მასტერის მოთხოვნით. ამიტომ, დაქვემდებარებულ პროგრამას, როგორც წესი, ექნება გაგზავნის ბუფერი, სადაც დაქვემდებარებული პროგრამა წერს მონაცემებს. მონაცემები რჩება გაგზავნის ბუფერში, რათა მასტერმა წაიკითხოს იგი საკუთარი შეხედულებისამებრ.</li>
+<li>შეფერხების მინიჭების დროშები (იხილეთ ESP_INTR_FLAG_* მნიშვნელობები) <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp32/include/esp_intr_alloc.h">esp32/include/esp_intr_alloc.h</a>)</li>
+</ul>
+</div>
+<div class="section" id="communication-as-master">
+<span id="i2c-api-master-mode"></span><h3>კომუნიკაცია, როგორც ოსტატი<a class="headerlink" href="i2c.html#communication-as-master" title="Permalink to this headline">¶</a></h3>
+<p>I2C დრაივერის ინსტალაციის შემდეგ, ESP32 მზადაა სხვა I2C მოწყობილობებთან კომუნიკაციისთვის.</p>
+<p>ESP32-ის I2C კონტროლერი, რომელიც მუშაობს როგორც მასტერი, პასუხისმგებელია I2C მონა მოწყობილობებთან კომუნიკაციის დამყარებასა და მონას მოქმედების გასააქტიურებლად ბრძანებების გაგზავნაზე, მაგალითად, გაზომვის აღებისა და მონაცემების მასტერისთვის უკან გაგზავნისთვის.</p>
+<p>პროცესის უკეთესი ორგანიზებისთვის, დრაივერი უზრუნველყოფს კონტეინერს, რომელსაც ეწოდება „ბრძანების ბმული“, რომელიც უნდა შეივსოს ბრძანებების თანმიმდევრობით და შემდეგ გადაეცეს I2C კონტროლერს შესასრულებლად.</p>
+<div class="section" id="master-write">
+<h4>მასტერ-წერის<a class="headerlink" href="i2c.html#master-write" title="Permalink to this headline">¶</a></h4>
+<p>ქვემოთ მოცემული მაგალითი გვიჩვენებს, თუ როგორ უნდა ავაშენოთ ბრძანების ბმული I2C მასტერისთვის გასაგზავნად. <em>ნ</em> ბაიტები მონაზე.</p>
+<div class="figure align-center" id="id2">
+<div><a class="reference internal image-reference" href="../../_images/blockdiag-d171131f72da1185eb3be8f6ed165b13e319687e.png"><img height="355.0" src="../../_images/blockdiag-d171131f72da1185eb3be8f6ed165b13e319687e.png" width="764.0"/></a></div><p class="caption"><span class="caption-text">I2C ბრძანების ბმული - მასტერ ჩაწერის მაგალითი</span><a class="headerlink" href="i2c.html#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>ქვემოთ აღწერილია, თუ როგორ იქმნება „ძირითადი ჩაწერის“ ბრძანების ბმული და რა შედის მასში:</p>
+<ol class="arabic">
+<li><p class="first">შექმენით ბრძანების ბმული <a class="reference internal" href="i2c.html#_CPPv419i2c_cmd_link_createv" title="i2c_cmd_link_create"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_cmd_link_create()</span></code></a>.</p>
+<blockquote>
+<div><p>შემდეგ, შეავსეთ იგი მონაზე გასაგზავნი მონაცემების სერიით:</p>
+</div></blockquote>
+<ol class="loweralpha simple">
+<li><strong>დაწყების ბიტი</strong> - <a class="reference internal" href="i2c.html#_CPPv416i2c_master_start16i2c_cmd_handle_t" title="i2c_master_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_start()</span></code></a></li>
+<li><strong>მონა მისამართი</strong> - <a class="reference internal" href="i2c.html#_CPPv421i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb" title="i2c_master_write_byte"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_write_byte()</span></code></a>ერთბაიტიანი მისამართი მოცემულია ამ ფუნქციის გამოძახების არგუმენტად.</li>
+<li><strong>მონაცემები</strong> - ერთი ან მეტი ბაიტი, როგორც არგუმენტი <a class="reference internal" href="i2c.html#_CPPv416i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb" title="i2c_master_write"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_write()</span></code></a></li>
+<li><strong>გაჩერების ბიტი</strong> - <a class="reference internal" href="i2c.html#_CPPv415i2c_master_stop16i2c_cmd_handle_t" title="i2c_master_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_stop()</span></code></a></li>
+</ol>
+<blockquote>
+<div><p>ორივე ფუნქცია <a class="reference internal" href="i2c.html#_CPPv421i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb" title="i2c_master_write_byte"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_write_byte()</span></code></a> და <a class="reference internal" href="i2c.html#_CPPv416i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb" title="i2c_master_write"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_write()</span></code></a> აქვს დამატებითი არგუმენტი, რომელიც განსაზღვრავს, უნდა უზრუნველყოს თუ არა მასტერმა ACK ბიტის მიღება.</p>
+</div></blockquote>
+</li>
+<li><p class="first">I2C კონტროლერის მიერ ბრძანების ბმულის შესრულების გააქტიურება გამოძახებით <a class="reference internal" href="i2c.html#_CPPv420i2c_master_cmd_begin10i2c_port_t16i2c_cmd_handle_t10TickType_t" title="i2c_master_cmd_begin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_cmd_begin()</span></code></a>შესრულების გააქტიურების შემდეგ, ბრძანების ბმულის შეცვლა შეუძლებელია.</p>
+</li>
+<li><p class="first">ბრძანებების გადაცემის შემდეგ, გაათავისუფლეთ ბრძანების ბმულის მიერ გამოყენებული რესურსები გამოძახებით <a class="reference internal" href="i2c.html#_CPPv419i2c_cmd_link_delete16i2c_cmd_handle_t" title="i2c_cmd_link_delete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_cmd_link_delete()</span></code></a>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="master-read">
+<h4>მასტერკლასი<a class="headerlink" href="i2c.html#master-read" title="Permalink to this headline">¶</a></h4>
+<p>ქვემოთ მოცემული მაგალითი გვიჩვენებს, თუ როგორ უნდა ავაშენოთ ბრძანების ბმული I2C მასტერისთვის წასაკითხად. <em>ნ</em> ბაიტები მონიდან.</p>
+<div class="figure align-center" id="id3">
+<div><a class="reference internal image-reference" href="../../_images/blockdiag-1a722fa972a4e8ba9f84cf23a31889fafa18a16e.png"><img height="385.0" src="../../_images/blockdiag-1a722fa972a4e8ba9f84cf23a31889fafa18a16e.png" width="932.0"/></a></div><p class="caption"><span class="caption-text">I2C ბრძანების ბმული - მთავარი წაკითხვის მაგალითი</span><a class="headerlink" href="i2c.html#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>მონაცემების ჩაწერასთან შედარებით, ბრძანების ბმული შევსებულია მე-4 ნაბიჯში და არა <code class="docutils literal notranslate"><span class="pre">i2c_master_write...</span></code> ფუნქციები, მაგრამ <a class="reference internal" href="i2c.html#_CPPv420i2c_master_read_byte16i2c_cmd_handle_tP7uint8_t14i2c_ack_type_t" title="i2c_master_read_byte"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_read_byte()</span></code></a> და/ან <a class="reference internal" href="i2c.html#_CPPv415i2c_master_read16i2c_cmd_handle_tP7uint8_t6size_t14i2c_ack_type_t" title="i2c_master_read"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_master_read()</span></code></a>ასევე, მე-5 ნაბიჯში ბოლო წაკითხვა კონფიგურირებულია ისე, რომ მასტერ-მექანიზმმა არ გასცეს ACK ბიტი.</p>
+</div>
+<div class="section" id="indicating-write-or-read">
+<h4>მიუთითებს ჩაწერაზე ან წაკითხვაზე<a class="headerlink" href="i2c.html#indicating-write-or-read" title="Permalink to this headline">¶</a></h4>
+<p>მონური პორტის მისამართის გაგზავნის შემდეგ (იხილეთ ზემოთ მოცემულ ორივე დიაგრამაზე მე-3 ნაბიჯი), მასტერ პორტი ან წერს, ან კითხულობს მონური პორტიდან.</p>
+<p>ინფორმაცია იმის შესახებ, თუ რას გააკეთებს სინამდვილეში ბატონი, დამალულია მონის მისამართის ყველაზე უმნიშვნელო ნაწილში.</p>
+<p>ამ მიზეზით, მასტერის მიერ მონაზე მონაცემების ჩასაწერად გაგზავნილი ბრძანების ბმული შეიცავს მისამართს <code class="docutils literal notranslate"><span class="pre">(ESP_SLAVE_ADDR</span> <span class="pre">&lt;&lt;</span> <span class="pre">1)</span> <span class="pre">|</span> <span class="pre">I2C_MASTER_WRITE</span></code> და შემდეგნაირად გამოიყურება:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">i2c_master_write_byte</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="p">(</span><span class="n">ESP_SLAVE_ADDR</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">I2C_MASTER_WRITE</span><span class="p">,</span> <span class="n">ACK_EN</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ანალოგიურად, მონიდან წასაკითხი ბრძანების ბმული ასე გამოიყურება:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">i2c_master_write_byte</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="p">(</span><span class="n">ESP_SLAVE_ADDR</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">I2C_MASTER_READ</span><span class="p">,</span> <span class="n">ACK_EN</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="communication-as-slave">
+<span id="i2c-api-slave-mode"></span><h3>კომუნიკაცია, როგორც მონა<a class="headerlink" href="i2c.html#communication-as-slave" title="Permalink to this headline">¶</a></h3>
+<p>I2C დრაივერის ინსტალაციის შემდეგ, ESP32 მზადაა სხვა I2C მოწყობილობებთან კომუნიკაციისთვის.</p>
+<p>API უზრუნველყოფს შემდეგ ფუნქციებს მონებისთვის</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="i2c.html#_CPPv421i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t" title="i2c_slave_read_buffer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_slave_read_buffer()</span></code></a></p>
+<blockquote>
+<div><p>როდესაც მთავარი მოწყობილობა მონაცემებს წერს მონა მეხსიერებაში, მონა ავტომატურად შეინახავს მას მიმღებ ბუფერში. ეს საშუალებას აძლევს მონა აპლიკაციას გამოიძახოს ფუნქცია. <a class="reference internal" href="i2c.html#_CPPv421i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t" title="i2c_slave_read_buffer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_slave_read_buffer()</span></code></a> საკუთარი შეხედულებისამებრ. ამ ფუნქციას ასევე აქვს პარამეტრი ბლოკის დროის დასადგენად, თუ მიმღებ ბუფერში მონაცემები არ არის. ეს საშუალებას მისცემს მონა აპლიკაციას, გარკვეული დროის განმავლობაში დაელოდოს მონაცემების ბუფერში მოხვედრას.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="i2c.html#_CPPv422i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t" title="i2c_slave_write_buffer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_slave_write_buffer()</span></code></a></p>
+<blockquote>
+<div><p>გაგზავნის ბუფერი გამოიყენება ყველა იმ მონაცემის შესანახად, რომლის გაგზავნაც მონას სურს მასტერისთვის FIFO თანმიმდევრობით. მონაცემები იქ რჩება მანამ, სანამ მასტერი არ მოითხოვს მათ. ფუნქცია <a class="reference internal" href="i2c.html#_CPPv422i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t" title="i2c_slave_write_buffer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_slave_write_buffer()</span></code></a> აქვს პარამეტრი, რომელიც განსაზღვრავს ბლოკის დროს, თუ გაგზავნის ბუფერი სავსეა. ეს საშუალებას მისცემს მონა აპლიკაციას, დაელოდოს მითითებული დროის ამოწურვით, სანამ გაგზავნის ბუფერში საკმარისი ადგილი არ გამოთავისუფლდება.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>კოდის მაგალითი, რომელიც აჩვენებს, თუ როგორ გამოიყენოთ ეს ფუნქციები, შეგიძლიათ იხილოთ შემდეგში: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/i2c">პერიფერიული მოწყობილობები/i2c</a>.</p>
+</div>
+<div class="section" id="interrupt-handling">
+<span id="i2c-api-interrupt-handling"></span><h3>შეფერხების დამუშავება<a class="headerlink" href="i2c.html#interrupt-handling" title="Permalink to this headline">¶</a></h3>
+<p>დრაივერის ინსტალაციის დროს, სტანდარტულად ინსტალირდება შეფერხების დამმუშავებელი. თუმცა, თქვენ შეგიძლიათ დაარეგისტრიროთ თქვენი საკუთარი შეფერხების დამმუშავებელი ნაგულისხმევი ფუნქციის გამოძახებით. <a class="reference internal" href="i2c.html#_CPPv416i2c_isr_register10i2c_port_tPFvPvEPviP13intr_handle_t" title="i2c_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_isr_register()</span></code></a>საკუთარი შეწყვეტის დამმუშავებლის იმპლემენტაციისას, იხილეთ <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf#page=292">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a> I2C კონტროლერის მიერ გამოწვეული შეფერხებების აღსაწერად.</p>
+<p>შეფერხების დამმუშავებლის წასაშლელად, გამოიძახეთ <a class="reference internal" href="i2c.html#_CPPv412i2c_isr_free13intr_handle_t" title="i2c_isr_free"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_isr_free()</span></code></a>.</p>
+</div>
+<div class="section" id="customized-configuration">
+<span id="i2c-api-customized-configuration"></span><h3>მორგებული კონფიგურაცია<a class="headerlink" href="i2c.html#customized-configuration" title="Permalink to this headline">¶</a></h3>
+<p>როგორც ნაწილის ბოლოს აღინიშნა <a class="reference internal" href="i2c.html#i2c-api-configure-driver"><span class="std std-ref">კონფიგურაცია</span></a>, როდესაც ფუნქცია <a class="reference internal" href="i2c.html#_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t" title="i2c_param_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_param_config()</span></code></a> ინიციალიზაციას უკეთებს დრაივერის კონფიგურაციას I2C პორტისთვის, ის ასევე ადგენს რამდენიმე I2C კომუნიკაციის პარამეტრს ნაგულისხმევ მნიშვნელობებზე, რომლებიც განსაზღვრულია <a class="reference external" href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf">I2C სპეციფიკაცია</a>ზოგიერთი სხვა დაკავშირებული პარამეტრი წინასწარ არის კონფიგურირებული I2C კონტროლერის რეგისტრებში.</p>
+<p>ყველა ეს პარამეტრი შეიძლება შეიცვალოს მომხმარებლის მიერ განსაზღვრულ მნიშვნელობებად ქვემოთ მოცემულ ცხრილში მოცემული სპეციალური ფუნქციების გამოძახებით. გთხოვთ გაითვალისწინოთ, რომ დროის მნიშვნელობები განისაზღვრება APB საათის ციკლებში. APB-ის სიხშირე მითითებულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">I2C_APB_CLK_FREQ</span></code>.</p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">სხვა კონფიგურირებადი I2C კომუნიკაციის პარამეტრები</span><a class="headerlink" href="i2c.html#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="65%"/>
+<col width="35%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">შესაცვლელი პარამეტრები</th>
+<th class="head">ფუნქცია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SCL პულსების მაქსიმალური და მინიმალური დრო</td>
+<td><a class="reference internal" href="i2c.html#_CPPv414i2c_set_period10i2c_port_tii" title="i2c_set_period"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_period()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>გენერირების დროს გამოყენებული SCL და SDA სიგნალის დრო <strong>დაწყება</strong> სიგნალები</td>
+<td><a class="reference internal" href="i2c.html#_CPPv420i2c_set_start_timing10i2c_port_tii" title="i2c_set_start_timing"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_start_timing()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>გენერირების დროს გამოყენებული SCL და SDA სიგნალის დრო <strong>გაჩერება</strong> სიგნალები</td>
+<td><a class="reference internal" href="i2c.html#_CPPv419i2c_set_stop_timing10i2c_port_tii" title="i2c_set_stop_timing"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_stop_timing()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>SCL და SDA სიგნალებს შორის დროის ურთიერთობა, როგორც მონა ნიმუშების, ასევე მასტერ გადართვის დროს.</td>
+<td><a class="reference internal" href="i2c.html#_CPPv419i2c_set_data_timing10i2c_port_tii" title="i2c_set_data_timing"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_data_timing()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>I2C ტაიმ-აუტი</td>
+<td><a class="reference internal" href="i2c.html#_CPPv415i2c_set_timeout10i2c_port_ti" title="i2c_set_timeout"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_timeout()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>LSB-ის ან MSB-ის გადაცემას/მიღებას შორის არჩევანის გაკეთებისას, აირჩიეთ ერთ-ერთი რეჟიმი, რომელიც განსაზღვრულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">i2c_trans_mode_t</span></code></td>
+<td><a class="reference internal" href="i2c.html#_CPPv417i2c_set_data_mode10i2c_port_t16i2c_trans_mode_t16i2c_trans_mode_t" title="i2c_set_data_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_data_mode()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>ზემოთ ჩამოთვლილ თითოეულ ფუნქციას აქვს <em>_მიიღე_</em> მიმდინარე დაყენებული მნიშვნელობის შესამოწმებლად, გამოაძახეთ <a class="reference internal" href="i2c.html#_CPPv415i2c_get_timeout10i2c_port_tPi" title="i2c_get_timeout"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_get_timeout()</span></code></a>.</p>
+<p>დრაივერის კონფიგურაციის პროცესში დაყენებული პარამეტრების ნაგულისხმევი მნიშვნელობების შესამოწმებლად, გთხოვთ, იხილოთ ფაილი <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/i2c.c">დრაივერი/i2c.c</a> და მოძებნეთ სუფიქსიანი განსაზღვრებები <code class="docutils literal notranslate"><span class="pre">_DEFAULT</span></code>.</p>
+<p>ასევე შეგიძლიათ აირჩიოთ სხვადასხვა პინები SDA და SCL სიგნალებისთვის და შეცვალოთ pull-up-ების კონფიგურაცია ფუნქციით. <a class="reference internal" href="i2c.html#_CPPv411i2c_set_pin10i2c_port_tiibb10i2c_mode_t" title="i2c_set_pin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_set_pin()</span></code></a>თუ გსურთ უკვე შეყვანილი მნიშვნელობების შეცვლა, გამოიყენეთ ფუნქცია <a class="reference internal" href="i2c.html#_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t" title="i2c_param_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_param_config()</span></code></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP32-ის შიდა გამაძლიერებლები ათობით kOhm-ის დიაპაზონშია, რაც, უმეტეს შემთხვევაში, არასაკმარისია I2C გამაძლიერებლებად გამოსაყენებლად. მომხმარებლებს ურჩევენ გამოიყენონ გარე გამაძლიერებლები, რომელთა მნიშვნელობები აღწერილია <a class="reference external" href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf">I2C სპეციფიკაცია</a>.</p>
+</div>
+</div>
+<div class="section" id="error-handling">
+<span id="i2c-api-error-handling"></span><h3>შეცდომების დამუშავება<a class="headerlink" href="i2c.html#error-handling" title="Permalink to this headline">¶</a></h3>
+<p>I2C დრაივერის ფუნქციების უმეტესობა ან აბრუნებს <code class="docutils literal notranslate"><span class="pre">ESP_OK</span></code> წარმატებით დასრულებისას ან კონკრეტული შეცდომის კოდი წარუმატებლობისას. კარგი პრაქტიკაა დაბრუნებული მნიშვნელობების ყოველთვის შემოწმება და შეცდომების დამუშავების განხორციელება. დრაივერი ასევე ბეჭდავს ჟურნალის შეტყობინებებს, რომლებიც შეიცავს შეცდომის დეტალებს, მაგალითად, შეყვანილი კონფიგურაციის ვალიდურობის შემოწმებისას. დეტალებისთვის იხილეთ ფაილი <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/i2c.c">დრაივერი/i2c.c</a> და მოძებნეთ სუფიქსიანი განსაზღვრებები <code class="docutils literal notranslate"><span class="pre">_ERR_STR</span></code>.</p>
+<p>კომუნიკაციის ხარვეზების დასაფიქსირებლად გამოიყენეთ სპეციალური შეფერხებები. მაგალითად, თუ მონა მმართველი მონაცემთა მასტერისთვის გასაგზავნად მომზადებისას საათს ძალიან დიდხანს აჭიანურებს, შეფერხება <code class="docutils literal notranslate"><span class="pre">I2C_TIME_OUT_INT</span></code> გააქტიურდება. დეტალური ინფორმაციისთვის იხილეთ <a class="reference internal" href="i2c.html#i2c-api-interrupt-handling"><span class="std std-ref">შეფერხების დამუშავება</span></a>.</p>
+<p>კომუნიკაციის უკმარისობის შემთხვევაში, შეგიძლიათ აღადგინოთ შიდა აპარატურის ბუფერები ფუნქციების გამოძახებით <a class="reference internal" href="i2c.html#_CPPv417i2c_reset_tx_fifo10i2c_port_t" title="i2c_reset_tx_fifo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_reset_tx_fifo()</span></code></a> და <a class="reference internal" href="i2c.html#_CPPv417i2c_reset_rx_fifo10i2c_port_t" title="i2c_reset_rx_fifo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_reset_rx_fifo()</span></code></a> შესაბამისად, გაგზავნის და მიღების ბუფერებისთვის.</p>
+</div>
+<div class="section" id="delete-driver">
+<span id="i2c-api-delete-driver"></span><h3>დრაივერის წაშლა<a class="headerlink" href="i2c.html#delete-driver" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც I2C კომუნიკაცია დამყარებულია ფუნქციასთან <a class="reference internal" href="i2c.html#_CPPv418i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti" title="i2c_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_driver_install()</span></code></a> და არ არის საჭირო გარკვეული დროის განმავლობაში, დრაივერის დეინიციალიზაცია შესაძლებელია გამოყოფილი რესურსების გასათავისუფლებლად გამოძახებით. <a class="reference internal" href="i2c.html#_CPPv417i2c_driver_delete10i2c_port_t" title="i2c_driver_delete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">i2c_driver_delete()</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="i2c.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>I2C მასტერისა და მონის მაგალითი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/i2c">პერიფერიული მოწყობილობები/i2c</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="i2c.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="i2c.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/i2c.h">დრაივერი/ჩართე/დრაივერი/i2c.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="i2c.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv418i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti">
+<span id="_CPPv318i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti"></span><span id="_CPPv218i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti"></span><span id="i2c_driver_install__i2c_port_t.i2c_mode_t.s.s.i"></span><span class="target" id="i2c_8h_1a9caa9285f1241dbb8240be98f10b0f1b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_driver_install</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, i2c_mode_t <em>რეჟიმი</em>, size_t <em>slv_rx_buf_len</em>, size_t <em>slv_tx_buf_len</em>, int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv418i2c_driver_install10i2c_port_t10i2c_mode_t6size_t6size_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C დრაივერის ინსტალაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only slave mode will use this value, driver will ignore this value in master mode. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only slave mode will use this value, driver will ignore this value in master mode. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In master mode, if the cache is likely to be disabled(such as write flash) and the slave is time-sensitive, <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code> is suggested to be used. In this case, please use the memory allocated from internal RAM in i2c read and write function, because we can not access the psram(if psram is enabled) in interrupt handle function when cache is disabled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL დრაივერის ინსტალაციის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>I2C რეჟიმი (მასტერი ან მონა) </li>
+<li><code class="docutils literal notranslate"><span class="pre">slv_rx_buf_len</span></code>: მიმღები ბუფერის ზომა მონა რეჟიმისთვის </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slv_tx_buf_len</span></code>: ბუფერის ზომის გაგზავნა მონა რეჟიმისთვის </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_driver_delete10i2c_port_t">
+<span id="_CPPv317i2c_driver_delete10i2c_port_t"></span><span id="_CPPv217i2c_driver_delete10i2c_port_t"></span><span id="i2c_driver_delete__i2c_port_t"></span><span class="target" id="i2c_8h_1ac82a808d379e776581da8b7d25a71731"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_driver_delete</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_driver_delete10i2c_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C დრაივერის წაშლა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t">
+<span id="_CPPv316i2c_param_config10i2c_port_tPK12i2c_config_t"></span><span id="_CPPv216i2c_param_config10i2c_port_tPK12i2c_config_t"></span><span id="i2c_param_config__i2c_port_t.i2c_config_tCP"></span><span class="target" id="i2c_8h_1a5a9d8c206aa11265e414c2273191d9d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_param_config</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, <em class="property">კონსტ</em> i2c_config_t *<em>i2c_conf</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv416i2c_param_config10i2c_port_tPK12i2c_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C პარამეტრის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">i2c_conf</span></code>: I2C პარამეტრის პარამეტრების მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_reset_tx_fifo10i2c_port_t">
+<span id="_CPPv317i2c_reset_tx_fifo10i2c_port_t"></span><span id="_CPPv217i2c_reset_tx_fifo10i2c_port_t"></span><span id="i2c_reset_tx_fifo__i2c_port_t"></span><span class="target" id="i2c_8h_1aff5e1a771e42f1ebbe989ee050e0018a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_reset_tx_fifo</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_reset_tx_fifo10i2c_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C tx აპარატურის FIFO-ს გადატვირთვა </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_reset_rx_fifo10i2c_port_t">
+<span id="_CPPv317i2c_reset_rx_fifo10i2c_port_t"></span><span id="_CPPv217i2c_reset_rx_fifo10i2c_port_t"></span><span id="i2c_reset_rx_fifo__i2c_port_t"></span><span class="target" id="i2c_8h_1a392360156704522fafb7af2fd0151e98"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_reset_rx_fifo</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_reset_rx_fifo10i2c_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C rx fifo-ს გადატვირთვა </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2c_isr_register10i2c_port_tPFvPvEPviP13intr_handle_t">
+<span id="_CPPv316i2c_isr_register10i2c_port_tPFvPvEPviP13intr_handle_t"></span><span id="_CPPv216i2c_isr_register10i2c_port_tPFvPvEPviP13intr_handle_t"></span><span class="target" id="i2c_8h_1aed796d041130b1dee680cd758911fe97"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_isr_register</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv416i2c_isr_register10i2c_port_tPFvPvEPviP13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C isr დამმუშავებლის რეგისტრი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>: isr დამმუშავებლის ფუნქცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: isr დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: esp_intr_alloc-დან დაბრუნების დამუშავება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412i2c_isr_free13intr_handle_t">
+<span id="_CPPv312i2c_isr_free13intr_handle_t"></span><span id="_CPPv212i2c_isr_free13intr_handle_t"></span><span id="i2c_isr_free__intr_handle_t"></span><span class="target" id="i2c_8h_1ad27ddf70ba4233e0a97d4f614914de56"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_isr_free</code><span class="sig-paren">(</span><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv412i2c_isr_free13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C isr-ის წასაშლელად და გასათავისუფლებლად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: ისრის სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411i2c_set_pin10i2c_port_tiibb10i2c_mode_t">
+<span id="_CPPv311i2c_set_pin10i2c_port_tiibb10i2c_mode_t"></span><span id="_CPPv211i2c_set_pin10i2c_port_tiibb10i2c_mode_t"></span><span id="i2c_set_pin__i2c_port_t.i.i.b.b.i2c_mode_t"></span><span class="target" id="i2c_8h_1ab00103c485eb8e395e1eaa03297ad214"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_pin</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>sda_io_num</em>, int <em>scl_io_num</em>, bool <em>sda_pullup_en</em>, bool <em>scl_pullup_en</em>, i2c_mode_t <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv411i2c_set_pin10i2c_port_tiibb10i2c_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C sck-ისა და sda-სთვის GPIO სიგნალის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sda_io_num</span></code>: GPIO ნომერი I2C sda სიგნალისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">scl_io_num</span></code>: GPIO ნომერი I2C scl სიგნალისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">sda_pullup_en</span></code>: ჩაირთოს თუ არა sda pin-ისთვის შიდა pull-up </li>
+<li><code class="docutils literal notranslate"><span class="pre">scl_pullup_en</span></code>: ჩაირთოს თუ არა scl pin-ისთვის შიდა pull-up ფუნქცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>I2C რეჟიმი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_cmd_link_createv">
+<span id="_CPPv319i2c_cmd_link_createv"></span><span id="_CPPv219i2c_cmd_link_createv"></span><span id="i2c_cmd_link_create__void"></span><span class="target" id="i2c_8h_1adc782b89202ff94887f839e45e85ae25"></span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <code class="descname">i2c_cmd_link_create</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_cmd_link_createv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით და ინიციალიზაცია გაუკეთეთ I2C ბრძანების ბმულს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Before we build I2C command link, we need to call i2c_cmd_link_create() to create a command link. After we finish sending the commands, we need to call i2c_cmd_link_delete() to release and return the resources.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>i2c command link handler </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_cmd_link_delete16i2c_cmd_handle_t">
+<span id="_CPPv319i2c_cmd_link_delete16i2c_cmd_handle_t"></span><span id="_CPPv219i2c_cmd_link_delete16i2c_cmd_handle_t"></span><span id="i2c_cmd_link_delete__i2c_cmd_handle_t"></span><span class="target" id="i2c_8h_1a7685c5cfa368b04e2e73d9ccbd931d59"></span>void <code class="descname">i2c_cmd_link_delete</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_cmd_link_delete16i2c_cmd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უფასო I2C ბრძანების ბმული. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Before we build I2C command link, we need to call i2c_cmd_link_create() to create a command link. After we finish sending the commands, we need to call i2c_cmd_link_delete() to release and return the resources.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C ბრძანების სახელური </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2c_master_start16i2c_cmd_handle_t">
+<span id="_CPPv316i2c_master_start16i2c_cmd_handle_t"></span><span id="_CPPv216i2c_master_start16i2c_cmd_handle_t"></span><span id="i2c_master_start__i2c_cmd_handle_t"></span><span class="target" id="i2c_8h_1af259c465d93263834c04bbf3d93b947b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_start</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv416i2c_master_start16i2c_cmd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მასტერისთვის რიგის ბრძანება დაწყების სიგნალის გენერირებისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb">
+<span id="_CPPv321i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb"></span><span id="_CPPv221i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb"></span><span id="i2c_master_write_byte__i2c_cmd_handle_t.uint8_t.b"></span><span class="target" id="i2c_8h_1a1e0dce2e841dcc8e097c6e3834fcf0c3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_write_byte</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em>, uint8_t <em>მონაცემები</em>, bool <em>ack_en</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv421i2c_master_write_byte16i2c_cmd_handle_t7uint8_tb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რიგის ბრძანება I2C მასტერისთვის, რათა ჩაწეროს ერთი ბაიტი I2C ავტობუსში. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>I2C ერთბაიტიანი ბრძანება ავტობუსში ჩასაწერად </li>
+<li><code class="docutils literal notranslate"><span class="pre">ack_en</span></code>: მთავარი პორტისთვის დადასტურების შემოწმების ჩართვა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb">
+<span id="_CPPv316i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb"></span><span id="_CPPv216i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb"></span><span id="i2c_master_write__i2c_cmd_handle_t.uint8_tP.s.b"></span><span class="target" id="i2c_8h_1a5a60c9c0f376283bae968aff40942419"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_write</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em>, uint8_t *<em>მონაცემები</em>, size_t <em>data_len</em>, bool <em>ack_en</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv416i2c_master_write16i2c_cmd_handle_tP7uint8_t6size_tb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მასტერისთვის რიგის ბრძანება I2C ავტობუსში ბუფერის ჩასაწერად. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the psram is enabled and intr_flag is <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code>, please use the memory allocated from internal RAM. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: გასაგზავნი მონაცემები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">data_len</span></code>: მონაცემთა სიგრძე </li>
+<li><code class="docutils literal notranslate"><span class="pre">ack_en</span></code>: მთავარი პორტისთვის დადასტურების შემოწმების ჩართვა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2c_master_read_byte16i2c_cmd_handle_tP7uint8_t14i2c_ack_type_t">
+<span id="_CPPv320i2c_master_read_byte16i2c_cmd_handle_tP7uint8_t14i2c_ack_type_t"></span><span id="_CPPv220i2c_master_read_byte16i2c_cmd_handle_tP7uint8_t14i2c_ack_type_t"></span><span id="i2c_master_read_byte__i2c_cmd_handle_t.uint8_tP.i2c_ack_type_t"></span><span class="target" id="i2c_8h_1a7e1c11e7e25014016d80bc9e97c9f343"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_read_byte</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em>, uint8_t *<em>მონაცემები</em>, i2c_ack_type_t <em>აკი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv420i2c_master_read_byte16i2c_cmd_handle_tP7uint8_t14i2c_ack_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რიგის ბრძანება I2C მასტერისთვის, რათა წაიკითხოს ერთი ბაიტი I2C ავტობუსიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the psram is enabled and intr_flag is <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code>, please use the memory allocated from internal RAM. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: მაჩვენებელი იღებს მონაცემთა ბაიტს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ack</span></code>: ack მნიშვნელობა წაკითხვის ბრძანებისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415i2c_master_read16i2c_cmd_handle_tP7uint8_t6size_t14i2c_ack_type_t">
+<span id="_CPPv315i2c_master_read16i2c_cmd_handle_tP7uint8_t6size_t14i2c_ack_type_t"></span><span id="_CPPv215i2c_master_read16i2c_cmd_handle_tP7uint8_t6size_t14i2c_ack_type_t"></span><span id="i2c_master_read__i2c_cmd_handle_t.uint8_tP.s.i2c_ack_type_t"></span><span class="target" id="i2c_8h_1a686c8a715b880b7335326a15484d4c91"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_read</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em>, uint8_t *<em>მონაცემები</em>, size_t <em>data_len</em>, i2c_ack_type_t <em>აკი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv415i2c_master_read16i2c_cmd_handle_tP7uint8_t6size_t14i2c_ack_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რიგის ბრძანება I2C მასტერისთვის, რათა წაიკითხოს მონაცემები I2C ავტობუსიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If the psram is enabled and intr_flag is <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code>, please use the memory allocated from internal RAM. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: მონაცემთა ბუფერი ავტობუსიდან მონაცემების მისაღებად </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">data_len</span></code>: წაკითხვის მონაცემების სიგრძე </li>
+<li><code class="docutils literal notranslate"><span class="pre">ack</span></code>: ack მნიშვნელობა წაკითხვის ბრძანებისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415i2c_master_stop16i2c_cmd_handle_t">
+<span id="_CPPv315i2c_master_stop16i2c_cmd_handle_t"></span><span id="_CPPv215i2c_master_stop16i2c_cmd_handle_t"></span><span id="i2c_master_stop__i2c_cmd_handle_t"></span><span class="target" id="i2c_8h_1a19581b2eea163fe58d019535f6751406"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_stop</code><span class="sig-paren">(</span><a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv415i2c_master_stop16i2c_cmd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მასტერისთვის რიგის ბრძანება გაჩერების სიგნალის გენერირებისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode Call i2c_master_cmd_begin() to send all queued commands</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C cmd ბმული</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2c_master_cmd_begin10i2c_port_t16i2c_cmd_handle_t10TickType_t">
+<span id="_CPPv320i2c_master_cmd_begin10i2c_port_t16i2c_cmd_handle_t10TickType_t"></span><span id="_CPPv220i2c_master_cmd_begin10i2c_port_t16i2c_cmd_handle_t10TickType_t"></span><span id="i2c_master_cmd_begin__i2c_port_t.i2c_cmd_handle_t.TickType_t"></span><span class="target" id="i2c_8h_1a8a1c5986edf088af184297bab71b4170"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_master_cmd_begin</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, <a class="reference internal" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="i2c_cmd_handle_t">i2c_cmd_handle_t</a> <em>cmd_handle</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv420i2c_master_cmd_begin10i2c_port_t16i2c_cmd_handle_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C master აგზავნის რიგში მყოფ ბრძანებებს. ეს ფუნქცია გამოიწვევს რიგში მყოფი ყველა ბრძანების გაგზავნას. დავალება დაიბლოკება მანამ, სანამ ყველა ბრძანება არ გაიგზავნება. I2C API არ არის უსაფრთხო ძაფებისთვის, თუ გსურთ ერთი I2C პორტის გამოყენება სხვადასხვა დავალებებში, უნდა იზრუნოთ მრავალძაფიან საკითხზე. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C master mode</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL ბრძანების გაგზავნის შეცდომა, მონა არ ადასტურებს გადაცემას.</li>
+<li>ESP_ERR_INVALID_STATE I2C დრაივერი არ არის დაინსტალირებული ან არ არის მთავარ რეჟიმში.</li>
+<li>ESP_ERR_TIMEOUT ოპერაციის ვადა ამოიწურა, რადგან ავტობუსი დაკავებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">cmd_handle</span></code>I2C ბრძანების დამმუშავებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: მაქსიმალური ლოდინის დრო.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t">
+<span id="_CPPv322i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t"></span><span id="_CPPv222i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t"></span><span id="i2c_slave_write_buffer__i2c_port_t.uint8_tP.i.TickType_t"></span><span class="target" id="i2c_8h_1abb02cc71870aedfb6a7c4cf046fd196f"></span>int <code class="descname">i2c_slave_write_buffer</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, uint8_t *<em>მონაცემები</em>, int <em>ზომა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv422i2c_slave_write_buffer10i2c_port_tP7uint8_ti10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მონა წერს მონაცემებს შიდა რინგბაფერში, როდესაც გადამცემი FIFO ცარიელია, isr შეავსებს აპარატურულ FIFO-ს შიდა რინგბაფერიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C slave mode</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL(-1) პარამეტრის შეცდომა</li>
+<li>Others(&amp;gt;=0) I2C დამონებულ ბუფერში გადატანილი მონაცემთა ბაიტების რაოდენობა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: მონაცემთა მაჩვენებელი შიდა ბუფერში ჩასაწერად </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: მონაცემთა ზომა </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>მაქსიმალური ლოდინის დრო</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t">
+<span id="_CPPv321i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t"></span><span id="_CPPv221i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t"></span><span id="i2c_slave_read_buffer__i2c_port_t.uint8_tP.s.TickType_t"></span><span class="target" id="i2c_8h_1aca23be7ff8c57e398d2810d3b82274fb"></span>int <code class="descname">i2c_slave_read_buffer</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, uint8_t *<em>მონაცემები</em>, size_t <em>მაქსიმალური_ზომა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv421i2c_slave_read_buffer10i2c_port_tP7uint8_t6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მონა კითხულობს მონაცემებს შიდა ბუფერიდან. როდესაც I2C მონა იღებს მონაცემებს, isr დააკოპირებს მიღებულ მონაცემებს აპარატული rx fifo-დან შიდა ringbuffer-ში. შემდეგ მომხმარებლებს შეუძლიათ წაკითხვა შიდა ringbuffer-დან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only call this function in I2C slave mode</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL(-1) პარამეტრის შეცდომა</li>
+<li>Others(&amp;gt;=0) I2C დაქვემდებარებული ბუფერიდან წაკითხული მონაცემთა ბაიტების რაოდენობა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: მონაცემთა მაჩვენებელი შიდა ბუფერიდან მონაცემების მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_size</span></code>წასაკითხი მონაცემების მაქსიმალური ზომა </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>მაქსიმალური ლოდინის დრო</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414i2c_set_period10i2c_port_tii">
+<span id="_CPPv314i2c_set_period10i2c_port_tii"></span><span id="_CPPv214i2c_set_period10i2c_port_tii"></span><span id="i2c_set_period__i2c_port_t.i.i"></span><span class="target" id="i2c_8h_1ab43e00b3a199b5bcc29c37f2e6794c5e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_period</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>მაღალი_პერიოდი</em>, int <em>დაბალი_პერიოდი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv414i2c_set_period10i2c_port_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მთავარი საათის პერიოდის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">high_period</span></code>SCL-ის დროს საათის ციკლის ნომერი მაღალი დონისაა, high_period კი 14 ბიტიანი მნიშვნელობაა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">low_period</span></code>SCL-ის დროს საათის ციკლის ნომერი დაბალი დონისაა, low_period კი 14 ბიტიანი მნიშვნელობაა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414i2c_get_period10i2c_port_tPiPi">
+<span id="_CPPv314i2c_get_period10i2c_port_tPiPi"></span><span id="_CPPv214i2c_get_period10i2c_port_tPiPi"></span><span id="i2c_get_period__i2c_port_t.iP.iP"></span><span class="target" id="i2c_8h_1a0b3c990cdaf886bbbd708823ee491a83"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_period</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int *<em>მაღალი_პერიოდი</em>, int *<em>დაბალი_პერიოდი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv414i2c_get_period10i2c_port_tPiPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C მთავარი საათის პერიოდი </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">high_period</span></code>SCL-ის დროს საათის ციკლის ნომრის მისაღებად მაჩვენებელი მაღალი დონისაა და მიიღებს 14 ბიტიან მნიშვნელობას. </li>
+<li><code class="docutils literal notranslate"><span class="pre">low_period</span></code>SCL-ის დროს საათის ციკლის ნომრის მისაღებად მაჩვენებელი დაბალი დონისაა და მიიღებს 14 ბიტიან მნიშვნელობას.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_filter_enable10i2c_port_t7uint8_t">
+<span id="_CPPv317i2c_filter_enable10i2c_port_t7uint8_t"></span><span id="_CPPv217i2c_filter_enable10i2c_port_t7uint8_t"></span><span id="i2c_filter_enable__i2c_port_t.uint8_t"></span><span class="target" id="i2c_8h_1adb4516fa2ecb85dff5895900b428aedd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_filter_enable</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, uint8_t <em>ციკლის_რიცხვი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_filter_enable10i2c_port_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C ავტობუსზე აპარატურული ფილტრის ჩართვა. ზოგჯერ I2C ავტობუსს აწუხებს მაღალი სიხშირის ხმაური (დაახლოებით 20 ns), ან SCL საათის აღმავალი ზღვარი ძალიან ნელია, რამაც შეიძლება გამოიწვიოს მთავარი მდგომარეობის მანქანის გაფუჭება. აპარატურული ფილტრის ჩართვას შეუძლია მაღალი სიხშირის ჩარევის გაფილტვრა და მთავარი ავტობუსზე სტაბილურობის გაზრდა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Enable filter will slow the SCL clock.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">cyc_num</span></code>: APB ციკლები უნდა გაფილტრულიყო (0&amp;lt;= cyc_num &amp;lt;=7). როდესაც იმპულსის პერიოდი cyc_num * APB_cycle-ზე ნაკლებია, I2C კონტროლერი ამ იმპულსს უგულებელყოფს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418i2c_filter_disable10i2c_port_t">
+<span id="_CPPv318i2c_filter_disable10i2c_port_t"></span><span id="_CPPv218i2c_filter_disable10i2c_port_t"></span><span id="i2c_filter_disable__i2c_port_t"></span><span class="target" id="i2c_8h_1a0b73d1024f53191e122f91ed856ce917"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_filter_disable</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv418i2c_filter_disable10i2c_port_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ ფილტრი I2C ავტობუსზე </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2c_set_start_timing10i2c_port_tii">
+<span id="_CPPv320i2c_set_start_timing10i2c_port_tii"></span><span id="_CPPv220i2c_set_start_timing10i2c_port_tii"></span><span id="i2c_set_start_timing__i2c_port_t.i.i"></span><span class="target" id="i2c_8h_1a78c78b3da87514b74b4df0aa076e7b9a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_start_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>დაყენების_დრო</em>, int <em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv420i2c_set_start_timing10i2c_port_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მთავარი სიგნალის დაწყების დროის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">setup_time</span></code>: საათის ნომერი SDA-ს დაღმავალ კიდესა და SCL-ის აღმავალ კიდეს შორის საწყისი ნიშნულისთვის, ეს არის 10-ბიტიანი მნიშვნელობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>საწყისი ნიშნულისთვის, SDA-ს და SCL-ის დაღმავალ კიდეს შორის საათის რაოდენობა 10-ბიტიანი მნიშვნელობაა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420i2c_get_start_timing10i2c_port_tPiPi">
+<span id="_CPPv320i2c_get_start_timing10i2c_port_tPiPi"></span><span id="_CPPv220i2c_get_start_timing10i2c_port_tPiPi"></span><span id="i2c_get_start_timing__i2c_port_t.iP.iP"></span><span class="target" id="i2c_8h_1a7aa945fe5986a737ae518c5fc0032c4d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_start_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int *<em>დაყენების_დრო</em>, int *<em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv420i2c_get_start_timing10i2c_port_tPiPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C მთავარი გვერდის დაწყების სიგნალის დრო </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">setup_time</span></code>: მაჩვენებელი დაყენების დროის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>: მაჩვენებელი დროის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_set_stop_timing10i2c_port_tii">
+<span id="_CPPv319i2c_set_stop_timing10i2c_port_tii"></span><span id="_CPPv219i2c_set_stop_timing10i2c_port_tii"></span><span id="i2c_set_stop_timing__i2c_port_t.i.i"></span><span class="target" id="i2c_8h_1a79142289695a97fa67aa8655b27ac9a4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_stop_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>დაყენების_დრო</em>, int <em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_set_stop_timing10i2c_port_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მთავარი გაჩერების სიგნალის დროის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">setup_time</span></code>: საათის რაოდენობა SCL-ის აღმავალ კიდესა და SDA-ს აღმავალ კიდეს შორის, ეს 10-ბიტიანი მნიშვნელობაა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>: საათის ნომერი STOP ბიტის აღმავალი კიდის შემდეგ, ეს არის 14-ბიტიანი მნიშვნელობა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_get_stop_timing10i2c_port_tPiPi">
+<span id="_CPPv319i2c_get_stop_timing10i2c_port_tPiPi"></span><span id="_CPPv219i2c_get_stop_timing10i2c_port_tPiPi"></span><span id="i2c_get_stop_timing__i2c_port_t.iP.iP"></span><span class="target" id="i2c_8h_1abac457bee6e32e7b54f9510168268664"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_stop_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int *<em>დაყენების_დრო</em>, int *<em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_get_stop_timing10i2c_port_tPiPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C მთავარი გაჩერების სიგნალის დრო </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">setup_time</span></code>: მაჩვენებელი დაყენების დროის მისაღებად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>: მაჩვენებელი დაყოვნების დროის მისაღებად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_set_data_timing10i2c_port_tii">
+<span id="_CPPv319i2c_set_data_timing10i2c_port_tii"></span><span id="_CPPv219i2c_set_data_timing10i2c_port_tii"></span><span id="i2c_set_data_timing__i2c_port_t.i.i"></span><span class="target" id="i2c_8h_1a678fa31a4af9a31686e7c81c1239830b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_data_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>ნიმუშის_დრო</em>, int <em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_set_data_timing10i2c_port_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მონაცემთა სიგნალის დროის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sample_time</span></code>: საათის ნომერი I2C, რომელიც გამოიყენება SDA-ზე მონაცემების სინჯის აღებისთვის SCL-ის აღმავალი კიდის შემდეგ, ეს არის 10-ბიტიანი მნიშვნელობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>: საათის ნომერი I2C, რომელიც გამოიყენება SCL-ის დაღმავალი კიდის შემდეგ მონაცემების შესანახად, ეს არის 10-ბიტიანი მნიშვნელობა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419i2c_get_data_timing10i2c_port_tPiPi">
+<span id="_CPPv319i2c_get_data_timing10i2c_port_tPiPi"></span><span id="_CPPv219i2c_get_data_timing10i2c_port_tPiPi"></span><span id="i2c_get_data_timing__i2c_port_t.iP.iP"></span><span class="target" id="i2c_8h_1a239805086fd7d46960267d8eee3238c6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_data_timing</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int *<em>ნიმუშის_დრო</em>, int *<em>შეკავების_დრო</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv419i2c_get_data_timing10i2c_port_tPiPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C მონაცემთა სიგნალის დრო </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sample_time</span></code>: მაჩვენებელი ნიმუშის დროის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">hold_time</span></code>: მაჩვენებელი დროის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415i2c_set_timeout10i2c_port_ti">
+<span id="_CPPv315i2c_set_timeout10i2c_port_ti"></span><span id="_CPPv215i2c_set_timeout10i2c_port_ti"></span><span id="i2c_set_timeout__i2c_port_t.i"></span><span class="target" id="i2c_8h_1a38c3080fdb4b693baeedf5cdbb6f9382"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_timeout</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int <em>ტაიმ-აუტი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv415i2c_set_timeout10i2c_port_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C ტაიმის მნიშვნელობის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: I2C ავტობუსის დროის ამოწურვის მნიშვნელობა (ერთეული: APB 80Mhz საათის ციკლი) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415i2c_get_timeout10i2c_port_tPi">
+<span id="_CPPv315i2c_get_timeout10i2c_port_tPi"></span><span id="_CPPv215i2c_get_timeout10i2c_port_tPi"></span><span id="i2c_get_timeout__i2c_port_t.iP"></span><span class="target" id="i2c_8h_1a0fa934ba57c6dc36c72415b786d2242d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_timeout</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, int *<em>ტაიმ-აუტი</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv415i2c_get_timeout10i2c_port_tPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C ტაიმაუტის მნიშვნელობა </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: მაჩვენებელი ტაიმის მნიშვნელობის მისაღებად </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_set_data_mode10i2c_port_t16i2c_trans_mode_t16i2c_trans_mode_t">
+<span id="_CPPv317i2c_set_data_mode10i2c_port_t16i2c_trans_mode_t16i2c_trans_mode_t"></span><span id="_CPPv217i2c_set_data_mode10i2c_port_t16i2c_trans_mode_t16i2c_trans_mode_t"></span><span id="i2c_set_data_mode__i2c_port_t.i2c_trans_mode_t.i2c_trans_mode_t"></span><span class="target" id="i2c_8h_1ae3758935849d2297e623aa2d1bbf944e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_set_data_mode</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, i2c_trans_mode_t <em>tx_trans_mode</em>, i2c_trans_mode_t <em>rx_trans_mode</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_set_data_mode10i2c_port_t16i2c_trans_mode_t16i2c_trans_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C მონაცემთა გადაცემის რეჟიმის დაყენება </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">tx_trans_mode</span></code>I2C მონაცემთა გაგზავნის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_trans_mode</span></code>I2C მონაცემთა მიღების რეჟიმი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417i2c_get_data_mode10i2c_port_tP16i2c_trans_mode_tP16i2c_trans_mode_t">
+<span id="_CPPv317i2c_get_data_mode10i2c_port_tP16i2c_trans_mode_tP16i2c_trans_mode_t"></span><span id="_CPPv217i2c_get_data_mode10i2c_port_tP16i2c_trans_mode_tP16i2c_trans_mode_t"></span><span id="i2c_get_data_mode__i2c_port_t.i2c_trans_mode_tP.i2c_trans_mode_tP"></span><span class="target" id="i2c_8h_1a164f6318a1c508194ec55501f76b0105"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">i2c_get_data_mode</code><span class="sig-paren">(</span>i2c_port_t <em>i2c_num</em>, i2c_trans_mode_t *<em>tx_trans_mode</em>, i2c_trans_mode_t *<em>rx_trans_mode</em><span class="sig-paren">)</span><a class="headerlink" href="i2c.html#_CPPv417i2c_get_data_mode10i2c_port_tP16i2c_trans_mode_tP16i2c_trans_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ I2C მონაცემთა გადაცემის რეჟიმი </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">i2c_num</span></code>I2C პორტის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">tx_trans_mode</span></code>: მაჩვენებელი I2C მონაცემთა გაგზავნის რეჟიმის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">rx_trans_mode</span></code>: მაჩვენებელი I2C მონაცემთა მიღების რეჟიმის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="i2c.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.I2C_APB_CLK_FREQ">
+<span class="target" id="i2c_8h_1a06fc9a7b653b62eade5ca843975ba332"></span><code class="descname">I2C_APB_CLK_FREQ</code><a class="headerlink" href="i2c.html#c.I2C_APB_CLK_FREQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>I2C წყაროს სიხშირეა APB სიხშირე, 80 MHz </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.I2C_NUM_0">
+<span class="target" id="i2c_8h_1aab331a7ef3d8b925d29a3bad37a8a87b"></span><code class="descname">I2C_NUM_0</code><a class="headerlink" href="i2c.html#c.I2C_NUM_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>I2C პორტი 0 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.I2C_NUM_1">
+<span class="target" id="i2c_8h_1acbee8be7e1e6ffcdc480b3f7e3c3b656"></span><code class="descname">I2C_NUM_1</code><a class="headerlink" href="i2c.html#c.I2C_NUM_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>I2C პორტი 1 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.I2C_NUM_MAX">
+<span class="target" id="i2c_8h_1a373591b52d647081a9fe73c0ddeacb04"></span><code class="descname">I2C_NUM_MAX</code><a class="headerlink" href="i2c.html#c.I2C_NUM_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>I2C პორტის მაქსიმუმი </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="i2c.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416i2c_cmd_handle_t">
+<span id="_CPPv316i2c_cmd_handle_t"></span><span id="_CPPv216i2c_cmd_handle_t"></span><span id="i2c_cmd_handle_t"></span><span class="target" id="i2c_8h_1ad9360902bd0e967091f78a46a70e8cc2"></span><em class="property">typedef </em>void *<code class="descname">i2c_cmd_handle_t</code><a class="headerlink" href="i2c.html#_CPPv416i2c_cmd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2C ბრძანების სახელური </p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="i2s.html" rel="next" title="I2S">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="gpio.html" rel="prev" title="GPIO &amp; RTC GPIO"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

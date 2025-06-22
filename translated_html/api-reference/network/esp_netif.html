@@ -1,0 +1,1327 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-NETIF — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="tcpip_adapter_migration.html" rel="next" title="TCP/IP Adapter Migration Guide"/>
+<link href="esp_eth.html" rel="prev" title="Ethernet"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/network/esp_netif.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/network/esp_netif"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/network/esp_netif.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ქსელური მუშაობა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#wi-fi">Wi-Fi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ethernet">Ethernet</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="esp_netif.html#">ESP-NETIF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tcpip_adapter_migration.html">TCP/IP ადაპტერის მიგრაციის სახელმძღვანელო</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_netif_driver.html">ESP-NETIF-ის მორგებული შემავალი/გამომავალი დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#application-layer">აპლიკაციის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">ქსელური კომუნიკაციის API 8 წმ</a> »</li>
+<li>ESP-NETIF</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/network/esp_netif.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-netif">
+<h1>ESP-NETIF<a class="headerlink" href="esp_netif.html#esp-netif" title="Permalink to this headline">¶</a></h1>
+<p>ESP-NETIF ბიბლიოთეკის დანიშნულება ორმაგია:</p>
+<ul class="simple">
+<li>ის უზრუნველყოფს აბსტრაქციის ფენას აპლიკაციისთვის TCP/IP დასტის თავზე. ეს საშუალებას მისცემს აპლიკაციებს მომავალში აირჩიონ IP დასტებს შორის.</li>
+<li>მის მიერ მოწოდებული API ფაილები ძაფებისთვის უსაფრთხოა, მაშინაც კი, თუ ძირითადი TCP/IP დასტა API ფაილები არ არის უსაფრთხო.</li>
+</ul>
+<p>ESP-IDF ამჟამად ESP-NETIF-ს მხოლოდ lwIP TCP/IP დაკისთვის ახორციელებს. თუმცა, თავად ადაპტერი TCP/IP იმპლემენტაციისგან აგნოსტიკურად არის განწყობილი და შესაძლებელია სხვადასხვა იმპლემენტაცია.</p>
+<p>ზოგიერთი ESP-NETIF API ფუნქცია განკუთვნილია აპლიკაციის კოდით გამოსაძახებლად, მაგალითად, ინტერფეისის IP მისამართების მისაღებად/დასაყენებლად, DHCP-ის კონფიგურაციისთვის. სხვა ფუნქციები განკუთვნილია ქსელის დრაივერის დონის მიერ ESP-IDF შიდა გამოყენებისთვის.</p>
+<p>ბევრ შემთხვევაში, აპლიკაციებს არ სჭირდებათ ESP-NETIF API ის პირდაპირ გამოძახება, რადგან ისინი გამოიძახება ქსელის ნაგულისხმევი მოვლენების დამმუშავებლებისგან.</p>
+<p>ESP-NETIF კომპონენტი არის tcpip_adapter-ის, ყოფილი ქსელური ინტერფეისის აბსტრაქციის, მემკვიდრე, რომელიც IDF v4.1-ის შემდეგ მოძველდა. გთხოვთ იხილოთ <a class="reference internal" href="tcpip_adapter_migration.html"><span class="doc">TCP/IP ადაპტერის მიგრაციის სახელმძღვანელო</span></a> განყოფილება იმ შემთხვევაში, თუ არსებული აპლიკაციები პორტირებული იქნება esp-netif API გამოსაყენებლად.</p>
+<div class="section" id="esp-netif-architecture">
+<h2>ESP-NETIF არქიტექტურა<a class="headerlink" href="esp_netif.html#esp-netif-architecture" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                 |          (A) USER CODE                 |
+                 |                                        |
+    .............| init          settings      events     |
+    .            +----------------------------------------+
+    .               .                |           *
+    .               .                |           *
+--------+        +===========================+   *     +-----------------------+
+        |        | new/config     get/set    |   *     |                       |
+        |        |                           |...*.....| init                  |
+        |        |---------------------------|   *     |                       |
+  init  |        |                           |****     |                       |
+  start |********|  event handler            |*********|  DHCP                 |
+  stop  |        |                           |         |                       |
+        |        |---------------------------|         |                       |
+        |        |                           |         |    NETIF              |
+  +-----|        |                           |         +-----------------+     |
+  | glue|----&lt;---|  esp_netif_transmit       |--&lt;------| netif_output    |     |
+  |     |        |                           |         |                 |     |
+  |     |----&gt;---|  esp_netif_receive        |--&gt;------| netif_input     |     |
+  |     |        |                           |         + ----------------+     |
+  |     |....&lt;...|  esp_netif_free_rx_buffer |...&lt;.....| packet buffer         |
+  +-----|        |                           |         |                       |
+        |        |                           |         |         (D)           |
+  (B)   |        |          (C)              |         +-----------------------+
+--------+        +===========================+
+communication                                                NETWORK STACK
+DRIVER                   ESP-NETIF
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-and-event-flow-in-the-diagram">
+<h2>დიაგრამაზე მონაცემებისა და მოვლენების ნაკადი<a class="headerlink" href="esp_netif.html#data-and-event-flow-in-the-diagram" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">........</span></code>     ინიციალიზაციის ხაზი მომხმარებლის კოდიდან ESP-NETIF-მდე და საკომუნიკაციო დრაივერამდე</li>
+<li><code class="docutils literal notranslate"><span class="pre">--&lt;---&gt;--</span></code>    მონაცემთა პაკეტები, რომლებიც გადადიან საკომუნიკაციო მედიიდან TCP/IP დასტაზე და უკან</li>
+<li><code class="docutils literal notranslate"><span class="pre">********</span></code>     ESP-NETIF-ში აგრეგირებული მოვლენები ვრცელდება დრაივერზე, მომხმარებლის კოდსა და ქსელურ სტეკზე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">|</span></code>           მომხმარებლის პარამეტრები და გაშვების დროის კონფიგურაცია</li>
+</ul>
+</div>
+<div class="section" id="esp-netif-interaction">
+<h2>ESP-NETIF ურთიერთქმედება<a class="headerlink" href="esp_netif.html#esp-netif-interaction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-user-code-boiler-plate">
+<h3>ა) მომხმარებლის კოდი, ქვაბის ფირფიტა<a class="headerlink" href="esp_netif.html#a-user-code-boiler-plate" title="Permalink to this headline">¶</a></h3>
+<p>საკომუნიკაციო მედიისა და კონფიგურირებული TCP/IP ქსელის დასტის კონკრეტულ IO დრაივერთან აპლიკაციის საერთო ურთიერთქმედება აბსტრაგირებულია ESP-NETIF API ის გამოყენებით და აღწერილია ქვემოთ:</p>
+<ol class="upperalpha simple">
+<li>ინიციალიზაციის კოდი</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>IO დრაივერის ინიციალიზაცია</li>
+<li>ქმნის ESP-NETIF-ის ახალ ინსტანციას და ახდენს კონფიგურაციას</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>ESP-NETIF-ის სპეციფიკური პარამეტრები (დროშები, ქცევა, სახელი)</li>
+<li>ქსელის დასტის პარამეტრები (netif init და შეყვანის ფუნქციები, საჯაროდ ხელმისაწვდომი არ არის)</li>
+<li>IO დრაივერის სპეციფიკური პარამეტრები (გადაცემა, უფასო rx ბუფერული ფუნქციები, IO დრაივერის სახელური)</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>IO დრაივერის სახელურს ამაგრებს ზემოთ მოცემულ ნაბიჯებში შექმნილ ESP-NETIF ინსტანციაზე.</li>
+<li>ახდენს მოვლენების დამმუშავებლების კონფიგურაციას</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>გამოიყენეთ ნაგულისხმევი დამმუშავებლები IO დრაივერებში განსაზღვრული საერთო ინტერფეისებისთვის; ან განსაზღვრეთ კონკრეტული დამმუშავებლები მორგებული ქცევისთვის/ახალი ინტერფეისებისთვის.</li>
+<li>აპლიკაციასთან დაკავშირებული მოვლენების (მაგალითად, IP-ის დაკარგვის/შეძენის) დამმუშავებლების რეგისტრაცია</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<ol class="upperalpha simple" start="2">
+<li>ქსელურ ინტერფეისებთან ურთიერთქმედება ESP-NETIF API გამოყენებით</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>TCP/IP-თან დაკავშირებული პარამეტრების (DHCP, IP და ა.შ.) მიღება და დაყენება</li>
+<li>IP მოვლენების მიღება (დაკავშირება/გათიშვა)</li>
+<li>აპლიკაციის სასიცოცხლო ციკლის კონტროლი (ინტერფეისის ზევით/ქვევით დაყენება)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="b-communication-driver-io-driver-media-driver">
+<h3>B) საკომუნიკაციო დრაივერი, IO დრაივერი, მედია დრაივერი<a class="headerlink" href="esp_netif.html#b-communication-driver-io-driver-media-driver" title="Permalink to this headline">¶</a></h3>
+<p>კომუნიკაციის დრაივერი ESP-NETIF-თან მიმართებაში ამ ორ მნიშვნელოვან როლს ასრულებს:</p>
+<ol class="arabic simple">
+<li>მოვლენების დამმუშავებლები: განსაზღვრეთ ESP-NETIF-თან ურთიერთქმედების ქცევითი ნიმუშები (მაგალითად: Ethernet link-up -&amp;gt; netif-ის ჩართვა)</li>
+<li>წებოვანი IO ფენა: ადაპტირებს შეყვანის/გამოყვანის ფუნქციებს ESP-NETIF გადაცემის, მიღების და მიღების ბუფერის გასათავისუფლებლად.</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>driver_transmit-ის ინსტალაცია შესაბამის ESP-NETIF ობიექტზე, ისე, რომ ქსელის დასტიდან გამავალი პაკეტები გადაეცემა IO დრაივერს.</li>
+<li>ზარები <a class="reference internal" href="esp_netif.html#_CPPv417esp_netif_receiveP11esp_netif_tPv6size_tPv" title="esp_netif_receive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_netif_receive()</span></code></a> შემომავალი მონაცემების ქსელის სტეკში გადასაცემად</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="c-esp-netif-former-tcpip-adapter">
+<h3>გ) ESP-NETIF, ყოფილი tcpip_adapter<a class="headerlink" href="esp_netif.html#c-esp-netif-former-tcpip-adapter" title="Permalink to this headline">¶</a></h3>
+<p>ESP-NETIF არის შუამავალი IO დრაივერსა და ქსელურ დასტას შორის, რომელიც აკავშირებს პაკეტის მონაცემთა გზას ამ ორს შორის. ამრიგად, ის უზრუნველყოფს ინტერფეისების ერთობლიობას დრაივერის ESP-NETIF ობიექტზე მისაერთებლად (გაშვების დრო) და ქსელური დასტის კონფიგურაციისთვის ( კომპილაცია დრო). გარდა ამისა, API ის ერთობლიობა მოცემულია ქსელური ინტერფეისის სასიცოცხლო ციკლის და მისი TCP/IP თვისებების გასაკონტროლებლად. ზოგადი შეჯამებისთვის, ESP-NETIF საჯარო ინტერფეისი შეიძლება დაიყოს შემდეგ 6 ჯგუფად:</p>
+<ol class="arabic simple">
+<li>ინიციალიზაციის API s (ESP-NETIF ეგზემპლარის შესაქმნელად და კონფიგურაციისთვის)</li>
+<li>შეყვანა/გამოყვანა API (მონაცემების გადასაცემად IO დრაივერსა და ქსელის სტეკს შორის)</li>
+<li>მოვლენა ან მოქმედება API</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>გამოიყენება ქსელის ინტერფეისის სასიცოცხლო ციკლის მართვისთვის</li>
+<li>ESP-NETIF უზრუნველყოფს საშენ მასალას მოვლენების დამმუშავებლების შესაქმნელად.</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>ქსელის ინტერფეისის ძირითადი თვისებების დამყენებლები და მიმღებები</li>
+<li>ქსელის სტეკის აბსტრაქცია: მომხმარებლის TCP/IP სტეკთან ურთიერთქმედების უზრუნველყოფა</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>ინტერფეისის აწევა ან დაწევა</li>
+<li>DHCP სერვერი და კლიენტი API</li>
+<li>DNS API</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li>დრაივერის კონვერტაციის კომუნალური პროგრამები</li>
+</ol>
+</div>
+<div class="section" id="d-network-stack">
+<h3>დ) ქსელის სტეკი<a class="headerlink" href="esp_netif.html#d-network-stack" title="Permalink to this headline">¶</a></h3>
+<p>ქსელურ დასტას არ აქვს საჯარო ურთიერთქმედება აპლიკაციის კოდთან საჯარო ინტერფეისებთან მიმართებაში და სრულად უნდა იყოს აბსტრაგირებული ESP-NETIF API .</p>
+</div>
+</div>
+<div class="section" id="esp-netif-programmer-s-manual">
+<h2>ESP-NETIF პროგრამისტის სახელმძღვანელო<a class="headerlink" href="esp_netif.html#esp-netif-programmer-s-manual" title="Permalink to this headline">¶</a></h2>
+<p>ნაგულისხმევი ინტერფეისების ძირითადი ინიციალიზაციისთვის იხილეთ მაგალითის განყოფილება:</p>
+<ul class="simple">
+<li>WiFi სადგური: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/wifi/getting_started/station/main/station_example_main.c">wifi/დაწყება/სადგური/ძირითადი/სადგურის_მაგალითი_ძირითადი.c</a></li>
+<li>WiFi წვდომის წერტილი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/wifi/getting_started/softAP/main/softap_example_main.c">wifi/getting_started/softAP/main/softap_example_main.c</a></li>
+<li>ეთერნეტი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/ethernet/basic/main/ethernet_example_main.c">ethernet/basic/main/ethernet_example_main.c</a></li>
+</ul>
+<p>უფრო კონკრეტული შემთხვევებისთვის, გთხოვთ, იხილოთ ეს სახელმძღვანელო: <a class="reference internal" href="esp_netif_driver.html"><span class="doc">ESP-NETIF-ის მორგებული შეყვანის/გამოყვანის დრაივერი</span></a>.</p>
+<div class="section" id="wifi-default-initialization">
+<h3>WiFi-ის ნაგულისხმევი ინიციალიზაცია<a class="headerlink" href="esp_netif.html#wifi-default-initialization" title="Permalink to this headline">¶</a></h3>
+<p>ინიციალიზაციის კოდი, ისევე როგორც ნაგულისხმევი ინტერფეისების, როგორიცაა softAP და station, რეგისტრაციის მოვლენების დამმუშავებლები, მოცემულია ორ ცალკეულ API 8, რათა ხელი შეუწყოს აპლიკაციების უმეტესობისთვის გაშვების კოდის გამარტივებას:</p>
+<ul class="simple">
+<li><a class="reference internal" href="esp_netif.html#_CPPv432esp_netif_create_default_wifi_apv" title="esp_netif_create_default_wifi_ap"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_netif_create_default_wifi_ap()</span></code></a></li>
+<li><a class="reference internal" href="esp_netif.html#_CPPv433esp_netif_create_default_wifi_stav" title="esp_netif_create_default_wifi_sta"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_netif_create_default_wifi_sta()</span></code></a></li>
+</ul>
+<p>გთხოვთ გაითვალისწინოთ, რომ ეს ფუნქციები აბრუნებენ <code class="docutils literal notranslate"><span class="pre">esp_netif</span></code> სახელური, ანუ ქსელის ინტერფეისის ობიექტის მაჩვენებელი, რომელიც გამოყოფილი და კონფიგურირებულია ნაგულისხმევი პარამეტრებით, რაც, შესაბამისად, ნიშნავს, რომ:</p>
+<ul class="simple">
+<li>შექმნილი ობიექტი უნდა განადგურდეს, თუ აპლიკაცია უზრუნველყოფს ქსელის დეინიციალიზაციას.</li>
+<li>ესენი <em>ნაგულისხმევი</em> ინტერფეისები არ უნდა შეიქმნას რამდენჯერმე, თუ შექმნილი სახელური არ წაიშლება გამოყენებით <a class="reference internal" href="esp_netif.html#_CPPv417esp_netif_destroyP11esp_netif_t" title="esp_netif_destroy"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_netif_destroy()</span></code></a>.</li>
+<li>Wifi-ს გამოყენებისას <code class="docutils literal notranslate"><span class="pre">AP+STA</span></code> რეჟიმში, ორივე ეს ინტერფეისი უნდა შეიქმნას.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_netif.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_netif.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_netif/include/esp_netif.h">esp_netif/include/esp_netif.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_netif.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv414esp_netif_initv">
+<span id="_CPPv314esp_netif_initv"></span><span id="_CPPv214esp_netif_initv"></span><span id="esp_netif_init__void"></span><span class="target" id="group__ESP__NETIF__INIT__API_1gae2a66efbc3181912e387af430fd265fc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv414esp_netif_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძირითადი TCP/IP დასტის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_FAIL, თუ ინიციალიზაცია ვერ მოხერხდა</li>
+</ul>
+</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should be called exactly once from application code, when the application starts up. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_netif_deinitv">
+<span id="_CPPv316esp_netif_deinitv"></span><span id="_CPPv216esp_netif_deinitv"></span><span id="esp_netif_deinit__void"></span><span class="target" id="group__ESP__NETIF__INIT__API_1ga46d1f03026902672e1cb8ea21f223011"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv416esp_netif_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp-netif კომპონენტი ის (და TCP/IP დასტის) დეინიციალიზაცია </p>
+<p>შენიშვნა: დეინიციალიზაცია ჯერ არ არის მხარდაჭერილი</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_STATE თუ esp_netif არ არის ინიციალიზებული</li>
+<li>სხვა შემთხვევაში ESP_ERR_NOT_SUPPORTED </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_netif_newPK18esp_netif_config_t">
+<span id="_CPPv313esp_netif_newPK18esp_netif_config_t"></span><span id="_CPPv213esp_netif_newPK18esp_netif_config_t"></span><span id="esp_netif_new__esp_netif_config_tCP"></span><span class="target" id="group__ESP__NETIF__INIT__API_1gaa9e6560f29c4cd701e51f8c317065469"></span>esp_netif_t *<code class="descname">esp_netif_new</code><span class="sig-paren">(</span><em class="property">კონსტ</em> esp_netif_config_t *<em>esp_netif_config</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv413esp_netif_newPK18esp_netif_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქმნის ახალი esp-netif ობიექტის ეგზემპლარს მოცემული კონფიგურაციის საფუძველზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში esp-netif ობიექტის მაჩვენებელი</li>
+<li>სხვა შემთხვევაში NULL </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif_config</span></code>: pointer esp-netif კონფიგურაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_netif_destroyP11esp_netif_t">
+<span id="_CPPv317esp_netif_destroyP11esp_netif_t"></span><span id="_CPPv217esp_netif_destroyP11esp_netif_t"></span><span id="esp_netif_destroy__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__INIT__API_1gac5f77d2d92bd63147bbb0f198f56910d"></span>void <code class="descname">esp_netif_destroy</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv417esp_netif_destroyP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ანადგურებს esp_netif ობიექტს. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: წასაშლელი ობიექტის მაჩვენებელი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_netif_set_driver_configP11esp_netif_tPK27esp_netif_driver_ifconfig_t">
+<span id="_CPPv327esp_netif_set_driver_configP11esp_netif_tPK27esp_netif_driver_ifconfig_t"></span><span id="_CPPv227esp_netif_set_driver_configP11esp_netif_tPK27esp_netif_driver_ifconfig_t"></span><span id="esp_netif_set_driver_config__esp_netif_tP.esp_netif_driver_ifconfig_tCP"></span><span class="target" id="group__ESP__NETIF__INIT__API_1ga26fa37421a7672d326d01363f83d95b7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_driver_config</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, <em class="property">კონსტ</em> esp_netif_driver_ifconfig_t *<em>დრაივერის_კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv427esp_netif_set_driver_configP11esp_netif_tPK27esp_netif_driver_ifconfig_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_netif ობიექტის დრაივერთან დაკავშირებული პარამეტრების კონფიგურაციას ახდენს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS თუ მითითებულია არასწორი პარამეტრები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: მითითება კონფიგურირებადი ობიექტისკენ </li>
+<li><code class="docutils literal notranslate"><span class="pre">driver_config</span></code>: pointer esp-netif io დრაივერთან დაკავშირებული კონფიგურაცია </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_netif_attachP11esp_netif_t25esp_netif_iodriver_handle">
+<span id="_CPPv316esp_netif_attachP11esp_netif_t25esp_netif_iodriver_handle"></span><span id="_CPPv216esp_netif_attachP11esp_netif_t25esp_netif_iodriver_handle"></span><span id="esp_netif_attach__esp_netif_tP.esp_netif_iodriver_handle"></span><span class="target" id="group__ESP__NETIF__INIT__API_1ga668507207483f053b818a01c86ed15b4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_attach</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_iodriver_handle <em>მძღოლის სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv416esp_netif_attachP11esp_netif_t25esp_netif_iodriver_handle" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_netif ინსტანციას io დრაივერის სახელურს ამაგრებს. </p>
+<p>ამ ფუნქციის გამოძახება საშუალებას იძლევა კონკრეტული esp_netif ობიექტის უკვე ინიციალიზებული io დრაივერით დაკავშირება, რათა განახლდეს esp_netif ობიექტი დრაივერის სპეციფიკური კონფიგურაციით (ანუ გამოიძახებს post_attach callback-ს, რომელიც, როგორც წესი, io დრაივერის უკუკავშირებს esp_netif ინსტანციაზე აყენებს და დრაივერს იწყებს).</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_ESP_NETIF_DRIVER_ATTACH_FAILED, თუ დრაივერის pot_attach-ის უკუკავშირი ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp_netif ობიექტის მიმთითებელი, რომელიც უნდა დაერთოს </li>
+<li><code class="docutils literal notranslate"><span class="pre">driver_handle</span></code>: დრაივერის სახელურის მაჩვენებელი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_netif_receiveP11esp_netif_tPv6size_tPv">
+<span id="_CPPv317esp_netif_receiveP11esp_netif_tPv6size_tPv"></span><span id="_CPPv217esp_netif_receiveP11esp_netif_tPv6size_tPv"></span><span id="esp_netif_receive__esp_netif_tP.voidP.s.voidP"></span><span class="target" id="group__ESP__NETIF__DATA__IO__API_1ga20afe818256546ce77f036f0e3cc0b80"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_receive</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, void *<em>ბუფერი</em>, size_t <em>ლენ</em>, void *<em>ებ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv417esp_netif_receiveP11esp_netif_tPv6size_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადასცემს ნედლ პაკეტებს საკომუნიკაციო მედიიდან შესაბამის TCP/IP დასტაში. </p>
+<p>ეს ფუნქცია გამოიძახება კონფიგურირებული (პერიფერიული) დრაივერის ფენიდან. შემდეგ მონაცემები გადაეცემა TCP/IP დასტას ჩარჩოების სახით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>მიღებული მონაცემები </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>მონაცემთა ჩარჩოს სიგრძე </li>
+<li><code class="docutils literal notranslate"><span class="pre">eb</span></code>: შიდა ბუფერის მაჩვენებელი (გამოიყენება Wi-Fi დრაივერში)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_action_startPv16esp_event_base_t7int32_tPv">
+<span id="_CPPv322esp_netif_action_startPv16esp_event_base_t7int32_tPv"></span><span id="_CPPv222esp_netif_action_startPv16esp_event_base_t7int32_tPv"></span><span id="esp_netif_action_start__voidP.esp_event_base_t.int32_t.voidP"></span><span class="target" id="group__ESP__NETIF__LIFECYCLE_1ga7d5cdac96e0609ef8aac8006a3523a2a"></span>void <code class="descname">esp_netif_action_start</code><span class="sig-paren">(</span>void *<em>esp_netif</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv416esp_event_base_t" title="esp_event_base_t">esp_event_base_t</a> <em>ბაზა</em>, int32_t <em>მოვლენის_იდენტიფიკატორი</em>, void *<em>მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_action_startPv16esp_event_base_t7int32_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის ინტერფეისის მოქმედების ნაგულისხმევი სამშენებლო ბლოკი IO დრაივერის გაშვების მოვლენის დროს. ქმნის ქსელის ინტერფეისს, თუ AUTOUP ჩართულია, ჩართავს ინტერფეისს, თუ DHCPS ჩართულია, გაუშვებს dhcp სერვერს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be directly used as event handler</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">base</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_id</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_action_stopPv16esp_event_base_t7int32_tPv">
+<span id="_CPPv321esp_netif_action_stopPv16esp_event_base_t7int32_tPv"></span><span id="_CPPv221esp_netif_action_stopPv16esp_event_base_t7int32_tPv"></span><span id="esp_netif_action_stop__voidP.esp_event_base_t.int32_t.voidP"></span><span class="target" id="group__ESP__NETIF__LIFECYCLE_1ga35578418530e03ce7b70a0b252fd9215"></span>void <code class="descname">esp_netif_action_stop</code><span class="sig-paren">(</span>void *<em>esp_netif</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv416esp_event_base_t" title="esp_event_base_t">esp_event_base_t</a> <em>ბაზა</em>, int32_t <em>მოვლენის_იდენტიფიკატორი</em>, void *<em>მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_action_stopPv16esp_event_base_t7int32_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის ინტერფეისის მოქმედების ნაგულისხმევი სამშენებლო ბლოკი IO დრაივერის შეჩერების მოვლენის დროს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be directly used as event handler</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">base</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_id</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_netif_action_connectedPv16esp_event_base_t7int32_tPv">
+<span id="_CPPv326esp_netif_action_connectedPv16esp_event_base_t7int32_tPv"></span><span id="_CPPv226esp_netif_action_connectedPv16esp_event_base_t7int32_tPv"></span><span id="esp_netif_action_connected__voidP.esp_event_base_t.int32_t.voidP"></span><span class="target" id="group__ESP__NETIF__LIFECYCLE_1ga185026127f86db7c71cef9dda888f5d0"></span>void <code class="descname">esp_netif_action_connected</code><span class="sig-paren">(</span>void *<em>esp_netif</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv416esp_event_base_t" title="esp_event_base_t">esp_event_base_t</a> <em>ბაზა</em>, int32_t <em>მოვლენის_იდენტიფიკატორი</em>, void *<em>მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv426esp_netif_action_connectedPv16esp_event_base_t7int32_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის ინტერფეისის მოქმედების ნაგულისხმევი სამშენებლო ბლოკი IO დრაივერის დაკავშირების მოვლენის დროს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be directly used as event handler</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">base</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_id</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429esp_netif_action_disconnectedPv16esp_event_base_t7int32_tPv">
+<span id="_CPPv329esp_netif_action_disconnectedPv16esp_event_base_t7int32_tPv"></span><span id="_CPPv229esp_netif_action_disconnectedPv16esp_event_base_t7int32_tPv"></span><span id="esp_netif_action_disconnected__voidP.esp_event_base_t.int32_t.voidP"></span><span class="target" id="group__ESP__NETIF__LIFECYCLE_1gab378a8e4cd8c1fe963db9eddd957d644"></span>void <code class="descname">esp_netif_action_disconnected</code><span class="sig-paren">(</span>void *<em>esp_netif</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv416esp_event_base_t" title="esp_event_base_t">esp_event_base_t</a> <em>ბაზა</em>, int32_t <em>მოვლენის_იდენტიფიკატორი</em>, void *<em>მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv429esp_netif_action_disconnectedPv16esp_event_base_t7int32_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის ინტერფეისის მოქმედების ნაგულისხმევი სამშენებლო ბლოკი IO დრაივერის გათიშვის მოვლენის დროს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be directly used as event handler</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">base</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_id</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_netif_action_got_ipPv16esp_event_base_t7int32_tPv">
+<span id="_CPPv323esp_netif_action_got_ipPv16esp_event_base_t7int32_tPv"></span><span id="_CPPv223esp_netif_action_got_ipPv16esp_event_base_t7int32_tPv"></span><span id="esp_netif_action_got_ip__voidP.esp_event_base_t.int32_t.voidP"></span><span class="target" id="group__ESP__NETIF__LIFECYCLE_1gaa7a3e07aa7652c9ba0fa42667c641e70"></span>void <code class="descname">esp_netif_action_got_ip</code><span class="sig-paren">(</span>void *<em>esp_netif</em>, <a class="reference internal" href="../system/esp_event.html#_CPPv416esp_event_base_t" title="esp_event_base_t">esp_event_base_t</a> <em>ბაზა</em>, int32_t <em>მოვლენის_იდენტიფიკატორი</em>, void *<em>მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv423esp_netif_action_got_ipPv16esp_event_base_t7int32_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის IP მოვლენის მიღებისას ქსელის ინტერფეისის მოქმედების ნაგულისხმევი სამშენებლო ბლოკი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be directly used as event handler</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">base</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">event_id</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_netif_set_macP11esp_netif_tA_7uint8_t">
+<span id="_CPPv317esp_netif_set_macP11esp_netif_tA_7uint8_t"></span><span id="_CPPv217esp_netif_set_macP11esp_netif_tA_7uint8_t"></span><span id="esp_netif_set_mac__esp_netif_tP.uint8_tA"></span><span class="target" id="group__ESP__NETIF__GET__SET_1gadb48468125f11adc59ab34284687073d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_mac</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, uint8_t <em>მაკი</em>[]<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv417esp_netif_set_macP11esp_netif_tA_7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ MAC მისამართი ინტერფეისის ეგზემპლარისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">mac</span></code>სასურველი MAC მისამართი შესაბამისი ქსელის ინტერფეისისთვის </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_set_hostnameP11esp_netif_tPKc">
+<span id="_CPPv322esp_netif_set_hostnameP11esp_netif_tPKc"></span><span id="_CPPv222esp_netif_set_hostnameP11esp_netif_tPKc"></span><span id="esp_netif_set_hostname__esp_netif_tP.cCP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga847c1851abe4bcb7c7b5e44dd3c1e795"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_hostname</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, <em class="property">კონსტ</em> char *<em>ჰოსტის სახელი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_set_hostnameP11esp_netif_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ინტერფეისის ჰოსტის სახელის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK - წარმატება</li>
+<li>ESP_ERR_ESP_NETIF_IF_NOT_READY - ინტერფეისის სტატუსის შეცდომა</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS - პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">hostname</span></code>ინტერფეისის ახალი ჰოსტის სახელი. მაქსიმალური სიგრძე 32 ბაიტი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_get_hostnameP11esp_netif_tPPKc">
+<span id="_CPPv322esp_netif_get_hostnameP11esp_netif_tPPKc"></span><span id="_CPPv222esp_netif_get_hostnameP11esp_netif_tPPKc"></span><span id="esp_netif_get_hostname__esp_netif_tP.cCPP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga573ca7c9460a5562cf867c50e4717d08"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_hostname</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, <em class="property">კონსტ</em> char **<em>ჰოსტის სახელი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_get_hostnameP11esp_netif_tPPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინტერფეისის ჰოსტის სახელი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK - წარმატება</li>
+<li>ESP_ERR_ESP_NETIF_IF_NOT_READY - ინტერფეისის სტატუსის შეცდომა</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS - პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">hostname</span></code>: აბრუნებს მაჩვენებელს ჰოსტის სახელზე. შეიძლება იყოს NULL, თუ ჰოსტის სახელი არ არის დაყენებული. თუ დაყენებულია არა-NULL, მაჩვენებელი ძალაში რჩება (და სტრიქონი შეიძლება შეიცვალოს, თუ ჰოსტის სახელი შეიცვლება).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_is_netif_upP11esp_netif_t">
+<span id="_CPPv321esp_netif_is_netif_upP11esp_netif_t"></span><span id="_CPPv221esp_netif_is_netif_upP11esp_netif_t"></span><span id="esp_netif_is_netif_up__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga3c7db370faf7aa857d0b61be8372ca74"></span>bool <code class="descname">esp_netif_is_netif_up</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_is_netif_upP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამოწმეთ, მოწოდებული ინტერფეისი ზევითაა თუ ქვევით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>მართალია - ინტერფეისი ჩართულია</li>
+<li>ცრუ - ინტერფეისი გათიშულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_get_ip_infoP11esp_netif_tP19esp_netif_ip_info_t">
+<span id="_CPPv321esp_netif_get_ip_infoP11esp_netif_tP19esp_netif_ip_info_t"></span><span id="_CPPv221esp_netif_get_ip_infoP11esp_netif_tP19esp_netif_ip_info_t"></span><span id="esp_netif_get_ip_info__esp_netif_tP.esp_netif_ip_info_tP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1gade9664fbe5ab22ad1d3f666baff8d528"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_ip_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_ip_info_t *<em>ip_info</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_get_ip_infoP11esp_netif_tP19esp_netif_ip_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინტერფეისის IP მისამართის ინფორმაცია. </p>
+<p>თუ ინტერფეისი ჩართულია, IP ინფორმაცია პირდაპირ TCP/IP დასტიდან იკითხება. თუ ინტერფეისი ჩართულია, IP ინფორმაცია ESP-NETIF ინსტანციაში შენახული ასლიდან იკითხება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">ip_info</span></code>წარმატების შემთხვევაში, IP ინფორმაცია დაბრუნდება ამ არგუმენტში.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_netif_get_old_ip_infoP11esp_netif_tP19esp_netif_ip_info_t">
+<span id="_CPPv325esp_netif_get_old_ip_infoP11esp_netif_tP19esp_netif_ip_info_t"></span><span id="_CPPv225esp_netif_get_old_ip_infoP11esp_netif_tP19esp_netif_ip_info_t"></span><span id="esp_netif_get_old_ip_info__esp_netif_tP.esp_netif_ip_info_tP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga4d31b87b80845216eb35d571f1d4b0e6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_old_ip_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_ip_info_t *<em>ip_info</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv425esp_netif_get_old_ip_infoP11esp_netif_tP19esp_netif_ip_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინტერფეისის ძველი IP ინფორმაცია. </p>
+<p>აბრუნებს „ძველ“ IP მისამართს, რომელიც ადრე იყო შენახული ინტერფეისისთვის, როდესაც მოქმედი IP მისამართი შეიცვალა.</p>
+<p>თუ IP მისამართის დაკარგვის ტაიმერი ამოიწურა (რაც ნიშნავს, რომ ინტერფეისი კონფიგურირებულ ინტერვალზე მეტხანს იყო გათიშული), მაშინ ძველი IP ინფორმაცია ნულის ტოლი იქნება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">ip_info</span></code>წარმატების შემთხვევაში, IP ინფორმაცია დაბრუნდება ამ არგუმენტში.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_set_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t">
+<span id="_CPPv321esp_netif_set_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t"></span><span id="_CPPv221esp_netif_set_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t"></span><span id="esp_netif_set_ip_info__esp_netif_tP.esp_netif_ip_info_tCP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga919da383c40cbac8a9f6e58f7596d713"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_ip_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, <em class="property">კონსტ</em> esp_netif_ip_info_t *<em>ip_info</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_set_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ინტერფეისის IP მისამართის ინფორმაციის დაყენება. </p>
+<p>ეს ფუნქცია ძირითადად გამოიყენება ინტერფეისზე სტატიკური IP მისამართის დასაყენებლად.</p>
+<p>თუ ინტერფეისი ჩართულია, ახალი IP ინფორმაცია პირდაპირ TCP/IP დასტაში დაყენდება.</p>
+<p>ESP-NETIF ინსტანციაში შენახული IP ინფორმაციის ასლი ასევე განახლდება (ეს ასლი ბრუნდება, თუ IP მისამართის მოთხოვნა ხდება ინტერფეისის გათიშვის დროს).</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>DHCP client/server must be stopped (if enabled for this interface) before setting new IP information.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling this interface for may generate a SYSTEM_EVENT_STA_GOT_IP or SYSTEM_EVENT_ETH_GOT_IP event.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_NOT_STOPPED თუ DHCP სერვერი ან კლიენტი კვლავ მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">ip_info</span></code>მითითებულ ინტერფეისზე დასაყენებელი IP ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_netif_set_old_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t">
+<span id="_CPPv325esp_netif_set_old_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t"></span><span id="_CPPv225esp_netif_set_old_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t"></span><span id="esp_netif_set_old_ip_info__esp_netif_tP.esp_netif_ip_info_tCP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1ga2fd617fe8cdc12ce078dba94da089bc3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_old_ip_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, <em class="property">კონსტ</em> esp_netif_ip_info_t *<em>ip_info</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv425esp_netif_set_old_ip_infoP11esp_netif_tPK19esp_netif_ip_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ინტერფეისის ძველი IP ინფორმაციის დაყენება. </p>
+<p>ეს ფუნქცია გამოიძახება DHCP კლიენტიდან (თუ ჩართულია), ახალი IP მისამართის დაყენებამდე. ის ასევე გამოიძახება SYSTEM_EVENT_STA_CONNECTED და SYSTEM_EVENT_ETH_CONNECTED მოვლენების ნაგულისხმევი დამმუშავებლებისგან.</p>
+<p>ამ ფუნქციის გამოძახება ინახავს ადრე კონფიგურირებულ IP მისამართს, რომლის გამოყენებაც შესაძლებელია იმის დასადგენად, შეიცვლება თუ არა IP მისამართი მომავალში.</p>
+<p>თუ ინტერფეისი გათიშულია ან დიდი ხნის განმავლობაში არ მუშაობს, „IP მისამართის დაკარგვის ტაიმერი“ ამოიწურება (კონფიგურირებული ინტერვალის შემდეგ) და ძველი IP ინფორმაცია ნულზე დაყენდება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">ip_info</span></code>: შეინახეთ მითითებული ინტერფეისის ძველი IP ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430esp_netif_get_netif_impl_indexP11esp_netif_t">
+<span id="_CPPv330esp_netif_get_netif_impl_indexP11esp_netif_t"></span><span id="_CPPv230esp_netif_get_netif_impl_indexP11esp_netif_t"></span><span id="esp_netif_get_netif_impl_index__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__GET__SET_1gaf07d638c2041a56ba93b8f6a2968c86b"></span>int <code class="descname">esp_netif_get_netif_impl_index</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv430esp_netif_get_netif_impl_indexP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ქსელის ინტერფეისის ინდექსი ქსელის დასტის იმპლემენტაციიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This index could be used in <code class="docutils literal notranslate"><span class="pre">setsockopt()</span></code> to bind socket with multicast interface</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>implementation specific index of interface represented with supplied esp_netif </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_dhcps_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t">
+<span id="_CPPv322esp_netif_dhcps_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t"></span><span id="_CPPv222esp_netif_dhcps_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t"></span><span id="esp_netif_dhcps_option__esp_netif_tP.esp_netif_dhcp_option_mode_t.esp_netif_dhcp_option_id_t.voidP.uint32_t"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1ga31d2d97e175faf284d2896d016b3daa3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcps_option</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dhcp_option_mode_t <em>opt_op</em>, esp_netif_dhcp_option_id_t <em>opt_id</em>, void *<em>opt_val</em>, uint32_t <em>opt_len</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_dhcps_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ ან მიიღეთ DHCP სერვერის ვარიანტი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STARTED </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_op</span></code>: ESP_NETIF_OP_SET ოფციის დასაყენებლად, ESP_NETIF_OP_GET ოფციის მისაღებად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_id</span></code>: მისაღებად ან დასაყენებლად საჭირო ოფციის ინდექსი უნდა იყოს მხარდაჭერილი ჩამოთვლის მნიშვნელობებიდან ერთ-ერთი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_val</span></code>: ოფციის პარამეტრის მაჩვენებელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_len</span></code>: ოფციის პარამეტრის სიგრძე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_dhcpc_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t">
+<span id="_CPPv322esp_netif_dhcpc_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t"></span><span id="_CPPv222esp_netif_dhcpc_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t"></span><span id="esp_netif_dhcpc_option__esp_netif_tP.esp_netif_dhcp_option_mode_t.esp_netif_dhcp_option_id_t.voidP.uint32_t"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1gaacb8b2b551bc619c009506e6dfdd6ab5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcpc_option</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dhcp_option_mode_t <em>opt_op</em>, esp_netif_dhcp_option_id_t <em>opt_id</em>, void *<em>opt_val</em>, uint32_t <em>opt_len</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_dhcpc_optionP11esp_netif_t28esp_netif_dhcp_option_mode_t26esp_netif_dhcp_option_id_tPv8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ ან მიიღეთ DHCP კლიენტის ვარიანტი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STARTED </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_op</span></code>: ESP_NETIF_OP_SET ოფციის დასაყენებლად, ESP_NETIF_OP_GET ოფციის მისაღებად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_id</span></code>: მისაღებად ან დასაყენებლად საჭირო ოფციის ინდექსი უნდა იყოს მხარდაჭერილი ჩამოთვლის მნიშვნელობებიდან ერთ-ერთი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_val</span></code>: ოფციის პარამეტრის მაჩვენებელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">opt_len</span></code>: ოფციის პარამეტრის სიგრძე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_dhcpc_startP11esp_netif_t">
+<span id="_CPPv321esp_netif_dhcpc_startP11esp_netif_t"></span><span id="_CPPv221esp_netif_dhcpc_startP11esp_netif_t"></span><span id="esp_netif_dhcpc_start__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1ga9d44750e705751bb30b0bdc1352f28bc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcpc_start</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_dhcpc_startP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>DHCP კლიენტის გაშვება (მხოლოდ თუ ჩართულია ინტერფეისის ობიექტში) </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The default event handlers for the SYSTEM_EVENT_STA_CONNECTED and SYSTEM_EVENT_ETH_CONNECTED events call this function.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STARTED</li>
+<li>ESP_ERR_ESP_NETIF_DHCPC_START_FAILED </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_netif_dhcpc_stopP11esp_netif_t">
+<span id="_CPPv320esp_netif_dhcpc_stopP11esp_netif_t"></span><span id="_CPPv220esp_netif_dhcpc_stopP11esp_netif_t"></span><span id="esp_netif_dhcpc_stop__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1gaee5dde17bff1a47666c932405fa2f146"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcpc_stop</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv420esp_netif_dhcpc_stopP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>DHCP კლიენტის შეჩერება (მხოლოდ თუ ჩართულია ინტერფეისის ობიექტში) </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling action_netif_stop() will also stop the DHCP Client if it is running.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED</li>
+<li>ESP_ERR_ESP_NETIF_IF_NOT_READY </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_netif_dhcpc_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t">
+<span id="_CPPv326esp_netif_dhcpc_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t"></span><span id="_CPPv226esp_netif_dhcpc_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t"></span><span id="esp_netif_dhcpc_get_status__esp_netif_tP.esp_netif_dhcp_status_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1ga229a2575fbe4f783b41bc31b3cd2e1ae"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcpc_get_status</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dhcp_status_t *<em>სტატუსი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv426esp_netif_dhcpc_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ DHCP კლიენტის სტატუსი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">status</span></code>წარმატების შემთხვევაში, ამ არგუმენტში დაბრუნდება DHCP კლიენტის სტატუსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_netif_dhcps_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t">
+<span id="_CPPv326esp_netif_dhcps_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t"></span><span id="_CPPv226esp_netif_dhcps_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t"></span><span id="esp_netif_dhcps_get_status__esp_netif_tP.esp_netif_dhcp_status_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1gaaf8fc0cc9ff0e452f6bfd36b5f1be83f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcps_get_status</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dhcp_status_t *<em>სტატუსი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv426esp_netif_dhcps_get_statusP11esp_netif_tP23esp_netif_dhcp_status_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ DHCP სერვერის სტატუსი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">status</span></code>წარმატების შემთხვევაში, ამ არგუმენტში დაბრუნდება DHCP სერვერის სტატუსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_netif_dhcps_startP11esp_netif_t">
+<span id="_CPPv321esp_netif_dhcps_startP11esp_netif_t"></span><span id="_CPPv221esp_netif_dhcps_startP11esp_netif_t"></span><span id="esp_netif_dhcps_start__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1gaf8706dbabba36e740114b1d4b5511a57"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcps_start</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv421esp_netif_dhcps_startP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>DHCP სერვერის გაშვება (მხოლოდ თუ ჩართულია ინტერფეისის ობიექტში) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STARTED </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_netif_dhcps_stopP11esp_netif_t">
+<span id="_CPPv320esp_netif_dhcps_stopP11esp_netif_t"></span><span id="_CPPv220esp_netif_dhcps_stopP11esp_netif_t"></span><span id="esp_netif_dhcps_stop__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__NET__DHCP_1gaae03ee3a05bf4098370bb685d9bc0ee3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_dhcps_stop</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv420esp_netif_dhcps_stopP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>DHCP სერვერის გაჩერება (მხოლოდ თუ ჩართულია ინტერფეისის ობიექტში) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS</li>
+<li>ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED</li>
+<li>ESP_ERR_ESP_NETIF_IF_NOT_READY </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_set_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t">
+<span id="_CPPv322esp_netif_set_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t"></span><span id="_CPPv222esp_netif_set_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t"></span><span id="esp_netif_set_dns_info__esp_netif_tP.esp_netif_dns_type_t.esp_netif_dns_info_tP"></span><span class="target" id="group__ESP__NETIF__NET__DNS_1ga332be53becdcad5eb7be5c65afaf452e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_set_dns_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dns_type_t <em>ტიპი</em>, esp_netif_dns_info_t *<em>დნმ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_set_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>DNS სერვერის ინფორმაციის დაყენება. </p>
+<p>ეს ფუნქცია განსხვავებულად იქცევა, თუ DHCP სერვერი ან კლიენტი ჩართულია.</p>
+<p>თუ DHCP კლიენტი ჩართულია, ძირითადი და სარეზერვო DNS სერვერები ავტომატურად განახლდება DHCP იჯარის ხელშეკრულებიდან, თუ დაყენებულია შესაბამისი DHCP პარამეტრები. სარეზერვო DNS სერვერი არასდროს განახლდება DHCP იჯარის ხელშეკრულებიდან და შექმნილია ამ API მეშვეობით დასაყენებლად. თუ DHCP კლიენტი გამორთულია, ყველა DNS სერვერის ტიპის დაყენება შესაძლებელია მხოლოდ ამ API მეშვეობით.</p>
+<p>თუ DHCP სერვერი ჩართულია, DHCP სერვერი გამოიყენებს მთავარი DNS სერვერის პარამეტრს, რათა DHCP კლიენტებს ( Wi-Fi სადგურები) მიაწოდოს DNS სერვერის ვარიანტი.<ul class="simple">
+<li>ნაგულისხმევი მთავარი DNS სერვერი, როგორც წესი, თავად Wi-Fi AP ინტერფეისის IP მისამართია.</li>
+<li>ამ ფუნქციას შეუძლია მისი გადაფარვა სერვერის ტიპის ESP_NETIF_DNS_MAIN დაყენებით.</li>
+<li>Wi-Fi AP ინტერფეისისთვის სხვა DNS სერვერის ტიპები არ არის მხარდაჭერილი.</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS არასწორი პარამეტრები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>დასაყენებელი DNS სერვერის ტიპი: ESP_NETIF_DNS_MAIN, ESP_NETIF_DNS_BACKUP, ESP_NETIF_DNS_FALLBACK </li>
+<li><code class="docutils literal notranslate"><span class="pre">dns</span></code>: დასაყენებელი DNS სერვერის მისამართი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_get_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t">
+<span id="_CPPv322esp_netif_get_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t"></span><span id="_CPPv222esp_netif_get_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t"></span><span id="esp_netif_get_dns_info__esp_netif_tP.esp_netif_dns_type_t.esp_netif_dns_info_tP"></span><span class="target" id="group__ESP__NETIF__NET__DNS_1gacd75d8d4a4bc566af0a5d745709bc30b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_dns_info</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_dns_type_t <em>ტიპი</em>, esp_netif_dns_info_t *<em>დნმ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_get_dns_infoP11esp_netif_t20esp_netif_dns_type_tP20esp_netif_dns_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ DNS სერვერის ინფორმაცია. </p>
+<p>დააბრუნეთ ამჟამად კონფიგურირებული DNS სერვერის მისამართი მითითებული ინტერფეისისა და სერვერის ტიპისთვის.</p>
+<p>ეს შეიძლება წინა ზარის შედეგი იყოს <a class="reference internal" href="esp_netif.html#group__ESP__NETIF__NET__DNS_1ga332be53becdcad5eb7be5c65afaf452e"><span class="std std-ref">esp_netif_set_dns_info()</span></a>თუ ინტერფეისის DHCP კლიენტი ჩართულია, მთავარი ან სარეზერვო DNS სერვერი შეიძლება დაყენდეს მიმდინარე DHCP იჯარით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS არასწორი პარამეტრები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>მისაღებად საჭირო DNS სერვერის ტიპი: ESP_NETIF_DNS_MAIN, ESP_NETIF_DNS_BACKUP, ESP_NETIF_DNS_FALLBACK </li>
+<li><code class="docutils literal notranslate"><span class="pre">dns</span></code>: DNS სერვერის შედეგი აქ იწერება წარმატების შემთხვევაში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430esp_netif_create_ip6_linklocalP11esp_netif_t">
+<span id="_CPPv330esp_netif_create_ip6_linklocalP11esp_netif_t"></span><span id="_CPPv230esp_netif_create_ip6_linklocalP11esp_netif_t"></span><span id="esp_netif_create_ip6_linklocal__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__NET__IP_1ga6803ebb897c62e6c531687756db80b93"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_create_ip6_linklocal</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv430esp_netif_create_ip6_linklocalP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ინტერფეისი ბმულ-ლოკალური IPv6 მისამართისთვის. </p>
+<p>გამოიწვიოს TCP/IP დასტამ შექმნას ბმულ-ლოკალური IPv6 მისამართი მითითებული ინტერფეისისთვის.</p>
+<p>ეს ფუნქცია ასევე არეგისტრირებს მითითებული ინტერფეისის უკუკავშირს, ისე, რომ თუ ბმულ-ლოკალური მისამართი დადასტურდება, როგორც სასურველი მისამართი, მაშინ გაიგზავნება SYSTEM_EVENT_GOT_IP6 მოვლენა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_ERR_ESP_NETIF_INVALID_PARAMS </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_netif_get_ip6_linklocalP11esp_netif_tP14esp_ip6_addr_t">
+<span id="_CPPv327esp_netif_get_ip6_linklocalP11esp_netif_tP14esp_ip6_addr_t"></span><span id="_CPPv227esp_netif_get_ip6_linklocalP11esp_netif_tP14esp_ip6_addr_t"></span><span id="esp_netif_get_ip6_linklocal__esp_netif_tP.esp_ip6_addr_tP"></span><span class="target" id="group__ESP__NETIF__NET__IP_1ga727f7ccbdb7f6f393970373f8b9ca52f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_ip6_linklocal</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_ip6_addr_t *<em>თუ_ip6</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv427esp_netif_get_ip6_linklocalP11esp_netif_tP14esp_ip6_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინტერფეისის ბმული-ლოკალური IPv6 მისამართი. </p>
+<p>თუ მითითებული ინტერფეისი ჩართულია და ინტერფეისისთვის შექმნილია სასურველი ბმულ-ლოკალური IPv6 მისამართი, დააბრუნეთ მისი ასლი.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_FAIL თუ ინტერფეისი გათიშულია, არ აქვს ბმულ-ლოკალური IPv6 მისამართი, ან ბმულ-ლოკალური IPv6 მისამართი არ არის სასურველი მისამართი. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">if_ip6</span></code>წარმატების შემთხვევაში, ამ არგუმენტში დაბრუნდება IPv6 ინფორმაცია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_netif_get_ip6_globalP11esp_netif_tP14esp_ip6_addr_t">
+<span id="_CPPv324esp_netif_get_ip6_globalP11esp_netif_tP14esp_ip6_addr_t"></span><span id="_CPPv224esp_netif_get_ip6_globalP11esp_netif_tP14esp_ip6_addr_t"></span><span id="esp_netif_get_ip6_global__esp_netif_tP.esp_ip6_addr_tP"></span><span class="target" id="group__ESP__NETIF__NET__IP_1ga26cf7cb5eff95fda790d7ac7dc8db65c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_get_ip6_global</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_ip6_addr_t *<em>თუ_ip6</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv424esp_netif_get_ip6_globalP11esp_netif_tP14esp_ip6_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინტერფეისის გლობალური IPv6 მისამართი. </p>
+<p>თუ მითითებული ინტერფეისი ჩართულია და ინტერფეისისთვის შექმნილია სასურველი გლობალური IPv6 მისამართი, დააბრუნეთ მისი ასლი.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK</li>
+<li>ESP_FAIL თუ ინტერფეისი გათიშულია, არ აქვს გლობალური IPv6 მისამართი, ან გლობალური IPv6 მისამართი არ არის სასურველი მისამართი. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">if_ip6</span></code>წარმატების შემთხვევაში, ამ არგუმენტში დაბრუნდება IPv6 ინფორმაცია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_set_ip4_addrP14esp_ip4_addr_t7uint8_t7uint8_t7uint8_t7uint8_t">
+<span id="_CPPv322esp_netif_set_ip4_addrP14esp_ip4_addr_t7uint8_t7uint8_t7uint8_t7uint8_t"></span><span id="_CPPv222esp_netif_set_ip4_addrP14esp_ip4_addr_t7uint8_t7uint8_t7uint8_t7uint8_t"></span><span id="esp_netif_set_ip4_addr__esp_ip4_addr_tP.uint8_t.uint8_t.uint8_t.uint8_t"></span><span class="target" id="group__ESP__NETIF__NET__IP_1ga886921d552493c0d961038993ae564e3"></span>void <code class="descname">esp_netif_set_ip4_addr</code><span class="sig-paren">(</span>esp_ip4_addr_t *<em>მისამართი</em>, uint8_t <em>ა</em>, uint8_t <em>ბ</em>, uint8_t <em>გ</em>, uint8_t <em>დ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_set_ip4_addrP14esp_ip4_addr_t7uint8_t7uint8_t7uint8_t7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>IPv4 მისამართს მითითებულ ოქტეტებზე ათავსებს. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>: დასაყენებელი IP მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">a</span></code>პირველი ოქტეტი (127 IP 127.0.0.1-ისთვის) </li>
+<li><code class="docutils literal notranslate"><span class="pre">b</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">c</span></code>: </li>
+<li><code class="docutils literal notranslate"><span class="pre">d</span></code>: </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_ip4addr_ntoaPK14esp_ip4_addr_tPci">
+<span id="_CPPv316esp_ip4addr_ntoaPK14esp_ip4_addr_tPci"></span><span id="_CPPv216esp_ip4addr_ntoaPK14esp_ip4_addr_tPci"></span><span id="esp_ip4addr_ntoa__esp_ip4_addr_tCP.cP.i"></span><span class="target" id="group__ESP__NETIF__NET__IP_1ga17c3e1e1371679caa5d4f9863ac09754"></span>char *<code class="descname">esp_ip4addr_ntoa</code><span class="sig-paren">(</span><em class="property">კონსტ</em> esp_ip4_addr_t *<em>მისამართი</em>, char *<em>ბუფი</em>, int <em>ბუფლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv416esp_ip4addr_ntoaPK14esp_ip4_addr_tPci" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გარდაქმნის რიცხვით IP მისამართს ათობით წერტილოვან ASCII წარმოდგენად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>either pointer to buf which now holds the ASCII representation of addr or NULL if buf was too small </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>: IP მისამართი ქსელში კონვერტაციის მიზნით </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: სამიზნე ბუფერი, სადაც სტრიქონი ინახება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buflen</span></code>: ბუფის სიგრძე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_ip4addr_atonPKc">
+<span id="_CPPv316esp_ip4addr_atonPKc"></span><span id="_CPPv216esp_ip4addr_atonPKc"></span><span id="esp_ip4addr_aton__cCP"></span><span class="target" id="group__ESP__NETIF__NET__IP_1gad86ddc35d72dabc90ec12ccd4690e8a5"></span>uint32_t <code class="descname">esp_ip4addr_aton</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>მისამართი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv416esp_ip4addr_atonPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ASCII ინტერნეტ მისამართის ინტერპრეტაციის რუტინა. დაბრუნებული მნიშვნელობა ქსელური თანმიმდევრობითაა მოცემული. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ip address in network order </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>IP მისამართი ascii-ში (მაგ. „127.0.0.1“) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_netif_get_io_driverP11esp_netif_t">
+<span id="_CPPv323esp_netif_get_io_driverP11esp_netif_t"></span><span id="_CPPv223esp_netif_get_io_driverP11esp_netif_t"></span><span id="esp_netif_get_io_driver__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__CONVERT_1ga0bd37e3149878fdf1c219d59f3cd878b"></span>esp_netif_iodriver_handle <code class="descname">esp_netif_get_io_driver</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv423esp_netif_get_io_driverP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იღებს მედია დრაივერის სახელურს ამ esp-netif ინსტანციისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>opaque pointer of related IO driver </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431esp_netif_get_handle_from_ifkeyPKc">
+<span id="_CPPv331esp_netif_get_handle_from_ifkeyPKc"></span><span id="_CPPv231esp_netif_get_handle_from_ifkeyPKc"></span><span id="esp_netif_get_handle_from_ifkey__cCP"></span><span class="target" id="group__ESP__NETIF__CONVERT_1ga196bc212f2c1e1f97765175a2759b54d"></span>esp_netif_t *<code class="descname">esp_netif_get_handle_from_ifkey</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>თუ_გასაღები</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv431esp_netif_get_handle_from_ifkeyPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმნილი ობიექტების სიაში ეძებს მოწოდებული if გასაღებით ინსტანციას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Handle to esp-netif instance </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">if_key</span></code>ქსელის ინტერფეისის ტექსტური აღწერა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_netif_get_flagsP11esp_netif_t">
+<span id="_CPPv319esp_netif_get_flagsP11esp_netif_t"></span><span id="_CPPv219esp_netif_get_flagsP11esp_netif_t"></span><span id="esp_netif_get_flags__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__CONVERT_1ga400852508f14d9f542cc9130880cd3e6"></span>esp_netif_flags_t <code class="descname">esp_netif_get_flags</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv419esp_netif_get_flagsP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს ამ ინტერფეისისთვის კონფიგურირებულ დროშებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Configuration flags </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_netif_get_ifkeyP11esp_netif_t">
+<span id="_CPPv319esp_netif_get_ifkeyP11esp_netif_t"></span><span id="_CPPv219esp_netif_get_ifkeyP11esp_netif_t"></span><span id="esp_netif_get_ifkey__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__CONVERT_1ga1672d7f6270afca27229848892edc283"></span><em class="property">კონსტ</em> char *<code class="descname">esp_netif_get_ifkey</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv419esp_netif_get_ifkeyP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს კონფიგურირებულ ინტერფეისის გასაღებს ამ esp-netif ინსტანციისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Textual description of related interface </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_netif_get_descP11esp_netif_t">
+<span id="_CPPv318esp_netif_get_descP11esp_netif_t"></span><span id="_CPPv218esp_netif_get_descP11esp_netif_t"></span><span id="esp_netif_get_desc__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__CONVERT_1ga332d0f0ba88ea0dc04978fd76bcba02f"></span><em class="property">კონსტ</em> char *<code class="descname">esp_netif_get_desc</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv418esp_netif_get_descP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს კონფიგურირებულ ინტერფეისის ტიპს ამ esp-netif ინსტანციისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Enumerated type of this interface, such as station, AP, ethernet </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_netif_get_event_idP11esp_netif_t25esp_netif_ip_event_type_t">
+<span id="_CPPv322esp_netif_get_event_idP11esp_netif_t25esp_netif_ip_event_type_t"></span><span id="_CPPv222esp_netif_get_event_idP11esp_netif_t25esp_netif_ip_event_type_t"></span><span id="esp_netif_get_event_id__esp_netif_tP.esp_netif_ip_event_type_t"></span><span class="target" id="group__ESP__NETIF__CONVERT_1gae5cce1a1085c45d8b0ec5931824e9fb6"></span>int32_t <code class="descname">esp_netif_get_event_id</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em>, esp_netif_ip_event_type_t <em>მოვლენის_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv422esp_netif_get_event_idP11esp_netif_t25esp_netif_ip_event_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს კონფიგურირებულ მოვლენას ამ esp-netif ინსტანციისთვის და მოწოდებული მოვლენის ტიპისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>specific event id which is configured to be raised if the interface lost or acquired IP address -1 if supplied event_type is not known </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+<li><code class="docutils literal notranslate"><span class="pre">event_type</span></code>: (ან IP მისამართის მიღება ან დაკარგვა)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_netif_nextP11esp_netif_t">
+<span id="_CPPv314esp_netif_nextP11esp_netif_t"></span><span id="_CPPv214esp_netif_nextP11esp_netif_t"></span><span id="esp_netif_next__esp_netif_tP"></span><span class="target" id="group__ESP__NETIF__LIST_1gaca5a3cfa808e9f1f36b8df1decd6dbf8"></span>esp_netif_t *<code class="descname">esp_netif_next</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv414esp_netif_nextP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ინტერფეისების სიის იტერაცია. თუ პარამეტრად NULL მითითებულია, აბრუნებს პირველ netif-ს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>First netif from the list if supplied parameter is NULL, next one otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: esp-netif ინსტანციის სახელური</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_netif_get_nr_of_ifsv">
+<span id="_CPPv323esp_netif_get_nr_of_ifsv"></span><span id="_CPPv223esp_netif_get_nr_of_ifsv"></span><span id="esp_netif_get_nr_of_ifs__void"></span><span class="target" id="group__ESP__NETIF__LIST_1gadbfb940124293c4056cd61bf953fe215"></span>size_t <code class="descname">esp_netif_get_nr_of_ifs</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv423esp_netif_get_nr_of_ifsv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს რეგისტრირებული esp_netif ობიექტების რაოდენობას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Number of esp_netifs </dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="wifi-default-api-reference">
+<h3>WiFi-ის ნაგულისხმევი API მითითება<a class="headerlink" href="esp_netif.html#wifi-default-api-reference" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_netif.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_wifi/include/esp_wifi_default.h">esp_wifi/include/esp_wifi_default.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="esp_netif.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv429esp_netif_attach_wifi_stationP11esp_netif_t">
+<span id="_CPPv329esp_netif_attach_wifi_stationP11esp_netif_t"></span><span id="_CPPv229esp_netif_attach_wifi_stationP11esp_netif_t"></span><span id="esp_netif_attach_wifi_station__esp_netif_tP"></span><span class="target" id="esp__wifi__default_8h_1a720fc6eea0a976ed8de49a9aa52f52c7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_attach_wifi_station</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv429esp_netif_attach_wifi_stationP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აერთებს Wi-Fi სადგურის ინტერფეისს მოწოდებულ ქსელურ კაბელთან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_FAIL თუ მიმაგრება ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: მაგალითი wifi სადგურის დასაკავშირებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_netif_attach_wifi_apP11esp_netif_t">
+<span id="_CPPv324esp_netif_attach_wifi_apP11esp_netif_t"></span><span id="_CPPv224esp_netif_attach_wifi_apP11esp_netif_t"></span><span id="esp_netif_attach_wifi_ap__esp_netif_tP"></span><span class="target" id="esp__wifi__default_8h_1adefd1c5b142abc9eab65346774cad25d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_attach_wifi_ap</code><span class="sig-paren">(</span>esp_netif_t *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv424esp_netif_attach_wifi_apP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აერთებს wifi soft AP ინტერფეისს მოწოდებულ ქსელთან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_FAIL თუ მიმაგრება ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: მაგალითი wifi წვდომის წერტილის დასაკავშირებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv438esp_wifi_set_default_wifi_sta_handlersv">
+<span id="_CPPv338esp_wifi_set_default_wifi_sta_handlersv"></span><span id="_CPPv238esp_wifi_set_default_wifi_sta_handlersv"></span><span id="esp_wifi_set_default_wifi_sta_handlers__void"></span><span class="target" id="esp__wifi__default_8h_1a307e340b74e32e7513bcc3806c02fc41"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_wifi_set_default_wifi_sta_handlers</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv438esp_wifi_set_default_wifi_sta_handlersv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>STA ინტერფეისისთვის wifi მოვლენების ნაგულისხმევ დამმუშავებლებს ადგენს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში, შეცდომა დაბრუნდა esp_event_handler_register-დან წარუმატებლობის შემთხვევაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv437esp_wifi_set_default_wifi_ap_handlersv">
+<span id="_CPPv337esp_wifi_set_default_wifi_ap_handlersv"></span><span id="_CPPv237esp_wifi_set_default_wifi_ap_handlersv"></span><span id="esp_wifi_set_default_wifi_ap_handlers__void"></span><span class="target" id="esp__wifi__default_8h_1a5dba1e1e15f97af4fcb30f1e68425650"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_wifi_set_default_wifi_ap_handlers</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv437esp_wifi_set_default_wifi_ap_handlersv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>STA ინტერფეისისთვის wifi მოვლენების ნაგულისხმევ დამმუშავებლებს ადგენს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში, შეცდომა დაბრუნდა esp_event_handler_register-დან წარუმატებლობის შემთხვევაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv447esp_wifi_clear_default_wifi_driver_and_handlersPv">
+<span id="_CPPv347esp_wifi_clear_default_wifi_driver_and_handlersPv"></span><span id="_CPPv247esp_wifi_clear_default_wifi_driver_and_handlersPv"></span><span id="esp_wifi_clear_default_wifi_driver_and_handlers__voidP"></span><span class="target" id="esp__wifi__default_8h_1a5b616e68b928a47de4b06c7747de72d7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_wifi_clear_default_wifi_driver_and_handlers</code><span class="sig-paren">(</span>void *<em>esp_netif</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv447esp_wifi_clear_default_wifi_driver_and_handlersPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ასუფთავებს მოწოდებული ქსელური ინტერფეისის ნაგულისხმევ wifi მოვლენების დამმუშავებლებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში, შეცდომა დაბრუნდა esp_event_handler_register-დან წარუმატებლობის შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">esp_netif</span></code>: შესაბამისი if ობიექტის ეგზემპლარი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_netif_create_default_wifi_apv">
+<span id="_CPPv332esp_netif_create_default_wifi_apv"></span><span id="_CPPv232esp_netif_create_default_wifi_apv"></span><span id="esp_netif_create_default_wifi_ap__void"></span><span class="target" id="esp__wifi__default_8h_1aaaeb5fcfbfd6ec4c5cf9947a34365aff"></span>esp_netif_t *<code class="descname">esp_netif_create_default_wifi_ap</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv432esp_netif_create_default_wifi_apv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქმნის ნაგულისხმევ WIFI AP-ს. ნებისმიერი init შეცდომის შემთხვევაში, API წყდება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>pointer to esp-netif instance </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_netif_create_default_wifi_stav">
+<span id="_CPPv333esp_netif_create_default_wifi_stav"></span><span id="_CPPv233esp_netif_create_default_wifi_stav"></span><span id="esp_netif_create_default_wifi_sta__void"></span><span class="target" id="esp__wifi__default_8h_1ab0ce29c4f066e8b17f8d2bf739105e8a"></span>esp_netif_t *<code class="descname">esp_netif_create_default_wifi_sta</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv433esp_netif_create_default_wifi_stav" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქმნის ნაგულისხმევ WIFI STA-ს. ნებისმიერი init შეცდომის შემთხვევაში, API წყდება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>pointer to esp-netif instance </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv441esp_netif_create_default_wifi_mesh_netifsPP11esp_netif_tPP11esp_netif_t">
+<span id="_CPPv341esp_netif_create_default_wifi_mesh_netifsPP11esp_netif_tPP11esp_netif_t"></span><span id="_CPPv241esp_netif_create_default_wifi_mesh_netifsPP11esp_netif_tPP11esp_netif_t"></span><span id="esp_netif_create_default_wifi_mesh_netifs__esp_netif_tPP.esp_netif_tPP"></span><span class="target" id="esp__wifi__default_8h_1acfcb672c06aa2291d62f61c380206870"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_netif_create_default_wifi_mesh_netifs</code><span class="sig-paren">(</span>esp_netif_t **<em>p_netif_sta</em>, esp_netif_t **<em>p_netif_ap</em><span class="sig-paren">)</span><a class="headerlink" href="esp_netif.html#_CPPv441esp_netif_create_default_wifi_mesh_netifsPP11esp_netif_tPP11esp_netif_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქმნის სტანდარტულ STA და AP ქსელურ ინტერფეისებს esp-mesh-ისთვის. </p>
+<p>ორივე netif თითქმის იდენტურია ნაგულისხმევი სადგურისა და softAP-ისა, მაგრამ DHCP კლიენტი და სერვერი გამორთულია. გაითვალისწინეთ, რომ DHCP კლიენტი, როგორც წესი, ჩართულია მხოლოდ იმ შემთხვევაში, თუ მოწყობილობა გადაყვანილია root კვანძად.</p>
+<p>აბრუნებს შექმნილ ინტერფეისებს, რომელთა იგნორირება შესაძლებელია პარამეტრების NULL-ზე დაყენებით, თუ აპლიკაციის კოდს არ სჭირდება ინტერფეისის ეგზემპლარების შენახვა შემდგომი დამუშავებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK on success </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">p_netif_sta</span></code>: მაჩვენებელი, სადაც შენახულია შედეგად მიღებული STA ინტერფეისი (თუ არა NULL) </li>
+<li><code class="docutils literal notranslate"><span class="pre">p_netif_ap</span></code>: მაჩვენებელი, სადაც შენახულია შედეგად მიღებული AP ინტერფეისი (თუ არა NULL)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="tcpip_adapter_migration.html" rel="next" title="TCP/IP Adapter Migration Guide">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_eth.html" rel="prev" title="Ethernet"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

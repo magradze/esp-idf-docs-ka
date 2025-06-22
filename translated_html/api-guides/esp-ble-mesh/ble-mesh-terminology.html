@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-BLE-MESH ტერმინოლოგია — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../mesh.html" rel="next" title="ESP-MESH"/>
+<link href="ble-mesh-faq.html" rel="prev" title="ESP-BLE-MESH FAQ"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/esp-ble-mesh/ble-mesh-terminology.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/esp-ble-mesh/ble-mesh-terminology"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/esp-ble-mesh/ble-mesh-terminology.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ble-mesh-index.html">ESP-BLE-MESH</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#getting-started-with-esp-ble-mesh">ESP-BLE-MESH-ის გამოყენების დაწყება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-examples">ESP-BLE-MESH მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-demo-videos">ESP-BLE-MESH დემო ვიდეოები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-faq">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="ble-mesh-index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-feature-list.html">ESP-BLE-MESH ფუნქციების სია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-architecture.html">ESP-BLE-MESH არქიტექტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-faq.html">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="ble-mesh-terminology.html#">ESP-BLE-MESH ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#bluetooth-sig-documentation">Bluetooth SIG დოკუმენტაცია</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="ble-mesh-index.html">ESP-BLE-MESH</a> »</li>
+<li>ESP-BLE-MESH ტერმინოლოგია</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/esp-ble-mesh/ble-mesh-terminology.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-ble-mesh-terminology">
+<h1>ESP-BLE-MESH ტერმინოლოგია<a class="headerlink" href="ble-mesh-terminology.html#esp-ble-mesh-terminology" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/esp-ble-mesh/ble-mesh-terminology.html">[中文]</a></p>
+<span id="ble-mesh-terminology-role"></span><table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">ცხრილი 1 ESP-BLE-MESH ტერმინოლოგია - როლი</span><a class="headerlink" href="ble-mesh-terminology.html#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>მოწყობილობა, რომელიც არ არის მოწოდებული</td>
+<td>მოწყობილობა, რომელიც არ არის mesh ქსელის წევრი, ცნობილია, როგორც არამომარაგებული მოწყობილობა.</td>
+<td>მაგალითები: განათების მოწყობილობები, ტემპერატურის კონტროლის მოწყობილობები, საწარმოო მოწყობილობები და ელექტრო კარები და ა.შ.</td>
+</tr>
+<tr class="row-odd"><td>კვანძი</td>
+<td>კვანძი არის მოწოდებული მოწყობილობა.</td>
+<td>ESP-BLE-MESH ქსელში ჩართვის შემდეგ, დაუმონტაჟებელი მოწყობილობის როლი კვანძად შეიცვლება. კვანძები (როგორიცაა განათების მოწყობილობები, ტემპერატურის კონტროლის მოწყობილობები, საწარმოო მოწყობილობები და ელექტრო კარები) არის მოწყობილობები, რომლებსაც შეუძლიათ შეტყობინებების გაგზავნა, მიღება ან გადაცემა ESP-BLE-MESH ქსელში და მათ შეუძლიათ სურვილისამებრ მხარი დაუჭირონ ერთ ან მეტ ქვექსელს.</td>
+</tr>
+<tr class="row-even"><td>სარელეო კვანძი</td>
+<td>კვანძს, რომელიც მხარს უჭერს რელეის ფუნქციას და მასში ჩართულია რელეის ფუნქცია, რელეის კვანძი ეწოდება.</td>
+<td>სარელეო კვანძებს შეუძლიათ ESP-BLE-MESH შეტყობინებების მიღება და ხელახლა გაგზავნა, რათა შეტყობინებების გადაცემა შემდგომშიც შესაძლებელი იყოს. მომხმარებლებს შეუძლიათ გადაწყვიტონ, ჩართონ თუ არა კვანძების გადამისამართების ფუნქცია კვანძების სტატუსის მიხედვით. შეტყობინებების გადაცემა შესაძლებელია რამდენჯერმე და თითოეული გადაცემა „ხტომად“ ითვლება. შეტყობინებებს შეუძლიათ 126-ჯერ გადახტომა, რაც საკმარისია შეტყობინებების ფართო არეალში გადასაცემად.</td>
+</tr>
+<tr class="row-odd"><td>პროქსი კვანძი</td>
+<td>კვანძს, რომელიც მხარს უჭერს Proxy ფუნქციას და მასში ჩართულია Proxy ფუნქცია, პროქსი კვანძი ეწოდება.</td>
+<td>პროქსი კვანძები იღებენ შეტყობინებებს ერთი მატარებლისგან (ეს ჩვეულებრივ მოიცავს რეკლამის მატარებელს და GATT მატარებელს) და ხელახლა აგზავნიან მათ მეორედან. მიზანია საკომუნიკაციო მოწყობილობების ESP-BLE-MESH ქსელთან დაკავშირება, რომლებიც მხოლოდ GATT მატარებელს უჭერენ მხარს. როგორც წესი, მობილურ აპლიკაციებს Mesh ქსელზე წვდომისთვის პროქსი კვანძი სჭირდებათ. პროქსი კვანძების გარეშე, მობილურ აპლიკაციებს არ შეუძლიათ Mesh ქსელის წევრებთან კომუნიკაცია.</td>
+</tr>
+<tr class="row-even"><td>მეგობრის კვანძი</td>
+<td>კვანძს, რომელიც მხარს უჭერს მეგობრობის ფუნქციას, ჩართული აქვს მეგობრობის ფუნქცია და მეგობრული ურთიერთობა აქვს კვანძთან, რომელიც მხარს უჭერს დაბალი ენერგიის მოხმარებას, მეგობრობის კვანძი ეწოდება.</td>
+<td>მეგობარ კვანძს, დაბალი სიმძლავრის კვანძის (LPN) სარეზერვო ასლის მსგავსად, შეუძლია შეინახოს დაბალი სიმძლავრის კვანძში გაგზავნილი შეტყობინებები და უსაფრთხოების განახლებები; შენახული ინფორმაცია გადაეცემა დაბალი სიმძლავრის კვანძს, როდესაც დაბალი სიმძლავრის კვანძს ეს დასჭირდება. დაბალი სიმძლავრის კვანძმა უნდა დაამყაროს „მეგობრობა“ სხვა კვანძთან, რომელიც მხარს უჭერს მეგობრობის ფუნქციას, რათა შეამციროს მისი მიმღების სამუშაო ციკლი, რითაც შეიძლება შემცირდეს დაბალი სიმძლავრის კვანძის ენერგომოხმარება. დაბალი სიმძლავრის კვანძმა უნდა იპოვოს მეგობარი კვანძი მასთან მეგობრობის დასამყარებლად. ამ პროცესს ეწოდება „მეგობრობის დამყარება“. დაბალი სიმძლავრის კვანძსა და მეგობარ კვანძებს შორის თანამშრომლობა საშუალებას აძლევს დაბალი სიმძლავრის კვანძს დაგეგმოს რადიოს გამოყენება, რითაც დაბალი სიმძლავრის კვანძს შეუძლია მიიღოს შეტყობინებები შესაბამის ან უფრო დაბალ სიხშირეზე მოსმენის გაგრძელების გარეშე. დაბალი სიმძლავრის კვანძი გამოკითხავს მეგობარ კვანძს, რათა ნახოს, არის თუ არა ახალი შეტყობინება.</td>
+</tr>
+<tr class="row-odd"><td>დაბალი სიმძლავრის კვანძი</td>
+<td>კვანძს, რომელიც მხარს უჭერს დაბალი ენერგიის ფუნქციას და მეგობრული ურთიერთობა აქვს მეგობრობის ფუნქციის მხარდამჭერ კვანძთან, დაბალი ენერგიის კვანძი ეწოდება.</td>
+<td>გამოკითხვის საშუალებით, დაბალი ენერგიის კვანძი იღებს ინფორმაციას მეგობრული კვანძიდან, როგორიცაა შეტყობინებები, უსაფრთხოების განახლებები და ა.შ.</td>
+</tr>
+<tr class="row-even"><td>პროვაიდერი</td>
+<td>კვანძი, რომელსაც შეუძლია მოწყობილობის დამატება mesh ქსელში.</td>
+<td>მოწყობილობას, რომელსაც შეუძლია არამომარაგებული მოწყობილობების უზრუნველყოფა, ეწოდება პროვაიდერი. ეს პროცესი, როგორც წესი, უნდა განხორციელდეს აპლიკაციის მეშვეობით, რომელსაც, როგორც წესი, პროდუქტის მწარმოებელი უზრუნველყოფს და მისი გამოყენება შესაძლებელია გეითვეიზე, სმარტფონზე, პლანშეტზე ან სხვა ოპერატორზე.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-composition"></span><table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">ცხრილი 2 ESP-BLE-MESH ტერმინოლოგია - შემადგენლობა</span><a class="headerlink" href="ble-mesh-terminology.html#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>შტატი</td>
+<td>მნიშვნელობა, რომელიც წარმოადგენს ელემენტის მდგომარეობას, რომელსაც კვანძის ელემენტი ავლენს.</td>
+<td>ESP-BLE-MESH ქსელში თითოეულ კვანძს აქვს მდგომარეობის მნიშვნელობების დამოუკიდებელი ნაკრები, რომელიც მიუთითებს მოწყობილობის გარკვეულ მდგომარეობებზე, როგორიცაა განათების სიკაშკაშე და ფერი. მდგომარეობის მნიშვნელობის შეცვლა გამოიწვევს მოწყობილობების ფიზიკური მდგომარეობის შეცვლას. მაგალითად, მოწყობილობის ჩართვა/გამორთვის მდგომარეობის შეცვლა სინამდვილეში მოწყობილობის ჩართვა/გამორთვაა.</td>
+</tr>
+<tr class="row-odd"><td>მოდელი</td>
+<td>მოდელი განსაზღვრავს კვანძის ძირითად ფუნქციონალურობას.</td>
+<td>კვანძი შეიძლება შეიცავდეს რამდენიმე მოდელს და თითოეული მოდელი განსაზღვრავს კვანძების ძირითად ფუნქციონალურობას, როგორიცაა კვანძებისთვის საჭირო მდგომარეობები, მდგომარეობების მაკონტროლებელი შეტყობინებები და შეტყობინებების დამუშავების შედეგად მიღებული მოქმედებები. კვანძების ფუნქციის იმპლემენტაცია ეფუძნება მოდელებს, რომლებიც შეიძლება დაიყოს SIG მოდელად და მომწოდებლის მოდელად, სადაც პირველი განისაზღვრება SIG-ის, ხოლო მეორე - მომხმარებლების მიერ.</td>
+</tr>
+<tr class="row-even"><td>ელემენტი</td>
+<td>მოწყობილობაში არსებული მისამართებადი ერთეული.</td>
+<td>კვანძი შეიძლება შეიცავდეს ერთ ან მეტ ელემენტს, თითოეულს აქვს უნიქასთ მისამართი და ერთი ან მეტი მოდელი, ხოლო ერთი და იგივე ელემენტის მიერ შემავალი მოდელები არ უნდა იყოს იდენტური.</td>
+</tr>
+<tr class="row-odd"><td>კომპოზიციის მონაცემების მდგომარეობა</td>
+<td>კომპოზიციის მონაცემების მდგომარეობა შეიცავს ინფორმაციას კვანძის, მის მიერ შემავალი ელემენტებისა და მხარდაჭერილი მოდელების შესახებ.</td>
+<td>კომპოზიციის მონაცემების მდგომარეობის მნიშვნელობის წაკითხვით, მომხმარებლებს შეუძლიათ გაიგონ კვანძის ძირითადი ინფორმაცია, როგორიცაა ელემენტების რაოდენობა და თითოეულ ელემენტში მოდელები. პროვიზერი იღებს ამ შეტყობინებას მოწყობილობის შემდგომი მომზადებისთვის, როგორიცაა გამოწერის მისამართის და კვანძების გამოქვეყნების მისამართის კონფიგურაცია.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-features"></span><table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">ცხრილი 3 ESP-BLE-MESH ტერმინოლოგია - მახასიათებლები</span><a class="headerlink" href="ble-mesh-terminology.html#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>დაბალი სიმძლავრის ფუნქცია</td>
+<td>mesh ქსელში მუშაობის შესაძლებლობა მიმღების მნიშვნელოვნად შემცირებული სამუშაო ციკლებით მხოლოდ Friend ფუნქციის მხარდამჭერ კვანძთან ერთად.</td>
+<td>დაბალი სიმძლავრის ფუნქცია ამცირებს კვანძების ენერგომოხმარებას. როდესაც დაბალი სიმძლავრის კვანძი ეძებს მეგობარ კვანძს და ახლოს რამდენიმე მეგობარი კვანძია, ის ალგორითმის მეშვეობით ირჩევს ყველაზე შესაფერის მეგობარ კვანძს.</td>
+</tr>
+<tr class="row-odd"><td>მეგობრის ფუნქცია</td>
+<td>დაბალი სიმძლავრის ფუნქციის მხარდამჭერი კვანძის ფუნქციონირების ხელშეწყობის შესაძლებლობა ამ კვანძებისთვის განკუთვნილი შეტყობინებების შენახვით.</td>
+<td>მეგობრობის ფუნქციის ჩართვით, კვანძს შეუძლია ხელი შეუწყოს დაბალი ენერგიის მქონე კვანძის ინფორმაციის შენახვას. მეგობრობის ფუნქციით გააქტიურებულმა კვანძებმა შეიძლება გამოიწვიოს ენერგიის და მეხსიერების მოხმარების ზრდა.</td>
+</tr>
+<tr class="row-even"><td>რელეის ფუნქცია</td>
+<td>სარეკლამო მატარებლის მეშვეობით mesh შეტყობინებების მიღების და ხელახლა გადაცემის შესაძლებლობა უფრო დიდი ქსელების გასააქტიურებლად.</td>
+<td>რელეის ფუნქცია ESP-BLE-MESH შეტყობინებებს საშუალებას აძლევს, რამდენჯერმე გადაადგილდნენ კვანძებს შორის და გადაცემის მანძილი შეიძლება აღემატებოდეს ორ კვანძს შორის პირდაპირი რადიო გადაცემის დიაპაზონს, რითაც მოიცავს მთელ ქსელს. როდესაც კვანძს აქვს შეტყობინებების რელეის ფუნქცია, ის მხოლოდ საკუთარი ქვექსელის შეტყობინებებს გადასცემს და არ გადასცემს სხვა ქვექსელების შეტყობინებებს. მონაცემთა მთლიანობა არ იქნება გათვალისწინებული, როდესაც რელეის ფუნქციის მქონე კვანძი სეგმენტირებულ შეტყობინებებს გადასცემს. კვანძი გადასცემს ყველა სეგმენტირებულ შეტყობინებას მიღებისთანავე, სრული შეტყობინების მოლოდინის ნაცვლად.</td>
+</tr>
+<tr class="row-odd"><td>პროქსი ფუნქცია</td>
+<td>GATT-სა და რეკლამის მატარებლებს შორის mesh შეტყობინებების მიღების და ხელახლა გადაცემის შესაძლებლობა.</td>
+<td>პროქსი ფუნქციის მიზანია, რეკლამის მატარებლის არმქონე კვანძებს ESP-BLE-MESH ქსელზე წვდომის საშუალება მისცეს. პროქსი ფუნქცია, როგორც წესი, გამოიყენება კვანძებში, რომლებსაც მობილურ აპლიკაციებთან დაკავშირება სჭირდებათ.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-provisioning"></span><table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">ცხრილი 4 ESP-BLE-MESH ტერმინოლოგია - უზრუნველყოფა</span><a class="headerlink" href="ble-mesh-terminology.html#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PB-ADV</td>
+<td>PB-ADV არის უზრუნველყოფის მატარებელი, რომელიც გამოიყენება მოწყობილობის უზრუნველყოფისთვის სარეკლამო არხების მეშვეობით ზოგადი უზრუნველყოფის PDU-ების გამოყენებით.</td>
+<td>PB-ADV გადასცემს მიწოდების პროცესში გენერირებულ პაკეტებს სარეკლამო არხებით. ამ მეთოდის გამოყენება შესაძლებელია მიწოდებისთვის მხოლოდ მაშინ, როდესაც როგორც მიმწოდებელი, ასევე არამომწოდებელი მოწყობილობა მხარს უჭერს PB-ADV-ს.</td>
+</tr>
+<tr class="row-odd"><td>PB-GATT</td>
+<td>PB-GATT არის უზრუნველყოფის მატარებელი, რომელიც გამოიყენება მოწყობილობის უზრუნველყოფისთვის პროქსი PDU-ების გამოყენებით, რათა უზრუნველყოფის PDU-ები მოთავსდეს mesh უზრუნველყოფის სერვისში.</td>
+<td>PB-GATT იყენებს კავშირის არხებს მიწოდების პროცესში გენერირებული პაკეტების გადასაცემად. თუ არამოწოდებულ მოწყობილობას სურს ამ მეთოდით უზრუნველყოფა, მას უნდა დანერგოს შესაბამისი Mesh მიწოდების სერვისი. არამოწოდებული მოწყობილობები, რომლებიც არ ახორციელებენ ასეთ სერვისს, ვერ შეძლებენ mesh ქსელში PB-GATT მატარებლის მეშვეობით უზრუნველყოფას.</td>
+</tr>
+<tr class="row-even"><td>უზრუნველყოფა</td>
+<td>უზრუნველყოფა არის mesh ქსელში არამომარაგებული მოწყობილობის დამატების პროცესი, რომელსაც მართავს პროვაიდერი.</td>
+<td>უზრუნველყოფის პროცესი „უზრუნველყოფილი მოწყობილობის“ „კვანძად“ გარდაქმნის, რაც მას ESP-BLE-MESH ქსელის წევრად აქცევს.</td>
+</tr>
+<tr class="row-odd"><td>ავთენტიფიკაციის მეთოდი</td>
+<td>ავთენტიფიკაცია კვანძების უზრუნველყოფის ეტაპია.</td>
+<td>არამომარაგებული მოწყობილობებისთვის არსებობს ოთხი ავთენტიფიკაციის მეთოდი: გამომავალი OOB, შემავალი OOB, სტატიკური OOB და OOB-ის გარეშე.</td>
+</tr>
+<tr class="row-even"><td>შეყვანა OOB</td>
+<td>შეყვანა დიაპაზონის გარეთ</td>
+<td>მაგალითად, პროვაიდერი წარმოქმნის და აჩვენებს შემთხვევით რიცხვს, შემდეგ კი მომხმარებლებს სთხოვს, განახორციელონ შესაბამისი ქმედებები შემთხვევითი რიცხვის შეუყვანელ მოწყობილობაში შესაყვანად. განათების ჩამრთველის მაგალითის სახით, მომხმარებლებს შეუძლიათ გარკვეული პერიოდის განმავლობაში რამდენჯერმე დააჭირონ ღილაკს პროვაიდერზე ნაჩვენები შემთხვევითი რიცხვის შესაყვანად. შეყვანის OOB-ის ავთენტიფიკაციის მეთოდი მსგავსია გამოყვანის OOB-ის ავთენტიფიკაციისა, მაგრამ მოწყობილობის როლი შებრუნებულია.</td>
+</tr>
+<tr class="row-odd"><td>გამომავალი OOB</td>
+<td>გამომავალი დიაპაზონის გარეთ</td>
+<td>მაგალითად, არამომარაგებული მოწყობილობა აირჩევს შემთხვევით რიცხვს და გამოსცემს მას ისე, რომ თავსებადია მის ფუნქციონალურობასთან. თუ არამომარაგებული მოწყობილობა ნათურაა, მას შეუძლია ფლეშ მეხსიერება განსაზღვრულ რაოდენობაში. თუ არამომარაგებულ მოწყობილობას აქვს LCD ეკრანი, შემთხვევითი რიცხვი შეიძლება გამოჩნდეს მრავალნიშნა მნიშვნელობის სახით. მომხმარებლებმა, რომლებიც იწყებენ მომარაგებას, უნდა შეიყვანონ დაკვირვებული რიცხვი არამომარაგებული მოწყობილობის ავტორიზაციისთვის.</td>
+</tr>
+<tr class="row-even"><td>სტატიკური OOB</td>
+<td>სტატიკური დიაპაზონის გარეთ</td>
+<td>სტატიკური OOB ინფორმაციის ავთენტიფიკაციის მეთოდი: გამოიყენეთ სტატიკური OOB ინფორმაცია. თუ OOB ინფორმაცია არ არის საჭირო, გამოიყენეთ 0, როგორც სტატიკური OOB ინფორმაცია. თუ OOB ინფორმაციაა საჭირო, გამოიყენეთ სტატიკური OOB ინფორმაცია იმ მოწყობილობების ავთენტიფიკაციისთვის, რომლებიც გადიან პროგრამირებას.</td>
+</tr>
+<tr class="row-odd"><td>OOB-ის გარეშე</td>
+<td>დიაპაზონის გარეთ არ არის</td>
+<td>No OOB ავთენტიფიკაციის მეთოდი: Static OOB ველის მნიშვნელობა დააყენეთ 0-ზე. ამ მეთოდის გამოყენება ჰგავს არამოწოდებული მოწყობილობების ავთენტიფიკაციის არარსებობას.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-address"></span><table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">ცხრილი 5 ESP-BLE-MESH ტერმინოლოგია - მისამართი</span><a class="headerlink" href="ble-mesh-terminology.html#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>დაუნიშნავი მისამართი</td>
+<td>ეს არის სპეციალური მისამართის ტიპი, 0x0000 მნიშვნელობით. მისი გამოყენება მიუთითებს, რომ ელემენტი ჯერ არ არის კონფიგურირებული ან მისთვის Unicast მისამართი არ არის მინიჭებული.</td>
+<td>იმ ელემენტების მისამართები, რომლებიც ჯერ არ არის კონფიგურირებული ან არ არის გამოყოფილი მისამართი, არის დაუნიშნავი მისამართები. ეს ელემენტები არ იქნება გამოყენებული შეტყობინებების გადასაცემად, რადგან მათ არ აქვთ ფიქსირებული მისამართი. რეკომენდებულია დაუნიშნავი მისამართის დაყენება მისამართის მნიშვნელობად მომხმარებლის კოდის მისამართის დაყენებამდე.</td>
+</tr>
+<tr class="row-odd"><td>Unicast მისამართი</td>
+<td>უნიქასთ მისამართი არის უნიკალური მისამართი, რომელიც გამოყოფილია თითოეული ელემენტისთვის.</td>
+<td>მიწოდების დროს, პროვაიდერი ქსელში კვანძების სასიცოცხლო ციკლის განმავლობაში კვანძის თითოეულ ელემენტს ანიჭებს უნიქასთ მისამართს. უნიქასთ მისამართი შეიძლება გამოჩნდეს შეტყობინების წყაროს/მიმღების მისამართის ველში. უნიქასთ მისამართზე გაგზავნილი შეტყობინებების დამუშავება მხოლოდ იმ ელემენტის მიერ არის შესაძლებელი, რომელსაც ეკუთვნის უნიქასთ მისამართი.</td>
+</tr>
+<tr class="row-even"><td>ვირტუალური მისამართი</td>
+<td>ვირტუალური მისამართი წარმოადგენს დანიშნულების მისამართების ერთობლიობას. თითოეული ვირტუალური მისამართი ლოგიკურად წარმოადგენს Label UUID-ს, რომელიც 128-ბიტიანი მნიშვნელობაა, რომლის ცენტრალიზებულად მართვა საჭირო არ არის.</td>
+<td>კონკრეტულ UUID ეტიკეტებთან ასოცირებული ვირტუალური მისამართი შეიძლება მოდელის გამოქვეყნების ან გამოწერის მისამართად იქცეს. UUID იარლიყი არის 128-ბიტიანი მნიშვნელობა, რომელიც ასოცირდება ერთი ან მეტი კვანძის ელემენტებთან. ვირტუალური მისამართებისთვის, მე-15 და მე-14 ბიტები შესაბამისად 1-ზე და 0-ზეა დაყენებული; მე-13-დან 0-მდე ბიტები ჰეშ მნიშვნელობებად არის დაყენებული (რაც 16384 ჰეშ მნიშვნელობას იძლევა). ჰეში Label UUID-ის წარმოებულია. სრული 128-ბიტიანი UUID-ის შესამოწმებლად გამოწერის ელემენტების გამოყენება ძალიან არაეფექტურია, ხოლო ჰეშ მნიშვნელობები უფრო ეფექტურ გზას იძლევა იმის დასადგენად, თუ რომელ ელემენტებზე რომელი შეტყობინებები იგზავნება საბოლოოდ.</td>
+</tr>
+<tr class="row-odd"><td>ჯგუფის მისამართი</td>
+<td>ჯგუფური მისამართი არის მისამართი, რომელიც დაპროგრამებულია ნულ ან მეტ ელემენტად.</td>
+<td>ჯგუფური მისამართი ESP-BLE-MESH ქსელში მულტიქასტ მისამართის კიდევ ერთი სახეობაა, რომელიც ჩვეულებრივ კვანძების დასაჯგუფებლად გამოიყენება. ყველა პროქსის მისამართზე გაგზავნილი შეტყობინება უნდა დამუშავდეს ყველა იმ კვანძის პირველადი ელემენტის მიერ, რომლებსაც აქვთ პროქსის ფუნქციონალი ჩართული. ყველა მეგობრის მისამართზე გაგზავნილი შეტყობინება უნდა დამუშავდეს ყველა იმ კვანძის პირველადი ელემენტის მიერ, რომლებსაც აქვთ მეგობრის ფუნქციონალი ჩართული. ყველა რელეს მისამართზე გაგზავნილი შეტყობინება უნდა დამუშავდეს ყველა იმ კვანძის პირველადი ელემენტის მიერ, რომლებსაც აქვთ რელეს ფუნქციონალი ჩართული. ყველა კვანძის მისამართზე გაგზავნილი შეტყობინება უნდა დამუშავდეს ყველა კვანძის პირველადი ელემენტის მიერ.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-security"></span><table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">ცხრილი 6 ESP-BLE-MESH ტერმინოლოგია - უსაფრთხოება</span><a class="headerlink" href="ble-mesh-terminology.html#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>მოწყობილობის გასაღები (DevKey)</td>
+<td>ასევე არსებობს მოწყობილობის გასაღები, რომელიც წარმოადგენს სპეციალურ აპლიკაციის გასაღებს, რომელიც უნიკალურია თითოეული კვანძისთვის, ცნობილია მხოლოდ კვანძისა და კონფიგურაციის კლიენტისთვის და გამოიყენება კვანძსა და კონფიგურაციის კლიენტს შორის კომუნიკაციის უზრუნველსაყოფად.</td>
+<td>მოწყობილობის გასაღები საშუალებას გაძლევთ უზრუნველყოთ მოწყობილობები და დააკონფიგურიროთ კვანძები. მოწყობილობის გასაღები გამოიყენება კონფიგურაციის შეტყობინებების დაშიფვრისთვის, ანუ იმ შეტყობინებისა, რომელიც გადაეცემა მიმწოდებელსა და კვანძს შორის მოწყობილობის კონფიგურაციის დროს.</td>
+</tr>
+<tr class="row-odd"><td>აპლიკაციის გასაღები (AppKey)</td>
+<td>აპლიკაციის გასაღებები გამოიყენება ზედა სატრანსპორტო დონეზე კომუნიკაციის უზრუნველსაყოფად.</td>
+<td>აპლიკაციის გასაღები გამოიყენება აპლიკაციის მონაცემების გაშიფვრისთვის აპლიკაციის დონისთვის მიწოდებამდე და მათი დაშიფვრისთვის აპლიკაციის დონის მიწოდების დროს. ქსელში ზოგიერთ კვანძს აქვს კონკრეტული დანიშნულება და შეუძლია შეზღუდოს წვდომა პოტენციურად მგრძნობიარე მონაცემებზე აპლიკაციის საჭიროებების საფუძველზე. კონკრეტული აპლიკაციის გასაღებებით, ეს კვანძები დაკავშირებულია კონკრეტულ აპლიკაციებთან. ზოგადად, სხვადასხვა აპლიკაციის გასაღებების გამოყენებით ველები მოიცავს უსაფრთხოებას (შენობების, სამანქანო ოთახების და აღმასრულებელი დირექტორის ოფისების წვდომის კონტროლი), განათებას (ქარხანა, შენობის გარე ნაწილი და ტროტუარები) და HVAC სისტემებს. აპლიკაციის გასაღებები დაკავშირებულია ქსელის გასაღებებთან. ეს ნიშნავს, რომ აპლიკაციის გასაღებები გამოიყენება მხოლოდ იმ ქსელის გასაღების კონტექსტში, რომელზეც ისინი დაკავშირებულია. აპლიკაციის გასაღები უნდა იყოს დაკავშირებული მხოლოდ ერთ ქსელის გასაღებთან.</td>
+</tr>
+<tr class="row-even"><td>უსაფრთხოების ძირითადი მასალა</td>
+<td>მთავარი უსაფრთხოების მასალა მიიღება ქსელის გასაღებიდან (NetKey) და მისი გამოყენება შეუძლიათ იმავე ქსელში არსებულ სხვა კვანძებს. მთავარი უსაფრთხოების მასალით დაშიფრული შეტყობინებების გაშიფვრა შესაძლებელია იმავე ქსელში არსებულ ნებისმიერ კვანძს.</td>
+<td>შესაბამისი მეგობრობის შეტყობინებები, დაშიფრული მეგობრობის უსაფრთხოების მასალით: 1. მეგობრის გამოკითხვა, 2. მეგობრის განახლება, 3. მეგობრების გამოწერის სია, დამატება/წაშლა/დადასტურება, 4. „შენახული შეტყობინებები“, გაგზავნილი მეგობრის კვანძების მიერ დაბალი სიმძლავრის კვანძში. შესაბამისი მეგობრობის შეტყობინებები, დაშიფრული მთავარი უსაფრთხოების მასალით: 1. მეგობრის გასუფთავება, 2. მეგობრის გასუფთავების დადასტურება. აპლიკაციების დაყენების მიხედვით, დაბალი სიმძლავრის კვანძიდან მეგობრის კვანძებში გაგზავნილი შეტყობინებები დაშიფრული იქნება მეგობრობის უსაფრთხოების მასალით ან მთავარი უსაფრთხოების მასალით, სადაც პირველი გამოყენებული იქნება დაბალი სიმძლავრის კვანძსა და მეგობრის კვანძებს შორის გადაცემული შეტყობინებებისთვის, ხოლო მეორე გამოყენებული იქნება სხვა ქსელური შეტყობინებებისთვის.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-message"></span><table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">ცხრილი 7 ESP-BLE-MESH ტერმინოლოგია - შეტყობინება</span><a class="headerlink" href="ble-mesh-terminology.html#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ხელახლა აწყობა / სეგმენტაცია</td>
+<td>სეგმენტაცია და ხელახლა აწყობა (SAR) საკომუნიკაციო ქსელის მეთოდია, რომელიც პაკეტების გადაცემამდე იყოფა მცირე ერთეულებად და ხელახლა აწყობილია შესაბამისი თანმიმდევრობით კომუნიკაციის მიმღებ ბოლოში.</td>
+<td>ქვედა სატრანსპორტო ფენა ავტომატურად სეგმენტირებს ძალიან დიდი ზომის შეტყობინებას. მიმღები მხარე დააბრუნებს საპასუხო შეტყობინებას, ხოლო გადამცემი მხარე ხელახლა გაგზავნის მონაცემთა პაკეტს, რომელსაც მიმღები მხარე არ იღებს საპასუხო შეტყობინების მიხედვით. ამას ავტომატურად ასრულებს ქვედა სატრანსპორტო ფენა. არასეგმენტირებული შეტყობინებები შეიცავს მაქსიმუმ 15 ბაიტს, საიდანაც 4 ბაიტი არის transMIC, ამიტომ დარჩენილია 11 ბაიტი; სეგმენტაციის შემთხვევაში, პირველ რამდენიმე პაკეტში არის 12 ვალიდური ბაიტი, ხოლო ბოლოში - 8. განსაკუთრებული შემთხვევა: უფრო მოკლე პაკეტი მოითხოვს სავალდებულო სეგმენტაციას ქვედა სატრანსპორტო ფენიდან, ამ შემთხვევაში ვალიდური ბაიტი არის 8 ბაიტი.</td>
+</tr>
+<tr class="row-odd"><td>არაღიარებული / დადასტურებული</td>
+<td>არსებობს ორი ტიპის შეტყობინება: დაუდასტურებელი ან დადასტურებული</td>
+<td>მიმღებ მხარეს საპასუხო შეტყობინების გაგზავნა სჭირდება თუ არა, გაგზავნილი შეტყობინებები ორ ნაწილად იყოფა. გამგზავნმა უნდა დააწესოს ხელახალი გადაცემის მაქსიმალური რაოდენობა.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-foundation-models"></span><table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">ცხრილი 8 ESP-BLE-MESH ტერმინოლოგია - საძირკვლის მოდელები</span><a class="headerlink" href="ble-mesh-terminology.html#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>კონფიგურაციის სერვერის მოდელი</td>
+<td>ეს მოდელი გამოიყენება მოწყობილობის mesh ქსელის კონფიგურაციის წარმოსადგენად.</td>
+<td>კვანძი უნდა შეიცავდეს კონფიგურაციის სერვერის მოდელს, რომელიც პასუხისმგებელია კონფიგურაციასთან დაკავშირებული მდგომარეობების შენარჩუნებაზე. მდგომარეობები, რომლებსაც კონფიგურაციის სერვერის მოდელი ინარჩუნებს, მოიცავს: NetKey List, AppKey List, Model-დან AppKey List-მდე, კვანძის იდენტურობა, გასაღების განახლების ფაზა, Heartbeat Publish, Heartbeat Subscription, Network Transmit, Relay Retransmit და ა.შ.</td>
+</tr>
+<tr class="row-odd"><td>კონფიგურაციის კლიენტის მოდელი</td>
+<td>მოდელი გამოიყენება ელემენტის წარმოსადგენად, რომელსაც შეუძლია კვანძის კონფიგურაციის კონტროლი და მონიტორინგი.</td>
+<td>კონფიგურაციის კლიენტის მოდელი იყენებს შეტყობინებებს კონფიგურაციის სერვერის მოდელის მიერ შენარჩუნებული მდგომარეობის გასაკონტროლებლად. დებულების მიმწოდებელი უნდა შეიცავდეს კონფიგურაციის კლიენტის მოდელს, რომლის მეშვეობითაც შესაძლებელია კონფიგურაციის შეტყობინებების, მაგალითად, კონფიგურაციის კომპოზიციის მონაცემების მიღების გაგზავნა.</td>
+</tr>
+<tr class="row-even"><td>ჯანდაცვის სერვერის მოდელი</td>
+<td>ეს მოდელი გამოიყენება მოწყობილობის mesh ქსელის დიაგნოსტიკის წარმოსადგენად.</td>
+<td>ჯანმრთელობის სერვერის მოდელს ძირითადად მოწყობილობები იყენებენ თავიანთი მდგომარეობების შესამოწმებლად და შეცდომის დასადგენად. ჯანმრთელობის სერვერის მოდელის მიერ შენარჩუნებული მდგომარეობებია: მიმდინარე გაუმართაობა, რეგისტრირებული გაუმართაობა, ჯანმრთელობის პერიოდი და ყურადღების ტაიმერი.</td>
+</tr>
+<tr class="row-odd"><td>ჯანმრთელობის კლიენტის მოდელი</td>
+<td>მოდელი გამოიყენება ელემენტის წარმოსადგენად, რომელსაც შეუძლია კვანძის ჯანმრთელობის კონტროლი და მონიტორინგი.</td>
+<td>ჯანმრთელობის კლიენტის მოდელი იყენებს შეტყობინებებს ჯანმრთელობის სერვერის მოდელის მიერ შენარჩუნებული მდგომარეობის გასაკონტროლებლად. მოდელს შეუძლია სხვა კვანძების თვითტესტირების ინფორმაციის მიღება „ჯანმრთელობის შეცდომის მიღება“ შეტყობინების მეშვეობით.</td>
+</tr>
+</tbody>
+</table>
+<span id="ble-mesh-terminology-network-management"></span><table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">ცხრილი 9 ESP-BLE-MESH ტერმინოლოგია - ქსელის მართვა</span><a class="headerlink" href="ble-mesh-terminology.html#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="9%"/>
+<col width="36%"/>
+<col width="55%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">ოფიციალური განმარტება</th>
+<th class="head">დეტალური განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>გასაღების განახლების პროცედურა</td>
+<td>ეს პროცედურა გამოიყენება მაშინ, როდესაც ერთი ან მეტი ქსელური გასაღების და/ან ერთი ან მეტი აპლიკაციის გასაღების უსაფრთხოება კომპრომეტირებულია ან შეიძლება კომპრომეტირებული იყოს.</td>
+<td>გასაღების განახლების პროცედურა გამოიყენება ESP-BLE-MESH ქსელის ქსელის და აპლიკაციის გასაღების განახლებისთვის. გასაღების განახლების პროცედურა გამოიყენება მაშინ, როდესაც ერთი ან მეტი ქსელის გასაღების და/ან ერთი ან მეტი აპლიკაციის გასაღების უსაფრთხოება საფრთხის ქვეშაა ან პოტენციურად საფრთხის ქვეშაა. გასაღებები, როგორც წესი, განახლდება ქსელში ზოგიერთი კვანძის წაშლის შემდეგ.</td>
+</tr>
+<tr class="row-odd"><td>IV (ინიციალიზაციის ვექტორი) განახლების პროცედურა</td>
+<td>კვანძს ასევე შეუძლია გამოიყენოს IV განახლების პროცედურა, რათა თანატოლ კვანძებს აცნობოს, რომ ის IV ინდექსს აახლებს.</td>
+<td>IV განახლების პროცედურა გამოიყენება ESP-BLE-MESH ქსელის IV ინდექსის მნიშვნელობის განახლებისთვის. ეს მნიშვნელობა დაკავშირებულია შეტყობინების დაშიფვრისთვის საჭირო შემთხვევით რიცხვთან. იმისათვის, რომ შემთხვევითი რიცხვის მნიშვნელობა არ განმეორდეს, ეს მნიშვნელობა პერიოდულად იზრდება. IV ინდექსი არის 32-ბიტიანი მნიშვნელობა და საერთო ქსელის რესურსი. მაგალითად, mesh ქსელში ყველა კვანძს აქვს ერთი და იგივე IV ინდექსის მნიშვნელობა. 0x00000000-დან დაწყებული, IV ინდექსი იზრდება IV განახლების პროცედურის დროს და მხარდაჭერილია კონკრეტული პროცესით, რაც უზრუნველყოფს, რომ mesh ქსელში გაზიარებული IV ინდექსი იგივეა. ეს შეიძლება გაკეთდეს მაშინ, როდესაც კვანძი თვლის, რომ მას აქვს თავისი თანმიმდევრობის ნომრის ამოწურვის რისკი, ან როდესაც ის დაადგენს, რომ სხვა კვანძი თითქმის ამოწურავს თავის თანმიმდევრობის ნომერს. შენიშვნა: განახლების დრო არ უნდა იყოს 96 საათზე ნაკლები. მისი გააქტიურება შესაძლებელია უსაფრთხო ქსელის შუქურის მიღებისას, ან როდესაც კვანძი დაადგენს, რომ მისი თანმიმდევრობის ნომერი აღემატება გარკვეულ მნიშვნელობას.</td>
+</tr>
+</tbody>
+</table>
+<p>დამატებითი პირობებისთვის, გთხოვთ, იხილოთ: <a class="reference external" href="https://www.bluetooth.com/bluetooth-technology/topology-options/le-mesh/mesh-glossary/">ESP-BLE-MESH ტერმინების ლექსიკონი</a>.</p>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../mesh.html" rel="next" title="ESP-MESH">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="ble-mesh-faq.html" rel="prev" title="ESP-BLE-MESH FAQ"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

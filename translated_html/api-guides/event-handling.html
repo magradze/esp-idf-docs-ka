@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>მოვლენების დამუშავება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="external-ram.html" rel="next" title="Support for external RAM"/>
+<link href="core_dump.html" rel="prev" title="ESP32 Core Dump"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/event-handling.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/event-handling"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/event-handling.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="event-handling.html#">მოვლენების დამუშავება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="event-handling.html#wi-fi-ethernet-and-ip-events">Wi-Fi , Ethernet და IP მოვლენები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="event-handling.html#esp-event-library-event-loop">esp_event ბიბლიოთეკის მოვლენების ციკლი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="event-handling.html#legacy-event-loop">მემკვიდრეობითი მოვლენების ციკლი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="event-handling.html#event-ids-and-corresponding-data-structures">მოვლენის ID-ები და შესაბამისი მონაცემთა სტრუქტურები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event-handling.html#mesh-events">Mesh ღონისძიებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="event-handling.html#bluetooth-events">Bluetooth ღონისძიებები</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>მოვლენების დამუშავება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/event-handling.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="event-handling">
+<h1>მოვლენების დამუშავება<a class="headerlink" href="event-handling.html#event-handling" title="Permalink to this headline">¶</a></h1>
+<p>რამდენიმე ESP-IDF კომპონენტი s გამოყენება <em>ღონისძიებები</em> აპლიკაციის ინფორმირება მდგომარეობის ცვლილებების შესახებ, როგორიცაა კავშირი ან გათიშვა. ეს დოკუმენტი იძლევა ამ მოვლენების მექანიზმების მიმოხილვას.</p>
+<div class="section" id="wi-fi-ethernet-and-ip-events">
+<h2>Wi-Fi , Ethernet და IP მოვლენები<a class="headerlink" href="event-handling.html#wi-fi-ethernet-and-ip-events" title="Permalink to this headline">¶</a></h2>
+<p>-ის დანერგვამდე <a class="reference internal" href="../api-reference/system/esp_event.html"><span class="doc">esp_event ბიბლიოთეკა</span></a>, Wi-Fi დრაივერის, Ethernet დრაივერის და TCP/IP დასტის მოვლენები გაიგზავნა ე.წ. <em>მემკვიდრეობითი მოვლენების ციკლი</em>შემდეგ ნაწილებში ახსნილია თითოეული მეთოდი.</p>
+<div class="section" id="esp-event-library-event-loop">
+<h3>esp_event ბიბლიოთეკის მოვლენების ციკლი<a class="headerlink" href="event-handling.html#esp-event-library-event-loop" title="Permalink to this headline">¶</a></h3>
+<p>esp_event ბიბლიოთეკა შექმნილია ESP-IDF ში მოვლენების დამუშავების მიზნებისთვის მემკვიდრეობითი მოვლენების ციკლის ჩასანაცვლებლად. მემკვიდრეობითი მოვლენების ციკლში, ყველა შესაძლო მოვლენის ტიპი და მოვლენის მონაცემთა სტრუქტურა უნდა განისაზღვროს <a class="reference internal" href="../api-reference/system/esp_event_legacy.html#_CPPv417system_event_id_t" title="system_event_id_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">system_event_id_t</span></code></a> ჩამოთვლა და <a class="reference internal" href="../api-reference/system/esp_event_legacy.html#_CPPv419system_event_info_t" title="system_event_info_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">system_event_info_t</span></code></a> union-ს, რაც შეუძლებელს ხდიდა მორგებული მოვლენების გაგზავნას მოვლენების ციკლში და მოვლენების ციკლის გამოყენებას სხვა სახის მოვლენებისთვის (მაგ. Mesh). მემკვიდრეობით მიღებული მოვლენების ციკლს ასევე მხოლოდ ერთი მოვლენების დამმუშავებლის ფუნქცია უჭერდა მხარს, ამიტომ აპლიკაცია კომპონენტი s თავად ვერ ამუშავებდა Wi-Fi ან IP მოვლენების ნაწილს და აპლიკაციას სჭირდებოდა ამ მოვლენების გადამისამართება მისი მოვლენების დამმუშავებლის ფუნქციიდან.</p>
+<p>იხილეთ <a class="reference internal" href="../api-reference/system/esp_event.html"><span class="doc">esp_event ბიბლიოთეკის API მითითება</span></a> ამ ბიბლიოთეკის გამოყენების შესახებ ზოგადი ინფორმაციისთვის. Wi-Fi , Ethernet და IP მოვლენები იგზავნება <a class="reference internal" href="../api-reference/system/esp_event.html#esp-event-default-loops"><span class="std std-ref">ნაგულისხმევი მოვლენების ციკლი</span></a> ამ ბიბლიოთეკის მიერ მოწოდებული.</p>
+</div>
+<div class="section" id="legacy-event-loop">
+<span id="id1"></span><h3>მემკვიდრეობითი მოვლენების ციკლი<a class="headerlink" href="event-handling.html#legacy-event-loop" title="Permalink to this headline">¶</a></h3>
+<p>ამ მოვლენის ციკლის იმპლემენტაცია იწყება გამოყენებით <a class="reference internal" href="../api-reference/system/esp_event_legacy.html#_CPPv419esp_event_loop_init17system_event_cb_tPv" title="esp_event_loop_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_event_loop_init()</span></code></a> ფუნქცია. აპლიკაცია, როგორც წესი, უზრუნველყოფს <em>მოვლენების დამმუშავებელი</em>, ფუნქცია შემდეგი ხელმოწერით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esp_err_t</span> <span class="n">event_handler</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">system_event_t</span> <span class="o">*</span><span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>როგორც მოვლენის დამმუშავებლის ფუნქციის მიმთითებელი, ასევე თვითნებური კონტექსტის მიმთითებელი გადაეცემა <a class="reference internal" href="../api-reference/system/esp_event_legacy.html#_CPPv419esp_event_loop_init17system_event_cb_tPv" title="esp_event_loop_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_event_loop_init()</span></code></a>.</p>
+<p>როდესაც Wi-Fi , Ethernet ან IP სტეკი წარმოქმნის მოვლენას, ეს მოვლენა იგზავნება მაღალი პრიორიტეტის მქონე <code class="docutils literal notranslate"><span class="pre">event</span></code> დავალება რიგის მეშვეობით. აპლიკაციის მიერ მოწოდებული მოვლენების დამმუშავებელი ფუნქცია გამოიძახება ამ დავალების კონტექსტში. მოვლენების დავალებების დასტის ზომისა და მოვლენების რიგის ზომის კორექტირება შესაძლებელია გამოყენებით <a class="reference internal" href="../api-reference/kconfig.html#config-esp-system-event-task-stack-size"><span class="std std-ref">CONFIG_ESP_SYSTEM_EVENT_TASK_STACK_SIZE</span></a> და <a class="reference internal" href="../api-reference/kconfig.html#config-esp-system-event-queue-size"><span class="std std-ref">CONFIG_ESP_SYSTEM_EVENT_QUEUE_SIZE</span></a> პარამეტრები, შესაბამისად.</p>
+<p>მოვლენების დამმუშავებელი იღებს მოვლენის სტრუქტურის მაჩვენებელს (<a class="reference internal" href="../api-reference/system/esp_event_legacy.html#_CPPv414system_event_t" title="system_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">system_event_t</span></code></a>), რომელიც აღწერს მიმდინარე მოვლენას. ეს სტრუქტურა მიჰყვება <em>მონიშნული კავშირი</em> ნიმუში: <code class="docutils literal notranslate"><span class="pre">event_id</span></code> წევრი მიუთითებს მოვლენის ტიპზე და <code class="docutils literal notranslate"><span class="pre">event_info</span></code> წევრი არის აღწერილობის სტრუქტურების გაერთიანება. აპლიკაციის მოვლენების დამმუშავებელი, როგორც წესი, გამოიყენებს <code class="docutils literal notranslate"><span class="pre">switch(event-&gt;event_id)</span></code> სხვადასხვა სახის ღონისძიებების სამართავად.</p>
+<p>თუ აპლიკაციის მოვლენების დამმუშავებელს სჭირდება მოვლენის სხვა დავალებაზე გადაცემა, მნიშვნელოვანია აღინიშნოს, რომ მოვლენის დამმუშავებლისთვის გადაცემული მოვლენის მაჩვენებელი დროებითი სტრუქტურის მაჩვენებელია. მოვლენის სხვა დავალებაზე გადასაცემად, აპლიკაციამ უნდა შექმნას მთელი სტრუქტურის ასლი.</p>
+</div>
+<div class="section" id="event-ids-and-corresponding-data-structures">
+<h3>მოვლენის ID-ები და შესაბამისი მონაცემთა სტრუქტურები<a class="headerlink" href="event-handling.html#event-ids-and-corresponding-data-structures" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%"/>
+<col width="57%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>მოვლენის ID (მემკვიდრეობითი მოვლენის ID)</td>
+<td>ღონისძიების მონაცემთა სტრუქტურა</td>
+</tr>
+<tr class="row-even"><td colspan="2"><strong>Wi-Fi</strong></td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_WIFI_READY (SYSTEM_EVENT_WIFI_READY)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_SCAN_DONE (SYSTEM_EVENT_SCAN_DONE)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv426wifi_event_sta_scan_done_t" title="wifi_event_sta_scan_done_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_sta_scan_done_t</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_STA_START (SYSTEM_EVENT_STA_START)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_STA_STOP (SYSTEM_EVENT_STA_STOP)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_STA_CONNECTED (SYSTEM_EVENT_STA_CONNECTED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv426wifi_event_sta_connected_t" title="wifi_event_sta_connected_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_sta_connected_t</span></code></a></td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_STA_DISCONNECTED (SYSTEM_EVENT_STA_DISCONNECTED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv429wifi_event_sta_disconnected_t" title="wifi_event_sta_disconnected_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_sta_disconnected_t</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_STA_AUTHMODE_CHANGE (SYSTEM_EVENT_STA_AUTHMODE_CHANGE)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv432wifi_event_sta_authmode_change_t" title="wifi_event_sta_authmode_change_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_sta_authmode_change_t</span></code></a></td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_STA_WPS_ER_SUCCESS (SYSTEM_EVENT_STA_WPS_ER_SUCCESS)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_STA_WPS_ER_FAILED (SYSTEM_EVENT_STA_WPS_ER_FAILED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv432wifi_event_sta_wps_fail_reason_t" title="wifi_event_sta_wps_fail_reason_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">wifi_event_sta_wps_fail_reason_t</span></code></a></td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_STA_WPS_ER_TIMEOUT (SYSTEM_EVENT_STA_WPS_ER_TIMEOUT)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_STA_WPS_ER_PIN (SYSTEM_EVENT_STA_WPS_ER_PIN)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv427wifi_event_sta_wps_er_pin_t" title="wifi_event_sta_wps_er_pin_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_sta_wps_er_pin_t</span></code></a></td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_AP_START (SYSTEM_EVENT_AP_START)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_AP_STOP (SYSTEM_EVENT_AP_STOP)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_AP_STACONNECTED (SYSTEM_EVENT_AP_STACONNECTED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv428wifi_event_ap_staconnected_t" title="wifi_event_ap_staconnected_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_ap_staconnected_t</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>WIFI_EVENT_AP_STADISCONNECTED (SYSTEM_EVENT_AP_STADISCONNECTED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv431wifi_event_ap_stadisconnected_t" title="wifi_event_ap_stadisconnected_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_ap_stadisconnected_t</span></code></a></td>
+</tr>
+<tr class="row-even"><td>WIFI_EVENT_AP_PROBEREQRECVED (SYSTEM_EVENT_AP_PROBEREQRECVED)</td>
+<td><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv428wifi_event_ap_probe_req_rx_t" title="wifi_event_ap_probe_req_rx_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">wifi_event_ap_probe_req_rx_t</span></code></a></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><strong>Ethernet</strong></td>
+</tr>
+<tr class="row-even"><td>ETHERNET_EVENT_START (SYSTEM_EVENT_ETH_START)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>ETHERNET_EVENT_STOP (SYSTEM_EVENT_ETH_STOP)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td>ETHERNET_EVENT_CONNECTED (SYSTEM_EVENT_ETH_CONNECTED)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>ETHERNET_EVENT_DISCONNECTED (SYSTEM_EVENT_ETH_DISCONNECTED)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td colspan="2"><strong>IP</strong></td>
+</tr>
+<tr class="row-odd"><td>IP_EVENT_STA_GOT_IP (SYSTEM_EVENT_STA_GOT_IP)</td>
+<td><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">ip_event_got_ip_t</span></code></td>
+</tr>
+<tr class="row-even"><td>IP_EVENT_STA_LOST_IP (SYSTEM_EVENT_STA_LOST_IP)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>IP_EVENT_AP_STAIPASSIGNED (SYSTEM_EVENT_AP_STAIPASSIGNED)</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-even"><td>IP_EVENT_GOT_IP6 (SYSTEM_EVENT_GOT_IP6)</td>
+<td><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">ip_event_got_ip6_t</span></code></td>
+</tr>
+<tr class="row-odd"><td>IP_EVENT_ETH_GOT_IP (SYSTEM_EVENT_ETH_GOT_IP)</td>
+<td><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">ip_event_got_ip_t</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="mesh-events">
+<h2>Mesh ღონისძიებები<a class="headerlink" href="event-handling.html#mesh-events" title="Permalink to this headline">¶</a></h2>
+<p>ESP-MESH იყენებს მსგავს სისტემას <a class="reference internal" href="event-handling.html#legacy-event-loop"><span class="std std-ref">მემკვიდრეობითი მოვლენების ციკლი</span></a> ღონისძიებების აპლიკაციაში გადასაცემად. იხილეთ <a class="reference internal" href="../api-reference/network/esp_mesh.html#mesh-events"><span class="std std-ref">სისტემის მოვლენები</span></a> დეტალებისთვის.</p>
+</div>
+<div class="section" id="bluetooth-events">
+<h2>Bluetooth ღონისძიებები<a class="headerlink" href="event-handling.html#bluetooth-events" title="Permalink to this headline">¶</a></h2>
+<p>Bluetooth დასტის სხვადასხვა მოდული აპლიკაციებს მოვლენებს სპეციალური უკუკავშირის ფუნქციების მეშვეობით აწვდის. უკუკავშირის ფუნქციები იღებს მოვლენის ტიპს (ჩამოთვლილი მნიშვნელობა) და მოვლენის მონაცემებს (სტრუქტურების გაერთიანება თითოეული მოვლენის ტიპისთვის). ქვემოთ მოცემულ სიაში მოცემულია API რეგისტრაციის სახელი, მოვლენის ჩამოთვლის ტიპი და მოვლენის პარამეტრების ტიპი.</p>
+<ul class="simple">
+<li>BLE GAP: <a class="reference internal" href="../api-reference/bluetooth/esp_gap_ble.html#_CPPv429esp_ble_gap_register_callback16esp_gap_ble_cb_t" title="esp_ble_gap_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_gap_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_gap_ble.html#_CPPv422esp_gap_ble_cb_event_t" title="esp_gap_ble_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_gap_ble_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_gap_ble.html#_CPPv422esp_ble_gap_cb_param_t" title="esp_ble_gap_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_gap_cb_param_t</span></code></a>.</li>
+<li>BT GAP: <a class="reference internal" href="../api-reference/bluetooth/esp_gap_bt.html#_CPPv428esp_bt_gap_register_callback15esp_bt_gap_cb_t" title="esp_bt_gap_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_bt_gap_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_gap_bt.html#_CPPv421esp_bt_gap_cb_event_t" title="esp_bt_gap_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gap_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_gap_bt.html#_CPPv421esp_bt_gap_cb_param_t" title="esp_bt_gap_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gap_cb_param_t</span></code></a>.</li>
+<li>GATTC: <a class="reference internal" href="../api-reference/bluetooth/esp_gattc.html#_CPPv431esp_ble_gattc_register_callback14esp_gattc_cb_t" title="esp_ble_gattc_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_gattc_register_callback()</span></code></a>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gattc_cb_event_t</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gattc_cb_param_t</span></code>.</li>
+<li>გატსი: <a class="reference internal" href="../api-reference/bluetooth/esp_gatts.html#_CPPv431esp_ble_gatts_register_callback14esp_gatts_cb_t" title="esp_ble_gatts_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_gatts_register_callback()</span></code></a>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gatts_cb_event_t</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_bt_gatts_cb_param_t</span></code>.</li>
+<li>სპეციალური შეთავაზება: <a class="reference internal" href="../api-reference/bluetooth/esp_spp.html#_CPPv425esp_spp_register_callback12esp_spp_cb_t" title="esp_spp_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_spp_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_spp.html#_CPPv418esp_spp_cb_event_t" title="esp_spp_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_spp_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_spp.html#_CPPv418esp_spp_cb_param_t" title="esp_spp_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_spp_cb_param_t</span></code></a>.</li>
+<li>ბლუფი: <a class="reference internal" href="../api-reference/bluetooth/esp_blufi.html#_CPPv428esp_blufi_register_callbacksP21esp_blufi_callbacks_t" title="esp_blufi_register_callbacks"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_blufi_register_callbacks()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_blufi.html#_CPPv420esp_blufi_cb_event_t" title="esp_blufi_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_blufi_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_blufi.html#_CPPv420esp_blufi_cb_param_t" title="esp_blufi_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_blufi_cb_param_t</span></code></a>.</li>
+<li>A2DP: <a class="reference internal" href="../api-reference/bluetooth/esp_a2dp.html#_CPPv425esp_a2d_register_callback12esp_a2d_cb_t" title="esp_a2d_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_a2d_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_a2dp.html#_CPPv418esp_a2d_cb_event_t" title="esp_a2d_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_a2d_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_a2d_cb_param_t</span></code></a>.</li>
+<li>AVRC: <a class="reference internal" href="../api-reference/bluetooth/esp_avrc.html#_CPPv429esp_avrc_ct_register_callback16esp_avrc_ct_cb_t" title="esp_avrc_ct_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_avrc_ct_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_avrc.html#_CPPv422esp_avrc_ct_cb_event_t" title="esp_avrc_ct_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_avrc_ct_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_avrc.html#_CPPv422esp_avrc_ct_cb_param_t" title="esp_avrc_ct_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_avrc_ct_cb_param_t</span></code></a>.</li>
+<li>HFP კლიენტი: <a class="reference internal" href="../api-reference/bluetooth/esp_hf_client.html#_CPPv431esp_hf_client_register_callback18esp_hf_client_cb_t" title="esp_hf_client_register_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_hf_client_register_callback()</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_hf_client.html#_CPPv424esp_hf_client_cb_event_t" title="esp_hf_client_cb_event_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_hf_client_cb_event_t</span></code></a>, <a class="reference internal" href="../api-reference/bluetooth/esp_hf_client.html#_CPPv424esp_hf_client_cb_param_t" title="esp_hf_client_cb_param_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_hf_client_cb_param_t</span></code></a>.</li>
+<li>HFP AG: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_hf_ag_register_callback()</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_hf_ag_cb_event_t</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_hf_ag_cb_param_t</span></code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="external-ram.html" rel="next" title="Support for external RAM">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="core_dump.html" rel="prev" title="ESP32 Core Dump"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

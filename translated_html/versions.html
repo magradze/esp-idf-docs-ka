@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-IDF ვერსიები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="resources.html" rel="next" title="Resources"/>
+<link href="contribute/contributor-agreement.html" rel="prev" title="Contributor Agreement"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/versions.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "versions"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/versions.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="versions.html#">ვერსიები</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#releases">რელიზები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#which-version-should-i-start-with">რომელი ვერსიით უნდა დავიწყო?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#versioning-scheme">ვერსიონირების სქემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#support-periods">მხარდაჭერის პერიოდები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#checking-the-current-version">მიმდინარე ვერსიის შემოწმება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#git-workflow">Git-ის სამუშაო პროცესი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#updating-esp-idf">ESP-IDF განახლება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="versions.html#updating-to-stable-release">განახლება სტაბილურ ვერსიაზე</a></li>
+<li class="toctree-l3"><a class="reference internal" href="versions.html#updating-to-a-pre-release-version">განახლება წინასწარი გამოშვების ვერსიაზე</a></li>
+<li class="toctree-l3"><a class="reference internal" href="versions.html#updating-to-master-branch">განახლება Master Branch-ზე</a></li>
+<li class="toctree-l3"><a class="reference internal" href="versions.html#updating-to-a-release-branch">განახლება გამოშვების ფილიალში</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">დოკუმენტები</a> »</li>
+<li>ESP-IDF ვერსიები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/versions.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-idf-versions">
+<h1>ESP-IDF ვერსიები<a class="headerlink" href="versions.html#esp-idf-versions" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/versions.html">[中文]</a></p>
+<p>ESP-IDF GitHub-ის საცავი რეგულარულად განახლდება, განსაკუთრებით მასტერ ტოტი, სადაც ახალი განვითარება ხდება.</p>
+<p>საწარმოო გამოყენებისთვის, ასევე ხელმისაწვდომია სტაბილური გამოშვებები.</p>
+<div class="section" id="releases">
+<h2>რელიზები<a class="headerlink" href="versions.html#releases" title="Permalink to this headline">¶</a></h2>
+<p>მიმდინარე სტაბილური ვერსიის დოკუმენტაცია ყოველთვის შეგიძლიათ იხილოთ ამ URL-ზე:</p>
+<p><a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/stable/">https://docs.espressif.com/projects/esp-idf/en/stable/</a></p>
+<p>უახლესი ვერსიის დოკუმენტაცია (master branch) ყოველთვის შეგიძლიათ იხილოთ ამ URL-ზე:</p>
+<p><a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/">https://docs.espressif.com/projects/esp-idf/en/latest/</a></p>
+<p>გამოშვებების სრული ისტორია შეგიძლიათ იხილოთ GitHub-ის საცავში <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>იქ შეგიძლიათ იპოვოთ გამოშვების შენიშვნები, დოკუმენტაციის თითოეული ვერსიის ბმულები და თითოეული ვერსიის მიღების ინსტრუქციები.</p>
+<p>ყველა ვერსიის დოკუმენტაციის მოსაძებნად კიდევ ერთი ადგილია დოკუმენტაციის გვერდი, სადაც შეგიძლიათ გადახვიდეთ ქვედა მარცხენა კუთხეში და დააწკაპუნოთ ვერსიების ჩამოსაშლელ ფანჯარაზე (ზოლი პატარა სამკუთხედით). ასევე შეგიძლიათ გამოიყენოთ ეს ჩამოსაშლელი ფანჯარა დოკუმენტაციის ვერსიებს შორის გადასართავად.</p>
+<img alt="_images/choose_version.png" src="_images/choose_version.png"/>
+</div>
+<div class="section" id="which-version-should-i-start-with">
+<h2>რომელი ვერსიით უნდა დავიწყო?<a class="headerlink" href="versions.html#which-version-should-i-start-with" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">წარმოების მიზნებისთვის გამოიყენეთ <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/stable/">მიმდინარე სტაბილური ვერსია</a>სტაბილური ვერსიები ხელით იქნა გამოცდილი და განახლებულია „შეცდომების გამოსწორების რელიზებით“, რომლებიც ასწორებს შეცდომებს სხვა ფუნქციონალობის შეცვლის გარეშე (იხ. <a class="reference internal" href="versions.html#versioning-scheme">ვერსიონირების სქემა</a> დამატებითი დეტალებისთვის).</p>
+<p>ახალი ESP-IDF ვერსიების განახლებებს შორის დროის მაქსიმალურად გაზრდის მიზნით, გამოიყენეთ გრძელვადიანი მხარდაჭერის უახლესი სტაბილური ვერსია. ეს ვერსია შეგიძლიათ იხილოთ <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>.</p>
+</li>
+<li><p class="first">პროტოტიპების შესაქმნელად, ექსპერიმენტებისთვის ან ახალი ESP-IDF ფუნქციების შესამუშავებლად გამოიყენეთ <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/">უახლესი ვერსია (Git-ის მთავარი ფილიალი)</a>მასტერ ფრონტის უახლეს ვერსიას აქვს ყველა უახლესი ფუნქცია და წარმატებით გაიარა ავტომატური ტესტირება, თუმცა სრულად ხელით არ არის გამოცდილი („გადამწყვეტი ზღვარი“).</p>
+</li>
+<li><p class="first">თუ საჭირო ფუნქცია ჯერ არ არის ხელმისაწვდომი სტაბილურ ვერსიაში, მაგრამ არ გსურთ მთავარი განშტოების გამოყენება, შესაძლებელია წინასწარი გამოშვების ვერსიის ან გამოშვების განშტოების შემოწმება. რეკომენდებულია სტაბილური ვერსიიდან დაწყება და შემდეგ ინსტრუქციების შესრულება. <a class="reference internal" href="versions.html#updating-pre-release"><span class="std std-ref">განახლება წინასწარი გამოშვების ვერსიაზე</span></a> ან <a class="reference internal" href="versions.html#updating-release-branch"><span class="std std-ref">განახლება გამოშვების ფილიალში</span></a>.</p>
+</li>
+</ul>
+<p>იხილეთ <a class="reference internal" href="versions.html#updating"><span class="std std-ref">ESP-IDF განახლება</span></a> თუ უკვე გაქვთ ESP-IDF ის ლოკალური ასლი და გსურთ მისი განახლება.</p>
+</div>
+<div class="section" id="versioning-scheme">
+<h2>ვერსიონირების სქემა<a class="headerlink" href="versions.html#versioning-scheme" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF გამოყენება <a class="reference external" href="http://semver.org/">სემანტიკური ვერსიონინგი</a>ეს ნიშნავს, რომ:</p>
+<ul>
+<li><p class="first">ძირითადი რელიზები, მაგალითად <code class="docutils literal notranslate"><span class="pre">v3.0</span></code>, ახალი ფუნქციონალის დამატება და შესაძლოა ფუნქციონალურობის შეცვლა. ეს მოიცავს მოძველებული ფუნქციონალის მოხსნას.</p>
+<p>თუ განახლება ხდება ახალ მთავარ ვერსიაზე (მაგალითად, <code class="docutils literal notranslate"><span class="pre">v2.1</span></code> რომ <code class="docutils literal notranslate"><span class="pre">v3.0</span></code>), თქვენი პროექტის კოდის ნაწილი შეიძლება განახლებას და ფუნქციონალურობის ხელახალ ტესტირებას საჭიროებდეს. გამოშვების შენიშვნები <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a> ჩართეთ მნიშვნელოვანი ცვლილებების სიები, რომლებზეც მითითება იქნება შესაძლებელი.</p>
+</li>
+<li><p class="first">მცირე რელიზები, როგორიცაა <code class="docutils literal notranslate"><span class="pre">v3.1</span></code> დაამატეთ ახალი ფუნქციონალი და გამოასწორეთ შეცდომები, მაგრამ არ შეცვლის ან წაშლის დოკუმენტირებულ ფუნქციონალს, ან არ შეიტანს შეუთავსებელ ცვლილებებს საჯარო API ში.</p>
+<p>თუ განახლება ხდება ახალ მცირე ვერსიაზე (მაგალითად, <code class="docutils literal notranslate"><span class="pre">v3.0</span></code> რომ <code class="docutils literal notranslate"><span class="pre">v3.1</span></code>), თქვენი პროექტის კოდი განახლებას არ საჭიროებს, მაგრამ თქვენ ხელახლა უნდა გამოსცადოთ თქვენი პროექტი. განსაკუთრებული ყურადღება მიაქციეთ გამოშვების შენიშვნებში მითითებულ პუნქტებს. <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>.</p>
+</li>
+<li><p class="first">შეცდომების გამოსწორების გამოშვებები, როგორიცაა <code class="docutils literal notranslate"><span class="pre">v3.0.1</span></code> მხოლოდ შეცდომების გამოსწორება და ახალი ფუნქციების დამატება არ შეიძლება.</p>
+<p>თუ განახლდება შეცდომების გამოსწორების ახალ ვერსიაზე (მაგალითად, <code class="docutils literal notranslate"><span class="pre">v3.0</span></code> რომ <code class="docutils literal notranslate"><span class="pre">v3.0.1</span></code>), თქვენ არ გჭირდებათ თქვენს პროექტში კოდის შეცვლა და მხოლოდ უნდა ხელახლა შეამოწმოთ ფუნქციონალობა, რომელიც პირდაპირ კავშირშია გამოშვების შენიშვნებში ჩამოთვლილ შეცდომებთან. <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="support-periods">
+<h2>მხარდაჭერის პერიოდები<a class="headerlink" href="versions.html#support-periods" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF თითოეულ მთავარ და მცირე ვერსიას აქვს მხარდაჭერის შესაბამისი პერიოდი. ამ პერიოდის შემდეგ, გამოშვება ითვლება სიცოცხლის დასასრულად და აღარ არის მხარდაჭერილი. ზოგიერთ გამოშვებას ენიჭება გრძელვადიანი მხარდაჭერა, რაც ნიშნავს, რომ მხარდაჭერის პერიოდი უფრო ხანგრძლივია, ვიდრე სხვა გამოშვებების.</p>
+<p>ის <a class="reference external" href="https://github.com/espressif/esp-idf/blob/master/SUPPORT_POLICY.md">ESP-IDF მხარდაჭერის პერიოდის პოლიტიკა</a> დეტალურად ხსნის ამას და აღწერს, თუ როგორ განისაზღვრება თითოეული ვერსიის მხარდაჭერის პერიოდები.</p>
+<p>თითოეული გამოშვება <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a> შეიცავს ინფორმაციას კონკრეტული ვერსიის მხარდაჭერის პერიოდის შესახებ.</p>
+<p>როგორც ზოგადი მითითება:</p>
+<ul class="simple">
+<li>გრძელვადიანი მხარდაჭერის ვერსიების გამოყენება მაქსიმალურად გაზრდის საჭირო ESP-IDF ძირითად ან მცირე განახლებებს შორის დროს.</li>
+<li>სტანდარტული სტაბილური ვერსიების გამოყენება მოითხოვს უფრო ხშირ განახლებებს ახალ ESP-IDF ვერსიებზე. თუმცა, ეს ნიშნავს, რომ ახალი ფუნქციები და მნიშვნელოვანი გაუმჯობესებები უფრო ხშირად იქნება ხელმისაწვდომი.</li>
+</ul>
+<p>ასევე შესაძლებელია გრძელვადიანი მხარდაჭერის ვერსიიდან სტანდარტულ ვერსიაზე გადასვლა და პირიქით.</p>
+</div>
+<div class="section" id="checking-the-current-version">
+<h2>მიმდინარე ვერსიის შემოწმება<a class="headerlink" href="versions.html#checking-the-current-version" title="Permalink to this headline">¶</a></h2>
+<p>ლოკალური ESP-IDF ვერსიის შემოწმება შესაძლებელია idf.py-ის გამოყენებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idf</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>ESP-IDF ვერსია ასევე კომპილაცია არის პროგრამული უზრუნველყოფა ში d და მასზე წვდომა (სტრიქონის სახით) შესაძლებელია მაკროს საშუალებით. <code class="docutils literal notranslate"><span class="pre">IDF_VER</span></code>ნაგულისხმევი ESP-IDF ჩამტვირთავი ჩატვირთვისას ვერსიას დაბეჭდავს (ვერსიის ინფორმაცია კოდში ყოველთვის არ განახლდება, ის მხოლოდ იმ შემთხვევაში იცვლება, თუ კონკრეტული საწყისი ფაილი ხელახლა გადამუშავდება კომპილაცია d).</p>
+<p>თუ კოდი იწერება, რომელსაც სჭირდება ESP-IDF მრავალი ვერსიის მხარდაჭერა, ვერსიის შემოწმება შესაძლებელია კომპილაცია ზე, გამოყენებით <a class="reference internal" href="api-reference/system/system.html#idf-version-h"><span class="std std-ref">კომპილაცია -დროიანი მაკროები</span></a>.</p>
+<p>ESP-IDF ვერსიების მაგალითები:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%"/>
+<col width="75%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ვერსიის სტრიქონი</th>
+<th class="head">მნიშვნელობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">v3.2-dev-306-gbeb3611ca</span></code></td>
+<td><div class="first last line-block">
+<div class="line">Master branch pre-release.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">v3.2-dev</span></code> - in development for version 3.2.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">306</span></code> - number of commits after v3.2 development started.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">beb3611ca</span></code> - commit identifier.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">v3.0.2</span></code></td>
+<td>სტაბილური გამოშვება, მონიშნული <code class="docutils literal notranslate"><span class="pre">v3.0.2</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">v3.1-beta1-75-g346d6b0ea</span></code></td>
+<td><div class="first last line-block">
+<div class="line">Beta version in development (on a <a class="reference internal" href="versions.html#updating-release-branch"><span class="std std-ref">გამოშვების ფილიალი</span></a>).</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">v3.1-beta1</span></code> - pre-release tag.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">75</span></code> - number of commits after the pre-release beta tag was assigned.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">346d6b0ea</span></code> - commit identifier.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">v3.0.1-dirty</span></code></td>
+<td><div class="first last line-block">
+<div class="line">Stable release, tagged <code class="docutils literal notranslate"><span class="pre">v3.0.1</span></code>.</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">dirty</span></code> means that there are modifications in the local ESP-IDF directory.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="git-workflow">
+<h2>Git-ის სამუშაო პროცესი<a class="headerlink" href="versions.html#git-workflow" title="Permalink to this headline">¶</a></h2>
+<p>Espressif ESP-IDF გუნდის შემუშავების (Git) სამუშაო პროცესი შემდეგია:</p>
+<ul class="simple">
+<li>ახალი ნამუშევარი ყოველთვის პირველ რიგში ემატება მასტერ ტოტს (უახლეს ვერსიას). ESP-IDF ვერსია <code class="docutils literal notranslate"><span class="pre">master</span></code> ყოველთვის მონიშნულია <code class="docutils literal notranslate"><span class="pre">-dev</span></code> (მაგალითად, „განვითარების პროცესში“) <code class="docutils literal notranslate"><span class="pre">v3.1-dev</span></code>.</li>
+<li>ცვლილებები თავდაპირველად ემატება შიდა Git საცავს კოდის განხილვისა და ტესტირებისთვის, მაგრამ ავტომატური ტესტირების გავლის შემდეგ ისინი გადადის GitHub-ზე.</li>
+<li>როდესაც ახალი ვერსია (შემუშავებულია <code class="docutils literal notranslate"><span class="pre">master</span></code>) ხდება ფუნქციებით სრულყოფილი და „ბეტა“ ხარისხის, გამოშვებისთვის იქმნება ახალი განშტოება, მაგალითად <code class="docutils literal notranslate"><span class="pre">release/v3.1</span></code>ასევე იქმნება წინასწარი გამოშვების თეგი, მაგალითად <code class="docutils literal notranslate"><span class="pre">v3.1-beta1</span></code>შეგიძლიათ სრული ნახვა <a class="reference external" href="https://github.com/espressif/esp-idf/branches">ფილიალების სია</a> და ა <a class="reference external" href="https://github.com/espressif/esp-idf/tags">თეგების სია</a> GitHub-ზე. ბეტა ვერსიების წინასწარ გამოშვებებს თან ახლავს გამოშვების შენიშვნები, რომლებიც შეიძლება მოიცავდეს ცნობილი პრობლემების მნიშვნელოვან რაოდენობას.</li>
+<li>ბეტა ვერსიის ტესტირების პროგრესთან ერთად, შეცდომების გამოსწორება დაემატება ორივეს <code class="docutils literal notranslate"><span class="pre">master</span></code> branch-სა და release branch-ს შორის. შესაძლოა, შემდეგი ვერსიისთვის ახალი ფუნქციები დაემატოს. <code class="docutils literal notranslate"><span class="pre">master</span></code> ამავე დროს.</li>
+<li>ტესტირების თითქმის დასრულების შემდეგ, ახალი გამოშვების კანდიდატი მონიშნულია გამოშვების ტოტზე, მაგალითად <code class="docutils literal notranslate"><span class="pre">v3.1-rc1</span></code>ეს ჯერ კიდევ წინასწარი გამოშვების ვერსიაა.</li>
+<li>თუ სხვა მნიშვნელოვანი შეცდომები არ აღმოჩნდება ან არ შეინიშნება, მაშინ საბოლოო ძირითადი ან მცირე ვერსია მონიშნულია, მაგალითად <code class="docutils literal notranslate"><span class="pre">v3.1</span></code>ეს ვერსია გამოჩნდება <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>.</li>
+<li>რადგან შეცდომები გამოშვებულ ვერსიებშიც გვხვდება, გამოსწორებები იმავე გამოშვების ფილიალში დარჩება.</li>
+<li>ჩვეულებრივი შეცდომების გამოსწორების ვერსიები იქმნება იმავე ვერსიის განშტოებიდან. ხელით ტესტირების დასრულების შემდეგ, შეცდომის გამოსწორების ვერსიას ენიჭება მონიშვნა (მაგ. <code class="docutils literal notranslate"><span class="pre">v3.1.1</span></code>) და გამოჩნდება <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>.</li>
+</ul>
+</div>
+<div class="section" id="updating-esp-idf">
+<span id="updating"></span><h2>ESP-IDF განახლება<a class="headerlink" href="versions.html#updating-esp-idf" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF განახლება დამოკიდებულია იმაზე, თუ რომელი ვერსიის/ვერსიების გამოყენება გსურთ:</p>
+<ul class="simple">
+<li><a class="reference internal" href="versions.html#updating-stable-releases"><span class="std std-ref">განახლება სტაბილურ ვერსიაზე</span></a> რეკომენდებულია წარმოების გამოყენებისთვის.</li>
+<li><a class="reference internal" href="versions.html#updating-master"><span class="std std-ref">განახლება Master Branch-ზე</span></a> რეკომენდებულია უახლესი ფუნქციებისთვის, განვითარებისთვის გამოყენებისა და ტესტირებისთვის.</li>
+<li><a class="reference internal" href="versions.html#updating-release-branch"><span class="std std-ref">განახლება გამოშვების ფილიალში</span></a> ეს არის კომპრომისი პირველ ორს შორის.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ეს სახელმძღვანელოები ვარაუდობენ, რომ თქვენ უკვე გაქვთ ESP-IDF ის ლოკალური ასლი კლონირებული. მის მისაღებად, შეამოწმეთ მე-2 ნაბიჯი <a class="reference internal" href="get-started/index.html"><span class="doc">დაწყება</span></a> სახელმძღვანელო ნებისმიერი ESP-IDF ვერსიისთვის.</p>
+</div>
+<div class="section" id="updating-to-stable-release">
+<span id="updating-stable-releases"></span><h3>განახლება სტაბილურ ვერსიაზე<a class="headerlink" href="versions.html#updating-to-stable-release" title="Permalink to this headline">¶</a></h3>
+<p>ახალ ESP-IDF ვერსიაზე განახლებისთვის (რეკომენდებულია საწარმოო გამოყენებისთვის), შემდეგი პროცესი უნდა შეასრულოთ:</p>
+<ul class="simple">
+<li>შეამოწმეთ <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a> რეგულარულად ახალი ვერსიებისთვის.</li>
+<li>როდესაც თქვენს მიერ გამოყენებული ვერსიისთვის შეცდომის გამოსწორების ვერსია გამოდის (მაგალითად, თუ იყენებთ <code class="docutils literal notranslate"><span class="pre">v3.0.1</span></code> და <code class="docutils literal notranslate"><span class="pre">v3.0.2</span></code> გამოვიდა), შეამოწმეთ შეცდომის გამოსწორების ახალი ვერსია არსებულ ESP-IDF დირექტორიაში:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$IDF_PATH</span>
+git fetch
+git checkout vX.Y.Z
+git submodule update --init --recursive
+</pre></div>
+</div>
+<ul class="simple">
+<li>როდესაც ძირითადი ან მცირე განახლებები გამოვა, შეამოწმეთ გამოშვების შენიშვნები გამოშვებების გვერდზე და გადაწყვიტეთ, გსურთ განახლება თუ მიმდინარე ვერსიის შენარჩუნება. განახლება ხდება ზემოთ ნაჩვენები Git ბრძანებების გამოყენებით.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ სტაბილური ვერსია git-ის გამოყენების ნაცვლად zip ფაილის საშუალებით დააინსტალირეთ, შესაძლოა, ბრძანებების გამოყენებით ვერსიების განახლება შეუძლებელი იყოს. ამ შემთხვევაში, განაახლეთ ახალი zip ფაილის ჩამოტვირთვით და მთელი ფაილის ჩანაცვლებით. <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> დირექტორია მისი შინაარსით.</p>
+</div>
+</div>
+<div class="section" id="updating-to-a-pre-release-version">
+<span id="updating-pre-release"></span><h3>განახლება წინასწარი გამოშვების ვერსიაზე<a class="headerlink" href="versions.html#updating-to-a-pre-release-version" title="Permalink to this headline">¶</a></h3>
+<p>ასევე შესაძლებელია <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> წინასწარი გამოშვების ვერსიის ან გამოშვების კანდიდატის შესაბამისი ტეგის შემთხვევაში, პროცესი იგივეა, რაც <a class="reference internal" href="versions.html#updating-stable-releases"><span class="std std-ref">განახლება სტაბილურ ვერსიაზე</span></a>.</p>
+<p>წინასწარი გამოშვების ტეგები ყოველთვის არ არის ნაპოვნი <a class="reference external" href="http://github.com/espressif/esp-idf/releases">გამოშვებების გვერდი</a>. გაიარეთ კონსულტაცია <a class="reference external" href="https://github.com/espressif/esp-idf/tags">თეგების სია</a> სრული სიისთვის იხილეთ GitHub-ზე. წინასწარი ვერსიის გამოყენების შესახებ გაფრთხილებები მსგავსია <a class="reference internal" href="versions.html#updating-release-branch"><span class="std std-ref">განახლება გამოშვების ფილიალში</span></a>.</p>
+</div>
+<div class="section" id="updating-to-master-branch">
+<span id="updating-master"></span><h3>განახლება Master Branch-ზე<a class="headerlink" href="versions.html#updating-to-master-branch" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">Master branch-ის გამოყენება ნიშნავს „განვითარების ზღვარზე“ ცხოვრებას უახლესი ESP-IDF კოდით.</p>
+</div>
+<p>ESP-IDF მასტერ ტოტზე უახლესი ვერსიის გამოსაყენებლად, შემდეგი პროცესი უნდა შეასრულოთ:</p>
+<ul>
+<li><p class="first">ადგილობრივად შეამოწმეთ მთავარი ფილიალი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $IDF_PATH
+git checkout master
+git pull
+git submodule update --init --recursive
+</pre></div>
+</div>
+</li>
+<li><p class="first">პერიოდულად, ხელახლა გაშვება <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> master-ის უახლესი ვერსიის მისაღებად. გაითვალისწინეთ, რომ master-ის განშტოების განახლების შემდეგ შესაძლოა დაგჭირდეთ თქვენი პროექტის შეცვლა ან შეცდომების შესახებ შეტყობინება.</p>
+</li>
+<li><p class="first">მთავარი განყოფილებიდან გამოშვების ფილიალზე ან სტაბილურ ვერსიაზე გადასასვლელად, გაუშვით <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> როგორც სხვა განყოფილებებშია ნაჩვენები.</p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">მკაცრად რეკომენდებულია რეგულარულად სირბილი <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> და შემდეგ <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span> <span class="pre">--init</span> <span class="pre">--recursive</span></code> რათა master-ის ლოკალური ასლი ძალიან არ მოძველდეს. master-ის ძველი განყოფილების თვითნებური ვერსიები ფაქტობრივად მხარდაუჭერელი „მომენტალური ანაბეჭდებია“, რომლებსაც შეიძლება ჰქონდეთ დაუსაბუთებელი შეცდომები. ნახევრად სტაბილური ვერსიისთვის სცადეთ <a class="reference internal" href="versions.html#updating-release-branch"><span class="std std-ref">განახლება გამოშვების ფილიალში</span></a> სამაგიეროდ.</p>
+</div>
+</div>
+<div class="section" id="updating-to-a-release-branch">
+<span id="updating-release-branch"></span><h3>განახლება გამოშვების ფილიალში<a class="headerlink" href="versions.html#updating-to-a-release-branch" title="Permalink to this headline">¶</a></h3>
+<p>სტაბილურობის თვალსაზრისით, გამოშვების განშტოების გამოყენება ნაწილობრივია მასტერ განშტოების გამოყენებასა და მხოლოდ სტაბილური ვერსიების გამოყენებას შორის. გამოშვების განშტოება ყოველთვის ბეტა ხარისხის ან უფრო მაღალია და შეცდომების გამოსწორებას იღებს თითოეულ სტაბილურ ვერსიაში გამოჩენამდე.</p>
+<p>შეგიძლიათ იპოვოთ <a class="reference external" href="https://github.com/espressif/esp-idf/branches">ფილიალების სია</a> GitHub-ზე.</p>
+<p>მაგალითად, ESP-IDF v3.1-ის განშტოების დაცვა, მათ შორის მომავალი ვერსიების შეცდომების გამოსწორება, როგორიცაა <code class="docutils literal notranslate"><span class="pre">v3.1.1</span></code>და ა.შ.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $IDF_PATH
+git fetch
+git checkout release/v3.1
+git pull
+git submodule update --init --recursive
+</pre></div>
+</div>
+<p>ყოველ ჯერზე, როცა შენ <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> ამ განშტოებაში, ESP-IDF განახლდება ამ ვერსიის შესწორებებით.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გამოშვების ფილიალებისთვის სპეციალური დოკუმენტაცია არ არსებობს. რეკომენდებულია გამოიყენოთ ამჟამად შემოწმებული ფილიალთან ყველაზე ახლოს მდებარე ვერსიის დოკუმენტაცია.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="resources.html" rel="next" title="Resources">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="contribute/contributor-agreement.html" rel="prev" title="Contributor Agreement"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1129 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPIO და RTC GPIO — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="i2c.html" rel="next" title="I2C Driver"/>
+<link href="dac.html" rel="prev" title="Digital To Analog Converter"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/gpio.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/gpio"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/gpio.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="gpio.html#">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gpio.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpio.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpio.html#api-reference-normal-gpio">API მითითება - ჩვეულებრივი GPIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpio.html#api-reference-rtc-gpio">API მითითება - RTC GPIO</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>GPIO და RTC GPIO</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/gpio.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="gpio-rtc-gpio">
+<h1>GPIO და RTC GPIO<a class="headerlink" href="gpio.html#gpio-rtc-gpio" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="gpio.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 ჩიპი შეიცავს 40 ფიზიკურ GPIO პანელს. ზოგიერთი GPIO პანელის გამოყენება შეუძლებელია ან არ აქვს შესაბამისი პინი ჩიპის შეფუთვაზე (იხილეთ ტექნიკური სახელმძღვანელო). თითოეული პანელის გამოყენება შესაძლებელია როგორც ზოგადი დანიშნულების შეყვანა/გამოყვანა ან შეიძლება დაკავშირებული იყოს შიდა პერიფერიულ სიგნალთან.</p>
+<ul class="simple">
+<li>გაითვალისწინეთ, რომ SPI ფლეშ მეხსიერება ისთვის ჩვეულებრივ გამოიყენება GPIO 6-11.</li>
+<li>GPIO 34-39 შეიძლება დაყენდეს მხოლოდ შეყვანის რეჟიმში და არ აქვს პროგრამული უზრუნველყოფის ამოღების ან ამოღების ფუნქციები.</li>
+</ul>
+<p>ასევე არსებობს ცალკე „RTC GPIO “-ის მხარდაჭერა, რომელიც ფუნქციონირებს მაშინ, როდესაც GPIO ები გადამისამართებულია „RTC“-ის დაბალი სიმძლავრის და ანალოგურ ქვესისტემაში. ეს პინის ფუნქციები შეიძლება გამოყენებულ იქნას ღრმა ძილის დროს, როდესაც <a class="reference internal" href="../../api-guides/ulp.html"><span class="doc">ულტრა დაბალი სიმძლავრის კოპროცესორი</span></a> მუშაობს, ან როდესაც გამოიყენება ანალოგური ფუნქციები, როგორიცაა ADC/DAC/და ა.შ.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="gpio.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>GPIO გამომავალი და შემავალი შეფერხების მაგალითი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/gpio">პერიფერიული მოწყობილობები/gpio</a>.</p>
+</div>
+<div class="section" id="api-reference-normal-gpio">
+<h2>API მითითება - ჩვეულებრივი GPIO<a class="headerlink" href="gpio.html#api-reference-normal-gpio" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="gpio.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/gpio.h">დრაივერი/ინკლუზია/დრაივერი/gpio.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="gpio.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv411gpio_configPK13gpio_config_t">
+<span id="_CPPv311gpio_configPK13gpio_config_t"></span><span id="_CPPv211gpio_configPK13gpio_config_t"></span><span id="gpio_config__gpio_config_tCP"></span><span class="target" id="gpio_8h_1a994c5b8ab2930c7cb0e13427bba38658"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_config</code><span class="sig-paren">(</span><em class="property">კონსტ</em> gpio_config_t *<em>p GPIO კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv411gpio_configPK13gpio_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO საერთო კონფიგურაცია. </p>
+<p>GPIO ის რეჟიმის, pull-up, PullDown, IntrType-ის კონფიგურაცია</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pGPIOConfig</span></code>: GPIO სტრუქტურის კონფიგურაციის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414gpio_reset_pin10gpio_num_t">
+<span id="_CPPv314gpio_reset_pin10gpio_num_t"></span><span id="_CPPv214gpio_reset_pin10gpio_num_t"></span><span id="gpio_reset_pin__gpio_num_t"></span><span class="target" id="gpio_8h_1a79bea7977973d514581e42f9505f146f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_reset_pin</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv414gpio_reset_pin10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>gpio-ს ნაგულისხმევ მდგომარეობაში დაბრუნება (აირჩიეთ gpio ფუნქცია, ჩართეთ pullup და გამორთეთ შეყვანა და გამოყვანა). </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function also configures the IOMUX for this pin to the GPIO function, and disconnects any other peripheral output configured via GPIO Matrix.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Always return ESP_OK. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418gpio_set_intr_type10gpio_num_t15gpio_int_type_t">
+<span id="_CPPv318gpio_set_intr_type10gpio_num_t15gpio_int_type_t"></span><span id="_CPPv218gpio_set_intr_type10gpio_num_t15gpio_int_type_t"></span><span id="gpio_set_intr_type__gpio_num_t.gpio_int_type_t"></span><span class="target" id="gpio_8h_1ad786cce417256036f213d7c3d9bb646f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_set_intr_type</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_int_type_t <em>intr_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418gpio_set_intr_type10gpio_num_t15gpio_int_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ადგენს შეწყვეტის ტრიგერის ტიპს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ GPIO 16-ის eg ტრიგერის ტიპის დაყენება, gpio_num უნდა იყოს GPIO _NUM_16 (16); </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_type</span></code>შეფერხების ტიპი, აირჩიეთ gpio_int_type_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416gpio_intr_enable10gpio_num_t">
+<span id="_CPPv316gpio_intr_enable10gpio_num_t"></span><span id="_CPPv216gpio_intr_enable10gpio_num_t"></span><span id="gpio_intr_enable__gpio_num_t"></span><span class="target" id="gpio_8h_1ab412b597c318316e1fb7da1af0e74577"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_intr_enable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv416gpio_intr_enable10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO მოდულის შეწყვეტის სიგნალის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Please do not use the interrupt of GPIO36 and GPIO39 when using ADC. Please refer to the comments of <code class="docutils literal notranslate"><span class="pre">adc1_get_raw</span></code>. Please refer to section 3.11 of ‘ECO_and_Workarounds_for_Bugs_in_ESP32’ for the description of this issue.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ ჩართოთ შეფერხება, მაგ. GPIO 16-ზე, gpio_num უნდა იყოს GPIO _NUM_16 (16);</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417gpio_intr_disable10gpio_num_t">
+<span id="_CPPv317gpio_intr_disable10gpio_num_t"></span><span id="_CPPv217gpio_intr_disable10gpio_num_t"></span><span id="gpio_intr_disable__gpio_num_t"></span><span class="target" id="gpio_8h_1abde4080e9d805a2c3ebd60c6c0385dae"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_intr_disable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv417gpio_intr_disable10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO მოდულის შეწყვეტის სიგნალის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ გამორთოთ მაგ. GPIO 16-ის შეწყვეტა, gpio_num უნდა იყოს GPIO _NUM_16 (16);</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414gpio_set_level10gpio_num_t8uint32_t">
+<span id="_CPPv314gpio_set_level10gpio_num_t8uint32_t"></span><span id="_CPPv214gpio_set_level10gpio_num_t8uint32_t"></span><span id="gpio_set_level__gpio_num_t.uint32_t"></span><span class="target" id="gpio_8h_1afadd72970c01a00f25df734eba0d2b29"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_set_level</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, uint32_t <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv414gpio_set_level10gpio_num_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO გამომავალი დონის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO ის ნომრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ, მაგალითად, GPIO 16-ის გამომავალი დონის დაყენება, gpio_num უნდა იყოს GPIO _NUM_16 (16); </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>გამომავალი დონე. 0: დაბალი; 1: მაღალი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414gpio_get_level10gpio_num_t">
+<span id="_CPPv314gpio_get_level10gpio_num_t"></span><span id="_CPPv214gpio_get_level10gpio_num_t"></span><span id="gpio_get_level__gpio_num_t"></span><span class="target" id="gpio_8h_1a50241613208689a83e0a72e4dc0ed7c3"></span>int <code class="descname">gpio_get_level</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv414gpio_get_level10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO შეყვანის დონის მიღება. </p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>If the pad is not configured for input (or input and output) the returned value is always 0.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>0, GPIO შეყვანის დონე არის 0</li>
+<li>1 GPIO შეყვანის დონე არის 1 </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ მიიღოთ მაგ. pin GPIO 16-ის ლოგიკური დონე, gpio_num უნდა იყოს GPIO _NUM_16 (16);</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418gpio_set_direction10gpio_num_t11gpio_mode_t">
+<span id="_CPPv318gpio_set_direction10gpio_num_t11gpio_mode_t"></span><span id="_CPPv218gpio_set_direction10gpio_num_t11gpio_mode_t"></span><span id="gpio_set_direction__gpio_num_t.gpio_mode_t"></span><span class="target" id="gpio_8h_1abea1de9763f4754edc8d3f815d11efc1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_set_direction</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_mode_t <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418gpio_set_direction10gpio_num_t11gpio_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO მიმართულება მითითებულია. </p>
+<p>GPIO მიმართულების კონფიგურაცია, როგორიცაა output_only, input_only, output_and_input</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: დააკონფიგურირეთ GPIO პინების რაოდენობა, ის უნდა იყოს GPIO ნომერი. თუ გსურთ, მაგალითად, GPIO 16-ის მიმართულების დაყენება, gpio_num უნდა იყოს GPIO _NUM_16 (16); </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: GPIO მიმართულება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418gpio_set_pull_mode10gpio_num_t16gpio_pull_mode_t">
+<span id="_CPPv318gpio_set_pull_mode10gpio_num_t16gpio_pull_mode_t"></span><span id="_CPPv218gpio_set_pull_mode10gpio_num_t16gpio_pull_mode_t"></span><span id="gpio_set_pull_mode__gpio_num_t.gpio_pull_mode_t"></span><span class="target" id="gpio_8h_1a7a7b8d376c4de80421df41320ed916e7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_set_pull_mode</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_pull_mode_t <em>გაწევა</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418gpio_set_pull_mode10gpio_num_t16gpio_pull_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააკონფიგურირეთ GPIO ასაწევი/დასაწევი რეზისტორები. </p>
+<p>მხოლოდ შეყვანისა და გამოყვანის ორივე მხარეს მხარდამჭერი პინები აქვთ ინტეგრირებული ამწევი და დაწევის რეზისტორები. მხოლოდ შეყვანის GPIO s 34-39 პინები - არა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG: პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი. თუ გსურთ, მაგალითად, GPIO 16-ისთვის აწევის ან დაწევის რეჟიმის დაყენება, gpio_num უნდა იყოს GPIO _NUM_16 (16); </li>
+<li><code class="docutils literal notranslate"><span class="pre">pull</span></code>: GPIO აწევის/ჩამოწევის რეჟიმი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418gpio_wakeup_enable10gpio_num_t15gpio_int_type_t">
+<span id="_CPPv318gpio_wakeup_enable10gpio_num_t15gpio_int_type_t"></span><span id="_CPPv218gpio_wakeup_enable10gpio_num_t15gpio_int_type_t"></span><span id="gpio_wakeup_enable__gpio_num_t.gpio_int_type_t"></span><span class="target" id="gpio_8h_1ab0625f4ec860635bcfd744a18e56b029"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_wakeup_enable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_int_type_t <em>intr_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418gpio_wakeup_enable10gpio_num_t15gpio_int_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO გაღვიძების ფუნქციის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_type</span></code>: GPIO გაღვიძების ტიპი. შესაძლებელია მხოლოდ GPIO _INTR_LOW_LEVEL ან GPIO _INTR_HIGH_LEVEL-ის გამოყენება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419gpio_wakeup_disable10gpio_num_t">
+<span id="_CPPv319gpio_wakeup_disable10gpio_num_t"></span><span id="_CPPv219gpio_wakeup_disable10gpio_num_t"></span><span id="gpio_wakeup_disable__gpio_num_t"></span><span class="target" id="gpio_8h_1ad4b048f8bdfbc3e65e7a0f8111861939"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_wakeup_disable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv419gpio_wakeup_disable10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ GPIO გაღვიძების ფუნქცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417gpio_isr_registerPFvPvEPviP17gpio_isr_handle_t">
+<span id="_CPPv317gpio_isr_registerPFvPvEPviP17gpio_isr_handle_t"></span><span id="_CPPv217gpio_isr_registerPFvPvEPviP17gpio_isr_handle_t"></span><span class="target" id="gpio_8h_1a16f3aef75c5a9cbad10264cc7f0f66c1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_isr_register</code><span class="sig-paren">(</span>void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="gpio.html#_CPPv417gpio_isr_handle_t" title="gpio_isr_handle_t">gpio_isr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv417gpio_isr_registerPFvPvEPviP17gpio_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეგისტრის GPIO შეწყვეტის დამმუშავებელი, დამმუშავებელი არის ISR. დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს. </p>
+<p>ეს ISR ფუნქცია გამოიძახება ყოველთვის, როდესაც ხდება GPIO ნებისმიერი შეფერხება. დრაივერის მიერ GPIO ISR-ების მხარდაჭერის უზრუნველსაყოფად იხილეთ ალტერნატიული gpio_install_isr_service() და gpio_isr_handler_add() API .</p>
+<p><p>ISR-ის გამორთვის ან წაშლისთვის, დაბრუნებული სახელური გადაეცით <a class="reference internal" href="../system/intr_alloc.html"><span class="doc">შეწყვეტის განაწილების ფუნქციები</span></a>.</p>
+<dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: დაბრუნების სახელურის მაჩვენებელი. თუ არ არის NULL, შეწყვეტის სახელური აქ დაბრუნდება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება;</li>
+<li>ESP_ERR_INVALID_ARG GPIO შეცდომა</li>
+<li>ESP_ERR_NOT_FOUND მითითებული დროშებით თავისუფალი შეწყვეტა ვერ მოიძებნა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414gpio_pullup_en10gpio_num_t">
+<span id="_CPPv314gpio_pullup_en10gpio_num_t"></span><span id="_CPPv214gpio_pullup_en10gpio_num_t"></span><span id="gpio_pullup_en__gpio_num_t"></span><span class="target" id="gpio_8h_1a042006a8dca808bcc66d8054233f6e17"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_pullup_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv414gpio_pullup_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ზე pull-up ფუნქციის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415gpio_pullup_dis10gpio_num_t">
+<span id="_CPPv315gpio_pullup_dis10gpio_num_t"></span><span id="_CPPv215gpio_pullup_dis10gpio_num_t"></span><span id="gpio_pullup_dis__gpio_num_t"></span><span class="target" id="gpio_8h_1a5768de2196af2dd321852258cb82202b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_pullup_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv415gpio_pullup_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ ამოწევის ფუნქცია GPIO ზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416gpio_pulldown_en10gpio_num_t">
+<span id="_CPPv316gpio_pulldown_en10gpio_num_t"></span><span id="_CPPv216gpio_pulldown_en10gpio_num_t"></span><span id="gpio_pulldown_en__gpio_num_t"></span><span class="target" id="gpio_8h_1a8860c21c03a83bd431d026db223592b9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_pulldown_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv416gpio_pulldown_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ზე ჩამოსაშლელი სიის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417gpio_pulldown_dis10gpio_num_t">
+<span id="_CPPv317gpio_pulldown_dis10gpio_num_t"></span><span id="_CPPv217gpio_pulldown_dis10gpio_num_t"></span><span id="gpio_pulldown_dis__gpio_num_t"></span><span class="target" id="gpio_8h_1af5f70a96b8d737622c4623aab7a13cbd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_pulldown_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv417gpio_pulldown_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ ჩამოსაშლელი მენიუ GPIO ზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424gpio_install_isr_servicei">
+<span id="_CPPv324gpio_install_isr_servicei"></span><span id="_CPPv224gpio_install_isr_servicei"></span><span id="gpio_install_isr_service__i"></span><span class="target" id="gpio_8h_1a3c66e3a547639d382d62497b39800de9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_install_isr_service</code><span class="sig-paren">(</span>int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv424gpio_install_isr_servicei" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააინსტალირეთ დრაივერის GPIO ISR დამმუშავებლის სერვისი, რომელიც საშუალებას იძლევა თითო პინზე გამოყენებული იქნას GPIO შეწყვეტის დამმუშავებლები. </p>
+<p>ეს ფუნქცია შეუთავსებელია gpio_isr_register() ფუნქციასთან - თუ ეს ფუნქცია გამოიყენება, GPIO ყველა შეფერხებისთვის რეგისტრირდება ერთი გლობალური ISR. თუ ეს ფუნქცია გამოიყენება, ISR სერვისი უზრუნველყოფს GPIO გლობალურ ISR-ს და ინდივიდუალური პინების დამმუშავებლები რეგისტრირდება gpio_isr_handler_add() ფუნქციის მეშვეობით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NO_MEM ამ სერვისის ინსტალაციის მეხსიერება არ არის</li>
+<li>ESP_ERR_INVALID_STATE ISR სერვისი უკვე დაინსტალირებულია.</li>
+<li>ESP_ERR_NOT_FOUND მითითებული დროშებით თავისუფალი შეწყვეტა ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG GPIO შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426gpio_uninstall_isr_servicev">
+<span id="_CPPv326gpio_uninstall_isr_servicev"></span><span id="_CPPv226gpio_uninstall_isr_servicev"></span><span id="gpio_uninstall_isr_service__void"></span><span class="target" id="gpio_8h_1abad6f0378f9a37854bee3ced8014ac09"></span>void <code class="descname">gpio_uninstall_isr_service</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv426gpio_uninstall_isr_servicev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დეინსტალაცია გაუკეთეთ დრაივერის GPIO ISR სერვისს, რაც გაათავისუფლებს დაკავშირებულ რესურსებს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420gpio_isr_handler_add10gpio_num_t10gpio_isr_tPv">
+<span id="_CPPv320gpio_isr_handler_add10gpio_num_t10gpio_isr_tPv"></span><span id="_CPPv220gpio_isr_handler_add10gpio_num_t10gpio_isr_tPv"></span><span id="gpio_isr_handler_add__gpio_num_t.gpio_isr_t.voidP"></span><span class="target" id="gpio_8h_1a612767be29fc6e8209d2a4a774d325f8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_isr_handler_add</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_isr_t <em>isr_handler</em>, void *<em>არგუმენტები</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv420gpio_isr_handler_add10gpio_num_t10gpio_isr_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაამატეთ ISR დამმუშავებელი შესაბამისი GPIO პინისთვის. </p>
+<p>გამოიძახეთ ეს ფუნქცია gpio_install_isr_service() ფუნქციის გამოყენების შემდეგ დრაივერის GPIO ISR დამმუშავებლის სერვისის ინსტალაციისთვის.</p>
+<p>pin ISR დამმუშავებლების გამოცხადება IRAM_ATTR-ით აღარ არის საჭირო, თუ gpio_install_isr_service()-ში ISR-ის გამოყოფისას არ გადასცემთ ESP_INTR_FLAG_IRAM ფლაგს.</p>
+<p>ეს ISR დამმუშავებელი გამოიძახება ISR-დან. ამგვარად, არსებობს დასტის ზომის ლიმიტი (კონფიგურირებადია როგორც „ISR დასტის ზომა“ menuconfig ში). ეს ლიმიტი უფრო მცირეა გლობალურ GPIO შეწყვეტის დამმუშავებელთან შედარებით ირიბი მოქმედების დამატებითი დონის გამო.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE არასწორი მდგომარეობა, ISR სერვისი არ არის ინიციალიზებული.</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">isr_handler</span></code>ISR დამმუშავებლის ფუნქცია შესაბამისი GPIO ნომრისთვის. </li>
+<li><code class="docutils literal notranslate"><span class="pre">args</span></code>: ISR დამმუშავებლის პარამეტრი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423gpio_isr_handler_remove10gpio_num_t">
+<span id="_CPPv323gpio_isr_handler_remove10gpio_num_t"></span><span id="_CPPv223gpio_isr_handler_remove10gpio_num_t"></span><span id="gpio_isr_handler_remove__gpio_num_t"></span><span class="target" id="gpio_8h_1a6089e615a3b223313a1303854edbac62"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_isr_handler_remove</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv423gpio_isr_handler_remove10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოიღეთ ISR დამმუშავებელი შესაბამისი GPIO პინისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE არასწორი მდგომარეობა, ISR სერვისი არ არის ინიციალიზებული.</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t">
+<span id="_CPPv325gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t"></span><span id="_CPPv225gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t"></span><span id="gpio_set_drive_capability__gpio_num_t.gpio_drive_cap_t"></span><span class="target" id="gpio_8h_1a77767afdf86aa491ae2bcc55f9b46d0e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_set_drive_capability</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_drive_cap_t <em>ძალა</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv425gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ბალიშის მართვის შესაძლებლობის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO s-ის მხარდაჭერა </li>
+<li><code class="docutils literal notranslate"><span class="pre">strength</span></code>: ბალიშის მართვის შესაძლებლობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t">
+<span id="_CPPv325gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t"></span><span id="_CPPv225gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t"></span><span id="gpio_get_drive_capability__gpio_num_t.gpio_drive_cap_tP"></span><span class="target" id="gpio_8h_1a5d337f165475712e547c6558b436b8bf"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_get_drive_capability</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_drive_cap_t *<em>ძალა</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv425gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ GPIO ბალიშის მართვის შესაძლებლობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO s-ის მხარდაჭერა </li>
+<li><code class="docutils literal notranslate"><span class="pre">strength</span></code>: მაჩვენებელი, რომელიც იღებს პანელის მართვის შესაძლებლობას</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412gpio_hold_en10gpio_num_t">
+<span id="_CPPv312gpio_hold_en10gpio_num_t"></span><span id="_CPPv212gpio_hold_en10gpio_num_t"></span><span id="gpio_hold_en__gpio_num_t"></span><span class="target" id="gpio_8h_1a36256f51d3e64b672dfcab489c256f2e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_hold_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv412gpio_hold_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>gpio pad-ის დაჭერის ფუნქციის ჩართვა. </p>
+<p>gpio pad hold ფუნქცია მუშაობს როგორც შეყვანის, ასევე გამოყვანის რეჟიმში, მაგრამ უნდა იყოს გამოსავლის მხარდაჭერილი gpios. თუ pad hold ჩართულია: გამოყვანის რეჟიმში: pad-ის გამოყვანის დონე იძულებით დაიბლოკება და მისი შეცვლა შეუძლებელი იქნება. შეყვანის რეჟიმში: წაკითხული შეყვანის მნიშვნელობა არ შეიცვლება, შეყვანის სიგნალის ცვლილებების მიუხედავად.</p>
+<p>ციფრული gpio-ს მდგომარეობის შენარჩუნება ღრმა ძილის რეჟიმში შეუძლებელია და ის განაახლებს შეკავების ფუნქციას, როდესაც ჩიპი ღრმა ძილის მდგომარეობიდან გამოვა. თუ ციფრული gpio-ს შენარჩუნება ასევე საჭიროა ღრმა ძილის რეჟიმში, <code class="docutils literal notranslate"><span class="pre">gpio_deep_sleep_hold_en</span></code> ასევე უნდა გამოიძახონ.</p>
+<p>ამ ფუნქციას გამორთავთ კვების წყაროს ან გამოიძახებთ gpio_hold_dis-ს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NOT_SUPPORTED არ უჭერს მხარს ღილაკზე დაჭერის ფუნქციას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO ის მხარდაჭერით</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413gpio_hold_dis10gpio_num_t">
+<span id="_CPPv313gpio_hold_dis10gpio_num_t"></span><span id="_CPPv213gpio_hold_dis10gpio_num_t"></span><span id="gpio_hold_dis__gpio_num_t"></span><span class="target" id="gpio_8h_1a81146ff13f2cc3b8b22b5a6b887396fa"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">gpio_hold_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv413gpio_hold_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>gpio pad-ის დაჭერის ფუნქციის გამორთვა. </p>
+<p>როდესაც ჩიპი ღრმა ძილის რეჟიმიდან გამოიღვიძებს, gpio დაყენდება ნაგულისხმევ რეჟიმში, ამიტომ, თუ ეს ფუნქცია გამოიძახება, gpio გამოავლენს ნაგულისხმევ დონეს. თუ არ გსურთ დონის შეცვლა, ამ ფუნქციის გამოძახებამდე gpio უნდა იყოს კონფიგურირებული ცნობილ მდგომარეობაში. მაგალითად, თუ ღრმა ძილის რეჟიმის დროს gpio18-ს მაღალ დონეზე შეინარჩუნებთ, ჩიპის გამოღვიძების შემდეგ და <code class="docutils literal notranslate"><span class="pre">gpio_hold_dis</span></code> გამოძახებისას, gpio18 გამოაქვს დაბალი დონის სიგნალი (რადგან gpio18 ნაგულისხმევად შეყვანის რეჟიმია). თუ არ გსურთ ასეთი ქცევა, გამოძახებამდე უნდა დააკონფიგურიროთ gpio18, როგორც გამომავალი რეჟიმი და დააყენოთ ის მაღალ დონეზე. <code class="docutils literal notranslate"><span class="pre">gpio_hold_dis</span></code>.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NOT_SUPPORTED არ უჭერს მხარს ღილაკზე დაჭერის ფუნქციას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO ის მხარდაჭერით</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423gpio_deep_sleep_hold_env">
+<span id="_CPPv323gpio_deep_sleep_hold_env"></span><span id="_CPPv223gpio_deep_sleep_hold_env"></span><span id="gpio_deep_sleep_hold_en__void"></span><span class="target" id="gpio_8h_1a87f647d7f3bfb18b229d6cba649ef6e3"></span>void <code class="descname">gpio_deep_sleep_hold_en</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv423gpio_deep_sleep_hold_env" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის დროს ჩართეთ ყველა ციფრული gpio pad-ის დაჭერის ფუნქცია. </p>
+<p>როდესაც ჩიპი ღრმა ძილის რეჟიმშია, ყველა ციფრული gpio შეინარჩუნებს ძილის წინ არსებულ მდგომარეობას, ხოლო როდესაც ჩიპი გაიღვიძებს, ციფრული gpio-ს სტატუსი არ შენარჩუნებული იქნება. გაითვალისწინეთ, რომ pad hold ფუნქცია მხოლოდ მაშინ მუშაობს, როდესაც ჩიპი ღრმა ძილის რეჟიმშია, როდესაც ის ძილის რეჟიმში არ არის, ციფრული gpio-ს მდგომარეობის შეცვლა შესაძლებელია ამ ფუნქციის გამოძახების შემდეგაც კი.</p>
+<p>გამორთვა ან gpio_hold_dis-ის გამოძახება გამორთავს ამ ფუნქციას, წინააღმდეგ შემთხვევაში, ციფრული gpio hold ფუნქცია იმუშავებს მანამ, სანამ ჩიპი ღრმა ძილის რეჟიმში გადავა. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424gpio_deep_sleep_hold_disv">
+<span id="_CPPv324gpio_deep_sleep_hold_disv"></span><span id="_CPPv224gpio_deep_sleep_hold_disv"></span><span id="gpio_deep_sleep_hold_dis__void"></span><span class="target" id="gpio_8h_1ab717b4544b06a4d7f0ad714d846fca4c"></span>void <code class="descname">gpio_deep_sleep_hold_dis</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv424gpio_deep_sleep_hold_disv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის რეჟიმში გამორთეთ ციფრული gpio პანელის დაჭერის ყველა ფუნქცია. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413gpio_iomux_in8uint32_t8uint32_t">
+<span id="_CPPv313gpio_iomux_in8uint32_t8uint32_t"></span><span id="_CPPv213gpio_iomux_in8uint32_t8uint32_t"></span><span id="gpio_iomux_in__uint32_t.uint32_t"></span><span class="target" id="gpio_8h_1ac3cebe102c30883c99ae881c5323a561"></span>void <code class="descname">gpio_iomux_in</code><span class="sig-paren">(</span>uint32_t <em>gpio_num</em>, uint32_t <em>signal_idx</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv413gpio_iomux_in8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პანელის შეყვანა IOMUX-ის მეშვეობით პერიფერიულ სიგნალზე დააყენეთ. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ბალიშის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">signal_idx</span></code>: შეყვანისთვის პერიფერიული სიგნალის იდენტიფიკატორი. ერთ-ერთი <code class="docutils literal notranslate"><span class="pre">*_IN_IDX</span></code> სიგნალები <code class="docutils literal notranslate"><span class="pre">soc/gpio_sig_map.h</span></code>. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414gpio_iomux_out7uint8_tib">
+<span id="_CPPv314gpio_iomux_out7uint8_tib"></span><span id="_CPPv214gpio_iomux_out7uint8_tib"></span><span id="gpio_iomux_out__uint8_t.i.b"></span><span class="target" id="gpio_8h_1a38683a77c422f8209e1747a3d7143661"></span>void <code class="descname">gpio_iomux_out</code><span class="sig-paren">(</span>uint8_t <em>gpio_num</em>, int <em>ფუნქცია</em>, bool <em>oen_inv</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv414gpio_iomux_out7uint8_tib" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პერიფერიული გამომავალი დააყენეთ GPIO პანელზე IOMUX-ის მეშვეობით. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: gpio_num GPIO პანელის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">func</span></code>პერიფერიული პინის გამოსასვლელ პინთან დამაკავშირებელი ფუნქციის ნომერი. ერთ-ერთი <code class="docutils literal notranslate"><span class="pre">FUNC_X_*</span></code> მითითებული პინის (X) <code class="docutils literal notranslate"><span class="pre">soc/io_mux_reg.h</span></code>. </li>
+<li><code class="docutils literal notranslate"><span class="pre">oen_inv</span></code>: მართალია, თუ გამოსავლის ჩართვა ინვერსიულია საჭირო, წინააღმდეგ შემთხვევაში - მცდარი. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="gpio.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417gpio_isr_handle_t">
+<span id="_CPPv317gpio_isr_handle_t"></span><span id="_CPPv217gpio_isr_handle_t"></span><span id="gpio_isr_handle_t"></span><span class="target" id="gpio_8h_1a8f1cd5285765352c503728d7c6c9a5ba"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">gpio_isr_handle_t</code><a class="headerlink" href="gpio.html#_CPPv417gpio_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+<div class="section" id="api-reference-rtc-gpio">
+<h2>API მითითება - RTC GPIO<a class="headerlink" href="gpio.html#api-reference-rtc-gpio" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="gpio.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/rtc_io.h">დრაივერი/include/driver/rtc_io.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="gpio.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv422rtc_gpio_is_valid_gpio10gpio_num_t">
+<span id="_CPPv322rtc_gpio_is_valid_gpio10gpio_num_t"></span><span id="_CPPv222rtc_gpio_is_valid_gpio10gpio_num_t"></span><span id="rtc_gpio_is_valid_gpio__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a4e38ae834c3bd4f13347f3e99549c4a0"></span><em class="property">სტატიკური</em> bool <code class="descname">rtc_gpio_is_valid_gpio</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv422rtc_gpio_is_valid_gpio10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაადგინეთ, არის თუ არა მითითებული GPIO ვალიდური RTC GPIO . </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>true if GPIO is valid for RTC GPIO use. false otherwise. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417rtc_io_number_get10gpio_num_t">
+<span id="_CPPv317rtc_io_number_get10gpio_num_t"></span><span id="_CPPv217rtc_io_number_get10gpio_num_t"></span><span id="rtc_io_number_get__gpio_num_t"></span><span class="target" id="rtc__io_8h_1ad33d71f223b82fd0464a05b091212475"></span><em class="property">სტატიკური</em> int <code class="descname">rtc_io_number_get</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv417rtc_io_number_get10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ RTC IO ინდექსის ნომერი gpio ნომრის მიხედვით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>&gt;=0: Index of rtcio. -1 : The gpio is not rtcio. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413rtc_gpio_init10gpio_num_t">
+<span id="_CPPv313rtc_gpio_init10gpio_num_t"></span><span id="_CPPv213rtc_gpio_init10gpio_num_t"></span><span id="rtc_gpio_init__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a9d9c788d12235b0f392c1ccd813f7aab"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_init</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv413rtc_gpio_init10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ინიციალიზაცია RTC GPIO სახით. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს ანალოგური ფუნქციისთვის პანელის ინიციალიზაციისას.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415rtc_gpio_deinit10gpio_num_t">
+<span id="_CPPv315rtc_gpio_deinit10gpio_num_t"></span><span id="_CPPv215rtc_gpio_deinit10gpio_num_t"></span><span id="rtc_gpio_deinit__gpio_num_t"></span><span class="target" id="rtc__io_8h_1ae4d4f6dbfe94638c581f2285f4f97adc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_deinit</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv415rtc_gpio_deinit10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ინიციალიზაცია გაუკეთეთ GPIO ციფრული GPIO სახით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418rtc_gpio_get_level10gpio_num_t">
+<span id="_CPPv318rtc_gpio_get_level10gpio_num_t"></span><span id="_CPPv218rtc_gpio_get_level10gpio_num_t"></span><span id="rtc_gpio_get_level__gpio_num_t"></span><span class="target" id="rtc__io_8h_1ac9414b9ddf80de8f3b7d41221d274dd8"></span>uint32_t <code class="descname">rtc_gpio_get_level</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418rtc_gpio_get_level10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ RTC IO შეყვანის დონე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>1 მაღალი დონე</li>
+<li>0 დაბალი დონე</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418rtc_gpio_set_level10gpio_num_t8uint32_t">
+<span id="_CPPv318rtc_gpio_set_level10gpio_num_t8uint32_t"></span><span id="_CPPv218rtc_gpio_set_level10gpio_num_t8uint32_t"></span><span id="rtc_gpio_set_level__gpio_num_t.uint32_t"></span><span class="target" id="rtc__io_8h_1a83d98259bf88ac6ef685ecc480ddcfa6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_set_level</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, uint32_t <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418rtc_gpio_set_level10gpio_num_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ RTC IO გამომავალი დონე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12) </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: გამომავალი დონე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422rtc_gpio_set_direction10gpio_num_t15rtc_gpio_mode_t">
+<span id="_CPPv322rtc_gpio_set_direction10gpio_num_t15rtc_gpio_mode_t"></span><span id="_CPPv222rtc_gpio_set_direction10gpio_num_t15rtc_gpio_mode_t"></span><span id="rtc_gpio_set_direction__gpio_num_t.rtc_gpio_mode_t"></span><span class="target" id="rtc__io_8h_1a63ab0b99efdd086ab7f3f04af3f4a885"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_set_direction</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, rtc_gpio_mode_t <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv422rtc_gpio_set_direction10gpio_num_t15rtc_gpio_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO დააწესა მიმართულება. </p>
+<p>დააკონფიგურირეთ RTC GPIO მიმართულება, როგორიცაა მხოლოდ გამომავალი, მხოლოდ შეყვანა, გამომავალი და შეყვანა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12) </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: GPIO მიმართულება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431rtc_gpio_set_direction_in_sleep10gpio_num_t15rtc_gpio_mode_t">
+<span id="_CPPv331rtc_gpio_set_direction_in_sleep10gpio_num_t15rtc_gpio_mode_t"></span><span id="_CPPv231rtc_gpio_set_direction_in_sleep10gpio_num_t15rtc_gpio_mode_t"></span><span id="rtc_gpio_set_direction_in_sleep__gpio_num_t.rtc_gpio_mode_t"></span><span class="target" id="rtc__io_8h_1a9f944ec1c97ee290820065fb998d1cd6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_set_direction_in_sleep</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, rtc_gpio_mode_t <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv431rtc_gpio_set_direction_in_sleep10gpio_num_t15rtc_gpio_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO ღრმა ძილის რეჟიმში მიმართულებას ადგენს ან ძილის სტატუსის გამორთვას ახდენს (ნაგულისხმევი). ზოგიერთ აპლიკაციის სცენარში, ღრმა ძილის დროს IO-ს სხვა მდგომარეობა სჭირდება. </p>
+<p>შენიშვნა: ESP32 მხარს უჭერს INPUT_ONLY რეჟიმს. ESP32S2 მხარს უჭერს INPUT_ONLY, OUTPUT_ONLY, INPUT_OUTPUT რეჟიმებს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12) </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: GPIO მიმართულება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418rtc_gpio_pullup_en10gpio_num_t">
+<span id="_CPPv318rtc_gpio_pullup_en10gpio_num_t"></span><span id="_CPPv218rtc_gpio_pullup_en10gpio_num_t"></span><span id="rtc_gpio_pullup_en__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a8bfbd05dca954f5e90a60b63097a8f86"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_pullup_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv418rtc_gpio_pullup_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO გაშვების ჩართვა. </p>
+<p>ეს ფუნქცია მხოლოდ RTC IO-ებისთვის მუშაობს. ზოგადად, გამოიძახეთ gpio_pullup_en, რომელიც იმუშავებს როგორც ჩვეულებრივი GPIO ებისთვის, ასევე RTC IO-ებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420rtc_gpio_pulldown_en10gpio_num_t">
+<span id="_CPPv320rtc_gpio_pulldown_en10gpio_num_t"></span><span id="_CPPv220rtc_gpio_pulldown_en10gpio_num_t"></span><span id="rtc_gpio_pulldown_en__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a1d21985c4f8955431b8cf7751730c9c2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_pulldown_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv420rtc_gpio_pulldown_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO ჩამოსაშლელი სიის ჩართვა. </p>
+<p>ეს ფუნქცია მხოლოდ RTC IO-ებისთვის მუშაობს. ზოგადად, გამოიძახეთ gpio_pulldown_en, რომელიც იმუშავებს როგორც ჩვეულებრივი GPIO ებისთვის, ასევე RTC IO-ებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419rtc_gpio_pullup_dis10gpio_num_t">
+<span id="_CPPv319rtc_gpio_pullup_dis10gpio_num_t"></span><span id="_CPPv219rtc_gpio_pullup_dis10gpio_num_t"></span><span id="rtc_gpio_pullup_dis__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a62c686829421b0e23fb4a520a672b337"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_pullup_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv419rtc_gpio_pullup_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO ამოღების გამორთვა. </p>
+<p>ეს ფუნქცია მხოლოდ RTC IO-ებისთვის მუშაობს. ზოგადად, გამოიძახეთ gpio_pullup_dis, რომელიც იმუშავებს როგორც ჩვეულებრივი GPIO ებისთვის, ასევე RTC IO-ებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421rtc_gpio_pulldown_dis10gpio_num_t">
+<span id="_CPPv321rtc_gpio_pulldown_dis10gpio_num_t"></span><span id="_CPPv221rtc_gpio_pulldown_dis10gpio_num_t"></span><span id="rtc_gpio_pulldown_dis__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a1edf7f5804407fafb2607b102c5a0706"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_pulldown_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv421rtc_gpio_pulldown_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO ჩამოსაშლელი სიის გამორთვა. </p>
+<p>ეს ფუნქცია მხოლოდ RTC IO-ებისთვის მუშაობს. ზოგადად, გამოიძახეთ gpio_pulldown_dis, რომელიც იმუშავებს როგორც ჩვეულებრივი GPIO ებისთვის, ასევე RTC IO-ებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416rtc_gpio_hold_en10gpio_num_t">
+<span id="_CPPv316rtc_gpio_hold_en10gpio_num_t"></span><span id="_CPPv216rtc_gpio_hold_en10gpio_num_t"></span><span id="rtc_gpio_hold_en__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a076a3a9d42ab2d0ab6bb2f0594007976"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_hold_en</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv416rtc_gpio_hold_en10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC IO პანელზე შეკავების ფუნქციის ჩართვა. </p>
+<p>HOLD ფუნქციის ჩართვა გამოიწვევს შეყვანის ჩართვის, გამოყვანის ჩართვის, გამოყვანის მნიშვნელობის, ფუნქციის და წამყვანი სიძლიერის მიმდინარე მნიშვნელობების დაფიქსირებას. ეს ფუნქცია სასარგებლოა მსუბუქი ან ღრმა ძილის რეჟიმში გადასვლისას, რათა თავიდან იქნას აცილებული პინის კონფიგურაციის შეცვლა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417rtc_gpio_hold_dis10gpio_num_t">
+<span id="_CPPv317rtc_gpio_hold_dis10gpio_num_t"></span><span id="_CPPv217rtc_gpio_hold_dis10gpio_num_t"></span><span id="rtc_gpio_hold_dis__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a6df65a60c8fcd9971735f636b6cefaf7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_hold_dis</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv417rtc_gpio_hold_dis10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC IO პანელზე შეკავების ფუნქციის გამორთვა. </p>
+<p>შეკავების ფუნქციის გამორთვა პანელს საშუალებას მისცემს RTC_IO პერიფერიული მოწყობილობიდან მიიღოს შემდეგი მნიშვნელობები: შეყვანის ჩართვა, გამომავალი ჩართვა, გამომავალი მნიშვნელობა, ფუნქცია და წამყვანი სიძლიერე.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416rtc_gpio_isolate10gpio_num_t">
+<span id="_CPPv316rtc_gpio_isolate10gpio_num_t"></span><span id="_CPPv216rtc_gpio_isolate10gpio_num_t"></span><span id="rtc_gpio_isolate__gpio_num_t"></span><span class="target" id="rtc__io_8h_1a767e772683723a9de74f158ae4663652"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_isolate</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv416rtc_gpio_isolate10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამხმარე ფუნქცია RTC IO-დან შიდა წრედების გათიშვისთვის. ეს ფუნქცია გამორთავს შემავალ და გამოსავალს, აწევის და დაწევის ფუნქციებს და რთავს RTC IO-სთვის შეკავების ფუნქციას. გამოიყენეთ ეს ფუნქცია, თუ RTC IO საჭიროა შიდა წრედებიდან გათიშვა ღრმა ძილის რეჟიმში, გაჟონვის დენის მინიმიზაციის მიზნით. </p>
+<p>კერძოდ, ESP32-WROVER მოდულისთვის, ღრმა ძილის რეჟიმში გადასვლამდე გამოიძახეთ rtc_gpio_isolate( GPIO _NUM_12) ფუნქცია, რათა შემცირდეს ღრმა ძილის მიმდინარეობა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ GPIO არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი (მაგ. GPIO _NUM_12). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423rtc_gpio_force_hold_allv">
+<span id="_CPPv323rtc_gpio_force_hold_allv"></span><span id="_CPPv223rtc_gpio_force_hold_allv"></span><span id="rtc_gpio_force_hold_all__void"></span><span class="target" id="rtc__io_8h_1ab42cf3b78b45c181723c35627e6ca637"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_force_hold_all</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv423rtc_gpio_force_hold_allv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ყველა RTC IO-სთვის იძულებითი შეკავების სიგნალის ჩართვა. </p>
+<p>თითოეულ RTC პანელს აქვს RTC კონტროლერისგან მიღებული „ძალისმიერი შეკავების“ შემავალი სიგნალი. თუ ეს სიგნალი დაყენებულია, პანელი აფიქსირებს შეყვანის ჩართვის, ფუნქციის, გამომავალი ჩართვის და სხვა სიგნალების მიმდინარე მნიშვნელობებს, რომლებიც მოდის RTC მულტიპლექსიდან. ძალისმიერი შეკავების სიგნალი ჩართულია ღრმა ძილის რეჟიმში გადასვლამდე EXT1 გაღვიძებისთვის გამოყენებული პინებისთვის. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427rtc_gpio_force_hold_dis_allv">
+<span id="_CPPv327rtc_gpio_force_hold_dis_allv"></span><span id="_CPPv227rtc_gpio_force_hold_dis_allv"></span><span id="rtc_gpio_force_hold_dis_all__void"></span><span class="target" id="rtc__io_8h_1ac972d7c3c6936a9fe80e2b14f2ebdceb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_force_hold_dis_all</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv427rtc_gpio_force_hold_dis_allv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იძულებითი შეკავების სიგნალის გამორთვა ყველა RTC IO-სთვის. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429rtc_gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t">
+<span id="_CPPv329rtc_gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t"></span><span id="_CPPv229rtc_gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t"></span><span id="rtc_gpio_set_drive_capability__gpio_num_t.gpio_drive_cap_t"></span><span class="target" id="rtc__io_8h_1acb11a5bb68bdd890261dce4c0706add3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_set_drive_capability</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_drive_cap_t <em>ძალა</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv429rtc_gpio_set_drive_capability10gpio_num_t16gpio_drive_cap_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC GPIO პანელის მართვის შესაძლებლობების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO s-ის მხარდაჭერა </li>
+<li><code class="docutils literal notranslate"><span class="pre">strength</span></code>: ბალიშის ამოძრავების შესაძლებლობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429rtc_gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t">
+<span id="_CPPv329rtc_gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t"></span><span id="_CPPv229rtc_gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t"></span><span id="rtc_gpio_get_drive_capability__gpio_num_t.gpio_drive_cap_tP"></span><span class="target" id="rtc__io_8h_1a8730e9bca8bd8ef09fa66807e0c101b6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_get_drive_capability</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_drive_cap_t *<em>ძალა</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv429rtc_gpio_get_drive_capability10gpio_num_tP16gpio_drive_cap_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ RTC GPIO პანელის მართვის შესაძლებლობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი, მხოლოდ გამომავალი GPIO s-ის მხარდაჭერა </li>
+<li><code class="docutils literal notranslate"><span class="pre">strength</span></code>: მაჩვენებელი, რომელიც იღებს პანელის მართვის შესაძლებლობას</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422rtc_gpio_wakeup_enable10gpio_num_t15gpio_int_type_t">
+<span id="_CPPv322rtc_gpio_wakeup_enable10gpio_num_t15gpio_int_type_t"></span><span id="_CPPv222rtc_gpio_wakeup_enable10gpio_num_t15gpio_int_type_t"></span><span id="rtc_gpio_wakeup_enable__gpio_num_t.gpio_int_type_t"></span><span class="target" id="rtc__io_8h_1a2da41d646d49aac21f2af811af89ae13"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_wakeup_enable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, gpio_int_type_t <em>intr_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv422rtc_gpio_wakeup_enable10gpio_num_t15gpio_int_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილის რეჟიმიდან გამოღვიძების ჩართვა კონკრეტული GPIO გამოყენებით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ gpio_num არ არის RTC IO, ან intr_type არ არის GPIO _INTR_HIGH_LEVEL, GPIO _INTR_LOW_LEVEL-დან ერთ-ერთი. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_type</span></code>გამოღვიძება მაღალ დონეზე ( GPIO _INTR_HIGH_LEVEL) ან დაბალ დონეზე ( GPIO _INTR_LOW_LEVEL) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423rtc_gpio_wakeup_disable10gpio_num_t">
+<span id="_CPPv323rtc_gpio_wakeup_disable10gpio_num_t"></span><span id="_CPPv223rtc_gpio_wakeup_disable10gpio_num_t"></span><span id="rtc_gpio_wakeup_disable__gpio_num_t"></span><span class="target" id="rtc__io_8h_1ab231178b2b32a48f71ff108fcbd57b95"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">rtc_gpio_wakeup_disable</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="gpio.html#_CPPv423rtc_gpio_wakeup_disable10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ ძილის რეჟიმიდან გამოღვიძება კონკრეტული GPIO გამოყენებით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ gpio_num არ არის RTC IO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="gpio.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.RTC_GPIO_IS_VALID_GPIO">
+<span class="target" id="rtc__io_8h_1a45176e945178fb83ca8572deae188ba5"></span><code class="descname">RTC_GPIO_IS_VALID_GPIO</code><span class="sig-paren">(</span>gpio_num<span class="sig-paren">)</span><a class="headerlink" href="gpio.html#c.RTC_GPIO_IS_VALID_GPIO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="i2c.html" rel="next" title="I2C Driver">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="dac.html" rel="prev" title="Digital To Analog Converter"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

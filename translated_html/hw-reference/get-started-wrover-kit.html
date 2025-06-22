@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-WROVER-KIT V4.1 დამწყებთათვის სახელმძღვანელო — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="get-started-wrover-kit-v3.html" rel="next" title="ESP-WROVER-KIT V3 Getting Started Guide"/>
+<link href="get-started-devkitc-v2.html" rel="prev" title="ESP32-DevKitC V2 Getting Started Guide"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/hw-reference/get-started-wrover-kit.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "hw-reference/get-started-wrover-kit"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/hw-reference/get-started-wrover-kit.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../get-started/index.html">დაწყება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#introduction">შესავალი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../get-started/index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="get-started-devkitc.html">ESP32-DevKitC</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="get-started-wrover-kit.html#">ESP-WROVER-KIT</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#functionality-overview">ფუნქციონალურობის მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#functional-description">ფუნქციური აღწერა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#setup-options">დაყენების პარამეტრები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#allocation-of-esp32-pins">ESP32 პინების განაწილება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#start-application-development">აპლიკაციის შემუშავების დაწყება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get-started-wrover-kit.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="get-started-pico-kit.html">ESP32-PICO-KIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get-started-ethernet-kit.html">ESP32-Ethernet-Kit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-1-install-prerequisites">ნაბიჯი 1. წინაპირობების ინსტალაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-3-set-up-the-tools">ნაბიჯი 3. ხელსაწყოების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-4-set-up-the-environment-variables">ნაბიჯი 4. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-8-build-the-project">ნაბიჯი 8. პროექტის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-9-flash-onto-the-device">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-10-monitor">ნაბიჯი 10. მონიტორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="../get-started/index.html">დაწყება</a> »</li>
+<li>ESP-WROVER-KIT V4.1 დაწყების სახელმძღვანელო</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/hw-reference/get-started-wrover-kit.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-wrover-kit-v4-1-getting-started-guide">
+<h1>ESP-WROVER-KIT V4.1 დაწყების სახელმძღვანელო<a class="headerlink" href="get-started-wrover-kit.html#esp-wrover-kit-v4-1-getting-started-guide" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/hw-reference/get-started-wrover-kit.html">[中文]</a></p>
+<p>ეს სახელმძღვანელო გვიჩვენებს, თუ როგორ დაიწყოთ ESP-WROVER-KIT V4.1 დეველოპერული დაფის გამოყენება და ასევე იძლევა ინფორმაციას მისი ფუნქციონალურობისა და კონფიგურაციის ვარიანტების შესახებ. ESP-WROVER-KIT-ის სხვა ვერსიების აღწერისთვის, გთხოვთ, იხილოთ <a class="reference internal" href="index.html"><span class="doc">ESP32 აპარატურის ცნობარი</span></a>.</p>
+<div class="section" id="what-you-need">
+<h2>რა გჭირდებათ<a class="headerlink" href="get-started-wrover-kit.html#what-you-need" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-board-front"><span class="std std-ref">ESP-WROVER-KIT V4.1 დაფა</span></a></li>
+<li>USB 2.0 კაბელი (A-დან მიკრო-B-მდე)</li>
+<li>კომპიუტერი, რომელიც მუშაობს Windows-ზე, Linux-ზე ან macOS-ზე</li>
+</ul>
+<p>შეგიძლიათ გამოტოვოთ შესავალი ნაწილები და პირდაპირ გადახვიდეთ განყოფილებაზე <a class="reference internal" href="get-started-wrover-kit.html#start-application-development">აპლიკაციის შემუშავების დაწყება</a>.</p>
+</div>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="get-started-wrover-kit.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-WROVER-KIT არის ESP32-ზე დაფუძნებული დეველოპერის დაფა, რომელიც წარმოებულია <a class="reference external" href="https://espressif.com">ესპრესო</a>.</p>
+<p>ESP-WROVER-KIT მოიცავს შემდეგ ინტეგრირებულ კომპონენტი :</p>
+<ul class="simple">
+<li>ESP32-WROVER-B მოდული</li>
+<li>LCD ეკრანი</li>
+<li>MicroSD ბარათის სლოტი</li>
+</ul>
+<p>მისი კიდევ ერთი გამორჩეული თვისებაა ჩაშენებული FTDI FT2232HL ჩიპი - გაუმჯობესებული მრავალინტერფეისიანი USB ხიდი. ეს ჩიპი საშუალებას იძლევა გამოიყენოთ JTAG ESP32-ის პირდაპირი გამართვა USB ინტერფეისის მეშვეობით, ცალკე JTAG გამართვა გარეშე. ESP-WROVER-KIT განვითარებას მოსახერხებელს, მარტივს და ეკონომიურს ხდის.</p>
+<p>ESP32 შემავალი/გამომავალი ქინძისთავების უმეტესობა გაყოფილია დაფის ქინძისთავების კონექტორებთან მარტივი წვდომისთვის.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP32-ის GPIO 16 და GPIO 17 გამოიყენება PSRAM-ისთვის ჩიპის შერჩევისა და საათის სიგნალებად. ნაგულისხმევად, საიმედო მუშაობის უზრუნველსაყოფად, ორი GPIO არ არის დაყოფილი დაფის პინის ჰედერებზე.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="functionality-overview">
+<h2>ფუნქციონალურობის მიმოხილვა<a class="headerlink" href="get-started-wrover-kit.html#functionality-overview" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ ბლოკ-დიაგრამაზე ნაჩვენებია ESP-WROVER-KIT-ის ძირითადი კომპონენტი 19 და მათი ურთიერთკავშირი.</p>
+<div class="align-center figure" id="id1">
+<img alt="ESP-WROVER-KIT block diagram" src="../_images/esp-wrover-kit-block-diagram.png"/>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT-ის ბლოკ-სქემა</span></p>
+</div>
+</div>
+<div class="section" id="functional-description">
+<h2>ფუნქციური აღწერა<a class="headerlink" href="get-started-wrover-kit.html#functional-description" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ ორ ფიგურაში და ცხრილში აღწერილია ESP-WROVER-KIT დაფის ძირითადი კომპონენტი 19, ინტერფეისები და მართვის საშუალებები.</p>
+<div class="align-center figure" id="id2">
+<span id="get-started-esp-wrover-kit-v4-1-board-front"></span><img alt="ESP-WROVER-KIT board layout - front" src="../_images/esp-wrover-kit-v4.1-layout-front.png"/>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT დაფის განლაგება - წინა მხარე</span></p>
+</div>
+<div class="align-center figure" id="id3">
+<span id="get-started-esp-wrover-kit-v4-1-board-back"></span><img alt="ESP-WROVER-KIT board layout - back" src="../_images/esp-wrover-kit-v4.1-layout-back.png"/>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT დაფის განლაგება - უკანა მხარე</span></p>
+</div>
+<p>ქვემოთ მოცემულ ცხრილში მოცემულია აღწერა შემდეგი ფორმით:</p>
+<ul class="simple">
+<li>პირველი სურათის ზედა მარჯვენა კუთხიდან დაწყებული და საათის ისრის მიმართულებით</li>
+<li>შემდეგ გადავიდეთ მეორე სურათზე</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%"/>
+<col width="96%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ძირითადი კომპონენტი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FT2232</td>
+<td>FT2232 ჩიპი მრავალპროტოკოლიანი USB-სერიული ხიდის ფუნქციას ასრულებს, რომლის დაპროგრამება და კონტროლი შესაძლებელია USB-ის საშუალებით, რათა უზრუნველყოფილი იყოს ESP32-თან კომუნიკაცია. FT2232-ს ასევე აქვს USB-ს JTAG ინტერფეისი, რომელიც ხელმისაწვდომია ჩიპის A არხზე, ხოლო USB-სერიული - B არხზე. FT2232 ჩიპი აუმჯობესებს მომხმარებლისთვის მოხერხებულობას აპლიკაციების შემუშავებისა და გამართვა კომუნიკაციის თვალსაზრისით. იხილეთ <a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP-WROVER-KIT_V4_1.pdf">ESP-WROVER-KIT V4.1 სქემატური ნახაზი</a>.</td>
+</tr>
+<tr class="row-odd"><td>32.768 კჰც</td>
+<td>გარე ზუსტი 32.768 კჰც სიხშირის კრისტალური ოსცილატორი ემსახურება როგორც საათს დაბალი ენერგომოხმარებით, სანამ ჩიპი ღრმა ძილის რეჟიმშია.</td>
+</tr>
+<tr class="row-even"><td>0R</td>
+<td>ნულოვანი ომიანი რეზისტორი, რომელიც განკუთვნილია დენის შუნტის ჩანაცვლებისთვის, შეიძლება მოხსნას შედუღებიდან ან შეიცვალოს დენის შუნტით, რათა გაადვილდეს ESP32-ის დენის მოხმარების გაზომვა სხვადასხვა რეჟიმში.</td>
+</tr>
+<tr class="row-odd"><td>ESP32-WROVER-B</td>
+<td>ეს EPS32 მოდული აღჭურვილია 64 მბიტიანი PSRAM-ით, რაც უზრუნველყოფს მონაცემთა შენახვისა და დამუშავების მოქნილ და გაფართოებულ შესაძლებლობებს.</td>
+</tr>
+<tr class="row-even"><td>დიაგნოსტიკური LED-ები</td>
+<td>FT2232-ის GPIO პინებთან დაკავშირებული ოთხი წითელი LED ინდიკატორი. განკუთვნილია მომავალი გამოყენებისთვის.</td>
+</tr>
+<tr class="row-odd"><td>UART</td>
+<td>სერიული პორტი. FT2232-ისა და ESP32-ის სერიული TX/RX სიგნალები შესაბამისად JP2-ის შიდა და გარე მხარესაა დაყოფილი. ნაგულისხმევად, პინების ეს წყვილი მხტუნავებით არის დაკავშირებული. ESP32-ის სერიული ინტერფეისის გამოსაყენებლად, მოხსენით მხტუნავები და შესაბამის პინებს სხვა გარე სერიული მოწყობილობა შეაერთეთ.</td>
+</tr>
+<tr class="row-even"><td>სპი</td>
+<td>ნაგულისხმევად, ESP32 იყენებს თავის SPI ინტერფეისს ფლეშ მეხსიერება და მოდულის შიგნით არსებულ PSRAM მეხსიერებაზე წვდომისთვის. გამოიყენეთ ეს პინები ESP32-ის სხვა SPI მოწყობილობასთან დასაკავშირებლად. ამ შემთხვევაში, საჭიროა დამატებითი ჩიპის შერჩევის (CS) სიგნალი. გაითვალისწინეთ, რომ ამ ინტერფეისის ძაბვაა 3.3 ვ.</td>
+</tr>
+<tr class="row-odd"><td>CTS/RTS</td>
+<td>სერიული პორტის ნაკადის კონტროლის სიგნალები: პინები სტანდარტულად არ არის დაკავშირებული წრედთან. მათ გასააქტიურებლად, შეამოკლეთ JP14-ის შესაბამისი პინები მხტუნავებით.</td>
+</tr>
+<tr class="row-even"><td>JTAG</td>
+<td>JTAG ინტერფეისი. FT2232 და ESP32-ის JTAG სიგნალები შესაბამისად JP2-ის შიდა და გარე მხარეებზეა დაყოფილი. ნაგულისხმევად, ეს ქინძისთავების წყვილი გათიშულია. JTAG-ის ჩასართავად, შეამოკლეთ შესაბამისი ქინძისთავები მხტუნავებით, როგორც ეს ნაჩვენებია ნაწილში <a class="reference internal" href="get-started-wrover-kit.html#setup-options">დაყენების პარამეტრები</a>.</td>
+</tr>
+<tr class="row-odd"><td>USB პორტი</td>
+<td>USB ინტერფეისი. დაფის კვების წყარო, ასევე კომპიუტერსა და დაფას შორის საკომუნიკაციო ინტერფეისი.</td>
+</tr>
+<tr class="row-even"><td>EN ღილაკი</td>
+<td>გადატვირთვის ღილაკი.</td>
+</tr>
+<tr class="row-odd"><td>ჩატვირთვის ღილაკი</td>
+<td>ჩამოტვირთვის ღილაკი. დაჭერისას დააჭირეთ. <strong>ჩექმა</strong> და შემდეგ დაჭერით <strong>ინგლისური</strong> იწყებს Firmware-ის ჩამოტვირთვის რეჟიმს პროგრამული უზრუნველყოფა სერიული პორტი ჩამოსატვირთად.</td>
+</tr>
+<tr class="row-even"><td>დენის გადამრთველი</td>
+<td>ჩართვა/გამორთვის გადამრთველი. გადართვა მიმართულებით <strong>ჩექმა</strong> ღილაკი ჩართავს დაფას, გამორთვით <strong>ჩექმა</strong> თიშავს დაფას.</td>
+</tr>
+<tr class="row-odd"><td>დენის სელექტორი</td>
+<td>კვების წყაროს შერჩევის ინტერფეისი. დაფა შეიძლება იკვებებოდეს USB-ის ან 5V შეყვანის ინტერფეისის საშუალებით. აირჩიეთ კვების წყარო ჯამპერით. დამატებითი ინფორმაციისთვის იხილეთ განყოფილება <a class="reference internal" href="get-started-wrover-kit.html#setup-options">დაყენების პარამეტრები</a>, ჯუმპერის სათაური JP7.</td>
+</tr>
+<tr class="row-even"><td>5 ვოლტიანი შეყვანა</td>
+<td>5 ვოლტიანი კვების წყაროს ინტერფეისი შეიძლება უფრო მოსახერხებელი იყოს, როდესაც დაფა ავტონომიურად მუშაობს (კომპიუტერთან არ არის დაკავშირებული).</td>
+</tr>
+<tr class="row-odd"><td>5 ვოლტიანი ჩართვის LED ინდიკატორი</td>
+<td>ეს წითელი LED ინთება, როდესაც დაფას მიეწოდება ენერგია, ან <strong>USB</strong> ან <strong>5 ვოლტიანი შეყვანა</strong>.</td>
+</tr>
+<tr class="row-even"><td>LDO</td>
+<td>NCP1117(1A). 5V-დან 3.3V LDO-მდე. NCP1117-ს შეუძლია მაქსიმალური 1A დენის მიწოდება. დაფაზე არსებულ LDO-ს აქვს ფიქსირებული გამომავალი ძაბვა. თუმცა, მომხმარებელს შეუძლია დაამონტაჟოს LDO რეგულირებადი გამომავალი ძაბვით. დეტალებისთვის იხილეთ <a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP-WROVER-KIT_V4_1.pdf">ESP-WROVER-KIT V4.1 სქემატური ნახაზი</a>.</td>
+</tr>
+<tr class="row-odd"><td>კამერის კონექტორი</td>
+<td>კამერის ინტერფეისი, სტანდარტული OV7670 კამერის მოდული.</td>
+</tr>
+<tr class="row-even"><td>RGB LED</td>
+<td>წითელი, მწვანე და ლურჯი (RGB) სინათლის გამოსხივების დიოდების (LED) კონტროლი შესაძლებელია პულსის სიგანის მოდულაციით (PWM).</td>
+</tr>
+<tr class="row-odd"><td>შემავალი/გამომავალი კონექტორი</td>
+<td>ESP32 მოდულის ყველა პინი დაყოფილია პინების ჰედერებად. თქვენ შეგიძლიათ დაპროგრამოთ ESP32 მრავალი ფუნქციის ჩასართავად, როგორიცაა PWM, ADC, DAC, I2C, I2S, SPI და ა.შ.</td>
+</tr>
+<tr class="row-even"><td>MicroSD ბარათის სლოტი</td>
+<td>სასარგებლოა აპლიკაციების შემუშავებისთვის, რომლებიც იყენებენ MicroSD ბარათს მონაცემთა შენახვისა და მოძიებისთვის.</td>
+</tr>
+<tr class="row-odd"><td>LCD</td>
+<td>3.2 დიუმიანი SPI (სტანდარტული 4-მავთულიანი სერიული პერიფერიული ინტერფეისი) LCD-ის დამონტაჟებისა და შეერთების მხარდაჭერა, როგორც ეს ნაჩვენებია ნახაზზე. <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-board-back"><span class="std std-ref">ESP-WROVER-KIT დაფის განლაგება - უკანა მხარე</span></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="setup-options">
+<span id="get-started-esp-wrover-kit-v4-1-setup-options"></span><h2>დაყენების პარამეტრები<a class="headerlink" href="get-started-wrover-kit.html#setup-options" title="Permalink to this headline">¶</a></h2>
+<p>დაფის ფუნქციონალურობის დასაყენებლად ხელმისაწვდომია სამი ჯუმპერ-ბლოკი. ყველაზე ხშირად საჭირო პარამეტრები ჩამოთვლილია ქვემოთ მოცემულ ცხრილში.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%"/>
+<col width="20%"/>
+<col width="71%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">სათაური</th>
+<th class="head">ჯუმპერის პარამეტრი</th>
+<th class="head">ფუნქციონალურობის აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>JP7</td>
+<td><img alt="jp7-ext_5v" src="../_images/esp-wrover-kit-v4.1-jp7-ext_5v.jpg"/></td>
+<td>ESP-WROVER-KIT-ის კვება გარე კვების წყაროდან</td>
+</tr>
+<tr class="row-odd"><td>JP7</td>
+<td><img alt="jp7-usb_5v" src="../_images/esp-wrover-kit-v4.1-jp7-usb_5v.jpg"/></td>
+<td>ESP-WROVER-KIT-ის კვება USB-ის საშუალებით</td>
+</tr>
+<tr class="row-even"><td>JP2</td>
+<td><img alt="jp2-jtag" src="../_images/esp-wrover-kit-v4.1-jp2-jtag.jpg"/></td>
+<td>JTAG ფუნქციონალურობის ჩართვა</td>
+</tr>
+<tr class="row-odd"><td>JP2</td>
+<td><img alt="jp2-tx-rx" src="../_images/esp-wrover-kit-v4.1-jp2-tx-rx.jpg"/></td>
+<td>UART კომუნიკაციის ჩართვა</td>
+</tr>
+<tr class="row-even"><td>JP14</td>
+<td><img alt="jp14" src="../_images/esp-wrover-kit-v4.1-jp14.jpg"/></td>
+<td>სერიული კომუნიკაციისთვის RTS/CTS ნაკადის კონტროლის ჩართვა</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="allocation-of-esp32-pins">
+<h2>ESP32 პინების განაწილება<a class="headerlink" href="get-started-wrover-kit.html#allocation-of-esp32-pins" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის ზოგიერთი პინი/ტერმინალი გამოყოფილია ჩაშენებულ ან გარე აპარატურასთან გამოსაყენებლად. თუ ეს აპარატურა არ გამოიყენება, მაგალითად, თუ არაფერია შეერთებული კამერის (JP4) ჰედერთან, მაშინ ეს GPIO 7 შეიძლება გამოყენებულ იქნას სხვა მიზნებისთვის.</p>
+<p>ზოგიერთ პინს, მაგალითად GPIO 0 ან GPIO 2, მრავალი ფუნქცია აქვს და ზოგიერთი მათგანი საერთოა როგორც ჩაშენებულ, ასევე გარე პერიფერიულ მოწყობილობებს შორის. პერიფერიული მოწყობილობების გარკვეული კომბინაციები ერთად ვერ მუშაობს. მაგალითად, SD ბარათს გამოყენებული აპლიკაციის JTAG გამართვა ით დაკავშირება შეუძლებელია, რადგან JTAG-სა და SD ბარათის სლოტს რამდენიმე პინი საერთო აქვს.</p>
+<p>სხვა შემთხვევებში, პერიფერიული მოწყობილობები შეიძლება თანაარსებობდნენ გარკვეულ პირობებში. ეს ეხება, მაგალითად, LCD ეკრანს და SD ბარათს, რომლებსაც მხოლოდ ერთი პინი აქვთ, GPIO 21. ეს პინი გამოიყენება LCD-სთვის D/C (მონაცემთა / კონტროლის) სიგნალის, ასევე SD ბარათის სლოტიდან წაკითხული CD (ბარათის ამოცნობის) სიგნალის უზრუნველსაყოფად. თუ ბარათის ამოცნობის ფუნქცია არ არის აუცილებელი, მაშინ მისი გამორთვა შესაძლებელია R167-ის მოხსნით, რათა როგორც LCD-მ, ასევე SD-მ შეძლონ ერთად მუშაობა.</p>
+<p>დამატებითი ინფორმაციისთვის იმის შესახებ, თუ რომელი პინები გამოიყენება რომელ პერიფერიულ მოწყობილობებს შორის, გთხოვთ, იხილოთ შემდეგი ნაწილის ცხრილი.</p>
+<div class="section" id="main-i-o-connector-jp1">
+<h3>მთავარი შემავალი/გამომავალი კონექტორი / JP1<a class="headerlink" href="get-started-wrover-kit.html#main-i-o-connector-jp1" title="Permalink to this headline">¶</a></h3>
+<p>JP1 კონექტორი შედგება 14x2 მამრობითი ქინძისთავებისგან, რომელთა ფუნქციები ნაჩვენებია ქვემოთ მოცემული ცხრილის შუა ორ „I/O“ სვეტში. ორივე მხარეს ორი „გაზიარებული“ სვეტი აღწერს, თუ დაფაზე სად გამოიყენება გარკვეული GPIO .</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%"/>
+<col width="10%"/>
+<col width="10%"/>
+<col width="40%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">გაზიარებულია</th>
+<th class="head">შეყვანა/გამოსვლა</th>
+<th class="head">შეყვანა/გამოსვლა</th>
+<th class="head">გაზიარებულია</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>არ არის ხელმისაწვდომი</td>
+<td>3.3 ვოლტი</td>
+<td>დახრილი</td>
+<td>არ არის ხელმისაწვდომი</td>
+</tr>
+<tr class="row-odd"><td>NC/XTAL</td>
+<td>IO32</td>
+<td>IO33</td>
+<td>NC/XTAL</td>
+</tr>
+<tr class="row-even"><td>JTAG, MicroSD</td>
+<td>IO12</td>
+<td>IO13</td>
+<td>JTAG, MicroSD</td>
+</tr>
+<tr class="row-odd"><td>JTAG, MicroSD</td>
+<td>IO14</td>
+<td>IO27</td>
+<td>კამერა</td>
+</tr>
+<tr class="row-even"><td>კამერა</td>
+<td>IO26</td>
+<td>IO25</td>
+<td>კამერა, LCD</td>
+</tr>
+<tr class="row-odd"><td>კამერა</td>
+<td>IO35</td>
+<td>IO34</td>
+<td>კამერა</td>
+</tr>
+<tr class="row-even"><td>კამერა</td>
+<td>IO39</td>
+<td>IO36</td>
+<td>კამერა</td>
+</tr>
+<tr class="row-odd"><td>JTAG</td>
+<td>ინგლისური</td>
+<td>IO23</td>
+<td>კამერა, LCD</td>
+</tr>
+<tr class="row-even"><td>კამერა, LCD</td>
+<td>IO22</td>
+<td>IO21</td>
+<td>კამერა, LCD, MicroSD</td>
+</tr>
+<tr class="row-odd"><td>კამერა, LCD</td>
+<td>IO19</td>
+<td>IO18</td>
+<td>კამერა, LCD</td>
+</tr>
+<tr class="row-even"><td>კამერა, LCD</td>
+<td>IO5</td>
+<td>IO17</td>
+<td>PSRAM</td>
+</tr>
+<tr class="row-odd"><td>PSRAM</td>
+<td>IO16</td>
+<td>IO4</td>
+<td>LED, კამერა, MicroSD</td>
+</tr>
+<tr class="row-even"><td>კამერა, LED, ჩამტვირთავი</td>
+<td>IO0</td>
+<td>IO2</td>
+<td>LED, MicroSD</td>
+</tr>
+<tr class="row-odd"><td>JTAG, MicroSD</td>
+<td>IO15</td>
+<td>5 ვოლტი</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p>ლეგენდა:</p>
+<ul class="simple">
+<li>NC/XTAL - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-xtal"><span class="std std-ref">32.768 kHz ოსცილატორი</span></a></li>
+<li>JTAG - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-jtag-header"><span class="std std-ref">JTAG / JP2</span></a></li>
+<li>ჩატვირთვა - ჩატვირთვის ღილაკი / SW2</li>
+<li>კამერა - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-camera-header"><span class="std std-ref">კამერა / JP4</span></a></li>
+<li>LED - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-rgb-led-connections"><span class="std std-ref">RGB LED</span></a></li>
+<li>მიკროSD - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-microsd-card-slot"><span class="std std-ref">MicroSD ბარათი / J4</span></a></li>
+<li>LCD - <a class="reference internal" href="get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-lcd-connector"><span class="std std-ref">LCD / U5</span></a></li>
+<li>PSRAM - ESP32-WROVER-B-ის PSRAM</li>
+</ul>
+</div>
+<div class="section" id="khz-oscillator">
+<span id="get-started-esp-wrover-kit-v4-1-xtal"></span><h3>32.768 kHz ოსცილატორი<a class="headerlink" href="get-started-wrover-kit.html#khz-oscillator" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%"/>
+<col width="71%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>GPIO</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>GPIO</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">რადგან GPIO 32 და GPIO 33 სტანდარტულად მიერთებულია ოსცილატორთან, სიგნალის მთლიანობის შესანარჩუნებლად ისინი არ არიან მიერთებული JP1 შემაერთებელთან. ეს განაწილება შეიძლება შეიცვალოს ოსცილატორიდან JP1-ზე ნულოვანი ომიანი რეზისტორების R11 / R23 პოზიციებიდან შედუღების მოხსნით და მათი R12 / R24 პოზიციებზე ხელახლა შედუღებით.</p>
+</div>
+</div>
+<div class="section" id="spi-flash-jp2">
+<span id="get-started-esp-wrover-kit-v4-1-spi-flash-header"></span><h3>SPI Flash / JP2<a class="headerlink" href="get-started-wrover-kit.html#spi-flash-jp2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%"/>
+<col width="76%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>CLK / GPIO 6</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>SD0 / GPIO 7 7</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>SD1 / GPIO 7 8</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>SD2 / GPIO 7 9</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>SD3 / GPIO 10</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>CMD / GPIO 11</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">მოდულის ფლეშ მეხსიერება ავტობუსი დაკავშირებულია JP2 ჯუმპერ ბლოკთან ნულოვანი ომიანი რეზისტორების R140 ~ R145 მეშვეობით. თუ ფლეშ მეხსიერება მეხსიერებას სჭირდება 80 MHz სიხშირეზე მუშაობა, ავტობუსის სიგნალების მთლიანობის გაუმჯობესების მიზნით, შეგიძლიათ მოხსნათ ეს რეზისტორები, რათა გათიშოთ მოდულის ფლეშ მეხსიერება ავტობუსი პინის თავსართიდან JP2.</p>
+</div>
+</div>
+<div class="section" id="jtag-jp2">
+<span id="get-started-esp-wrover-kit-v4-1-jtag-header"></span><h3>JTAG / JP2<a class="headerlink" href="get-started-wrover-kit.html#jtag-jp2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%"/>
+<col width="45%"/>
+<col width="42%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+<th class="head">JTAG სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>ინგლისური</td>
+<td>TRST_N</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>MTMS / GPIO 14</td>
+<td>TMS</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>MTDO / GPIO 15 ტერმინალი</td>
+<td>დაგეგმვა</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>MTDI / GPIO 12</td>
+<td>TDI</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>MTCK / GPIO 13</td>
+<td>TCK</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="camera-jp4">
+<span id="get-started-esp-wrover-kit-v4-1-camera-header"></span><h3>კამერა / JP4<a class="headerlink" href="get-started-wrover-kit.html#camera-jp4" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%"/>
+<col width="23%"/>
+<col width="67%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+<th class="head">კამერის სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>არ არის ხელმისაწვდომი</td>
+<td>3.3 ვოლტი</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>არ არის ხელმისაწვდომი</td>
+<td>მიწა</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>GPIO 27-ე კურსი</td>
+<td>SIO_C / SCCB საათი</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>GPIO</td>
+<td>SIO_D / SCCB მონაცემები</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>GPIO 25-ე კურსი</td>
+<td>VSYNC / ვერტიკალური სინქრონიზაცია</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>GPIO 23-ე კურსი</td>
+<td>HREF / ჰორიზონტალური მითითება</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>GPIO</td>
+<td>PCLK / პიქსელის საათი</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>GPIO</td>
+<td>XCLK / სისტემის საათი</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>GPIO</td>
+<td>D7 / პიქსელის მონაცემთა ბიტი 7</td>
+</tr>
+<tr class="row-odd"><td>10</td>
+<td>GPIO</td>
+<td>D6 / პიქსელის მონაცემთა ბიტი 6</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td>GPIO 39</td>
+<td>D5 / პიქსელის მონაცემთა ბიტი 5</td>
+</tr>
+<tr class="row-odd"><td>12</td>
+<td>GPIO 36</td>
+<td>D4 / პიქსელის მონაცემთა ბიტი 4</td>
+</tr>
+<tr class="row-even"><td>13</td>
+<td>GPIO 19-ე კურსი</td>
+<td>D3 / პიქსელის მონაცემთა ბიტი 3</td>
+</tr>
+<tr class="row-odd"><td>14</td>
+<td>GPIO 18-ე კურსი</td>
+<td>D2 / პიქსელის მონაცემთა ბიტი 2</td>
+</tr>
+<tr class="row-even"><td>15</td>
+<td>GPIO 5</td>
+<td>D1 / პიქსელის მონაცემთა ბიტი 1</td>
+</tr>
+<tr class="row-odd"><td>16</td>
+<td>GPIO 4</td>
+<td>D0 / პიქსელის მონაცემთა ბიტი 0</td>
+</tr>
+<tr class="row-even"><td>17</td>
+<td>GPIO 0 ტერმინალი</td>
+<td>გადატვირთვა / კამერის გადატვირთვა</td>
+</tr>
+<tr class="row-odd"><td>18</td>
+<td>არ არის ხელმისაწვდომი</td>
+<td>PWDN / კამერის გამორთვა</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>სიგნალები D0 .. D7 აღნიშნავს კამერის მონაცემთა ავტობუსს</li>
+</ul>
+</div>
+<div class="section" id="rgb-led">
+<span id="get-started-esp-wrover-kit-v4-1-rgb-led-connections"></span><h3>RGB LED<a class="headerlink" href="get-started-wrover-kit.html#rgb-led" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%"/>
+<col width="43%"/>
+<col width="39%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+<th class="head">RGB LED</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>GPIO 0 ტერმინალი</td>
+<td>წითელი</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>GPIO 2</td>
+<td>მწვანე</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>GPIO 4</td>
+<td>ლურჯი</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="microsd-card">
+<span id="get-started-esp-wrover-kit-v4-1-microsd-card-slot"></span><h3>მიკროSD ბარათი<a class="headerlink" href="get-started-wrover-kit.html#microsd-card" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%"/>
+<col width="42%"/>
+<col width="45%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+<th class="head">MicroSD სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>MTDI / GPIO 12</td>
+<td>მონაცემები2</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>MTCK / GPIO 13</td>
+<td>CD / DATA3</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>MTDO / GPIO 15 ტერმინალი</td>
+<td>CMD</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>MTMS / GPIO 14</td>
+<td>CLK</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>GPIO 2</td>
+<td>მონაცემები0</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>GPIO 4</td>
+<td>მონაცემები1</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>GPIO</td>
+<td>CD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="lcd-u5">
+<span id="get-started-esp-wrover-kit-v4-1-lcd-connector"></span><h3>LCD / U5<a class="headerlink" href="get-started-wrover-kit.html#lcd-u5" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%"/>
+<col width="42%"/>
+<col width="45%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">ESP32 პინი</th>
+<th class="head">LCD სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>GPIO 18-ე კურსი</td>
+<td>გადატვირთვა</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>GPIO 19-ე კურსი</td>
+<td>SCL</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>GPIO</td>
+<td>გაუქმება/დადასტურება</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>GPIO</td>
+<td>CS</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>GPIO 23-ე კურსი</td>
+<td>აშშ დოლარი</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>GPIO 25-ე კურსი</td>
+<td>SDO</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>GPIO 5</td>
+<td>განათება</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="start-application-development">
+<span id="get-started-esp-wrover-kit-start-development"></span><h2>აპლიკაციის შემუშავების დაწყება<a class="headerlink" href="get-started-wrover-kit.html#start-application-development" title="Permalink to this headline">¶</a></h2>
+<p>ESP-WROVER-KIT-ის ჩართვამდე დარწმუნდით, რომ დაფა კარგ მდგომარეობაშია და დაზიანების აშკარა ნიშნები არ აქვს.</p>
+<div class="section" id="initial-setup">
+<h3>საწყისი დაყენება<a class="headerlink" href="get-started-wrover-kit.html#initial-setup" title="Permalink to this headline">¶</a></h3>
+<p>გთხოვთ, დააყენოთ მხოლოდ ქვემოთ მოცემულ სურათებზე ნაჩვენები შემდეგი მხტუნავები:</p>
+<ul class="simple">
+<li>აირჩიეთ USB, როგორც კვების წყარო JP7 ჯუმპერ ბლოკის გამოყენებით.</li>
+<li>ჩართეთ UART კომუნიკაცია JP2 ჯუმპერ ბლოკის გამოყენებით.</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%"/>
+<col width="52%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ჩართვა USB პორტიდან</th>
+<th class="head">UART კომუნიკაციის ჩართვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img alt="jp7-usb_5v" src="../_images/esp-wrover-kit-v4.1-jp7-usb_5v.jpg"/></td>
+<td><img alt="jp2-tx-rx" src="../_images/esp-wrover-kit-v4.1-jp2-tx-rx.jpg"/></td>
+</tr>
+</tbody>
+</table>
+<p>სხვა მხტუნავები არ დაამონტაჟოთ.</p>
+<p>ჩართეთ <strong>დენის გადამრთველი</strong> ჩართვაზე, <strong>5 ვოლტიანი ჩართვის LED ინდიკატორი</strong> უნდა განათდეს.</p>
+</div>
+<div class="section" id="now-to-development">
+<h3>ახლა კი განვითარებისკენ<a class="headerlink" href="get-started-wrover-kit.html#now-to-development" title="Permalink to this headline">¶</a></h3>
+<p>გთხოვთ, გააგრძელოთ <a class="reference internal" href="index.html"><span class="doc">ESP32 აპარატურის ცნობარი</span></a>, სადაც სექცია <a class="reference internal" href="../get-started/index.html#get-started-step-by-step"><span class="std std-ref">ინსტალაცია ეტაპობრივად</span></a> სწრაფად დაგეხმარებათ განვითარების გარემოს დაყენებაში და შემდეგ ფლეშ მეხსიერება თქვენს დაფაზე პროექტის მაგალითის განთავსებაში.</p>
+</div>
+</div>
+<div class="section" id="related-documents">
+<h2>დაკავშირებული დოკუმენტები<a class="headerlink" href="get-started-wrover-kit.html#related-documents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP-WROVER-KIT_V4_1.pdf">ESP-WROVER-KIT V4.1 სქემატური ნახაზი</a> (PDF)</li>
+<li><a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">ESP32 მონაცემთა ცხრილი</a> (PDF)</li>
+<li><a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32-wrover-b_datasheet_en.pdf">ESP32-WROVER-B მონაცემთა ფურცელი</a> (PDF)</li>
+<li><a class="reference internal" href="../api-guides/jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a></li>
+<li><a class="reference internal" href="index.html"><span class="doc">ESP32 აპარატურის ცნობარი</span></a></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="get-started-wrover-kit-v3.html" rel="next" title="ESP-WROVER-KIT V3 Getting Started Guide">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="get-started-devkitc-v2.html" rel="prev" title="ESP32-DevKitC V2 Getting Started Guide"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

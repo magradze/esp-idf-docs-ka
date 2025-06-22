@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-IDF უფასო RTOS SMP ცვლილებები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="general-notes.html" rel="next" title="General Notes About ESP-IDF Programming"/>
+<link href="../security/flash-encryption.html" rel="prev" title="Flash Encryption"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/freertos-smp.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/freertos-smp"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/freertos-smp.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="freertos-smp.html#">უფასო RTOS SMP ცვლილებები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#backported-features">Backported ფუნქციები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#static-alocation">სტატიკური განლაგება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#other-features">სხვა მახასიათებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#backporting-notes">ჩანაწერების ბექპორტირება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#tasks-and-task-creation">დავალებები და დავალებების შექმნა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#scheduling">დაგეგმვა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#round-robin-scheduling">რაუნდ-რობინის დაგეგმვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#scheduler-suspension">დამგეგმავის შეჩერება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos-smp.html#tick-interrupt-synchronicity">სინქრონულობის შეწყვეტის ტიკი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#critical-sections-disabling-interrupts">კრიტიკული სექციები და შეფერხებების გამორთვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#floating-point-aritmetic">მცურავი წერტილოვანი არითმეტიკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#task-deletion">დავალების წაშლა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#thread-local-storage-pointers-deletion-callbacks">ლოკალური შენახვის მაჩვენებლები და წაშლის უკუკავშირები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos-smp.html#configuring-esp-idf-freertos">ESP-IDF კონფიგურაცია უფასო RTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ESP-IDF უფასო RTOS SMP ცვლილებები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/freertos-smp.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-idf-freertos-smp-changes">
+<h1>ESP-IDF უფასო RTOS SMP ცვლილებები<a class="headerlink" href="freertos-smp.html#esp-idf-freertos-smp-changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="freertos-smp.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ვანილის უფასო RTOS შექმნილია ერთ ბირთვზე სამუშაოდ. თუმცა, ESP32 არის ორბირთვიანი, რომელიც შეიცავს პროტოკოლურ CPU-ს (ცნობილია როგორც <strong>პროცესორი 0</strong> ან <strong>PRO_CPU</strong>) და აპლიკაციის CPU (ცნობილია როგორც <strong>პროცესორი 1</strong> ან <strong>APP_CPU</strong>). პრაქტიკაში ორი ბირთვი იდენტურია და ერთსა და იმავე მეხსიერებას იყენებს. ეს საშუალებას აძლევს ორ ბირთვს, ერთმანეთის მონაცვლეობით შეასრულონ დავალებები.</p>
+<p>ESP-IDF Free RTOS არის vanilla Free RTOS ის მოდიფიცირებული ვერსია, რომელიც მხარს უჭერს სიმეტრიულ მულტიპროცესორს (SMP). ESP-IDF Free RTOS დაფუძნებულია Free RTOS v8.2.0-ის Xtensa პორტზე. ეს სახელმძღვანელო ასახავს ძირითად განსხვავებებს vanilla Free RTOS და ESP-IDF Free RTOS შორის. vanilla Free RTOS ის API მითითება შეგიძლიათ იხილოთ შემდეგ ბმულზე: <a class="reference external" href="http://www.freertos.org/a00106.html">http://www.freertos.org/a00106.html</a></p>
+<p>ESP-IDF Free RTOS ისთვის ექსკლუზიური ფუნქციების შესახებ ინფორმაციისთვის იხილეთ <a class="reference internal" href="../api-reference/system/freertos_additions.html"><span class="doc">ESP-IDF უფასო RTOS დამატებები</span></a>.</p>
+<p><a class="reference internal" href="freertos-smp.html#backported-features"><span class="std std-ref">Backported ფუნქციები</span></a>მიუხედავად იმისა, რომ ESP-IDF Free RTOS დაფუძნებულია Free RTOS v8.2.0-ის Xtensa პორტზე, Free RTOS v9.0.0-ის რიგი ფუნქციები ხელახლა პორტირებულია ESP-IDF ზე.</p>
+<p><a class="reference internal" href="freertos-smp.html#tasks-and-task-creation"><span class="std std-ref">დავალებები და დავალებების შექმნა</span></a>: გამოყენება <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv423xTaskCreatePinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_tK10BaseType_t" title="xTaskCreatePinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreatePinnedToCore()</span></code></a> ან
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv429xTaskCreateStaticPinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_tK10BaseType_t" title="xTaskCreateStaticPinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStaticPinnedToCore()</span></code></a> ESP-IDF ში დავალებების შესაქმნელად უფასო RTOS . ორი ფუნქციის ბოლო პარამეტრია <code class="docutils literal notranslate"><span class="pre">xCoreID</span></code>ეს პარამეტრი განსაზღვრავს, თუ რომელ ბირთვზეა მიმაგრებული დავალება. მისაღები მნიშვნელობებია <code class="docutils literal notranslate"><span class="pre">0</span></code> ამისთვის <strong>PRO_CPU</strong>,
+<code class="docutils literal notranslate"><span class="pre">1</span></code> ამისთვის <strong>APP_CPU</strong>, ან <code class="docutils literal notranslate"><span class="pre">tskNO_AFFINITY</span></code> რაც საშუალებას აძლევს დავალებას ორივეზე გაუშვას.</p>
+<p><a class="reference internal" href="freertos-smp.html#round-robin-scheduling"><span class="std std-ref">რაუნდ-რობინის დაგეგმვა</span></a>ESP-IDF თავისუფალი RTOS დამგეგმავი გამოტოვებს დავალებებს, როდესაც ახორციელებს Round-Robin დაგეგმვას მზა მდგომარეობაში მყოფ მრავალ დავალებას შორის, რომლებიც ერთი და იგივე პრიორიტეტის არიან. ამ ქცევის თავიდან ასაცილებლად, დარწმუნდით, რომ ეს დავალებები ან გადადის დაბლოკილ მდგომარეობაში, ან განაწილებულია პრიორიტეტების უფრო ფართო დიაპაზონში.</p>
+<p><a class="reference internal" href="freertos-smp.html#scheduler-suspension"><span class="std std-ref">დამგეგმავის შეჩერება</span></a>: ESP-IDF -ში დამგეგმავის შეჩერება თავისუფალი RTOS -ში მხოლოდ გამომძახებელ ბირთვზე არსებულ დამგეგმავზე იმოქმედებს. სხვა სიტყვებით რომ ვთქვათ, გამოძახება
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415vTaskSuspendAllv" title="vTaskSuspendAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSuspendAll()</span></code></a> ჩართულია <strong>PRO_CPU</strong> ხელს არ შეუშლის <strong>APP_CPU</strong> დაგეგმვისგან და პირიქით. ერთდროული წვდომის დაცვისთვის გამოიყენეთ კრიტიკული სექციები ან სემაფორები.</p>
+<p><a class="reference internal" href="freertos-smp.html#tick-interrupt-synchronicity"><span class="std std-ref">სინქრონულობის შეწყვეტის ტიკი</span></a>: მონიშნეთ შეწყვეტები <strong>PRO_CPU</strong> და <strong>APP_CPU</strong>
+არ არის სინქრონიზებული. ნუ ელით გამოყენებას <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv410vTaskDelayK10TickType_t" title="vTaskDelay"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelay()</span></code></a> ან
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415vTaskDelayUntilPC10TickType_tK10TickType_t" title="vTaskDelayUntil"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelayUntil()</span></code></a> როგორც ორ ბირთვს შორის დავალების შესრულების სინქრონიზაციის ზუსტი მეთოდი. ამის ნაცვლად გამოიყენეთ დამთვლელი სემაფორი, რადგან მათი კონტექსტის გადამრთველები არ არის დაკავშირებული ტიკ-ინტერვენციებთან წინასწარი გამოვლენის გამო.</p>
+<p><a class="reference internal" href="freertos-smp.html#critical-sections"><span class="std std-ref">კრიტიკული სექციები და შეფერხებების გამორთვა</span></a>ESP-IDF Free RTOS ში კრიტიკული სექციები იმპლემენტირებულია მუტექსების გამოყენებით. კრიტიკული სექციების შეყვანა გულისხმობს მუტექსის აღებას, შემდეგ კი გამომძახებელი ბირთვის დამგეგმავის და შეწყვეტების გამორთვას. თუმცა, მეორე ბირთვი უცვლელი რჩება. თუ მეორე ბირთვი შეეცდება იგივე მუტექსის აღებას, ის ბრუნავს მანამ, სანამ გამომძახებელი ბირთვი არ გაათავისუფლებს მუტექსს კრიტიკული სექციიდან გამოსვლით.</p>
+<p><a class="reference internal" href="freertos-smp.html#floating-points"><span class="std std-ref">მცურავი წერტილოვანი არითმეტიკა</span></a>ESP32 მხარს უჭერს ერთსიზუსტიანი მცურავი წერტილოვანი არითმეტიკის აპარატურულ აჩქარებას (<code class="docutils literal notranslate"><span class="pre">float</span></code>). თუმცა, აპარატურის აჩქარების გამოყენება იწვევს გარკვეულ ქცევით შეზღუდვებს ESP-IDF Free RTOS ში. ამიტომ, ამოცანები, რომლებიც იყენებენ <code class="docutils literal notranslate"><span class="pre">float</span></code> ავტომატურად მიმაგრდება ბირთვზე, თუ ეს უკვე არ გაკეთებულა. გარდა ამისა, <code class="docutils literal notranslate"><span class="pre">float</span></code> არ შეიძლება გამოყენებულ იქნას შეფერხების სერვისის რუტინებში.</p>
+<p><a class="reference internal" href="freertos-smp.html#task-deletion"><span class="std std-ref">დავალების წაშლა</span></a>დავალების წაშლის ქცევა Free RTOS v9.0.0-დან უკან გადატანილია და SMP თავსებადობისთვის შეიცვალა. დავალების მეხსიერება დაუყოვნებლივ გათავისუფლდება, როდესაც <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a> გამოიძახება იმ დავალების წასაშლელად, რომელიც ამჟამად არ არის გაშვებული და არ არის მიმაგრებული სხვა ბირთვზე. წინააღმდეგ შემთხვევაში, დავალების მეხსიერების გათავისუფლება მაინც დელეგირებული იქნება Idle Task-ზე.</p>
+<p><a class="reference internal" href="freertos-smp.html#deletion-callbacks"><span class="std std-ref">ლოკალური შენახვის მაჩვენებლები და წაშლის უკუკავშირები</span></a>: ESP-IDF თავისუფალი RTOS დააბრუნა Thread Local Storage Pointers (TLSP) ფუნქცია. თუმცა, დაემატა დამატებითი ფუნქცია Deletion Callbacks. წაშლის ზარები ავტომატურად გამოიძახება დავალების წაშლის დროს და გამოიყენება TLSP-ის მიერ მითითებული მეხსიერების გასათავისუფლებლად. გამოძახება
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv447vTaskSetThreadLocalStoragePointerAndDelCallback12TaskHandle_t10BaseType_tPv27TlsDeleteCallbackFunction_t" title="vTaskSetThreadLocalStoragePointerAndDelCallback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSetThreadLocalStoragePointerAndDelCallback()</span></code></a> TLSP-ის და წაშლის უკუკავშირის დასაყენებლად.</p>
+<p><a class="reference internal" href="freertos-smp.html#esp-idf-freertos-configuration"><span class="std std-ref">ESP-IDF კონფიგურაცია უფასო RTOS</span></a>: ESP-IDF ის რამდენიმე ასპექტი. თავისუფალი RTOS შეიძლება დაყენდეს პროექტის კონფიგურაცია ში (<code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code>), როგორიცაა ESP-IDF გაშვება Unicore (ერთბირთვიანი) რეჟიმში, ან თითოეული დავალებისთვის განკუთვნილი Thread Local Storage Pointer-ების რაოდენობის კონფიგურაცია.</p>
+</div>
+<div class="section" id="backported-features">
+<span id="id1"></span><h2>Backported ფუნქციები<a class="headerlink" href="freertos-smp.html#backported-features" title="Permalink to this headline">¶</a></h2>
+<p>შემდეგი ფუნქციები Free RTOS v9.0.0 ვერსიიდან ESP-IDF ზე გადავიდა.</p>
+<div class="section" id="static-alocation">
+<h3>სტატიკური განლაგება<a class="headerlink" href="freertos-smp.html#static-alocation" title="Permalink to this headline">¶</a></h3>
+<p>ეს ფუნქცია Free RTOS v9.0.0-დან ESP-IDF ზე გადავიდა.
+<a class="reference internal" href="../api-reference/kconfig.html#config-freertos-support-static-allocation"><span class="std std-ref">CONFIG_FREE RTOS _SUPPORT_STATIC_ALLOCATION</span></a> ოფცია უნდა იყოს ჩართული <cite>menuconfig</cite>
+სტატიკური განაწილების ფუნქციების ხელმისაწვდომობის უზრუნველსაყოფად. ჩართვის შემდეგ, შესაძლებელია შემდეგი ფუნქციების გამოძახება…</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv417xTaskCreateStatic14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_t" title="xTaskCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStatic()</span></code></a> (იხ. <a class="reference internal" href="freertos-smp.html#backporting-notes"><span class="std std-ref">ჩანაწერების ბექპორტირება</span></a> ქვემოთ)</li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.xQueueCreateStatic" title="xQueueCreateStatic"><code class="xref c c-macro docutils literal notranslate"><span class="pre">xQueueCreateStatic</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.xSemaphoreCreateBinaryStatic" title="xSemaphoreCreateBinaryStatic"><code class="xref c c-macro docutils literal notranslate"><span class="pre">xSemaphoreCreateBinaryStatic</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.xSemaphoreCreateCountingStatic" title="xSemaphoreCreateCountingStatic"><code class="xref c c-macro docutils literal notranslate"><span class="pre">xSemaphoreCreateCountingStatic</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.xSemaphoreCreateMutexStatic" title="xSemaphoreCreateMutexStatic"><code class="xref c c-macro docutils literal notranslate"><span class="pre">xSemaphoreCreateMutexStatic</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.xSemaphoreCreateRecursiveMutexStatic" title="xSemaphoreCreateRecursiveMutexStatic"><code class="xref c c-macro docutils literal notranslate"><span class="pre">xSemaphoreCreateRecursiveMutexStatic</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv418xTimerCreateStaticPCKcK10TickType_tK11UBaseType_tPCv23TimerCallbackFunction_tP13StaticTimer_t" title="xTimerCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTimerCreateStatic()</span></code></a>  (იხ. <a class="reference internal" href="freertos-smp.html#backporting-notes"><span class="std std-ref">ჩანაწერების ბექპორტირება</span></a> ქვემოთ)</li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv423xEventGroupCreateStaticP18StaticEventGroup_t" title="xEventGroupCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xEventGroupCreateStatic()</span></code></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="other-features">
+<h3>სხვა მახასიათებლები<a class="headerlink" href="freertos-smp.html#other-features" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv433vTaskSetThreadLocalStoragePointer12TaskHandle_t10BaseType_tPv" title="vTaskSetThreadLocalStoragePointer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSetThreadLocalStoragePointer()</span></code></a> (იხ. <a class="reference internal" href="freertos-smp.html#backporting-notes"><span class="std std-ref">ჩანაწერების ბექპორტირება</span></a> ქვემოთ)</li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv434pvTaskGetThreadLocalStoragePointer12TaskHandle_t10BaseType_t" title="pvTaskGetThreadLocalStoragePointer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pvTaskGetThreadLocalStoragePointer()</span></code></a> (იხ. <a class="reference internal" href="freertos-smp.html#backporting-notes"><span class="std std-ref">ჩანაწერების ბექპორტირება</span></a> ქვემოთ)</li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv416vTimerSetTimerID13TimerHandle_tPv" title="vTimerSetTimerID"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTimerSetTimerID()</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415xTimerGetPeriod13TimerHandle_t" title="xTimerGetPeriod"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTimerGetPeriod()</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv419xTimerGetExpiryTime13TimerHandle_t" title="xTimerGetExpiryTime"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTimerGetExpiryTime()</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#_CPPv414pcQueueGetName13QueueHandle_t" title="pcQueueGetName"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcQueueGetName()</span></code></a></li>
+<li><a class="reference internal" href="../api-reference/system/freertos.html#c.uxSemaphoreGetCount" title="uxSemaphoreGetCount"><code class="xref c c-macro docutils literal notranslate"><span class="pre">uxSemaphoreGetCount</span></code></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="backporting-notes">
+<span id="id2"></span><h3>ჩანაწერების ბექპორტირება<a class="headerlink" href="freertos-smp.html#backporting-notes" title="Permalink to this headline">¶</a></h3>
+<p><strong>1)</strong> <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv417xTaskCreateStatic14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_t" title="xTaskCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStatic()</span></code></a> SMP-თან თავსებადი გახდა მსგავსი გზით <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411xTaskCreate14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_t" title="xTaskCreate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreate()</span></code></a> (იხ. <a class="reference internal" href="freertos-smp.html#tasks-and-task-creation"><span class="std std-ref">დავალებები და დავალებების შექმნა</span></a>ამიტომ
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv429xTaskCreateStaticPinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_tK10BaseType_t" title="xTaskCreateStaticPinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStaticPinnedToCore()</span></code></a> ასევე შეიძლება ეწოდოს.</p>
+<p><strong>2)</strong> მიუხედავად იმისა, რომ vanilla Free RTOS ტაიმერის ფუნქციის დემონის დავალების სტატიკურად განაწილების საშუალებას იძლევა, დემონის დავალება ESP-IDF ში ყოველთვის დინამიურად არის განაწილებული. ამიტომ. <code class="docutils literal notranslate"><span class="pre">vApplicationGetTimerTaskMemory</span></code> <strong>არ</strong> საჭიროა განისაზღვროს სტატიკურად გამოყოფილი ტაიმერების გამოყენებისას ESP-IDF ში. Free RTOS .</p>
+<p><strong>3)</strong> Thread Local Storage Pointer ფუნქცია შეიცვალა ESP-IDF Free RTOS ში, რათა მოიცავდეს წაშლის უკუკავშირებს (იხ. <a class="reference internal" href="freertos-smp.html#deletion-callbacks"><span class="std std-ref">ლოკალური შენახვის მაჩვენებლები და წაშლის უკუკავშირები</span></a>ამიტომ, ფუნქცია <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv447vTaskSetThreadLocalStoragePointerAndDelCallback12TaskHandle_t10BaseType_tPv27TlsDeleteCallbackFunction_t" title="vTaskSetThreadLocalStoragePointerAndDelCallback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSetThreadLocalStoragePointerAndDelCallback()</span></code></a> ასევე შეიძლება ეწოდოს.</p>
+</div>
+</div>
+<div class="section" id="tasks-and-task-creation">
+<span id="id3"></span><h2>დავალებები და დავალებების შექმნა<a class="headerlink" href="freertos-smp.html#tasks-and-task-creation" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF ში არსებული დავალებები თავისუფალი RTOS შექმნილია კონკრეტულ ბირთვზე გასაშვებად, ამიტომ ESP-IDF ში თავისუფალი RTOS ს დაემატა ორი ახალი დავალებების შექმნის ფუნქცია დამატებით. <code class="docutils literal notranslate"><span class="pre">PinnedToCore</span></code> vanilla Free RTOS ში დავალებების შექმნის ფუნქციების სახელწოდებებამდე. vanilla Free RTOS ფუნქციები <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411xTaskCreate14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_t" title="xTaskCreate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreate()</span></code></a>
+და <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv417xTaskCreateStatic14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_t" title="xTaskCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStatic()</span></code></a> დამატება გამოიწვია
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv423xTaskCreatePinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_tK10BaseType_t" title="xTaskCreatePinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreatePinnedToCore()</span></code></a> და <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv429xTaskCreateStaticPinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_tK10BaseType_t" title="xTaskCreateStaticPinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStaticPinnedToCore()</span></code></a> ESP-IDF 0 თავისუფალი RTOS (იხ. <a class="reference internal" href="freertos-smp.html#backported-features"><span class="std std-ref">Backported ფუნქციები</span></a>).</p>
+<p>დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/freertos/task.c">freertos/task.c</a></p>
+<p>ESP-IDF უფასო RTOS დავალების შექმნის ფუნქციები თითქმის იდენტურია მათი სტანდარტული ანალოგებისა, გარდა დამატებითი პარამეტრისა, რომელიც ცნობილია როგორც
+<code class="docutils literal notranslate"><span class="pre">xCoreID</span></code>ეს პარამეტრი განსაზღვრავს ბირთვს, რომელზეც უნდა გაუშვას დავალება და შეიძლება იყოს შემდეგი მნიშვნელობებიდან ერთ-ერთი.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">0</span></code> დავალებას აფიქსირებს <strong>PRO_CPU</strong></li>
+<li><code class="docutils literal notranslate"><span class="pre">1</span></code> დავალებას აფიქსირებს <strong>APP_CPU</strong></li>
+<li><code class="docutils literal notranslate"><span class="pre">tskNO_AFFINITY</span></code> საშუალებას აძლევს დავალების შესრულებას ორივე CPU-ზე</li>
+</ul>
+</div></blockquote>
+<p>მაგალითად <code class="docutils literal notranslate"><span class="pre">xTaskCreatePinnedToCore(tsk_callback,</span> <span class="pre">“APP_CPU</span> <span class="pre">Task”,</span> <span class="pre">1000,</span> <span class="pre">NULL,</span> <span class="pre">10,</span> <span class="pre">NULL,</span> <span class="pre">1)</span></code>
+ქმნის 10 პრიორიტეტის დავალებას, რომელიც მიმაგრებულია <strong>APP_CPU</strong> 1000 ბაიტის დასტის ზომით. უნდა აღინიშნოს, რომ <code class="docutils literal notranslate"><span class="pre">uxStackDepth</span></code> პარამეტრი vanilla-ში Free RTOS განსაზღვრავს დავალების დასტის სიღრმეს სიტყვების რაოდენობით, ხოლო ESP-IDF Free RTOS განსაზღვრავს დასტის სიღრმეს ბაიტებში.</p>
+<p>გაითვალისწინეთ, რომ vanilla Free RTOS ფუნქციები <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411xTaskCreate14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_t" title="xTaskCreate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreate()</span></code></a> და
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv417xTaskCreateStatic14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_t" title="xTaskCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStatic()</span></code></a> განსაზღვრულია ESP-IDF ში Free RTOS , როგორც ჩასმული ფუნქციები, რომლებიც გამოიძახებენ
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv423xTaskCreatePinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_tK10BaseType_t" title="xTaskCreatePinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreatePinnedToCore()</span></code></a> და <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv429xTaskCreateStaticPinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_tK10BaseType_t" title="xTaskCreateStaticPinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStaticPinnedToCore()</span></code></a>
+შესაბამისად <code class="docutils literal notranslate"><span class="pre">tskNO_AFFINITY</span></code> როგორც <code class="docutils literal notranslate"><span class="pre">xCoreID</span></code> ღირებულება.</p>
+<p>ESP-IDF ში თითოეული დავალების კონტროლის ბლოკი (TCB) ინახავს <code class="docutils literal notranslate"><span class="pre">xCoreID</span></code> როგორც წევრი. ამიტომ, როდესაც თითოეული ბირთვი გამოიძახებს დამგეგმავს გასაშვებად დავალების ასარჩევად,
+<code class="docutils literal notranslate"><span class="pre">xCoreID</span></code> member საშუალებას მისცემს დამგეგმავს განსაზღვროს, ნებადართულია თუ არა მოცემული დავალების გაშვება იმ ბირთვზე, რომელმაც იგი გამოიძახა.</p>
+</div>
+<div class="section" id="scheduling">
+<h2>დაგეგმვა<a class="headerlink" href="freertos-smp.html#scheduling" title="Permalink to this headline">¶</a></h2>
+<p>Vanilla Free RTOS ახორციელებს დაგეგმვას <code class="docutils literal notranslate"><span class="pre">vTaskSwitchContext()</span></code>
+ფუნქცია. ეს ფუნქცია პასუხისმგებელია ყველაზე მაღალი პრიორიტეტის მქონე დავალების შერჩევაზე, რომელიც შესასრულებლად მზადყოფნის მდგომარეობაში მყოფი დავალებების სიიდან არის ცნობილი, როგორც მზადყოფნის დავალებების სია (აღწერილია შემდეგ ნაწილში). ESP-IDF Free RTOS ში თითოეული ბირთვი გამოიძახებს
+<code class="docutils literal notranslate"><span class="pre">vTaskSwitchContext()</span></code> დამოუკიდებლად შეარჩიონ გასაშვებად დავალება მზა დავალებების სიიდან, რომელიც ორივე ბირთვს შორისაა გაზიარებული. სტანდარტულ და თავისუფალ RTOS ESP-IDF დაგეგმვის ქცევაში რამდენიმე განსხვავებაა, როგორიცაა განსხვავებები Round Robin-ის დაგეგმვაში, დაგეგმვის შეჩერებასა და ტიკ-შეწყვეტის სინქრონულობაში.</p>
+<div class="section" id="round-robin-scheduling">
+<span id="id4"></span><h3>რაუნდ-რობინის დაგეგმვა<a class="headerlink" href="freertos-smp.html#round-robin-scheduling" title="Permalink to this headline">¶</a></h3>
+<p>ერთი და იგივე პრიორიტეტის მქონე რამდენიმე დავალების გათვალისწინებით, vanilla Free RTOS ახორციელებს Round Robin-ის დაგეგმვას თითოეულ დავალებას შორის. ეს გამოიწვევს ამ დავალებების რიგრიგობით შესრულებას ყოველ ჯერზე, როდესაც დამგეგმავი გამოიძახება (მაგ., ყოველი შეფერხებისას). მეორეს მხრივ, ESP-IDF Free RTOS დამგეგმავმა შეიძლება გამოტოვოს დავალებები, როდესაც Round Robin ადგენს ერთი და იგივე პრიორიტეტის მქონე რამდენიმე Ready მდგომარეობის დავალებას.</p>
+<p>Round Robin-ის დაგეგმვის დროს დავალებების გამოტოვების პრობლემა წარმოიშობა Free RTOS ში Ready Tasks List-ის იმპლემენტაციის წესიდან. სტანდარტულ Free RTOS ში,
+<code class="docutils literal notranslate"><span class="pre">pxReadyTasksList</span></code> გამოიყენება მზადყოფნის მდგომარეობაში მყოფი დავალებების სიის შესანახად. სია რეალიზებულია სიგრძის მასივის სახით <code class="docutils literal notranslate"><span class="pre">configMAX_PRIORITIES</span></code>
+სადაც მასივის თითოეული ელემენტი დაკავშირებული სიაა. თითოეული დაკავშირებული სია ტიპისაა
+<code class="docutils literal notranslate"><span class="pre">List_t</span></code> და შეიცავს იმავე პრიორიტეტის მქონე დავალებების TCB-ებს, რომლებიც მზადყოფნის მდგომარეობაშია. შემდეგი დიაგრამა ასახავს <code class="docutils literal notranslate"><span class="pre">pxReadyTasksList</span></code>
+სტრუქტურა.</p>
+<div class="figure align-center" id="id8">
+<img alt="Vanilla FreeRTOS Ready Task List Structure" src="../_images/freertos-ready-task-list.png"/>
+<p class="caption"><span class="caption-text">Free RTOS ის მზა დავალებების სიის მონაცემთა სტრუქტურის ილუსტრაცია</span></p>
+</div>
+<p>თითოეული დაკავშირებული სია ასევე შეიცავს <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> რომელიც მიუთითებს სიის მოთხოვნისას დაბრუნებულ ბოლო TCB-ზე. ეს ინდექსი საშუალებას იძლევა <code class="docutils literal notranslate"><span class="pre">vTaskSwitchContext()</span></code>
+სიის გადაკვეთის დაწყება TCB-ში დაუყოვნებლივ <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> ამრიგად, ერთი და იგივე პრიორიტეტის მქონე ამოცანებს შორის ხორციელდება რაუნდ-რობინის დაგეგმვა.</p>
+<p>ESP-IDF Free RTOS ში, მზა დავალებების სია გაზიარებულია ბირთვებს შორის, შესაბამისად
+<code class="docutils literal notranslate"><span class="pre">pxReadyTasksList</span></code> შეიცავს სხვადასხვა ბირთვზე მიმაგრებულ დავალებებს. როდესაც ბირთვი გამოიძახებს დამგეგმავს, მას შეუძლია ნახოს <code class="docutils literal notranslate"><span class="pre">xCoreID</span></code> სიაში თითოეული TCB-ის წევრი იმის დასადგენად, დაშვებულია თუ არა დავალების შესრულება ბირთვის გამოძახებისას. ESP-IDF უფასო RTOS <code class="docutils literal notranslate"><span class="pre">pxReadyTasksList</span></code> ქვემოთ არის ილუსტრირებული.</p>
+<div class="figure align-center" id="id9">
+<img alt="ESP-IDF FreeRTOS Ready Task List Structure" src="../_images/freertos-ready-task-list-smp.png"/>
+<p class="caption"><span class="caption-text">Free RTOS ის მზა დავალებების სიის მონაცემთა სტრუქტურის ილუსტრაცია ESP-IDF ში</span></p>
+</div>
+<p>ამიტომ, როდესაც <strong>PRO_CPU</strong> დაგეგმარების გამოძახებისას, ის მხოლოდ ლურჯ ან იისფერ დავალებებს განიხილავს. მაშინ როცა, როდესაც <strong>APP_CPU</strong> დაგეგმარების გამოძახების შემთხვევაში, ის მხოლოდ ნარინჯისფერ ან იისფერ დავალებებს განიხილავს.</p>
+<p>მიუხედავად იმისა, რომ თითოეულ TCB-ს აქვს <code class="docutils literal notranslate"><span class="pre">xCoreID</span></code> ESP-IDF ში Free RTOS , თითოეული პრიორიტეტის დაკავშირებულ სიას მხოლოდ ერთი აქვს <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code>ამიტომ, როდესაც დამგეგმავი გამოიძახება კონკრეტული ბირთვიდან და გადაკვეთს დაკავშირებულ სიას, ის გამოტოვებს ყველა TCB-ს, რომელიც მიმაგრებულია სხვა ბირთვზე და მიმართავს pxIndex-ს არჩეულ დავალებაზე. თუ სხვა ბირთვი გამოიძახებს დამგეგმავს, ის გადაკვეთს დაკავშირებულ სიას TCB-დან დაწყებული დაუყოვნებლივ. <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code>ამგვარად, წინა დამგეგმავის ზარზე სხვა ბირთვიდან გამოტოვებული TCB-ები მიმდინარე დამგეგმავის ზარზე არ იქნება გათვალისწინებული. ეს პრობლემა შემდეგ ილუსტრაციაშია ნაჩვენები.</p>
+<div class="figure align-center" id="id10">
+<img alt="ESP-IDF pxIndex Behavior" src="../_images/freertos-ready-task-list-smp-pxIndex.png"/>
+<p class="caption"><span class="caption-text">pxIndex-ის ქცევის ილუსტრაცია ESP-IDF ში Free RTOS</span></p>
+</div>
+<p>ზემოთ მოცემული ილუსტრაციის გათვალისწინებით, ვივარაუდოთ, რომ პრიორიტეტი 9 ყველაზე მაღალი პრიორიტეტია და პრიორიტეტი 9-ში არსებული არცერთი დავალება არ დაიბლოკება, შესაბამისად, ის ყოველთვის იქნება ან გაშვებული, ან მზადყოფნის მდგომარეობაში.</p>
+<p>1)      <strong>PRO_CPU</strong> გამოიძახებს დამგეგმავს და ირჩევს დავალებას A გასაშვებად, შესაბამისად, გადადის
+<code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> დავალება A-ზე მითითება</p>
+<p>2)      <strong>APP_CPU</strong> გამოიძახებს დამგეგმავს და შემდეგ იწყებს დავალებიდან გადასვლას
+<code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> რაც არის დავალება B. თუმცა, დავალება B არ არის შერჩეული გასაშვებად, რადგან ის არ არის მიმაგრებული <strong>APP_CPU</strong> ამიტომ, ის გამოტოვებულია და მის ნაცვლად შეირჩევა დავალება C.
+<code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> ახლა მიუთითებს C დავალებაზე</p>
+<p>3)      <strong>PRO_CPU</strong> გამოიძახებს დამგეგმავს და იწყებს D დავალებიდან გადასვლას. ის გამოტოვებს D დავალებას და ირჩევს E დავალებას შესასრულებლად და მიუთითებს <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> დავალება E-ზე. გაითვალისწინეთ, რომ დავალება B არ არის გადატანილი, რადგან ის ბოლოჯერ გამოტოვეს. <strong>APP_CPU</strong> სიის გადასაკვეთად დამგეგმავს დაურეკა.</p>
+<p>4) იგივე სიტუაცია იქნება D დავალების შემთხვევაში, თუ <strong>APP_CPU</strong> კვლავ გამოიძახებს დამგეგმავს, როგორც <code class="docutils literal notranslate"><span class="pre">pxIndex</span></code> ახლა მიუთითებს დავალება E-ზე</p>
+<p>დავალებების გამოტოვების პრობლემის ერთ-ერთი გამოსავალია იმის უზრუნველყოფა, რომ ყველა დავალება გადავიდეს დაბლოკილ მდგომარეობაში, რათა ისინი ამოღებულ იქნეს მზა დავალებების სიიდან. კიდევ ერთი გამოსავალია დავალებების განაწილება რამდენიმე პრიორიტეტზე ისე, რომ მოცემულ პრიორიტეტს არ დაეკისროს რამდენიმე დავალება, რომლებიც მიმაგრებულია სხვადასხვა ბირთვზე.</p>
+</div>
+<div class="section" id="scheduler-suspension">
+<span id="id5"></span><h3>დამგეგმავის შეჩერება<a class="headerlink" href="freertos-smp.html#scheduler-suspension" title="Permalink to this headline">¶</a></h3>
+<p>ვანილის Free RTOS ში, დამგეგმავის შეჩერება ხდება <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415vTaskSuspendAllv" title="vTaskSuspendAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSuspendAll()</span></code></a> ხელს შეუშლის ზარებს <code class="docutils literal notranslate"><span class="pre">vTaskSwitchContext</span></code> კონტექსტის გადართვიდან დამგეგმავის განახლებამდე <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv414xTaskResumeAllv" title="xTaskResumeAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskResumeAll()</span></code></a>თუმცა, ISR-ების მომსახურება კვლავ დაშვებულია. ამიტომ, მიმდინარე გაშვებული დავალებიდან ან ISRS-ებიდან გამომდინარე დავალების მდგომარეობებში ნებისმიერი ცვლილება არ შესრულდება დამგეგმავის განახლებამდე. დამგეგმავის შეჩერება სტანდარტულ Free RTOS არის საერთო დაცვის მეთოდი დავალებებს შორის გაზიარებულ მონაცემებზე ერთდროული წვდომისგან, ამავდროულად, ISR-ების მომსახურების საშუალებას იძლევა.</p>
+<p>0 ESP-IDF უფასო RTOS , <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskSuspendAll()</span></code> მხოლოდ ზარებს შეაჩერებს
+<code class="docutils literal notranslate"><span class="pre">vTaskSwitchContext()</span></code> ბირთვზე კონტექსტების შეცვლიდან, რომლებიც შეჩერებას მოითხოვდნენ. შესაბამისად, თუ <strong>PRO_CPU</strong> ზარები <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415vTaskSuspendAllv" title="vTaskSuspendAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSuspendAll()</span></code></a>, <strong>APP_CPU</strong> კონტექსტების გადართვა მაინც იქნება შესაძლებელი. თუ მონაცემები გაზიარდება სხვადასხვა ბირთვზე მიმაგრებულ დავალებებს შორის, დამგეგმავის შეჩერება მოხდება <strong>არა</strong> ერთდროული წვდომისგან დაცვის ვალიდური მეთოდი. ESP-IDF Free RTOS ში გაზიარებული რესურსების დაცვისას, განიხილეთ კრიტიკული სექციების (წყვეტების გამორთვა) ან სემაფორების (წყვეტების გამორთვა) გამოყენება.</p>
+<p>ზოგადად, უმჯობესია სხვა RTOS პრიმიტივების გამოყენება, როგორიცაა mutex სემაფორები, დავალებებს შორის გაზიარებული მონაცემებისგან დასაცავად, ვიდრე <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv415vTaskSuspendAllv" title="vTaskSuspendAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSuspendAll()</span></code></a>.</p>
+</div>
+<div class="section" id="tick-interrupt-synchronicity">
+<span id="id6"></span><h3>სინქრონულობის შეწყვეტის ტიკი<a class="headerlink" href="freertos-smp.html#tick-interrupt-synchronicity" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF Free RTOS ში, სხვადასხვა ბირთვზე არსებული დავალებები, რომლებიც ერთი და იგივე რაოდენობის ტიკების გამო იბლოკება, შესაძლოა ერთსა და იმავე დროს არ შესრულდეს, რადგან თითოეული ბირთვიდან დამგეგმავის გამოძახებები დამოუკიდებელია და ტიკის შეწყვეტა იწვევს თითოეული ბირთვის არასინქრონიზაციას.</p>
+<p>Vanilla Free RTOS ში ტიკის შეწყვეტა იწვევს ზარს
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskIncrementTick()</span></code> რომელიც პასუხისმგებელია ტიკების მრიცხველის გაზრდაზე, ამოწმებს, გამოიძახეს თუ არა დავალებები <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv410vTaskDelayK10TickType_t" title="vTaskDelay"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelay()</span></code></a> დაგვიანების პერიოდი შესრულებულია და ეს დავალებები გადატანილია დაგვიანებული დავალებების სიიდან მზა დავალებების სიაში. თუ კონტექსტის შეცვლა აუცილებელია, შეფერხების ნიშნის ქვეშ დამგეგმავი გამოიძახებს.</p>
+<p>ESP-IDF Free RTOS ში, დაგვიანებული დავალებები იხსნება PRO_CPU-ზე ტიკის შეფერხების მითითებით, რადგან PRO_CPU პასუხისმგებელია გაზიარებული ტიკების რაოდენობის გაზრდაზე. თუმცა, თითოეული ბირთვის ტიკის შეფერხებები შეიძლება არ იყოს სინქრონიზებული (იგივე სიხშირე, მაგრამ ფაზის მიღმა), ამიტომ, როდესაც PRO_CPU მიიღებს ტიკის შეფერხებას, APP_CPU-მ შეიძლება ის ჯერ არ მიიღოს. ამიტომ, თუ ერთი და იგივე პრიორიტეტის რამდენიმე დავალება იხსნება ერთი და იგივე ტიკის რაოდენობაზე, PRO_CPU-ზე მიმაგრებული დავალება დაუყოვნებლივ შესრულდება, ხოლო APP_CPU-ზე მიმაგრებული დავალება უნდა დაელოდოს, სანამ APP_CPU არ მიიღებს სინქრონიზებული ტიკის შეფერხების შეტყობინებას. ტიკის შეფერხების მიღების შემდეგ, APP_CPU გამოიძახებს კონტექსტის გადამრთველს და საბოლოოდ გადართავს კონტექსტებს ახლად განბლოკილ დავალებაზე.</p>
+<p>ამიტომ, დავალებების შეფერხება უნდა მოხდეს <strong>არა</strong> შეიძლება გამოყენებულ იქნას როგორც სინქრონიზაციის მეთოდი ESP-IDF ში დავალებებს შორის Free RTOS ში. ამის ნაცვლად, განიხილეთ დამთვლელი სემაფორის გამოყენება ერთდროულად რამდენიმე დავალების განბლოკვისთვის.</p>
+</div>
+</div>
+<div class="section" id="critical-sections-disabling-interrupts">
+<span id="critical-sections"></span><h2>კრიტიკული სექციები და შეფერხებების გამორთვა<a class="headerlink" href="freertos-smp.html#critical-sections-disabling-interrupts" title="Permalink to this headline">¶</a></h2>
+<p>Vanilla Free RTOS ახორციელებს კრიტიკულ სექციებს <code class="docutils literal notranslate"><span class="pre">vTaskEnterCritical</span></code> რომელიც გამორთავს დამგეგმავს და ზარებს <code class="docutils literal notranslate"><span class="pre">portDISABLE_INTERRUPTS</span></code>ეს ხელს უშლის კონტექსტის გადართვას და ISR-ების მომსახურებას კრიტიკული სექციის დროს. ამიტომ, კრიტიკული სექციები გამოიყენება როგორც ერთდროული წვდომისგან დაცვის ვალიდური მეთოდი სტანდარტულ თავისუფალ RTOS .</p>
+<p>მეორე მხრივ, ESP32-ს არ აქვს აპარატურული მეთოდი ბირთვებისთვის ერთმანეთის შეფერხებების გამორთვისთვის. <code class="docutils literal notranslate"><span class="pre">portDISABLE_INTERRUPTS()</span></code> სხვა ბირთვის შეფერხებებზე გავლენას არ მოახდენს. ამიტომ, შეფერხებების გამორთვა <strong>არა</strong>
+საერთო მონაცემებზე ერთდროული წვდომისგან დაცვის ვალიდური მეთოდი, რადგან ის სხვა ბირთვს მონაცემებზე წვდომის თავისუფლებას ანიჭებს, მაშინაც კი, თუ მიმდინარე ბირთვს საკუთარი შეფერხებები გამორთული აქვს.</p>
+<p>ამ მიზეზით, ESP-IDF Free RTOS ახორციელებს კრიტიკულ სექციებს სპეციალური მუტექსების გამოყენებით, რომლებსაც portMUX_Type ობიექტები მიმართავენ კონკრეტული ESP32 spinlock კომპონენტი თავზე და მოუწოდებენ კრიტიკული უნდა იყოს spinlock ობიექტის შესასვლელად ან გასასვლელად, რომელიც დაკავშირებულია საერთო რესურსთან, რომელიც საჭიროებს წვდომის დაცვას. კრიტიკულ სექციის ESP-IDF Free RTOS ში შეყვანისას, გამომძახებელი ბირთვი გამორთავს თავის დამგეგმავს და შეფერხებებს, ისევე როგორც ჩვეულებრივი Free RTOS იმპლემენტაცია. თუმცა, გამომძახებელი ბირთვი ასევე აიღებს დაბლოკვებს, მაშინ როდესაც მეორე ბირთვი უცვლელი რჩება კრიტიკული სექციის დროს. თუ მეორე ბირთვი შეეცდება spinlock-ის აღებას, ის დატრიალდება მანამ, სანამ დაბლოკვა არ მოიხსნება. ამიტომ, კრიტიკული სექციების ESP-IDF Free RTOS იმპლემენტაცია საშუალებას აძლევს ბირთვს ჰქონდეს დაცული წვდომა საერთო რესურსზე მეორე ბირთვის გამორთვის გარეშე. მეორე ბირთვი მხოლოდ იმ შემთხვევაში დაზარალდება, თუ ის ერთდროულად შეეცდება იმავე რესურსზე წვდომას.</p>
+<p>ESP-IDF Free RTOS კრიტიკული სექციის ფუნქციები შემდეგნაირად შეიცვალა…</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">taskENTER_CRITICAL(mux)</span></code>, <code class="docutils literal notranslate"><span class="pre">taskENTER_CRITICAL_ISR(mux)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">portENTER_CRITICAL(mux)</span></code>, <code class="docutils literal notranslate"><span class="pre">portENTER_CRITICAL_ISR(mux)</span></code> ყველა მაკრო განსაზღვრულია გამოსაძახებლად <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskEnterCritical()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">taskEXIT_CRITICAL(mux)</span></code>, <code class="docutils literal notranslate"><span class="pre">taskEXIT_CRITICAL_ISR(mux)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">portEXIT_CRITICAL(mux)</span></code>, <code class="docutils literal notranslate"><span class="pre">portEXIT_CRITICAL_ISR(mux)</span></code> ყველა მაკრო განსაზღვრულია გამოსაძახებლად <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskExitCritical()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">portENTER_CRITICAL_SAFE(mux)</span></code>, <code class="docutils literal notranslate"><span class="pre">portEXIT_CRITICAL_SAFE(mux)</span></code> მაკრო განსაზღვრავს შესრულების კონტექსტს, მაგ. ISR-ს ან არა-ISR-ს, და იძახებს შესაბამის კრიტიკული სექციის ფუნქციებს (<code class="docutils literal notranslate"><span class="pre">port*_CRITICAL</span></code> არა-ISR-ში და <code class="docutils literal notranslate"><span class="pre">port*_CRITICAL_ISR</span></code> ISR-ში) Vanilla Free RTOS შესაბამისობის უზრუნველსაყოფად17.</li>
+</ul>
+</div></blockquote>
+<p>დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/freertos/include/freertos/portmacro.h">freertos/include/freertos/portmacro.h</a>
+და <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/freertos/task.c">freertos/task.c</a></p>
+<p>უნდა აღინიშნოს, რომ როდესაც ვანილი Free RTOS კოდის ESP-IDF RTOS თავსებადობისთვის მოდიფიცირება ხდება, გამოძახებული კრიტიკული სექციის ტიპის შეცვლა უმნიშვნელოა, რადგან ისინი ყველა განსაზღვრულია ერთი და იგივე ფუნქციის გამოსაძახებლად. თუ შესვლისა და გასვლისას ერთი და იგივე spinlock არის მოცემული, გამოძახების ტიპს მნიშვნელობა არ უნდა ჰქონდეს.</p>
+</div>
+<div class="section" id="floating-point-aritmetic">
+<span id="floating-points"></span><h2>მცურავი წერტილოვანი არითმეტიკა<a class="headerlink" href="freertos-smp.html#floating-point-aritmetic" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს ერთსიზუსტიანი მცურავი წერტილოვანი არითმეტიკის აპარატურულ აჩქარებას (<code class="docutils literal notranslate"><span class="pre">float</span></code>) თითოეულ ბირთვზე მიმაგრებული მცურავი წერტილოვანი ერთეულების (FPU, ასევე ცნობილი როგორც თანაპროცესორები) მეშვეობით. FPU-ების გამოყენება გარკვეულ ქცევით შეზღუდვებს აწესებს ESP-IDF Free RTOS ზე.</p>
+<p>ESP-IDF უფასო RTOS ახორციელებს Lazy Context Switching-ს FPU-ებისთვის. სხვა სიტყვებით რომ ვთქვათ, ბირთვის FPU რეგისტრების მდგომარეობა დაუყოვნებლივ არ ინახება კონტექსტის გადართვის დროს. ამიტომ, ამოცანები, რომლებიც იყენებენ <code class="docutils literal notranslate"><span class="pre">float</span></code> შექმნისას კონკრეტულ ბირთვზე უნდა იყოს მიმაგრებული. თუ არა, ESP-IDF Free RTOS ავტომატურად მიამაგრებს შესაბამის დავალებას იმ ბირთვზე, რომელზეც დავალება მუშაობდა დავალების პირველი გამოყენებისას. <code class="docutils literal notranslate"><span class="pre">float</span></code>ანალოგიურად, ზარმაცი კონტექსტის გადართვის გამო, მხოლოდ ყველაზე დაბალი პრიორიტეტის მქონე შეფერხების სერვისის რუტინების (ანუ პირველი დონის) გამოყენებაა შესაძლებელი. <code class="docutils literal notranslate"><span class="pre">float</span></code>, უფრო მაღალი პრიორიტეტის შეფერხებები არ უჭერს მხარს FPU-ს გამოყენებას.</p>
+<p>ESP32 არ უჭერს მხარს აპარატურულ აჩქარებას ორმაგი სიზუსტის მცურავი წერტილოვანი არითმეტიკისთვის (<code class="docutils literal notranslate"><span class="pre">double</span></code>). ამის ნაცვლად <code class="docutils literal notranslate"><span class="pre">double</span></code> ხორციელდება პროგრამული უზრუნველყოფის საშუალებით, შესაბამისად, ქცევითი შეზღუდვები <code class="docutils literal notranslate"><span class="pre">float</span></code> არ ვრცელდება <code class="docutils literal notranslate"><span class="pre">double</span></code>გაითვალისწინეთ, რომ აპარატურული აჩქარების არარსებობის გამო, <code class="docutils literal notranslate"><span class="pre">double</span></code> ოპერაციებმა შეიძლება მნიშვნელოვნად მეტი დრო დახარჯონ CPU-ზე, ვიდრე <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+</div>
+<div class="section" id="task-deletion">
+<span id="id7"></span><h2>დავალების წაშლა<a class="headerlink" href="freertos-smp.html#task-deletion" title="Permalink to this headline">¶</a></h2>
+<p>უფასო RTOS დავალების წაშლა v9.0.0-მდე დავალების მეხსიერების სრულად გათავისუფლებას Idle Task-ს ანიჭებდა. ამჟამად, დავალების მეხსიერების გათავისუფლება მოხდება დაუყოვნებლივ (ფარგლებში <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a>) თუ წასაშლელი დავალება ამჟამად არ არის გაშვებული ან არ არის მიმაგრებული სხვა ბირთვზე (ბირთვთან მიმართებაში
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a> გამოძახებულია). TLSP-ის წაშლის უკუგამოძახებებიც დაუყოვნებლივ შესრულდება, თუ იგივე პირობები დაკმაყოფილდება.</p>
+<p>თუმცა, დარეკვა <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a> ამჟამად გაშვებული ან სხვა ბირთვზე მიმაგრებული დავალების წაშლა მაინც გამოიწვევს მეხსიერების გათავისუფლებას უმოქმედო დავალებისთვის.</p>
+</div>
+<div class="section" id="thread-local-storage-pointers-deletion-callbacks">
+<span id="deletion-callbacks"></span><h2>ლოკალური შენახვის მაჩვენებლები და წაშლის უკუკავშირები<a class="headerlink" href="freertos-smp.html#thread-local-storage-pointers-deletion-callbacks" title="Permalink to this headline">¶</a></h2>
+<p>ძაფების ლოკალური შენახვის მაჩვენებლები (TLSP) არის მაჩვენებლები, რომლებიც პირდაპირ TCB-ში ინახება. TLSP თითოეულ დავალებას საშუალებას აძლევს, ჰქონდეს მონაცემთა სტრუქტურების მიმართ მაჩვენებლების საკუთარი უნიკალური ნაკრები. თუმცა, vanilla Free RTOS ში დავალებების წაშლის ქცევა ავტომატურად არ ათავისუფლებს TLSP-ის მიერ მითითებულ მეხსიერებას. ამიტომ, თუ TLSP-ის მიერ მითითებული მეხსიერება მომხმარებლის მიერ დავალების წაშლამდე არ არის ცალსახად გათავისუფლებული, მოხდება მეხსიერების გაჟონვა.</p>
+<p>ESP-IDF უფასო RTOS გთავაზობთ წაშლის უკუკავშირის დამატებით ფუნქციას. წაშლის უკუკავშირი ავტომატურად გამოიძახება დავალების წაშლისას TLSP-ის მიერ მითითებული მეხსიერების გასათავისუფლებლად. თითოეულ TLSP-ს შეიძლება ჰქონდეს საკუთარი წაშლის უკუკავშირი. გაითვალისწინეთ, რომ ამის გამო <a class="reference internal" href="freertos-smp.html#task-deletion"><span class="std std-ref">დავალების წაშლა</span></a> ქცევასთან დაკავშირებით, შეიძლება არსებობდეს შემთხვევები, როდესაც წაშლის უკუკავშირები გამოიძახება Idle Tasks-ის კონტექსტში. შესაბამისად, წაშლის უკუკავშირები <strong>არასდროს არ უნდა სცადოთ დაბლოკვა</strong> და კრიტიკული მონაკვეთები რაც შეიძლება მოკლე უნდა იყოს პრიორიტეტული ინვერსიის მინიმიზაციის მიზნით.</p>
+<p>წაშლის უკუკავშირები ტიპისაა
+<code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*TlsDeleteCallbackFunction_t)(</span> <span class="pre">int,</span> <span class="pre">void</span> <span class="pre">*</span> <span class="pre">)</span></code> სადაც პირველი პარამეტრი არის ასოცირებული TLSP-ის ინდექსის ნომერი, ხოლო მეორე პარამეტრი თავად TLSP-ია.</p>
+<p>წაშლის უკუკავშირები დაყენებულია TLSP-თან ერთად გამოძახებით.
+<a class="reference internal" href="../api-reference/system/freertos.html#_CPPv447vTaskSetThreadLocalStoragePointerAndDelCallback12TaskHandle_t10BaseType_tPv27TlsDeleteCallbackFunction_t" title="vTaskSetThreadLocalStoragePointerAndDelCallback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSetThreadLocalStoragePointerAndDelCallback()</span></code></a>. vanilla Free RTOS ფუნქციის გამოძახება <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv433vTaskSetThreadLocalStoragePointer12TaskHandle_t10BaseType_tPv" title="vTaskSetThreadLocalStoragePointer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskSetThreadLocalStoragePointer()</span></code></a> უბრალოდ დააყენებს TLSP-თან დაკავშირებულ წაშლის უკუკავშირს <cite>NULL</cite> რაც იმას ნიშნავს, რომ დავალების წაშლის დროს ამ TLSP-სთვის უკუკავშირი არ გამოიძახება. თუ წაშლის უკუკავშირი <cite>NULL</cite>, მომხმარებლებმა დავალების წაშლამდე ხელით უნდა გაათავისუფლონ დაკავშირებული TLSP-ის მიერ მითითებული მეხსიერება, რათა თავიდან აიცილონ მეხსიერების გაჟონვა.</p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-thread-local-storage-pointers"><span class="std std-ref">CONFIG_FREE RTOS _THREAD_LOCAL_STORAGE_POINTERS</span></a> menuconfig ში შეიძლება გამოყენებულ იქნას TCB-სთვის TLSP და წაშლის უკუკავშირების ნომრის კონფიგურაციისთვის.</p>
+<p>დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="../api-reference/system/freertos.html"><span class="doc">უფასო RTOS API მითითება</span></a>.</p>
+</div>
+<div class="section" id="configuring-esp-idf-freertos">
+<span id="esp-idf-freertos-configuration"></span><h2>ESP-IDF კონფიგურაცია უფასო RTOS<a class="headerlink" href="freertos-smp.html#configuring-esp-idf-freertos" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF Free RTOS კონფიგურაცია შესაძლებელია პროექტის კონფიგურაცია მენიუში (<code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code>) ქვეშ <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">Config/FreeRTOS</span></code>შემდეგ ნაწილში მოცემულია ESP-IDF Free RTOS კონფიგურაციის რამდენიმე ვარიანტი. ESP-IDF Free RTOS კონფიგურაციების სრული სიისთვის იხილეთ <a class="reference internal" href="../api-reference/kconfig.html"><span class="doc">უფასო RTOS</span></a></p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-unicore"><span class="std std-ref">CONFIG_FREE RTOS _UNICORE</span></a> უფასო იქნება მხოლოდ RTOS ESP-IDF <strong>PRO_CPU</strong>გაითვალისწინეთ, რომ ეს არის <strong>არ არის ეკვივალენტური ვანილის გაშვებისა უფასო RTOS</strong>. ESP-IDF ში მრავალი კომპონენტი ის ქცევები შეიცვლება, მაგალითად <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp32/cpu_start.c">esp32/cpu_start.c</a>ESP-IDF Free RTOS ერთ ბირთვზე გაშვების ეფექტების შესახებ დამატებითი ინფორმაციისთვის, მოძებნეთ შემდეგი შემთხვევები: <code class="docutils literal notranslate"><span class="pre">CONFIG_FREERTOS_UNICORE</span></code> ESP-IDF ში კომპონენტი წმ.</p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-thread-local-storage-pointers"><span class="std std-ref">CONFIG_FREE RTOS _THREAD_LOCAL_STORAGE_POINTERS</span></a> განსაზღვრავს ძაფის ლოკალური შენახვის მაჩვენებლების რაოდენობას, რომელიც თითოეულ დავალებას ექნება ESP-IDF ში. Free RTOS .</p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-support-static-allocation"><span class="std std-ref">CONFIG_FREE RTOS _SUPPORT_STATIC_ALLOCATION</span></a> ჩართავს backported ფუნქციონალურობას <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv429xTaskCreateStaticPinnedToCore14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_tK10BaseType_t" title="xTaskCreateStaticPinnedToCore"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStaticPinnedToCore()</span></code></a> ESP-IDF 0 უფასო RTOS</p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-assert-on-untested-function"><span class="std std-ref">CONFIG_FREE RTOS _ASSERT_ON_UNTESTED_FUNCTION</span></a> გამოიწვევს ESP-IDF ში კონკრეტული ფუნქციების გაჩერებას. თავისუფალი RTOS რომლებიც სრულად არ არის გამოცდილი SMP კონტექსტში.</p>
+<p><a class="reference internal" href="../api-reference/kconfig.html#config-freertos-task-function-wrapper"><span class="std std-ref">CONFIG_FREE RTOS _TASK_FUNCTION_WRAPPER</span></a> ყველა დავალების ფუნქციას შეფუთვის ფუნქციაში მოაქცევს. იმ შემთხვევაში, თუ დავალების ფუნქცია შეცდომით დააბრუნებს (ანუ არ გამოიძახებს) <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411vTaskDelete12TaskHandle_t" title="vTaskDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskDelete()</span></code></a>), გამოძახების ნაკადი დაუბრუნდება wrapper ფუნქციას. შემდეგ wrapper ფუნქცია დააფიქსირებს შეცდომას და შეწყვეტს აპლიკაციას, როგორც ეს ქვემოთ არის ნაჩვენები:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>E (25) FreeRTOS: FreeRTOS task should not return. Aborting now!
+abort() was called at PC 0x40085c53 on core 0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="general-notes.html" rel="next" title="General Notes About ESP-IDF Programming">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../security/flash-encryption.html" rel="prev" title="Flash Encryption"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

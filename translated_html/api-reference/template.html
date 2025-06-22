@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API დოკუმენტაციის შაბლონი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../contribute/contributor-agreement.html" rel="next" title="Contributor Agreement"/>
+<link href="../contribute/creating-examples.html" rel="prev" title="Creating Examples"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/template.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/template"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/template.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../contribute/index.html#how-to-contribute">როგორ შევიტანოთ წვლილი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contribute/index.html#before-contributing">წვლილის შეტანამდე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contribute/index.html#pull-request-process">მოთხოვნის გატანის პროცესი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contribute/index.html#legal-part">იურიდიული ნაწილი</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../contribute/index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../contribute/style-guide.html">Espressif IoT-ის შემუშავების ჩარჩოს სტილის სახელმძღვანელო</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contribute/documenting-code.html">კოდის დოკუმენტირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contribute/add-ons-reference.html">დოკუმენტაცია, დამატებები და გაფართოებები, მითითება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contribute/creating-examples.html">მაგალითების შექმნა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="template.html#">API დოკუმენტაციის შაბლონი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="template.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="template.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="template.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contribute/contributor-agreement.html">კონტრიბუტორის შეთანხმება</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="../contribute/index.html">წვლილის სახელმძღვანელო</a> »</li>
+<li>API დოკუმენტაციის შაბლონი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/template.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="api-documentation-template">
+<h1>API დოკუმენტაციის შაბლონი<a class="headerlink" href="template.html#api-documentation-template" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p><em>ინსტრუქციები</em></p>
+<ol class="last arabic">
+<li><p class="first">გამოიყენეთ ეს ფაილი (<a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/api-reference/template.rst">docs/api-reference/template.rst</a>) როგორც შაბლონი API დოკუმენტირებისთვის.</p>
+</li>
+<li><p class="first">შეცვალეთ ფაილის სახელი სათაურის ფაილის სახელით, რომელიც წარმოადგენს დოკუმენტირებულ API .</p>
+</li>
+<li><p class="first">API საქაღალდიდან შესაბამისი ფაილების აღწერილობებით ჩართვა <code class="docutils literal notranslate"><span class="pre">..include::</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li>README.rst</li>
+<li>example.rst</li>
+<li>…</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">სურვილისამებრ, აღწერილობა პირდაპირ ამ ფაილში შეგიძლიათ მოგვაწოდოთ.</p>
+</li>
+<li><p class="first">დასრულების შემდეგ, წაშალეთ ყველა მსგავსი ინსტრუქცია და ნებისმიერი ზედმეტი სათაური.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="template.html#overview" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p><em>ინსტრუქციები</em></p>
+<ol class="last arabic">
+<li><p class="first">მოგვაწოდეთ მიმოხილვა, თუ სად და როგორ შეიძლება ამ API გამოყენება.</p>
+</li>
+<li><p class="first">სადაც შესაძლებელია, ჩართეთ კოდის ფრაგმენტები კონკრეტული ფუნქციების ფუნქციონალურობის საილუსტრაციოდ.</p>
+</li>
+<li><p class="first">სექციებს შორის განასხვავებლად, გამოიყენეთ შემდეგი <a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html#sections">სათაურების დონეები</a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">#</span></code> ზედა ხაზით, ნაწილებისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">*</span></code> თავებისთვის, ზედსტრიქონით</li>
+<li><code class="docutils literal notranslate"><span class="pre">=</span></code>, სექციებისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">-</span></code>, ქვეგანყოფილებებისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">^</span></code>, ქვესექციებისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">"</span></code>, აბზაცებისთვის</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="template.html#application-example" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p><em>ინსტრუქციები</em></p>
+<ol class="last arabic simple">
+<li>მოამზადეთ ერთი ან მეტი პრაქტიკული მაგალითი ამ API ფუნქციონალურობის დემონსტრირებისთვის8.</li>
+<li>თითოეული მაგალითი უნდა მიჰყვებოდეს პროექტების ნიმუშს, რომლებიც განთავსებულია <code class="docutils literal notranslate"><span class="pre">esp-idf/examples/</span></code> საქაღალდე.</li>
+<li>მოათავსეთ მაგალითი ამ საქაღალდეში, შეავსეთ <code class="docutils literal notranslate"><span class="pre">README.md</span></code> ფაილი.</li>
+<li>წარმოადგინეთ დემონსტრირებული ფუნქციონალურობის მიმოხილვა <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</li>
+<li>კარგი მიმოხილვის შემთხვევაში, მკითხველს უნდა შეეძლოს იმის გაგება, თუ რას აკეთებს მაგალითი საწყისი კოდის გახსნის გარეშე.</li>
+<li>მაგალითის სირთულიდან გამომდინარე, კოდის აღწერა ნაწილებად დაყავით და თითოეული ნაწილის ფუნქციონალურობის მიმოხილვა მოგვაწოდეთ.</li>
+<li>საჭიროების შემთხვევაში, დაურთეთ ნაკადის დიაგრამა და აპლიკაციის გამომავალი სკრინშოტები.</li>
+<li>და ბოლოს, ამ განყოფილებაში დაამატეთ თითოეული მაგალითის მოკლე შინაარსი შესაბამის საქაღალდეზე ბმულთან ერთად. <code class="docutils literal notranslate"><span class="pre">esp-idf/examples/</span></code>.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="template.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p><em>ინსტრუქციები</em></p>
+<ol class="last arabic">
+<li><p class="first">ეს საცავი უზრუნველყოფს API საცნობარო დოკუმენტაციის ავტომატურ განახლებას <a class="reference internal" href="../contribute/documenting-code.html"><span class="doc">კოდის მარკირება ამოღებულია Doxygen-ის მიერ სათაურის ფაილებიდან</span></a>.</p>
+</li>
+<li><p class="first">განახლება ხდება თითოეული დოკუმენტაციის აწყობაზე სკრიპტის გამოძახებით. <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/gen-dxd.py">docs/gen-dxd.py</a> ყველა სათაურის ფაილისთვის, რომელიც ჩამოთვლილია <code class="docutils literal notranslate"><span class="pre">INPUT</span></code> განცხადება <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/Doxyfile">docs/Doxyfile</a>.</p>
+</li>
+<li><p class="first">თითოეული ხაზი <code class="docutils literal notranslate"><span class="pre">INPUT</span></code> განცხადება (გარდა კომენტარისა, რომელიც იწყება <code class="docutils literal notranslate"><span class="pre">##</span></code>) შეიცავს სათაურის ფაილისკენ მიმავალ გზას <code class="docutils literal notranslate"><span class="pre">*.h</span></code> რომელიც გამოყენებული იქნება შესაბამისის შესაქმნელად <code class="docutils literal notranslate"><span class="pre">*.inc</span></code> ფაილები:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>##
+## Wi-Fi - API Reference
+##
+../components/esp32/include/esp_wifi.h \
+../components/esp32/include/esp_smartconfig.h \
+</pre></div>
+</div>
+</li>
+<li><p class="first">ის <code class="docutils literal notranslate"><span class="pre">*.inc</span></code> ფაილები შეიცავს API წევრების ფორმატირებულ მითითებებს, რომლებიც ავტომატურად გენერირდება დოკუმენტაციის თითოეულ აწყობაზე. ყველა <code class="docutils literal notranslate"><span class="pre">*.inc</span></code> ფაილები განთავსებულია Sphinx-ში <code class="docutils literal notranslate"><span class="pre">_build</span></code> დირექტორია. მაგ. გენერირებული დირექტივების სანახავად <code class="docutils literal notranslate"><span class="pre">esp_wifi.h</span></code>, სირბილი <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">gen-dxd.py</span> <span class="pre">esp32/include/esp_wifi.h</span></code>.</p>
+</li>
+<li><p class="first">შინაარსის საჩვენებლად <code class="docutils literal notranslate"><span class="pre">*.inc</span></code> ფაილი დოკუმენტაციაში, შეიტანეთ იგი შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.. include:: /_build/inc/esp_wifi.inc
+</pre></div>
+</div>
+<p>მაგალითად, იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/en/api-reference/wifi/esp_wifi.rst">docs/en/api-reference/wifi/esp_wifi.rst</a></p>
+</li>
+<li><p class="first">სურვილისამებრ, გამოყენების ნაცვლად <code class="docutils literal notranslate"><span class="pre">*.inc</span></code> ფაილები, შეიძლება დაგჭირდეთ API საკუთარი გზით აღწერა. იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/en/api-guides/ulp.rst">docs/en/api-guides/ulp.rst</a> მაგალითად.</p>
+<p>ქვემოთ მოცემულია საერთო სია <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygen...::</span></code> დირექტივები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ფუნქციები - <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygenfunction::</span> <span class="pre">name_of_function</span></code></li>
+<li>პროფკავშირები -<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygenunion::</span> <span class="pre">name_of_union</span></code></li>
+<li>სტრუქტურები -<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygenstruct::</span> <span class="pre">name_of_structure</span></code> ერთად <code class="docutils literal notranslate"><span class="pre">:members:</span></code></li>
+<li>მაკროები - <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygendefine::</span> <span class="pre">name_of_define</span></code></li>
+<li>ტიპის განმარტებები - <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygentypedef::</span> <span class="pre">name_of_type</span></code></li>
+<li>ჩამოთვლები - <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">doxygenenum::</span> <span class="pre">name_of_enumeration</span></code></li>
+</ul>
+</div></blockquote>
+<p>იხილეთ <a class="reference external" href="https://breathe.readthedocs.io/en/latest/directives.html">Breathe-ის დოკუმენტაცია</a> დამატებითი ინფორმაციისთვის.</p>
+<p>სათაურის ფაილზე ბმულის მისაწოდებლად გამოიყენეთ <a class="reference internal" href="../contribute/documenting-code.html#link-custom-roles"><span class="std std-ref">ბმული მორგებული როლი</span></a> შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* :component_file:`path_to/header_file.h`
+</pre></div>
+</div>
+</li>
+<li><p class="first">ნებისმიერ შემთხვევაში, API მითითების გენერირებისთვის, ფაილი <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/docs/Doxyfile">docs/Doxyfile</a> უნდა განახლდეს ბილიკებით <code class="docutils literal notranslate"><span class="pre">*.h</span></code> სათაურები, რომლებიც დოკუმენტირებულია.</p>
+</li>
+<li><p class="first">როდესაც ცვლილებები განხორციელდება და დოკუმენტაცია შეიქმნება, შეამოწმეთ, თუ როგორ არის ეს სექცია რენდერირებული. <a class="reference internal" href="../contribute/documenting-code.html"><span class="doc">სწორი ანოტაციები</span></a> შესაბამის სათაურის ფაილებში, საჭიროების შემთხვევაში.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../contribute/contributor-agreement.html" rel="next" title="Contributor Agreement">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../contribute/creating-examples.html" rel="prev" title="Creating Examples"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

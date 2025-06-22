@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-Modbus — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_websocket_client.html" rel="next" title="ESP WebSocket Client"/>
+<link href="mdns.html" rel="prev" title="mDNS Service"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/protocols/modbus.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/protocols/modbus"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/protocols/modbus.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პროტოკოლები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="asio.html">ASIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mqtt.html">ESP-MQTT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_tls.html">ESP-TLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_client.html">HTTP კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_server.html">HTTP სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_server.html">HTTPS სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="icmp_echo.html">ICMP Echo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_local_ctrl.html">ადგილობრივი კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mdns.html">mDNS</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="modbus.html#">მოდბუსი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modbus.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modbus.html#application-example">განაცხადის მაგალითი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_websocket_client.html">Websocket კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_serial_slave_link.html">ESP სერიული მონა ბმული</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">აპლიკაციის პროტოკოლები</a> »</li>
+<li>ESP-Modbus</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/protocols/modbus.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-modbus">
+<h1>ESP-Modbus<a class="headerlink" href="modbus.html#esp-modbus" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="modbus.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>Modbus-ის სერიული საკომუნიკაციო პროტოკოლი ფაქტობრივად სტანდარტული პროტოკოლია, რომელიც ფართოდ გამოიყენება სამრეწველო ელექტრონული მოწყობილობების დასაკავშირებლად. Modbus-ი საშუალებას იძლევა კომუნიკაცია ერთსა და იმავე ქსელთან დაკავშირებულ მრავალ მოწყობილობას შორის, მაგალითად, სისტემა, რომელიც ზომავს ტემპერატურასა და ტენიანობას და შედეგებს კომპიუტერს გადასცემს. Modbus-ის პროტოკოლი იყენებს მონაცემების რამდენიმე ტიპს: შენახვის რეგისტრები, შეყვანის რეგისტრები, კოჭები (ერთბიტიანი გამომავალი), დისკრეტული შეყვანები. Modbus-ის პროტოკოლის ვერსიები არსებობს სერიული პორტი ისთვის, Ethernet-ისთვის და სხვა პროტოკოლებისთვის, რომლებიც მხარს უჭერენ ინტერნეტ პროტოკოლების კომპლექტს. Modbus-ის პროტოკოლების მრავალი ვარიანტი არსებობს, რომელთაგან ზოგიერთია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Modbus</span> <span class="pre">RTU</span></code> — ეს გამოიყენება სერიულ კომუნიკაციაში და იყენებს მონაცემების კომპაქტურ, ორობით წარმოდგენას პროტოკოლური კომუნიკაციისთვის. RTU ფორმატი მიჰყვება ბრძანებებს/მონაცემებს ციკლური რედუნდანტობის შემოწმების ჩეკსუმით, როგორც შეცდომის შემოწმების მექანიზმი, მონაცემების სანდოობის უზრუნველსაყოფად. Modbus RTU არის Modbus-ისთვის ხელმისაწვდომი ყველაზე გავრცელებული იმპლემენტაცია. Modbus RTU შეტყობინება უნდა გადაიცეს უწყვეტად, სიმბოლოებს შორის ყოყმანის გარეშე. Modbus შეტყობინებები ჩარჩოებშია (გამოყოფილია) უმოქმედო (ჩუმი) პერიოდებით. ამ ტიპისთვის ჩვეულებრივ გამოიყენება RS-485 ინტერფეისის კომუნიკაცია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Modbus</span> <span class="pre">ASCII</span></code> — ეს გამოიყენება სერიულ კომუნიკაციაში და პროტოკოლური კომუნიკაციისთვის იყენებს ASCII სიმბოლოებს. ASCII ფორმატი იყენებს გრძივი რედუნდანტობის შემოწმების ჩეკსუმს. Modbus ASCII შეტყობინებები ჩარჩოში შედის წინა ორწერტილით („:“) და ბოლო ახალი ხაზით (CR/LF).</li>
+<li><code class="docutils literal notranslate"><span class="pre">Modbus</span> <span class="pre">TCP/IP</span> <span class="pre">or</span> <span class="pre">Modbus</span> <span class="pre">TCP</span></code> — ეს არის Modbus-ის ვარიანტი, რომელიც გამოიყენება TCP/IP ქსელებზე კომუნიკაციისთვის, 502 პორტის მეშვეობით დასაკავშირებლად. ის არ საჭიროებს ჩეკის ჯამის გამოთვლას, რადგან ქვედა ფენები უკვე უზრუნველყოფენ ჩეკის ჯამის დაცვას.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="modbus-common-interface-api-overview">
+<h3>Modbus-ის საერთო ინტერფეისის API მიმოხილვა<a class="headerlink" href="modbus.html#modbus-common-interface-api-overview" title="Permalink to this headline">¶</a></h3>
+<p>ქვემოთ მოცემული API ფუნქციები უზრუნველყოფს საერთო ფუნქციონალურობას Modbus დასტის შესაბამისად დასაყენებლად slave და master იმპლემენტაციისთვის. ISP-IDF მხარს უჭერს Modbus სერიულ slave და master პროტოკოლის დასტებს და უზრუნველყოფს modbus_controller ინტერფეისს API მომხმარებლის აპლიკაციასთან ურთიერთქმედებისთვის.</p>
+<dl class="function">
+<dt id="_CPPv414mbc_slave_init14mb_port_type_tPPv">
+<span id="_CPPv314mbc_slave_init14mb_port_type_tPPv"></span><span id="_CPPv214mbc_slave_init14mb_port_type_tPPv"></span><span id="mbc_slave_init__mb_port_type_t.voidPP"></span><span class="target" id="esp__modbus__slave_8h_1a0e793f6f02fc90375eaae080e4c89325"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_init</code><span class="sig-paren">(</span>mb_port_type_t <em>პორტის_ტიპი</em>, void **<em>დამმუშავებელი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv414mbc_slave_init14mb_port_type_tPPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus კონტროლერის და დასტის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NO_MEM პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handler</span></code>: handler(pointer) მთავარ მონაცემთა სტრუქტურაზე </li>
+<li><code class="docutils literal notranslate"><span class="pre">port_type</span></code>: დასტის ტიპი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415mbc_master_init14mb_port_type_tPPv">
+<span id="_CPPv315mbc_master_init14mb_port_type_tPPv"></span><span id="_CPPv215mbc_master_init14mb_port_type_tPPv"></span><span id="mbc_master_init__mb_port_type_t.voidPP"></span><span class="target" id="esp__modbus__master_8h_1a49bff153ef0b12652f5eb5a48d81d8af"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_init</code><span class="sig-paren">(</span>mb_port_type_t <em>პორტის_ტიპი</em>, void **<em>დამმუშავებელი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv415mbc_master_init14mb_port_type_tPPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus კონტროლერის და დასტის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NO_MEM პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handler</span></code>: handler(pointer) მთავარ მონაცემთა სტრუქტურაზე </li>
+<li><code class="docutils literal notranslate"><span class="pre">port_type</span></code>: პორტის ტიპი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია ახდენს Modbus კონტროლერის ინტერფეისის და მისი აქტიური კონტექსტის (დავალებები, RTOS ობიექტები და სხვა რესურსები) ინიციალიზაციას.</p>
+<dl class="function">
+<dt id="_CPPv415mbc_slave_setupPv">
+<span id="_CPPv315mbc_slave_setupPv"></span><span id="_CPPv215mbc_slave_setupPv"></span><span id="mbc_slave_setup__voidP"></span><span class="target" id="esp__modbus__slave_8h_1af71b4aade781ffa4c07d5c159f655b11"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_setup</code><span class="sig-paren">(</span>void *<em>კომუნიკაციის_ინფორმაცია</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv415mbc_slave_setupPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერისთვის Modbus-ის კომუნიკაციის პარამეტრების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG არასწორი პარამეტრის მონაცემები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">comm_info</span></code>: კომუნიკაციის პარამეტრების სტრუქტურა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416mbc_master_setupPv">
+<span id="_CPPv316mbc_master_setupPv"></span><span id="_CPPv216mbc_master_setupPv"></span><span id="mbc_master_setup__voidP"></span><span class="target" id="esp__modbus__master_8h_1a354553e8990e7923c51fa94d4f7af257"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_setup</code><span class="sig-paren">(</span>void *<em>კომუნიკაციის_ინფორმაცია</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv416mbc_master_setupPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტროლერისთვის Modbus-ის კომუნიკაციის პარამეტრების დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG არასწორი პარამეტრის მონაცემები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">comm_info</span></code>: კომუნიკაციის პარამეტრების სტრუქტურა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია გამოიყენება Modbus დასტის საკომუნიკაციო პარამეტრების დასაყენებლად. დამატებითი ინფორმაციისთვის იხილეთ Modbus კონტროლერის API დოკუმენტაცია.</p>
+<p><a class="reference internal" href="modbus.html#_CPPv424mbc_slave_set_descriptor29mb_register_area_descriptor_t" title="mbc_slave_set_descriptor"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mbc_slave_set_descriptor()</span></code></a>: მონა დესკრიპტორის ინიციალიზაცია.</p>
+<p><a class="reference internal" href="modbus.html#_CPPv425mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t" title="mbc_master_set_descriptor"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mbc_master_set_descriptor()</span></code></a>მთავარი დესკრიპტორის ინიციალიზაცია.</p>
+<p>Modbus-ის დასტა კომუნიკაციისთვის იყენებს პარამეტრების აღწერის ცხრილებს (აღმწერებს). ეს ცხრილები განსხვავებულია დასტის მთავარი და დაქვემდებარებული იმპლემენტაციისთვის და კომუნიკაციის დაწყებამდე უნდა მიენიჭოს API გამოძახებით.</p>
+<dl class="function">
+<dt id="_CPPv415mbc_slave_startv">
+<span id="_CPPv315mbc_slave_startv"></span><span id="_CPPv215mbc_slave_startv"></span><span id="mbc_slave_start__void"></span><span class="target" id="esp__modbus__slave_8h_1aa4002776f03d980e4516a4d0e3ecce0d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv415mbc_slave_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus-ის საკომუნიკაციო დასტის გაშვება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG Modbus სტეკის გაშვების შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416mbc_master_startv">
+<span id="_CPPv316mbc_master_startv"></span><span id="_CPPv216mbc_master_startv"></span><span id="mbc_master_start__void"></span><span class="target" id="esp__modbus__master_8h_1ac937d89ffef0dd6d18758a24261895d8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv416mbc_master_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus-ის საკომუნიკაციო დასტის გაშვება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG Modbus სტეკის გაშვების შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>Modbus კონტროლერის გაშვების ფუნქცია. იწყებს სტეკს და ინტერფეისს და იძლევა კომუნიკაციის საშუალებას.</p>
+<dl class="function">
+<dt id="_CPPv417mbc_slave_destroyv">
+<span id="_CPPv317mbc_slave_destroyv"></span><span id="_CPPv217mbc_slave_destroyv"></span><span id="mbc_slave_destroy__void"></span><span class="target" id="esp__modbus__slave_8h_1a70ebf5e8847195f04396e8678c0aee0f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_destroy</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv417mbc_slave_destroyv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაანადგურეთ Modbus კონტროლერი და სტეკი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418mbc_master_destroyv">
+<span id="_CPPv318mbc_master_destroyv"></span><span id="_CPPv218mbc_master_destroyv"></span><span id="mbc_master_destroy__void"></span><span class="target" id="esp__modbus__master_8h_1aec131917d58b90eb6c2ba4a5b28745ae"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_destroy</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv418mbc_master_destroyv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაანადგურეთ Modbus კონტროლერი და სტეკი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ეს ფუნქცია აჩერებს Modbus-ის კომუნიკაციის დასტას და ანადგურებს კონტროლერის ინტერფეისს.</p>
+<p>არსებობს modbus_controller ინტერფეისისა და Modbus სტეკის რამდენიმე კონფიგურირებადი პარამეტრი, რომელთა კონფიგურაცია შესაძლებელია KConfig მნიშვნელობების გამოყენებით „Modbus კონფიგურაციის“ მენიუში. KConfig მენიუში ყველაზე მნიშვნელოვანი ვარიანტია „Modbus სტეკის მხარდაჭერის რეჟიმის არჩევა“, რომელიც საშუალებას გაძლევთ აირჩიოთ მთავარი ან დამხმარე სტეკი იმპლემენტაციისთვის. იხილეთ მაგალითები ამ API ფუნქციების გამოყენების შესახებ დამატებითი ინფორმაციისთვის.</p>
+</div>
+<div class="section" id="modbus-serial-slave-interface-api-overview">
+<h3>Modbus სერიული მონა ინტერფეისის API მიმოხილვა<a class="headerlink" href="modbus.html#modbus-serial-slave-interface-api-overview" title="Permalink to this headline">¶</a></h3>
+<p>მონათმფლობელური დასტა მოითხოვს მომხმარებლის მიერ განსაზღვრულ სტრუქტურებს, რომლებიც წარმოადგენენ დასტის მიერ წვდომადი Modbus პარამეტრებს. ეს სტრუქტურები უნდა მომზადდეს მომხმარებლის მიერ და მიენიჭოს modbus_controller ინტერფეისს <a class="reference internal" href="modbus.html#_CPPv424mbc_slave_set_descriptor29mb_register_area_descriptor_t" title="mbc_slave_set_descriptor"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mbc_slave_set_descriptor()</span></code></a> API გამოძახება კომუნიკაციის დაწყებამდე. ქვემოთ მოცემული ინტერფეისის API ფუნქციები გამოიყენება Modbus-ის მონა აპლიკაციისთვის:</p>
+<dl class="function">
+<dt id="_CPPv424mbc_slave_set_descriptor29mb_register_area_descriptor_t">
+<span id="_CPPv324mbc_slave_set_descriptor29mb_register_area_descriptor_t"></span><span id="_CPPv224mbc_slave_set_descriptor29mb_register_area_descriptor_t"></span><span id="mbc_slave_set_descriptor__mb_register_area_descriptor_t"></span><span class="target" id="esp__modbus__slave_8h_1a2db36accec8f9d4a3aad8479a350a41e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_set_descriptor</code><span class="sig-paren">(</span>mb_register_area_descriptor_t <em>აღწერილობა_მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv424mbc_slave_set_descriptor29mb_register_area_descriptor_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus-ის არეალის აღმწერის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: შესაბამისი აღწერილობა დაყენებულია</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">descr_data</span></code>Modbus-ის რეგისტრების არეალის აღმწერი სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია ახდენს Modbus-ის კომუნიკაციის აღმწერების ინიციალიზაციას Modbus-ის რეგისტრის თითოეული ტიპის არესთვის (შენახვის რეგისტრები, შეყვანის რეგისტრები, კოჭები (ერთბიტიანი გამომავალი), დისკრეტული შეყვანები). არეების ინიციალიზაციის შემდეგ <a class="reference internal" href="modbus.html#_CPPv415mbc_slave_startv" title="mbc_slave_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mbc_slave_start()</span></code></a> API ეწოდება Modbus სტეკი, რომელსაც შეუძლია მომხმარებლის მონაცემთა სტრუქტურებში მონაცემებზე წვდომა მთავარი მოთხოვნის საფუძველზე. იხილეთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mb_register_area_descriptor_t</span></code> და მაგალითი დამატებითი ინფორმაციისთვის.</p>
+<dl class="function">
+<dt id="_CPPv421mbc_slave_check_event16mb_event_group_t">
+<span id="_CPPv321mbc_slave_check_event16mb_event_group_t"></span><span id="_CPPv221mbc_slave_check_event16mb_event_group_t"></span><span id="mbc_slave_check_event__mb_event_group_t"></span><span class="target" id="esp__modbus__slave_8h_1a4ed1036ca2af20ffc1693ceaa4afb22e"></span>mb_event_group_t <code class="descname">mbc_slave_check_event</code><span class="sig-paren">(</span>mb_event_group_t <em>ჯგუფი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv421mbc_slave_check_event16mb_event_group_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ პარამეტრის შეცვლის კონკრეტულ მოვლენას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>mb_event_group_t მოვლენის ბიტები გააქტიურდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group</span></code>: ჯგუფის მოვლენის ბიტის ნიღაბი ცვლილების დასალოდინად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქციის ბლოკირების გამოძახება ელოდება შეყვანის პარამეტრში, როგორც მოვლენის ნიღაბი, მითითებულ მოვლენას. როგორც კი მთავარი წვდომა პარამეტრსა და მოვლენის ნიღაბის პარამეტრს დაემთხვევა, აპლიკაციის დავალება განიბლოკება და ფუნქცია დააბრუნებს ESP_OK-ს. იხილეთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mb_event_group_t</span></code> დამატებითი ინფორმაციისთვის Modbus-ის ღონისძიებების ნიღბების შესახებ.</p>
+<dl class="function">
+<dt id="_CPPv424mbc_slave_get_param_infoP15mb_param_info_t8uint32_t">
+<span id="_CPPv324mbc_slave_get_param_infoP15mb_param_info_t8uint32_t"></span><span id="_CPPv224mbc_slave_get_param_infoP15mb_param_info_t8uint32_t"></span><span id="mbc_slave_get_param_info__mb_param_info_tP.uint32_t"></span><span class="target" id="esp__modbus__slave_8h_1a517fbc52d8f6f65822fc20ff1dd70ad0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_slave_get_param_info</code><span class="sig-paren">(</span>mb_param_info_t *<em>რეგ_ინფო</em>, uint32_t <em>ტაიმ-აუტი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv424mbc_slave_get_param_infoP15mb_param_info_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ პარამეტრის ინფორმაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_TIMEOUT პარამეტრების რიგიდან ან რიგის გადავსებიდან მონაცემების მიღება შეუძლებელია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">reg_info</span></code>პარამეტრის ინფორმაციის სტრუქტურა </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>პარამეტრების რიგიდან ინფორმაციის წასაკითხად საჭირო დროის ამოწურვა მილიწამებში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია იღებს ინფორმაციას წვდომის პარამეტრების შესახებ modbus კონტროლერის მოვლენების რიგიდან. KConfig &amp;#39;CONFIG_FMB_CONTROLLER_NOTIFY_QUEUE_SIZE&amp;#39; გასაღების გამოყენება შესაძლებელია შეტყობინებების რიგის ზომის კონფიგურაციისთვის. დროის ამოწურვის პარამეტრი საშუალებას იძლევა მიუთითოთ შეტყობინების მოლოდინის დროის ამოწურვა. <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mb_param_info_t</span></code> სტრუქტურა შეიცავს ინფორმაციას წვდომის პარამეტრის შესახებ.</p>
+</div>
+<div class="section" id="modbus-serial-master-interface-api-overview">
+<h3>Modbus სერიული მთავარი ინტერფეისის API მიმოხილვა<a class="headerlink" href="modbus.html#modbus-serial-master-interface-api-overview" title="Permalink to this headline">¶</a></h3>
+<p>Modbus-ის მთავარი იმპლემენტაციისთვის საჭიროა პარამეტრების აღწერის ცხრილის განსაზღვრა დასტის დაწყებამდე. ეს ცხრილი აღწერს მახასიათებლებს (ფიზიკურ პარამეტრებს, როგორიცაა ტემპერატურა, ტენიანობა და ა.შ.) და აკავშირებს მათ Modbus-ის რეგისტრებთან Modbus სეგმენტში კონკრეტულ დამხმარე მოწყობილობაში. ცხრილი უნდა მიენიჭოს modbus_controller ინტერფეისს modbus_controller-ის გამოყენებით. <a class="reference internal" href="modbus.html#_CPPv425mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t" title="mbc_master_set_descriptor"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">mbc_master_set_descriptor()</span></code></a> API ზარი კომუნიკაციის დაწყებამდე.</p>
+<p>ქვემოთ მოცემულია ინტერფეისის API ფუნქციები, რომლებიც გამოიყენება მომხმარებლის აპლიკაციიდან Modbus-ის მასტერ დასტის დასაყენებლად და გამოსაყენებლად და მათი შესრულება შესაძლებელია შემდეგი თანმიმდევრობით:</p>
+<dl class="function">
+<dt id="_CPPv425mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t">
+<span id="_CPPv325mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t"></span><span id="_CPPv225mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t"></span><span id="mbc_master_set_descriptor__mb_parameter_descriptor_tCP.uint16_tC"></span><span class="target" id="esp__modbus__master_8h_1a11b8ed8277fbde90f9367a7c26c4e1c2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_set_descriptor</code><span class="sig-paren">(</span><em class="property">კონსტ</em> mb_parameter_descriptor_t *<em>აღმწერი</em>, <em class="property">კონსტ</em> uint16_t <em>ელემენტების_რიცხვი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv425mbc_master_set_descriptorPK25mb_parameter_descriptor_tK8uint16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Modbus კონტროლერის ინტერფეისისთვის პარამეტრების აღწერის ცხრილის მინიჭება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>esp_err_t ESP_OK - დესკრიპტორი წარმატებით დაყენდა</li>
+<li>esp_err_t ESP_ERR_INVALID_ARG - ფუნქციის გამოძახებისას არასწორი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">descriptor</span></code>: პარამეტრის აღწერილობის ცხრილის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">num_elements</span></code>ცხრილში ელემენტების რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>Modbus კონტროლერის ინტერფეისისთვის პარამეტრების აღწერის ცხრილს ანიჭებს. ცხრილი მომხმარებელმა უნდა მოამზადოს კონკრეტულის შესაბამისად.</p>
+<dl class="function">
+<dt id="_CPPv423mbc_master_send_requestP18mb_param_request_tPv">
+<span id="_CPPv323mbc_master_send_requestP18mb_param_request_tPv"></span><span id="_CPPv223mbc_master_send_requestP18mb_param_request_tPv"></span><span id="mbc_master_send_request__mb_param_request_tP.voidP"></span><span class="target" id="esp__modbus__master_8h_1a3cdfe3180fc10f1c52a153d5c132b86f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_send_request</code><span class="sig-paren">(</span>mb_param_request_t *<em>მოთხოვნა</em>, void *<em>data_ptr</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv423mbc_master_send_requestP18mb_param_request_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პარამეტრის მოთხოვნაში განსაზღვრული მონაცემების მოთხოვნის გაგზავნა, მონისგან პასუხს ელოდება და ბრძანების შესრულების სტატუსს აბრუნებს. ეს ფუნქცია ქსელში Modbus მოწყობილობებზე წაკითხვის/ჩაწერის წვდომის სტანდარტულ გზას უზრუნველყოფს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>esp_err_t ESP_OK - მოთხოვნა წარმატებით დასრულდა</li>
+<li>esp_err_t ESP_ERR_INVALID_ARG - ფუნქციის არასწორი არგუმენტი</li>
+<li>esp_err_t ESP_ERR_INVALID_RESPONSE - მონა-მონაწილისგან არასწორი პასუხი</li>
+<li>esp_err_t ESP_ERR_TIMEOUT - ოპერაციის ვადის ამოწურვა ან მონა-მონაცემთა პასუხის არარსებობა</li>
+<li>esp_err_t ESP_ERR_NOT_SUPPORTED - მოთხოვნის ბრძანება არ არის მხარდაჭერილი მონა-მომხმარებლის მიერ</li>
+<li>esp_err_t ESP_FAIL - მონამ დააბრუნა გამონაკლისი ან სხვა შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">request</span></code>: mb_param_request_t ტიპის მოთხოვნის სტრუქტურის მიმთითებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">data_ptr</span></code>: მონაცემთა ბუფერის მითითება მონაცემების გასაგზავნად ან მისაღებად (დამოკიდებულია მოთხოვნაში მოცემული ბრძანების ველზე)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ეს ფუნქცია აგზავნის მონაცემთა მოთხოვნას პარამეტრის მოთხოვნაში განსაზღვრულის შესაბამისად, ელოდება პასუხს შესაბამისი მონისგან და აბრუნებს ბრძანების შესრულების სტატუსს. ეს ფუნქცია უზრუნველყოფს ქსელში Modbus მოწყობილობებზე წაკითხვის/ჩაწერის წვდომის სტანდარტულ გზას.</p>
+<dl class="function">
+<dt id="_CPPv423mbc_master_get_cid_info8uint16_tPPK25mb_parameter_descriptor_t">
+<span id="_CPPv323mbc_master_get_cid_info8uint16_tPPK25mb_parameter_descriptor_t"></span><span id="_CPPv223mbc_master_get_cid_info8uint16_tPPK25mb_parameter_descriptor_t"></span><span id="mbc_master_get_cid_info__uint16_t.mb_parameter_descriptor_tCPP"></span><span class="target" id="esp__modbus__master_8h_1a39a56321159f0869282d9c4014fa0c62"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_get_cid_info</code><span class="sig-paren">(</span>uint16_t <em>ციდი</em>, <em class="property">კონსტ</em> mb_parameter_descriptor_t **<em>param_info</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv423mbc_master_get_cid_info8uint16_tPPK25mb_parameter_descriptor_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინფორმაცია cid-ად განსაზღვრული მხარდაჭერილი მახასიათებლის შესახებ. ამ ინფორმაციის მისაღებად გამოიყენეთ პარამეტრის აღწერის ცხრილი. ფუნქცია შეამოწმებს, მხარდაჭერილია თუ არა cid პარამეტრად განსაზღვრული მახასიათებელი და დააბრუნებს მის აღწერას param_info-ში. აბრუნებს ESP_ERR_NOT_FOUND-ს, თუ მახასიათებელი არ არის მხარდაჭერილი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>esp_err_t ESP_OK - მოთხოვნა წარმატებული იყო და ბუფერი შეიცავს მხარდაჭერილი მახასიათებლის სახელს</li>
+<li>esp_err_t ESP_ERR_INVALID_ARG - ფუნქციის არასწორი არგუმენტი</li>
+<li>esp_err_t ESP_ERR_NOT_FOUND - მახასიათებელი (cid) ვერ მოიძებნა</li>
+<li>esp_err_t ESP_FAIL - უცნობი შეცდომა საძიებო ცხრილის დამუშავებისას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cid</span></code>: მახასიათებლის იდენტიფიკატორი </li>
+<li><code class="docutils literal notranslate"><span class="pre">param_info</span></code>: მახასიათებელი მონაცემების მაჩვენებელზე მითითება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია იღებს ინფორმაციას მხარდაჭერილი მახასიათებლის შესახებ, რომელიც განსაზღვრულია როგორც cid. ის შეამოწმებს, მხარდაჭერილია თუ არა მახასიათებელი და დააბრუნებს მის აღწერას.</p>
+<dl class="function">
+<dt id="_CPPv424mbc_master_get_parameter8uint16_tPcP7uint8_tP7uint8_t">
+<span id="_CPPv324mbc_master_get_parameter8uint16_tPcP7uint8_tP7uint8_t"></span><span id="_CPPv224mbc_master_get_parameter8uint16_tPcP7uint8_tP7uint8_t"></span><span id="mbc_master_get_parameter__uint16_t.cP.uint8_tP.uint8_tP"></span><span class="target" id="esp__modbus__master_8h_1a7f54bf667beedff8f0e8d059d6bfb47f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_get_parameter</code><span class="sig-paren">(</span>uint16_t <em>ციდი</em>, char *<em>სახელი</em>, uint8_t *<em>ღირებულება</em>, uint8_t *<em>ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv424mbc_master_get_parameter8uint16_tPcP7uint8_tP7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პარამეტრის წაკითხვა modbus-ის მონა მოწყობილობიდან, რომლის სახელიც განსაზღვრულია name-ით და აქვს cid. მოთხოვნისთვის დამატებითი მონაცემები აღებულია პარამეტრის აღწერის (საძიებო) ცხრილიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>esp_err_t ESP_OK - მოთხოვნა წარმატებული იყო და მნიშვნელობის ბუფერი შეიცავს მონადან ფაქტობრივი პარამეტრის მონაცემების წარმოდგენას.</li>
+<li>esp_err_t ESP_ERR_INVALID_ARG - ფუნქციის არასწორი არგუმენტი</li>
+<li>esp_err_t ESP_ERR_INVALID_RESPONSE - მონა-მონაწილისგან არასწორი პასუხი</li>
+<li>esp_err_t ESP_ERR_INVALID_STATE - არასწორი მდგომარეობა მონაცემთა დამუშავების ან გამოყოფის წარუმატებლობის დროს</li>
+<li>esp_err_t ESP_ERR_TIMEOUT - ოპერაციის დრო ამოიწურა და მონა არ პასუხობს</li>
+<li>esp_err_t ESP_ERR_NOT_SUPPORTED - მოთხოვნის ბრძანება არ არის მხარდაჭერილი მონა-მომხმარებლის მიერ</li>
+<li>esp_err_t ESP_ERR_NOT_FOUND - პარამეტრი არ არის ნაპოვნი პარამეტრის აღწერილობის ცხრილში</li>
+<li>esp_err_t ESP_FAIL - მონამ დააბრუნა გამონაკლისი ან სხვა შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cid</span></code>პარამეტრის მახასიათებლის id </li>
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: მაჩვენებელი პარამეტრის სტრიქონის სახელზე (გასაღები) (null-ით დასრულებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: პარამეტრის მონაცემთა ბუფერის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>პარამეტრის ტიპი, რომელიც დაკავშირებულია პარამეტრის აღწერილობის ცხრილიდან დაბრუნებულ სახელთან.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია Modbus-ის დამხმარე მოწყობილობიდან კითხულობს პარამეტრებში განსაზღვრული მახასიათებლის მონაცემებს და აბრუნებს მის მონაცემებს. მოთხოვნისთვის დამატებითი მონაცემები აღებულია პარამეტრის აღწერის ცხრილიდან.</p>
+<dl class="function">
+<dt id="_CPPv424mbc_master_set_parameter8uint16_tPcP7uint8_tP7uint8_t">
+<span id="_CPPv324mbc_master_set_parameter8uint16_tPcP7uint8_tP7uint8_t"></span><span id="_CPPv224mbc_master_set_parameter8uint16_tPcP7uint8_tP7uint8_t"></span><span id="mbc_master_set_parameter__uint16_t.cP.uint8_tP.uint8_tP"></span><span class="target" id="esp__modbus__master_8h_1ab41a9e657b8820af6037acdb684826e3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">mbc_master_set_parameter</code><span class="sig-paren">(</span>uint16_t <em>ციდი</em>, char *<em>სახელი</em>, uint8_t *<em>ღირებულება</em>, uint8_t *<em>ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="modbus.html#_CPPv424mbc_master_set_parameter8uint16_tPcP7uint8_tP7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ მახასიათებლის მნიშვნელობა, რომელიც განსაზღვრულია სახელით და cid პარამეტრით. cid პარამეტრის მოთხოვნის დამატებითი მონაცემები აღებულია მთავარი პარამეტრის ძიების ცხრილიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>esp_err_t ESP_OK - მოთხოვნა წარმატებული იყო და მნიშვნელობა შენახულია მონა მოწყობილობის რეგისტრებში.</li>
+<li>esp_err_t ESP_ERR_INVALID_ARG - ფუნქციის არასწორი არგუმენტი</li>
+<li>esp_err_t ESP_ERR_INVALID_RESPONSE - პარამეტრის დამუშავების დროს მონადან არასწორი პასუხი</li>
+<li>esp_err_t ESP_ERR_INVALID_STATE - არასწორი მდგომარეობა მონაცემთა დამუშავების ან გამოყოფის წარუმატებლობის დროს</li>
+<li>esp_err_t ESP_ERR_TIMEOUT - ოპერაციის დრო ამოიწურა და მონა არ პასუხობს</li>
+<li>esp_err_t ESP_ERR_NOT_SUPPORTED - მოთხოვნის ბრძანება არ არის მხარდაჭერილი მონა-მომხმარებლის მიერ</li>
+<li>esp_err_t ESP_FAIL - მონამ დააბრუნა გამონაკლისი ან სხვა შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cid</span></code>პარამეტრის მახასიათებლის id </li>
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: მაჩვენებელი პარამეტრის სტრიქონის სახელზე (გასაღები) (null-ით დასრულებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: პარამეტრის მონაცემთა ბუფერზე მითითება (json მნიშვნელობის ველის რეალური წარმოდგენა ორობითი ფორმით) </li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>: მაჩვენებელი პარამეტრის ტიპზე, რომელიც დაკავშირებულია პარამეტრის საძიებო ცხრილიდან დაბრუნებულ სახელთან.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>ფუნქცია შესაბამის დამხმარე მოწყობილობაში წერს მახასიათებლის მნიშვნელობას, რომელიც განსაზღვრულია სახელით და cid პარამეტრით. პარამეტრის მოთხოვნის დამატებითი მონაცემები აღებულია მთავარი პარამეტრის აღწერის ცხრილიდან.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="modbus.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ მაგალითებში გამოყენებულია FreeModbus ბიბლიოთეკის პორტი სერიული slave და master იმპლემენტაციისთვის შესაბამისად. სტეკის შერჩევა ხორციელდება KConfig მენიუს „Modbus სტეკის მხარდაჭერის რეჟიმის შერჩევა“ და მასთან დაკავშირებული კონფიგურაციის გასაღებების მეშვეობით.</p>
+<p><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/modbus/serial/mb_slave">პროტოკოლები/modbus/serial/mb_slave</a></p>
+<p><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/modbus/serial/mb_master">პროტოკოლები/modbus/serial/mb_master</a></p>
+<p>დეტალებისთვის იხილეთ README.md ფაილის კონკრეტული მაგალითი.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_websocket_client.html" rel="next" title="ESP WebSocket Client">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="mdns.html" rel="prev" title="mDNS Service"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1282 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ანალოგურ-ციფრულ გადამყვანში — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="can.html" rel="next" title="Controller Area Network (CAN)"/>
+<link href="index.html" rel="prev" title="Peripherals API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/adc.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/adc"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/adc.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="adc.html#">ანალოგური კომბინაციის კოდი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#configuration-and-reading-adc">კონფიგურაცია და ADC-ის წაკითხვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#application-examples">გამოყენების მაგალითები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#minimizing-noise">ხმაურის მინიმიზაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#adc-calibration">ანალოგური ციფრულ-ციფრული კალიბრაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#gpio-lookup-macros">GPIO მაკროების ძიება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adc.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>ანალოგურ-ციფრულ გადამყვანი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/adc.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="analog-to-digital-converter">
+<h1>ანალოგურ-ციფრულ გადამყვანი<a class="headerlink" href="adc.html#analog-to-digital-converter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="adc.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 აერთიანებს ორ 12-ბიტიან SAR-ს (<a class="reference external" href="https://en.wikipedia.org/wiki/Successive_approximation_ADC">თანმიმდევრული მიახლოებითი რეგისტრი</a>) ანალოგურ-ციფრული გადამყვანები, რომლებიც მხარს უჭერენ სულ 18 საზომ არხს (ანალოგური პინები).</p>
+<p>ADC დრაივერი API მხარს უჭერს ADC1-ს (8 არხი, მიერთებული GPIO ზე s 32 - 39) და ADC2-ს (10 არხი, მიერთებული GPIO ზე s 0, 2, 4, 12 - 15 და 25 - 27). თუმცა, ADC2-ის გამოყენებას გარკვეული შეზღუდვები აქვს აპლიკაციისთვის:</p>
+<ol class="arabic simple">
+<li>ADC2 გამოიყენება Wi-Fi დრაივერის მიერ. შესაბამისად, აპლიკაციას ADC2-ის გამოყენება მხოლოდ მაშინ შეუძლია, როდესაც Wi-Fi დრაივერი არ არის გაშვებული.</li>
+<li>ზოგიერთი ADC2 პინი გამოიყენება როგორც შემაერთებელი პინები ( GPIO 0, 2, 15), ამიტომ მათი თავისუფლად გამოყენება შეუძლებელია. ასეთია შემდეგი ოფიციალური განვითარების ნაკრებების შემთხვევა:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../../hw-reference/modules-and-boards.html#esp-modules-and-boards-esp32-devkitc"><span class="std std-ref">ESP32 DevKitC</span></a>: GPIO 0-ის გამოყენება შეუძლებელია გარე ავტომატური პროგრამირების სქემების გამო.</li>
+<li><a class="reference internal" href="../../hw-reference/modules-and-boards.html#esp-modules-and-boards-esp-wrover-kit"><span class="std std-ref">ESP-WROVER-KIT</span></a>: GPIO 0, 2, 4 და 15-ის გამოყენება შეუძლებელია სხვადასხვა მიზნით გარე კავშირების გამო.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="configuration-and-reading-adc">
+<h2>კონფიგურაცია და ADC-ის წაკითხვა<a class="headerlink" href="adc.html#configuration-and-reading-adc" title="Permalink to this headline">¶</a></h2>
+<p>ADC უნდა იყოს კონფიგურირებული წაკითხვის აღებამდე.</p>
+<blockquote>
+<div><ul class="simple">
+<li>ADC1-ისთვის, სასურველი სიზუსტის და შესუსტების კონფიგურაცია ფუნქციების გამოძახებით. <a class="reference internal" href="adc.html#_CPPv417adc1_config_width16adc_bits_width_t" title="adc1_config_width"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc1_config_width()</span></code></a> და <a class="reference internal" href="adc.html#_CPPv425adc1_config_channel_atten14adc1_channel_t11adc_atten_t" title="adc1_config_channel_atten"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc1_config_channel_atten()</span></code></a>.</li>
+<li>ADC2-ისთვის, შესუსტების კონფიგურაცია შემდეგნაირად: <a class="reference internal" href="adc.html#_CPPv425adc2_config_channel_atten14adc2_channel_t11adc_atten_t" title="adc2_config_channel_atten"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc2_config_channel_atten()</span></code></a>ADC2-ის წაკითხვის სიგანე კონფიგურირებულია ყოველ ჯერზე, როდესაც წაკითხვის პროცესს ატარებთ.</li>
+</ul>
+</div></blockquote>
+<p>შესუსტების კონფიგურაცია ხდება თითოეული არხისთვის, იხ. <a class="reference internal" href="adc.html#_CPPv414adc1_channel_t" title="adc1_channel_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">adc1_channel_t</span></code></a> და <a class="reference internal" href="adc.html#_CPPv414adc2_channel_t" title="adc2_channel_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">adc2_channel_t</span></code></a>, დაყენებულია ზემოთ მოცემული ფუნქციების პარამეტრად.</p>
+<p>შემდეგ შესაძლებელია ADC კონვერტაციის შედეგის წაკითხვა <a class="reference internal" href="adc.html#_CPPv412adc1_get_raw14adc1_channel_t" title="adc1_get_raw"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc1_get_raw()</span></code></a> და <a class="reference internal" href="adc.html#_CPPv412adc2_get_raw14adc2_channel_t16adc_bits_width_tPi" title="adc2_get_raw"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc2_get_raw()</span></code></a>ADC2-ის წაკითხვის სიგანე უნდა დაყენდეს პარამეტრად <a class="reference internal" href="adc.html#_CPPv412adc2_get_raw14adc2_channel_t16adc_bits_width_tPi" title="adc2_get_raw"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc2_get_raw()</span></code></a> კონფიგურაციის ფუნქციების ნაცვლად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">რადგან ADC2 გაზიარებულია WIFI მოდულთან, რომელსაც უფრო მაღალი პრიორიტეტი აქვს, წაკითხვის ოპერაცია <a class="reference internal" href="adc.html#_CPPv412adc2_get_raw14adc2_channel_t16adc_bits_width_tPi" title="adc2_get_raw"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc2_get_raw()</span></code></a> ჩავარდება შორის <a class="reference internal" href="../network/esp_wifi.html#_CPPv414esp_wifi_startv" title="esp_wifi_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_start()</span></code></a> და <a class="reference internal" href="../network/esp_wifi.html#_CPPv413esp_wifi_stopv" title="esp_wifi_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_stop()</span></code></a>გამოიყენეთ დაბრუნების კოდი იმის სანახავად, წარმატებით დასრულდა თუ არა წაკითხვა.</p>
+</div>
+<p>ასევე შესაძლებელია შიდა ჰოლის ეფექტის სენსორის წაკითხვა ADC1-ის საშუალებით, სპეციალური ფუნქციის გამოძახებით. <a class="reference internal" href="adc.html#_CPPv416hall_sensor_readv" title="hall_sensor_read"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hall_sensor_read()</span></code></a>გაითვალისწინეთ, რომ ჰოლის სენსორიც კი ESP32-ის შიდაა, მისგან წასაკითხად გამოიყენება ADC1-ის 0 და 3 არხები ( GPIO 7 36 და 39). ამ პინებთან სხვა არაფერი არ დააკავშიროთ და მათი კონფიგურაცია არ შეცვალოთ. წინააღმდეგ შემთხვევაში, ამან შეიძლება გავლენა მოახდინოს სენსორიდან დაბალი მნიშვნელობის სიგნალის გაზომვაზე.</p>
+<p>ეს API უზრუნველყოფს ADC1-ის კონფიგურაციის მოსახერხებელ გზას წასაკითხად <a class="reference internal" href="../../api-guides/ulp.html"><span class="doc">ULP</span></a>ამისათვის გამოიძახეთ ფუნქცია <a class="reference internal" href="adc.html#_CPPv415adc1_ulp_enablev" title="adc1_ulp_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc1_ulp_enable()</span></code></a> და შემდეგ დააყენეთ სიზუსტე და შესუსტება, როგორც ზემოთ იყო განხილული.</p>
+<p>არსებობს კიდევ ერთი კონკრეტული ფუნქცია <a class="reference internal" href="adc.html#_CPPv417adc2_vref_to_gpio10gpio_num_t" title="adc2_vref_to_gpio"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">adc2_vref_to_gpio()</span></code></a> გამოიყენება შიდა საცნობარო ძაბვის GPIO პინზე გადასამისამართებლად. ის სასარგებლოა ADC-ის ჩვენების კალიბრაციისთვის და ეს განხილულია განყოფილებაში <a class="reference internal" href="adc.html#adc-api-adc-calibration"><span class="std std-ref">ხმაურის მინიმიზაცია</span></a>.</p>
+</div>
+<div class="section" id="application-examples">
+<h2>გამოყენების მაგალითები<a class="headerlink" href="adc.html#application-examples" title="Permalink to this headline">¶</a></h2>
+<p>ADC1 არხ 0-ზე ( GPIO 36) წაკითხვის ძაბვა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;driver/adc.h&gt;</span>
+
+<span class="o">...</span>
+
+    <span class="n">adc1_config_width</span><span class="p">(</span><span class="n">ADC_WIDTH_BIT_12</span><span class="p">);</span>
+    <span class="n">adc1_config_channel_atten</span><span class="p">(</span><span class="n">ADC1_CHANNEL_0</span><span class="p">,</span><span class="n">ADC_ATTEN_DB_0</span><span class="p">);</span>
+    <span class="nb">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">adc1_get_raw</span><span class="p">(</span><span class="n">ADC1_CHANNEL_0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ზემოთ მოცემულ მაგალითში შემავალი ძაბვა 0-დან 1.1 ვ-მდეა (0 დბ შესუსტება). შემავალი დიაპაზონის გაფართოება შესაძლებელია უფრო მაღალი შესუსტების დაყენებით, იხილეთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">adc_atten_t</span></code>ADC დრაივერის გამოყენების მაგალითი, მათ შორის კალიბრაცია (განხილულია ქვემოთ), ხელმისაწვდომია esp-idf-ში: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/adc">პერიფერიული მოწყობილობები/ADC</a></p>
+<p>ADC2 არხ 7-ზე ( GPIO 27) ძაბვის წაკითხვა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;driver/adc.h&gt;</span>
+
+<span class="o">...</span>
+
+    <span class="nb">int</span> <span class="n">read_raw</span><span class="p">;</span>
+    <span class="n">adc2_config_channel_atten</span><span class="p">(</span> <span class="n">ADC2_CHANNEL_7</span><span class="p">,</span> <span class="n">ADC_ATTEN_0db</span> <span class="p">);</span>
+
+    <span class="n">esp_err_t</span> <span class="n">r</span> <span class="o">=</span> <span class="n">adc2_get_raw</span><span class="p">(</span> <span class="n">ADC2_CHANNEL_7</span><span class="p">,</span> <span class="n">ADC_WIDTH_12Bit</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">read_raw</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ESP_OK</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">read_raw</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">r</span> <span class="o">==</span> <span class="n">ESP_ERR_TIMEOUT</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">"ADC2 used by Wi-Fi.</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>შესაძლოა, წაკითხვა ვერ მოხერხდეს Wi-Fi თან შეჯახების გამო, უნდა შეამოწმოთ ის. DAC-ის გამომავალი მონაცემების წასაკითხად ADC2 დრაივერის გამოყენების მაგალითი ხელმისაწვდომია esp-idf-ში: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/adc2">პერიფერიული მოწყობილობები/ADC2</a></p>
+<p>შიდა ჰოლის ეფექტის სენსორის წაკითხვა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;driver/adc.h&gt;</span>
+
+<span class="o">...</span>
+
+    <span class="n">adc1_config_width</span><span class="p">(</span><span class="n">ADC_WIDTH_BIT_12</span><span class="p">);</span>
+    <span class="nb">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">hall_sensor_read</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>ორივე მაგალითში წაკითხული მნიშვნელობა 12 ბიტის სიგანისაა (დიაპაზონი 0-4095).</p>
+</div>
+<div class="section" id="minimizing-noise">
+<span id="adc-api-adc-calibration"></span><h2>ხმაურის მინიმიზაცია<a class="headerlink" href="adc.html#minimizing-noise" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 ანალოგურ-ციფრული გადამყვანი შეიძლება მგრძნობიარე იყოს ხმაურის მიმართ, რაც იწვევს ანალოგურ-ციფრული გადამყვანის მაჩვენებლებში დიდ შეუსაბამობებს. ხმაურის მინიმიზაციის მიზნით, მომხმარებლებს შეუძლიათ 0.1 μF კონდენსატორი მიაერთონ გამოყენებულ ანალოგურ-ციფრული გადამყვანის შემაერთებელ პანელზე. ხმაურის ეფექტების შესამცირებლად ასევე შეიძლება გამოყენებულ იქნას მრავალჯერადი შერჩევის მეთოდი.</p>
+<div class="figure align-center" id="id8">
+<img alt="ADC noise mitigation" src="../../_images/adc-noise-graph.jpg"/>
+<p class="caption"><span class="caption-text">დიაგრამა, რომელიც ასახავს ხმაურის შემცირებას კონდენსატორის და 64 ნიმუშის მულტისემპლინგის გამოყენებით.</span></p>
+</div>
+</div>
+<div class="section" id="adc-calibration">
+<h2>ანალოგური ციფრულ-ციფრული კალიბრაცია<a class="headerlink" href="adc.html#adc-calibration" title="Permalink to this headline">¶</a></h2>
+<p>ის <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_adc_cal/include/esp_adc_cal.h">esp_adc_cal/include/esp_adc_cal.h</a> API უზრუნველყოფს ფუნქციებს, რომლებიც ასწორებს გაზომილ ძაბვებს შორის არსებულ განსხვავებებს, რომლებიც გამოწვეულია ჩიპებს შორის ADC საცნობარო ძაბვების (Vref) ვარიაციით. დიზაინის მიხედვით, ADC საცნობარო ძაბვაა 1100mV, თუმცა, რეალური საცნობარო ძაბვა შეიძლება მერყეობდეს 1000mV-დან 1200mV-მდე სხვადასხვა ESP32-ებს შორის.</p>
+<div class="figure align-center" id="id9">
+<img alt="ADC reference voltage comparison" src="../../_images/adc-vref-graph.jpg"/>
+<p class="caption"><span class="caption-text">გრაფიკი, რომელიც ასახავს სხვადასხვა საცნობარო ძაბვების გავლენას ანალოგურ-ციფრული დენის ძაბვის მრუდზე.</span></p>
+</div>
+<p>ამ API გამოყენებით ანალოგურ-ციფრული სქემის ჩვენებების კორექცია8 გულისხმობს ერთ-ერთი ანალოგურ-ციფრული სქემის დახასიათებას მოცემული შესუსტების დროს, რათა მივიღოთ მახასიათებლების მრუდი (ანალოგურ-ციფრული სქემის ძაბვის მრუდი), რომელიც ითვალისწინებს ანალოგურ-ციფრული სქემის საცნობარო ძაბვის სხვაობას. მახასიათებლების მრუდი შემდეგი ფორმისაა: <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">coeff_a</span> <span class="pre">*</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">coeff_b</span></code> და გამოიყენება ანალოგურ-ციფრული დენის მონაცემების mV ძაბვად გადასაყვანად. მახასიათებლების მრუდის გაანგარიშება ეფუძნება კალიბრაციის მნიშვნელობებს, რომელთა შენახვა შესაძლებელია eFuse-ში ან მომხმარებლის მიერ მოწოდებული.</p>
+<div class="section" id="calibration-values">
+<h3>კალიბრაციის მნიშვნელობები<a class="headerlink" href="adc.html#calibration-values" title="Permalink to this headline">¶</a></h3>
+<p>კალიბრაციის მნიშვნელობები გამოიყენება დამახასიათებელი მრუდების გენერირებისთვის, რომლებიც ითვალისწინებს კონკრეტული ESP32-ის უნიკალურ ADC საცნობარო ძაბვას. ამჟამად კალიბრაციის მნიშვნელობების სამი წყარო არსებობს. ამ კალიბრაციის მნიშვნელობების ხელმისაწვდომობა დამოკიდებული იქნება ESP32 ჩიპის/მოდულის ტიპსა და წარმოების თარიღზე.</p>
+<ul class="simple">
+<li><strong>ორი წერტილი</strong> მნიშვნელობები წარმოადგენს თითოეული ანალოგური გადამყვანის ჩვენებას 150mV და 850mV-ზე. უფრო ზუსტი კალიბრაციის შედეგების მისაღებად, ეს მნიშვნელობები მომხმარებელმა უნდა გაზომოს და ჩაწეროს eFuse-ში. <code class="docutils literal notranslate"><span class="pre">BLOCK3</span></code>.</li>
+<li><strong>eFuse Vref</strong> წარმოადგენს ნამდვილ ADC საცნობარო ძაბვას. ეს მნიშვნელობა იზომება და იწერება eFuse-ში. <code class="docutils literal notranslate"><span class="pre">BLOCK0</span></code> ქარხნული კალიბრაციის დროს.</li>
+<li><strong>ნაგულისხმევი Vref</strong> არის მომხმარებლის მიერ დახასიათების დროს პარამეტრის სახით მოწოდებული ანალოგურ-ციფრული ძაბვის შეფასება. თუ ორწერტილიანი ან eFuse Vref მნიშვნელობები მიუწვდომელია, <strong>ნაგულისხმევი Vref</strong> გამოყენებული იქნება.</li>
+</ul>
+<p>ინდივიდუალური გაზომვა და დაწვა <strong>eFuse Vref</strong> გამოყენებულია ESP32-D0WD და ESP32-D0WDQ6 ჩიპებზე, რომლებიც წარმოებულია 2018 წლის პირველი კვირის შემდეგ. ასეთი ჩიპების ამოცნობა შესაძლებელია თარიღის კოდებით, რომლებიც გამოშვებულია 012018-ზე ან მის შემდეგ (იხილეთ მე-4 ხაზი ქვემოთ მოცემულ ფიგურაზე).</p>
+<div class="figure align-center" id="id10">
+<img alt="ESP32 Chip Surface Marking" src="../../_images/chip_surface_marking.png"/>
+<p class="caption"><span class="caption-text">ESP32 ჩიპის ზედაპირის მარკირება</span></p>
+</div>
+<p>თუ გსურთ კალიბრირებული ჩიპების ან მოდულების შეძენა, ორჯერ გადაამოწმეთ დისტრიბუტორთან ან პირდაპირ Espressif-თან.</p>
+<p>თუ თარიღის კოდის შემოწმებას ვერ ახერხებთ (ანუ ჩიპი შესაძლოა ჩასმული იყოს დაკონსერვებულ მოდულში და ა.შ.), მაინც შეგიძლიათ გადაამოწმოთ, <strong>eFuse Vref</strong> წარმოდგენილია გაშვებით <a class="reference external" href="https://github.com/espressif/esptool/wiki/espefuse">espefuse.py</a>  ინსტრუმენტი <code class="docutils literal notranslate"><span class="pre">adc_info</span></code> პარამეტრი</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$IDF_PATH/components/esptool_py/esptool/espefuse.py --port /dev/ttyUSB0 adc_info
+</pre></div>
+</div>
+<p>ჩანაცვლება <code class="docutils literal notranslate"><span class="pre">/dev/ttyUSB0</span></code> ESP32 დაფის პორტის სახელით.</p>
+<p>ჩიპი, რომელსაც აქვს სპეციფიკური <strong>eFuse Vref</strong> დაპროგრამებული მნიშვნელობა (ამ შემთხვევაში 1093mV) შემდეგნაირად იქნება მოხსენებული:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ADC VRef calibration: 1093mV
+</pre></div>
+</div>
+<p>ქვემოთ მოცემულ კიდევ ერთ მაგალითში <strong>eFuse Vref</strong> არ არის პროგრამირებული:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ADC VRef calibration: None (1100mV nominal)
+</pre></div>
+</div>
+<p>ორპუნქტიანი კალიბრაციის მქონე ჩიპისთვის შეტყობინება ასე გამოიყურება:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ADC VRef calibration: 1149mV
+ADC readings stored in efuse BLK3:
+    ADC1 Low reading  (150mV): 306
+    ADC1 High reading (850mV): 3153
+    ADC2 Low reading  (150mV): 389
+    ADC2 High reading (850mV): 3206
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-example">
+<h3>განაცხადის მაგალითი<a class="headerlink" href="adc.html#application-example" title="Permalink to this headline">¶</a></h3>
+<p>სრული მაგალითისთვის იხილეთ esp-idf: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/adc">პერიფერიული მოწყობილობები/ADC</a></p>
+<p>ანალოგური ტრანსკრიფტორების დახასიათება კონკრეტული შესუსტების დროს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#include "driver/adc.h"
+#include "esp_adc_cal.h"
+
+...
+
+    //Characterize ADC at particular atten
+    esp_adc_cal_characteristics_t *adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
+    esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
+    //Check type of calibration value used to characterize ADC
+    if (val_type == ESP_ADC_CAL_VAL_EFUSE_VREF) {
+        printf("eFuse Vref");
+    } else if (val_type == ESP_ADC_CAL_VAL_EFUSE_TP) {
+        printf("Two Point");
+    } else {
+        printf("Default");
+    }
+</pre></div>
+</div>
+<p>ანალოგურ-ციფრული ცვლადის წაკითხვა და შემდეგ ჩვენების ძაბვად გარდაქმნა:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#include "driver/adc.h"
+#include "esp_adc_cal.h"
+
+...
+    uint32_t reading =  adc1_get_raw(ADC1_CHANNEL_5);
+    uint32_t voltage = esp_adc_cal_raw_to_voltage(reading, adc_chars);
+</pre></div>
+</div>
+<p>ADC საცნობარო ძაბვის გადამისამართება GPIO ზე, რათა მისი ხელით გაზომვა შესაძლებელი იყოს (მაგ. <strong>ნაგულისხმევი Vref</strong>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#include "driver/adc.h"
+
+...
+
+    esp_err_t status = adc2_vref_to_gpio(GPIO_NUM_25);
+    if (status == ESP_OK) {
+        printf("v_ref routed to GPIO\n");
+    } else {
+        printf("failed to route v_ref\n");
+    }
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="gpio-lookup-macros">
+<h2>GPIO მაკროების ძიება<a class="headerlink" href="adc.html#gpio-lookup-macros" title="Permalink to this headline">¶</a></h2>
+<p>არსებობს მაკროები ADC არხის GPIO ნომრის ან პირიქით დასაზუსტებლად. მაგ.</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">ADC1_CHANNEL_0_GPIO_NUM</span></code> არის ADC1 არხის 0 (36) ნომერი, GPIO ;</li>
+<li><code class="docutils literal notranslate"><span class="pre">ADC1_GPIO32_CHANNEL</span></code> არის GPIO 32-ის ADC1 არხის ნომერი (ADC1 არხი 4).</li>
+</ol>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="adc.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<p>ეს ცნობარი მოიცავს სამ კომპონენტი 19:</p>
+<ul class="simple">
+<li><a class="reference internal" href="adc.html#adc-api-reference-adc-driver"><span class="std std-ref">ADC დრაივერი</span></a></li>
+<li><a class="reference internal" href="adc.html#adc-api-reference-adc-calibration"><span class="std std-ref">ანალოგური ციფრულ-ციფრული კალიბრაცია</span></a></li>
+<li><a class="reference internal" href="adc.html#adc-api-reference-gpio-lookup-macros"><span class="std std-ref">GPIO მაკროების ძიება</span></a></li>
+</ul>
+<div class="section" id="adc-driver">
+<span id="adc-api-reference-adc-driver"></span><h3>ADC დრაივერი<a class="headerlink" href="adc.html#adc-driver" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="adc.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/adc.h">დრაივერი/ჩართე/დრაივერი/adc.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="adc.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419adc1_pad_get_io_num14adc1_channel_tP10gpio_num_t">
+<span id="_CPPv319adc1_pad_get_io_num14adc1_channel_tP10gpio_num_t"></span><span id="_CPPv219adc1_pad_get_io_num14adc1_channel_tP10gpio_num_t"></span><span id="adc1_pad_get_io_num__adc1_channel_t.gpio_num_tP"></span><span class="target" id="adc_8h_1a4da45ca347c044db3e172cd0590e49b9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc1_pad_get_io_num</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc1_channel_t" title="adc1_channel_t">adc1_channel_t</a> <em>არხი</em>, gpio_num_t *<em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv419adc1_pad_get_io_num14adc1_channel_tP10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ კონკრეტული ADC1 არხის GPIO ნომერი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ არხი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: არხი GPIO ნომრის მისაღებად</li>
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: გამომავალი ბუფერი GPIO ნომრის შესანახად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417adc1_config_width16adc_bits_width_t">
+<span id="_CPPv317adc1_config_width16adc_bits_width_t"></span><span id="_CPPv217adc1_config_width16adc_bits_width_t"></span><span id="adc1_config_width__adc_bits_width_t"></span><span class="target" id="adc_8h_1a5f1b540c76d60a9d14ffe706c4ec2e90"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc1_config_width</code><span class="sig-paren">(</span>adc_bits_width_t <em>სიგანე_ბიტი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv417adc1_config_width16adc_bits_width_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონფიგურაცია გაუკეთეთ ADC1-ის აღების სიგანის კონფიგურაციას, ამასობაში ჩართეთ ADC1-ისთვის გამომავალი ინვერსია. კონფიგურაცია განკუთვნილია ADC1-ის ყველა არხისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">width_bit</span></code>: ბიტის აღების სიგანე ADC1-ისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418adc_set_data_width10adc_unit_t16adc_bits_width_t">
+<span id="_CPPv318adc_set_data_width10adc_unit_t16adc_bits_width_t"></span><span id="_CPPv218adc_set_data_width10adc_unit_t16adc_bits_width_t"></span><span id="adc_set_data_width__adc_unit_t.adc_bits_width_t"></span><span class="target" id="adc_8h_1ad9b37db919e5f672e17484b6161873c5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_set_data_width</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_unit</em>, adc_bits_width_t <em>სიგანე_ბიტი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv418adc_set_data_width10adc_unit_t16adc_bits_width_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC-ის აღების სიგანის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_unit</span></code>: ADC ერთეულის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">width_bit</span></code>: ბიტის აღების სიგანე ანალოგურ-ციფრული ინდიკატორისთვის. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425adc1_config_channel_atten14adc1_channel_t11adc_atten_t">
+<span id="_CPPv325adc1_config_channel_atten14adc1_channel_t11adc_atten_t"></span><span id="_CPPv225adc1_config_channel_atten14adc1_channel_t11adc_atten_t"></span><span id="adc1_config_channel_atten__adc1_channel_t.adc_atten_t"></span><span class="target" id="adc_8h_1aaff65fd1778a4032496e1c618036f16f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc1_config_channel_atten</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc1_channel_t" title="adc1_channel_t">adc1_channel_t</a> <em>არხი</em>, adc_atten_t <em>ყურადღება</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv425adc1_config_channel_atten14adc1_channel_t11adc_atten_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ კონკრეტული არხის შესუსტება ADC1-ზე და დააკონფიგურირეთ მასთან დაკავშირებული GPIO პინიანი მულტიპლექსი. </p>
+<p><p>ანალოგურ-ციფრული ტრანსკრიფციის სტანდარტული სრულმასშტაბიანი ძაბვაა 1.1 ვ. უფრო მაღალი ძაბვების (პინტის მაქსიმალურ ძაბვამდე, ჩვეულებრივ 3.3 ვოლტამდე) წასაკითხად, საჭიროა ამ ანალოგურ-ციფრული ტრანსკრიფციის არხისთვის 0 დბ-ზე მეტი სიგნალის შესუსტების დაყენება.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For any given channel, this function must be called before the first time adc1_get_raw() is called for that channel.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function can be called multiple times to configure multiple ADC channels simultaneously. adc1_get_raw() can then be called for any configured channel.</dd>
+</dl>
+</p>
+<p>როდესაც VDD_A არის 3.3 ვოლტი:</p>
+<p><ul class="simple">
+<li>0 dB შესუსტება (ADC_ATTEN_DB_0) იძლევა სრულმასშტაბიან ძაბვას 1.1 ვ</li>
+<li>2.5 დბ შესუსტება (ADC_ATTEN_DB_2_5) იძლევა სრულმასშტაბიან ძაბვას 1.5 ვ</li>
+<li>6 დბ შესუსტება (ADC_ATTEN_DB_6) იძლევა სრულმასშტაბიან ძაბვას 2.2 ვ</li>
+<li>11 დბ შესუსტება (ADC_ATTEN_DB_11) იძლევა სრულმასშტაბიან ძაბვას 3.9 ვ (იხილეთ შენიშვნა ქვემოთ)</li>
+</ul>
+</p>
+<p><p>ანალოგურ-ციფრული დენოვანი ცვლადის მახასიათებლების გამო, ყველაზე ზუსტი შედეგები მიიღება შემდეგი სავარაუდო ძაბვის დიაპაზონებში:</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The full-scale voltage is the voltage corresponding to a maximum reading (depending on ADC1 configured bit width, this value is: 4095 for 12-bits, 2047 for 11-bits, 1023 for 10-bits, 511 for 9 bits.)</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>At 11 dB attenuation the maximum voltage is limited by VDD_A, not the full scale voltage.</dd>
+</dl>
+</p>
+<p><ul class="simple">
+<li>0 dB შესუსტება (ADC_ATTEN_DB_0) 100-დან 950 mV-მდე</li>
+<li>2.5 დბ შესუსტება (ADC_ATTEN_DB_2_5) 100-დან 1250 მვ-მდე</li>
+<li>6 დბ შესუსტება (ADC_ATTEN_DB_6) 150-დან 1750 მვ-მდე</li>
+<li>11 დბ შესუსტება (ADC_ATTEN_DB_11) 150-დან 2450 მვ-მდე</li>
+</ul>
+</p>
+<p>მაქსიმალური სიზუსტისთვის გამოიყენეთ ანალოგურ-ციფრული ტრანსფორმატორის კალიბრაციის API s და გაზომეთ ძაბვები ამ რეკომენდებული დიაპაზონების ფარგლებში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: ADC1 არხი კონფიგურაციისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">atten</span></code>: შესუსტების დონე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412adc1_get_raw14adc1_channel_t">
+<span id="_CPPv312adc1_get_raw14adc1_channel_t"></span><span id="_CPPv212adc1_get_raw14adc1_channel_t"></span><span id="adc1_get_raw__adc1_channel_t"></span><span class="target" id="adc_8h_1afbe0364a7d70a6950fdcb296963519c4"></span>int <code class="descname">adc1_get_raw</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc1_channel_t" title="adc1_channel_t">adc1_channel_t</a> <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv412adc1_get_raw14adc1_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აიღეთ ADC1 მაჩვენებელი ერთი არხიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>When the power switch of SARADC1, SARADC2, HALL sensor and AMP sensor is turned on, the input of GPIO36 and GPIO39 will be pulled down for about 80ns. When enabling power for any of these peripherals, ignore input from GPIO36 and GPIO39. Please refer to section 3.11 of ‘ECO_and_Workarounds_for_Bugs_in_ESP32’ for the description of this issue.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call adc1_config_width() before the first time this function is called.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For any given channel, adc1_config_channel_atten(channel) must be called before the first time this function is called. Configuring a new channel does not prevent a previously configured channel from being read.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>-1: პარამეტრის შეცდომა</li>
+<li>სხვა: ADC1 არხის წაკითხვა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: ADC1 არხი წასაკითხად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412adc_power_onv">
+<span id="_CPPv312adc_power_onv"></span><span id="_CPPv212adc_power_onv"></span><span id="adc_power_on__void"></span><span class="target" id="adc_8h_1a8969c663ffb9d46f589e8465181f3003"></span>void <code class="descname">adc_power_on</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv412adc_power_onv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩართეთ ADC კვება. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413adc_power_offv">
+<span id="_CPPv313adc_power_offv"></span><span id="_CPPv213adc_power_offv"></span><span id="adc_power_off__void"></span><span class="target" id="adc_8h_1ae9610df7ff6d875c007534eb8c6ecf57"></span>void <code class="descname">adc_power_off</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv413adc_power_offv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SAR ADC-ის გამორთვა ეს ფუნქცია იძულებით გამორთავს ADC-ს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413adc_gpio_init10adc_unit_t13adc_channel_t">
+<span id="_CPPv313adc_gpio_init10adc_unit_t13adc_channel_t"></span><span id="_CPPv213adc_gpio_init10adc_unit_t13adc_channel_t"></span><span id="adc_gpio_init__adc_unit_t.adc_channel_t"></span><span class="target" id="adc_8h_1a65e887fd369287be89b0ab2f2a3b0e3e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_gpio_init</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_unit</em>, adc_channel_t <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv413adc_gpio_init10adc_unit_t13adc_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC პანელის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_unit</span></code>: ADC ერთეულის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>ADC არხის ინდექსი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416adc_set_data_inv10adc_unit_tb">
+<span id="_CPPv316adc_set_data_inv10adc_unit_tb"></span><span id="_CPPv216adc_set_data_inv10adc_unit_tb"></span><span id="adc_set_data_inv__adc_unit_t.b"></span><span class="target" id="adc_8h_1a801ecc76875d39d1b19d5d5effa895d5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_set_data_inv</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_unit</em>, bool <em>ინვესტიცია</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv416adc_set_data_inv10adc_unit_tb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC მონაცემთა ინვერსიის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_unit</span></code>: ADC ერთეულის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">inv_en</span></code>: ჩართულია თუ არა მონაცემთა ინვერსია </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415adc_set_clk_div7uint8_t">
+<span id="_CPPv315adc_set_clk_div7uint8_t"></span><span id="_CPPv215adc_set_clk_div7uint8_t"></span><span id="adc_set_clk_div__uint8_t"></span><span class="target" id="adc_8h_1a77a45941f4502e006030bdc1ac18a8ca"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_set_clk_div</code><span class="sig-paren">(</span>uint8_t <em>clk_div</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv415adc_set_clk_div7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC წყაროს საათის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">clk_div</span></code>: ADC საათის გამყოფი, ADC საათი იყოფა APB საათისგან </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423adc_set_i2s_data_source16adc_i2s_source_t">
+<span id="_CPPv323adc_set_i2s_data_source16adc_i2s_source_t"></span><span id="_CPPv223adc_set_i2s_data_source16adc_i2s_source_t"></span><span id="adc_set_i2s_data_source__adc_i2s_source_t"></span><span class="target" id="adc_8h_1ab44d2ccd0914193d04e917060900900d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_set_i2s_data_source</code><span class="sig-paren">(</span>adc_i2s_source_t <em>src</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv423adc_set_i2s_data_source16adc_i2s_source_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S მონაცემთა წყაროს დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>I2S DMA მონაცემთა წყარო, I2S DMA-ს შეუძლია მონაცემების მიღება ციფრული სიგნალებიდან ან ანალოგურ-ციფრული გადამყვანიდან. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417adc_i2s_mode_init10adc_unit_t13adc_channel_t">
+<span id="_CPPv317adc_i2s_mode_init10adc_unit_t13adc_channel_t"></span><span id="_CPPv217adc_i2s_mode_init10adc_unit_t13adc_channel_t"></span><span id="adc_i2s_mode_init__adc_unit_t.adc_channel_t"></span><span class="target" id="adc_8h_1abbf51c258db5190c8563fe691dc76a74"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc_i2s_mode_init</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_unit</em>, adc_channel_t <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv417adc_i2s_mode_init10adc_unit_t13adc_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>I2S ADC რეჟიმის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_unit</span></code>: ADC ერთეულის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>ADC არხის ინდექსი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415adc1_ulp_enablev">
+<span id="_CPPv315adc1_ulp_enablev"></span><span id="_CPPv215adc1_ulp_enablev"></span><span id="adc1_ulp_enable__void"></span><span class="target" id="adc_8h_1af8aa317d2975e815f3c1b3b143757e20"></span>void <code class="descname">adc1_ulp_enable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv415adc1_ulp_enablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააკონფიგურირეთ ADC1 ისე, რომ ULP-ის მიერ იყოს გამოსაყენებელი. </p>
+<p>ეს ფუნქცია ახდენს ADC1-ის ხელახლა კონფიგურაციას ULP-ის მიერ მართვისთვის. ამ ფუნქციის ეფექტის აღდგენა შესაძლებელია adc1_get_raw ფუნქციის გამოყენებით.</p>
+<p>გაითვალისწინეთ, რომ ULP-ის მიერ ADC1-ის გამოყენებამდე ADC1 არხების კონფიგურაციისთვის საჭიროა adc1_config_channel_atten, adc1_config_width ფუნქციების გამოძახება. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416hall_sensor_readv">
+<span id="_CPPv316hall_sensor_readv"></span><span id="_CPPv216hall_sensor_readv"></span><span id="hall_sensor_read__void"></span><span class="target" id="adc_8h_1a96adc9cbafc9d624749fbfd30572255f"></span>int <code class="descname">hall_sensor_read</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv416hall_sensor_readv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ ჰოლის სენსორი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>When the power switch of SARADC1, SARADC2, HALL sensor and AMP sensor is turned on, the input of GPIO36 and GPIO39 will be pulled down for about 80ns. When enabling power for any of these peripherals, ignore input from GPIO36 and GPIO39. Please refer to section 3.11 of ‘ECO_and_Workarounds_for_Bugs_in_ESP32’ for the description of this issue.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The Hall Sensor uses channels 0 and 3 of ADC1. Do not configure these channels for use as ADC channels.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The ADC1 module must be enabled by calling adc1_config_width() before calling hall_sensor_read(). ADC1 should be configured for 12 bit readings, as the hall sensor readings are low values and do not cover the full range of the ADC.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>The hall sensor reading. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419adc2_pad_get_io_num14adc2_channel_tP10gpio_num_t">
+<span id="_CPPv319adc2_pad_get_io_num14adc2_channel_tP10gpio_num_t"></span><span id="_CPPv219adc2_pad_get_io_num14adc2_channel_tP10gpio_num_t"></span><span id="adc2_pad_get_io_num__adc2_channel_t.gpio_num_tP"></span><span class="target" id="adc_8h_1a1e4d9dd3bd22fce747f65bc92813c465"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc2_pad_get_io_num</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc2_channel_t" title="adc2_channel_t">adc2_channel_t</a> <em>არხი</em>, gpio_num_t *<em>gpio_num</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv419adc2_pad_get_io_num14adc2_channel_tP10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ კონკრეტული ADC2 არხის GPIO ნომერი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ არხი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: არხი GPIO ნომრის მისაღებად</li>
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: გამომავალი ბუფერი GPIO ნომრის შესანახად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425adc2_config_channel_atten14adc2_channel_t11adc_atten_t">
+<span id="_CPPv325adc2_config_channel_atten14adc2_channel_t11adc_atten_t"></span><span id="_CPPv225adc2_config_channel_atten14adc2_channel_t11adc_atten_t"></span><span id="adc2_config_channel_atten__adc2_channel_t.adc_atten_t"></span><span class="target" id="adc_8h_1ad2446316ddd13d2f0683fd1b4c7931cd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc2_config_channel_atten</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc2_channel_t" title="adc2_channel_t">adc2_channel_t</a> <em>არხი</em>, adc_atten_t <em>ყურადღება</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv425adc2_config_channel_atten14adc2_channel_t11adc_atten_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხის კონფიგურაცია, შესუსტების პარამეტრების ჩათვლით. </p>
+<p><p>ანალოგურ-ციფრული ტრანსკრიფციის სტანდარტული სრულმასშტაბიანი ძაბვაა 1.1 ვ. უფრო მაღალი ძაბვების (პინტის მაქსიმალურ ძაბვამდე, ჩვეულებრივ 3.3 ვოლტამდე) წასაკითხად, საჭიროა ამ ანალოგურ-ციფრული ტრანსკრიფციის არხისთვის 0 დბ-ზე მეტი სიგნალის შესუსტების დაყენება.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function also configures the input GPIO pin mux to connect it to the ADC2 channel. It must be called before calling <code class="docutils literal notranslate"><span class="pre">adc2_get_raw()</span></code> for this channel.</dd>
+</dl>
+</p>
+<p>როდესაც VDD_A არის 3.3 ვოლტი:</p>
+<p><ul class="simple">
+<li>0 dB შესუსტება (ADC_ATTEN_0db) იძლევა სრულმასშტაბიან ძაბვას 1.1 ვ</li>
+<li>2.5 დბ შესუსტება (ADC_ATTEN_2_5db) იძლევა სრულმასშტაბიან ძაბვას 1.5 ვ</li>
+<li>6 დბ შესუსტება (ADC_ATTEN_6db) იძლევა სრულმასშტაბიან ძაბვას 2.2 ვ</li>
+<li>11 დბ შესუსტება (ADC_ATTEN_11db) იძლევა სრულმასშტაბიან ძაბვას 3.9 ვ (იხილეთ შენიშვნა ქვემოთ)</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The full-scale voltage is the voltage corresponding to a maximum reading (depending on ADC2 configured bit width, this value is: 4095 for 12-bits, 2047 for 11-bits, 1023 for 10-bits, 511 for 9 bits.)</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>At 11 dB attenuation the maximum voltage is limited by VDD_A, not the full scale voltage.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: ADC2 არხი კონფიგურაციისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">atten</span></code>: შესუსტების დონე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412adc2_get_raw14adc2_channel_t16adc_bits_width_tPi">
+<span id="_CPPv312adc2_get_raw14adc2_channel_t16adc_bits_width_tPi"></span><span id="_CPPv212adc2_get_raw14adc2_channel_t16adc_bits_width_tPi"></span><span id="adc2_get_raw__adc2_channel_t.adc_bits_width_t.iP"></span><span class="target" id="adc_8h_1ab6c178b47956d7cba2e7f7fe3f012d58"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc2_get_raw</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv414adc2_channel_t" title="adc2_channel_t">adc2_channel_t</a> <em>არხი</em>, adc_bits_width_t <em>სიგანე_ბიტი</em>, int *<em>ნედლი_გამომავალი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv412adc2_get_raw14adc2_channel_t16adc_bits_width_tPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაზომეთ ADC2 სიგნალი ერთ არხზე. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>When the power switch of SARADC1, SARADC2, HALL sensor and AMP sensor is turned on, the input of GPIO36 and GPIO39 will be pulled down for about 80ns. When enabling power for any of these peripherals, ignore input from GPIO36 and GPIO39. Please refer to section 3.11 of ‘ECO_and_Workarounds_for_Bugs_in_ESP32’ for the description of this issue.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For a given channel, <code class="docutils literal notranslate"><span class="pre">adc2_config_channel_atten()</span></code> must be called before the first time this function is called. If Wi-Fi is started via <code class="docutils literal notranslate"><span class="pre">esp_wifi_start()</span></code>, this function will always fail with <code class="docutils literal notranslate"><span class="pre">ESP_ERR_TIMEOUT</span></code>.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_TIMEOUT WIFI ჩაირთო ADC2-ის გამოყენებით </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: ADC2 არხი წასაკითხად</li>
+<li><code class="docutils literal notranslate"><span class="pre">width_bit</span></code>: ბიტის აღების სიგანე ADC2-ისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">raw_out</span></code>: ცვლადი, რომელიც შეიცავს გამომავალ მონაცემებს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417adc2_vref_to_gpio10gpio_num_t">
+<span id="_CPPv317adc2_vref_to_gpio10gpio_num_t"></span><span id="_CPPv217adc2_vref_to_gpio10gpio_num_t"></span><span id="adc2_vref_to_gpio__gpio_num_t"></span><span class="target" id="adc_8h_1adeef7f895bc221eb4513855f13996252"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">adc2_vref_to_gpio</code><span class="sig-paren">(</span>gpio_num_t <em>gpio</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv417adc2_vref_to_gpio10gpio_num_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამომავალი ADC2 საცნობარო ძაბვა GPIO 7-ზე 25 ან 26 ან 27. </p>
+<p>ეს ფუნქცია იყენებს ADC 2-ისთვის დამახასიათებელ ექსკლუზიურ სატესტო მულტიპლექსს ADC2-ის ერთ-ერთი არხისთვის საცნობარო ძაბვის გადასამისამართებლად. მხარდაჭერილი GPIO ებია GPIO ები 25, 26 და 27. ამ საცნობარო ძაბვის წაკითხვა შესაძლებელია პინიდან ხელით და გამოყენება esp_adc_cal კომპონენტი ში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: v_ref წარმატებით გადამისამართდა არჩეულ GPIO ზე</li>
+<li>ESP_ERR_INVALID_ARG: მხარდაუჭერელი GPIO </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio</span></code>: GPIO ნომერი (მხარდაჭერილია GPIO ის 25, 26 და 27 ნომრები)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="adc.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ADC_ATTEN_0db">
+<span class="target" id="adc_8h_1a36ba833994c0bb1557e537de46ca14d6"></span><code class="descname">ADC_ATTEN_0db</code><a class="headerlink" href="adc.html#c.ADC_ATTEN_0db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_ATTEN_2_5db">
+<span class="target" id="adc_8h_1af2f8dd81c6cdc165291246c4cf155153"></span><code class="descname">ADC_ATTEN_2_5db</code><a class="headerlink" href="adc.html#c.ADC_ATTEN_2_5db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_ATTEN_6db">
+<span class="target" id="adc_8h_1ad7ac57a103d7a401b3a8780353e3d758"></span><code class="descname">ADC_ATTEN_6db</code><a class="headerlink" href="adc.html#c.ADC_ATTEN_6db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_ATTEN_11db">
+<span class="target" id="adc_8h_1af443c2fb2fc0c8f04c1f7df83e16765e"></span><code class="descname">ADC_ATTEN_11db</code><a class="headerlink" href="adc.html#c.ADC_ATTEN_11db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_WIDTH_9Bit">
+<span class="target" id="adc_8h_1afa411e250cf8a752f7148fe3425f6027"></span><code class="descname">ADC_WIDTH_9Bit</code><a class="headerlink" href="adc.html#c.ADC_WIDTH_9Bit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_WIDTH_10Bit">
+<span class="target" id="adc_8h_1aa44c4fa9fd2760bade3e738efe7e8fa9"></span><code class="descname">ADC_WIDTH_10Bit</code><a class="headerlink" href="adc.html#c.ADC_WIDTH_10Bit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_WIDTH_11Bit">
+<span class="target" id="adc_8h_1ac99c6a51e364a17aeb39508e73f5270e"></span><code class="descname">ADC_WIDTH_11Bit</code><a class="headerlink" href="adc.html#c.ADC_WIDTH_11Bit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC_WIDTH_12Bit">
+<span class="target" id="adc_8h_1a9f3102767582936aa6b384adc47be0da"></span><code class="descname">ADC_WIDTH_12Bit</code><a class="headerlink" href="adc.html#c.ADC_WIDTH_12Bit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="adc.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv414adc1_channel_t">
+<span id="_CPPv314adc1_channel_t"></span><span id="_CPPv214adc1_channel_t"></span><span id="adc1_channel_t"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2"></span><em class="property">ჩამოთვლა </em><code class="descname">adc1_channel_t</code><a class="headerlink" href="adc.html#_CPPv414adc1_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_0">
+<span id="_CPPv314ADC1_CHANNEL_0"></span><span id="_CPPv214ADC1_CHANNEL_0"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2a09a37f64a05e7fd244711d148786e9a3"></span><code class="descname">ADC1_CHANNEL_0</code> = 0<a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 0 არის GPIO 36 (ESP32), GPIO 1 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_1">
+<span id="_CPPv314ADC1_CHANNEL_1"></span><span id="_CPPv214ADC1_CHANNEL_1"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2a61ace8fc414b4d0eb03ddb1e4a7597df"></span><code class="descname">ADC1_CHANNEL_1</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 1 არის GPIO 37 (ESP32), GPIO 2 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_2">
+<span id="_CPPv314ADC1_CHANNEL_2"></span><span id="_CPPv214ADC1_CHANNEL_2"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2aa7439c0ed8d6993d699fe23fd87ca701"></span><code class="descname">ADC1_CHANNEL_2</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 2 არის GPIO 38 (ESP32), GPIO 3 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_3">
+<span id="_CPPv314ADC1_CHANNEL_3"></span><span id="_CPPv214ADC1_CHANNEL_3"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2ad59ac233d194165733cf0fb3da93d353"></span><code class="descname">ADC1_CHANNEL_3</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_3" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 3 არის GPIO 39 (ESP32), GPIO 4 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_4">
+<span id="_CPPv314ADC1_CHANNEL_4"></span><span id="_CPPv214ADC1_CHANNEL_4"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2afe32cf782e36f2e4cf2e7f9d386ea53e"></span><code class="descname">ADC1_CHANNEL_4</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_4" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 4 არის GPIO 32 (ESP32), GPIO 5 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_5">
+<span id="_CPPv314ADC1_CHANNEL_5"></span><span id="_CPPv214ADC1_CHANNEL_5"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2aed9b68bc0bf9a0e70f1d8178837a5222"></span><code class="descname">ADC1_CHANNEL_5</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_5" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 5 არის GPIO 33 (ESP32), GPIO 6 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_6">
+<span id="_CPPv314ADC1_CHANNEL_6"></span><span id="_CPPv214ADC1_CHANNEL_6"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2ad3fcc86772a54ddc54fbb62c0b162c53"></span><code class="descname">ADC1_CHANNEL_6</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_6" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 6 არის GPIO 34 (ESP32), GPIO 7 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC1_CHANNEL_7">
+<span id="_CPPv314ADC1_CHANNEL_7"></span><span id="_CPPv214ADC1_CHANNEL_7"></span><span class="target" id="adc_8h_1a8e96d37cc0b8db1f8584a1edab904cb2ab2bc7760c7aae276915354476de0c806"></span><code class="descname">ADC1_CHANNEL_7</code><a class="headerlink" href="adc.html#_CPPv414ADC1_CHANNEL_7" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC1 არხი 7 არის GPIO 35 (ESP32), GPIO 8 (ESP32-S2) </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414adc2_channel_t">
+<span id="_CPPv314adc2_channel_t"></span><span id="_CPPv214adc2_channel_t"></span><span id="adc2_channel_t"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96"></span><em class="property">ჩამოთვლა </em><code class="descname">adc2_channel_t</code><a class="headerlink" href="adc.html#_CPPv414adc2_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_0">
+<span id="_CPPv314ADC2_CHANNEL_0"></span><span id="_CPPv214ADC2_CHANNEL_0"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96ac62b236f2cedd3c61670f6a58f50554c"></span><code class="descname">ADC2_CHANNEL_0</code> = 0<a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 0 არის GPIO 4 (ESP32), GPIO 11 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_1">
+<span id="_CPPv314ADC2_CHANNEL_1"></span><span id="_CPPv214ADC2_CHANNEL_1"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a3e0af246a4ef1a39e57357f676ff01b4"></span><code class="descname">ADC2_CHANNEL_1</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 1 არის GPIO 0 (ESP32), GPIO 12 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_2">
+<span id="_CPPv314ADC2_CHANNEL_2"></span><span id="_CPPv214ADC2_CHANNEL_2"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a3b98868444340544045772751a57e8f5"></span><code class="descname">ADC2_CHANNEL_2</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 2 არის GPIO 2 (ESP32), GPIO 13 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_3">
+<span id="_CPPv314ADC2_CHANNEL_3"></span><span id="_CPPv214ADC2_CHANNEL_3"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a6970f67eb488461ed03e607c933b4d8f"></span><code class="descname">ADC2_CHANNEL_3</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_3" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 3 არის GPIO 15 (ESP32), GPIO 14 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_4">
+<span id="_CPPv314ADC2_CHANNEL_4"></span><span id="_CPPv214ADC2_CHANNEL_4"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a7cb063d84edda821a88906d8676717aa"></span><code class="descname">ADC2_CHANNEL_4</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_4" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 4 არის GPIO 13 (ESP32), GPIO 15 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_5">
+<span id="_CPPv314ADC2_CHANNEL_5"></span><span id="_CPPv214ADC2_CHANNEL_5"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96afae3aa880373ea4eab6e471d53239980"></span><code class="descname">ADC2_CHANNEL_5</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_5" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 5 არის GPIO 12 (ESP32), GPIO 16 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_6">
+<span id="_CPPv314ADC2_CHANNEL_6"></span><span id="_CPPv214ADC2_CHANNEL_6"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96aae18e68836a685fb3f5c1c55d770650c"></span><code class="descname">ADC2_CHANNEL_6</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_6" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 6 არის GPIO 14 (ESP32), GPIO 17 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_7">
+<span id="_CPPv314ADC2_CHANNEL_7"></span><span id="_CPPv214ADC2_CHANNEL_7"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a2cca95e05e6ecc39d2dc7ccaefce8915"></span><code class="descname">ADC2_CHANNEL_7</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_7" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 7 არის GPIO 27 (ESP32), GPIO 18 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_8">
+<span id="_CPPv314ADC2_CHANNEL_8"></span><span id="_CPPv214ADC2_CHANNEL_8"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96aa95fa52ed25a5563afabf4f705f65757"></span><code class="descname">ADC2_CHANNEL_8</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_8" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 8 არის GPIO 25 (ESP32), GPIO 19 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC2_CHANNEL_9">
+<span id="_CPPv314ADC2_CHANNEL_9"></span><span id="_CPPv214ADC2_CHANNEL_9"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a352105afac9536ba12efa911cc892bb6"></span><code class="descname">ADC2_CHANNEL_9</code><a class="headerlink" href="adc.html#_CPPv414ADC2_CHANNEL_9" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC2 არხი 9 არის GPIO 26 (ESP32), GPIO 20 (ESP32-S2) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416ADC2_CHANNEL_MAX">
+<span id="_CPPv316ADC2_CHANNEL_MAX"></span><span id="_CPPv216ADC2_CHANNEL_MAX"></span><span class="target" id="adc_8h_1add66cc30ecddacdbbe3b815cd38d6c96a2fa7929e0f7ad42f8d1741b33681083f"></span><code class="descname">ADC2_CHANNEL_MAX</code><a class="headerlink" href="adc.html#_CPPv416ADC2_CHANNEL_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv410adc_unit_t">
+<span id="_CPPv310adc_unit_t"></span><span id="_CPPv210adc_unit_t"></span><span id="adc_unit_t"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2"></span><em class="property">ჩამოთვლა </em><code class="descname">adc_unit_t</code><a class="headerlink" href="adc.html#_CPPv410adc_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv410ADC_UNIT_1">
+<span id="_CPPv310ADC_UNIT_1"></span><span id="_CPPv210ADC_UNIT_1"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2a104d8d36c8b116f544b799df3e6ec673"></span><code class="descname">ADC_UNIT_1</code> = 1<a class="headerlink" href="adc.html#_CPPv410ADC_UNIT_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SAR ADC 1 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv410ADC_UNIT_2">
+<span id="_CPPv310ADC_UNIT_2"></span><span id="_CPPv210ADC_UNIT_2"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2ab23f1637a412e6f1047d63389e49464e"></span><code class="descname">ADC_UNIT_2</code> = 2<a class="headerlink" href="adc.html#_CPPv410ADC_UNIT_2" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SAR ADC 2, ჯერ არ არის მხარდაჭერილი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413ADC_UNIT_BOTH">
+<span id="_CPPv313ADC_UNIT_BOTH"></span><span id="_CPPv213ADC_UNIT_BOTH"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2a610564d78f0f8f4f4af25267bd081972"></span><code class="descname">ADC_UNIT_BOTH</code> = 3<a class="headerlink" href="adc.html#_CPPv413ADC_UNIT_BOTH" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SAR ADC 1 და 2, ჯერ არ არის მხარდაჭერილი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC_UNIT_ALTER">
+<span id="_CPPv314ADC_UNIT_ALTER"></span><span id="_CPPv214ADC_UNIT_ALTER"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2ad591c18511434280633702d2a55ff644"></span><code class="descname">ADC_UNIT_ALTER</code> = 7<a class="headerlink" href="adc.html#_CPPv414ADC_UNIT_ALTER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SAR ADC 1 და 2 ალტერნატიული რეჟიმი, ჯერ არ არის მხარდაჭერილი </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412ADC_UNIT_MAX">
+<span id="_CPPv312ADC_UNIT_MAX"></span><span id="_CPPv212ADC_UNIT_MAX"></span><span class="target" id="adc_8h_1ad8b7b5a18bfe497e5313ac9a47b297e2a6b2db62e5883ff3f1def324ddba320ad"></span><code class="descname">ADC_UNIT_MAX</code><a class="headerlink" href="adc.html#_CPPv412ADC_UNIT_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv416adc_i2s_encode_t">
+<span id="_CPPv316adc_i2s_encode_t"></span><span id="_CPPv216adc_i2s_encode_t"></span><span id="adc_i2s_encode_t"></span><span class="target" id="adc_8h_1af3d1893ceafe16fc72994ab7a663e1e3"></span><em class="property">ჩამოთვლა </em><code class="descname">adc_i2s_encode_t</code><a class="headerlink" href="adc.html#_CPPv416adc_i2s_encode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv416ADC_ENCODE_12BIT">
+<span id="_CPPv316ADC_ENCODE_12BIT"></span><span id="_CPPv216ADC_ENCODE_12BIT"></span><span class="target" id="adc_8h_1af3d1893ceafe16fc72994ab7a663e1e3a7f772d6b2892420b3f0af1d186662d17"></span><code class="descname">ADC_ENCODE_12BIT</code><a class="headerlink" href="adc.html#_CPPv416ADC_ENCODE_12BIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC-დან I2S მონაცემთა ფორმატში, [15:12]-არხი [11:0]-12 ბიტიანი ADC მონაცემები </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416ADC_ENCODE_11BIT">
+<span id="_CPPv316ADC_ENCODE_11BIT"></span><span id="_CPPv216ADC_ENCODE_11BIT"></span><span class="target" id="adc_8h_1af3d1893ceafe16fc72994ab7a663e1e3a5ae221fd154ab92cacd80e91f59cd2f3"></span><code class="descname">ADC_ENCODE_11BIT</code><a class="headerlink" href="adc.html#_CPPv416ADC_ENCODE_11BIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC-დან I2S მონაცემთა ფორმატში, [15]-1 [14:11]-არხი [10:0]-11 ბიტიანი ADC მონაცემები </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ADC_ENCODE_MAX">
+<span id="_CPPv314ADC_ENCODE_MAX"></span><span id="_CPPv214ADC_ENCODE_MAX"></span><span class="target" id="adc_8h_1af3d1893ceafe16fc72994ab7a663e1e3a5c381652211caa567864ae7aa93044b8"></span><code class="descname">ADC_ENCODE_MAX</code><a class="headerlink" href="adc.html#_CPPv414ADC_ENCODE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="adc-api-reference-adc-calibration">
+<span id="id1"></span><h3>ანალოგური ციფრულ-ციფრული კალიბრაცია<a class="headerlink" href="adc.html#adc-api-reference-adc-calibration" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>სათაურის ფაილი<a class="headerlink" href="adc.html#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_adc_cal/include/esp_adc_cal.h">esp_adc_cal/include/esp_adc_cal.h</a></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>ფუნქციები<a class="headerlink" href="adc.html#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv423esp_adc_cal_check_efuse19esp_adc_cal_value_t">
+<span id="_CPPv323esp_adc_cal_check_efuse19esp_adc_cal_value_t"></span><span id="_CPPv223esp_adc_cal_check_efuse19esp_adc_cal_value_t"></span><span id="esp_adc_cal_check_efuse__esp_adc_cal_value_t"></span><span class="target" id="esp__adc__cal_8h_1a71d2113fafacbe409d0a82ad44822d64"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_adc_cal_check_efuse</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv419esp_adc_cal_value_t" title="esp_adc_cal_value_t">esp_adc_cal_value_t</a> <em>მნიშვნელობის_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv423esp_adc_cal_check_efuse19esp_adc_cal_value_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოწმებს, ჩაიწერება თუ არა ADC კალიბრაციის მნიშვნელობები eFuse-ში. </p>
+<p>ეს ფუნქცია ამოწმებს, გადაეცა თუ არა ANC საცნობარო ძაბვა ან ორპუნქტიანი მნიშვნელობები ESP32 დენის eFuse-ს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: კალიბრაციის რეჟიმი მხარდაჭერილია eFuse-ში</li>
+<li>ESP_ERR_NOT_SUPPORTED: შეცდომა, eFuse მნიშვნელობები არ იწერება</li>
+<li>ESP_ERR_INVALID_ARG: შეცდომა, არასწორი არგუმენტი (ESP_ADC_CAL_VAL_DEFAULT_VREF) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">value_type</span></code>კალიბრაციის მნიშვნელობის ტიპი (ESP_ADC_CAL_VAL_EFUSE_VREF ან ESP_ADC_CAL_VAL_EFUSE_TP)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_adc_cal_characterize10adc_unit_t11adc_atten_t16adc_bits_width_t8uint32_tP29esp_adc_cal_characteristics_t">
+<span id="_CPPv324esp_adc_cal_characterize10adc_unit_t11adc_atten_t16adc_bits_width_t8uint32_tP29esp_adc_cal_characteristics_t"></span><span id="_CPPv224esp_adc_cal_characterize10adc_unit_t11adc_atten_t16adc_bits_width_t8uint32_tP29esp_adc_cal_characteristics_t"></span><span id="esp_adc_cal_characterize__adc_unit_t.adc_atten_t.adc_bits_width_t.uint32_t.esp_adc_cal_characteristics_tP"></span><span class="target" id="esp__adc__cal_8h_1aa5257bc6eb1b5d0e840bfa93e45153e5"></span><a class="reference internal" href="adc.html#_CPPv419esp_adc_cal_value_t" title="esp_adc_cal_value_t">esp_adc_cal_value_t</a> <code class="descname">esp_adc_cal_characterize</code><span class="sig-paren">(</span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <em>adc_num</em>, adc_atten_t <em>ყურადღება</em>, adc_bits_width_t <em>ბიტის_სიგანე</em>, uint32_t <em>default_vref</em>, <a class="reference internal" href="adc.html#_CPPv429esp_adc_cal_characteristics_t" title="esp_adc_cal_characteristics_t">esp_adc_cal_characteristics_t</a> *<em>სიმბოლოები</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv424esp_adc_cal_characterize10adc_unit_t11adc_atten_t16adc_bits_width_t8uint32_tP29esp_adc_cal_characteristics_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაახასიათეთ ანალოგური გადამყვანი (ANC) კონკრეტული შესუსტების დროს. </p>
+<p>ეს ფუნქცია დაახასიათებს ანალოგურ-ციფრულ-ანალოგურ ცვლადს კონკრეტული შესუსტების დროს და წარმოქმნის ანალოგურ-ციფრულ-ძაბვის მრუდს [y = coeff_a * x + coeff_b] სახით. დახასიათება შეიძლება დაფუძნებული იყოს ორპუნქტიან მნიშვნელობებზე, eFuse Vref-ზე ან ნაგულისხმევ Vref-ზე და კალიბრაციის მნიშვნელობები პრიორიტეტული იქნება ამ თანმიმდევრობით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Two Point values and eFuse Vref can be enabled/disabled using menuconfig.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ADC_CAL_VAL_EFUSE_VREF: დახასიათებისთვის გამოყენებულია eFuse Vref</li>
+<li>ESP_ADC_CAL_VAL_EFUSE_TP: დახასიათებისთვის გამოყენებული ორპუნქტიანი მნიშვნელობა (მხოლოდ ხაზოვან რეჟიმში)</li>
+<li>ESP_ADC_CAL_VAL_DEFAULT_VREF: დახასიათებისთვის გამოყენებულია ნაგულისხმევი Vref </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_num</span></code>: დასახასიათებელი ADC (ADC_UNIT_1 ან ADC_UNIT_2) </li>
+<li><code class="docutils literal notranslate"><span class="pre">atten</span></code>: დასახასიათებლად შესუსტება </li>
+<li><code class="docutils literal notranslate"><span class="pre">bit_width</span></code>ADC-ის ბიტის სიგანის კონფიგურაცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">default_vref</span></code>: ნაგულისხმევი ანალოგური ციფრის საცნობარო ძაბვა mV-ში (გამოიყენება, თუ eFuse-ის მნიშვნელობები მიუწვდომელია) </li>
+<li><code class="docutils literal notranslate"><span class="pre">chars</span></code>: ცარიელ სტრუქტურაზე მითითება, რომელიც გამოიყენება ADC მახასიათებლების შესანახად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_adc_cal_raw_to_voltage8uint32_tPK29esp_adc_cal_characteristics_t">
+<span id="_CPPv326esp_adc_cal_raw_to_voltage8uint32_tPK29esp_adc_cal_characteristics_t"></span><span id="_CPPv226esp_adc_cal_raw_to_voltage8uint32_tPK29esp_adc_cal_characteristics_t"></span><span id="esp_adc_cal_raw_to_voltage__uint32_t.esp_adc_cal_characteristics_tCP"></span><span class="target" id="esp__adc__cal_8h_1a1c9acc7816e2524b09fdb031f271d1a9"></span>uint32_t <code class="descname">esp_adc_cal_raw_to_voltage</code><span class="sig-paren">(</span>uint32_t <em>adc_reading</em>, <em class="property">კონსტ</em> <a class="reference internal" href="adc.html#_CPPv429esp_adc_cal_characteristics_t" title="esp_adc_cal_characteristics_t">esp_adc_cal_characteristics_t</a> *<em>სიმბოლოები</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv426esp_adc_cal_raw_to_voltage8uint32_tPK29esp_adc_cal_characteristics_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ანალოგურ-ციფრული ტრანსკრიფციის ჩვენება გადაიყვანეთ ძაბვად mV-ში. </p>
+<p>ეს ფუნქცია ანალოგური ცვლადის მახასიათებლებზე დაყრდნობით, ანალოგური ცვლადის მაჩვენებელს mV-ში ძაბვად გარდაქმნის.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Characteristics structure must be initialized before this function is called (call esp_adc_cal_characterize())</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Voltage in mV </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">adc_reading</span></code>: ADC წაკითხვა </li>
+<li><code class="docutils literal notranslate"><span class="pre">chars</span></code>: ADC მახასიათებლების შემცველი ინიციალიზებული სტრუქტურის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_adc_cal_get_voltage13adc_channel_tPK29esp_adc_cal_characteristics_tP8uint32_t">
+<span id="_CPPv323esp_adc_cal_get_voltage13adc_channel_tPK29esp_adc_cal_characteristics_tP8uint32_t"></span><span id="_CPPv223esp_adc_cal_get_voltage13adc_channel_tPK29esp_adc_cal_characteristics_tP8uint32_t"></span><span id="esp_adc_cal_get_voltage__adc_channel_t.esp_adc_cal_characteristics_tCP.uint32_tP"></span><span class="target" id="esp__adc__cal_8h_1aba77c3398505d9b4e83805720812b9fb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_adc_cal_get_voltage</code><span class="sig-paren">(</span>adc_channel_t <em>არხი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="adc.html#_CPPv429esp_adc_cal_characteristics_t" title="esp_adc_cal_characteristics_t">esp_adc_cal_characteristics_t</a> *<em>სიმბოლოები</em>, uint32_t *<em>ძაბვა</em><span class="sig-paren">)</span><a class="headerlink" href="adc.html#_CPPv423esp_adc_cal_get_voltage13adc_channel_tPK29esp_adc_cal_characteristics_tP8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კითხულობს ანალოგურ-ციფრულ ტრანსფორმატორს და გადაჰყავს მას mV-ში გამოთვლილ ძაბვად. </p>
+<p>ეს ფუნქცია კითხულობს ანალოგურ-ციფრულ ტრანსფორმატორს (ANC), შემდეგ კი, მოცემული მახასიათებლების მიხედვით, ნედლ მაჩვენებელს mV-ში გამოთვლილ ძაბვად გარდაქმნის. წაკითხული ანალოგური ტრანსფორმატორი ასევე განისაზღვრება მახასიათებლებით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The Characteristics structure must be initialized before this function is called (call esp_adc_cal_characterize())</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ანალოგური დინამიკის წაკითხვა და mV-ად გარდაქმნა</li>
+<li>ESP_ERR_TIMEOUT: შეცდომა, ADC-ის წაკითხვის მცდელობის დრო ამოიწურა.</li>
+<li>ESP_ERR_INVALID_ARG: შეცდომა არასწორი არგუმენტების გამო </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: ADC არხი წასაკითხად </li>
+<li><code class="docutils literal notranslate"><span class="pre">chars</span></code>ინიციალიზებული ADC მახასიათებლების სტრუქტურის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">voltage</span></code>: გადაყვანილი ძაბვის შესანახი მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="adc.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv429esp_adc_cal_characteristics_t">
+<span id="_CPPv329esp_adc_cal_characteristics_t"></span><span id="_CPPv229esp_adc_cal_characteristics_t"></span><span id="esp_adc_cal_characteristics_t"></span><span class="target" id="structesp__adc__cal__characteristics__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_adc_cal_characteristics_t</code><a class="headerlink" href="adc.html#_CPPv429esp_adc_cal_characteristics_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ანალოგურ-ციფრული ტრანსკრიფტორის სტრუქტურის შენახვის მახასიათებლები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call esp_adc_cal_characterize() to initialize the structure </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t7adc_numE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t7adc_numE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t7adc_numE"></span><span id="esp_adc_cal_characteristics_t::adc_num__adc_unit_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a708636e738f721a7e394db7f0da01496"></span><a class="reference internal" href="adc.html#_CPPv410adc_unit_t" title="adc_unit_t">adc_unit_t</a> <code class="descname">adc_num</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t7adc_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC ნომერი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t5attenE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t5attenE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t5attenE"></span><span id="esp_adc_cal_characteristics_t::atten__adc_atten_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a4eb3ed29b5ec44c7be42531b032c8f4d"></span>adc_atten_t <code class="descname">atten</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t5attenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC შესუსტება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t9bit_widthE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t9bit_widthE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t9bit_widthE"></span><span id="esp_adc_cal_characteristics_t::bit_width__adc_bits_width_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a4040b2aaacdc3d379ca668513bdc3b54"></span>adc_bits_width_t <code class="descname">bit_width</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t9bit_widthE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC ბიტის სიგანე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t7coeff_aE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t7coeff_aE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t7coeff_aE"></span><span id="esp_adc_cal_characteristics_t::coeff_a__uint32_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a829cf7a46b66f51810e3b759371763dd"></span>uint32_t <code class="descname">coeff_a</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t7coeff_aE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC-ძაბვის მრუდის გრადიენტი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t7coeff_bE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t7coeff_bE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t7coeff_bE"></span><span id="esp_adc_cal_characteristics_t::coeff_b__uint32_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a1f5e76564c1285692204411b141adef4"></span>uint32_t <code class="descname">coeff_b</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t7coeff_bE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ADC-ძაბვის მრუდის გადახრა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t4vrefE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t4vrefE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t4vrefE"></span><span id="esp_adc_cal_characteristics_t::vref__uint32_t"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a8857a145c290230afa3d947c5269d47f"></span>uint32_t <code class="descname">vref</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t4vrefE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Vref გამოყენებულია საძიებო ცხრილის მიერ </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t9low_curveE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t9low_curveE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t9low_curveE"></span><span id="esp_adc_cal_characteristics_t::low_curve__uint32_tCP"></span><span class="target" id="structesp__adc__cal__characteristics__t_1a080694181ac5dc78c616f38c007b861c"></span><em class="property">კონსტ</em> uint32_t *<code class="descname">low_curve</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t9low_curveE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>საძიებო ცხრილის დაბალი Vref მრუდის მაჩვენებელი (NULL, თუ არ გამოიყენება) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N29esp_adc_cal_characteristics_t10high_curveE">
+<span id="_CPPv3N29esp_adc_cal_characteristics_t10high_curveE"></span><span id="_CPPv2N29esp_adc_cal_characteristics_t10high_curveE"></span><span id="esp_adc_cal_characteristics_t::high_curve__uint32_tCP"></span><span class="target" id="structesp__adc__cal__characteristics__t_1aecdcf553dca53610dc8fc06ccae7d5ea"></span><em class="property">კონსტ</em> uint32_t *<code class="descname">high_curve</code><a class="headerlink" href="adc.html#_CPPv4N29esp_adc_cal_characteristics_t10high_curveE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>საძიებო ცხრილის მაღალი Vref მრუდის მაჩვენებელი (NULL, თუ არ გამოიყენება) </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="id4">
+<h3>ჩამოთვლები<a class="headerlink" href="adc.html#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv419esp_adc_cal_value_t">
+<span id="_CPPv319esp_adc_cal_value_t"></span><span id="_CPPv219esp_adc_cal_value_t"></span><span id="esp_adc_cal_value_t"></span><span class="target" id="esp__adc__cal_8h_1a1f6ae945f9cd5c548b93c61d995b5091"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_adc_cal_value_t</code><a class="headerlink" href="adc.html#_CPPv419esp_adc_cal_value_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დახასიათებაში გამოყენებული კალიბრაციის მნიშვნელობის ტიპი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_ADC_CAL_VAL_EFUSE_VREF">
+<span id="_CPPv326ESP_ADC_CAL_VAL_EFUSE_VREF"></span><span id="_CPPv226ESP_ADC_CAL_VAL_EFUSE_VREF"></span><span class="target" id="esp__adc__cal_8h_1a1f6ae945f9cd5c548b93c61d995b5091a7cebb535368a559f490d61a44a271d06"></span><code class="descname">ESP_ADC_CAL_VAL_EFUSE_VREF</code> = 0<a class="headerlink" href="adc.html#_CPPv426ESP_ADC_CAL_VAL_EFUSE_VREF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დახასიათება eFuse-ში შენახული საცნობარო ძაბვის საფუძველზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_ADC_CAL_VAL_EFUSE_TP">
+<span id="_CPPv324ESP_ADC_CAL_VAL_EFUSE_TP"></span><span id="_CPPv224ESP_ADC_CAL_VAL_EFUSE_TP"></span><span class="target" id="esp__adc__cal_8h_1a1f6ae945f9cd5c548b93c61d995b5091a653eb147015f3b248aaa376038f343f5"></span><code class="descname">ESP_ADC_CAL_VAL_EFUSE_TP</code> = 1<a class="headerlink" href="adc.html#_CPPv424ESP_ADC_CAL_VAL_EFUSE_TP" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დახასიათება eFuse-ში შენახული ორი წერტილის მნიშვნელობების საფუძველზე </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv428ESP_ADC_CAL_VAL_DEFAULT_VREF">
+<span id="_CPPv328ESP_ADC_CAL_VAL_DEFAULT_VREF"></span><span id="_CPPv228ESP_ADC_CAL_VAL_DEFAULT_VREF"></span><span class="target" id="esp__adc__cal_8h_1a1f6ae945f9cd5c548b93c61d995b5091ab6343220961a636c720585a816c38c12"></span><code class="descname">ESP_ADC_CAL_VAL_DEFAULT_VREF</code> = 2<a class="headerlink" href="adc.html#_CPPv428ESP_ADC_CAL_VAL_DEFAULT_VREF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დახასიათება სტანდარტული საცნობარო ძაბვის საფუძველზე </p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="adc-api-reference-gpio-lookup-macros">
+<span id="id5"></span><h3>GPIO მაკროების ძიება<a class="headerlink" href="adc.html#adc-api-reference-gpio-lookup-macros" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id6">
+<h3>სათაურის ფაილი<a class="headerlink" href="adc.html#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/soc/esp32/include/soc/adc_channel.h">soc/esp32/include/soc/adc_channel.h</a></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>მაკროები<a class="headerlink" href="adc.html#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ADC1_GPIO36_CHANNEL">
+<span class="target" id="adc__channel_8h_1a04533aae285c91532772515db7cba70d"></span><code class="descname">ADC1_GPIO36_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO36_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_0_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a9734ca1c41537f06c28b9106a35f4a11"></span><code class="descname">ADC1_CHANNEL_0_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_0_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO37_CHANNEL">
+<span class="target" id="adc__channel_8h_1a4a20440ff374c143e5799cab24f5d7e6"></span><code class="descname">ADC1_GPIO37_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO37_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_1_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1aea2af61d638ac552b6de284af606fd6d"></span><code class="descname">ADC1_CHANNEL_1_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_1_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO38_CHANNEL">
+<span class="target" id="adc__channel_8h_1a7b169385f4931e3ff73b57a4a25521db"></span><code class="descname">ADC1_GPIO38_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO38_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_2_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a6f9983f0c45d3e74b345038688a34ff8"></span><code class="descname">ADC1_CHANNEL_2_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_2_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO39_CHANNEL">
+<span class="target" id="adc__channel_8h_1ab307a6cd1b2be2751a87b3b2bdea893c"></span><code class="descname">ADC1_GPIO39_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO39_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_3_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a79f5800e14b6c1dbc175488008ff4783"></span><code class="descname">ADC1_CHANNEL_3_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_3_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO32_CHANNEL">
+<span class="target" id="adc__channel_8h_1a9124dbfece590eeb6f2a05379bb0af70"></span><code class="descname">ADC1_GPIO32_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO32_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_4_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1ab2330713b7f369b0489df708e7cc2e8a"></span><code class="descname">ADC1_CHANNEL_4_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_4_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO33_CHANNEL">
+<span class="target" id="adc__channel_8h_1a9d84e944c15018af6df3d0637f50fb05"></span><code class="descname">ADC1_GPIO33_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO33_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_5_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a217faaf0dee2ea4ae01cc66aebd61e10"></span><code class="descname">ADC1_CHANNEL_5_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_5_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO34_CHANNEL">
+<span class="target" id="adc__channel_8h_1a06cf6ec60f42bd1233e1372c013501e3"></span><code class="descname">ADC1_GPIO34_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO34_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_6_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1aa757ebfe9b7b9f0b70d1159c637f31f8"></span><code class="descname">ADC1_CHANNEL_6_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_6_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_GPIO35_CHANNEL">
+<span class="target" id="adc__channel_8h_1a1af6f75f20d519bada3813ff47740cb8"></span><code class="descname">ADC1_GPIO35_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC1_GPIO35_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC1_CHANNEL_7_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1af0c0d4ed9962bd5a2bbce0d5090a318d"></span><code class="descname">ADC1_CHANNEL_7_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC1_CHANNEL_7_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO4_CHANNEL">
+<span class="target" id="adc__channel_8h_1a828e97669030a879115dd0bffd8ffab5"></span><code class="descname">ADC2_GPIO4_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO4_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_0_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a6cb55443db2901cc91b1dd7592a8e4d6"></span><code class="descname">ADC2_CHANNEL_0_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_0_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO0_CHANNEL">
+<span class="target" id="adc__channel_8h_1a327d527db97071e7a23aebf71c679867"></span><code class="descname">ADC2_GPIO0_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO0_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_1_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1ad9ddcb90619263aa6fd40ae48cec903b"></span><code class="descname">ADC2_CHANNEL_1_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_1_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO2_CHANNEL">
+<span class="target" id="adc__channel_8h_1aed19abaadd8a418f93d4f18b66faf48e"></span><code class="descname">ADC2_GPIO2_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO2_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_2_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a037cabce79e67999bb44d087b6768d6d"></span><code class="descname">ADC2_CHANNEL_2_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_2_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO15_CHANNEL">
+<span class="target" id="adc__channel_8h_1a4f09e24427f8c23a4ed2d8006cdfb582"></span><code class="descname">ADC2_GPIO15_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO15_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_3_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a34695cae52c51792b9a4d11a9e6799ad"></span><code class="descname">ADC2_CHANNEL_3_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_3_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO13_CHANNEL">
+<span class="target" id="adc__channel_8h_1a038b00f68d9c1e4796ccfeb426b34c0b"></span><code class="descname">ADC2_GPIO13_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO13_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_4_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a1e0a23c5f443d955cb4cb33a63ed5623"></span><code class="descname">ADC2_CHANNEL_4_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_4_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO12_CHANNEL">
+<span class="target" id="adc__channel_8h_1a0834cbde8fc0511b40a2e5bae00d4ce6"></span><code class="descname">ADC2_GPIO12_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO12_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_5_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1a14c17d8d66d4ffbb71eb35cbea4f6392"></span><code class="descname">ADC2_CHANNEL_5_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_5_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO14_CHANNEL">
+<span class="target" id="adc__channel_8h_1afc5858de954f02bc754284aace8a2d74"></span><code class="descname">ADC2_GPIO14_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO14_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_6_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1ae660366e11061b5666c109d1d698b746"></span><code class="descname">ADC2_CHANNEL_6_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_6_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO27_CHANNEL">
+<span class="target" id="adc__channel_8h_1ae8200c541ad925e9046fe2ce5f24275e"></span><code class="descname">ADC2_GPIO27_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO27_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_7_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1aed783c639b7710b2fb181a20cc87abb9"></span><code class="descname">ADC2_CHANNEL_7_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_7_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO25_CHANNEL">
+<span class="target" id="adc__channel_8h_1a176ad21523ce5c04c9963a63626bfafd"></span><code class="descname">ADC2_GPIO25_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO25_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_8_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1aefabeb950c331d26be4e8a6cf31f4f5e"></span><code class="descname">ADC2_CHANNEL_8_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_8_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_GPIO26_CHANNEL">
+<span class="target" id="adc__channel_8h_1acbfedf28cd7b765e091355d1ffd0c9ad"></span><code class="descname">ADC2_GPIO26_CHANNEL</code><a class="headerlink" href="adc.html#c.ADC2_GPIO26_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ADC2_CHANNEL_9_GPIO_NUM">
+<span class="target" id="adc__channel_8h_1abd09aac3c54233425e36839eb835c1e8"></span><code class="descname">ADC2_CHANNEL_9_GPIO_NUM</code><a class="headerlink" href="adc.html#c.ADC2_CHANNEL_9_GPIO_NUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="can.html" rel="next" title="Controller Area Network (CAN)">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Peripherals API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

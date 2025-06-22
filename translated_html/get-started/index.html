@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>დაწყება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../hw-reference/get-started-devkitc.html" rel="next" title="ESP32-DevKitC V4 Getting Started Guide"/>
+<link href="../index.html" rel="prev" title="ESP-IDF Programming Guide"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/get-started/" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "get-started/index"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/get-started/index.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">დაწყება</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">შესავალი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hw-reference/get-started-devkitc.html">ESP32-DevKitC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hw-reference/get-started-wrover-kit.html">ESP-WROVER-KIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hw-reference/get-started-pico-kit.html">ESP32-PICO-KIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hw-reference/get-started-ethernet-kit.html">ESP32-Ethernet-Kit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#setting-up-development-environment">განვითარების გარემოს დაყენება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#creating-your-first-project">თქვენი პირველი პროექტის შექმნა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-1-install-prerequisites">ნაბიჯი 1. წინაპირობების ინსტალაცია</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="windows-setup.html">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="linux-setup.html">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="macos-setup.html">macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linux-and-macos">Linux და macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id1">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-3-set-up-the-tools">ნაბიჯი 3. ხელსაწყოების დაყენება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id2">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id3">Linux და macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#customizing-the-tools-installation-path">ხელსაწყოების ინსტალაციის გზის პერსონალიზაცია</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-4-set-up-the-environment-variables">ნაბიჯი 4. გარემოს ცვლადების დაყენება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id4">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id5">Linux და macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id6">Linux და macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id7">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id8">Linux და macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id9">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-8-build-the-project">ნაბიჯი 8. პროექტის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-9-flash-onto-the-device">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-10-monitor">ნაბიჯი 10. მონიტორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="establish-serial-connection.html">სერიული კავშირის დამყარება ESP32-თან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eclipse-setup.html">Eclipse IDE-ს გამოყენებით აწყობა და ფლეშ-პროგრამირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-guides/tools/idf-monitor.html">IDF მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toolchain-setup-scratch.html">Toolchain-ის მორგებული დაყენება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../get-started-legacy/index.html">დაწყება (Legacy GNU Make)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li>დაწყება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/get-started/index.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="get-started">
+<h1>დაწყება<a class="headerlink" href="index.html#get-started" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/get-started/index.html">[中文]</a></p>
+<p>ეს დოკუმენტი შექმნილია იმისთვის, რომ დაგეხმაროთ Espressif-ის ESP32 ჩიპზე დაფუძნებული აპარატურისთვის პროგრამული უზრუნველყოფის შემუშავების გარემოს დაყენებაში.</p>
+<p>ამის შემდეგ, მარტივი მაგალითი გაჩვენებთ, თუ როგორ გამოიყენოთ ESP-IDF (Espressif IoT Development Framework) მენიუს კონფიგურაციისთვის, შემდეგ კი ფლეშ მეხსიერება ასაგებად და პროგრამული უზრუნველყოფა ESP32 დაფაზე ჩასართავად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ეს არის ESP-IDF ის მასტერ ფრონტის (უახლესი ვერსიის) დოკუმენტაცია. ეს ვერსია მუდმივი დამუშავების პროცესშია.
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/stable/">სტაბილური ვერსია</a> დოკუმენტაცია ხელმისაწვდომია, ისევე როგორც სხვა <a class="reference internal" href="../versions.html"><span class="doc">ESP-IDF ვერსიები</span></a>.</p>
+</div>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="index.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 არის ჩიპზე დაფუძნებული სისტემა, რომელიც აერთიანებს შემდეგ მახასიათებლებს:</p>
+<ul class="simple">
+<li>Wi-Fi (2.4 GHz დიაპაზონი)</li>
+<li>Bluetooth 4.2</li>
+<li>ორმაგი მაღალი ხარისხის ბირთვი</li>
+<li>ულტრა დაბალი სიმძლავრის კოპროცესორი</li>
+<li>რამდენიმე პერიფერიული მოწყობილობა</li>
+</ul>
+<p>40 ნმ ტექნოლოგიით აღჭურვილი ESP32 უზრუნველყოფს ძლიერ, მაღალ ინტეგრირებულ პლატფორმას, რომელიც ხელს უწყობს ენერგიის ეფექტური გამოყენების, კომპაქტური დიზაინის, უსაფრთხოების, მაღალი შესრულებისა და საიმედოობის მუდმივი მოთხოვნების დაკმაყოფილებას.</p>
+<p>Espressif უზრუნველყოფს საბაზისო აპარატურულ და პროგრამულ რესურსებს, რათა დაეხმაროს აპლიკაციების შემქმნელებს ESP32 სერიის აპარატურის გამოყენებით თავიანთი იდეების რეალიზებაში. Espressif-ის მიერ შექმნილი პროგრამული უზრუნველყოფის შემუშავების ჩარჩო განკუთვნილია ნივთების ინტერნეტის (IoT) აპლიკაციების შემუშავებისთვის Wi-Fi , Bluetooth , ენერგიის მართვისა და სხვა რამდენიმე სისტემური ფუნქციის გამოყენებით.</p>
+</div>
+<div class="section" id="what-you-need">
+<h2>რა გჭირდებათ<a class="headerlink" href="index.html#what-you-need" title="Permalink to this headline">¶</a></h2>
+<p>აპარატურა:</p>
+<ul class="simple">
+<li>ერთი <strong>ESP32</strong> დაფა</li>
+<li><strong>USB კაბელი</strong> - USB A / მიკრო USB B</li>
+<li><strong>კომპიუტერი</strong> Windows-ის, Linux-ის ან macOS-ის გაშვებული</li>
+</ul>
+<p>პროგრამული უზრუნველყოფა:</p>
+<ul class="simple">
+<li><strong>ხელსაწყოების ჯაჭვი</strong> ESP32-ისთვის კომპილაცია კოდი</li>
+<li><strong>აწყობის ხელსაწყოები</strong> - CMake და Ninja სრული ასაშენებლად <strong>აპლიკაცია</strong> ESP32-ისთვის</li>
+<li><strong>ESP-IDF</strong> რომელიც არსებითად შეიცავს API (პროგრამული უზრუნველყოფის ბიბლიოთეკები და საწყისი კოდი) ESP32-ისთვის და სკრიპტებს მისი მუშაობისთვის. <strong>ხელსაწყოების ჯაჭვი</strong></li>
+<li><strong>ტექსტის რედაქტორი</strong> პროგრამების დასაწერად (<strong>პროექტები</strong>) C-ში, მაგ., <a class="reference external" href="https://www.eclipse.org/">დაბნელება</a></li>
+</ul>
+<div class="align-center figure" id="id10">
+<img alt="Development of applications for ESP32" src="../_images/what-you-need1.png"/>
+<p class="caption"><span class="caption-text">ESP32-ისთვის აპლიკაციების შემუშავება</span></p>
+</div>
+</div>
+<div class="section" id="development-board-overviews">
+<h2>განვითარების საბჭოს მიმოხილვები<a class="headerlink" href="index.html#development-board-overviews" title="Permalink to this headline">¶</a></h2>
+<p>თუ ქვემოთ ჩამოთვლილი ESP32 დეველოპერული დაფებიდან ერთ-ერთი გაქვთ, მისი აპარატურის შესახებ დამატებითი ინფორმაციის მისაღებად შეგიძლიათ დააჭიროთ ბმულს.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/get-started-devkitc.html">ESP32-DevKitC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/get-started-wrover-kit.html">ESP-WROVER-KIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/get-started-pico-kit.html">ESP32-PICO-KIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/get-started-ethernet-kit.html">ESP32-Ethernet-Kit</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="installation-step-by-step">
+<span id="get-started-step-by-step"></span><h2>ინსტალაცია ეტაპობრივად<a class="headerlink" href="index.html#installation-step-by-step" title="Permalink to this headline">¶</a></h2>
+<p>ეს არის დეტალური გზამკვლევი, რომელიც ინსტალაციის პროცესს გაგიძღვებათ.</p>
+<div class="section" id="setting-up-development-environment">
+<h3>განვითარების გარემოს დაყენება<a class="headerlink" href="index.html#setting-up-development-environment" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="index.html#get-started-get-prerequisites"><span class="std std-ref">ნაბიჯი 1. წინაპირობების ინსტალაცია</span></a> ამისთვის <a class="reference internal" href="windows-setup.html"><span class="doc">Windows</span></a>, <a class="reference internal" href="linux-setup.html"><span class="doc">Linux</span></a> ან <a class="reference internal" href="macos-setup.html"><span class="doc">macOS</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-get-esp-idf"><span class="std std-ref">ნაბიჯი 2. მიიღეთ ESP-IDF</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-set-up-tools"><span class="std std-ref">ნაბიჯი 3. ხელსაწყოების დაყენება</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-set-up-env"><span class="std std-ref">ნაბიჯი 4. გარემოს ცვლადების დაყენება</span></a></li>
+</ul>
+</div>
+<div class="section" id="creating-your-first-project">
+<h3>თქვენი პირველი პროექტის შექმნა<a class="headerlink" href="index.html#creating-your-first-project" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="index.html#get-started-start-project"><span class="std std-ref">ნაბიჯი 5. პროექტის დაწყება</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-connect"><span class="std std-ref">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-configure"><span class="std std-ref">ნაბიჯი 7. კონფიგურაცია</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-build"><span class="std std-ref">ნაბიჯი 8. პროექტის შექმნა</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-flash"><span class="std std-ref">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</span></a></li>
+<li><a class="reference internal" href="index.html#get-started-build-monitor"><span class="std std-ref">ნაბიჯი 10. მონიტორი</span></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="step-1-install-prerequisites">
+<span id="get-started-get-prerequisites"></span><h2>ნაბიჯი 1. წინაპირობების ინსტალაცია<a class="headerlink" href="index.html#step-1-install-prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>შემდეგ ნაბიჯებზე გადასვლამდე კომპიუტერზე რამდენიმე ინსტრუმენტი უნდა დაინსტალიროთ. თქვენი ოპერაციული სისტემის ინსტრუქციებისთვის მიჰყევით ქვემოთ მოცემულ ბმულებს:</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%"/>
+<col width="33%"/>
+<col width="33%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="windows-setup.html"><img alt="windows-logo" src="../_images/windows-logo1.png"/></a></td>
+<td><a class="reference external" href="linux-setup.html"><img alt="linux-logo" src="../_images/linux-logo1.png"/></a></td>
+<td><a class="reference external" href="macos-setup.html"><img alt="macos-logo" src="../_images/macos-logo1.png"/></a></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="windows-setup.html">Windows</a></td>
+<td><a class="reference external" href="linux-setup.html">Linux</a></td>
+<td><a class="reference external" href="macos-setup.html">Mac OS</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="step-2-get-esp-idf">
+<span id="get-started-get-esp-idf"></span><h2>ნაბიჯი 2. მიიღეთ ESP-IDF<a class="headerlink" href="index.html#step-2-get-esp-idf" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ისთვის აპლიკაციების შესაქმნელად, დაგჭირდებათ Espressif-ის მიერ მოწოდებული პროგრამული ბიბლიოთეკები. <a class="reference external" href="https://github.com/espressif/esp-idf">ESP-IDF საცავი</a>.</p>
+<p>ESP-IDF მისაღებად, გადადით თქვენს ინსტალაციის დირექტორიაში და დააკლონირეთ რეპოზიტორია <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>ქვემოთ მოცემული ინსტრუქციების შესაბამისად, რომლებიც სპეციფიკურია თქვენი ოპერაციული სისტემისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ეს სახელმძღვანელო იყენებს დირექტორიას <code class="docutils literal notranslate"><span class="pre">~/esp</span></code> Linux-სა და macOS-ზე ან <code class="docutils literal notranslate"><span class="pre">%userprofile%\esp</span></code> Windows-ზე, როგორც ESP-IDF ის ინსტალაციის საქაღალდე. შეგიძლიათ გამოიყენოთ ნებისმიერი დირექტორია, მაგრამ შესაბამისად, ბრძანებების ბილიკების კორექტირება დაგჭირდებათ. გაითვალისწინეთ, რომ ESP-IDF არ უჭერს მხარს ბილიკებში დაშორებებს.</p>
+</div>
+<div class="section" id="linux-and-macos">
+<h3>Linux და macOS<a class="headerlink" href="index.html#linux-and-macos" title="Permalink to this headline">¶</a></h3>
+<p>გახსენით ტერმინალი და შეასრულეთ შემდეგი ბრძანებები:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+</pre></div>
+</div>
+<p>ESP-IDF გადმოწერილი იქნება <code class="docutils literal notranslate"><span class="pre">~/esp/esp-idf</span></code>.</p>
+<p>კონსულტაცია <a class="reference internal" href="../versions.html"><span class="doc">ESP-IDF ვერსიები</span></a> ინფორმაციისთვის, თუ რომელი ESP-IDF ვერსია უნდა იქნას გამოყენებული მოცემულ სიტუაციაში.</p>
+</div>
+<div class="section" id="id1">
+<h3>Windows<a class="headerlink" href="index.html#id1" title="Permalink to this headline">¶</a></h3>
+<p>ხელსაწყოების დამონტაჟების გარდა, <a class="reference internal" href="windows-setup.html#get-started-windows-tools-installer"><span class="std std-ref">ESP-IDF ინსტრუმენტების ინსტალატორი</span></a> Windows-ისთვის, რომელიც პირველ ეტაპზე იყო წარმოდგენილი, ასევე შეგიძლიათ ESP-IDF ფაილის ასლის ჩამოტვირთვა.</p>
+<p>კონსულტაცია <a class="reference internal" href="../versions.html"><span class="doc">ESP-IDF ვერსიები</span></a> ინფორმაციისთვის, თუ რომელი ESP-IDF ვერსია უნდა იქნას გამოყენებული მოცემულ სიტუაციაში.</p>
+<p>თუ გსურთ ESP-IDF ჩამოტვირთვა ESP-IDF Tools Installer-ის დახმარების გარეშე, იხილეთ ესენი <a class="reference internal" href="windows-setup-scratch.html#get-esp-idf-windows-command-line"><span class="std std-ref">ინსტრუქციები</span></a>.</p>
+</div>
+</div>
+<div class="section" id="step-3-set-up-the-tools">
+<span id="get-started-set-up-tools"></span><h2>ნაბიჯი 3. ხელსაწყოების დაყენება<a class="headerlink" href="index.html#step-3-set-up-the-tools" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF გარდა, თქვენ ასევე უნდა დააინსტალიროთ ESP-IDF მიერ გამოყენებული ინსტრუმენტები, როგორიცაა კომპილაცია r, გამართვა ger, Python-ის პაკეტები და ა.შ.</p>
+<div class="section" id="id2">
+<h3>Windows<a class="headerlink" href="index.html#id2" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="windows-setup.html#get-started-windows-tools-installer"><span class="std std-ref">ESP-IDF ინსტრუმენტების ინსტალატორი</span></a> Windows-ისთვის, რომელიც პირველ ეტაპზე იყო წარმოდგენილი, ყველა საჭირო ინსტრუმენტს აყენებს.</p>
+<p>თუ გსურთ ინსტრუმენტების ინსტალაცია ESP-IDF Tools Installer-ის დახმარების გარეშე, გახსენით Command Prompt და მიჰყევით ამ ნაბიჯებს:</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span> <span class="nv">%userprofile%</span>\esp\esp-idf
+install.bat
+</pre></div>
+</div>
+<p>ან Windows PowerShell-ით</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="p">~/</span><span class="n">esp</span><span class="p">/</span><span class="n">esp-idf</span>
+<span class="p">./</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Linux და macOS<a class="headerlink" href="index.html#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/esp/esp-idf
+./install.sh
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-the-tools-installation-path">
+<h3>ხელსაწყოების ინსტალაციის გზის პერსონალიზაცია<a class="headerlink" href="index.html#customizing-the-tools-installation-path" title="Permalink to this headline">¶</a></h3>
+<p>ამ ეტაპზე წარმოდგენილი სკრიპტები მომხმარებლის საშინაო დირექტორიაში ESP-IDF ის მიერ მოთხოვნილ კომპილაციის ინსტრუმენტებს აინსტალირებს: <code class="docutils literal notranslate"><span class="pre">$HOME/.espressif</span></code> Linux-სა და macOS-ზე, <code class="docutils literal notranslate"><span class="pre">%USERPROFILE%\.espressif</span></code> Windows-ზე. თუ გსურთ ინსტრუმენტების სხვა დირექტორიაში ინსტალაცია, დააყენეთ გარემოს ცვლადი <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code> ინსტალაციის სკრიპტების გაშვებამდე დარწმუნდით, რომ თქვენს მომხმარებელს აქვს საკმარისი ნებართვები ამ გზის წასაკითხად და ჩასაწერად.</p>
+<p>თუ შეცვლით <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code>, დარწმუნდით, რომ ინსტალაციის სკრიპტის ყოველ ჯერზე ერთი და იგივე მნიშვნელობა აქვს დაყენებული (<code class="docutils literal notranslate"><span class="pre">install.bat</span></code>, <code class="docutils literal notranslate"><span class="pre">install.ps1</span></code> ან <code class="docutils literal notranslate"><span class="pre">install.sh</span></code>) და ექსპორტის სკრიპტი (<code class="docutils literal notranslate"><span class="pre">export.bat</span></code>, <code class="docutils literal notranslate"><span class="pre">export.ps1</span></code> ან <code class="docutils literal notranslate"><span class="pre">export.sh</span></code>) სიკვდილით დასაჯებიან.</p>
+</div>
+</div>
+<div class="section" id="step-4-set-up-the-environment-variables">
+<span id="get-started-set-up-env"></span><h2>ნაბიჯი 4. გარემოს ცვლადების დაყენება<a class="headerlink" href="index.html#step-4-set-up-the-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>დაინსტალირებული ინსტრუმენტები ჯერ არ არის დამატებული PATH გარემოს ცვლადში. იმისათვის, რომ ინსტრუმენტები ბრძანების ხაზიდან გამოსაყენებელი გახდეს, საჭიროა გარემოს ზოგიერთი ცვლადის დაყენება. ESP-IDF გთავაზობთ სხვა სკრიპტს, რომელიც ამას აკეთებს.</p>
+<div class="section" id="id4">
+<h3>Windows<a class="headerlink" href="index.html#id4" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="windows-setup.html#get-started-windows-tools-installer"><span class="std std-ref">ESP-IDF ინსტრუმენტების ინსტალატორი</span></a> Windows-ისთვის, Start მენიუში იქმნება „ ESP-IDF Command Prompt“-ის მალსახმობი. ეს მალსახმობი ხსნის Command Prompt-ს და აყენებს ყველა საჭირო გარემოს ცვლადს. შეგიძლიათ გახსნათ ეს მალსახმობი და გადახვიდეთ შემდეგ ეტაპზე.</p>
+<p>ალტერნატიულად, თუ გსურთ გამოიყენოთ ESP-IDF არსებულ ბრძანების სტრიქონის ფანჯარაში, შეგიძლიათ გაუშვათ:</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="nv">%userprofile%</span>\esp\esp-idf\export.bat
+</pre></div>
+</div>
+<p>ან Windows PowerShell-ით</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nv">$HOME</span><span class="p">/</span><span class="n">esp</span><span class="p">/</span><span class="n">esp-idf</span><span class="p">/</span><span class="n">export</span><span class="p">.</span><span class="n">ps1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Linux და macOS<a class="headerlink" href="index.html#id5" title="Permalink to this headline">¶</a></h3>
+<p>ტერმინალში, სადაც ESP-IDF გამოყენებას აპირებთ, გაუშვით:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>. <span class="nv">$HOME</span>/esp/esp-idf/export.sh
+</pre></div>
+</div>
+<p>ყურადღება მიაქციეთ მანძილს წამყვან წერტილსა და გზას შორის!</p>
+<p>ასევე შეგიძლიათ ამ ნაბიჯის ავტომატიზაცია, ESP-IDF ინსტრუმენტების ყველა ტერმინალში ხელმისაწვდომობის მიცემით, თქვენს ტერმინალში ამ ხაზის დამატებით. <code class="docutils literal notranslate"><span class="pre">.profile</span></code> ან <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> სცენარი.</p>
+</div>
+</div>
+<div class="section" id="step-5-start-a-project">
+<span id="get-started-start-project"></span><h2>ნაბიჯი 5. პროექტის დაწყება<a class="headerlink" href="index.html#step-5-start-a-project" title="Permalink to this headline">¶</a></h2>
+<p>ახლა თქვენ მზად ხართ მოამზადოთ თქვენი განაცხადი ESP32-ისთვის. შეგიძლიათ დაიწყოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/get-started/hello_world">დაწყება/გამარჯობა_მსოფლიო</a> პროექტი <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples">მაგალითები</a> დირექტორია IDF-ში.</p>
+<p>კოპირება <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/get-started/hello_world">დაწყება/გამარჯობა_მსოფლიო</a> რომ <code class="docutils literal notranslate"><span class="pre">~/esp</span></code> დირექტორია:</p>
+<div class="section" id="id6">
+<h3>Linux და macOS<a class="headerlink" href="index.html#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/esp
+cp -r <span class="nv">$IDF_PATH</span>/examples/get-started/hello_world .
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Windows<a class="headerlink" href="index.html#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span> <span class="nv">%userprofile%</span>\esp
+xcopy /e /i <span class="nv">%IDF_PATH%</span>\examples\get-started\hello_world hello_world
+</pre></div>
+</div>
+<p>არსებობს პროექტების სამაგალითო მრავალფეროვნება, <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples">მაგალითები</a> დირექტორია ESP-IDF ში. თქვენ შეგიძლიათ ნებისმიერი პროექტი დააკოპიროთ ზემოთ წარმოდგენილი მეთოდით და გაუშვათ.</p>
+<p>ასევე შესაძლებელია მაგალითების ადგილზე შექმნა, მათი წინასწარი კოპირების გარეშე.</p>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">ESP-IDF აწყობის სისტემა არ უჭერს მხარს სივრცეებს არც ESP-IDF და არც პროექტებისკენ მიმავალ ბილიკებში.</p>
+</div>
+</div>
+</div>
+<div class="section" id="step-6-connect-your-device">
+<span id="get-started-connect"></span><h2>ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება<a class="headerlink" href="index.html#step-6-connect-your-device" title="Permalink to this headline">¶</a></h2>
+<p>ახლა შეაერთეთ თქვენი ESP32 დაფა კომპიუტერთან და შეამოწმეთ, რომელი სერიული პორტი ქვეშ ჩანს ის.</p>
+<p>სერიულ პორტებს სახელწოდებაში შემდეგი შაბლონები აქვთ:</p>
+<ul class="simple">
+<li><strong>Windows</strong>: სახელები, როგორიცაა <code class="docutils literal notranslate"><span class="pre">COM1</span></code></li>
+<li><strong>Linux</strong>: დაწყებული <code class="docutils literal notranslate"><span class="pre">/dev/tty</span></code></li>
+<li><strong>macOS</strong>: დაწყებული <code class="docutils literal notranslate"><span class="pre">/dev/cu.</span></code></li>
+</ul>
+<p>თუ არ ხართ დარწმუნებული, თუ როგორ შეამოწმოთ სერიული პორტი სახელი, გთხოვთ, იხილოთ <a class="reference internal" href="establish-serial-connection.html"><span class="doc">სერიული კავშირის დამყარება ESP32-თან</span></a> სრული დეტალებისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">პორტის სახელი ხელთ გქონდეთ, რადგან ის შემდეგ ნაბიჯებში დაგჭირდებათ.</p>
+</div>
+</div>
+<div class="section" id="step-7-configure">
+<span id="get-started-configure"></span><h2>ნაბიჯი 7. კონფიგურაცია<a class="headerlink" href="index.html#step-7-configure" title="Permalink to this headline">¶</a></h2>
+<p>ნავიგაცია თქვენს <code class="docutils literal notranslate"><span class="pre">hello_world</span></code> დირექტორია <a class="reference internal" href="index.html#get-started-start-project"><span class="std std-ref">ნაბიჯი 5. პროექტის დაწყება</span></a> და გაუშვით პროექტის კონფიგურაცია პროგრამა <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>.</p>
+<div class="section" id="id8">
+<h3>Linux და macOS<a class="headerlink" href="index.html#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/esp/hello_world
+idf.py menuconfig
+</pre></div>
+</div>
+<p>თუ Python-ის თქვენი ნაგულისხმევი ვერსია 3.x არის, შეიძლება დაგჭირდეთ გაშვება <code class="docutils literal notranslate"><span class="pre">python2</span> <span class="pre">$(which</span> <span class="pre">idf.py)</span> <span class="pre">menuconfig</span></code> სამაგიეროდ.</p>
+</div>
+<div class="section" id="id9">
+<h3>Windows<a class="headerlink" href="index.html#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span> <span class="nv">%userprofile%</span>\esp\hello_world
+idf.py menuconfig
+</pre></div>
+</div>
+<p>თუ წინა ნაბიჯები სწორად შესრულდა, გამოჩნდება შემდეგი მენიუ:</p>
+<div class="align-center figure" id="id11">
+<img alt="Project configuration - Home window" src="../_images/project-configuration1.png"/>
+<p class="caption"><span class="caption-text">პროექტის კონფიგურაცია - მთავარი ფანჯარა</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მენიუს ფერები შეიძლება განსხვავდებოდეს თქვენს ტერმინალში. თქვენ შეგიძლიათ შეცვალოთ მისი გარეგნობა ოფციის გამოყენებით.
+<code class="docutils literal notranslate"><span class="pre">--style</span></code>გთხოვთ, გაიქეცით <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span> <span class="pre">--help</span></code> დამატებითი ინფორმაციისთვის.</p>
+</div>
+<p>ნავიგაციისთვის და გამოსაყენებლად <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>, დააჭირეთ შემდეგ ღილაკებს:</p>
+<ul class="simple">
+<li>ნავიგაციისთვის ისრის ღილაკები</li>
+<li><code class="docutils literal notranslate"><span class="pre">Enter</span></code> ქვემენიუში გადასასვლელად</li>
+<li><code class="docutils literal notranslate"><span class="pre">Esc</span></code> ერთი დონით ასვლა ან გასვლა</li>
+<li><code class="docutils literal notranslate"><span class="pre">?</span></code> დახმარების ეკრანის სანახავად. Enter ღილაკი დახმარების ეკრანიდან გასასვლელად გამოიყენება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Space</span></code>, ან <code class="docutils literal notranslate"><span class="pre">Y</span></code> და <code class="docutils literal notranslate"><span class="pre">N</span></code> კლავიშები კონფიგურაციის ელემენტების ჩასართავად (დიახ) და გამორთვისთვის (არა) მონიშვნის ველებით<code class="docutils literal notranslate"><span class="pre">[*]</span></code>„</li>
+<li><code class="docutils literal notranslate"><span class="pre">?</span></code> კონფიგურაციის ელემენტის მონიშვნისას, ამ ელემენტის შესახებ დახმარების საჩვენებლად</li>
+<li><code class="docutils literal notranslate"><span class="pre">/</span></code> კონფიგურაციის ელემენტების მოსაძებნად</li>
+</ul>
+<div class="admonition attention">
+<p class="first admonition-title">ყურადღება</p>
+<p class="last">თუ ESP32-DevKitC დაფას იყენებთ <strong>ESP32-SOLO-1</strong> მოდული, ჩართეთ ერთბირთვიანი რეჟიმი (<a class="reference internal" href="../api-reference/kconfig.html#config-freertos-unicore"><span class="std std-ref">CONFIG_FREE RTOS _UNICORE</span></a>) menuconfig ფლეშ მეხსიერება , მაგალითად.</p>
+</div>
+</div>
+</div>
+<div class="section" id="step-8-build-the-project">
+<span id="get-started-build"></span><h2>ნაბიჯი 8. პროექტის შექმნა<a class="headerlink" href="index.html#step-8-build-the-project" title="Permalink to this headline">¶</a></h2>
+<p>პროექტის შესაქმნელად გამოიყენეთ შემდეგი ბრძანება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idf</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>ეს ბრძანება შექმნის კომპილაცია აპლიკაციას და ყველა ESP-IDF კომპონენტი ს, შემდეგ კი გენერირებას გაუკეთებს ჩამტვირთავი , დანაყოფების ცხრილი და აპლიკაციის ბინარულ ფაილებს.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ idf.py build
+Running cmake in directory /path/to/hello_world/build
+Executing "cmake -G Ninja --warn-uninitialized /path/to/hello_world"...
+Warn about uninitialized values.
+-- Found Git: /usr/bin/git (found version "2.17.0")
+-- Building empty aws_iot component due to configuration
+-- Component names: ...
+-- Component paths: ...
+
+... (more lines of build system output)
+
+[527/527] Generating hello-world.bin
+esptool.py v2.3.1
+
+Project build complete. To flash, run this command:
+../../../components/esptool_py/esptool/esptool.py -p (PORT) -b 921600 write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x10000 build/hello-world.bin  build 0x1000 build/bootloader/bootloader.bin 0x8000 build/partition_table/partition-table.bin
+or run 'idf.py -p PORT flash'
+</pre></div>
+</div>
+<p>თუ შეცდომები არ არის, აწყობა დასრულდება პროგრამული უზრუნველყოფა ორობითი .bin ფაილის გენერირებით.</p>
+</div>
+<div class="section" id="step-9-flash-onto-the-device">
+<span id="get-started-flash"></span><h2>ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე<a class="headerlink" href="index.html#step-9-flash-onto-the-device" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 დაფაზე ახლად აწყობილი ბინარული ფაილების ფლეშ დრაივი შემდეგი ბრძანებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idf</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">PORT</span> <span class="p">[</span><span class="o">-</span><span class="n">b</span> <span class="n">BAUD</span><span class="p">]</span> <span class="n">flash</span>
+</pre></div>
+</div>
+<p>შეცვალეთ PORT თქვენი ESP32 დაფის სერიული პორტი სახელით <a class="reference internal" href="index.html#get-started-connect"><span class="std std-ref">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</span></a>.</p>
+<p>ასევე შეგიძლიათ შეცვალოთ ფლეშ მეხსიერება ან ბოდის სიჩქარე BAUD-ის თქვენთვის საჭირო ბოდის სიჩქარე ით ჩანაცვლებით. ნაგულისხმევი ბოდის სიჩქარე არის <code class="docutils literal notranslate"><span class="pre">460800</span></code>.</p>
+<p>idf.py არგუმენტების შესახებ დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="../api-guides/build-system.html#idf-py"><span class="std std-ref">idf.py</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ვარიანტი <code class="docutils literal notranslate"><span class="pre">flash</span></code> ავტომატურად აშენებს და ფლეშ მეხსიერება ასრულებს პროექტს, ამიტომ მუშაობს <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">build</span></code> აუცილებელი არ არის.</p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Running esptool.py in directory [...]/esp/hello_world
+Executing "python [...]/esp-idf/components/esptool_py/esptool/esptool.py -b 460800 write_flash @flash_project_args"...
+esptool.py -b 460800 write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 bootloader/bootloader.bin 0x8000 partition_table/partition-table.bin 0x10000 hello-world.bin
+esptool.py v2.3.1
+Connecting....
+Detecting chip type... ESP32
+Chip is ESP32D0WDQ6 (revision 1)
+Features: WiFi, BT, Dual Core
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Auto-detected Flash size: 4MB
+Flash params set to 0x0220
+Compressed 22992 bytes to 13019...
+Wrote 22992 bytes (13019 compressed) at 0x00001000 in 0.3 seconds (effective 558.9 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 82...
+Wrote 3072 bytes (82 compressed) at 0x00008000 in 0.0 seconds (effective 5789.3 kbit/s)...
+Hash of data verified.
+Compressed 136672 bytes to 67544...
+Wrote 136672 bytes (67544 compressed) at 0x00010000 in 1.9 seconds (effective 567.5 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+</pre></div>
+</div>
+<p>თუ ფლეშ მეხსიერება პროცესის ბოლომდე პრობლემები არ იქნება, მოდული გადაიტვირთება და „hello_world“ აპლიკაცია გაეშვება.</p>
+</div>
+<div class="section" id="step-10-monitor">
+<span id="get-started-build-monitor"></span><h2>ნაბიჯი 10. მონიტორი<a class="headerlink" href="index.html#step-10-monitor" title="Permalink to this headline">¶</a></h2>
+<p>იმის შესამოწმებლად, ნამდვილად მუშაობს თუ არა „hello_world“, აკრიფეთ <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-p</span> <span class="pre">PORT</span> <span class="pre">monitor</span></code> (არ დაგავიწყდეთ PORT-ის თქვენი სერიული პორტი სახელით ჩანაცვლება).</p>
+<p>ეს ბრძანება იწყებს <a class="reference internal" href="../api-guides/tools/idf-monitor.html"><span class="doc">IDF მონიტორი</span></a> აპლიკაცია:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ idf.py -p /dev/ttyUSB0 monitor
+Running idf_monitor in directory [...]/esp/hello_world/build
+Executing "python [...]/esp-idf/tools/idf_monitor.py -b 115200 [...]/esp/hello_world/build/hello-world.elf"...
+--- idf_monitor on /dev/ttyUSB0 115200 ---
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+ets Jun  8 2016 00:22:57
+...
+</pre></div>
+</div>
+<p>გაშვებისა და დიაგნოსტიკური ჟურნალების ზემოთ გადახვევის შემდეგ, აპლიკაციამ უნდა დაიბეჭდოს წარწერა „გამარჯობა, სამყარო!“.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>...
+Hello world!
+Restarting in 10 seconds...
+I (211) cpu_start: Starting scheduler on APP CPU.
+Restarting in 9 seconds...
+Restarting in 8 seconds...
+Restarting in 7 seconds...
+</pre></div>
+</div>
+<p>IDF მონიტორიდან გასასვლელად გამოიყენეთ მალსახმობი <code class="docutils literal notranslate"><span class="pre">Ctrl+]</span></code>.</p>
+<p>თუ IDF მონიტორი ატვირთვა ის შემდეგ მალევე გაითიშება, ან თუ ზემოთ მოცემული შეტყობინებების ნაცვლად ქვემოთ მოცემულის მსგავს შემთხვევით ნაგავს ხედავთ, თქვენი დაფა, სავარაუდოდ, 26 MHz კრისტალს იყენებს. დეველოპერული დაფების უმეტესობა 40 MHz-ს იყენებს, ამიტომ ESP-IDF ამ სიხშირეს ნაგულისხმევ მნიშვნელობად იყენებს.</p>
+<div class="align-center figure">
+<img alt="Garbled output" src="../_images/get-started-garbled-output1.png"/>
+</div>
+<p>თუ ასეთი პრობლემა გაქვთ, გააკეთეთ შემდეგი:</p>
+<ol class="arabic simple">
+<li>გამოდით მონიტორიდან.</li>
+<li>დაბრუნება <a class="reference internal" href="index.html#get-started-configure"><span class="std std-ref">menuconfig</span></a>.</li>
+<li>გადადით კომპონენტის კონფიგურაციაზე –&amp;gt; ESP32-სპეციფიკურზე –&amp;gt; მთავარი XTAL სიხშირეზე, შემდეგ შეცვალეთ <a class="reference internal" href="../api-reference/kconfig.html#config-esp32-xtal-freq-sel"><span class="std std-ref">CONFIG_ESP32_XTAL_FREQ_SEL</span></a> 26 MHz-მდე.</li>
+<li>ამის შემდეგ, <a class="reference internal" href="index.html#get-started-flash"><span class="std std-ref">აწყობა და ფლეშ მეხსიერება</span></a> განაცხადი კვლავ.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>თქვენ შეგიძლიათ გააერთიანოთ მშენებლობა, ფლეშ მეხსიერება სწავლება და მონიტორინგი ერთ ეტაპზე შემდეგი ნაბიჯების შესრულებით:</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idf</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">PORT</span> <span class="n">flash</span> <span class="n">monitor</span>
+</pre></div>
+</div>
+</div>
+<p>აგრეთვე იხილეთ:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../api-guides/tools/idf-monitor.html"><span class="doc">IDF მონიტორი</span></a> მოსახერხებელი მალსახმობებისა და IDF მონიტორის გამოყენების შესახებ დამატებითი დეტალებისთვის.</li>
+<li><a class="reference internal" href="../api-guides/build-system.html#idf-py"><span class="std std-ref">idf.py</span></a> სრული მითითებისთვის <code class="docutils literal notranslate"><span class="pre">idf.py</span></code> ბრძანებები და პარამეტრები.</li>
+</ul>
+<p><strong>ეს ყველაფერია, რაც გჭირდებათ ESP32-ის დასაწყებად!</strong></p>
+<p>ახლა თქვენ მზად ხართ სცადოთ სხვა <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples">მაგალითები</a>, ან პირდაპირ გადადით საკუთარი აპლიკაციების შემუშავებაზე.</p>
+</div>
+<div class="section" id="updating-esp-idf">
+<h2>ESP-IDF განახლება<a class="headerlink" href="index.html#updating-esp-idf" title="Permalink to this headline">¶</a></h2>
+<p>დროდადრო უნდა განაახლოთ ESP-IDF , რადგან ახალი ვერსიები ასწორებს შეცდომებს და გვთავაზობს ახალ ფუნქციებს. განახლების უმარტივესი გზა არსებულის წაშლაა. <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code> საქაღალდე და ხელახლა დააკლონირეთ, თითქოს ასრულებთ აღწერილ საწყის ინსტალაციას <a class="reference internal" href="index.html#get-started-get-esp-idf"><span class="std std-ref">ნაბიჯი 2. მიიღეთ ESP-IDF</span></a>.</p>
+<p>კიდევ ერთი გამოსავალია მხოლოდ შეცვლილი ინფორმაციის განახლება. <a class="reference internal" href="../versions.html#updating"><span class="std std-ref">განახლების პროცედურა დამოკიდებულია თქვენს მიერ გამოყენებულ ESP-IDF ვერსიაზე</span></a>.</p>
+<p>ESP-IDF განახლების შემდეგ, ხელახლა შეასრულეთ ინსტალაციის სკრიპტი, იმ შემთხვევაში, თუ ESP-IDF ის ახალი ვერსია მოითხოვს ინსტრუმენტების განსხვავებულ ვერსიებს. იხილეთ ინსტრუქციები <a class="reference internal" href="index.html#get-started-set-up-tools"><span class="std std-ref">ნაბიჯი 3. ხელსაწყოების დაყენება</span></a>.</p>
+<p>ახალი ხელსაწყოების ინსტალაციის შემდეგ, განაახლეთ გარემო ექსპორტის სკრიპტის გამოყენებით. ინსტრუქციები იხილეთ შემდეგ ბმულზე: <a class="reference internal" href="index.html#get-started-set-up-env"><span class="std std-ref">ნაბიჯი 4. გარემოს ცვლადების დაყენება</span></a>.</p>
+</div>
+<div class="section" id="related-documents">
+<h2>დაკავშირებული დოკუმენტები<a class="headerlink" href="index.html#related-documents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="establish-serial-connection.html">სერიული კავშირის დამყარება ESP32-თან</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eclipse-setup.html">Eclipse IDE-ს გამოყენებით აწყობა და ფლეშ-პროგრამირება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/tools/idf-monitor.html">IDF მონიტორი</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toolchain-setup-scratch.html">Toolchain-ის მორგებული დაყენება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get-started-legacy/index.html">დაწყება (Legacy GNU Make)</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../hw-reference/get-started-devkitc.html" rel="next" title="ESP32-DevKitC V4 Getting Started Guide">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../index.html" rel="prev" title="ESP-IDF Programming Guide"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

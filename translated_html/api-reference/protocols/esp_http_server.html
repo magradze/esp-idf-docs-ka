@@ -1,0 +1,1978 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HTTP სერვერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_https_server.html" rel="next" title="HTTPS server"/>
+<link href="esp_http_client.html" rel="prev" title="ESP HTTP Client"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/protocols/esp_http_server.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/protocols/esp_http_server"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/protocols/esp_http_server.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პროტოკოლები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="asio.html">ASIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mqtt.html">ESP-MQTT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_tls.html">ESP-TLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_client.html">HTTP კლიენტი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="esp_http_server.html#">HTTP სერვერი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="esp_http_server.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_http_server.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_http_server.html#persistent-connections">მუდმივი კავშირები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_http_server.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_server.html">HTTPS სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="icmp_echo.html">ICMP Echo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_local_ctrl.html">ადგილობრივი კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mdns.html">mDNS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modbus.html">მოდბუსი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_websocket_client.html">Websocket კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_serial_slave_link.html">ESP სერიული მონა ბმული</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">აპლიკაციის პროტოკოლები</a> »</li>
+<li>HTTP სერვერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/protocols/esp_http_server.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="http-server">
+<h1>HTTP სერვერი<a class="headerlink" href="esp_http_server.html#http-server" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/protocols/esp_http_server.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_http_server.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>HTTP სერვერის კომპონენტი იძლევა ESP32-ზე მსუბუქი ვებ სერვერის გაშვების შესაძლებლობას. ქვემოთ მოცემულია HTTP სერვერის მიერ წარმოდგენილი API გამოყენების დეტალური ნაბიჯები:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_startP14httpd_handle_tPK14httpd_config_t" title="httpd_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">httpd_start()</span></code></a>: ქმნის HTTP სერვერის ეგზემპლარს, გამოყოფს მეხსიერებას/რესურსებს მისთვის მითითებული კონფიგურაციის მიხედვით და გამოაქვს სახელური სერვერის ეგზემპლარისთვის. სერვერს აქვს როგორც მოსმენის სოკეტი (TCP) HTTP ტრაფიკისთვის, ასევე საკონტროლო სოკეტი (UDP) საკონტროლო სიგნალებისთვის, რომლებიც შეირჩევა წრიული წესით სერვერის დავალებების ციკლში. დავალების პრიორიტეტი და დასტის ზომა კონფიგურირებადია სერვერის ეგზემპლარის შექმნისას httpd_config_t სტრუქტურის httpd_start()-ზე გადაცემით. TCP ტრაფიკი დამუშავებულია HTTP მოთხოვნების სახით და, მოთხოვნილი URI-დან გამომდინარე, გამოიძახება მომხმარებლის რეგისტრირებული დამმუშავებლები, რომლებიც უნდა გამოაგზავნონ HTTP პასუხის პაკეტები.</li>
+<li><a class="reference internal" href="esp_http_server.html#_CPPv410httpd_stop14httpd_handle_t" title="httpd_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">httpd_stop()</span></code></a>ეს აჩერებს სერვერს მოცემული სახელურით და ათავისუფლებს ნებისმიერ დაკავშირებულ მეხსიერებას/რესურსს. ეს არის ბლოკირების ფუნქცია, რომელიც ჯერ სერვერის დავალების შეჩერების სიგნალს იძლევა და შემდეგ ელოდება დავალების დასრულებას. შეჩერებისას, დავალება დახურავს ყველა ღია კავშირს, წაშლის რეგისტრირებულ URI დამმუშავებლებს და ყველა სესიის კონტექსტის მონაცემს ცარიელ მდგომარეობაზე გადააყენებს.</li>
+<li><a class="reference internal" href="esp_http_server.html#_CPPv426httpd_register_uri_handler14httpd_handle_tPK11httpd_uri_t" title="httpd_register_uri_handler"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">httpd_register_uri_handler()</span></code></a>URI დამმუშავებელი რეგისტრირდება ტიპის ობიექტის გადაცემით <code class="docutils literal notranslate"><span class="pre">httpd_uri_t</span></code> სტრუქტურა, რომელშიც შედიან წევრები, მათ შორის <code class="docutils literal notranslate"><span class="pre">uri</span></code> სახელი, <code class="docutils literal notranslate"><span class="pre">method</span></code> ტიპი (მაგ. <code class="docutils literal notranslate"><span class="pre">HTTPD_GET/HTTPD_POST/HTTPD_PUT</span></code> და ა.შ.), ფუნქციის მაჩვენებელი ტიპის <code class="docutils literal notranslate"><span class="pre">esp_err_t</span> <span class="pre">*handler</span> <span class="pre">(httpd_req_t</span> <span class="pre">*req)</span></code> და <code class="docutils literal notranslate"><span class="pre">user_ctx</span></code> მომხმარებლის კონტექსტის მონაცემებზე მითითება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_http_server.html#application-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Our URI handler function to be called during GET /uri request */</span>
+<span class="n">esp_err_t</span> <span class="nf">get_handler</span><span class="p">(</span><span class="n">httpd_req_t</span> <span class="o">*</span><span class="n">req</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Send a simple response */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="n">resp</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"URI GET Response"</span><span class="p">;</span>
+    <span class="n">httpd_resp_send</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">resp</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">ESP_OK</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Our URI handler function to be called during POST /uri request */</span>
+<span class="n">esp_err_t</span> <span class="nf">post_handler</span><span class="p">(</span><span class="n">httpd_req_t</span> <span class="o">*</span><span class="n">req</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Destination buffer for content of HTTP POST request.</span>
+<span class="cm">     * httpd_req_recv() accepts char* only, but content could</span>
+<span class="cm">     * as well be any binary data (needs type casting).</span>
+<span class="cm">     * In case of string data, null termination will be absent, and</span>
+<span class="cm">     * content length would give length of string */</span>
+    <span class="kt">char</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="n">content</span><span class="p">;</span>
+
+    <span class="cm">/* Truncate if content length larger than the buffer */</span>
+    <span class="kt">size_t</span> <span class="n">recv_size</span> <span class="o">=</span> <span class="n">MIN</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">content_len</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">content</span><span class="p">));</span>
+
+    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">httpd_req_recv</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">recv_size</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  <span class="cm">/* 0 return value indicates connection closed */</span>
+        <span class="cm">/* Check if timeout occurred */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="n">HTTPD_SOCK_ERR_TIMEOUT</span><span class="p">)</span> <span class="p">{</span>
+            <span class="cm">/* In case of timeout one can choose to retry calling</span>
+<span class="cm">             * httpd_req_recv(), but to keep it simple, here we</span>
+<span class="cm">             * respond with an HTTP 408 (Request Timeout) error */</span>
+            <span class="n">httpd_resp_send_408</span><span class="p">(</span><span class="n">req</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="cm">/* In case of error, returning ESP_FAIL will</span>
+<span class="cm">         * ensure that the underlying socket is closed */</span>
+        <span class="k">return</span> <span class="n">ESP_FAIL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Send a simple response */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="n">resp</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"URI POST Response"</span><span class="p">;</span>
+    <span class="n">httpd_resp_send</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">resp</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">ESP_OK</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* URI handler structure for GET /uri */</span>
+<span class="n">httpd_uri_t</span> <span class="n">uri_get</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">uri</span>      <span class="o">=</span> <span class="s">"/uri"</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">method</span>   <span class="o">=</span> <span class="n">HTTP_GET</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handler</span>  <span class="o">=</span> <span class="n">get_handler</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">user_ctx</span> <span class="o">=</span> <span class="nb">NULL</span>
+<span class="p">};</span>
+
+<span class="cm">/* URI handler structure for POST /uri */</span>
+<span class="n">httpd_uri_t</span> <span class="n">uri_post</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">uri</span>      <span class="o">=</span> <span class="s">"/uri"</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">method</span>   <span class="o">=</span> <span class="n">HTTP_POST</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handler</span>  <span class="o">=</span> <span class="n">post_handler</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">user_ctx</span> <span class="o">=</span> <span class="nb">NULL</span>
+<span class="p">};</span>
+
+<span class="cm">/* Function for starting the webserver */</span>
+<span class="n">httpd_handle_t</span> <span class="nf">start_webserver</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Generate default configuration */</span>
+    <span class="n">httpd_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="n">HTTPD_DEFAULT_CONFIG</span><span class="p">();</span>
+
+    <span class="cm">/* Empty handle to esp_http_server */</span>
+    <span class="n">httpd_handle_t</span> <span class="n">server</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="cm">/* Start the httpd server */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">httpd_start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="p">)</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* Register URI handlers */</span>
+        <span class="n">httpd_register_uri_handler</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uri_get</span><span class="p">);</span>
+        <span class="n">httpd_register_uri_handler</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uri_post</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="cm">/* If server failed to start, handle will be NULL */</span>
+    <span class="k">return</span> <span class="n">server</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Function for stopping the webserver */</span>
+<span class="kt">void</span> <span class="nf">stop_webserver</span><span class="p">(</span><span class="n">httpd_handle_t</span> <span class="n">server</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">server</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* Stop the httpd server */</span>
+        <span class="n">httpd_stop</span><span class="p">(</span><span class="n">server</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="simple-http-server-example">
+<h3>HTTP სერვერის მარტივი მაგალითი<a class="headerlink" href="esp_http_server.html#simple-http-server-example" title="Permalink to this headline">¶</a></h3>
+<p>შეამოწმეთ HTTP სერვერის მაგალითი ქვემოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/http_server/simple">პროტოკოლები/http_სერვერი/მარტივი</a> სადაც ნაჩვენებია თვითნებური კონტენტის სიგრძის დამუშავება, მოთხოვნის სათაურების და URL მოთხოვნის პარამეტრების წაკითხვა და პასუხის სათაურების დაყენება.</p>
+</div>
+</div>
+<div class="section" id="persistent-connections">
+<h2>მუდმივი კავშირები<a class="headerlink" href="esp_http_server.html#persistent-connections" title="Permalink to this headline">¶</a></h2>
+<p>HTTP სერვერი მუდმივ კავშირებს უზრუნველყოფს, რაც ერთი და იგივე კავშირის (სესიის) ხელახლა გამოყენების საშუალებას იძლევა რამდენიმე გადაცემისთვის, სესიისთვის კონტექსტური მონაცემების შენარჩუნებით. კონტექსტური მონაცემები შეიძლება დინამიურად გამოყოს დამმუშავებელმა, რა შემთხვევაშიც შეიძლება საჭირო გახდეს მორგებული ფუნქციის მითითება ამ მონაცემების გასათავისუფლებლად, როდესაც კავშირი/სესია დახურულია.</p>
+<div class="section" id="persistent-connections-example">
+<h3>მუდმივი კავშირების მაგალითი<a class="headerlink" href="esp_http_server.html#persistent-connections-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Custom function to free context */</span>
+<span class="kt">void</span> <span class="nf">free_ctx_func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Could be something other than free */</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">esp_err_t</span> <span class="nf">adder_post_handler</span><span class="p">(</span><span class="n">httpd_req_t</span> <span class="o">*</span><span class="n">req</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Create session's context if not already available */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">req</span><span class="o">-&gt;</span><span class="n">sess_ctx</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">req</span><span class="o">-&gt;</span><span class="n">sess_ctx</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ANY_DATA_TYPE</span><span class="p">));</span>  <span class="cm">/*!&lt; Pointer to context data */</span>
+        <span class="n">req</span><span class="o">-&gt;</span><span class="n">free_ctx</span> <span class="o">=</span> <span class="n">free_ctx_func</span><span class="p">;</span>                  <span class="cm">/*!&lt; Function to free context data */</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Access context data */</span>
+    <span class="n">ANY_DATA_TYPE</span> <span class="o">*</span><span class="n">ctx_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">ANY_DATA_TYPE</span> <span class="o">*</span><span class="p">)</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">sess_ctx</span><span class="p">;</span>
+
+    <span class="cm">/* Respond */</span>
+    <span class="p">...............</span>
+    <span class="p">...............</span>
+    <span class="p">...............</span>
+
+    <span class="k">return</span> <span class="n">ESP_OK</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>შეამოწმეთ ქვემოთ მოცემული მაგალითი <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/http_server/persistent_sockets">პროტოკოლები/http_სერვერი/მუდმივი_სოკეტები</a>.</p>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_http_server.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_http_server.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_http_server/include/esp_http_server.h">esp_http_server/include/esp_http_server.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_http_server.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv426httpd_register_uri_handler14httpd_handle_tPK11httpd_uri_t">
+<span id="_CPPv326httpd_register_uri_handler14httpd_handle_tPK11httpd_uri_t"></span><span id="_CPPv226httpd_register_uri_handler14httpd_handle_tPK11httpd_uri_t"></span><span id="httpd_register_uri_handler__httpd_handle_t.httpd_uri_tCP"></span><span class="target" id="esp__http__server_8h_1a76040cbeebdd3fea67c15842c9713cc8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_register_uri_handler</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_http_server.html#_CPPv411httpd_uri_t" title="httpd_uri_t">httpd_uri_t</a> *<em>uri_handler</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv426httpd_register_uri_handler14httpd_handle_tPK11httpd_uri_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არეგისტრირებს URI დამმუშავებელს. </p>
+<p><p>გამოყენების მაგალითი: </p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">esp_err_t</span> <span class="nf">my_uri_handler</span><span class="p">(</span><span class="n">httpd_req_t</span><span class="o">*</span> <span class="n">req</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Recv , Process and Send</span>
+    <span class="p">....</span>
+    <span class="p">....</span>
+    <span class="p">....</span>
+
+    <span class="c1">// Fail condition</span>
+    <span class="k">if</span> <span class="p">(....)</span> <span class="p">{</span>
+        <span class="c1">// Return fail to close session //</span>
+        <span class="k">return</span> <span class="n">ESP_FAIL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// On success</span>
+    <span class="k">return</span> <span class="n">ESP_OK</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// URI handler structure</span>
+<span class="n">httpd_uri_t</span> <span class="n">my_uri</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">uri</span>      <span class="o">=</span> <span class="s">"/my_uri/path/xyz"</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">method</span>   <span class="o">=</span> <span class="n">HTTPD_GET</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handler</span>  <span class="o">=</span> <span class="n">my_uri_handler</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">user_ctx</span> <span class="o">=</span> <span class="nb">NULL</span>
+<span class="p">};</span>
+
+<span class="c1">// Register handler</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">httpd_register_uri_handler</span><span class="p">(</span><span class="n">server_handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_uri</span><span class="p">)</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// If failed to register handler</span>
+   <span class="p">....</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>URI handlers can be registered in real time as long as the server handle is valid.</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დამმუშავებლის წარმატებით რეგისტრაციის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_HANDLERS_FULL: თუ ახალი დამმუშავებლისთვის ადგილები არ დარჩა</li>
+<li>ESP_ERR_HTTPD_HANDLER_EXISTS: თუ იგივე URI-ით და მეთოდით დამმუშავებელი უკვე რეგისტრირებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: HTTPD სერვერის ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri_handler</span></code>: მითითება დამმუშავებელზე, რომლის რეგისტრაციაც საჭიროა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428httpd_unregister_uri_handler14httpd_handle_tPKc14httpd_method_t">
+<span id="_CPPv328httpd_unregister_uri_handler14httpd_handle_tPKc14httpd_method_t"></span><span id="_CPPv228httpd_unregister_uri_handler14httpd_handle_tPKc14httpd_method_t"></span><span id="httpd_unregister_uri_handler__httpd_handle_t.cCP.httpd_method_t"></span><span class="target" id="esp__http__server_8h_1a823ded023502a5583078a858716e827c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_unregister_uri_handler</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, <em class="property">კონსტ</em> char *<em>ური</em>, <a class="reference internal" href="esp_http_server.html#_CPPv414httpd_method_t" title="httpd_method_t">httpd_method_t</a> <em>მეთოდი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv428httpd_unregister_uri_handler14httpd_handle_tPKc14httpd_method_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>URI დამმუშავებლის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დამმუშავებლის რეგისტრაციის წარმატებით გაუქმების შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_NOT_FOUND: მითითებული URI-ით და მეთოდით დამმუშავებელი ვერ მოიძებნა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: HTTPD სერვერის ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri</span></code>: URI სტრიქონი </li>
+<li><code class="docutils literal notranslate"><span class="pre">method</span></code>HTTP მეთოდი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420httpd_unregister_uri14httpd_handle_tPKc">
+<span id="_CPPv320httpd_unregister_uri14httpd_handle_tPKc"></span><span id="_CPPv220httpd_unregister_uri14httpd_handle_tPKc"></span><span id="httpd_unregister_uri__httpd_handle_t.cCP"></span><span class="target" id="esp__http__server_8h_1aed1d3370c4ec6b7360d075620b40edd7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_unregister_uri</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, <em class="property">კონსტ</em> char *<em>ური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv420httpd_unregister_uri14httpd_handle_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული uri სტრიქონით ყველა URI დამმუშავებლის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ყველა ასეთი დამმუშავებლის რეგისტრაციის წარმატებით გაუქმების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_NOT_FOUND: მითითებული uri სტრიქონით დამმუშავებელი არ არის რეგისტრირებული. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: HTTPD სერვერის ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri</span></code>: uri სტრიქონი, რომელიც განსაზღვრავს ყველა დამმუშავებელს, რომელთა რეგისტრაციაც უნდა გაუქმდეს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428httpd_sess_set_recv_override14httpd_handle_ti17httpd_recv_func_t">
+<span id="_CPPv328httpd_sess_set_recv_override14httpd_handle_ti17httpd_recv_func_t"></span><span id="_CPPv228httpd_sess_set_recv_override14httpd_handle_ti17httpd_recv_func_t"></span><span id="httpd_sess_set_recv_override__httpd_handle_t.i.httpd_recv_func_t"></span><span class="target" id="esp__http__server_8h_1a4d51098ce8661dfd93816ec5d8310f0d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_sess_set_recv_override</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>მაღალი ხარისხი</em>, int <em>sockfd</em>, <a class="reference internal" href="esp_http_server.html#_CPPv417httpd_recv_func_t" title="httpd_recv_func_t">httpd_recv_func_t</a> <em>recv_func</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv428httpd_sess_set_recv_override14httpd_handle_ti17httpd_recv_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ვებ სერვერის მიღების ფუნქციის გადაფარვა (სესიის FD-ის მიხედვით) </p>
+<p>ეს ფუნქცია ვებ სერვერის მიღების ფუნქციას უპირატესად აქცევს. იგივე ფუნქცია გამოიყენება HTTP მოთხოვნის პაკეტების წასაკითხად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is supposed to be called either from the context of<ul class="simple">
+<li>http სესიის API s, სადაც sockfd არის ვალიდური პარამეტრი.</li>
+<li>URI დამმუშავებელი, სადაც sockfd მიიღება httpd_req_to_sockfd() ფუნქციის გამოყენებით.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაფარვის წარმატებით რეგისტრაციის შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>HTTPD ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სესიის სოკეტი FD </li>
+<li><code class="docutils literal notranslate"><span class="pre">recv_func</span></code>: ამ სესიისთვის დასაყენებელი მიღების ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428httpd_sess_set_send_override14httpd_handle_ti17httpd_send_func_t">
+<span id="_CPPv328httpd_sess_set_send_override14httpd_handle_ti17httpd_send_func_t"></span><span id="_CPPv228httpd_sess_set_send_override14httpd_handle_ti17httpd_send_func_t"></span><span id="httpd_sess_set_send_override__httpd_handle_t.i.httpd_send_func_t"></span><span class="target" id="esp__http__server_8h_1afe2d648fb39d8cf575a8fbd2ca2629ce"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_sess_set_send_override</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>მაღალი ხარისხი</em>, int <em>sockfd</em>, <a class="reference internal" href="esp_http_server.html#_CPPv417httpd_send_func_t" title="httpd_send_func_t">httpd_send_func_t</a> <em>გაგზავნის_ფუნქცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv428httpd_sess_set_send_override14httpd_handle_ti17httpd_send_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ვებ სერვერის გაგზავნის ფუნქციის გადაფარვა (სესიის FD-ის მიხედვით) </p>
+<p>ეს ფუნქცია ვებ სერვერის გაგზავნის ფუნქციას უპირატესად აქცევს. იგივე ფუნქცია გამოიყენება ნებისმიერ HTTP მოთხოვნაზე პასუხის გასაგზავნად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is supposed to be called either from the context of<ul class="simple">
+<li>http სესიის API s, სადაც sockfd არის ვალიდური პარამეტრი.</li>
+<li>URI დამმუშავებელი, სადაც sockfd მიიღება httpd_req_to_sockfd() ფუნქციის გამოყენებით.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაფარვის წარმატებით რეგისტრაციის შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>HTTPD ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სესიის სოკეტი FD </li>
+<li><code class="docutils literal notranslate"><span class="pre">send_func</span></code>: ამ სესიისთვის დასაყენებელი გაგზავნის ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431httpd_sess_set_pending_override14httpd_handle_ti20httpd_pending_func_t">
+<span id="_CPPv331httpd_sess_set_pending_override14httpd_handle_ti20httpd_pending_func_t"></span><span id="_CPPv231httpd_sess_set_pending_override14httpd_handle_ti20httpd_pending_func_t"></span><span id="httpd_sess_set_pending_override__httpd_handle_t.i.httpd_pending_func_t"></span><span class="target" id="esp__http__server_8h_1ae2fb7dfdecf5c94bbc9a54d23b3dce32"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_sess_set_pending_override</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>მაღალი ხარისხი</em>, int <em>sockfd</em>, <a class="reference internal" href="esp_http_server.html#_CPPv420httpd_pending_func_t" title="httpd_pending_func_t">httpd_pending_func_t</a> <em>მოლოდინის რეჟიმში მყოფი_ფუნქცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv431httpd_sess_set_pending_override14httpd_handle_ti20httpd_pending_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ვებ სერვერის მომლოდინე ფუნქციის გადაფარვა (სესიის FD-ით) </p>
+<p>ეს ფუნქცია ვებ სერვერის მომლოდინე ფუნქციას უგულებელყოფს. ეს ფუნქცია გამოიყენება სოკეტში მომლოდინე ბაიტების შესამოწმებლად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is supposed to be called either from the context of<ul class="simple">
+<li>http სესიის API s, სადაც sockfd არის ვალიდური პარამეტრი.</li>
+<li>URI დამმუშავებელი, სადაც sockfd მიიღება httpd_req_to_sockfd() ფუნქციის გამოყენებით.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაფარვის წარმატებით რეგისტრაციის შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>HTTPD ეგზემპლარის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სესიის სოკეტი FD </li>
+<li><code class="docutils literal notranslate"><span class="pre">pending_func</span></code>: ამ სესიისთვის დასაყენებელი მიღების ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_req_to_sockfdP11httpd_req_t">
+<span id="_CPPv319httpd_req_to_sockfdP11httpd_req_t"></span><span id="_CPPv219httpd_req_to_sockfdP11httpd_req_t"></span><span id="httpd_req_to_sockfd__httpd_req_tP"></span><span class="target" id="esp__http__server_8h_1a7850d45e4ad7b33d21b6425f66559104"></span>int <code class="descname">httpd_req_to_sockfd</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_req_to_sockfdP11httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ სოკეტის აღწერილობა HTTP მოთხოვნიდან. </p>
+<p>ეს API დააბრუნებს იმ სესიის სოკეტის აღმწერს, რომლისთვისაც HTTP მოთხოვნის მიღებისას შესრულდა URI დამმუშავებელი. ეს სასარგებლოა, როდესაც მომხმარებელს სურს გამოიძახოს ფუნქციები, რომლებიც საჭიროებენ სესიის სოკეტ fd-ს, URI დამმუშავებლის შიგნიდან, მაგ.: httpd_sess_get_ctx(), httpd_sess_trigger_close(), httpd_sess_update_lru_counter().</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is supposed to be called only from the context of a URI handler where httpd_req_t* request pointer is valid.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>სოკეტის აღწერილობა: ამ მოთხოვნის სოკეტის აღწერილობა</li>
+<li>-1: არასწორი/NULL მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>მოთხოვნა, რომლის სოკეტის აღწერილობაც უნდა მოიძებნოს</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414httpd_req_recvP11httpd_req_tPc6size_t">
+<span id="_CPPv314httpd_req_recvP11httpd_req_tPc6size_t"></span><span id="_CPPv214httpd_req_recvP11httpd_req_tPc6size_t"></span><span id="httpd_req_recv__httpd_req_tP.cP.s"></span><span class="target" id="esp__http__server_8h_1a1affc56473cfe5caa1791101f138c620"></span>int <code class="descname">httpd_req_recv</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, char *<em>ბუფი</em>, size_t <em>ბუფ_ლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv414httpd_req_recvP11httpd_req_tPc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API HTTP მოთხოვნიდან კონტენტის მონაცემების წასაკითხად. </p>
+<p>ეს API HTTP მოთხოვნიდან HTTP კონტენტის მონაცემებს წაიკითხავს მოწოდებულ ბუფერში. httpd_req_t სტრუქტურაში მოწოდებული content_len-ის გამოყენებით, შეგიძლიათ გაიგოთ მოსაძიებელი მონაცემების სიგრძე. თუ content_len ძალიან დიდია ბუფერისთვის, მომხმარებელს შეიძლება მოუწიოს ამ ფუნქციის რამდენჯერმე გამოძახება, ყოველ ჯერზე &amp;#39;buf_len&amp;#39; ბაიტების რაოდენობის მოძიებით, ხოლო კონტენტის მონაცემების მაჩვენებელი შინაგანად იზრდება იმავე რიცხვით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>თუ შეცდომა დაბრუნდება, URI დამმუშავებელმა ასევე უნდა დააბრუნოს შეცდომა. ეს უზრუნველყოფს, რომ ვებ სერვერი დახურავს და გაასუფთავებს მცდარ სოკეტს.</li>
+<li>ამჟამად ნაწილებად დაშიფვრა არ არის მხარდაჭერილი</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ბაიტები: ბუფერში წარმატებით წაკითხული ბაიტების რაოდენობა</li>
+<li>0: ბუფერის სიგრძის პარამეტრი ნულის ტოლია / კავშირი დახურულია peer-ის მიერ</li>
+<li>HTTPD_SOCK_ERR_INVALID: არასწორი არგუმენტები</li>
+<li>HTTPD_SOCK_ERR_TIMEOUT : სოკეტ recv()-ის გამოძახებისას დროის ამოწურვა/შეწყვეტა</li>
+<li>HTTPD_SOCK_ERR_FAIL: გამოუსწორებელი შეცდომა სოკეტ recv()-ის გამოძახებისას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: ბუფერის მაჩვენებელი, რომელშიც მონაცემები წაიკითხება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>ბუფერის სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427httpd_req_get_hdr_value_lenP11httpd_req_tPKc">
+<span id="_CPPv327httpd_req_get_hdr_value_lenP11httpd_req_tPKc"></span><span id="_CPPv227httpd_req_get_hdr_value_lenP11httpd_req_tPKc"></span><span id="httpd_req_get_hdr_value_len__httpd_req_tP.cCP"></span><span class="target" id="esp__http__server_8h_1a6e2c3ada748e3f3cc1f6ecdfb33a461b"></span>size_t <code class="descname">httpd_req_get_hdr_value_len</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ველი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv427httpd_req_get_hdr_value_lenP11httpd_req_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოძებნეთ ველი მოთხოვნის სათაურებში და დააბრუნეთ მისი მნიშვნელობის სტრიქონის სიგრძე. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>httpd_resp_send() API გამოძახების შემდეგ, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>სიგრძე: თუ ველი მოიძებნება მოთხოვნის URL-ში</li>
+<li>ნული: ველი ვერ მოიძებნა / არასწორი მოთხოვნა / ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">field</span></code>: მოთხოვნაში მოსაძებნი სათაურის ველი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427httpd_req_get_hdr_value_strP11httpd_req_tPKcPc6size_t">
+<span id="_CPPv327httpd_req_get_hdr_value_strP11httpd_req_tPKcPc6size_t"></span><span id="_CPPv227httpd_req_get_hdr_value_strP11httpd_req_tPKcPc6size_t"></span><span id="httpd_req_get_hdr_value_str__httpd_req_tP.cCP.cP.s"></span><span class="target" id="esp__http__server_8h_1ae87429602dfbdeb641edbe115853caa6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_req_get_hdr_value_str</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ველი</em>, char *<em>ვალი</em>, size_t <em>val_size</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv427httpd_req_get_hdr_value_strP11httpd_req_tPKcPc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ველის მნიშვნელობის სტრიქონი მოთხოვნის სათაურებიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>httpd_resp_send() API გამოძახების შემდეგ, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+<li>თუ გამომავალი სიდიდე შემავალ სიდიდეს აღემატება, მაშინ მნიშვნელობა შემოკლდება, რასაც თან ახლავს შემოკლების შეცდომა, როგორც დაბრუნებული მნიშვნელობა.</li>
+<li>სწორი ბუფერის სიგრძის გასაგებად გამოიყენეთ httpd_req_get_hdr_value_len()</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: მოთხოვნის სათაურში ნაპოვნი ველი და კოპირებული მნიშვნელობის სტრიქონი</li>
+<li>ESP_ERR_NOT_FOUND: გასაღები ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: HTTP მოთხოვნის არასწორი მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESULT_TRUNC: მნიშვნელობის სტრიქონი შემოკლებულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">field</span></code>სათაურში მოსაძებნი ველი </li>
+<li><code class="docutils literal notranslate"><span class="pre">val</span></code>: ბუფერის მაჩვენებელი, რომელშიც მნიშვნელობა დაკოპირდება, თუ ველი მოიძებნება </li>
+<li><code class="docutils literal notranslate"><span class="pre">val_size</span></code>მომხმარებლის ბუფერის „val“ ზომა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427httpd_req_get_url_query_lenP11httpd_req_t">
+<span id="_CPPv327httpd_req_get_url_query_lenP11httpd_req_t"></span><span id="_CPPv227httpd_req_get_url_query_lenP11httpd_req_t"></span><span id="httpd_req_get_url_query_len__httpd_req_tP"></span><span class="target" id="esp__http__server_8h_1aefda761de0e657b96247964ce738d5c0"></span>size_t <code class="descname">httpd_req_get_url_query_len</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv427httpd_req_get_url_query_lenP11httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ მოთხოვნის სტრიქონის სიგრძე მოთხოვნის URL-დან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is supposed to be called only from the context of a URI handler where httpd_req_t* request pointer is valid</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>სიგრძე: მოთხოვნა მოიძებნა მოთხოვნის URL-ში</li>
+<li>ნული: მოთხოვნა ვერ მოიძებნა / ნულოვანი არგუმენტები / არასწორი მოთხოვნა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427httpd_req_get_url_query_strP11httpd_req_tPc6size_t">
+<span id="_CPPv327httpd_req_get_url_query_strP11httpd_req_tPc6size_t"></span><span id="_CPPv227httpd_req_get_url_query_strP11httpd_req_tPc6size_t"></span><span id="httpd_req_get_url_query_str__httpd_req_tP.cP.s"></span><span class="target" id="esp__http__server_8h_1a9bc4e30aee549df5519de6a13829c264"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_req_get_url_query_str</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, char *<em>ბუფი</em>, size_t <em>ბუფ_ლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv427httpd_req_get_url_query_strP11httpd_req_tPc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ მოთხოვნის სტრიქონი მოთხოვნის URL-დან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ამჟამად, მომხმარებელს შეუძლია URL-ის სრული მოთხოვნის სტრიქონის მოძიება, თუმცა დეკოდირება თავად მომხმარებელმა უნდა განახორციელოს. მოთხოვნის სათაურების წაკითხვა შესაძლებელია httpd_req_get_hdr_value_str() ფუნქციის გამოყენებით, რათა გაირკვეს „კონტენტის ტიპი“ (მაგ., კონტენტის ტიპი: application/x-www-form-urlencoded) და შემდეგ საჭიროა შესაბამისი დეკოდირების ალგორითმის გამოყენება.</li>
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>თუ გამომავალი ზომა შეყვანის ზომაზე მეტია, მაშინ მნიშვნელობა შემოკლებულია, რასაც თან ახლავს შემოკლების შეცდომა, როგორც დაბრუნებული მნიშვნელობა.</li>
+<li>ამ ფუნქციის გამოძახებამდე, შეგიძლიათ გამოიყენოთ httpd_req_get_url_query_len() მოთხოვნის სტრიქონის სიგრძის წინასწარ გასაგებად და შესაბამისად, სწორი ზომის ბუფერის (ჩვეულებრივ, მოთხოვნის სტრიქონის სიგრძე + 1 ნულოვანი დასრულებისთვის) გამოსაყოფად მოთხოვნის სტრიქონის შესანახად.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: მოთხოვნა მოიძებნა მოთხოვნის URL-ში და დაკოპირდა ბუფერში.</li>
+<li>ESP_ERR_NOT_FOUND: მოთხოვნა ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: HTTP მოთხოვნის არასწორი მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESULT_TRUNC: მოთხოვნის სტრიქონი შემოკლებულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: ბუფერის მაჩვენებელი, რომელშიც მოთხოვნის სტრიქონი დაკოპირდება (თუ მოიძებნება) </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>გამომავალი ბუფერის სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421httpd_query_key_valuePKcPKcPc6size_t">
+<span id="_CPPv321httpd_query_key_valuePKcPKcPc6size_t"></span><span id="_CPPv221httpd_query_key_valuePKcPKcPc6size_t"></span><span id="httpd_query_key_value__cCP.cCP.cP.s"></span><span class="target" id="esp__http__server_8h_1a843cd2cb098fdfd374c20e784a994670"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_query_key_value</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>კითხვა</em>, <em class="property">კონსტ</em> char *<em>გასაღები</em>, char *<em>ვალი</em>, size_t <em>val_size</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv421httpd_query_key_valuePKcPKcPc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამხმარე ფუნქცია param1=val1¶m2=val2 ტიპის მოთხოვნის სტრიქონიდან URL მოთხოვნის ტეგის მისაღებად. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>URL მოთხოვნის სტრიქონის (გასაღებები და მნიშვნელობები) კომპონენტი არ არის URLდეკოდირებული. მომხმარებელმა უნდა შეამოწმოს „Content-Type“ ველი მოთხოვნის სათაურებში და შემდეგ, მითითებული კოდირების (URLencoded თუ სხვა) მიხედვით, გამოიყენოს შესაბამისი დეკოდირების ალგორითმი.</li>
+<li>თუ ფაქტობრივი მნიშვნელობის ზომა val_size-ზე მეტია, მაშინ მნიშვნელობა შემოკლდება, რასაც თან ახლავს შემოკლების შეცდომა, როგორც დაბრუნებული მნიშვნელობა.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გასაღები მოიძებნა URL მოთხოვნის სტრიქონში და დაკოპირდა ბუფერში.</li>
+<li>ESP_ERR_NOT_FOUND: გასაღები ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESULT_TRUNC: მნიშვნელობის სტრიქონი შემოკლებულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">qry</span></code>: მოთხოვნის სტრიქონის მითითება </li>
+<li><code class="docutils literal notranslate"><span class="pre">key</span></code>: მოთხოვნის სტრიქონში მოსაძებნი გასაღები </li>
+<li><code class="docutils literal notranslate"><span class="pre">val</span></code>: ბუფერის მაჩვენებელი, რომელშიც მნიშვნელობა დაკოპირდება, თუ გასაღები მოიძებნება </li>
+<li><code class="docutils literal notranslate"><span class="pre">val_size</span></code>მომხმარებლის ბუფერის „val“ ზომა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424httpd_uri_match_wildcardPKcPKc6size_t">
+<span id="_CPPv324httpd_uri_match_wildcardPKcPKc6size_t"></span><span id="_CPPv224httpd_uri_match_wildcardPKcPKc6size_t"></span><span id="httpd_uri_match_wildcard__cCP.cCP.s"></span><span class="target" id="esp__http__server_8h_1a3e19d9337e2b96428246e2e73d0f900c"></span>bool <code class="descname">httpd_uri_match_wildcard</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>uri_შაბლონი</em>, <em class="property">კონსტ</em> char *<em>uri_to_match</em>, size_t <em>შესატყვისი_მაქსიმუმი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv424httpd_uri_match_wildcardPKcPKc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამოწმეთ, ემთხვევა თუ არა URI მოცემულ wildcard შაბლონს. </p>
+<p>შაბლონი შეიძლება დასრულდეს „?“-ით, რათა წინა სიმბოლო არასავალდებულო გახდეს (როგორც წესი, სლეში), „*“-ით - ველური სიმბოლოს შესატყვისობისთვის და „?*“-ით, რათა წინა სიმბოლო არასავალდებულო გახდეს და, თუ არსებობს, ნებისმიერი სიმბოლოს შემდეგ გამოყენების დაშვება.</p>
+<p>მაგალითი:<ul class="simple">
+<li>* ყველაფერს ემთხვევა</li>
+<li>/foo/? შეესაბამება /foo-ს და /foo/-ს</li>
+<li>/foo/* (უკუხაზის გარეშე) შეესაბამება /foo/-ს და /foo/bar-ს, მაგრამ არა /foo-ს ან /fo-ს.</li>
+<li>/foo/?* ან /foo/*? (უკუხაზის გარეშე) შეესაბამება /foo/-ს, /foo/bar-ს და ასევე /foo-ს, მაგრამ არა /foox-ს ან /fo-ს.</li>
+</ul>
+</p>
+<p>შაბლონის სხვა ადგილებში გამოყენებული სპეციალური სიმბოლოები „?“ და „*“ სიტყვასიტყვით იქნება აღქმული.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>true if a match was found </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uri_template</span></code>: URI შაბლონი (ნიმუში) </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri_to_match</span></code>შესატყვისი URI </li>
+<li><code class="docutils literal notranslate"><span class="pre">match_upto</span></code>: URI ბუფერის რამდენი სიმბოლო უნდა შემოწმდეს (შესაძლოა იყოს ბოლოში მოცემული მოთხოვნის სტრიქონი და ა.შ.)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415httpd_resp_sendP11httpd_req_tPKc7ssize_t">
+<span id="_CPPv315httpd_resp_sendP11httpd_req_tPKc7ssize_t"></span><span id="_CPPv215httpd_resp_sendP11httpd_req_tPKc7ssize_t"></span><span id="httpd_resp_send__httpd_req_tP.cCP.ssize_t"></span><span class="target" id="esp__http__server_8h_1a67aa037d44f178a47f3fadca5ac34c1a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ბუფი</em>, ssize_t <em>ბუფ_ლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv415httpd_resp_sendP11httpd_req_tPKc7ssize_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API სრული HTTP პასუხის გასაგზავნად. </p>
+<p>ეს API მონაცემებს მოთხოვნაზე HTTP პასუხის სახით გამოაგზავნის. ეს ვარაუდობს, რომ მთელი პასუხი ერთ ბუფერში გაქვთ მომზადებული. თუ გსურთ პასუხის ინკრემენტულ ნაწილებად გაგზავნა, ამის ნაცვლად გამოიყენეთ httpd_resp_send_chunk().</p>
+<p>თუ სტატუსის კოდი და კონტენტის ტიპი არ არის დაყენებული, ნაგულისხმევად ეს გამოაგზავნის 200 OK სტატუსის კოდს და კონტენტის ტიპს ტექსტის/html-ის სახით. პასუხის სათაურების კონფიგურაციისთვის შეგიძლიათ გამოიძახოთ შემდეგი ფუნქციები ამ API მდე: httpd_resp_set_status() - HTTP სტატუსის სტრიქონის დასაყენებლად, httpd_resp_set_type() - კონტენტის ტიპის დასაყენებლად, httpd_resp_set_hdr() - პასუხის სათაურში ნებისმიერი დამატებითი ველის მნიშვნელობის ჩანაწერის დასამატებლად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როგორც კი ეს API გამოიძახება, მოთხოვნაზე პასუხი გაცემულია.</li>
+<li>შემდეგ მოთხოვნისთვის დამატებითი მონაცემების გაგზავნა შეუძლებელია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი მოთხოვნის მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESP_HDR: აუცილებელი სათაურები ძალიან დიდია შიდა ბუფერისთვის.</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>ბუფერი, საიდანაც კონტენტი უნდა იქნას მოძიებული </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>: ბუფერის სიგრძე, HTTPD_RESP_USE_STRLEN strlen()-ის გამოსაყენებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421httpd_resp_send_chunkP11httpd_req_tPKc7ssize_t">
+<span id="_CPPv321httpd_resp_send_chunkP11httpd_req_tPKc7ssize_t"></span><span id="_CPPv221httpd_resp_send_chunkP11httpd_req_tPKc7ssize_t"></span><span id="httpd_resp_send_chunk__httpd_req_tP.cCP.ssize_t"></span><span class="target" id="esp__http__server_8h_1a4c6e0465b3c09f5a997043b46ec99186"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send_chunk</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ბუფი</em>, ssize_t <em>ბუფ_ლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv421httpd_resp_send_chunkP11httpd_req_tPKc7ssize_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API ერთი HTTP ბლოკის გასაგზავნად. </p>
+<p>ეს API მონაცემებს მოთხოვნაზე HTTP პასუხის სახით გამოაგზავნის. ეს API გამოიყენებს ნაწილებად კოდირებას და პასუხს ნაწილებად გამოაგზავნის. თუ მთელი პასუხი ერთ ბუფერშია მოთავსებული, გთხოვთ, მის ნაცვლად გამოიყენოთ httpd_resp_send().</p>
+<p>თუ სტატუსის კოდი და კონტენტის ტიპი არ არის დაყენებული, ნაგულისხმევად ეს გამოაგზავნის 200 OK სტატუსის კოდს და კონტენტის ტიპს ტექსტის/html-ის სახით. პასუხის სათაურების კონფიგურაციისთვის ამ API შეგიძლიათ გამოიძახოთ შემდეგი ფუნქციები httpd_resp_set_status() - HTTP სტატუსის სტრიქონის დასაყენებლად, httpd_resp_set_type() - კონტენტის ტიპის დასაყენებლად, httpd_resp_set_hdr() - პასუხის სათაურში ნებისმიერი დამატებითი ველის მნიშვნელობის ჩანაწერის დასამატებლად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როდესაც ყველა ბლოკის გაგზავნას დაასრულებთ, უნდა გამოიძახოთ ეს ფუნქცია, სადაც buf_len 0-ია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის ნაწილის წარმატებით გაგზავნის შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი მოთხოვნის მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESP_HDR: აუცილებელი სათაურები ძალიან დიდია შიდა ბუფერისთვის.</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: მაჩვენებელი ბუფერზე, რომელიც ინახავს მონაცემებს </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>: ბუფერის სიგრძე, HTTPD_RESP_USE_STRLEN strlen()-ის გამოსაყენებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418httpd_resp_sendstrP11httpd_req_tPKc">
+<span id="_CPPv318httpd_resp_sendstrP11httpd_req_tPKc"></span><span id="_CPPv218httpd_resp_sendstrP11httpd_req_tPKc"></span><span id="httpd_resp_sendstr__httpd_req_tP.cCP"></span><span class="target" id="esp__http__server_8h_1ac0f1d5954afe37cac630155250b3d676"></span><em class="property">სტატიკური</em> <a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_sendstr</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ქუჩა</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv418httpd_resp_sendstrP11httpd_req_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API HTTP პასუხის სახით სრული სტრიქონის გასაგზავნად. </p>
+<p>ეს API უბრალოდ იძახებს http_resp_send-ს, ბუფერის სიგრძით, რომელიც სტრიქონის სიგრძეზეა დაყენებული, იმ პირობით, რომ ბუფერი შეიცავს null-ით დამთავრებულ სტრიქონს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი მოთხოვნის მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESP_HDR: აუცილებელი სათაურები ძალიან დიდია შიდა ბუფერისთვის.</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">str</span></code>: პასუხის ტექსტად გასაგზავნი სტრიქონი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424httpd_resp_sendstr_chunkP11httpd_req_tPKc">
+<span id="_CPPv324httpd_resp_sendstr_chunkP11httpd_req_tPKc"></span><span id="_CPPv224httpd_resp_sendstr_chunkP11httpd_req_tPKc"></span><span id="httpd_resp_sendstr_chunk__httpd_req_tP.cCP"></span><span class="target" id="esp__http__server_8h_1a6a8d3c2c7136fbeda19d6cabeec36e78"></span><em class="property">სტატიკური</em> <a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_sendstr_chunk</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ქუჩა</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv424httpd_resp_sendstr_chunkP11httpd_req_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API HTTP პასუხის ბლოკის სახით სტრიქონის გასაგზავნად. </p>
+<p>ეს API უბრალოდ იძახებს http_resp_send_chunk-ს ბუფერის სიგრძით, რომელიც სტრიქონის სიგრძეზეა დაყენებული, იმ პირობით, რომ ბუფერი შეიცავს null-ით დამთავრებულ სტრიქონს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი მოთხოვნის მაჩვენებელი</li>
+<li>ESP_ERR_HTTPD_RESP_HDR: აუცილებელი სათაურები ძალიან დიდია შიდა ბუფერისთვის.</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">str</span></code>: სტრიქონი, რომელიც გაიგზავნება პასუხის ტექსტად (NULL პასუხის პაკეტის დასასრულებლად)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421httpd_resp_set_statusP11httpd_req_tPKc">
+<span id="_CPPv321httpd_resp_set_statusP11httpd_req_tPKc"></span><span id="_CPPv221httpd_resp_set_statusP11httpd_req_tPKc"></span><span id="httpd_resp_set_status__httpd_req_tP.cCP"></span><span class="target" id="esp__http__server_8h_1a88021fd722954631f1dbf63da43cad28"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_set_status</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>სტატუსი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv421httpd_resp_set_statusP11httpd_req_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API HTTP სტატუსის კოდის დასაყენებლად. </p>
+<p>ეს API HTTP პასუხის სტატუსს მითითებულ მნიშვნელობაზე აწესებს. ნაგულისხმევად, პასუხად იგზავნება „200 OK“ პასუხი.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>ეს API სტატუსს მხოლოდ ამ მნიშვნელობას ანიჭებს. სტატუსი არ გაიგზავნება მანამ, სანამ send API ის რომელიმე ბრძანება არ შესრულდება.</li>
+<li>დარწმუნდით, რომ სტატუსის სტრიქონის სიცოცხლის ხანგრძლივობა ძალაშია გაგზავნის ფუნქციის გამოძახებამდე.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">status</span></code>ამ პასუხის HTTP სტატუსის კოდი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_resp_set_typeP11httpd_req_tPKc">
+<span id="_CPPv319httpd_resp_set_typeP11httpd_req_tPKc"></span><span id="_CPPv219httpd_resp_set_typeP11httpd_req_tPKc"></span><span id="httpd_resp_set_type__httpd_req_tP.cCP"></span><span class="target" id="esp__http__server_8h_1afe6f7650c67454ccbe85bb470f166de2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_set_type</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_resp_set_typeP11httpd_req_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API HTTP კონტენტის ტიპის დასაყენებლად. </p>
+<p>ეს API ადგენს პასუხის „კონტენტის ტიპის“ ველს. ნაგულისხმევი კონტენტის ტიპია „ტექსტი/html“.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>ეს API მხოლოდ ამ მნიშვნელობაზე აწესებს კონტენტის ტიპს. ტიპი არ გაიგზავნება მანამ, სანამ send API ის რომელიმე ბრძანება არ შესრულდება.</li>
+<li>დარწმუნდით, რომ ტიპის სტრიქონის სიცოცხლის ხანგრძლივობა ვალიდურია send ფუნქციის გამოძახებამდე.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>პასუხის კონტენტის ტიპი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418httpd_resp_set_hdrP11httpd_req_tPKcPKc">
+<span id="_CPPv318httpd_resp_set_hdrP11httpd_req_tPKcPKc"></span><span id="_CPPv218httpd_resp_set_hdrP11httpd_req_tPKcPKc"></span><span id="httpd_resp_set_hdr__httpd_req_tP.cCP.cCP"></span><span class="target" id="esp__http__server_8h_1af9fe08829da872bed237cb17b577b1bb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_set_hdr</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ველი</em>, <em class="property">კონსტ</em> char *<em>ღირებულება</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv418httpd_resp_set_hdrP11httpd_req_tPKcPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>API დამატებითი სათაურების დასამატებლად. </p>
+<p>ეს API ადგენს ნებისმიერ დამატებით სათაურის ველს, რომელიც უნდა გაიგზავნოს პასუხში.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>სათაური არ იგზავნება მანამ, სანამ send API ის რომელიმე ფუნქცია არ შესრულდება.</li>
+<li>კონფიგურაციის სტრუქტურაში დამატებითი სათაურების მაქსიმალური დაშვებული რაოდენობა შემოიფარგლება max_resp_headers-ის მნიშვნელობით.</li>
+<li>დარწმუნდით, რომ ველის მნიშვნელობის სტრიქონების სიცოცხლის ხანგრძლივობა ვალიდურია გაგზავნის ფუნქციის გამოძახებამდე.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ახალი სათაურის წარმატებით დამატებისას</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESP_HDR: დამატებითი სათაურების ჯამური რაოდენობა აღემატება დაშვებულ მაქსიმალურ რაოდენობას.</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">field</span></code>HTTP სათაურის ველის სახელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>ამ HTTP სათაურის მნიშვნელობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_resp_send_errP11httpd_req_t16httpd_err_code_tPKc">
+<span id="_CPPv319httpd_resp_send_errP11httpd_req_t16httpd_err_code_tPKc"></span><span id="_CPPv219httpd_resp_send_errP11httpd_req_t16httpd_err_code_tPKc"></span><span id="httpd_resp_send_err__httpd_req_tP.httpd_err_code_t.cCP"></span><span class="target" id="esp__http__server_8h_1aaa98f32909f0c925d2f4b097c6b11213"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send_err</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>მოთხოვნა</em>, <a class="reference internal" href="esp_http_server.html#_CPPv416httpd_err_code_t" title="httpd_err_code_t">httpd_err_code_t</a> <em>შეცდომა</em>, <em class="property">კონსტ</em> char *<em>შეტყობინება</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_resp_send_errP11httpd_req_t16httpd_err_code_tPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მოთხოვნის საპასუხოდ შეცდომის კოდის გაგზავნისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+<li>თუ გსურთ პასუხის ძირითად ნაწილში დამატებითი მონაცემების გაგზავნა, გთხოვთ, პირდაპირ გამოიყენოთ ქვედა დონის ფუნქციები.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">req</span></code>HTTP მოთხოვნის მითითება, რომლისთვისაც პასუხის გაგზავნაა საჭირო. </li>
+<li><code class="docutils literal notranslate"><span class="pre">error</span></code>: გაგზავნის შეცდომის ტიპი </li>
+<li><code class="docutils literal notranslate"><span class="pre">msg</span></code>: შეცდომის შეტყობინების სტრიქონი (ნაგულისხმევი შეტყობინებისთვის NULL-ის გადაცემა)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_resp_send_404P11httpd_req_t">
+<span id="_CPPv319httpd_resp_send_404P11httpd_req_t"></span><span id="_CPPv219httpd_resp_send_404P11httpd_req_t"></span><span id="httpd_resp_send_404__httpd_req_tP"></span><span class="target" id="esp__http__server_8h_1a6d94e8ca3981df3427b7c4ae680f07e2"></span><em class="property">სტატიკური</em> <a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send_404</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_resp_send_404P11httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP 404-ის დამხმარე ფუნქცია. </p>
+<p>HTTP 404 შეტყობინების გაგზავნა. თუ გსურთ პასუხის ტექსტში დამატებითი მონაცემების გაგზავნა, გთხოვთ, პირდაპირ გამოიყენოთ ქვედა დონის ფუნქციები.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_resp_send_408P11httpd_req_t">
+<span id="_CPPv319httpd_resp_send_408P11httpd_req_t"></span><span id="_CPPv219httpd_resp_send_408P11httpd_req_t"></span><span id="httpd_resp_send_408__httpd_req_tP"></span><span class="target" id="esp__http__server_8h_1ae22aff0dd981380d05812d3a0f8b2095"></span><em class="property">სტატიკური</em> <a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send_408</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_resp_send_408P11httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP 408-ის დამხმარე ფუნქცია. </p>
+<p>HTTP 408 შეტყობინების გაგზავნა. თუ გსურთ პასუხის ტექსტში დამატებითი მონაცემების გაგზავნა, გთხოვთ, პირდაპირ გამოიყენოთ ქვედა დონის ფუნქციები.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419httpd_resp_send_500P11httpd_req_t">
+<span id="_CPPv319httpd_resp_send_500P11httpd_req_t"></span><span id="_CPPv219httpd_resp_send_500P11httpd_req_t"></span><span id="httpd_resp_send_500__httpd_req_tP"></span><span class="target" id="esp__http__server_8h_1adc611ab182c3fb310cd32876e7a50079"></span><em class="property">სტატიკური</em> <a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_resp_send_500</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_resp_send_500P11httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP 500-ის დამხმარე ფუნქცია. </p>
+<p>HTTP 500 შეტყობინების გაგზავნა. თუ გსურთ პასუხის ტექსტში დამატებითი მონაცემების გაგზავნა, გთხოვთ, პირდაპირ გამოიყენოთ ქვედა დონის ფუნქციები.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>როგორც კი ეს API გამოიძახება, ყველა მოთხოვნის სათაური იწმინდება, ამიტომ, თუ მოგვიანებით დაგჭირდებათ, მოთხოვნის სათაურის კოპირება ცალკეულ ბუფერებში იქნება საჭირო.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: პასუხის პაკეტის წარმატებით გაგზავნის შემდეგ</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები</li>
+<li>ESP_ERR_HTTPD_RESP_SEND: შეცდომა ნედლი გაგზავნისას</li>
+<li>ESP_ERR_HTTPD_INVALID_REQ: არასწორი მოთხოვნის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410httpd_sendP11httpd_req_tPKc6size_t">
+<span id="_CPPv310httpd_sendP11httpd_req_tPKc6size_t"></span><span id="_CPPv210httpd_sendP11httpd_req_tPKc6size_t"></span><span id="httpd_send__httpd_req_tP.cCP.s"></span><span class="target" id="esp__http__server_8h_1ab5136d22ec4def6e24eb31bdb67e2240"></span>int <code class="descname">httpd_send</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *<em>რ</em>, <em class="property">კონსტ</em> char *<em>ბუფი</em>, size_t <em>ბუფ_ლენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv410httpd_sendP11httpd_req_tPKc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ნედლი HTTP გაგზავნა. </p>
+<p>თუ გსურთ საკუთარი პასუხის პაკეტის შექმნა, გამოიძახეთ ეს API . ამის გამოყენებისას, ყველა აუცილებელი სათაური, მაგ. HTTP ვერსია, სტატუსის კოდი, კონტენტის ტიპი და სიგრძე, კოდირება და ა.შ. ხელით უნდა შეიქმნას და HTTP პასუხის პაკეტის ქვესექციების გამოსაყოფად HTTP დელიმეტრები (CRLF) სწორად უნდა განთავსდეს.</p>
+<p>თუ გაგზავნის გადაფარვის ფუნქცია დაყენებულია, ეს API საბოლოოდ გამოიძახებს ამ ფუნქციას მონაცემების გასაგზავნად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>ეს API უნდა გამოიძახონ მხოლოდ URI დამმუშავებლის კონტექსტიდან, სადაც httpd_req_t* მოთხოვნის მაჩვენებელი ვალიდურია.</li>
+<li>თუ პასუხს არ აქვს სწორი HTTP სტრუქტურა (რაც მომხმარებელმა ახლა უნდა დარწმუნდეს), არ არის გარანტირებული, რომ კლიენტი მას ამოიცნობს. უმეტეს შემთხვევაში, თქვენ არ დაგჭირდებათ ამ API გამოძახება, მაგრამ უმჯობესია გამოიყენოთ რომელიმე შემდეგი: httpd_resp_send(), httpd_resp_send_chunk()</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ბაიტები: წარმატებით გაგზავნილი ბაიტების რაოდენობა</li>
+<li>HTTPD_SOCK_ERR_INVALID: არასწორი არგუმენტები</li>
+<li>HTTPD_SOCK_ERR_TIMEOUT : შეფერხდა/შეწყდა სოკეტ send()-ის გამოძახებისას.</li>
+<li>HTTPD_SOCK_ERR_FAIL: გამოუსწორებელი შეცდომა socket send()-ის გამოძახებისას. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">r</span></code>: მოთხოვნა, რომელზეც პასუხი მიიღება </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>ბუფერი, საიდანაც სრულად აგებული პაკეტი უნდა წაიკითხოს </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>ბუფერის სიგრძე</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426httpd_register_err_handler14httpd_handle_t16httpd_err_code_t24httpd_err_handler_func_t">
+<span id="_CPPv326httpd_register_err_handler14httpd_handle_t16httpd_err_code_t24httpd_err_handler_func_t"></span><span id="_CPPv226httpd_register_err_handler14httpd_handle_t16httpd_err_code_t24httpd_err_handler_func_t"></span><span id="httpd_register_err_handler__httpd_handle_t.httpd_err_code_t.httpd_err_handler_func_t"></span><span class="target" id="esp__http__server_8h_1a77882a50b8f07e4f667887bac6294bd2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_register_err_handler</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, <a class="reference internal" href="esp_http_server.html#_CPPv416httpd_err_code_t" title="httpd_err_code_t">httpd_err_code_t</a> <em>შეცდომა</em>, <a class="reference internal" href="esp_http_server.html#_CPPv424httpd_err_handler_func_t" title="httpd_err_handler_func_t">httpd_err_handler_func_t</a> <em>handler_fn</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv426httpd_register_err_handler14httpd_handle_t16httpd_err_code_t24httpd_err_handler_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP შეცდომების დამმუშავებლების რეგისტრაციის ფუნქცია. </p>
+<p>ეს ფუნქცია დამმუშავებლის ფუნქციას აკავშირებს ნებისმიერ მხარდაჭერილ შეცდომის კოდთან, რომელიც მოცემულია <code class="docutils literal notranslate"><span class="pre">httpd_err_code_t</span></code>იხილეთ პროტოტიპი <code class="docutils literal notranslate"><span class="pre">httpd_err_handler_func_t</span></code> დეტალებისთვის ზემოთ.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დამმუშავებელი წარმატებით დარეგისტრირდა</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი შეცდომის კოდი ან სერვერის სახელური </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>HTTP სერვერის სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">error</span></code>შეცდომის ტიპი </li>
+<li><code class="docutils literal notranslate"><span class="pre">handler_fn</span></code>მომხმარებლის მიერ განხორციელებული დამმუშავებლის ფუნქცია (გადაეცით NULL ნებისმიერი ადრე დაყენებული დამმუშავებლის გასაუქმებლად)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411httpd_startP14httpd_handle_tPK14httpd_config_t">
+<span id="_CPPv311httpd_startP14httpd_handle_tPK14httpd_config_t"></span><span id="_CPPv211httpd_startP14httpd_handle_tPK14httpd_config_t"></span><span id="httpd_start__httpd_handle_tP.httpd_config_tCP"></span><span class="target" id="esp__http__server_8h_1a67fc09a6f8b438d55f8277f0112fe2d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_start</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> *<em>სახელური</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_http_server.html#_CPPv414httpd_config_t" title="httpd_config_t">httpd_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv411httpd_startP14httpd_handle_tPK14httpd_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იწყებს ვებ სერვერს. </p>
+<p>შექმენით HTTP სერვერის ეგზემპლარი და გამოყავით მისთვის მეხსიერება/რესურსები მითითებული კონფიგურაციის მიხედვით.</p>
+<p>გამოყენების მაგალითი: <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">//Function for starting the webserver</span>
+<span class="n">httpd_handle_t</span> <span class="nf">start_webserver</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">// Generate default configuration</span>
+     <span class="n">httpd_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="n">HTTPD_DEFAULT_CONFIG</span><span class="p">();</span>
+
+     <span class="c1">// Empty handle to http_server</span>
+     <span class="n">httpd_handle_t</span> <span class="n">server</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+     <span class="c1">// Start the httpd server</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">httpd_start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="p">)</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// Register URI handlers</span>
+         <span class="n">httpd_register_uri_handler</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uri_get</span><span class="p">);</span>
+         <span class="n">httpd_register_uri_handler</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">uri_post</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="c1">// If server failed to start, handle will be NULL</span>
+     <span class="k">return</span> <span class="n">server</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ეგზემპლარი წარმატებით შეიქმნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტ(ებ)ი</li>
+<li>ESP_ERR_HTTPD_ALLOC_MEM: მაგალითად, მეხსიერების გამოყოფა ვერ მოხერხდა</li>
+<li>ESP_ERR_HTTPD_TASK: სერვერის დავალების გაშვება ვერ მოხერხდა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>სერვერის ახალი ეგზემპლარის კონფიგურაცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერის ახლად შექმნილი ეგზემპლარის სახელური. NULL შეცდომის შემთხვევაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410httpd_stop14httpd_handle_t">
+<span id="_CPPv310httpd_stop14httpd_handle_t"></span><span id="_CPPv210httpd_stop14httpd_handle_t"></span><span id="httpd_stop__httpd_handle_t"></span><span class="target" id="esp__http__server_8h_1acbb0acc68fa2da437c041d06f35fb861"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_stop</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv410httpd_stop14httpd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აჩერებს ვებ სერვერს. </p>
+<p>HTTP სერვერის ეგზემპლარის მიერ გამოყენებული მეხსიერების/რესურსების დელოკაციას ახდენს და შლის მას. წაშლის შემდეგ, სახელური აღარ იქნება გამოყენებული ეგზემპლარზე წვდომისთვის.</p>
+<p>გამოყენების მაგალითი: <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Function for stopping the webserver</span>
+<span class="kt">void</span> <span class="nf">stop_webserver</span><span class="p">(</span><span class="n">httpd_handle_t</span> <span class="n">server</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">// Ensure handle is non NULL</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">server</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// Stop the httpd server</span>
+         <span class="n">httpd_stop</span><span class="p">(</span><span class="n">server</span><span class="p">);</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: სერვერი წარმატებით გაჩერდა</li>
+<li>ESP_ERR_INVALID_ARG: სახელურის არგუმენტი არის Null </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416httpd_queue_work14httpd_handle_t15httpd_work_fn_tPv">
+<span id="_CPPv316httpd_queue_work14httpd_handle_t15httpd_work_fn_tPv"></span><span id="_CPPv216httpd_queue_work14httpd_handle_t15httpd_work_fn_tPv"></span><span id="httpd_queue_work__httpd_handle_t.httpd_work_fn_t.voidP"></span><span class="target" id="esp__http__server_8h_1a1f87a6588d7b73e22e3be710015ce5ef"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_queue_work</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, <a class="reference internal" href="esp_http_server.html#_CPPv415httpd_work_fn_t" title="httpd_work_fn_t">httpd_work_fn_t</a> <em>სამუშაო</em>, void *<em>არგუმენტი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv416httpd_queue_work14httpd_handle_t15httpd_work_fn_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქციის შესრულების რიგში დაყენება HTTPD კონტექსტში. </p>
+<p>ეს API სამუშაო ფუნქციას ასინქრონული შესრულების რიგში აყენებს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Some protocols require that the web server generate some asynchronous data and send it to the persistently opened connection. This facility is for use by such protocols.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: სამუშაოს რიგში წარმატებით განთავსების შემთხვევაში</li>
+<li>ESP_FAIL: ctrl სოკეტის შეცდომა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">work</span></code>HTTPD კონტექსტში შესასრულებელი ფუნქციის მითითება </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: ამ ფუნქციისთვის გადასაცემი არგუმენტების მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418httpd_sess_get_ctx14httpd_handle_ti">
+<span id="_CPPv318httpd_sess_get_ctx14httpd_handle_ti"></span><span id="_CPPv218httpd_sess_get_ctx14httpd_handle_ti"></span><span id="httpd_sess_get_ctx__httpd_handle_t.i"></span><span class="target" id="esp__http__server_8h_1ab5424b2d46f2809b3155d38c00d6f422"></span>void *<code class="descname">httpd_sess_get_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv418httpd_sess_get_ctx14httpd_handle_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სოკეტის აღმწერიდან სესიის კონტექსტის მიღება. </p>
+<p>როგორც წესი, თუ სესიის კონტექსტი იქმნება, ის URI დამმუშავებლებისთვის ხელმისაწვდომია httpd_req_t სტრუქტურის მეშვეობით. თუმცა, არსებობს შემთხვევები, როდესაც ვებ სერვერის გაგზავნის/მიღების ფუნქციებს შეიძლება დასჭირდეთ კონტექსტი (მაგალითად, გასაღების ინფორმაციაზე წვდომისთვის და ა.შ.). რადგან გაგზავნის/მიღების ფუნქციას მხოლოდ სოკეტის აღმწერი აქვს ხელთ, ეს API მათ სესიის კონტექსტის მოძიების საშუალებას აძლევს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>void* : ამ სესიასთან დაკავშირებული კონტექსტის მითითება</li>
+<li>NULL: ცარიელი კონტექსტი / არასწორი სახელური / არასწორი სოკეტი fd </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სოკეტის აღწერილობა, რომლის კონტექსტიც უნდა იქნას ამოღებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418httpd_sess_set_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t">
+<span id="_CPPv318httpd_sess_set_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t"></span><span id="_CPPv218httpd_sess_set_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t"></span><span id="httpd_sess_set_ctx__httpd_handle_t.i.voidP.httpd_free_ctx_fn_t"></span><span class="target" id="esp__http__server_8h_1a757e67695bcea509774cf8627a58c73b"></span>void <code class="descname">httpd_sess_set_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em>, void *<em>ctx</em>, <a class="reference internal" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="httpd_free_ctx_fn_t">httpd_free_ctx_fn_t</a> <em>free_fn</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv418httpd_sess_set_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სესიის კონტექსტის დაყენება სოკეტის აღმწერის საშუალებით. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სოკეტის აღწერილობა, რომლის კონტექსტიც უნდა იქნას ამოღებული. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>: სესიისთვის მინიჭებული კონტექსტური ობიექტი </li>
+<li><code class="docutils literal notranslate"><span class="pre">free_fn</span></code>ფუნქცია, რომელიც უნდა გამოიძახოს კონტექსტის გასათავისუფლებლად </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428httpd_sess_get_transport_ctx14httpd_handle_ti">
+<span id="_CPPv328httpd_sess_get_transport_ctx14httpd_handle_ti"></span><span id="_CPPv228httpd_sess_get_transport_ctx14httpd_handle_ti"></span><span id="httpd_sess_get_transport_ctx__httpd_handle_t.i"></span><span class="target" id="esp__http__server_8h_1aebaa93d38fb678bee7c913f35631d985"></span>void *<code class="descname">httpd_sess_get_transport_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv428httpd_sess_get_transport_ctx14httpd_handle_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სოკეტის აღმწერის საშუალებით მიიღეთ სესიის „ტრანსპორტის“ კონტექსტი. </p>
+<p><p>ეს კონტექსტი გამოიყენება გაგზავნის/მიღების ფუნქციების მიერ, მაგალითად, SSL კონტექსტის სამართავად.</p>
+<dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd>httpd_sess_get_ctx()</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>void* : ამ სესიასთან დაკავშირებული ტრანსპორტის კონტექსტის მითითება</li>
+<li>NULL: ცარიელი კონტექსტი / არასწორი სახელური / არასწორი სოკეტი fd </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სოკეტის აღწერილობა, რომლის კონტექსტიც უნდა იქნას ამოღებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428httpd_sess_set_transport_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t">
+<span id="_CPPv328httpd_sess_set_transport_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t"></span><span id="_CPPv228httpd_sess_set_transport_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t"></span><span id="httpd_sess_set_transport_ctx__httpd_handle_t.i.voidP.httpd_free_ctx_fn_t"></span><span class="target" id="esp__http__server_8h_1a04274a7e095da7be8d6c16ab51822907"></span>void <code class="descname">httpd_sess_set_transport_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em>, void *<em>ctx</em>, <a class="reference internal" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="httpd_free_ctx_fn_t">httpd_free_ctx_fn_t</a> <em>free_fn</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv428httpd_sess_set_transport_ctx14httpd_handle_tiPv19httpd_free_ctx_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სესიის „ტრანსპორტის“ კონტექსტის დაყენება სოკეტის აღმწერის მეშვეობით. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd>httpd_sess_set_ctx()</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>სოკეტის აღწერილობა, რომლის კონტექსტიც უნდა იქნას ამოღებული. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>სესიისთვის მინიჭების ტრანსპორტირების კონტექსტური ობიექტი </li>
+<li><code class="docutils literal notranslate"><span class="pre">free_fn</span></code>ფუნქცია, რომელიც უნდა გამოიძახოს ტრანსპორტის კონტექსტის გასათავისუფლებლად </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425httpd_get_global_user_ctx14httpd_handle_t">
+<span id="_CPPv325httpd_get_global_user_ctx14httpd_handle_t"></span><span id="_CPPv225httpd_get_global_user_ctx14httpd_handle_t"></span><span id="httpd_get_global_user_ctx__httpd_handle_t"></span><span class="target" id="esp__http__server_8h_1a0d7e7fe410fc5dbc42c619fec5600ea9"></span>void *<code class="descname">httpd_get_global_user_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv425httpd_get_global_user_ctx14httpd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ HTTPD გლობალური მომხმარებლის კონტექსტი (ის დაყენებული იყო სერვერის კონფიგურაციის სტრუქტურაში) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>global user context </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430httpd_get_global_transport_ctx14httpd_handle_t">
+<span id="_CPPv330httpd_get_global_transport_ctx14httpd_handle_t"></span><span id="_CPPv230httpd_get_global_transport_ctx14httpd_handle_t"></span><span id="httpd_get_global_transport_ctx__httpd_handle_t"></span><span class="target" id="esp__http__server_8h_1a5623fb12d1be87bf5370ff08470fcead"></span>void *<code class="descname">httpd_get_global_transport_ctx</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv430httpd_get_global_transport_ctx14httpd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ HTTPD გლობალური ტრანსპორტის კონტექსტი (ის დაყენებული იყო სერვერის კონფიგურაციის სტრუქტურაში) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>global transport context </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424httpd_sess_trigger_close14httpd_handle_ti">
+<span id="_CPPv324httpd_sess_trigger_close14httpd_handle_ti"></span><span id="_CPPv224httpd_sess_trigger_close14httpd_handle_ti"></span><span id="httpd_sess_trigger_close__httpd_handle_t.i"></span><span class="target" id="esp__http__server_8h_1a575055bada874d254b42ccf913351793"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_sess_trigger_close</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv424httpd_sess_trigger_close14httpd_handle_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>httpd სესიის გარედან დახურვის გააქტიურება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling this API is only required in special circumstances wherein some application requires to close an httpd client session asynchronously.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დახურვის წარმატებით დაწყებისას</li>
+<li>ESP_FAIL: სამუშაოს რიგში ჩასმის შეუძლებლობა</li>
+<li>ESP_ERR_NOT_FOUND: სოკეტი fd ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: დასახურავი სესიის სოკეტის აღწერილობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429httpd_sess_update_lru_counter14httpd_handle_ti">
+<span id="_CPPv329httpd_sess_update_lru_counter14httpd_handle_ti"></span><span id="_CPPv229httpd_sess_update_lru_counter14httpd_handle_ti"></span><span id="httpd_sess_update_lru_counter__httpd_handle_t.i"></span><span class="target" id="esp__http__server_8h_1ab47bc683db586f4e8deb53a4dbf6b531"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">httpd_sess_update_lru_counter</code><span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <em>სახელური</em>, int <em>sockfd</em><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv429httpd_sess_update_lru_counter14httpd_handle_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>განაახლეთ LRU მრიცხველი მოცემული სოკეტისთვის. </p>
+<p>LRU მრიცხველები შინაგანად არის დაკავშირებული თითოეულ სესიასთან, რათა აკონტროლონ, თუ რამდენად ბოლო დროს გაცვალეს ტრაფიკი სესიამ. როდესაც LRU გაწმენდა ჩართულია, თუ კლიენტი ითხოვს კავშირს, მაგრამ მიღწეულია სოკეტების/სესიების მაქსიმალური რაოდენობა, მაშინ სესია, რომელსაც აქვს ყველაზე ადრეული LRU მრიცხველი, ავტომატურად იხურება.</p>
+<p>LRU მრიცხველის ხელით განახლება ხელს უშლის სოკეტის გაწმენდას ბოლო დროს გამოყენებული (LRU) ლოგიკის გამო, მაშინაც კი, თუ მას შესაძლოა გარკვეული დროის განმავლობაში არ მიეღო ტრაფიკი. ეს სასარგებლოა, როდესაც ყველა ღია სოკეტი/სესია ხშირად ცვლის ტრაფიკს, მაგრამ მომხმარებელს კონკრეტულად სურს, რომ ერთ-ერთი სესია ღია დარჩეს, მიუხედავად იმისა, თუ როდის გაცვალა მან ბოლოს პაკეტი.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling this API is only necessary if the LRU Purge Enable option is enabled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: სოკეტი ნაპოვნია და LRU მრიცხველი განახლებულია</li>
+<li>ESP_ERR_NOT_FOUND: სოკეტი ვერ მოიძებნა</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სერვერისთვის დაბრუნებული სახელური httpd_start-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: იმ სესიის სოკეტის აღწერილობა, რომლისთვისაც უნდა განახლდეს LRU მრიცხველი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_http_server.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv412httpd_config">
+<span id="_CPPv312httpd_config"></span><span id="_CPPv212httpd_config"></span><span id="httpd_config"></span><span class="target" id="structhttpd__config"></span><em class="property">სტრუქტურა </em><code class="descname">httpd_config</code><a class="headerlink" href="esp_http_server.html#_CPPv412httpd_config" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP სერვერის კონფიგურაციის სტრუქტურა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Use HTTPD_DEFAULT_CONFIG() to initialize the configuration to a default value and then modify only those fields that are specifically determined by the use case. </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config13task_priorityE">
+<span id="_CPPv3N12httpd_config13task_priorityE"></span><span id="_CPPv2N12httpd_config13task_priorityE"></span><span id="httpd_config::task_priority__unsigned"></span><span class="target" id="structhttpd__config_1ac7328969561f39489efb0e4560abb2c7"></span>unsigned <code class="descname">task_priority</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config13task_priorityE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერვერის გაშვების Free RTOS დავალების პრიორიტეტი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config10stack_sizeE">
+<span id="_CPPv3N12httpd_config10stack_sizeE"></span><span id="_CPPv2N12httpd_config10stack_sizeE"></span><span id="httpd_config::stack_size__s"></span><span class="target" id="structhttpd__config_1a1e977af1b803de9fe819e2c82929211e"></span>size_t <code class="descname">stack_size</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config10stack_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერვერის დავალებისთვის დაშვებული მაქსიმალური დასტის ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config7core_idE">
+<span id="_CPPv3N12httpd_config7core_idE"></span><span id="_CPPv2N12httpd_config7core_idE"></span><span id="httpd_config::core_id__BaseType_t"></span><span class="target" id="structhttpd__config_1af53f7d5fb25119c65fac16f4a09dc062"></span>BaseType_t <code class="descname">core_id</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config7core_idE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP სერვერის დავალების ბირთვი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config11server_portE">
+<span id="_CPPv3N12httpd_config11server_portE"></span><span id="_CPPv2N12httpd_config11server_portE"></span><span id="httpd_config::server_port__uint16_t"></span><span class="target" id="structhttpd__config_1a6c40d3061485bc6c7d34d73a63e42e15"></span>uint16_t <code class="descname">server_port</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config11server_portE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>TCP პორტის ნომერი HTTP ტრაფიკის მისაღებად და გადასაცემად </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config9ctrl_portE">
+<span id="_CPPv3N12httpd_config9ctrl_portE"></span><span id="_CPPv2N12httpd_config9ctrl_portE"></span><span id="httpd_config::ctrl_port__uint16_t"></span><span class="target" id="structhttpd__config_1aaa92748cfcf99d5d6f0d2c94d7d1d237"></span>uint16_t <code class="descname">ctrl_port</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config9ctrl_portE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UDP პორტის ნომერი სერვერის სხვადასხვა კომპონენტი შორის საკონტროლო სიგნალების ასინქრონული გაცვლისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config16max_open_socketsE">
+<span id="_CPPv3N12httpd_config16max_open_socketsE"></span><span id="_CPPv2N12httpd_config16max_open_socketsE"></span><span id="httpd_config::max_open_sockets__uint16_t"></span><span class="target" id="structhttpd__config_1a8c4371992c7e8371a0b768da135fc15b"></span>uint16_t <code class="descname">max_open_sockets</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config16max_open_socketsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ნებისმიერ დროს დაკავშირებული სოკეტების/კლიენტების მაქსიმალური რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config16max_uri_handlersE">
+<span id="_CPPv3N12httpd_config16max_uri_handlersE"></span><span id="_CPPv2N12httpd_config16max_uri_handlersE"></span><span id="httpd_config::max_uri_handlers__uint16_t"></span><span class="target" id="structhttpd__config_1a0d98832efc16246a49b2225c01cce218"></span>uint16_t <code class="descname">max_uri_handlers</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config16max_uri_handlersE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაქსიმალური დაშვებული uri დამმუშავებლები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config16max_resp_headersE">
+<span id="_CPPv3N12httpd_config16max_resp_headersE"></span><span id="_CPPv2N12httpd_config16max_resp_headersE"></span><span id="httpd_config::max_resp_headers__uint16_t"></span><span class="target" id="structhttpd__config_1ae18633b07f2416b8d32f286262b0265b"></span>uint16_t <code class="descname">max_resp_headers</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config16max_resp_headersE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP პასუხში დაშვებული დამატებითი სათაურების მაქსიმალური რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config12backlog_connE">
+<span id="_CPPv3N12httpd_config12backlog_connE"></span><span id="_CPPv2N12httpd_config12backlog_connE"></span><span id="httpd_config::backlog_conn__uint16_t"></span><span class="target" id="structhttpd__config_1a7ef094fb09dc0b05871e07f84e95431e"></span>uint16_t <code class="descname">backlog_conn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config12backlog_connE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაგროვილი კავშირების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config16lru_purge_enableE">
+<span id="_CPPv3N12httpd_config16lru_purge_enableE"></span><span id="_CPPv2N12httpd_config16lru_purge_enableE"></span><span id="httpd_config::lru_purge_enable__b"></span><span class="target" id="structhttpd__config_1a2b023b5100ece33cabe1aa3d559a6ecb"></span>bool <code class="descname">lru_purge_enable</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config16lru_purge_enableE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>„ყველაზე ნაკლებად გამოყენებული“ კავშირის წაშლა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config17recv_wait_timeoutE">
+<span id="_CPPv3N12httpd_config17recv_wait_timeoutE"></span><span id="_CPPv2N12httpd_config17recv_wait_timeoutE"></span><span id="httpd_config::recv_wait_timeout__uint16_t"></span><span class="target" id="structhttpd__config_1aadd39fd10004e75265beba4d74475f5b"></span>uint16_t <code class="descname">recv_wait_timeout</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config17recv_wait_timeoutE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აღდგენითი ფუნქციის ტაიმვალი (წამებში) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config17send_wait_timeoutE">
+<span id="_CPPv3N12httpd_config17send_wait_timeoutE"></span><span id="_CPPv2N12httpd_config17send_wait_timeoutE"></span><span id="httpd_config::send_wait_timeout__uint16_t"></span><span class="target" id="structhttpd__config_1a58c934b33248b2c72225642198f1f0c3"></span>uint16_t <code class="descname">send_wait_timeout</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config17send_wait_timeoutE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაგზავნის ფუნქციის ვადის ამოწურვა (წამებში) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config15global_user_ctxE">
+<span id="_CPPv3N12httpd_config15global_user_ctxE"></span><span id="_CPPv2N12httpd_config15global_user_ctxE"></span><span id="httpd_config::global_user_ctx__voidP"></span><span class="target" id="structhttpd__config_1aea07d602712387ee9177842d46bd2a5b"></span>void *<code class="descname">global_user_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config15global_user_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გლობალური მომხმარებლის კონტექსტი.</p>
+<p>ეს ველი შეიძლება გამოყენებულ იქნას სერვერის კონტექსტში მომხმარებლის მონაცემების შესანახად. მნიშვნელობის მოძიება შესაძლებელია სერვერის სახელურის გამოყენებით, რომელიც ხელმისაწვდომია, მაგალითად, httpd_req_t სტრუქტურაში.</p>
+<p>გათიშვისას, სერვერი ათავისუფლებს მომხმარებლის კონტექსტს global_user_ctx ველში free() ფუნქციის გამოძახებით. თუ გსურთ გლობალური მომხმარებლის კონტექსტის გასათავისუფლებლად გამოიყენოთ მორგებული ფუნქცია, გთხოვთ, მიუთითოთ ეს აქ. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config23global_user_ctx_free_fnE">
+<span id="_CPPv3N12httpd_config23global_user_ctx_free_fnE"></span><span id="_CPPv2N12httpd_config23global_user_ctx_free_fnE"></span><span id="httpd_config::global_user_ctx_free_fn__httpd_free_ctx_fn_t"></span><span class="target" id="structhttpd__config_1aa339887ac82ffdd3a077ce094da3375b"></span><a class="reference internal" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="httpd_free_ctx_fn_t">httpd_free_ctx_fn_t</a> <code class="descname">global_user_ctx_free_fn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config23global_user_ctx_free_fnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უფასო ფუნქცია გლობალური მომხმარებლის კონტექსტისთვის </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config20global_transport_ctxE">
+<span id="_CPPv3N12httpd_config20global_transport_ctxE"></span><span id="_CPPv2N12httpd_config20global_transport_ctxE"></span><span id="httpd_config::global_transport_ctx__voidP"></span><span class="target" id="structhttpd__config_1a9c4d467429af5680ec99368e37ab8db8"></span>void *<code class="descname">global_transport_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config20global_transport_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გლობალური ტრანსპორტის კონტექსტი.</p>
+<p>global_user_ctx-ის მსგავსი, მაგრამ გამოიყენება სესიის კოდირების ან დაშიფვრისთვის (მაგ. SSL კონტექსტის შესანახად). ის გათავისუფლდება free()-ის გამოყენებით, თუ global_transport_ctx_free_fn არ არის მითითებული. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config28global_transport_ctx_free_fnE">
+<span id="_CPPv3N12httpd_config28global_transport_ctx_free_fnE"></span><span id="_CPPv2N12httpd_config28global_transport_ctx_free_fnE"></span><span id="httpd_config::global_transport_ctx_free_fn__httpd_free_ctx_fn_t"></span><span class="target" id="structhttpd__config_1ada620729da1376fc7dd383b8e8c532b6"></span><a class="reference internal" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="httpd_free_ctx_fn_t">httpd_free_ctx_fn_t</a> <code class="descname">global_transport_ctx_free_fn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config28global_transport_ctx_free_fnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უფასო ფუნქცია გლობალური ტრანსპორტის კონტექსტისთვის </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config7open_fnE">
+<span id="_CPPv3N12httpd_config7open_fnE"></span><span id="_CPPv2N12httpd_config7open_fnE"></span><span id="httpd_config::open_fn__httpd_open_func_t"></span><span class="target" id="structhttpd__config_1a6b5675925c6d4c7b99bebb744b4dd047"></span><a class="reference internal" href="esp_http_server.html#_CPPv417httpd_open_func_t" title="httpd_open_func_t">httpd_open_func_t</a> <code class="descname">open_fn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config7open_fnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მორგებული სესიის გახსნის უკუკავშირი.</p>
+<p>ახალი სესიის სოკეტის გამოძახება accept()-ის შემდეგ, მაგრამ ნებისმიერი მონაცემების წაკითხვამდე.</p>
+<p>ეს არის შესაძლებლობა, დააყენოთ, მაგალითად, SSL დაშიფვრა global_transport_ctx-ის გამოყენებით და send/recv/pending სესია გადაფაროს.</p>
+<p>თუ ამ ფუნქციებს შორის კონტექსტის შენარჩუნებაა საჭირო, შეინახეთ ის სესიაში httpd_sess_set_transport_ctx() ფუნქციის გამოყენებით და მოგვიანებით მოიძიეთ httpd_sess_get_transport_ctx() ფუნქციის გამოყენებით.</p>
+<p>ESP_OK-ისგან განსხვავებული მნიშვნელობის დაბრუნება დაუყოვნებლივ დახურავს ახალ სოკეტს. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config8close_fnE">
+<span id="_CPPv3N12httpd_config8close_fnE"></span><span id="_CPPv2N12httpd_config8close_fnE"></span><span id="httpd_config::close_fn__httpd_close_func_t"></span><span class="target" id="structhttpd__config_1af511dedbbbd18af2ae8d256ead200e42"></span><a class="reference internal" href="esp_http_server.html#_CPPv418httpd_close_func_t" title="httpd_close_func_t">httpd_close_func_t</a> <code class="descname">close_fn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config8close_fnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მორგებული სესიის დახურვის უკუკავშირი.</p>
+<p>გამოიძახება სესიის წაშლისას, მომხმარებლის და ტრანსპორტის კონტექსტების გათავისუფლებამდე და სოკეტის დახურვამდე. ეს არის ადგილი ყველა სოკეტისთვის საერთო მორგებული დეინიცირების კოდისთვის.</p>
+<p>თუ მომხმარებელი ან ტრანსპორტის კონტექსტი აქ გათავისუფლდა, დააყენეთ NULL-ზე, რათა სერვერმა ხელახლა არ სცადოს მისი გათავისუფლება.</p>
+<p>ეს ფუნქცია მუშაობს ყველა შეწყვეტილი სესიისთვის, მათ შორის იმ სესიებისთვის, სადაც სოკეტი დაიხურა ქსელური სტეკის მიერ - ანუ ფაილის აღწერილობა შესაძლოა აღარ იყოს ვალიდური. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12httpd_config12uri_match_fnE">
+<span id="_CPPv3N12httpd_config12uri_match_fnE"></span><span id="_CPPv2N12httpd_config12uri_match_fnE"></span><span id="httpd_config::uri_match_fn__httpd_uri_match_func_t"></span><span class="target" id="structhttpd__config_1a4e65d59846d22f07daefa6898c351e1b"></span><a class="reference internal" href="esp_http_server.html#_CPPv422httpd_uri_match_func_t" title="httpd_uri_match_func_t">httpd_uri_match_func_t</a> <code class="descname">uri_match_fn</code><a class="headerlink" href="esp_http_server.html#_CPPv4N12httpd_config12uri_match_fnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>URI-ის შესაბამისობის ფუნქცია.</p>
+<p>გამოიძახება შესაბამისი URI-ს ძიებისას: 1) რომლის მოთხოვნის დამმუშავებელი უნდა შესრულდეს HTTP მოთხოვნის წარმატებით დამუშავებისთანავე 2) ახალი URI დამმუშავებლის რეგისტრაციისას დუბლირების თავიდან ასაცილებლად. <code class="docutils literal notranslate"><span class="pre">httpd_register_uri_handler()</span></code></p>
+<p>ხელმისაწვდომი ვარიანტებია: 1) NULL: შიდა რეჟიმში ძირითადი შესაბამისობის შესრულება <code class="docutils literal notranslate"><span class="pre">strncmp()</span></code> 2) <code class="docutils literal notranslate"><span class="pre">httpd_uri_match_wildcard()</span></code> : URI wildcard-ის შესაბამისობა</p>
+<p>მომხმარებლებს შეუძლიათ განახორციელონ საკუთარი შესაბამისობის ფუნქციები (იხილეთ აღწერა) <code class="docutils literal notranslate"><span class="pre">httpd_uri_match_func_t</span></code> ფუნქციის პროტოტიპი) </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv49httpd_req">
+<span id="_CPPv39httpd_req"></span><span id="_CPPv29httpd_req"></span><span id="httpd_req"></span><span class="target" id="structhttpd__req"></span><em class="property">სტრუქტურა </em><code class="descname">httpd_req</code><a class="headerlink" href="esp_http_server.html#_CPPv49httpd_req" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მოთხოვნის მონაცემთა სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req6handleE">
+<span id="_CPPv3N9httpd_req6handleE"></span><span id="_CPPv2N9httpd_req6handleE"></span><span id="httpd_req::handle__httpd_handle_t"></span><span class="target" id="structhttpd__req_1a5670d530fb005f7f78dbf18ba0a941bc"></span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> <code class="descname">handle</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req6handleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერვერის ეგზემპლარის მართვა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req6methodE">
+<span id="_CPPv3N9httpd_req6methodE"></span><span id="_CPPv2N9httpd_req6methodE"></span><span id="httpd_req::method__i"></span><span class="target" id="structhttpd__req_1a77cbca0e01e71a96a729f2fc117db48a"></span>int <code class="descname">method</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req6methodE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მოთხოვნის ტიპი, -1, თუ მეთოდი მხარდაუჭერელია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req3uriE">
+<span id="_CPPv3N9httpd_req3uriE"></span><span id="_CPPv2N9httpd_req3uriE"></span><span id="httpd_req::uri__cCA"></span><span class="target" id="structhttpd__req_1a5ae765ff59f36e0c32b5ec286e3aba29"></span><em class="property">კონსტ</em> char <code class="descname">uri</code>[<code class="descname">HTTPD_MAX_URI_LEN</code> + 1]<a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req3uriE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ მოთხოვნის URI (1 ბაიტი დამატებით ნულოვანი შეწყვეტისთვის) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req11content_lenE">
+<span id="_CPPv3N9httpd_req11content_lenE"></span><span id="_CPPv2N9httpd_req11content_lenE"></span><span id="httpd_req::content_len__s"></span><span class="target" id="structhttpd__req_1a4cd9652d0d9b375b7a0feea20e03750b"></span>size_t <code class="descname">content_len</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req11content_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოთხოვნის ტექსტის სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req3auxE">
+<span id="_CPPv3N9httpd_req3auxE"></span><span id="_CPPv2N9httpd_req3auxE"></span><span id="httpd_req::aux__voidP"></span><span class="target" id="structhttpd__req_1a15bca00d10d1a5f37dd7023188461506"></span>void *<code class="descname">aux</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req3auxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შინაგანად გამოყენებული წევრები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req8user_ctxE">
+<span id="_CPPv3N9httpd_req8user_ctxE"></span><span id="_CPPv2N9httpd_req8user_ctxE"></span><span id="httpd_req::user_ctx__voidP"></span><span class="target" id="structhttpd__req_1afded762b2e37bc6f1c2ffadb98a82e36"></span>void *<code class="descname">user_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req8user_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>URI რეგისტრაციის დროს გადაცემული მომხმარებლის კონტექსტური მაჩვენებელი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req8sess_ctxE">
+<span id="_CPPv3N9httpd_req8sess_ctxE"></span><span id="_CPPv2N9httpd_req8sess_ctxE"></span><span id="httpd_req::sess_ctx__voidP"></span><span class="target" id="structhttpd__req_1a3cef09c79f06250ba7968d29b833c583"></span>void *<code class="descname">sess_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req8sess_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სესიის კონტექსტური მაჩვენებელი</p>
+<p>სესიის კონტექსტი. კონტექსტები შენარჩუნებულია „სესიების“ განმავლობაში მოცემული ღია TCP კავშირისთვის. ერთ სესიას შეიძლება ჰქონდეს რამდენიმე მოთხოვნაზე პასუხი. ვებ სერვერი უზრუნველყოფს, რომ კონტექსტი შენარჩუნდეს ყველა ამ მოთხოვნასა და პასუხში.</p>
+<p>ნაგულისხმევად, ეს არის NULL. URI დამმუშავებლებს შეუძლიათ დააყენონ ეს ნებისმიერი მნიშვნელოვანი მნიშვნელობა.</p>
+<p>თუ ძირითადი სოკეტი დაიხურება და ეს მაჩვენებელი არ არის NULL, ვებ სერვერი გაათავისუფლებს კონტექსტს free()-ის გამოძახებით, თუ free_ctx ფუნქცია არ არის დაყენებული. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req8free_ctxE">
+<span id="_CPPv3N9httpd_req8free_ctxE"></span><span id="_CPPv2N9httpd_req8free_ctxE"></span><span id="httpd_req::free_ctx__httpd_free_ctx_fn_t"></span><span class="target" id="structhttpd__req_1a5b66775ebd3defc861c0dcb21c56bcb3"></span><a class="reference internal" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="httpd_free_ctx_fn_t">httpd_free_ctx_fn_t</a> <code class="descname">free_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req8free_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიმთითებელი თავისუფალი კონტექსტის კაუჭზე</p>
+<p>ფუნქცია სესიის კონტექსტის გასათავისუფლებლად</p>
+<p>თუ ვებ სერვერის სოკეტი დაიხურება, ის ათავისუფლებს სესიის კონტექსტს sess_ctx წევრზე free()-ის გამოძახებით. თუ გსურთ სესიის კონტექსტის გასათავისუფლებლად მორგებული ფუნქციის გამოყენება, გთხოვთ, მიუთითოთ ეს აქ. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_req23ignore_sess_ctx_changesE">
+<span id="_CPPv3N9httpd_req23ignore_sess_ctx_changesE"></span><span id="_CPPv2N9httpd_req23ignore_sess_ctx_changesE"></span><span id="httpd_req::ignore_sess_ctx_changes__b"></span><span class="target" id="structhttpd__req_1a61a20805f21529592c6d2d28aab43bbf"></span>bool <code class="descname">ignore_sess_ctx_changes</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_req23ignore_sess_ctx_changesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დროშა, რომელიც მიუთითებს, უნდა იყოს თუ არა სესიის კონტექსტის ცვლილებები იგნორირებული</p>
+<p>ნაგულისხმევად, თუ რომელიმე URI დამმუშავებელში sess_ctx-ს შეცვლით, http სერვერი შინაგანად გაათავისუფლებს ადრინდელ კონტექსტს (თუ ის არ არის NULL), URI დამმუშავებლის დაბრუნების შემდეგ. თუ გსურთ sess_ctx-ის გამოყოფა/გადალაგება/გათავისუფლება თავად მართოთ, დააყენეთ ეს დროშა true-ზე, რათა სერვერმა მასზე არანაირი შემოწმება არ განახორციელოს. კონტექსტი სერვერის მიერ გაიწმინდება (free_ctx-ის ან free()-ის გამოძახებით) მხოლოდ იმ შემთხვევაში, თუ სოკეტი დაიხურება. </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv49httpd_uri">
+<span id="_CPPv39httpd_uri"></span><span id="_CPPv29httpd_uri"></span><span id="httpd_uri"></span><span class="target" id="structhttpd__uri"></span><em class="property">სტრუქტურა </em><code class="descname">httpd_uri</code><a class="headerlink" href="esp_http_server.html#_CPPv49httpd_uri" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>URI დამმუშავებლის სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N9httpd_uri3uriE">
+<span id="_CPPv3N9httpd_uri3uriE"></span><span id="_CPPv2N9httpd_uri3uriE"></span><span id="httpd_uri::uri__cCP"></span><span class="target" id="structhttpd__uri_1a6d96b7c861b635d1e75cb5ea784fa904"></span><em class="property">კონსტ</em> char *<code class="descname">uri</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_uri3uriE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დასამუშავებელი URI </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_uri6methodE">
+<span id="_CPPv3N9httpd_uri6methodE"></span><span id="_CPPv2N9httpd_uri6methodE"></span><span id="httpd_uri::method__httpd_method_t"></span><span class="target" id="structhttpd__uri_1adcedc9988c787dc88a94854986c63a7a"></span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_method_t" title="httpd_method_t">httpd_method_t</a> <code class="descname">method</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_uri6methodE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მეთოდი, რომელსაც URI უჭერს მხარს </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_uri7handlerE">
+<span id="_CPPv3N9httpd_uri7handlerE"></span><span id="_CPPv2N9httpd_uri7handlerE"></span><span class="target" id="structhttpd__uri_1a63129cc7f59cd1bef6b3753733d560a4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">handler</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *r<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_uri7handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამმუშავებელი, რომელიც გამოიძახებს მხარდაჭერილი მოთხოვნის მეთოდს. ეს უნდა აბრუნებდეს ESP_OK-ს, წინააღმდეგ შემთხვევაში, ძირითადი სოკეტი დაიხურება. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9httpd_uri8user_ctxE">
+<span id="_CPPv3N9httpd_uri8user_ctxE"></span><span id="_CPPv2N9httpd_uri8user_ctxE"></span><span id="httpd_uri::user_ctx__voidP"></span><span class="target" id="structhttpd__uri_1ac1e1599092f7338cc1121a0225de8fb0"></span>void *<code class="descname">user_ctx</code><a class="headerlink" href="esp_http_server.html#_CPPv4N9httpd_uri8user_ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მომხმარებლის კონტექსტის მონაცემების მითითება, რომლებიც ხელმისაწვდომი იქნება დამმუშავებლისთვის </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_http_server.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.HTTPD_MAX_REQ_HDR_LEN">
+<span class="target" id="esp__http__server_8h_1a980514fd5ea0e5df13b61a610a533568"></span><code class="descname">HTTPD_MAX_REQ_HDR_LEN</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_MAX_REQ_HDR_LEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_MAX_URI_LEN">
+<span class="target" id="esp__http__server_8h_1a53353c97ec079bbb67d11063c61485a0"></span><code class="descname">HTTPD_MAX_URI_LEN</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_MAX_URI_LEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_SOCK_ERR_FAIL">
+<span class="target" id="esp__http__server_8h_1a414de2603c84063bf192beb538302ba2"></span><code class="descname">HTTPD_SOCK_ERR_FAIL</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_SOCK_ERR_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_SOCK_ERR_INVALID">
+<span class="target" id="esp__http__server_8h_1ac5b0fdf08a0e847fa27a72b5c0441ef7"></span><code class="descname">HTTPD_SOCK_ERR_INVALID</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_SOCK_ERR_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_SOCK_ERR_TIMEOUT">
+<span class="target" id="esp__http__server_8h_1abcf644caeaa90f795a8752d2751ca446"></span><code class="descname">HTTPD_SOCK_ERR_TIMEOUT</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_SOCK_ERR_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_200">
+<span class="target" id="esp__http__server_8h_1af4b127c140f541d4de6656df5a3ab752"></span><code class="descname">HTTPD_200</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_200" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 200 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_204">
+<span class="target" id="esp__http__server_8h_1a598f51d2105e087602fc64ee90ebb1db"></span><code class="descname">HTTPD_204</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_204" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 204 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_207">
+<span class="target" id="esp__http__server_8h_1a1556a6addae5a1471f7ab4601e9be72b"></span><code class="descname">HTTPD_207</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_207" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 207 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_400">
+<span class="target" id="esp__http__server_8h_1a82175e01e1ac389a7cbc3be38a6b1672"></span><code class="descname">HTTPD_400</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_400" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 400 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_404">
+<span class="target" id="esp__http__server_8h_1a64bf9043ddaedbc26c68e73f0b2a1383"></span><code class="descname">HTTPD_404</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_404" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 404 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_408">
+<span class="target" id="esp__http__server_8h_1a70636571ca355db1bbd768455b8b74e0"></span><code class="descname">HTTPD_408</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_408" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 408 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_500">
+<span class="target" id="esp__http__server_8h_1a5b7c2b05b58226436e813169ab50b4ab"></span><code class="descname">HTTPD_500</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_500" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP პასუხი 500 </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_TYPE_JSON">
+<span class="target" id="esp__http__server_8h_1a75c55e059a80ffcb3ce67e3481ee2cba"></span><code class="descname">HTTPD_TYPE_JSON</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_TYPE_JSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP კონტენტის ტიპი JSON </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_TYPE_TEXT">
+<span class="target" id="esp__http__server_8h_1af2f51b0354458b875ea529841cee89e4"></span><code class="descname">HTTPD_TYPE_TEXT</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_TYPE_TEXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP კონტენტის ტიპი ტექსტი/HTML </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_TYPE_OCTET">
+<span class="target" id="esp__http__server_8h_1a910be1054243530a5060e475f1bb29e1"></span><code class="descname">HTTPD_TYPE_OCTET</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_TYPE_OCTET" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTP კონტენტის ტიპი octext-stream </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_DEFAULT_CONFIG">
+<span class="target" id="esp__http__server_8h_1a16f21d93351c7b2a7d0fff7e52cb84ce"></span><code class="descname">HTTPD_DEFAULT_CONFIG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#c.HTTPD_DEFAULT_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_BASE">
+<span class="target" id="esp__http__server_8h_1ab4eee198c51a07a2bd1faecf1ba8d30f"></span><code class="descname">ESP_ERR_HTTPD_BASE</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_BASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>HTTPD შეცდომის კოდების საწყისი რაოდენობა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_HANDLERS_FULL">
+<span class="target" id="esp__http__server_8h_1a57b81d1e32ef1d0ea49399f76764d8d4"></span><code class="descname">ESP_ERR_HTTPD_HANDLERS_FULL</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_HANDLERS_FULL" title="Permalink to this definition">¶</a></dt>
+<dd><p>URI დამმუშავებლების რეგისტრაციის ყველა სლოტი გამოყენებულია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_HANDLER_EXISTS">
+<span class="target" id="esp__http__server_8h_1a58812cc89d323555abbb502f6500d216"></span><code class="descname">ESP_ERR_HTTPD_HANDLER_EXISTS</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_HANDLER_EXISTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>URI დამმუშავებელი იგივე მეთოდით და სამიზნე URI-ით უკვე რეგისტრირებულია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_INVALID_REQ">
+<span class="target" id="esp__http__server_8h_1a392df95876df9639d29fa1b46e50d33e"></span><code class="descname">ESP_ERR_HTTPD_INVALID_REQ</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_INVALID_REQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>არასწორი მოთხოვნის მაჩვენებელი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_RESULT_TRUNC">
+<span class="target" id="esp__http__server_8h_1a7764c1b5ad6bac4b70394d447ea6ed64"></span><code class="descname">ESP_ERR_HTTPD_RESULT_TRUNC</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_RESULT_TRUNC" title="Permalink to this definition">¶</a></dt>
+<dd><p>შედეგის სტრიქონი შემოკლებულია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_RESP_HDR">
+<span class="target" id="esp__http__server_8h_1a2cf09e6ed46b1594e2562f693917b2ef"></span><code class="descname">ESP_ERR_HTTPD_RESP_HDR</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_RESP_HDR" title="Permalink to this definition">¶</a></dt>
+<dd><p>პასუხის სათაურის ველი მხარდაჭერილზე დიდია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_RESP_SEND">
+<span class="target" id="esp__http__server_8h_1a940dfdeafef71bbf1b446ee0d95f7155"></span><code class="descname">ESP_ERR_HTTPD_RESP_SEND</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_RESP_SEND" title="Permalink to this definition">¶</a></dt>
+<dd><p>საპასუხო პაკეტის გაგზავნისას შეცდომა მოხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_ALLOC_MEM">
+<span class="target" id="esp__http__server_8h_1ad4a0e90d6743bc2879683e0594157abd"></span><code class="descname">ESP_ERR_HTTPD_ALLOC_MEM</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_ALLOC_MEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>რესურსისთვის მეხსიერების დინამიურად გამოყოფა ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPD_TASK">
+<span class="target" id="esp__http__server_8h_1ae5a79bfd921716071ca381f0ac776326"></span><code class="descname">ESP_ERR_HTTPD_TASK</code><a class="headerlink" href="esp_http_server.html#c.ESP_ERR_HTTPD_TASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>სერვერის დავალების/ძაფის გაშვება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.HTTPD_RESP_USE_STRLEN">
+<span class="target" id="esp__http__server_8h_1a8d5f8ff1f607c5dd9c4c9b1df89d6a13"></span><code class="descname">HTTPD_RESP_USE_STRLEN</code><a class="headerlink" href="esp_http_server.html#c.HTTPD_RESP_USE_STRLEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_http_server.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv411httpd_req_t">
+<span id="_CPPv311httpd_req_t"></span><span id="_CPPv211httpd_req_t"></span><span id="httpd_req_t"></span><span class="target" id="esp__http__server_8h_1ad12589c93ef767e054480196040a3865"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_http_server.html#_CPPv49httpd_req" title="httpd_req">httpd_req</a> <code class="descname">httpd_req_t</code><a class="headerlink" href="esp_http_server.html#_CPPv411httpd_req_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მოთხოვნის მონაცემთა სტრუქტურა. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv411httpd_uri_t">
+<span id="_CPPv311httpd_uri_t"></span><span id="_CPPv211httpd_uri_t"></span><span id="httpd_uri_t"></span><span class="target" id="esp__http__server_8h_1a1d7e19083d4529ffd4e8cd541ae10898"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_http_server.html#_CPPv49httpd_uri" title="httpd_uri">httpd_uri</a> <code class="descname">httpd_uri_t</code><a class="headerlink" href="esp_http_server.html#_CPPv411httpd_uri_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>URI დამმუშავებლის სტრუქტურა. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417httpd_send_func_t">
+<span id="_CPPv317httpd_send_func_t"></span><span id="_CPPv217httpd_send_func_t"></span><span id="httpd_send_func_t"></span><span class="target" id="esp__http__server_8h_1ab38425810ec83d8b318d61be15c12dae"></span><em class="property">typedef </em>int (*<code class="descname">httpd_send_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> hd, int sockfd, <em class="property">კონსტ</em> char *buf, size_t buf_len, int flags<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv417httpd_send_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPD-ების დაბალი დონის გაგზავნის ფუნქციის პროტოტიპი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>User specified send function must handle errors internally, depending upon the set value of errno, and return specific HTTPD_SOCK_ERR_ codes, which will eventually be conveyed as return value of httpd_send() function</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ბაიტები: წარმატებით გაგზავნილი ბაიტების რაოდენობა</li>
+<li>HTTPD_SOCK_ERR_INVALID: არასწორი არგუმენტები</li>
+<li>HTTPD_SOCK_ERR_TIMEOUT : შეფერხდა/შეწყდა სოკეტ send()-ის გამოძახებისას.</li>
+<li>HTTPD_SOCK_ERR_FAIL: გამოუსწორებელი შეცდომა socket send()-ის გამოძახებისას. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>: სერვერის ეგზემპლარი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: სესიის სოკეტის ფაილის აღწერილობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: ბუფერი გასაგზავნი ბაიტებით </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>: მონაცემთა ზომა </li>
+<li><code class="docutils literal notranslate"><span class="pre">flags</span></code>: send() ფუნქციის დროშები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417httpd_recv_func_t">
+<span id="_CPPv317httpd_recv_func_t"></span><span id="_CPPv217httpd_recv_func_t"></span><span id="httpd_recv_func_t"></span><span class="target" id="esp__http__server_8h_1ad58908b819a0d55fbbb42439f3e0c7fe"></span><em class="property">typedef </em>int (*<code class="descname">httpd_recv_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> hd, int sockfd, char *buf, size_t buf_len, int flags<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv417httpd_recv_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPD-ების დაბალი დონის recv ფუნქციის პროტოტიპი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>User specified recv function must handle errors internally, depending upon the set value of errno, and return specific HTTPD_SOCK_ERR_ codes, which will eventually be conveyed as return value of httpd_req_recv() function</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ბაიტები: წარმატებით მიღებული ბაიტების რაოდენობა</li>
+<li>0: ბუფერის სიგრძის პარამეტრი ნულის ტოლია / კავშირი დახურულია peer-ის მიერ</li>
+<li>HTTPD_SOCK_ERR_INVALID: არასწორი არგუმენტები</li>
+<li>HTTPD_SOCK_ERR_TIMEOUT : სოკეტ recv()-ის გამოძახებისას დროის ამოწურვა/შეწყვეტა</li>
+<li>HTTPD_SOCK_ERR_FAIL: გამოუსწორებელი შეცდომა სოკეტ recv()-ის გამოძახებისას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>: სერვერის ეგზემპლარი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: სესიის სოკეტის ფაილის აღწერილობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: ბუფერი გასაგზავნი ბაიტებით </li>
+<li><code class="docutils literal notranslate"><span class="pre">buf_len</span></code>: მონაცემთა ზომა </li>
+<li><code class="docutils literal notranslate"><span class="pre">flags</span></code>: send() ფუნქციის დროშები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420httpd_pending_func_t">
+<span id="_CPPv320httpd_pending_func_t"></span><span id="_CPPv220httpd_pending_func_t"></span><span id="httpd_pending_func_t"></span><span class="target" id="esp__http__server_8h_1adc228570871c545d9678d8bca486b3f4"></span><em class="property">typedef </em>int (*<code class="descname">httpd_pending_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> hd, int sockfd<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv420httpd_pending_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPD-ების დაბალი დონის „მომლოდინე ბაიტების მიღების“ ფუნქციის პროტოტიპი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>User specified pending function must handle errors internally, depending upon the set value of errno, and return specific HTTPD_SOCK_ERR_ codes, which will be handled accordingly in the server task.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ბაიტები: მიღებას ელოდება ბაიტების რაოდენობა</li>
+<li>HTTPD_SOCK_ERR_INVALID: არასწორი არგუმენტები</li>
+<li>HTTPD_SOCK_ERR_TIMEOUT : შეჩერდა/დრო ამოიწურა სოკეტის გამოძახებისას ()</li>
+<li>HTTPD_SOCK_ERR_FAIL: გამოუსწორებელი შეცდომა სოკეტის გამოძახებისას () </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>: სერვერის ეგზემპლარი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: სესიის სოკეტის ფაილის აღწერილობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv424httpd_err_handler_func_t">
+<span id="_CPPv324httpd_err_handler_func_t"></span><span id="_CPPv224httpd_err_handler_func_t"></span><span id="httpd_err_handler_func_t"></span><span class="target" id="esp__http__server_8h_1ac979a05a4c3198df1720350468824680"></span><em class="property">typedef </em><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">httpd_err_handler_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv411httpd_req_t" title="httpd_req_t">httpd_req_t</a> *req, <a class="reference internal" href="esp_http_server.html#_CPPv416httpd_err_code_t" title="httpd_err_code_t">httpd_err_code_t</a> error<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv424httpd_err_handler_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP შეცდომების დამუშავების ფუნქციის პროტოტიპი. </p>
+<p>ეს ფუნქცია სრულდება HTTP მოთხოვნის შიდა დამუშავების დროს წარმოქმნილი HTTP შეცდომების შემთხვევაში. ეს გამოიყენება შეცდომის შემთხვევაში ნაგულისხმევი ქცევის გადასალახავად, რომელიც გულისხმობს HTTP შეცდომის პასუხის გაგზავნას და ძირითადი სოკეტის დახურვას.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ul class="simple">
+<li>თუ ეს დანერგილია, სერვერი ავტომატურად არ გაგზავნის HTTP შეცდომის პასუხის კოდებს, ამიტომ, თუ მომხმარებელს სურს HTTP შეცდომის პასუხების გენერირება, ამ ფუნქციის შიგნით უნდა გამოიძახოს httpd_resp_send_err().</li>
+<li>გამოყენებისას, მოქმედების ვადა <code class="docutils literal notranslate"><span class="pre">uri</span></code>, <code class="docutils literal notranslate"><span class="pre">method</span></code>, <code class="docutils literal notranslate"><span class="pre">content_len</span></code> და <code class="docutils literal notranslate"><span class="pre">user_ctx</span></code> httpd_req_t პარამეტრის ველების შევსება გარანტირებული არ არის, რადგან HTTP მოთხოვნა შესაძლოა ნაწილობრივ მიღებული/დამუშავებული იყოს.</li>
+<li>ფუნქციამ უნდა დააბრუნოს ESP_OK, თუ საჭიროა ძირითადი სოკეტის ღიად შენარჩუნება. ნებისმიერი სხვა მნიშვნელობა უზრუნველყოფს სოკეტის დახურვას. დაბრუნებული მნიშვნელობა იგნორირებულია, როდესაც შეცდომა ტიპისაა <code class="docutils literal notranslate"><span class="pre">HTTPD_500_INTERNAL_SERVER_ERROR</span></code> და სოკეტი მაინც დაიხურა.</li>
+</ul>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: შეცდომა წარმატებით დამუშავდა</li>
+<li>ESP_FAIL: შეცდომა მიუთითებს, რომ ძირითადი სოკეტი უნდა დაიხუროს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">req</span></code>HTTP მოთხოვნა, რომლისთვისაც საჭიროა შეცდომის დამუშავება </li>
+<li><code class="docutils literal notranslate"><span class="pre">error</span></code>შეცდომის ტიპი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414httpd_handle_t">
+<span id="_CPPv314httpd_handle_t"></span><span id="_CPPv214httpd_handle_t"></span><span id="httpd_handle_t"></span><span class="target" id="esp__http__server_8h_1a660bc64ded0fb1c7ad498180fc22a7a7"></span><em class="property">typedef </em>void *<code class="descname">httpd_handle_t</code><a class="headerlink" href="esp_http_server.html#_CPPv414httpd_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP სერვერის ეგზემპლარის სახელური. </p>
+<p>სერვერის თითოეულ ეგზემპლარს ექნება უნიკალური სახელური. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414httpd_method_t">
+<span id="_CPPv314httpd_method_t"></span><span id="_CPPv214httpd_method_t"></span><span id="httpd_method_t"></span><span class="target" id="esp__http__server_8h_1a48f01108b44767258a00ec2c40f42d12"></span><em class="property">typedef </em><em class="property">ჩამოთვლა</em> http_method <code class="descname">httpd_method_t</code><a class="headerlink" href="esp_http_server.html#_CPPv414httpd_method_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მეთოდის ტიპის შეფუთვა „enum http_method“-ის ზემოთ ხელმისაწვდომია „http_parser“ ბიბლიოთეკაში. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv419httpd_free_ctx_fn_t">
+<span id="_CPPv319httpd_free_ctx_fn_t"></span><span id="_CPPv219httpd_free_ctx_fn_t"></span><span id="httpd_free_ctx_fn_t"></span><span class="target" id="esp__http__server_8h_1abc71bfd1ba65ffa759e2dba202871586"></span><em class="property">typedef </em>void (*<code class="descname">httpd_free_ctx_fn_t</code>)<span class="sig-paren">(</span>void *ctx<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv419httpd_free_ctx_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტექსტური მონაცემების გათავისუფლების პროტოტიპი (ასეთის არსებობის შემთხვევაში) </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>: გათავისუფლების ობიექტი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv417httpd_open_func_t">
+<span id="_CPPv317httpd_open_func_t"></span><span id="_CPPv217httpd_open_func_t"></span><span id="httpd_open_func_t"></span><span class="target" id="esp__http__server_8h_1abe958987e22db532298d01f263cf7d1c"></span><em class="property">typedef </em><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">httpd_open_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> hd, int sockfd<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv417httpd_open_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქციის პროტოტიპი სესიის გასახსნელად. </p>
+<p>გამოიძახეს სოკეტის გახსნისთანავე send/recv ფუნქციების და სოკეტის სხვა პარამეტრების დასაყენებლად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_OK-ის გარდა ნებისმიერი მნიშვნელობა სერვერს მისცემს სიგნალს, რომ დაუყოვნებლივ დახუროს სოკეტი. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>: სერვერის ეგზემპლარი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: სესიის სოკეტის ფაილის აღწერილობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418httpd_close_func_t">
+<span id="_CPPv318httpd_close_func_t"></span><span id="_CPPv218httpd_close_func_t"></span><span id="httpd_close_func_t"></span><span class="target" id="esp__http__server_8h_1a2295b14a01e3819e39c715ad673b0211"></span><em class="property">typedef </em>void (*<code class="descname">httpd_close_func_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_http_server.html#_CPPv414httpd_handle_t" title="httpd_handle_t">httpd_handle_t</a> hd, int sockfd<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv418httpd_close_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქციის პროტოტიპი სესიის დახურვისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>It’s possible that the socket descriptor is invalid at this point, the function is called for all terminated sessions. Ensure proper handling of return codes.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hd</span></code>: სერვერის ეგზემპლარი </li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: სესიის სოკეტის ფაილის აღწერილობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv422httpd_uri_match_func_t">
+<span id="_CPPv322httpd_uri_match_func_t"></span><span id="_CPPv222httpd_uri_match_func_t"></span><span id="httpd_uri_match_func_t"></span><span class="target" id="esp__http__server_8h_1a7d5f3758d08181893f3f015070696df5"></span><em class="property">typedef </em>bool (*<code class="descname">httpd_uri_match_func_t</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> char *reference_uri, <em class="property">კონსტ</em> char *uri_to_match, size_t match_upto<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv422httpd_uri_match_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქციის პროტოტიპი URI შესატყვისობისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>true on match </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">reference_uri</span></code>URI/შაბლონი, რომელთან მიმართებაშიც სხვა URI ემთხვევა </li>
+<li><code class="docutils literal notranslate"><span class="pre">uri_to_match</span></code>URI/შაბლონი შეესაბამება საცნობარო URI-ს/შაბლონს </li>
+<li><code class="docutils literal notranslate"><span class="pre">match_upto</span></code>ფაქტობრივი სიგრძის მითითებისთვის <code class="docutils literal notranslate"><span class="pre">uri_to_match</span></code> რომლის ფარგლებშიც უნდა იქნას გამოყენებული შესაბამისობის ალგორითმი (მაქსიმალური მნიშვნელობაა <code class="docutils literal notranslate"><span class="pre">strlen(uri_to_match)</span></code>, სიგრძისგან დამოუკიდებლად <code class="docutils literal notranslate"><span class="pre">reference_uri</span></code>) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414httpd_config_t">
+<span id="_CPPv314httpd_config_t"></span><span id="_CPPv214httpd_config_t"></span><span id="httpd_config_t"></span><span class="target" id="esp__http__server_8h_1a32fb9a0ded89899369b326c52114f752"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_http_server.html#_CPPv412httpd_config" title="httpd_config">httpd_config</a> <code class="descname">httpd_config_t</code><a class="headerlink" href="esp_http_server.html#_CPPv414httpd_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP სერვერის კონფიგურაციის სტრუქტურა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Use HTTPD_DEFAULT_CONFIG() to initialize the configuration to a default value and then modify only those fields that are specifically determined by the use case. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv415httpd_work_fn_t">
+<span id="_CPPv315httpd_work_fn_t"></span><span id="_CPPv215httpd_work_fn_t"></span><span id="httpd_work_fn_t"></span><span class="target" id="esp__http__server_8h_1aa53afee68778845f971b93e0bf3d2012"></span><em class="property">typedef </em>void (*<code class="descname">httpd_work_fn_t</code>)<span class="sig-paren">(</span>void *arg<span class="sig-paren">)</span><a class="headerlink" href="esp_http_server.html#_CPPv415httpd_work_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPD სამუშაო ფუნქციის პროტოტიპი დამატებითი ინფორმაციისთვის იხილეთ httpd_queue_work() . </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>ამ სამუშაო ფუნქციის არგუმენტები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="esp_http_server.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416httpd_err_code_t">
+<span id="_CPPv316httpd_err_code_t"></span><span id="_CPPv216httpd_err_code_t"></span><span id="httpd_err_code_t"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bb"></span><em class="property">ჩამოთვლა </em><code class="descname">httpd_err_code_t</code><a class="headerlink" href="esp_http_server.html#_CPPv416httpd_err_code_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP მოთხოვნის დამუშავებისას წარმოშობილი შეცდომების შემთხვევაში, HTTP პასუხის სახით გაგზავნილი შეცდომის კოდები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv431HTTPD_500_INTERNAL_SERVER_ERROR">
+<span id="_CPPv331HTTPD_500_INTERNAL_SERVER_ERROR"></span><span id="_CPPv231HTTPD_500_INTERNAL_SERVER_ERROR"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbac2fce676e79452122e0ac5befa12330d"></span><code class="descname">HTTPD_500_INTERNAL_SERVER_ERROR</code> = 0<a class="headerlink" href="esp_http_server.html#_CPPv431HTTPD_500_INTERNAL_SERVER_ERROR" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv432HTTPD_501_METHOD_NOT_IMPLEMENTED">
+<span id="_CPPv332HTTPD_501_METHOD_NOT_IMPLEMENTED"></span><span id="_CPPv232HTTPD_501_METHOD_NOT_IMPLEMENTED"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bba5eaade3086caf0f15bf85cada1fe54a9"></span><code class="descname">HTTPD_501_METHOD_NOT_IMPLEMENTED</code><a class="headerlink" href="esp_http_server.html#_CPPv432HTTPD_501_METHOD_NOT_IMPLEMENTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv431HTTPD_505_VERSION_NOT_SUPPORTED">
+<span id="_CPPv331HTTPD_505_VERSION_NOT_SUPPORTED"></span><span id="_CPPv231HTTPD_505_VERSION_NOT_SUPPORTED"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bba46a51d6064db6a13282a145cc3200bda"></span><code class="descname">HTTPD_505_VERSION_NOT_SUPPORTED</code><a class="headerlink" href="esp_http_server.html#_CPPv431HTTPD_505_VERSION_NOT_SUPPORTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421HTTPD_400_BAD_REQUEST">
+<span id="_CPPv321HTTPD_400_BAD_REQUEST"></span><span id="_CPPv221HTTPD_400_BAD_REQUEST"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bba21e30e1cbc863556208f550e393aa5db"></span><code class="descname">HTTPD_400_BAD_REQUEST</code><a class="headerlink" href="esp_http_server.html#_CPPv421HTTPD_400_BAD_REQUEST" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419HTTPD_404_NOT_FOUND">
+<span id="_CPPv319HTTPD_404_NOT_FOUND"></span><span id="_CPPv219HTTPD_404_NOT_FOUND"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbaea8d168586950bcd6984ff60b9ffc779"></span><code class="descname">HTTPD_404_NOT_FOUND</code><a class="headerlink" href="esp_http_server.html#_CPPv419HTTPD_404_NOT_FOUND" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv428HTTPD_405_METHOD_NOT_ALLOWED">
+<span id="_CPPv328HTTPD_405_METHOD_NOT_ALLOWED"></span><span id="_CPPv228HTTPD_405_METHOD_NOT_ALLOWED"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbac29057d13636a77f26ff3b9d2702d2f3"></span><code class="descname">HTTPD_405_METHOD_NOT_ALLOWED</code><a class="headerlink" href="esp_http_server.html#_CPPv428HTTPD_405_METHOD_NOT_ALLOWED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421HTTPD_408_REQ_TIMEOUT">
+<span id="_CPPv321HTTPD_408_REQ_TIMEOUT"></span><span id="_CPPv221HTTPD_408_REQ_TIMEOUT"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bba577186482d20ac7b5771d33ac99bd963"></span><code class="descname">HTTPD_408_REQ_TIMEOUT</code><a class="headerlink" href="esp_http_server.html#_CPPv421HTTPD_408_REQ_TIMEOUT" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv425HTTPD_411_LENGTH_REQUIRED">
+<span id="_CPPv325HTTPD_411_LENGTH_REQUIRED"></span><span id="_CPPv225HTTPD_411_LENGTH_REQUIRED"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbadc801175fffe20233552300f15878c3f"></span><code class="descname">HTTPD_411_LENGTH_REQUIRED</code><a class="headerlink" href="esp_http_server.html#_CPPv425HTTPD_411_LENGTH_REQUIRED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422HTTPD_414_URI_TOO_LONG">
+<span id="_CPPv322HTTPD_414_URI_TOO_LONG"></span><span id="_CPPv222HTTPD_414_URI_TOO_LONG"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bba6915ffbd7332b53b59e0be4831352ab1"></span><code class="descname">HTTPD_414_URI_TOO_LONG</code><a class="headerlink" href="esp_http_server.html#_CPPv422HTTPD_414_URI_TOO_LONG" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv434HTTPD_431_REQ_HDR_FIELDS_TOO_LARGE">
+<span id="_CPPv334HTTPD_431_REQ_HDR_FIELDS_TOO_LARGE"></span><span id="_CPPv234HTTPD_431_REQ_HDR_FIELDS_TOO_LARGE"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbaa84bd581b872c635f16f7cd479933582"></span><code class="descname">HTTPD_431_REQ_HDR_FIELDS_TOO_LARGE</code><a class="headerlink" href="esp_http_server.html#_CPPv434HTTPD_431_REQ_HDR_FIELDS_TOO_LARGE" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418HTTPD_ERR_CODE_MAX">
+<span id="_CPPv318HTTPD_ERR_CODE_MAX"></span><span id="_CPPv218HTTPD_ERR_CODE_MAX"></span><span class="target" id="esp__http__server_8h_1a89a81467f18d6004ce5d7699274f07bbace83878b6c0f76bf734bd2ffca75cc9e"></span><code class="descname">HTTPD_ERR_CODE_MAX</code><a class="headerlink" href="esp_http_server.html#_CPPv418HTTPD_ERR_CODE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_https_server.html" rel="next" title="HTTPS server">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_http_client.html" rel="prev" title="ESP HTTP Client"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

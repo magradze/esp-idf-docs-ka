@@ -1,0 +1,707 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>აპლიკაციის დონის ტრასირების ბიბლიოთეკა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="blufi.html" rel="next" title="BluFi"/>
+<link href="index.html" rel="prev" title="API Guides"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/app_trace.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/app_trace"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/app_trace.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="app_trace.html#">აპლიკაციის დონის ტრასირება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html#modes-of-operation">ოპერაციის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html#configuration-options-and-dependencies">კონფიგურაციის პარამეტრები და დამოკიდებულებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html#how-to-use-this-library">როგორ გამოვიყენოთ ეს ბიბლიოთეკა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app_trace.html#application-specific-tracing">აპლიკაციის სპეციფიკური ტრასირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app_trace.html#logging-to-host">ჰოსტზე შესვლა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app_trace.html#system-behavior-analysis-with-segger-systemview">სისტემის ქცევის ანალიზი SEGGER SystemView-ის გამოყენებით</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app_trace.html#gcov-source-code-coverage">Gcov (წყაროს კოდის დაფარვა)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>აპლიკაციის დონის ტრასირების ბიბლიოთეკა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/app_trace.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="application-level-tracing-library">
+<h1>აპლიკაციის დონის ტრასირების ბიბლიოთეკა<a class="headerlink" href="app_trace.html#application-level-tracing-library" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/app_trace.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="app_trace.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>IDF პროგრამის ქცევის ანალიზისთვის სასარგებლო ფუნქციას გთავაზობთ: აპლიკაციის დონის ტრასირებას. ის შესაბამის ბიბლიოთეკაშია დანერგილი და მისი ჩართვა შესაძლებელია menuconfig ში. ეს ფუნქცია საშუალებას იძლევა, თვითნებური მონაცემები გადაიტანოთ მასპინძელსა და ESP32-ს შორის JTAG ინტერფეისის მეშვეობით, პროგრამის შესრულების მცირე დატვირთვის ხარჯზე.</p>
+<p>დეველოპერებს შეუძლიათ გამოიყენონ ეს ბიბლიოთეკა, რათა ჰოსტს გაუგზავნონ აპლიკაციის შესრულების სპეციფიკური მდგომარეობა და გაშვების დროს საპირისპირო მიმართულებით მიიღონ ბრძანებები ან სხვა ტიპის ინფორმაცია. ამ ბიბლიოთეკის ძირითადი გამოყენების შემთხვევებია:</p>
+<ol class="arabic simple">
+<li>აპლიკაციის სპეციფიკური მონაცემების შეგროვება, იხილეთ <a class="reference internal" href="app_trace.html#app-trace-application-specific-tracing"><span class="std std-ref">აპლიკაციის სპეციფიკური ტრასირება</span></a></li>
+<li>ჰოსტზე მსუბუქი ჟურნალირება, იხილეთ <a class="reference internal" href="app_trace.html#app-trace-logging-to-host"><span class="std std-ref">ჰოსტზე შესვლა</span></a></li>
+<li>სისტემის ქცევის ანალიზი, იხ. <a class="reference internal" href="app_trace.html#app-trace-system-behaviour-analysis-with-segger-systemview"><span class="std std-ref">სისტემის ქცევის ანალიზი SEGGER SystemView-ის გამოყენებით</span></a></li>
+<li>საწყისი კოდის დაფარვა, იხილეთ <a class="reference internal" href="app_trace.html#app-trace-gcov-source-code-coverage"><span class="std std-ref">Gcov (წყაროს კოდის დაფარვა)</span></a></li>
+</ol>
+<p>JTAG ინტერფეისზე მუშაობისას კომპონენტი s-ის ტრასირება ნაჩვენებია ქვემოთ მოცემულ ფიგურაში.</p>
+<div class="align-center figure" id="id2">
+<img alt="Tracing Components when Working Over JTAG" src="../_images/app_trace-overview.jpg"/>
+<p class="caption"><span class="caption-text">კომპონენტების თვალყურის დევნება JTAG-ზე მუშაობისას</span></p>
+</div>
+</div>
+<div class="section" id="modes-of-operation">
+<h2>ოპერაციის რეჟიმები<a class="headerlink" href="app_trace.html#modes-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>ბიბლიოთეკა მხარს უჭერს მუშაობის ორ რეჟიმს:</p>
+<p><strong>სიკვდილის შემდგომი რეჟიმი</strong>ეს არის ნაგულისხმევი რეჟიმი. რეჟიმი არ საჭიროებს ურთიერთქმედებას მასპინძელ მხარესთან. ამ რეჟიმში ტრასირების მოდული არ ამოწმებს, წაიკითხა თუ არა მასპინძელმა ყველა მონაცემი. <em>HW UP ბუფერი</em> ბუფერში ინახავს და ძველ მონაცემებს ახლით ცვლის. ეს რეჟიმი სასარგებლოა, როდესაც მომხმარებლისთვის მხოლოდ უახლესი კვალის მონაცემებია საინტერესო, მაგალითად, პროგრამის ქცევის ანალიზისთვის ავარიის წინ. მასპინძელს შეუძლია მონაცემების წაკითხვა მოგვიანებით, მომხმარებლის მოთხოვნის შემთხვევაში, მაგალითად, სპეციალური OpenOCD ბრძანების საშუალებით, JTAG ინტერფეისით მუშაობის შემთხვევაში.</p>
+<p><strong>სტრიმინგის რეჟიმი.</strong> ტრასირების მოდული ამ რეჟიმში გადადის, როდესაც მასპინძელი ESP32-ს უკავშირდება. ამ რეჟიმში ახალი მონაცემების ჩაწერამდე <em>HW UP ბუფერი</em> ტრასირების მოდული ამოწმებს, არის თუ არა მასში საკმარისი ადგილი და საჭიროების შემთხვევაში ელოდება, სანამ მასპინძელი წაიკითხავს მონაცემებს და გაათავისუფლებს საკმარის მეხსიერებას. მაქსიმალური ლოდინის დრო კონტროლდება მომხმარებლების მიერ API შესაბამის რუტინებს გადაცემული დროის ამოწურვის მნიშვნელობებით. ამიტომ, როდესაც აპლიკაცია ცდილობს მონაცემების ჩაწერას ტრასირების ბუფერში მაქსიმალური ლოდინის დროის სასრული მნიშვნელობის გამოყენებით, შესაძლებელია, რომ ეს მონაცემები წაიშალოს. განსაკუთრებით ეს ეხება დროის კრიტიკული კოდიდან (ISR, OS დამგეგმავის კოდი და ა.შ.) ტრასირებისთვის, როდესაც უსასრულო დროის ამოწურვამ შეიძლება გამოიწვიოს სისტემის გაუმართაობა. ასეთი კრიტიკული მონაცემების დაკარგვის თავიდან ასაცილებლად, დეველოპერებს შეუძლიათ ჩართონ დამატებითი მონაცემთა ბუფერიზაცია menuconfig ოფციის საშუალებით. <a class="reference internal" href="../api-reference/kconfig.html#config-apptrace-pending-data-size-max"><span class="std std-ref">CONFIG_APPTRACE_PENDING_DATA_SIZE_MAX</span></a>ეს მაკრო განსაზღვრავს მონაცემთა ზომას, რომლის ბუფერიზაციაც შესაძლებელია ზემოთ მოცემულ პირობებში. ეს პარამეტრი ასევე დაგეხმარებათ იმ სიტუაციის დაძლევაში, როდესაც მონაცემთა გადაცემა ჰოსტზე დროებით შენელებულია, მაგალითად, USB ავტობუსის გადატვირთვის გამო და ა.შ. თუმცა, ეს არ დაგეხმარებათ, როდესაც კვალის მონაცემთა ნაკადის საშუალო ბიტური სიჩქარე აღემატება HW ინტერფეისის შესაძლებლობებს.</p>
+</div>
+<div class="section" id="configuration-options-and-dependencies">
+<h2>კონფიგურაციის პარამეტრები და დამოკიდებულებები<a class="headerlink" href="app_trace.html#configuration-options-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>ამ ფუნქციის გამოყენება დამოკიდებულია ორ კომპონენტი 19:</p>
+<ol class="arabic simple">
+<li><strong>მასპინძელი მხარე:</strong> აპლიკაციის ტრასირება JTAG-ის საშუალებით ხდება, ამიტომ მას სჭირდება OpenOCD-ის დაყენება და მასპინძელ მანქანაზე გაშვება. მისი დაყენების ინსტრუქციისთვის იხილეთ <a class="reference internal" href="jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a> დეტალებისთვის.</li>
+<li><strong>სამიზნო მხარე:</strong> აპლიკაციის ტრასირების ფუნქციონალის ჩართვა შესაძლებელია menuconfig ში. <em>კომპონენტის კონფიგურაცია &amp;gt; აპლიკაციის დონის ტრასირება</em> მენიუ საშუალებას გაძლევთ აირჩიოთ დანიშნულების ადგილი კვალის მონაცემებისთვის (ტრანსპორტისთვის განკუთვნილი ტექნიკური ინტერფეისი). ნებისმიერი დანიშნულების ადგილის არჩევა ავტომატურად საშუალებას იძლევა <code class="docutils literal notranslate"><span class="pre">CONFIG_APPTRACE_ENABLE</span></code> ვარიანტი.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მონაცემთა გადაცემის უფრო მაღალი სიჩქარის მისაღწევად და დაკარგული პაკეტების რაოდენობის მინიმიზაციისთვის რეკომენდებულია JTAG საათის სიხშირის ოპტიმიზაცია, რათა ის იყოს მაქსიმალური და ამავდროულად უზრუნველყოფილი იყოს JTAG-ის სტაბილური მუშაობა, იხ. <a class="reference internal" href="jtag-debugging/tips-and-quirks.html#jtag-debugging-tip-optimize-jtag-speed"><span class="std std-ref">JTAG სიჩქარის ოპტიმიზაცია</span></a>.</p>
+</div>
+<p>არსებობს კიდევ ორი დამატებითი menuconfig ვარიანტი, რომლებიც ზემოთ არ არის ნახსენები:</p>
+<ol class="arabic simple">
+<li><em>პანიკის დროს ჰოსტისთვის ბოლო კვალის მონაცემების გასუფთავების ზღვარი</em> (<a class="reference internal" href="../api-reference/kconfig.html#config-apptrace-postmortem-flush-thresh"><span class="std std-ref">CONFIG_APPTRACE_POSTMORTEM_FLUSH_THRESH</span></a>). ეს პარამეტრი აუცილებელია JTAG-ზე მუშაობის ბუნებიდან გამომდინარე. ამ რეჟიმში, კვალის მონაცემები ჰოსტს 16 კბ ბლოკად ეცნობა. პოსტ-სიკვდილის რეჟიმში, როდესაც ერთი ბლოკი ივსება, ის ჰოსტს ეცნობა და წინა მიუწვდომელი ხდება. სხვა სიტყვებით რომ ვთქვათ, კვალის მონაცემები 16 კბ გრანულარობით გადაიწერება. პანიკის დროს, მიმდინარე შეყვანის ბლოკიდან უახლესი მონაცემები ჰოსტს ეცნობა და ჰოსტს შეუძლია მათი წაკითხვა შემდგომი ანალიზისთვის. სისტემური პანიკა შეიძლება მოხდეს, როდესაც მონაცემების ძალიან მცირე რაოდენობა ჯერ არ არის ეცნობა ჰოსტს. ამ შემთხვევაში, შეგროვებული მონაცემების წინა 16 კბ დაიკარგება და ჰოსტი დაინახავს კვალის უახლეს, მაგრამ ძალიან მცირე ნაწილს. ეს შეიძლება არასაკმარისი იყოს პრობლემის დიაგნოსტიკისთვის. ეს menuconfig პარამეტრი საშუალებას იძლევა თავიდან ავიცილოთ ასეთი სიტუაციები. ის აკონტროლებს მონაცემების გასუფთავების ზღურბლს პანიკის შემთხვევაში. მაგალითად, მომხმარებელს შეუძლია გადაწყვიტოს, რომ მას სჭირდება ბოლო კვალის მონაცემების მინიმუმ 512 ბაიტი, ამიტომ თუ პანიკის მომენტში 512 ბაიტზე ნაკლები მომლოდინე მონაცემებია, ისინი არ გაიწმინდება და არ გადაწერს წინა 16 კბ-ს. ოფციას მნიშვნელობა მხოლოდ პოსტ-mortem რეჟიმში და JTAG-ზე მუშაობისას აქვს.</li>
+<li><em>პანიკის დროს ბოლო კვალის მონაცემების ჰოსტისთვის გასუფთავების დრო ამოიწურა</em> (<a class="reference internal" href="../api-reference/kconfig.html#config-apptrace-onpanic-host-flush-tmo"><span class="std std-ref">CONFIG_APPTRACE_ONPANIC_HOST_FLUSH_TMO</span></a>). ეს პარამეტრი მხოლოდ ნაკადური რეჟიმის დროსაა მნიშვნელოვანი და აკონტროლებს მაქსიმალურ დროს, რომლის განმავლობაშიც ტრასირების მოდული პანიკის შემთხვევაში ჰოსტს ბოლო მონაცემების წასაკითხად დაელოდება.</li>
+</ol>
+</div>
+<div class="section" id="how-to-use-this-library">
+<h2>როგორ გამოვიყენოთ ეს ბიბლიოთეკა<a class="headerlink" href="app_trace.html#how-to-use-this-library" title="Permalink to this headline">¶</a></h2>
+<p>ეს ბიბლიოთეკა უზრუნველყოფს API ჰოსტსა და ESP32-ს შორის თვითნებური მონაცემების გადასაცემად. როდესაც menuconfig ჩართულია, სამიზნე აპლიკაციის ტრასირების მოდული ავტომატურად ინიციალიზდება სისტემის გაშვებისას, ამიტომ მომხმარებელმა მხოლოდ შესაბამისი API გამოძახება უნდა გააკეთოს მონაცემების გასაგზავნად, მისაღებად ან გასასუფთავებლად.</p>
+<div class="section" id="application-specific-tracing">
+<span id="app-trace-application-specific-tracing"></span><h3>აპლიკაციის სპეციფიკური ტრასირება<a class="headerlink" href="app_trace.html#application-specific-tracing" title="Permalink to this headline">¶</a></h3>
+<p>ზოგადად, მომხმარებელმა უნდა გადაწყვიტოს, თუ რა ტიპის მონაცემები უნდა გადაიცეს თითოეული მიმართულებით და როგორ უნდა მოხდეს ამ მონაცემების ინტერპრეტაცია (დამუშავება). სამიზნე და მასპინძელ სერვერებს შორის მონაცემების გადასაცემად უნდა შესრულდეს შემდეგი ნაბიჯები:</p>
+<ol class="arabic">
+<li><p class="first">სამიზნე მხარეს, მომხმარებელმა უნდა განახორციელოს ალგორითმები კვალის მონაცემების ჰოსტისთვის ჩასაწერად. ქვემოთ მოცემული კოდის ნაწილი გვიჩვენებს ამის გაკეთების მაგალითს.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"esp_app_trace.h"</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">char</span> <span class="n">buf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Hello World!"</span><span class="p">;</span>
+<span class="n">esp_err_t</span> <span class="n">res</span> <span class="o">=</span> <span class="n">esp_apptrace_write</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="n">ESP_APPTRACE_TMO_INFINITE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to write data to host!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">esp_apptrace_write()</span></code> ფუნქცია იყენებს memcpy-ს მომხმარებლის მონაცემების შიდა ბუფერში კოპირებისთვის. ზოგიერთ შემთხვევაში, მისი გამოყენება შეიძლება უფრო ოპტიმალური იყოს. <code class="docutils literal notranslate"><span class="pre">esp_apptrace_buffer_get()</span></code> და <code class="docutils literal notranslate"><span class="pre">esp_apptrace_buffer_put()</span></code> ფუნქციები. ისინი დეველოპერებს საშუალებას აძლევენ, თავად გამოყონ ბუფერი და შეავსონ იგი. შემდეგი კოდი გვიჩვენებს, თუ როგორ უნდა გააკეთოთ ეს.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"esp_app_trace.h"</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">esp_apptrace_buffer_get</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">100</span><span class="cm">/*tmo in us*/</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to get buffer!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ESP_FAIL</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="s">"Here is the number %d"</span><span class="p">,</span> <span class="n">number</span><span class="p">);</span>
+<span class="n">esp_err_t</span> <span class="n">res</span> <span class="o">=</span> <span class="n">esp_apptrace_buffer_put</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">100</span><span class="cm">/*tmo in us*/</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* in case of error host tracing tool (e.g. OpenOCD) will report incomplete user buffer */</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to put buffer!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ასევე, მისი საჭიროებების შესაბამისად, მომხმარებელს შეიძლება სურდეს მონაცემების მიღება ჰოსტისგან. ქვემოთ მოცემული კოდის ნაწილი გვიჩვენებს ამის გაკეთების მაგალითს.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"esp_app_trace.h"</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">down_buf</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+<span class="kt">size_t</span> <span class="n">sz</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+
+<span class="cm">/* config down buffer */</span>
+<span class="n">esp_apptrace_down_buffer_config</span><span class="p">(</span><span class="n">down_buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">down_buf</span><span class="p">));</span>
+<span class="cm">/* check for incoming data and read them if any */</span>
+<span class="n">esp_err_t</span> <span class="n">res</span> <span class="o">=</span> <span class="n">esp_apptrace_read</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span> <span class="mi">0</span><span class="cm">/*do not wait*/</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to read data from host!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* we have data, process them */</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">esp_apptrace_read()</span></code> ფუნქცია იყენებს memcpy-ს მასპინძლის მონაცემების მომხმარებლის ბუფერში კოპირებისთვის. ზოგიერთ შემთხვევაში, მისი გამოყენება შეიძლება უფრო ოპტიმალური იყოს. <code class="docutils literal notranslate"><span class="pre">esp_apptrace_down_buffer_get()</span></code> და <code class="docutils literal notranslate"><span class="pre">esp_apptrace_down_buffer_put()</span></code> ფუნქციები. ისინი დეველოპერებს საშუალებას აძლევენ, დაიკავონ წაკითხვის ბუფერის ნაწილი და ადგილზე დაამუშაონ იგი. შემდეგი კოდი გვიჩვენებს, თუ როგორ უნდა გააკეთოთ ეს.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"esp_app_trace.h"</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">char</span> <span class="n">down_buf</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+<span class="kt">uint32_t</span> <span class="o">*</span><span class="n">number</span><span class="p">;</span>
+<span class="kt">size_t</span> <span class="n">sz</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+
+<span class="cm">/* config down buffer */</span>
+<span class="n">esp_apptrace_down_buffer_config</span><span class="p">(</span><span class="n">down_buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">down_buf</span><span class="p">));</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">esp_apptrace_down_buffer_get</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sz</span><span class="p">,</span> <span class="mi">100</span><span class="cm">/*tmo in us*/</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to get buffer!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ESP_FAIL</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sz</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Here is the number %d"</span><span class="p">,</span> <span class="o">*</span><span class="n">number</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"No data"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">esp_err_t</span> <span class="n">res</span> <span class="o">=</span> <span class="n">esp_apptrace_down_buffer_put</span><span class="p">(</span><span class="n">ESP_APPTRACE_DEST_TRAX</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">100</span><span class="cm">/*tmo in us*/</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* in case of error host tracing tool (e.g. OpenOCD) will report incomplete user buffer */</span>
+    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Failed to put buffer!"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">შემდეგი ნაბიჯი არის პროგრამის იმიჯის შექმნა და მისი სამიზნეზე ჩამოტვირთვა, როგორც ეს აღწერილია. <a class="reference internal" href="../get-started/index.html#get-started-build"><span class="std std-ref">დაწყების სახელმძღვანელო</span></a>.</p>
+</li>
+<li><p class="first">გაუშვით OpenOCD (იხ. <a class="reference internal" href="jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a>).</p>
+</li>
+<li><p class="first">დაკავშირება OpenOCD telnet სერვერთან. ეს შეიძლება გაკეთდეს ტერმინალში შემდეგი ბრძანების გამოყენებით <code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">&lt;oocd_host&gt;</span> <span class="pre">4444</span></code>თუ telnet სესია გახსნილია იმავე მანქანაზე, რომელზეც OpenOCD მუშაობს, შეგიძლიათ გამოიყენოთ <code class="docutils literal notranslate"><span class="pre">localhost</span></code> როგორც <code class="docutils literal notranslate"><span class="pre">&lt;oocd_host&gt;</span></code> ზემოთ მოცემულ ბრძანებაში.</p>
+</li>
+<li><p class="first">დაიწყეთ კვალის მონაცემების შეგროვება OpenOCD-ის სპეციალური ბრძანების გამოყენებით. ეს ბრძანება გადასცემს კვალის მონაცემებს და გადამისამართებს მათ მითითებულ ფაილში ან სოკეტში (ამჟამად მხოლოდ ფაილებია მხარდაჭერილი კვალის მონაცემების დანიშნულების ადგილად). შესაბამისი ბრძანებების აღწერილობისთვის იხილეთ <a class="reference internal" href="app_trace.html#openocd-application-level-tracing-commands">OpenOCD აპლიკაციის დონის ტრასირების ბრძანებები</a>.</p>
+</li>
+<li><p class="first">საბოლოო ნაბიჯი მიღებული მონაცემების დამუშავებაა. რადგან მონაცემების ფორმატს მომხმარებელი განსაზღვრავს, დამუშავების ეტაპი ამ დოკუმენტის ფარგლებს სცილდება. მონაცემთა დამმუშავებლისთვის კარგი საწყისი წერტილია Python-ის სკრიპტები. <code class="docutils literal notranslate"><span class="pre">$IDF_PATH/tools/esp_app_trace</span></code>: <code class="docutils literal notranslate"><span class="pre">apptrace_proc.py</span></code> (გამოიყენება ფუნქციების ტესტებისთვის) და <code class="docutils literal notranslate"><span class="pre">logtrace_proc.py</span></code> (დამატებითი დეტალები იხილეთ განყოფილებაში <a class="reference internal" href="app_trace.html#logging-to-host">ჰოსტზე შესვლა</a>).</p>
+</li>
+</ol>
+<div class="section" id="openocd-application-level-tracing-commands">
+<h4>OpenOCD აპლიკაციის დონის ტრასირების ბრძანებები<a class="headerlink" href="app_trace.html#openocd-application-level-tracing-commands" title="Permalink to this headline">¶</a></h4>
+<p><em>HW UP ბუფერი</em> ნაწილდება მომხმარებლის მონაცემთა ბლოკებს შორის და გამოყოფილი მეხსიერების შევსება ხორციელდება API გამომძახებლის სახელით (დავალების ან ISR კონტექსტში). მრავალძაფიან გარემოში შეიძლება მოხდეს, რომ დავალება/ISR, რომელიც ავსებს ბუფერს, წინ უსწრებდეს სხვა მაღალი პრიორიტეტის დავალებას/ISR-ს. ამრიგად, შესაძლებელია, რომ მომხმარებლის მონაცემების მომზადების პროცესი არ დასრულდეს იმ მომენტში, როდესაც ეს ნაწილი წაიკითხავს მასპინძელს. ასეთი პირობების დასამუშავებლად, ტრეკინგის მოდული ყველა მომხმარებლის მონაცემთა ნაწილს წინ უსწრებს სათაურს, რომელიც შეიცავს გამოყოფილ მომხმარებლის ბუფერის ზომას (2 ბაიტი) და რეალურად ჩაწერილი მონაცემების სიგრძეს (2 ბაიტი). ამრიგად, სათაურის საერთო სიგრძეა 4 ბაიტი. OpenOCD ბრძანება, რომელიც კითხულობს ტრეკინგის მონაცემებს, შეცდომას იუწყება, როდესაც კითხულობს მომხმარებლის მონაცემების არასრულ ნაწილს, მაგრამ ნებისმიერ შემთხვევაში, ის გამომავალ ფაილში ათავსებს მთელი მომხმარებლის ნაწილის შინაარსს (შეუვსებელი არეალის ჩათვლით).</p>
+<p>ქვემოთ მოცემულია OpenOCD აპლიკაციის ტრასირების ხელმისაწვდომი ბრძანებების აღწერა.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამჟამად OpenOCD არ იძლევა ბრძანებებს თვითნებური მომხმარებლის მონაცემების სამიზნეზე გასაგზავნად.</p>
+</div>
+<p>ბრძანების გამოყენება:</p>
+<p><code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">apptrace</span> <span class="pre">[start</span> <span class="pre">&lt;options&gt;]</span> <span class="pre">|</span> <span class="pre">[stop]</span> <span class="pre">|</span> <span class="pre">[status]</span> <span class="pre">|</span> <span class="pre">[dump</span> <span class="pre">&lt;cores_num&gt;</span> <span class="pre">&lt;outfile&gt;]</span></code></p>
+<p>ქვებრძანებები:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">start</span></code></dt>
+<dd>Start tracing (continuous streaming).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">stop</span></code></dt>
+<dd>Stop tracing.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">status</span></code></dt>
+<dd>Get tracing status.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dump</span></code></dt>
+<dd>Dump all data from  (post-mortem dump).</dd>
+</dl>
+<p>ბრძანების დაწყების სინტაქსი:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;outfile&gt;</span> <span class="pre">[poll_period</span> <span class="pre">[trace_size</span> <span class="pre">[stop_tmo</span> <span class="pre">[wait4halt</span> <span class="pre">[skip_size]]]]</span></code></div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">outfile</span></code></dt>
+<dd>Path to file to save data from both CPUs. This argument should have the following format: <code class="docutils literal notranslate"><span class="pre">file://path/to/file</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">poll_period</span></code></dt>
+<dd>Data polling period (in ms) for available trace data. If greater than 0 then command runs in non-blocking mode. By default 1 ms.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">trace_size</span></code></dt>
+<dd>Maximum size of data to collect (in bytes). Tracing is stopped after specified amount of data is received. By default -1 (trace size stop trigger is disabled).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">stop_tmo</span></code></dt>
+<dd>Idle timeout (in sec). Tracing is stopped if there is no data for specified period of time. By default -1 (disable this stop trigger). Optionally set it to value longer than longest pause between tracing commands from target.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wait4halt</span></code></dt>
+<dd>If 0 start tracing immediately, otherwise command waits for the target to be halted (after reset, by breakpoint etc.) and then automatically resumes it and starts tracing. By default 0.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">skip_size</span></code></dt>
+<dd>Number of bytes to skip at the start. By default 0.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ <code class="docutils literal notranslate"><span class="pre">poll_period</span></code> არის 0, OpenOCD telnet ბრძანების ხაზი მიუწვდომელი იქნება მანამ, სანამ ტრასირება არ შეწყდება. თქვენ უნდა შეაჩეროთ ის ხელით დაფის გადატვირთვის ან Ctrl+C კლავიშების დაჭერით OpenOCD ფანჯარაში (რომელიც არ არის telnet სესიის მქონე ფანჯარაში). კიდევ ერთი ვარიანტია დააყენოთ <code class="docutils literal notranslate"><span class="pre">trace_size</span></code> და დაელოდეთ ამ ზომის მონაცემების შეგროვებას. ამ ეტაპზე ტრასირება ავტომატურად ჩერდება.</p>
+</div>
+<p>ბრძანების გამოყენების მაგალითები:</p>
+<ol class="arabic">
+<li><p class="first">შეაგროვეთ 2048 ბაიტი ტრასირების მონაცემები ფაილში „trace.log“. ფაილი შეინახება „openocd-esp32“ დირექტორიაში.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 apptrace start file://trace.log 1 2048 5 0 0
+</pre></div>
+</div>
+<p>ტრასირების მონაცემები აღირიცხება და შეინახება არაბლოკირების რეჟიმში. ეს პროცესი ავტომატურად შეჩერდება 2048 ბაიტის შეგროვების შემდეგ, ან თუ მონაცემები 5 წამზე მეტი ხნის განმავლობაში არ იქნება ხელმისაწვდომი.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ტრასირების მონაცემები ბუფერიზებულია, სანამ ისინი OpenOCD-სთვის ხელმისაწვდომი გახდება. თუ ხედავთ შეტყობინებას „მონაცემთა ვადის ამოწურვა!“, მაშინ სამიზნე, სავარაუდოდ, არ აგზავნის საკმარის მონაცემებს ბუფერის OpenOCD-ისთვის დასაცლელად ვადის ამოწურვამდე. გაზარდეთ ვადის ამოწურვა ან გამოიყენეთ ფუნქცია. <code class="docutils literal notranslate"><span class="pre">esp_apptrace_flush()</span></code> მონაცემების გასუფთავება კონკრეტული ინტერვალებით.</p>
+</div>
+</li>
+<li><p class="first">ტრასირების მონაცემების განუსაზღვრელი ვადით მოძიება არაბლოკირების რეჟიმში.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 apptrace start file://trace.log 1 -1 -1 0 0
+</pre></div>
+</div>
+<p>შეგროვებული მონაცემების ზომაზე შეზღუდვა არ არსებობს და მონაცემთა ვადის ამოწურვა არ არის დადგენილი. ეს პროცესი შეიძლება შეჩერდეს ბრძანების გაცემით. <code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">apptrace</span> <span class="pre">stop</span></code> ბრძანება OpenOCD telnet სტრიქონზე, ან OpenOCD ფანჯარაში Ctrl+C კლავიშების დაჭერით.</p>
+</li>
+<li><p class="first">მიიღეთ ტრასირების მონაცემები და შეინახეთ ისინი განუსაზღვრელი ვადით.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 apptrace start file://trace.log 0 -1 -1 0 0
+</pre></div>
+</div>
+<p>OpenOCD telnet ბრძანების ხაზი მიუწვდომელი იქნება მანამ, სანამ ტრასირება არ შეწყდება. ტრასირების შესაჩერებლად დააჭირეთ Ctrl+C OpenOCD ფანჯარაში.</p>
+</li>
+<li><p class="first">დაელოდეთ სამიზნის გაჩერებას. შემდეგ განაახლეთ სამიზნის მუშაობა და დაიწყეთ მონაცემთა აღდგენა. შეწყვიტეთ 2048 ბაიტი მონაცემების შეგროვების შემდეგ:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 apptrace start file://trace.log 0 2048 -1 1 0
+</pre></div>
+</div>
+<p>გადატვირთვისთანავე ტრასირების კონფიგურაციისთვის გამოიყენეთ openocd <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">halt</span></code> ბრძანება.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="logging-to-host">
+<span id="app-trace-logging-to-host"></span><h3>ჰოსტზე შესვლა<a class="headerlink" href="app_trace.html#logging-to-host" title="Permalink to this headline">¶</a></h3>
+<p>IDF ნერგავს სასარგებლო ფუნქციას: ჰოსტზე ჟურნალირებას აპლიკაციის დონის ტრასირების ბიბლიოთეკის მეშვეობით. ეს არის ნახევრად ჰოსტინგის სახეობა, როდესაც ყველა <cite>ESP_LOGx</cite> გამოძახებები აგზავნის სტრიქონებს, რომლებიც უნდა დაიბეჭდოს ჰოსტზე UART-ის ნაცვლად. ეს შეიძლება სასარგებლო იყოს, რადგან „ჰოსტზე ბეჭდვა“ გამორიცხავს UART-ზე შესვლისას შესასრულებელ ზოგიერთ ნაბიჯს. სამუშაოს უმეტესი ნაწილი ჰოსტზე სრულდება.</p>
+<p>ნაგულისხმევად, IDF-ის ჟურნალის ბიბლიოთეკა იყენებს vprintf-ის მსგავს ფუნქციას ფორმატირებული გამომავალი მონაცემების სპეციალურ UART-ზე ჩასაწერად. ზოგადად, ეს მოიცავს შემდეგ ნაბიჯებს:</p>
+<ol class="arabic simple">
+<li>ფორმატის სტრიქონი დამუშავებულია თითოეული არგუმენტის ტიპის მისაღებად.</li>
+<li>მისი ტიპის მიხედვით, ყველა არგუმენტი გარდაიქმნება სტრიქონის წარმოდგენად.</li>
+<li>ფორმატის სტრიქონი, რომელიც შერწყმულია კონვერტირებულ არგუმენტებთან, იგზავნება UART-ში.</li>
+</ol>
+<p>მიუხედავად იმისა, რომ vprintf-ის მსგავსი ფუნქციის იმპლემენტაცია გარკვეულ დონემდე შეიძლება ოპტიმიზებული იყოს, ზემოთ ჩამოთვლილი ყველა ნაბიჯი ნებისმიერ შემთხვევაში უნდა შესრულდეს და თითოეულ ნაბიჯს გარკვეული დრო სჭირდება (განსაკუთრებით მე-3 პუნქტი). ამიტომ, ხშირად ხდება ისე, რომ პრობლემის იდენტიფიცირებისთვის პროგრამაში დამატებითი ჟურნალის დამატებისას, პროგრამის ქცევა იცვლება და პრობლემის რეპროდუცირება შეუძლებელია, ან უარეს შემთხვევაში, პროგრამა საერთოდ ვერ მუშაობს ნორმალურად და საბოლოოდ შეცდომით ან თუნდაც ფიქსირდება.</p>
+<p>ამ პრობლემის გადაჭრის შესაძლო გზებია უფრო მაღალი UART ბიტრეიტების (ან სხვა უფრო სწრაფი ინტერფეისის) გამოყენება და/ან სტრიქონის ფორმატირების პროცედურის ჰოსტზე გადატანა.</p>
+<p>აპლიკაციის დონის ტრასირების ფუნქცია შეიძლება გამოყენებულ იქნას ჟურნალის ინფორმაციის ჰოსტზე გადასაცემად. <code class="docutils literal notranslate"><span class="pre">esp_apptrace_vprintf</span></code> ფუნქცია. ეს ფუნქცია არ ასრულებს ფორმატის სტრიქონისა და არგუმენტების სრულ ანალიზს, სამაგიეროდ, ის უბრალოდ ითვლის გადაცემული არგუმენტების რაოდენობას და ფორმატის სტრიქონის მისამართთან ერთად უგზავნის მათ ჰოსტს. ჰოსტის ჟურნალში მონაცემები მუშავდება და იბეჭდება სპეციალური Python სკრიპტით.</p>
+<div class="section" id="limitations">
+<h4>შეზღუდვები<a class="headerlink" href="app_trace.html#limitations" title="Permalink to this headline">¶</a></h4>
+<p>JTAG-ზე ჟურნალირების ამჟამინდელ იმპლემენტაციას გარკვეული შეზღუდვები აქვს:</p>
+<ol class="arabic simple">
+<li>კვალის აღება <code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGx</span></code> მაკროები არ არის მხარდაჭერილი.</li>
+<li>printf არგუმენტების მხარდაჭერა არ არის, რომელთა ზომა 4 ბაიტს აღემატება (მაგ. <code class="docutils literal notranslate"><span class="pre">double</span></code> და <code class="docutils literal notranslate"><span class="pre">uint64_t</span></code>).</li>
+<li>ფორმატის სტრიქონებისა და არგუმენტების სახით მხარდაჭერილია მხოლოდ .rodata სექციის სტრიქონები.</li>
+<li>Printf არგუმენტების მაქსიმალური რაოდენობა 256-ია.</li>
+</ol>
+</div>
+<div class="section" id="how-to-use-it">
+<h4>როგორ გამოვიყენოთ ის<a class="headerlink" href="app_trace.html#how-to-use-it" title="Permalink to this headline">¶</a></h4>
+<p>კვალის მოდულის მეშვეობით ჟურნალირების გამოსაყენებლად, მომხმარებელმა უნდა შეასრულოს შემდეგი ნაბიჯები:</p>
+<ol class="arabic simple">
+<li>სამიზნე მხარეს საჭიროა სპეციალური vprintf-ის მსგავსი ფუნქციის ინსტალაცია. როგორც ადრე აღვნიშნეთ, ეს ფუნქციაა <code class="docutils literal notranslate"><span class="pre">esp_apptrace_vprintf</span></code>ის ლოგის მონაცემებს ჰოსტს უგზავნის. კოდის მაგალითი მოცემულია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/app_trace_to_host">სისტემა/აპლიკაციის_კვალი_ჰოსტზე</a>.</li>
+<li>მიჰყევით 2-5 პუნქტებში მოცემულ ინსტრუქციებს. <a class="reference internal" href="app_trace.html#application-specific-tracing">აპლიკაციის სპეციფიკური ტრასირება</a>.</li>
+<li>შეგროვებული ჟურნალის ჩანაწერების დასაბეჭდად, ტერმინალში შეასრულეთ შემდეგი ბრძანება: <code class="docutils literal notranslate"><span class="pre">$IDF_PATH/tools/esp_app_trace/logtrace_proc.py</span> <span class="pre">/path/to/trace/file</span> <span class="pre">/path/to/program/elf/file</span></code>.</li>
+</ol>
+<div class="section" id="log-trace-processor-command-options">
+<h5>ჟურნალის კვალის პროცესორის ბრძანების პარამეტრები<a class="headerlink" href="app_trace.html#log-trace-processor-command-options" title="Permalink to this headline">¶</a></h5>
+<p>ბრძანების გამოყენება:</p>
+<p><code class="docutils literal notranslate"><span class="pre">logtrace_proc.py</span> <span class="pre">[-h]</span> <span class="pre">[--no-errors]</span> <span class="pre">&lt;trace_file&gt;</span> <span class="pre">&lt;elf_file&gt;</span></code></p>
+<p>პოზიციური არგუმენტები:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">trace_file</span></code></dt>
+<dd>Path to log trace file</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">elf_file</span></code></dt>
+<dd>Path to program ELF file</dd>
+</dl>
+<p>არასავალდებულო არგუმენტები:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></dt>
+<dd>show this help message and exit</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--no-errors</span></code>, <code class="docutils literal notranslate"><span class="pre">-n</span></code></dt>
+<dd>Do not print errors</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="system-behavior-analysis-with-segger-systemview">
+<span id="app-trace-system-behaviour-analysis-with-segger-systemview"></span><h3>სისტემის ქცევის ანალიზი SEGGER SystemView-ის გამოყენებით<a class="headerlink" href="app_trace.html#system-behavior-analysis-with-segger-systemview" title="Permalink to this headline">¶</a></h3>
+<p>კიდევ ერთი სასარგებლო IDF ფუნქცია, რომელიც აგებულია აპლიკაციის ტრასირების ბიბლიოთეკაზე, არის სისტემური დონის ტრასირება, რომელიც წარმოქმნის SEGGER SystemView ინსტრუმენტთან თავსებად ტრასებს (იხ. <a class="reference external" href="https://www.segger.com/products/development-tools/systemview/">სისტემის ხედი</a>). SEGGER SystemView არის რეალურ დროში ჩაწერისა და ვიზუალიზაციის ინსტრუმენტი, რომელიც საშუალებას იძლევა გაანალიზდეს აპლიკაციის გაშვების დროს ქცევა.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამჟამად IDF-ზე დაფუძნებულ აპლიკაციას შეუძლია SystemView-თან თავსებადი ტრასების გენერირება ფაილების სახით, რომლებიც SystemView აპლიკაციაში უნდა გაიხსნას. ტრასირების პროცესის კონტროლი ამ ინსტრუმენტის გამოყენებით ჯერ შეუძლებელია.</p>
+</div>
+<div class="section" id="id1">
+<h4>როგორ გამოვიყენოთ ის<a class="headerlink" href="app_trace.html#id1" title="Permalink to this headline">¶</a></h4>
+<p>ამ ფუნქციის მხარდაჭერა ჩართულია <em>კომპონენტის კონფიგურაცია &amp;gt; აპლიკაციის დონის ტრასირება &amp;gt; უფასო RTOS SystemView ტრასირება</em> (<a class="reference internal" href="../api-reference/kconfig.html#config-sysview-enable"><span class="std std-ref">CONFIG_SYSVIEW_ENABLE</span></a>) menuconfig ვარიანტი. იმავე მენიუში კიდევ რამდენიმე ვარიანტია ჩართული:</p>
+<ol class="arabic">
+<li><p class="first"><em>ESP32 ტაიმერი SystemView-ის დროის ნიშნულის წყაროდ გამოსაყენებლად</em> (<a class="reference internal" href="../api-reference/kconfig.html#config-sysview-ts-source"><span class="std std-ref">CONFIG_SYSVIEW_TS_SOURCE</span></a>) ირჩევს SystemView მოვლენების დროის ნიშნულების წყაროს. ერთბირთვიან რეჟიმში დროის ნიშნულები გენერირდება ESP32 შიდა ციკლის მრიცხველის გამოყენებით, რომელიც მუშაობს მაქსიმუმ 240 MHz (~4 ns გრანულარობა). ორბირთვიან რეჟიმში გამოიყენება გარე ტაიმერი, რომელიც მუშაობს 40 MHz-ზე, ამიტომ დროის ნიშნულის გრანულარობა არის 25 ns.</p>
+</li>
+<li><p class="first">SystemView მოვლენების ინდივიდუალურად ჩართული ან გამორთული კოლექცია (<code class="docutils literal notranslate"><span class="pre">CONFIG_SYSVIEW_EVT_XXX</span></code>):</p>
+<blockquote>
+<div><ul class="simple">
+<li>კვალის ბუფერის გადავსების მოვლენა</li>
+<li>ISR-ის შეყვანის ღონისძიება</li>
+<li>ISR-ის გასვლის მოვლენა</li>
+<li>ISR-ის გასვლა დამგეგმავის ღონისძიებაზე</li>
+<li>დავალების დაწყების შესრულების მოვლენა</li>
+<li>დავალების შესრულების შეჩერების მოვლენა</li>
+<li>დავალების დაწყების მზადყოფნის მდგომარეობის მოვლენა</li>
+<li>დავალების შეჩერების მზადყოფნის მდგომარეობის მოვლენა</li>
+<li>დავალების შექმნის მოვლენა</li>
+<li>დავალების დასრულების მოვლენა</li>
+<li>სისტემის უმოქმედობის მოვლენა</li>
+<li>ტაიმერის შეყვანის მოვლენა</li>
+<li>ტაიმერის გასვლის მოვლენა</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>IDF-ს აქვს SystemView-თან თავსებადი ტრასების შესაქმნელად საჭირო ყველა კოდი, ამიტომ მომხმარებელს შეუძლია უბრალოდ დააკონფიგურიროს პროექტის საჭირო პარამეტრები (იხილეთ ზემოთ), ააწყოს, ჩამოტვირთოს სურათი სამიზნეზე და გამოიყენოს OpenOCD მონაცემების შესაგროვებლად, როგორც ეს წინა ნაწილებშია აღწერილი.</p>
+</div>
+<div class="section" id="openocd-systemview-tracing-command-options">
+<h4>OpenOCD SystemView-ის ტრასირების ბრძანების პარამეტრები<a class="headerlink" href="app_trace.html#openocd-systemview-tracing-command-options" title="Permalink to this headline">¶</a></h4>
+<p>ბრძანების გამოყენება:</p>
+<p><code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">sysview</span> <span class="pre">[start</span> <span class="pre">&lt;options&gt;]</span> <span class="pre">|</span> <span class="pre">[stop]</span> <span class="pre">|</span> <span class="pre">[status]</span></code></p>
+<p>ქვებრძანებები:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">start</span></code></dt>
+<dd>Start tracing (continuous streaming).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">stop</span></code></dt>
+<dd>Stop tracing.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">status</span></code></dt>
+<dd>Get tracing status.</dd>
+</dl>
+<p>ბრძანების დაწყების სინტაქსი:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;outfile1&gt;</span> <span class="pre">[outfile2]</span> <span class="pre">[poll_period</span> <span class="pre">[trace_size</span> <span class="pre">[stop_tmo]]]</span></code></div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">outfile1</span></code></dt>
+<dd>Path to file to save data from PRO CPU. This argument should have the following format: <code class="docutils literal notranslate"><span class="pre">file://path/to/file</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">outfile2</span></code></dt>
+<dd>Path to file to save data from APP CPU. This argument should have the following format: <code class="docutils literal notranslate"><span class="pre">file://path/to/file</span></code>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">poll_period</span></code></dt>
+<dd>Data polling period (in ms) for available trace data. If greater then 0 then command runs in non-blocking mode. By default 1 ms.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">trace_size</span></code></dt>
+<dd>Maximum size of data to collect (in bytes). Tracing is stopped after specified amount of data is received. By default -1 (trace size stop trigger is disabled).</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">stop_tmo</span></code></dt>
+<dd>Idle timeout (in sec). Tracing is stopped if there is no data for specified period of time. By default -1 (disable this stop trigger).</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ <code class="docutils literal notranslate"><span class="pre">poll_period</span></code> არის 0. OpenOCD telnet ბრძანების ხაზი მიუწვდომელი იქნება მანამ, სანამ ტრასირება არ შეწყდება. თქვენ უნდა შეაჩეროთ ის ხელით დაფის გადატვირთვით ან Ctrl+C კლავიშების დაჭერით OpenOCD ფანჯარაში (რომელიც არ არის telnet სესიის მქონე ფანჯარაში). კიდევ ერთი ვარიანტია დააყენოთ <code class="docutils literal notranslate"><span class="pre">trace_size</span></code> და დაელოდეთ ამ ზომის მონაცემების შეგროვებას. ამ ეტაპზე ტრასირება ავტომატურად ჩერდება.</p>
+</div>
+<p>ბრძანების გამოყენების მაგალითები:</p>
+<ol class="arabic">
+<li><p class="first">SystemView-ის ტრასირების მონაცემების შეგროვება ფაილებად „pro-cpu.SVDat“ და „app-cpu.SVDat“. ფაილები შეინახება „openocd-esp32“ დირექტორიაში.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 sysview start file://pro-cpu.SVDat file://app-cpu.SVDat
+</pre></div>
+</div>
+<p>ტრასირების მონაცემები აღირიცხება და შეინახება არაბლოკირების რეჟიმში. მონაცემების შესაჩერებლად, შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">apptrace</span> <span class="pre">stop</span></code> ბრძანება OpenOCD telnet სტრიქონზე, სურვილისამებრ, OpenOCD ფანჯარაში Ctrl+C კლავიშების დაჭერით.</p>
+</li>
+<li><p class="first">მიიღეთ ტრასირების მონაცემები და შეინახეთ ისინი განუსაზღვრელი ვადით.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>esp32 sysview start file://pro-cpu.SVDat file://app-cpu.SVDat 0 -1 -1
+</pre></div>
+</div>
+<p>OpenOCD telnet ბრძანების ხაზი მიუწვდომელი იქნება მანამ, სანამ ტრასირება არ შეწყდება. ტრასირების შესაჩერებლად, OpenOCD ფანჯარაში დააჭირეთ Ctrl+C.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="data-visualization">
+<h4>მონაცემთა ვიზუალიზაცია<a class="headerlink" href="app_trace.html#data-visualization" title="Permalink to this headline">¶</a></h4>
+<p>მონაცემების შეგროვების შემდეგ, მომხმარებელს შეუძლია გამოიყენოს სპეციალური ინსტრუმენტი შედეგების ვიზუალიზაციისა და პროგრამის ქცევის შესამოწმებლად. სამწუხაროდ, SystemView არ უჭერს მხარს მრავალი ბირთვიდან ტრასირებას. ამიტომ, როდესაც ESP32-დან ტრასირება მუშაობს ორბირთვიან რეჟიმში, გენერირდება ორი ფაილი: ერთი PRO CPU-სთვის და მეორე APP CPU-სთვის. მომხმარებელს შეუძლია თითოეული ფაილის ჩატვირთვა ინსტრუმენტის ცალკეულ ეგზემპლარში.</p>
+<p>ინსტრუმენტის ცალკეულ ინსტანციაში თითოეული ბირთვის მონაცემების ანალიზი საკმაოდ რთული და უხერხულია. საბედნიეროდ, არსებობს Eclipse-ის პლაგინი, სახელწოდებით <em>იმპულსი</em> რომელსაც შეუძლია რამდენიმე კვალის ფაილის ჩატვირთვა და შესაძლებელს ხდის ორივე ბირთვიდან მოვლენების ერთ ხედში შემოწმებას. ასევე, ამ დანამატს არ აქვს 1,000,000 მოვლენის შეზღუდვა SystemView-ის უფასო ვერსიასთან შედარებით.</p>
+<p>კარგი ინსტრუქციაა, თუ როგორ დავაინსტალიროთ, დავაკონფიგურიროთ და ვიზუალიზაცია გავუკეთოთ Impulse-ს მონაცემებს ერთი ბირთვიდან. <a class="reference external" href="https://mcuoneclipse.com/2016/07/31/impulse-segger-systemview-in-eclipse/">აქ</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">IDF იყენებს საკუთარ რუკას SystemView Free RTOS მოვლენების ID-ებისთვის, ამიტომ მომხმარებელმა უნდა შეცვალოს ორიგინალი ფაილი რუკაზე დატანით. <code class="docutils literal notranslate"><span class="pre">$SYSVIEW_INSTALL_DIR/Description/SYSVIEW_FreeRTOS.txt</span></code> თან <code class="docutils literal notranslate"><span class="pre">$IDF_PATH/docs/api-guides/SYSVIEW_FreeRTOS.txt</span></code>ასევე, ზემოთ მოცემული ბმულის გამოყენებით SystemView სერიალიზატორის კონფიგურაციისას უნდა გამოიყენოთ IDF-ის სპეციფიკური ფაილის შინაარსი.</p>
+</div>
+<div class="section" id="configure-impulse-for-dual-core-traces">
+<h5>ორმაგი ბირთვის კვალის იმპულსის კონფიგურაცია<a class="headerlink" href="app_trace.html#configure-impulse-for-dual-core-traces" title="Permalink to this headline">¶</a></h5>
+<p>Impulse-ის ინსტალაციისა და თითოეული ბირთვისთვის ცალკეულ ჩანართებში ტრასირების ფაილების წარმატებით ჩატვირთვის დადასტურების შემდეგ, მომხმარებელს შეუძლია დაამატოს სპეციალური Multi Adapter პორტი და ორივე ფაილი ერთ ხედში ჩატვირთოს. ამისათვის მომხმარებელმა Eclipse-ში შემდეგი უნდა გააკეთოს:</p>
+<ol class="arabic simple">
+<li>გახსენით „სიგნალის პორტების“ ხედი. გადადით მენიუში Windows-&amp;gt;Show View-&amp;gt;Other. Impulse საქაღალდეში იპოვეთ „სიგნალის პორტების“ ხედი და ორჯერ დააწკაპუნეთ მასზე.</li>
+<li>„სიგნალის პორტების“ ხედში დააწკაპუნეთ მაუსის მარჯვენა ღილაკით „პორტებზე“ და აირჩიეთ „დამატება...“ -&amp;gt; ახალი მრავალ ადაპტერის პორტი</li>
+<li>გახსნილ დიალოგურ ფანჯარაში დააჭირეთ ღილაკს „დამატება“ და აირჩიეთ „ახალი მილაკი/ფაილი“.</li>
+<li>გახსნილ დიალოგურ ფანჯარაში სერიალიზატორად აირჩიეთ „SystemView Serializer“ და მიუთითეთ PRO CPU trace ფაილისკენ მიმავალი გზა. დააჭირეთ OK-ს.</li>
+<li>გაიმეორეთ 3-4 ნაბიჯები APP CPU-ს კვალის ფაილისთვის.</li>
+<li>ორჯერ დააწკაპუნეთ შექმნილ პორტზე. უნდა გაიხსნას ამ პორტის ხედი.</li>
+<li>დააწკაპუნეთ ღილაკზე „სტრიმინგის დაწყება/შეჩერება“. მონაცემები უნდა ჩაიტვირთოს.</li>
+<li>მონაცემების შესამოწმებლად გამოიყენეთ ღილაკები „დაპატარავება“, „გადიდება“ და „მორგება“.</li>
+<li>პარამეტრების, გაზომვის კურსორების და სხვა ფუნქციებისთვის იხილეთ <a class="reference external" href="http://toem.de/index.php/projects/impulse">იმპულსური დოკუმენტაცია</a>).</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ ვიზუალიზაციასთან დაკავშირებით პრობლემები გაქვთ (მონაცემები არ ჩანს ან მასშტაბირების უცნაური ქცევა შეინიშნება), შეგიძლიათ სცადოთ მიმდინარე სიგნალის იერარქიის წაშლა და ორჯერ დააწკაპუნოთ საჭირო ფაილზე ან პორტზე. Eclipse მოგთხოვთ ახალი სიგნალის იერარქიის შექმნას.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gcov-source-code-coverage">
+<span id="app-trace-gcov-source-code-coverage"></span><h3>Gcov (წყაროს კოდის დაფარვა)<a class="headerlink" href="app_trace.html#gcov-source-code-coverage" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="basics-of-gcov-and-lcov">
+<h4>Gcov-ისა და Lcov-ის საფუძვლები<a class="headerlink" href="app_trace.html#basics-of-gcov-and-lcov" title="Permalink to this headline">¶</a></h4>
+<p>საწყისი კოდის დაფარვა არის მონაცემები, რომელიც მიუთითებს პროგრამის შესრულების თითოეული გზის რაოდენობასა და სიხშირეზე, რომელიც განხორციელდა პროგრამის გაშვების დროს. <a class="reference external" href="https://en.wikipedia.org/wiki/Gcov">Gcov</a> არის GCC ინსტრუმენტი, რომელიც კომპილაცია r-თან ერთად გამოყენებისას, შეუძლია ლოგ-ფაილების გენერირება, რომლებიც მიუთითებენ საწყისი ფაილის თითოეული ხაზის შესრულების რაოდენობას. Lcov ინსტრუმენტი Gcov-ის მსგავსია, მაგრამ წარმოადგენს Gcov-ის გრაფიკულ წინა ნაწილს და ქმნის კოდის დაფარვის ანგარიშებს HTML ფორმატში.</p>
+<p>ზოგადად, Gcov-ის კომპილაცია ისთვის გამოყენება და ჰოსტზე პროგრამების გაშვება შემდეგ ეტაპებს მოიცავს:</p>
+<ol class="arabic simple">
+<li>საწყისი კოდის კომპილაცია GCC-ის გამოყენებით <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ოფცია ჩართულია. ეს გამოიწვევს კომპილაცია r-ის მიერ a-ს გენერირებას <code class="docutils literal notranslate"><span class="pre">.gcno</span></code> შენიშვნების ფაილები კომპილაციის დროს. შენიშვნების ფაილები შეიცავს ინფორმაციას შესრულების გზის ბლოკის გრაფიკების რეკონსტრუქციისთვის და თითოეული ბლოკის წყაროს კოდის ხაზის ნომრებთან დასაკავშირებლად. თითოეული წყაროს ფაილი კომპილაცია d-ით <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ვარიანტს უნდა ჰქონდეს საკუთარი <code class="docutils literal notranslate"><span class="pre">.gcno</span></code> იმავე სახელის მქონე ფაილი (მაგ. <code class="docutils literal notranslate"><span class="pre">main.c</span></code> წარმოქმნის <code class="docutils literal notranslate"><span class="pre">main.gcno</span></code> როდესაც კომპილაცია დ).</li>
+<li>პროგრამის შესრულება. შესრულების დროს პროგრამამ უნდა გენერირება მოახდინოს <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> მონაცემთა ფაილები. ეს მონაცემთა ფაილები შეიცავს შესრულების გზის აღების რაოდენობის დათვლას. პროგრამა გენერირებას გაუკეთებს <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> ფაილი თითოეული წყაროს ფაილისთვის კომპილაცია d-ით <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ვარიანტი (მაგ., <code class="docutils literal notranslate"><span class="pre">main.c</span></code> წარმოქმნის <code class="docutils literal notranslate"><span class="pre">main.gcda</span></code>.</li>
+<li>Gcov-ის ან Lcov-ის გამოყენება შესაძლებელია კოდის დაფარვის გენერირებისთვის, რომელიც დაფუძნებულია <code class="docutils literal notranslate"><span class="pre">.gcno</span></code>, <code class="docutils literal notranslate"><span class="pre">.gcda</span></code>და წყაროს ფაილები. Gcov შექმნის ტექსტზე დაფუძნებულ დაფარვის ანგარიშს თითოეული წყაროს ფაილისთვის შემდეგი სახით: <code class="docutils literal notranslate"><span class="pre">.gcov</span></code> ფაილი, ხოლო Lcov შექმნის დაფარვის ანგარიშს HTML ფორმატში.</li>
+</ol>
+</div>
+<div class="section" id="gcov-and-lcov-in-esp-idf">
+<h4>Gcov და Lcov ESP-IDF ში<a class="headerlink" href="app_trace.html#gcov-and-lcov-in-esp-idf" title="Permalink to this headline">¶</a></h4>
+<p>Gcov-ის გამოყენება ESP-IDF ში ართულებს იმ ფაქტს, რომ პროგრამა დისტანციურად მუშაობს ჰოსტიდან (ანუ სამიზნეზე). კოდის დაფარვის მონაცემები (ანუ <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> ფაილები) თავდაპირველად ინახება თავად სამიზნეზე. შემდეგ OpenOCD გამოიყენება კოდის დაფარვის მონაცემების სამიზნედან მასპინძელზე გადასაცემად JTAG-ის საშუალებით გაშვების დროს. Gcov-ის გამოყენება ESP-IDF ში შეიძლება დაიყოს შემდეგ ნაბიჯებად.</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="app_trace.html#app-trace-gcov-setup-project"><span class="std std-ref">Gcov-ისთვის პროექტის შექმნა</span></a></li>
+<li><a class="reference internal" href="app_trace.html#app-trace-gcov-dumping-data"><span class="std std-ref">დემპინგის კოდექსის დაფარვის მონაცემები</span></a></li>
+<li><a class="reference internal" href="app_trace.html#app-trace-gcov-generate-report"><span class="std std-ref">დაფარვის ანგარიშის გენერირება</span></a></li>
+</ol>
+</div>
+<div class="section" id="setting-up-a-project-for-gcov">
+<span id="app-trace-gcov-setup-project"></span><h4>Gcov-ისთვის პროექტის შექმნა<a class="headerlink" href="app_trace.html#setting-up-a-project-for-gcov" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="compiler-option">
+<h5>კომპილატორის ვარიანტი<a class="headerlink" href="app_trace.html#compiler-option" title="Permalink to this headline">¶</a></h5>
+<p>პროექტში კოდის დაფარვის მონაცემების მისაღებად, პროექტის ფარგლებში ერთი ან მეტი საწყისი ფაილი უნდა იყოს კომპილაცია d-ით <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ვარიანტი. ESP-IDF ში ეს შეიძლება მიღწეული იქნას კომპონენტი დონეზე ან ინდივიდუალური წყაროს ფაილის დონეზე:</p>
+<dl class="docutils">
+<dt>To cause all source files in a component to be compiled with the <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> option.</dt>
+<dd><ul class="first last simple">
+<li>დამატება <code class="docutils literal notranslate"><span class="pre">target_compile_options(${COMPONENT_LIB}</span> <span class="pre">PRIVATE</span> <span class="pre">--coverage)</span></code> რომ <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> კომპონენტი ფაილი, თუ იყენებთ CMake-ს.</li>
+<li>დამატება <code class="docutils literal notranslate"><span class="pre">CFLAGS</span> <span class="pre">+=</span> <span class="pre">--coverage</span></code> რომ <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> კომპონენტი ფაილი, თუ იყენებთ Make-ს.</li>
+</ul>
+</dd>
+<dt>To cause a select number of source files (e.g. <code class="docutils literal notranslate"><span class="pre">sourec1.c</span></code> and <code class="docutils literal notranslate"><span class="pre">source2.c</span></code>) in the same component to be compiled with the <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> option.</dt>
+<dd><ul class="first last simple">
+<li>დამატება <code class="docutils literal notranslate"><span class="pre">set_source_files_properties(source1.c</span> <span class="pre">source2.c</span> <span class="pre">PROPERTIES</span> <span class="pre">COMPILE_FLAGS</span> <span class="pre">--coverage)</span></code> რომ <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> კომპონენტი ფაილი, თუ იყენებთ CMake-ს.</li>
+<li>დამატება <code class="docutils literal notranslate"><span class="pre">source1.o:</span> <span class="pre">CFLAGS</span> <span class="pre">+=</span> <span class="pre">--coverage</span></code> და <code class="docutils literal notranslate"><span class="pre">source2.o:</span> <span class="pre">CFLAGS</span> <span class="pre">+=</span> <span class="pre">--coverage</span></code> რომ <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> კომპონენტი ფაილი, თუ იყენებთ Make-ს.</li>
+</ul>
+</dd>
+</dl>
+<p>როდესაც საწყისი ფაილი არის კომპილაცია d, რომელსაც აქვს <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ვარიანტი (მაგ. <code class="docutils literal notranslate"><span class="pre">gcov_example.c</span></code>), კომპილაცია r წარმოქმნის <code class="docutils literal notranslate"><span class="pre">gcov_example.gcno</span></code> ფაილი პროექტის შექმნის დირექტორიაში.</p>
+</div>
+<div class="section" id="project-configuration">
+<h5>პროექტის კონფიგურაცია<a class="headerlink" href="app_trace.html#project-configuration" title="Permalink to this headline">¶</a></h5>
+<p>საწყისი კოდის დაფარვის მქონე პროექტის შექმნამდე, დარწმუნდით, რომ შემდეგი პროექტის კონფიგურაცია პარამეტრები ჩართულია ბრძანების გაშვებით <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> (ან <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code> თუ იყენებთ მემკვიდრეობით მიღებულ Make build სისტემას).</p>
+<ul class="simple">
+<li>ჩართეთ აპლიკაციის ტრასირების მოდული არჩევით <em>კვალის მეხსიერება</em> ამისთვის  <a class="reference internal" href="../api-reference/kconfig.html#config-apptrace-destination"><span class="std std-ref">CONFIG_APPTRACE_DESTINATION</span></a> ვარიანტი.</li>
+<li>Gcov-ის ჰოსტინგის ჩართვა შემდეგი გზით <a class="reference internal" href="../api-reference/kconfig.html#config-apptrace-gcov-enable"><span class="std std-ref">CONFIG_APPTRACE_GCOV_ENABLE</span></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="dumping-code-coverage-data">
+<span id="app-trace-gcov-dumping-data"></span><h4>დემპინგის კოდექსის დაფარვის მონაცემები<a class="headerlink" href="app_trace.html#dumping-code-coverage-data" title="Permalink to this headline">¶</a></h4>
+<p>როგორც კი პროექტი დაკმაყოფილდება <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ოფციისა და ფლეშ მეხსიერება ის სამიზნეზე გადატანის შემთხვევაში, კოდის დაფარვის მონაცემები შეინახება შიდა სამიზნეზე (ანუ კვალის მეხსიერებაში) აპლიკაციის გაშვებისას. კოდის დაფარვის მონაცემების სამიზნედან ჰოსტზე გადაცემის პროცესს დამპინგი ეწოდება.</p>
+<p>დაფარვის მონაცემების გადატანა ხდება OpenOCD-ის მეშვეობით (იხ. <a class="reference internal" href="jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a> OpenOCD-ის დაყენებისა და გაშვების შესახებ). დემპინგი აქტიურდება OpenOCD-ზე ბრძანებების გაცემით, ამიტომ ასეთი ბრძანებების გასაგზავნად უნდა გაიხსნას OpenOCD-ზე telnet სესია (run <code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">localhost</span> <span class="pre">4444</span></code>). გაითვალისწინეთ, რომ OpenOCD-სთვის ბრძანებების გასაცემად telnet-ის ნაცვლად შეიძლება გამოყენებულ იქნას GDB, თუმცა GDB-დან გაცემულ ყველა ბრძანებას პრეფიქსი უნდა ჰქონდეს <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">&lt;oocd_command&gt;</span></code>.</p>
+<p>როდესაც სამიზნე კოდის დაფარვის მონაცემებს აგზავნის, <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> ფაილები ინახება პროექტის შექმნის დირექტორიაში. მაგალითად, თუ <code class="docutils literal notranslate"><span class="pre">gcov_example_main.c</span></code> -ის <code class="docutils literal notranslate"><span class="pre">main</span></code> კომპონენტი იყო კომპილაცია სემესტრი <code class="docutils literal notranslate"><span class="pre">--coverage</span></code> ვარიანტი, მაშინ კოდის დაფარვის მონაცემების დემპინგი წარმოქმნის <code class="docutils literal notranslate"><span class="pre">gcov_example_main.gcda</span></code> ში <code class="docutils literal notranslate"><span class="pre">build/esp-idf/main/CMakeFiles/__idf_main.dir/gcov_example_main.c.gcda</span></code> (ან <code class="docutils literal notranslate"><span class="pre">build/main/gcov_example_main.gcda</span></code> თუ იყენებთ მემკვიდრეობით მიღებულ Make build სისტემას). გაითვალისწინეთ, რომ <code class="docutils literal notranslate"><span class="pre">.gcno</span></code> კომპილაციის დროს წარმოქმნილი ფაილებიც იმავე დირექტორიაშია განთავსებული.</p>
+<p>კოდის დაფარვის მონაცემების დემპინგი შეიძლება განხორციელდეს აპლიკაციის სიცოცხლის განმავლობაში რამდენჯერმე. თითოეული დემპინგი უბრალოდ განაახლებს <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> ფაილი უახლესი კოდის დაფარვის ინფორმაციით. კოდის დაფარვის მონაცემები აკუმულაციურია, ამიტომ უახლესი მონაცემები შეიცავს თითოეული კოდის გზის შესრულების მთლიან რაოდენობას აპლიკაციის მთელი სიცოცხლის განმავლობაში.</p>
+<p>ESP-IDF მხარს უჭერს კოდის დაფარვის მონაცემების სამიზნიდან ჰოსტზე გადატანის ორ მეთოდს:</p>
+<ul class="simple">
+<li>მყისიერი გაშვების დროის დემპინგი</li>
+<li>მყარი კოდირებული დემპინგი</li>
+</ul>
+<div class="section" id="instant-run-time-dump">
+<h5>მყისიერი გაშვების დროის დემპინგი<a class="headerlink" href="app_trace.html#instant-run-time-dump" title="Permalink to this headline">¶</a></h5>
+<p>მყისიერი გაშვების დროის დემპინგი გააქტიურდება გამოძახებით <code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">gcov</span></code> OpenOCD ბრძანება (telnet სესიის საშუალებით). გამოძახების შემდეგ, OpenOCD დაუყოვნებლივ წინასწარ განსაზღვრავს ESP32-ის მიმდინარე მდგომარეობას და შეასრულებს ჩაშენებულ IDF Gcov გამართვა stub ფუნქციას. გამართვა stub ფუნქცია დაამუშავებს მონაცემების ჰოსტზე გადაცემას. დასრულების შემდეგ, ESP32 დაუბრუნდება მიმდინარე მდგომარეობას.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გამართვა stub ფუნქციის გამოყენების გამო, OpenOCD Debug Stub ოფცია უნდა იყოს ჩართული პროექტის კონფიგურაცია ში. ოფცია შეგიძლიათ იხილოთ ქვემოთ. <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">config</span> <span class="pre">-&gt;</span> <span class="pre">ESP32-specific</span> <span class="pre">-&gt;</span> <span class="pre">OpenOCD</span> <span class="pre">debug</span> <span class="pre">stubs</span></code>.</p>
+</div>
+</div>
+<div class="section" id="hard-coded-dump">
+<h5>მყარი კოდირებული დემპინგი<a class="headerlink" href="app_trace.html#hard-coded-dump" title="Permalink to this headline">¶</a></h5>
+<p>მყარი კოდირებული დემპინგი თავად აპლიკაციის მიერ ხდება გამოძახებით. <a class="reference internal" href="../api-reference/system/app_trace.html#_CPPv413esp_gcov_dumpv" title="esp_gcov_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_gcov_dump()</span></code></a> აპლიკაციის შიგნით არსებული ადგილიდან. გამოძახებისას, აპლიკაცია გაჩერდება და დაელოდება OpenOCD-ს დაკავშირებას და კოდის დაფარვის მონაცემების მოძიებას. ერთხელ <a class="reference internal" href="../api-reference/system/app_trace.html#_CPPv413esp_gcov_dumpv" title="esp_gcov_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_gcov_dump()</span></code></a> გამოძახების შემთხვევაში, ჰოსტმა უნდა შეასრულოს <code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">gcov</span> <span class="pre">dump</span></code> OpenOCD ბრძანება (telnet სესიის საშუალებით). <code class="docutils literal notranslate"><span class="pre">esp32</span> <span class="pre">gcov</span> <span class="pre">dump</span></code> ბრძანება გამოიწვევს OpenOCD-ის ESP32-თან დაკავშირებას, კოდის დაფარვის მონაცემების მოძიებას და შემდეგ ESP32-დან გათიშვას, რაც აპლიკაციის განახლების საშუალებას მისცემს. მყარი კოდირებული დემპები ასევე შეიძლება რამდენჯერმე გააქტიურდეს აპლიკაციის სიცოცხლის განმავლობაში.</p>
+<p>მყარი კოდირებული დემპები სასარგებლოა, თუ კოდის დაფარვის მონაცემები საჭიროა აპლიკაციის სიცოცხლის გარკვეულ მომენტებში განთავსებით. <a class="reference internal" href="../api-reference/system/app_trace.html#_CPPv413esp_gcov_dumpv" title="esp_gcov_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_gcov_dump()</span></code></a> საჭიროების შემთხვევაში (მაგ., აპლიკაციის ინიციალიზაციის შემდეგ, აპლიკაციის მთავარი ციკლის თითოეული იტერაციის დროს).</p>
+<p>GDB-ის გამოყენება შესაძლებელია შესვენების წერტილის დასაყენებლად <a class="reference internal" href="../api-reference/system/app_trace.html#_CPPv413esp_gcov_dumpv" title="esp_gcov_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_gcov_dump()</span></code></a>, შემდეგ დარეკეთ <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">esp32</span> <span class="pre">gcov</span> <span class="pre">dump</span></code> ავტომატურად, a-ს გამოყენებით <code class="docutils literal notranslate"><span class="pre">gdbinit</span></code> სკრიპტი (იხილეთ GDB-ის გამოყენება <a class="reference internal" href="jtag-debugging/using-debugger.html#jtag-debugging-using-debugger-command-line"><span class="std std-ref">ბრძანების ხაზი</span></a>).</p>
+<p>შემდეგი GDB სკრიპტი დაამატებს შესვენების წერტილს <a class="reference internal" href="../api-reference/system/app_trace.html#_CPPv413esp_gcov_dumpv" title="esp_gcov_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_gcov_dump()</span></code></a>, შემდეგ კი დაურეკეთ <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">esp32</span> <span class="pre">gcov</span> <span class="pre">dump</span></code> OpenOCD ბრძანება.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>b esp_gcov_dump
+commands
+mon esp32 gcov dump
+end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გაითვალისწინეთ, რომ GDB-ში ყველა OpenOCD ბრძანება უნდა გამოიძახოს შემდეგნაირად: <code class="docutils literal notranslate"><span class="pre">mon</span> <span class="pre">&lt;oocd_command&gt;</span></code>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="generating-coverage-report">
+<span id="app-trace-gcov-generate-report"></span><h4>დაფარვის ანგარიშის გენერირება<a class="headerlink" href="app_trace.html#generating-coverage-report" title="Permalink to this headline">¶</a></h4>
+<p>კოდის დაფარვის მონაცემების დემპინგის შემდეგ, <code class="docutils literal notranslate"><span class="pre">.gcno</span></code>, <code class="docutils literal notranslate"><span class="pre">.gcda</span></code> და საწყისი ფაილების გამოყენება შესაძლებელია კოდის დაფარვის ანგარიშის გენერირებისთვის. კოდის დაფარვის ანგარიში უბრალოდ ანგარიშია, რომელიც მიუთითებს საწყისი ფაილის თითოეული სტრიქონის შესრულების რაოდენობაზე.</p>
+<p>კოდის დაფარვის ანგარიშების გენერირებისთვის შესაძლებელია როგორც Gcov-ის, ასევე Lcov-ის (genhtml-თან ერთად) გამოყენება. Gcov მოწოდებულია Xtensa-ს ინსტრუმენტარიუმთან ერთად, ხოლო Lcov-ის ცალკე ინსტალაცია შეიძლება დაგჭირდეთ. Gcov-ის ან Lcov-ის გამოყენების დეტალებისთვის იხილეთ <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gcc/Gcov.html">Gcov-ის დოკუმენტაცია</a> და <a class="reference external" href="https://linux.die.net/man/1/lcov">Lcov-ის დოკუმენტაცია</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამჟამად Windows-ზე CMake build სისტემისთვის Lcov-ის მხარდაჭერა არ არის.</p>
+</div>
+<div class="section" id="adding-lcov-build-target-to-project">
+<h5>Lcov-ის აწყობის სამიზნის პროექტში დამატება<a class="headerlink" href="app_trace.html#adding-lcov-build-target-to-project" title="Permalink to this headline">¶</a></h5>
+<p>ანგარიშის გენერირების უფრო მოსახერხებლად გასაკეთებლად, მომხმარებლებს შეუძლიათ თავიანთ პროექტებში განსაზღვრონ დამატებითი აწყობის მიზნები, მაგალითად, ანგარიშის გენერირება შესაძლებელია ერთი აწყობის ბრძანებით.</p>
+<div class="section" id="cmake-build-system">
+<h6>CMake-ის შექმნის სისტემა<a class="headerlink" href="app_trace.html#cmake-build-system" title="Permalink to this headline">¶</a></h6>
+<p>CMake-ის აწყობის სისტემებისთვის, დაამატეთ შემდეგი ხაზები <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> თქვენი პროექტის ფაილი.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>include($ENV{IDF_PATH}/tools/cmake/gcov.cmake)
+idf_create_coverage_report(${CMAKE_CURRENT_BINARY_DIR}/coverage_report)
+idf_clean_coverage_report(${CMAKE_CURRENT_BINARY_DIR}/coverage_report)
+</pre></div>
+</div>
+<p>ახლა შემდეგი ბრძანებების გამოყენება შესაძლებელია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build/</span> <span class="pre">--target</span> <span class="pre">lcov-report</span></code> HTML-ის დაფარვის ანგარიშს შექმნის <code class="docutils literal notranslate"><span class="pre">$(BUILD_DIR_BASE)/coverage_report/html</span></code> დირექტორია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build/</span> <span class="pre">--target</span> <span class="pre">cov-data-clean</span></code> წაშლის ყველა დაფარვის მონაცემთა ფაილს და ანგარიშს.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="make-build-system">
+<h6>შექმენით სისტემა<a class="headerlink" href="app_trace.html#make-build-system" title="Permalink to this headline">¶</a></h6>
+<p>Make build სისტემებისთვის, დაამატეთ შემდეგი ხაზები <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> თქვენი პროექტის.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>GCOV := $(call dequote,$(CONFIG_SDK_TOOLPREFIX))gcov
+REPORT_DIR := $(BUILD_DIR_BASE)/coverage_report
+
+lcov-report:
+    echo "Generating coverage report in: $(REPORT_DIR)"
+    echo "Using gcov: $(GCOV)"
+    mkdir -p $(REPORT_DIR)/html
+    lcov --gcov-tool $(GCOV) -c -d $(BUILD_DIR_BASE) -o $(REPORT_DIR)/$(PROJECT_NAME).info
+    genhtml -o $(REPORT_DIR)/html $(REPORT_DIR)/$(PROJECT_NAME).info
+
+cov-data-clean:
+    echo "Remove coverage data files..."
+    find $(BUILD_DIR_BASE) -name "*.gcda" -exec rm {} +
+    rm -rf $(REPORT_DIR)
+
+.PHONY: lcov-report cov-data-clean
+</pre></div>
+</div>
+<p>ახლა შემდეგი ბრძანებების გამოყენება შესაძლებელია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lcov-report</span></code> HTML-ის დაფარვის ანგარიშს შექმნის <code class="docutils literal notranslate"><span class="pre">$(BUILD_DIR_BASE)/coverage_report/html</span></code> დირექტორია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">cov-data-clean</span></code> წაშლის ყველა დაფარვის მონაცემთა ფაილს და ანგარიშს.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="blufi.html" rel="next" title="BluFi">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="API Guides"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

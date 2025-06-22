@@ -1,0 +1,2353 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wi-Fi დრაივერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="wireshark-user-guide.html" rel="next" title="Espressif Wireshark User Guide"/>
+<link href="unit-tests.html" rel="prev" title="Unit Testing in ESP32"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/wifi.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/wifi"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/wifi.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="wifi.html#">WiFi დრაივერი</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-feature-list">ESP32 Wi-Fi მახასიათებლების სია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#how-to-write-a-wi-fi-application">როგორ დავწეროთ Wi-Fi განაცხადი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#preparation">მომზადება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#setting-wi-fi-compile-time-options">Wi-Fi კომპილაციის დროის პარამეტრების დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#init-wi-fi">ინიციალიზაცია Wi-Fi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#start-connect-wi-fi">დაწყება/დაკავშირება Wi-Fi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#event-handling">მოვლენების დამუშავება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#write-error-recovery-routines-correctly-at-all-times">შეცდომების აღდგენის რუტინების სწორად ჩაწერა ნებისმიერ დროს</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-api-error-code">ESP32 Wi-Fi API შეცდომის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-api-parameter-initialization">ESP32 Wi-Fi API პარამეტრის ინიციალიზაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-programming-model">ESP32 Wi-Fi პროგრამირების მოდელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-event-description">ESP32 Wi-Fi მოვლენის აღწერა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-wifi-ready">WIFI_EVENT_WIFI_READY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-scan-done">WIFI_EVENT_SCAN_DONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-sta-stop">WIFI_EVENT_STA_STOP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-sta-connected">WIFI_EVENT_STA_CONNECTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-sta-authmode-change">WIFI_EVENT_STA_AUTHMODE_CHANGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#ip-event-sta-got-ip">IP_EVENT_STA_GOT_IP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#ip-event-got-ip6">IP_EVENT_GOT_IP6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#ip-sta-lost-ip">IP_STA_LOST_IP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-ap-start">WIFI_EVENT_AP_START</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-ap-stop">WIFI_EVENT_AP_STOP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-ap-staconnected">WIFI_EVENT_AP_STACONNECTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-ap-stadisconnected">WIFI_EVENT_AP_STADISCONNECTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wifi-event-ap-probereqrecved">WIFI_EVENT_AP_PROBEREQRECVED</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-station-general-scenario">ESP32 Wi-Fi სადგურის ზოგადი სცენარი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-lwip-init-phase">1. Wi-Fi /LwIP-ის საწყისი ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-configuration-phase">2. Wi-Fi კონფიგურაციის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-start-phase">3. Wi-Fi დაწყების ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-connect-phase">4. Wi-Fi კავშირის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-got-ip-phase">5. Wi-Fi -5 ტერმინალი „IP-ის მიღების“ ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-disconnect-phase">6. Wi-Fi გათიშვის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-ip-change-phase">7. Wi-Fi ინტელექტუალური საკუთრების შეცვლის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-deinit-phase">8. Wi-Fi დეინიტ ფაზა</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-ap-general-scenario">ESP32 Wi-Fi AP ზოგადი სცენარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-scan">ESP32 Wi-Fi სკანირება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-type">სკანირების ტიპი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-configuration">სკანირების კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-all-aps-in-all-channels-foreground">ყველა არხზე არსებული ყველა წვდომის წერტილის სკანირება (წინა პლანზე)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-all-aps-on-all-channels-background">ყველა წვდომის წერტილის სკანირება ყველა არხზე (ფონური)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-for-a-specific-ap-in-all-channels">ყველა არხში კონკრეტული წვდომის წერტილის სკანირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-in-wi-fi-connect">სკანირება Wi-Fi Connect-ში</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-in-blocked-mode">სკანირება დაბლოკილ რეჟიმში</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#parallel-scan">პარალელური სკანირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-when-wi-fi-is-connecting">სკანირება, როდესაც Wi-Fi უკავშირდება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-station-connecting-scenario">ESP32 Wi-Fi სადგურის დაკავშირების სცენარი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#scan-phase">სკანირების ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#auth-phase">ავტორიზაციის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#association-phase">ასოციაციის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#four-way-handshake-phase">ოთხმხრივი ხელის ჩამორთმევის ფაზა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-station-connecting-when-multiple-aps-are-found">ESP32 Wi-Fi სადგური უკავშირდება მრავალი წვდომის წერტილის პოვნისას</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-reconnect">Wi-Fi ხელახლა დაკავშირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-beacon-timeout">Wi-Fi Beacon-ის ტაიმ-აუტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-configuration">ESP32 Wi-Fi კონფიგურაცია</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-mode">Wi-Fi რეჟიმი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#station-basic-configuration">სადგურის ძირითადი კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#ap-basic-configuration">წვდომის წერტილის ძირითადი კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-protocol-mode">Wi-Fi პროტოკოლის რეჟიმი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#long-range-lr">დიდი მანძილი (LR)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-country-code">Wi-Fi ქვეყნის კოდი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-vendor-ie-configuration">Wi-Fi მომწოდებლის IE კონფიგურაცია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-security">Wi-Fi უსაფრთხოება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#protected-management-frames-pmf">დაცული მართვის ჩარჩოები (PMF)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wpa3-personal">WPA3-პერსონალური</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-power-saving-mode">ESP32 Wi-Fi ენერგიის დაზოგვის რეჟიმი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#station-sleep">სადგურის ძილი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#ap-sleep">AP ძილი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-connect-crypto">ESP32 Wi-Fi კრიპტოს დაკავშირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#esp32-wi-fi-throughput">ESP32 Wi-Fi გამტარუნარიანობა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-80211-packet-send">Wi-Fi 80211 პაკეტის გაგზავნა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#preconditions-of-using-esp-wifi-80211-tx">esp_wifi_80211_tx-ის გამოყენების წინაპირობები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#data-rate">მონაცემთა გადაცემის სიჩქარე</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#side-effects-to-avoid-in-different-scenarios">გვერდითი მოვლენები, რომლებიც უნდა აიცილოთ თავიდან სხვადასხვა სცენარში</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-sniffer-mode">Wi-Fi სნიფერის რეჟიმი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-multiple-antennas">Wi-Fi მრავალჯერადი ანტენები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-multiple-antennas-configuration">Wi-Fi მრავალჯერადი ანტენების კონფიგურაცია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-channel-state-information">Wi-Fi არხის მდგომარეობის ინფორმაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-channel-state-information-configure">Wi-Fi არხის მდგომარეობის ინფორმაციის კონფიგურაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-ht20-40">Wi-Fi HT20/40</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-qos">Wi-Fi QoS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-amsdu">Wi-Fi AMSDU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-fragment">Wi-Fi ფრაგმენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wps-enrolle">WPS-ის რეგისტრაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-buffer-usage">Wi-Fi ბუფერის გამოყენება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#why-buffer-configuration-is-important">რატომ არის ბუფერის კონფიგურაცია მნიშვნელოვანი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#dynamic-vs-static-buffer">დინამიური vs. სტატიკური ბუფერი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#peak-wi-fi-dynamic-buffer">პიკური Wi-Fi 5 დინამიური ბუფერი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#wi-fi-menuconfig">Wi-Fi მენიუს კონფიგურაცია</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-buffer-configure">Wi-Fi ბუფერის კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-nvs-flash">Wi-Fi NVS ფლეშ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi.html#wi-fi-ampdu">Wi-Fi AMPDU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi.html#troubleshooting">პრობლემების მოგვარება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wireshark-user-guide.html">Espressif Wireshark-ის მომხმარებლის სახელმძღვანელო</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>Wi-Fi მძღოლი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/wifi.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="wi-fi-driver">
+<h1>Wi-Fi მძღოლი<a class="headerlink" href="wifi.html#wi-fi-driver" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="esp32-wi-fi-feature-list">
+<h2>ESP32 Wi-Fi მახასიათებლების სია<a class="headerlink" href="wifi.html#esp32-wi-fi-feature-list" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>მხოლოდ სადგურის რეჟიმის, მხოლოდ AP რეჟიმის, სადგურის/AP თანაარსებობის რეჟიმის მხარდაჭერა</li>
+<li>პროტოკოლის რეჟიმის კონფიგურაციისთვის IEEE-802.11B, IEEE-802.11G, IEEE802.11N და API ის მხარდაჭერა</li>
+<li>WPA/WPA2/WPA2-Enterprise და WPS-ის მხარდაჭერა</li>
+<li>მხარდაჭერა AMPDU, HT40, QoS და სხვა ძირითადი ფუნქციები</li>
+<li>მოდემის ძილის რეჟიმის მხარდაჭერა</li>
+<li>Espressif-ის სპეციფიკური პროტოკოლის მხარდაჭერა, რომელიც, თავის მხრივ, მხარს უჭერს მაქსიმუმ <strong>1 კმ</strong> მონაცემთა ტრაფიკის</li>
+<li>20 მბ/წმ-მდე TCP გამტარუნარიანობა და 30 მბ/წმ-მდე UDP გამტარუნარიანობა ეთერში</li>
+<li>მხარდაჭერის სნაიფერი</li>
+<li>მხარდაჭერა fast_crypto ალგორითმისა და ნორმალური ალგორითმის გადამრთველის დასაყენებლად, რომელიც გამოიყენება wifi კავშირში</li>
+<li>მხარს უჭერს როგორც სწრაფი სკანირების, ასევე ყველა არხის სკანირების ფუნქციას</li>
+<li>მრავალი ანტენის მხარდაჭერა</li>
+<li>მხარდაჭერის არხის მდგომარეობის ინფორმაცია</li>
+</ul>
+</div>
+<div class="section" id="how-to-write-a-wi-fi-application">
+<h2>როგორ დავწეროთ Wi-Fi განაცხადი<a class="headerlink" href="wifi.html#how-to-write-a-wi-fi-application" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="preparation">
+<h3>მომზადება<a class="headerlink" href="wifi.html#preparation" title="Permalink to this headline">¶</a></h3>
+<p>ზოგადად, საკუთარი Wi-Fi აპლიკაციის დასაწყებად ყველაზე ეფექტური გზაა აირჩიოთ თქვენი აპლიკაციის მსგავსი მაგალითი და გამოიყენოთ სასარგებლო ნაწილი თქვენს პროექტში. ეს აუცილებელი არ არის, მაგრამ მკაცრად რეკომენდებულია, რომ ჯერ ამ სტატიის წაკითხვას დაუთმოთ გარკვეული დრო, განსაკუთრებით თუ გსურთ საიმედო Wi-Fi აპლიკაციის დაპროგრამება. ეს სტატია Wi-Fi API მაგალითების დამატებაა. იგი აღწერს Wi-Fi API მაგალითების გამოყენების პრინციპებს, მიმდინარე Wi-Fi API იმპლემენტაციის შეზღუდვებს და Wi-Fi გამოყენების ყველაზე გავრცელებულ ხაფანგებს. ეს სტატია ასევე ავლენს Wi-Fi დრაივერის დიზაინის ზოგიერთ დეტალს. გირჩევთ, გაეცნოთ სულ მცირე შემდეგ ნაწილებს:<a class="reference internal" href="wifi.html#esp32-wi-fi-api-error-code">ESP32 Wi-Fi API შეცდომის კოდი</a>&amp;gt;,<a class="reference internal" href="wifi.html#esp32-wi-fi-programming-model">ESP32 Wi-Fi პროგრამირების მოდელი</a>&amp;gt;, და<a class="reference internal" href="wifi.html#esp32-wi-fi-event-description">ESP32 Wi-Fi მოვლენის აღწერა</a>&amp;gt;</p>
+</div>
+<div class="section" id="setting-wi-fi-compile-time-options">
+<h3>Wi-Fi კომპილაციის დროის პარამეტრების დაყენება<a class="headerlink" href="wifi.html#setting-wi-fi-compile-time-options" title="Permalink to this headline">¶</a></h3>
+<p>იხილეთ<a class="reference internal" href="wifi.html#wi-fi-menuconfig">Wi-Fi მენიუს კონფიგურაცია</a>&amp;gt;</p>
+</div>
+<div class="section" id="init-wi-fi">
+<h3>ინიციალიზაცია Wi-Fi<a class="headerlink" href="wifi.html#init-wi-fi" title="Permalink to this headline">¶</a></h3>
+<p>იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-station-general-scenario">ESP32 Wi-Fi სადგურის ზოგადი სცენარი</a>&amp;gt;,<a class="reference internal" href="wifi.html#esp32-wi-fi-ap-general-scenario">ESP32 Wi-Fi AP ზოგადი სცენარი</a>&amp;gt;</p>
+</div>
+<div class="section" id="start-connect-wi-fi">
+<h3>დაწყება/დაკავშირება Wi-Fi<a class="headerlink" href="wifi.html#start-connect-wi-fi" title="Permalink to this headline">¶</a></h3>
+<p>იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-station-general-scenario">ESP32 Wi-Fi სადგურის ზოგადი სცენარი</a>&amp;gt;,<a class="reference internal" href="wifi.html#esp32-wi-fi-ap-general-scenario">ESP32 Wi-Fi AP ზოგადი სცენარი</a>&amp;gt;</p>
+</div>
+<div class="section" id="event-handling">
+<h3>მოვლენების დამუშავება<a class="headerlink" href="wifi.html#event-handling" title="Permalink to this headline">¶</a></h3>
+<p>ზოგადად, კოდის დაწერა ადვილია „მზიანი“ სცენარების დროს, მაგალითად<a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a>&amp;gt;,<a class="reference internal" href="wifi.html#wifi-event-sta-connected">WIFI_EVENT_STA_CONNECTED</a>&amp;gt; და ა.შ. რთული ნაწილია რუტინების დაწერა „წვიმიან“ სცენარებში, მაგალითად<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; და ა.შ. „წვიმიანი დღის“ სცენარების კარგად მართვა ფუნდამენტურია Wi-Fi საიმედო აპლიკაციებისთვის. იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-event-description">ESP32 Wi-Fi მოვლენის აღწერა</a>&amp;gt;,<a class="reference internal" href="wifi.html#esp32-wi-fi-station-general-scenario">ESP32 Wi-Fi სადგურის ზოგადი სცენარი</a>&amp;gt;,<a class="reference internal" href="wifi.html#esp32-wi-fi-ap-general-scenario">ESP32 Wi-Fi AP ზოგადი სცენარი</a>&amp;gt;. იხილეთ აგრეთვე <a class="reference internal" href="event-handling.html"><span class="doc">მოვლენების დამუშავების მიმოხილვა ESP-IDF ში</span></a>.</p>
+</div>
+<div class="section" id="write-error-recovery-routines-correctly-at-all-times">
+<h3>შეცდომების აღდგენის რუტინების სწორად ჩაწერა ნებისმიერ დროს<a class="headerlink" href="wifi.html#write-error-recovery-routines-correctly-at-all-times" title="Permalink to this headline">¶</a></h3>
+<p>ისევე, როგორც „წვიმიანი დღის“ სცენარების მართვისას, შეცდომების აღდგენის კარგი რუტინა ასევე ფუნდამენტურია Wi-Fi საიმედო აპლიკაციებისთვის. იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-api-error-code">ESP32 Wi-Fi API შეცდომის კოდი</a>&amp;gt;</p>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-api-error-code">
+<h2>ESP32 Wi-Fi API შეცდომის კოდი<a class="headerlink" href="wifi.html#esp32-wi-fi-api-error-code" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>All of the ESP32 Wi-Fi APIs have well-defined return values, namely, the error code. The error code can be categorized into:</dt>
+<dd><ul class="first last simple">
+<li>შეცდომები არ არის, მაგ. ESP_OK ნიშნავს, რომ API წარმატებით აბრუნებს</li>
+<li>გამოსწორებადი შეცდომები, როგორიცაა ESP_ERR_NO_MEM და ა.შ.</li>
+<li>გამოუსწორებელი, არაკრიტიკული შეცდომები</li>
+<li>გამოუსწორებელი, კრიტიკული შეცდომები</li>
+</ul>
+</dd>
+</dl>
+<p>შეცდომის კრიტიკული ხასიათს ატარებს თუ არა, ეს დამოკიდებულია API და აპლიკაციის სცენარზე და მას განსაზღვრავს API მომხმარებელი.</p>
+<p><strong>Wi-Fi ით API ით ძლიერი აპლიკაციის დაწერის მთავარი პრინციპია შეცდომის კოდის ყოველთვის შემოწმება და შეცდომების დამუშავების კოდის დაწერა.</strong> ზოგადად, შეცდომების დამუშავების კოდის გამოყენება შესაძლებელია:</p>
+<blockquote>
+<div><ul class="simple">
+<li>აღდგენილი შეცდომებისთვის, ამ შემთხვევაში შეგიძლიათ დაწეროთ აღდგენილი შეცდომის კოდი. მაგალითად, როდესაც esp_wifi_start აბრუნებს ESP_ERR_NO_MEM-ს, შესაძლებელია გამოძახებული შეცდომის კოდი vTaskDelay-ის გამოძახება, რათა კიდევ ერთი ცდისთვის მიკროწამიანი დაყოვნება მივიღოთ.</li>
+<li>შეუქცევადი, მაგრამ არაკრიტიკული შეცდომებისთვის, ამ შემთხვევაში შეცდომის კოდის დაბეჭდვა შეცდომების დამუშავების კარგი მეთოდია.</li>
+<li>შეუქცევადი, კრიტიკული შეცდომებისთვის, ამ შემთხვევაში „assert“ შეიძლება იყოს შეცდომების დამუშავების კარგი მეთოდი. მაგალითად, თუ esp_wifi_set_mode აბრუნებს ESP_ERR_WIFI_NOT_INIT-ს, ეს ნიშნავს, რომ Wi-Fi დრაივერი წარმატებით არ არის ინიციალიზებული esp_wifi_init-ის მიერ. ამ ტიპის შეცდომის აღმოჩენა ძალიან სწრაფად შეგიძლიათ აპლიკაციის შემუშავების ფაზაში.</li>
+</ul>
+</div></blockquote>
+<p>esp_err.h ფაილში ESP_ERROR_CHECK ამოწმებს დაბრუნებულ მნიშვნელობებს. ეს საკმაოდ გავრცელებული შეცდომების დამუშავების კოდია და შეიძლება გამოყენებულ იქნას, როგორც შეცდომების დამუშავების ნაგულისხმევი კოდი აპლიკაციის შემუშავების ფაზაში. თუმცა, ჩვენ გირჩევთ, რომ API მომხმარებლებმა დაწერონ საკუთარი შეცდომების დამუშავების კოდი.</p>
+</div>
+<div class="section" id="esp32-wi-fi-api-parameter-initialization">
+<h2>ESP32 Wi-Fi API პარამეტრის ინიციალიზაცია<a class="headerlink" href="wifi.html#esp32-wi-fi-api-parameter-initialization" title="Permalink to this headline">¶</a></h2>
+<p>API ისთვის struct პარამეტრების ინიციალიზაციისას უნდა გამოიყენოთ ორი მიდგომიდან ერთ-ერთი: - პარამეტრის ყველა ველის ცალსახად დაყენება ან - მიმდინარე კონფიგურაციის მისაღებად გამოიყენეთ get API , შემდეგ კი აპლიკაციისთვის სპეციფიკური ველების დაყენება.</p>
+<p>ინიციალიზაცია ან მთელი სტრუქტურის მიღება ძალიან მნიშვნელოვანია, რადგან უმეტეს შემთხვევაში, მნიშვნელობა 0 მიუთითებს ნაგულისხმევ მნიშვნელობაზე. მომავალში სტრუქტურას შეიძლება დაემატოს მეტი ველი და მათი ნულზე ინიციალიზაცია უზრუნველყოფს, რომ აპლიკაცია კვლავ სწორად იმუშავებს IDF-ის ახალ ვერსიაზე განახლების შემდეგ.</p>
+</div>
+<div class="section" id="esp32-wi-fi-programming-model">
+<span id="wifi-programming-model"></span><h2>ESP32 Wi-Fi პროგრამირების მოდელი<a class="headerlink" href="wifi.html#esp32-wi-fi-programming-model" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 Wi-Fi პროგრამირების მოდელი შემდეგნაირად არის გამოსახული:</p>
+<div class="figure align-center" id="id1">
+<div><img height="300" src="../_images/blockdiag-fa9bdae6cffadff0d7abcecf690ead442dbf32ef.png" width="740"/></div><p class="caption"><span class="caption-text">Wi-Fi პროგრამირების მოდელი</span><a class="headerlink" href="wifi.html#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Wi-Fi დრაივერი შეიძლება ჩაითვალოს შავ ყუთად, რომელმაც არაფერი იცის მაღალი დონის კოდის შესახებ, როგორიცაა TCP/IP სტეკი, აპლიკაციის დავალება, მოვლენის დავალება და ა.შ. აპლიკაციის დავალება (კოდი) ზოგადად იძახებს <a class="reference internal" href="../api-reference/network/esp_wifi.html"><span class="doc">Wi-Fi მძღოლი API წმ</span></a> Wi-Fi ინიციალიზაციისთვის და საჭიროების შემთხვევაში Wi-Fi მოვლენების დასამუშავებლად. Wi-Fi დრაივერი იღებს API ზარებს, ამუშავებს მათ და აქვეყნებს მოვლენებს აპლიკაციაში.</p>
+<p>Wi-Fi მოვლენების დამუშავება ეფუძნება <a class="reference internal" href="../api-reference/system/esp_event.html"><span class="doc">esp_event ბიბლიოთეკა</span></a>მოვლენები იგზავნება Wi-Fi დრაივერის მიერ <a class="reference internal" href="../api-reference/system/esp_event.html#esp-event-default-loops"><span class="std std-ref">ნაგულისხმევი მოვლენების ციკლი</span></a>აპლიკაციას შეუძლია ამ მოვლენების დამუშავება უკუკავშირის გამოყენებით რეგისტრირებულ შემთხვევებში. <a class="reference internal" href="../api-reference/system/esp_event.html#_CPPv426esp_event_handler_register16esp_event_base_t7int32_t19esp_event_handler_tPv" title="esp_event_handler_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_event_handler_register()</span></code></a>. Wi-Fi ღონისძიებებს ასევე ამუშავებს <a class="reference internal" href="../api-reference/network/esp_netif.html"><span class="doc">esp_netif კომპონენტი</span></a> ნაგულისხმევი ქცევების ნაკრების უზრუნველსაყოფად. მაგალითად, როდესაც Wi-Fi სადგური წვდომის წერტილს უკავშირდება, esp_netif ავტომატურად გაუშვებს DHCP კლიენტს (ნაგულისხმევად).</p>
+</div>
+<div class="section" id="esp32-wi-fi-event-description">
+<h2>ESP32 Wi-Fi მოვლენის აღწერა<a class="headerlink" href="wifi.html#esp32-wi-fi-event-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wifi-event-wifi-ready">
+<h3>WIFI_EVENT_WIFI_READY<a class="headerlink" href="wifi.html#wifi-event-wifi-ready" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi დრაივერი არასდროს წარმოქმნის ამ მოვლენას, რის შედეგადაც, აპლიკაციის მოვლენის უკუგამოძახებისას მისი იგნორირება შესაძლებელია. ეს მოვლენა შესაძლოა მომავალ ვერსიებში წაიშალოს.</p>
+</div>
+<div class="section" id="wifi-event-scan-done">
+<h3>WIFI_EVENT_SCAN_DONE<a class="headerlink" href="wifi.html#wifi-event-scan-done" title="Permalink to this headline">¶</a></h3>
+<p>სკანირების დასრულების მოვლენა გააქტიურებულია esp_wifi_scan_start() ფუნქციით და წარმოიქმნება შემდეგ სცენარებში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სკანირება დასრულებულია, მაგალითად, სამიზნე წვდომის წერტილი წარმატებით მოიძებნა ან ყველა არხი დასკანირებულია.</li>
+<li>სკანირება შეჩერებულია esp_wifi_scan_stop() ბრძანებით.</li>
+<li>esp_wifi_scan_start() გამოიძახება სკანირების დასრულებამდე. ახალი სკანირება გადაფარავს მიმდინარე სკანირებას და გენერირდება სკანირების დასრულების მოვლენა.</li>
+</ul>
+</div></blockquote>
+<p>სკანირების დასრულების მოვლენა არ წარმოიქმნება შემდეგ სცენარებში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ეს დაბლოკილი სკანირებაა.</li>
+<li>სკანირება გამოწვეულია esp_wifi_connect()-ით.</li>
+</ul>
+</div></blockquote>
+<p>ამ მოვლენის მიღების შემდეგ, მოვლენის დავალება არაფერს აკეთებს. აპლიკაციის მოვლენის უკუგამოძახებისას საჭიროა esp_wifi_scan_get_ap_num() და esp_wifi_scan_get_ap_records()-ის გამოძახება სკანირებული წვდომის წერტილების სიის მისაღებად და Wi-Fi დრაივერის გააქტიურებისთვის, რათა გათავისუფლდეს შიდა მეხსიერება, რომელიც გამოყოფილია სკანირების დროს. <strong>(ამის გაკეთება არ დაგავიწყდეთ)</strong>! უფრო დეტალური აღწერილობისთვის იხილეთ „ESP32 Wi-Fi სკანირება“.</p>
+</div>
+<div class="section" id="wifi-event-sta-start">
+<h3>WIFI_EVENT_STA_START<a class="headerlink" href="wifi.html#wifi-event-sta-start" title="Permalink to this headline">¶</a></h3>
+<p>თუ esp_wifi_start() დააბრუნებს ESP_OK-ს და მიმდინარე Wi-Fi რეჟიმი არის Station ან AP+Station, მაშინ ეს მოვლენა წარმოიქმნება. ამ მოვლენის მიღებისთანავე, მოვლენის დავალება ინიციალიზაციას გაუკეთებს LwIP ქსელის ინტერფეისს (netif). როგორც წესი, აპლიკაციის მოვლენის უკუგამოძახებისას საჭიროა esp_wifi_connect()-ის გამოძახება კონფიგურირებულ AP-თან დასაკავშირებლად.</p>
+</div>
+<div class="section" id="wifi-event-sta-stop">
+<h3>WIFI_EVENT_STA_STOP<a class="headerlink" href="wifi.html#wifi-event-sta-stop" title="Permalink to this headline">¶</a></h3>
+<p>თუ esp_wifi_stop() დააბრუნებს ESP_OK-ს და მიმდინარე Wi-Fi რეჟიმი არის Station ან AP+Station, მაშინ ეს მოვლენა წარმოიქმნება. ამ მოვლენის მიღებისთანავე, მოვლენის დავალება გაათავისუფლებს სადგურის IP მისამართს, შეაჩერებს DHCP კლიენტს, წაშლის TCP/UDP-თან დაკავშირებულ კავშირებს და გაასუფთავებს LwIP სადგურის ქსელს და ა.შ. აპლიკაციის მოვლენის უკუგამოძახებას, როგორც წესი, არაფრის გაკეთება არ სჭირდება.</p>
+</div>
+<div class="section" id="wifi-event-sta-connected">
+<h3>WIFI_EVENT_STA_CONNECTED<a class="headerlink" href="wifi.html#wifi-event-sta-connected" title="Permalink to this headline">¶</a></h3>
+<p>თუ esp_wifi_connect() დააბრუნებს ESP_OK-ს და სადგური წარმატებით დაუკავშირდება სამიზნე წვდომის წერტილს, წარმოიქმნება კავშირის მოვლენა. ამ მოვლენის მიღებისთანავე, მოვლენის დავალება იწყებს DHCP კლიენტს და იწყებს IP მისამართის მიღების DHCP პროცესს. შემდეგ, Wi-Fi დრაივერი მზადაა მონაცემების გაგზავნისა და მიღებისთვის. ეს მომენტი კარგია აპლიკაციის მუშაობის დასაწყებად, იმ პირობით, რომ აპლიკაცია არ არის დამოკიდებული LwIP-ზე, კერძოდ IP მისამართზე. თუმცა, თუ აპლიკაცია LwIP-ზეა დაფუძნებული, მაშინ უნდა დაელოდოთ სანამ <em>მივიღე IP</em> ღონისძიება შემოდის.</p>
+</div>
+<div class="section" id="wifi-event-sta-disconnected">
+<h3>WIFI_EVENT_STA_DISCONNECTED<a class="headerlink" href="wifi.html#wifi-event-sta-disconnected" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა შეიძლება წარმოიშვას შემდეგ სცენარებში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>როდესაც გამოიძახება esp_wifi_disconnect(), ან esp_wifi_stop(), ან esp_wifi_deinit(), ან esp_wifi_restart() და სადგური უკვე დაკავშირებულია წვდომის წერტილთან.</li>
+<li>როდესაც გამოიძახება esp_wifi_connect(), მაგრამ Wi-Fi დრაივერი ვერ ახერხებს წვდომის წერტილთან კავშირის დამყარებას გარკვეული მიზეზების გამო, მაგ. სკანირება ვერ ახერხებს სამიზნე წვდომის წერტილის პოვნას, ავტორიზაციის დროის ამოწურვა და ა.შ. თუ ერთზე მეტი წვდომის წერტილი ერთი და იგივე SSID-ით არის, გათიშვის მოვლენა ამოქმედდება მას შემდეგ, რაც სადგური ვერ ახერხებს ყველა ნაპოვნი წვდომის წერტილის დაკავშირებას.</li>
+<li>როდესაც Wi-Fi კავშირი წყდება კონკრეტული მიზეზების გამო, მაგალითად, სადგური განუწყვეტლივ კარგავს N შუქურას, წვდომის წერტილი რთავს სადგურს, იცვლება წვდომის წერტილის ავტორიზაციის რეჟიმი და ა.შ.</li>
+</ul>
+</div></blockquote>
+<p>ამ მოვლენის მიღების შემდეგ, მოვლენის დავალების ნაგულისხმევი ქცევაა: - სადგურის LwIP ქსელის გამორთვა. - LwIP დავალებას აცნობებს UDP/TCP კავშირების გასუფთავების შესახებ, რომლებიც ყველა სოკეტისთვის არასწორ სტატუსს იწვევს. სოკეტზე დაფუძნებული აპლიკაციებისთვის, აპლიკაციის უკუკავშირს შეუძლია აირჩიოს ყველა სოკეტის დახურვა და საჭიროების შემთხვევაში მათი ხელახლა შექმნა ამ მოვლენის მიღებისთანავე.</p>
+<p>აპლიკაციაში ამ მოვლენისთვის ყველაზე გავრცელებული მოვლენის დამუშავების კოდია esp_wifi_connect()-ის გამოძახება Wi-Fi ის ხელახლა დასაკავშირებლად. თუმცა, თუ მოვლენა წარმოიქმნება esp_wifi_disconnect()-ის გამოძახების გამო, აპლიკაციამ არ უნდა გამოიძახოს esp_wifi_connect() ხელახლა დასაკავშირებლად. აპლიკაციის პასუხისმგებლობაა გაარკვიოს, გამოწვეულია თუ არა მოვლენა esp_wifi_disconnect()-ით თუ სხვა მიზეზით. ზოგჯერ საჭიროა უკეთესი ხელახლა დაკავშირების სტრატეგია, იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reconnect">Wi-Fi ხელახლა დაკავშირება</a>&amp;gt; და<a class="reference internal" href="wifi.html#scan-when-wi-fi-is-connecting">სკანირება, როდესაც Wi-Fi უკავშირდება</a>&amp;gt;</p>
+<p>კიდევ ერთი რამ, რაც ჩვენს ყურადღებას იმსახურებს, არის ის, რომ LwIP-ის ნაგულისხმევი ქცევაა ყველა TCP სოკეტის კავშირის შეწყვეტა გათიშვის მიღებისთანავე. უმეტეს შემთხვევაში ეს პრობლემას არ წარმოადგენს. თუმცა, ზოგიერთი სპეციალური აპლიკაციისთვის, ეს შეიძლება არ იყოს ის, რაც მათ სურთ, გაითვალისწინეთ შემდეგი სცენარები:</p>
+<ul class="simple">
+<li>აპლიკაცია ქმნის TCP კავშირს, რათა შეინარჩუნოს აპლიკაციის დონეზე ყოველ 60 წამში გაგზავნილი მონაცემები.</li>
+<li>გარკვეული მიზეზების გამო, Wi-Fi კავშირი გაითიშა და<cite>WIFI_EVENT_STA_DISCONNECTED</cite>&amp;gt; იხსნება. მიმდინარე იმპლემენტაციის მიხედვით, ყველა TCP კავშირი წაიშლება და keep-alive სოკეტი არასწორ მდგომარეობაში იქნება. თუმცა, რადგან აპლიკაციის დიზაინერი თვლის, რომ ქსელის დონეს არ უნდა ადარდებდეს ეს შეცდომა Wi-Fi დონეზე, აპლიკაცია არ ხურავს სოკეტს.</li>
+<li>ხუთი წამის შემდეგ, Wi-Fi კავშირი აღდგება, რადგან აპლიკაციის მოვლენის უკუკავშირის ფუნქციაში გამოიძახეს esp_wifi_connect(). <strong>უფრო მეტიც, სადგური უკავშირდება იმავე წვდომის წერტილს და იღებს იგივე IPV4 მისამართს, როგორც ადრე.</strong>.</li>
+<li>სამოცი წამის შემდეგ, როდესაც აპლიკაცია აგზავნის მონაცემებს keep-alive სოკეტით, სოკეტი აბრუნებს შეცდომას და აპლიკაცია ხურავს სოკეტს და საჭიროების შემთხვევაში ხელახლა ქმნის მას.</li>
+</ul>
+<p>ზემოთ მოცემულ სცენარში, იდეალურ შემთხვევაში, აპლიკაციის სოკეტებსა და ქსელის ფენაზე გავლენა არ უნდა მოხდეს, რადგან Wi-Fi კავშირი მხოლოდ დროებით წყდება და ძალიან სწრაფად აღდგება. აპლიკაციას შეუძლია ჩართოს „TCP კავშირების შენარჩუნება IP მისამართის შეცვლისას“ LwIP menuconfig მეშვეობით.</p>
+</div>
+<div class="section" id="wifi-event-sta-authmode-change">
+<h3>WIFI_EVENT_STA_AUTHMODE_CHANGE<a class="headerlink" href="wifi.html#wifi-event-sta-authmode-change" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა მაშინ ხდება, როდესაც წვდომის წერტილი, რომელთანაც სადგურია დაკავშირებული, იცვლის ავტორიზაციის რეჟიმს, მაგალითად, ავტორიზაციის არარსებობიდან WPA-ზე. ამ მოვლენის მიღების შემდეგ, მოვლენის დავალება არაფერს გააკეთებს. როგორც წესი, აპლიკაციის მოვლენის უკუგამოძახებას ამის დამუშავება არ სჭირდება.</p>
+</div>
+<div class="section" id="ip-event-sta-got-ip">
+<h3>IP_EVENT_STA_GOT_IP<a class="headerlink" href="wifi.html#ip-event-sta-got-ip" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა წარმოიქმნება მაშინ, როდესაც DHCP კლიენტი წარმატებით იღებს IPV4 მისამართს DHCP სერვერიდან, ან როდესაც IPV4 მისამართი იცვლება. მოვლენა ნიშნავს, რომ ყველაფერი მზადაა და აპლიკაციას შეუძლია დაიწყოს თავისი დავალებები (მაგ., სოკეტების შექმნა).</p>
+<p>IPV4 შეიძლება შეიცვალოს შემდეგი მიზეზების გამო:</p>
+<blockquote>
+<div><ul class="simple">
+<li>DHCP კლიენტი ვერ ახერხებს IPV4 მისამართის განახლებას/ხელახლა დაკავშირებას და სადგურის IPV4 0-ზე გადადის.</li>
+<li>DHCP კლიენტი ხელახლა უკავშირდება სხვა მისამართს.</li>
+<li>სტატიკური კონფიგურირებული IPV4 მისამართი შეიცვალა.</li>
+</ul>
+</div></blockquote>
+<p>IPv4 მისამართის ცვლილება თუ არა მითითებულია ველით. <code class="docutils literal notranslate"><span class="pre">ip_change</span></code> -ის <code class="docutils literal notranslate"><span class="pre">ip_event_got_ip_t</span></code>.</p>
+<p>სოკეტი დაფუძნებულია IPV4 მისამართზე, რაც ნიშნავს, რომ თუ IPV4 შეიცვლება, ამ IPV4-თან დაკავშირებული ყველა სოკეტი არანორმალური გახდება. ამ მოვლენის მიღების შემდეგ, აპლიკაციამ უნდა დახუროს ყველა სოკეტი და ხელახლა შექმნას აპლიკაცია, როდესაც IPV4 შეიცვლება ვალიდურ მისამართად.</p>
+</div>
+<div class="section" id="ip-event-got-ip6">
+<h3>IP_EVENT_GOT_IP6<a class="headerlink" href="wifi.html#ip-event-got-ip6" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა წარმოიქმნება მაშინ, როდესაც IPV6 SLAAC მხარდაჭერა ავტომატურად ახდენს ESP32-ისთვის მისამართის კონფიგურაციას, ან როდესაც ეს მისამართი იცვლება. ეს მოვლენა ნიშნავს, რომ ყველაფერი მზადაა და აპლიკაციას შეუძლია თავისი ამოცანების (მაგ., სოკეტების შექმნა) დაწყება.</p>
+</div>
+<div class="section" id="ip-sta-lost-ip">
+<h3>IP_STA_LOST_IP<a class="headerlink" href="wifi.html#ip-sta-lost-ip" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა მაშინ ხდება, როდესაც IPV4 მისამართი არასწორი ხდება.</p>
+<p>IP_STA_LOST_IP არ წარმოიქმნება WiFi-ის გათიშვისთანავე, სამაგიეროდ, ის იწყებს IPV4 მისამართის დაკარგვის ტაიმერს. თუ IPV4 მისამართი მიღებულია IP დაკარგული ტაიმერის ვადის გასვლამდე, IP_EVENT_STA_LOST_IP არ ხდება. წინააღმდეგ შემთხვევაში, მოვლენა წარმოიქმნება IPV4 მისამართის დაკარგვის ტაიმერის ვადის გასვლის შემდეგ.</p>
+<p>როგორც წესი, აპლიკაციას ეს მოვლენა არ უნდა ადარდებდეს, ეს უბრალოდ გამართვა მოვლენაა, რომელიც აპლიკაციას აცნობებს IPV4 მისამართის დაკარგვის შესახებ.</p>
+</div>
+<div class="section" id="wifi-event-ap-start">
+<h3>WIFI_EVENT_AP_START<a class="headerlink" href="wifi.html#wifi-event-ap-start" title="Permalink to this headline">¶</a></h3>
+<p>მსგავსი<a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a>&amp;gt;</p>
+</div>
+<div class="section" id="wifi-event-ap-stop">
+<h3>WIFI_EVENT_AP_STOP<a class="headerlink" href="wifi.html#wifi-event-ap-stop" title="Permalink to this headline">¶</a></h3>
+<p>მსგავსი<a class="reference internal" href="wifi.html#wifi-event-sta-stop">WIFI_EVENT_STA_STOP</a>&amp;gt;</p>
+</div>
+<div class="section" id="wifi-event-ap-staconnected">
+<h3>WIFI_EVENT_AP_STACONNECTED<a class="headerlink" href="wifi.html#wifi-event-ap-staconnected" title="Permalink to this headline">¶</a></h3>
+<p>ყოველ ჯერზე, როდესაც სადგური უკავშირდება ESP32 AP-ს,<a class="reference internal" href="wifi.html#wifi-event-ap-staconnected">WIFI_EVENT_AP_STACONNECTED</a>&amp;gt; წარმოიქმნება. ამ მოვლენის მიღების შემდეგ, მოვლენის დავალება არაფერს გააკეთებს და აპლიკაციის უკუკავშირსაც შეუძლია მისი იგნორირება. თუმცა, შეიძლება დაგჭირდეთ რაიმეს გაკეთება, მაგალითად, დაკავშირებული STA-ს ინფორმაციის მიღება და ა.შ.</p>
+</div>
+<div class="section" id="wifi-event-ap-stadisconnected">
+<h3>WIFI_EVENT_AP_STADISCONNECTED<a class="headerlink" href="wifi.html#wifi-event-ap-stadisconnected" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა შეიძლება მოხდეს შემდეგ სცენარებში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>აპლიკაცია გამოიძახებს esp_wifi_disconnect()-ს ან esp_wifi_deauth_sta()-ს სადგურის ხელით გათიშვისთვის.</li>
+<li>Wi-Fi დრაივერი რთავს სადგურს, მაგალითად, იმიტომ, რომ წვდომის წერტილს ბოლო ხუთი წუთის განმავლობაში არ მიუღია არცერთი პაკეტი და ა.შ.</li>
+<li>სადგური AP-ს იწყებს.</li>
+</ul>
+</div></blockquote>
+<p>როდესაც ეს მოვლენა მოხდება, მოვლენის დავალება არაფერს გააკეთებს, მაგრამ აპლიკაციის მოვლენის უკუგამოძახებამ რაღაც უნდა გააკეთოს, მაგალითად, დახუროს ამ სადგურთან დაკავშირებული სოკეტი და ა.შ.</p>
+</div>
+<div class="section" id="wifi-event-ap-probereqrecved">
+<h3>WIFI_EVENT_AP_PROBEREQRECVED<a class="headerlink" href="wifi.html#wifi-event-ap-probereqrecved" title="Permalink to this headline">¶</a></h3>
+<p>ეს მოვლენა ნაგულისხმევად გამორთულია. აპლიკაციას მისი ჩართვა API esp_wifi_set_event_mask()-ის მეშვეობით შეუძლია. როდესაც ეს მოვლენა ჩართულია, ის გააქტიურდება ყოველ ჯერზე, როდესაც წვდომის წერტილი მიიღებს ზონდის მოთხოვნას.</p>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-station-general-scenario">
+<h2>ESP32 Wi-Fi სადგურის ზოგადი სცენარი<a class="headerlink" href="wifi.html#esp32-wi-fi-station-general-scenario" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულია „დიდი სცენარი“, რომელიც აღწერს სადგურის რეჟიმში არსებულ რამდენიმე მცირე სცენარს:</p>
+<div class="figure align-center" id="id2">
+<div><img height="1713" src="../_images/seqdiag-8cc01a9d7d1eef82ac3cd33e6c75000b96a78210.png" width="768"/></div><p class="caption"><span class="caption-text">ნიმუში Wi-Fi მოვლენის სცენარები სადგურის რეჟიმში</span><a class="headerlink" href="wifi.html#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="wi-fi-lwip-init-phase">
+<h3>1. Wi-Fi /LwIP-ის საწყისი ფაზა<a class="headerlink" href="wifi.html#wi-fi-lwip-init-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s1.1: main task გამოიძახებს esp_netif_init() ფუნქციას LwIP ძირითადი დავალების შესაქმნელად და LwIP-თან დაკავშირებული სამუშაოს ინიციალიზაციისთვის.</li>
+<li>s1.2: main task გამოიძახებს esp_event_loop_init() ფუნქციას სისტემის მოვლენის ამოცანის შესაქმნელად და აპლიკაციის მოვლენის უკუკავშირის ფუნქციის ინიციალიზაციისთვის. ზემოთ მოცემულ სცენარში, აპლიკაციის მოვლენის უკუკავშირის ფუნქცია არაფერს აკეთებს გარდა იმისა, რომ მოვლენას აპლიკაციის ამოცანისთვის გადასცემს.</li>
+<li>s1.3: მთავარი დავალება გამოიძახებს esp_netif_create_default_wifi_ap() ან esp_netif_create_default_wifi_sta() ფუნქციას, რათა შექმნას ქსელის ინტერფეისის ნაგულისხმევი ეგზემპლარი-დაკავშირების სადგური ან წვდომის წერტილი TCP/IP დასტით.</li>
+<li>s1.4: main task გამოიძახებს esp_wifi_init() ფუნქციას Wi-Fi დრაივერის ამოცანის შესაქმნელად და Wi-Fi დრაივერის ინიციალიზაციისთვის.</li>
+<li>s1.5: main task გამოიძახებს OS API აპლიკაციის ამოცანის შესაქმნელად.</li>
+</ul>
+</div></blockquote>
+<p>ნაბიჯი 1.1~1.5 არის რეკომენდებული თანმიმდევრობა, რომელიც ინიციალიზაციას უკეთებს Wi-Fi -/LwIP-ზე დაფუძნებულ აპლიკაციას. თუმცა, ეს არის <strong>არა</strong> აუცილებლად შესასრულებელი თანმიმდევრობა, რაც ნიშნავს, რომ შეგიძლიათ შექმნათ აპლიკაციის დავალება 1.1 ნაბიჯში და ყველა სხვა ინიციალიზაცია მოათავსოთ აპლიკაციის დავალებაში. გარდა ამისა, შეიძლება არ გსურდეთ აპლიკაციის დავალების შექმნა ინიციალიზაციის ფაზაში, თუ აპლიკაციის დავალება დამოკიდებულია სოკეტებზე. ამის ნაცვლად, შეგიძლიათ გადადოთ დავალების შექმნა IP მისამართის მიღებამდე.</p>
+</div>
+<div class="section" id="wi-fi-configuration-phase">
+<h3>2. Wi-Fi კონფიგურაციის ფაზა<a class="headerlink" href="wifi.html#wi-fi-configuration-phase" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi დრაივერის ინიციალიზაციის შემდეგ, შეგიძლიათ დაიწყოთ Wi-Fi დრაივერის კონფიგურაცია. ამ სცენარში რეჟიმი არის Station, ამიტომ შეიძლება დაგჭირდეთ esp_wifi_set_mode(WIFI_MODE_STA)-ს გამოძახება, რათა Wi-Fi რეჟიმი Station-ად დააკონფიგურიროთ. შეგიძლიათ გამოიძახოთ სხვა esp_wifi_set_xxx API ები დამატებითი პარამეტრების კონფიგურაციისთვის, როგორიცაა პროტოკოლის რეჟიმი, ქვეყნის კოდი, გამტარუნარიანობა და ა.შ. იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-configuration">ESP32 Wi-Fi კონფიგურაცია</a>&amp;gt;</p>
+<p>როგორც წესი, Wi-Fi დრაივერის კონფიგურაციას Wi-Fi კავშირის დაყენებამდე ვახდენთ, მაგრამ ეს <strong>არა</strong> სავალდებულოა, რაც ნიშნავს, რომ თქვენ შეგიძლიათ Wi-Fi კავშირის კონფიგურაცია ნებისმიერ დროს, იმ პირობით, რომ Wi-Fi დრაივერი წარმატებით ინიციალიზებულია. თუმცა, თუ კონფიგურაციის შეცვლა არ არის საჭირო Wi-Fi კავშირის დაყენების შემდეგ, თქვენ უნდა დააკონფიგურიროთ Wi-Fi დრაივერი ამ ეტაპზე, რადგან API კონფიგურაცია (მაგალითად, esp_wifi_set_protocol) გამოიწვევს Wi-Fi ხელახლა დაკავშირებას, რაც შეიძლება არასასურველი იყოს.</p>
+<p>თუ Wi-Fi NVS ფლეშ მეხსიერება ჩართულია menuconfig მიერ, ამ ფაზაში ან შემდგომ ფაზებში Wi-Fi ყველა კონფიგურაცია შეინახება ფლეშ მეხსიერება ში. დაფის ჩართვის/გადატვირთვისას, თქვენ არ გჭირდებათ Wi-Fi დრაივერის ნულიდან კონფიგურაცია. თქვენ მხოლოდ esp_wifi_get_xxx API s-ის გამოძახება გჭირდებათ ფლეშ მეხსიერება ში ადრე შენახული კონფიგურაციის მისაღებად. ასევე შეგიძლიათ Wi-Fi დრაივერის კონფიგურაცია, თუ წინა კონფიგურაცია არ არის თქვენთვის სასურველი.</p>
+</div>
+<div class="section" id="wi-fi-start-phase">
+<h3>3. Wi-Fi დაწყების ფაზა<a class="headerlink" href="wifi.html#wi-fi-start-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s3.1: Wi-Fi დრაივერის გასაშვებად გამოიძახეთ esp_wifi_start.</li>
+<li>s3.2: Wi-Fi მძღოლის პოსტები<a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a>&amp;gt; მოვლენის დავალებისთვის; შემდეგ, მოვლენის დავალება შეასრულებს რამდენიმე ჩვეულებრივ ფუნქციას და გამოიძახებს აპლიკაციის მოვლენის უკუგამოძახების ფუნქციას.</li>
+<li>s3.3: აპლიკაციის მოვლენის უკუკავშირის ფუნქცია გადასცემს<a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a>&amp;gt; აპლიკაციის დავალებაზე. გირჩევთ, გამოიძახოთ esp_wifi_connect(). თუმცა, ასევე შეგიძლიათ გამოიძახოთ esp_wifi_connect() სხვა ფრაზებშიც, შემდეგ<a class="reference internal" href="wifi.html#wifi-event-sta-start">WIFI_EVENT_STA_START</a>&amp;gt; წარმოიქმნება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-connect-phase">
+<h3>4. Wi-Fi კავშირის ფაზა<a class="headerlink" href="wifi.html#wi-fi-connect-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s4.1: esp_wifi_connect() ფუნქციის გამოძახების შემდეგ, Wi-Fi დრაივერი დაიწყებს შიდა სკანირების/დაკავშირების პროცესს.</li>
+<li>s4.2: თუ შიდა სკანირების/დაკავშირების პროცესი წარმატებულია,<a class="reference internal" href="wifi.html#wifi-event-sta-connected">WIFI_EVENT_STA_CONNECTED</a>&amp;gt; გენერირდება. მოვლენის დავალებაში ის იწყებს DHCP კლიენტს, რომელიც საბოლოოდ ააქტიურებს DHCP პროცესს.</li>
+<li>s4.3: ზემოთ ხსენებულ სცენარში, აპლიკაციის მოვლენის უკუკავშირი მოვლენას აპლიკაციის დავალებას გადასცემს. როგორც წესი, აპლიკაციას არაფრის გაკეთება არ სჭირდება და თქვენ შეგიძლიათ გააკეთოთ რაც გსურთ, მაგ., ჟურნალის დაბეჭდვა და ა.შ.</li>
+</ul>
+</div></blockquote>
+<p>4.2 ნაბიჯში, Wi-Fi კავშირი შეიძლება ვერ შესრულდეს, მაგალითად, პაროლი არასწორია, წვდომის წერტილი ვერ მოიძებნა და ა.შ. ასეთ შემთხვევაში,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და ასეთი გაუმართაობის მიზეზი იქნება მითითებული. Wi-Fi კავშირის შემაფერხებელი მოვლენების მართვისთვის იხილეთ მე-6 ფაზა.</p>
+</div>
+<div class="section" id="wi-fi-got-ip-phase">
+<h3>5. Wi-Fi -5 ტერმინალი „IP-ის მიღების“ ფაზა<a class="headerlink" href="wifi.html#wi-fi-got-ip-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s5.1: მას შემდეგ, რაც DHCP კლიენტი ინიციალიზებული იქნება 4.2 ნაბიჯში, <em>მივიღე IP</em> ფაზა დაიწყება.</li>
+<li>s5.2: თუ IP მისამართი წარმატებით იქნა მიღებული DHCP სერვერიდან, მაშინ<a class="reference internal" href="wifi.html#ip-event-sta-got-ip">IP_EVENT_STA_GOT_IP</a>&amp;gt; წარმოიქმნება და მოვლენის დავალება შეასრულებს საერთო დამუშავებას.</li>
+<li>s5.3: აპლიკაციის მოვლენის უკუკავშირში,<a class="reference internal" href="wifi.html#ip-event-sta-got-ip">IP_EVENT_STA_GOT_IP</a>&amp;gt; გადაეცემა აპლიკაციის დავალებას. LwIP-ზე დაფუძნებული აპლიკაციებისთვის ეს მოვლენა ძალიან განსაკუთრებულია და ნიშნავს, რომ ყველაფერი მზადაა აპლიკაციისთვის თავისი დავალებების დასაწყებად, მაგ. TCP/UDP სოკეტის შექმნა და ა.შ. ძალიან გავრცელებული შეცდომაა სოკეტის ინიციალიზაცია დაწყებამდე.<a class="reference internal" href="wifi.html#ip-event-sta-got-ip">IP_EVENT_STA_GOT_IP</a>&amp;gt; მიღებულია. <strong>არ დაიწყოთ სოკეტთან დაკავშირებული სამუშაო IP მისამართის მიღებამდე.</strong></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-disconnect-phase">
+<h3>6. Wi-Fi გათიშვის ფაზა<a class="headerlink" href="wifi.html#wi-fi-disconnect-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s6.1: როდესაც Wi-Fi კავშირი გაწყდება, მაგალითად, წვდომის წერტილის გამორთვის, RSSI-ის ცუდი ხარისხის გამო და ა.შ.<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება. ეს მოვლენა შეიძლება ასევე წარმოიშვას მე-3 ფაზაში. აქ, მოვლენის დავალება აცნობებს LwIP დავალებას, გაასუფთაოს/წაშალოს ყველა UDP/TCP კავშირი. შემდეგ, ყველა აპლიკაციის სოკეტი არასწორ მდგომარეობაში იქნება. სხვა სიტყვებით რომ ვთქვათ, ამ მოვლენის დროს ვერცერთი სოკეტი ვერ იმუშავებს სწორად.</li>
+<li>s6.2: ზემოთ აღწერილ სცენარში, აპლიკაციის მოვლენის უკუკავშირის ფუნქცია გადასცემს<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; აპლიკაციის დავალებაზე. ჩვენ გირჩევთ, რომ გამოიძახოთ esp_wifi_connect() Wi-Fi ხელახლა დასაკავშირებლად, ყველა სოკეტის დასახურად და საჭიროების შემთხვევაში მათი ხელახლა შესაქმნელად. იხილეთ<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt;</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-ip-change-phase">
+<h3>7. Wi-Fi ინტელექტუალური საკუთრების შეცვლის ფაზა<a class="headerlink" href="wifi.html#wi-fi-ip-change-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s7.1: თუ IP მისამართი შეიცვლება,<a class="reference internal" href="wifi.html#ip-event-sta-got-ip">IP_EVENT_STA_GOT_IP</a>&amp;gt; წარმოიქმნება „ip_change“-ის true-ზე დაყენების შემთხვევაში.</li>
+<li>s7.2: <strong>ეს მოვლენა მნიშვნელოვანია აპლიკაციისთვის. როდესაც ის მოხდება, დრო შესაფერისია ყველა შექმნილი სოკეტის დასახურად და ხელახლა შესაქმნელად.</strong></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-deinit-phase">
+<h3>8. Wi-Fi დეინიტ ფაზა<a class="headerlink" href="wifi.html#wi-fi-deinit-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s8.1: Wi-Fi კავშირის გასაწყვეტად გამოიძახეთ esp_wifi_disconnect() ბრძანება.</li>
+<li>s8.2: Wi-Fi დრაივერის შესაჩერებლად გამოიძახეთ esp_wifi_stop() ბრძანება.</li>
+<li>s8.3: Wi-Fi დრაივერის გადმოსატვირთად გამოიძახეთ esp_wifi_deinit() ფუნქცია.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-ap-general-scenario">
+<h2>ESP32 Wi-Fi AP ზოგადი სცენარი<a class="headerlink" href="wifi.html#esp32-wi-fi-ap-general-scenario" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულია „დიდი სცენარი“, რომელიც აღწერს AP რეჟიმში არსებულ რამდენიმე მცირე სცენარს:</p>
+<blockquote>
+<div><div class="figure align-center" id="id3">
+<div><img height="1150" src="../_images/seqdiag-7354a1e725b72a0a4e8b4e8ce2366865469cb497.png" width="768"/></div><p class="caption"><span class="caption-text">ნიმუში Wi-Fi მოვლენის სცენარები AP რეჟიმში</span><a class="headerlink" href="wifi.html#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="esp32-wi-fi-scan">
+<h2>ESP32 Wi-Fi სკანირება<a class="headerlink" href="wifi.html#esp32-wi-fi-scan" title="Permalink to this headline">¶</a></h2>
+<p>ამჟამად, esp_wifi_scan_start() API მხარდაჭერილია მხოლოდ Station ან Station+AP რეჟიმში.</p>
+<div class="section" id="scan-type">
+<h3>სკანირების ტიპი<a class="headerlink" href="wifi.html#scan-type" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"/>
+<col width="78%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">რეჟიმი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>აქტიური სკანირება</td>
+<td>სკანირება ზონდის მოთხოვნის გაგზავნით. ნაგულისხმევი სკანირება აქტიური სკანირებაა.</td>
+</tr>
+<tr class="row-odd"><td>პასიური სკანირება</td>
+<td>ზონდის მოთხოვნა არ იგზავნება. უბრალოდ გადართეთ კონკრეტულ არხზე და დაელოდეთ შუქურას. აპლიკაციას შეუძლია მისი ჩართვა wifi_scan_config_t-ის scan_type ველის მეშვეობით.</td>
+</tr>
+<tr class="row-even"><td>წინა პლანის სკანირება</td>
+<td>ეს სკანირება გამოიყენება მაშინ, როდესაც სადგურის რეჟიმში Wi-Fi თან კავშირი არ არის. წინა ან ფონის სკანირებას Wi-Fi დრაივერი აკონტროლებს და მისი კონფიგურაცია აპლიკაციის მიერ შეუძლებელია.</td>
+</tr>
+<tr class="row-odd"><td>ფონური სკანირება</td>
+<td>ეს სკანირება გამოიყენება მაშინ, როდესაც Wi-Fi კავშირია სადგურის რეჟიმში ან სადგური+AP რეჟიმში. წინა პლანის თუ ფონური სკანირება დამოკიდებულია Wi-Fi დრაივერზე და მისი კონფიგურაცია შეუძლებელია აპლიკაციის მიერ.</td>
+</tr>
+<tr class="row-even"><td>ყველა არხის სკანირება</td>
+<td>ის ყველა არხს სკანირებას უკეთებს. თუ wifi_scan_config_t-ის არხის ველი 0-ზეა დაყენებული, ეს ყველა არხის სკანირებაა.</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt>Specific Channel</dt>
+<dd>Scan</dd>
+</dl>
+</td>
+<td>ის მხოლოდ კონკრეტულ არხებს სკანირებას უკეთებს. თუ wifi_scan_config_t-ის არხის ველი 1-ზეა დაყენებული, ეს კონკრეტული არხის სკანირებაა.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>The scan modes in above table can be combined arbitrarily, so we totally have 8 different scans:</dt>
+<dd><ul class="first last simple">
+<li>ყველა არხის ფონური აქტიური სკანირება</li>
+<li>ყველა არხის ფონური პასიური სკანირება</li>
+<li>ყველა არხის წინა პლანის აქტიური სკანირება</li>
+<li>ყველა არხის წინა პლანის პასიური სკანირება</li>
+<li>კონკრეტული არხის ფონური აქტიური სკანირება</li>
+<li>კონკრეტული არხის ფონური პასიური სკანირება</li>
+<li>კონკრეტული არხის წინა პლანის აქტიური სკანირება</li>
+<li>სპეციფიკური არხის წინა პლანის პასიური სკანირება</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="scan-configuration">
+<h3>სკანირების კონფიგურაცია<a class="headerlink" href="wifi.html#scan-configuration" title="Permalink to this headline">¶</a></h3>
+<p>სკანირების ტიპი და სხვა სკანირების ატრიბუტები კონფიგურირებულია esp_wifi_scan_start-ის მიერ. ქვემოთ მოცემულ ცხრილში მოცემულია wifi_scan_config_t-ის დეტალური აღწერა.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"/>
+<col width="78%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ველი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ssid</td>
+<td>თუ SSID არ არის NULL, სკანირება შესაძლებელია მხოლოდ იმავე SSID-ის მქონე წვდომის წერტილის მქონე.</td>
+</tr>
+<tr class="row-odd"><td>bssid</td>
+<td>თუ BSSID არ არის NULL, სკანირება შესაძლებელია მხოლოდ იმავე BSSID-ის მქონე წვდომის წერტილის გამოყენებით.</td>
+</tr>
+<tr class="row-even"><td>არხი</td>
+<td>თუ „არხი“ 0-ის ტოლია, ყველა არხის სკანირება მოხდება; წინააღმდეგ შემთხვევაში, კონკრეტული არხის სკანირება მოხდება.</td>
+</tr>
+<tr class="row-odd"><td>დამალული_ჩვენება</td>
+<td>თუ „show_hidden“ 0-ის ტოლია, სკანირება უგულებელყოფს დამალულ SSID-ის მქონე წვდომის წერტილს; წინააღმდეგ შემთხვევაში, სკანირება დამალულ წვდომის წერტილს ჩვეულებრივ წვდომის წერტილად მიიჩნევს.</td>
+</tr>
+<tr class="row-even"><td>სკანირების_ტიპი</td>
+<td>თუ „scan_type“ არის WIFI_SCAN_TYPE_ACTIVE, სკანირება „აქტიურია“; სხვა შემთხვევაში, ის „პასიურია“.</td>
+</tr>
+<tr class="row-odd"><td>სკანირების_დრო</td>
+<td><p class="first">ეს ველი გამოიყენება იმის გასაკონტროლებლად, თუ რამდენ ხანს გრძელდება სკანირება თითოეულ არხზე.</p>
+<p>პასიური სკანირებისთვის, scan_time.passive განსაზღვრავს თითოეული არხისთვის დაყოვნების დროს.</p>
+<p>აქტიური სკანირებისთვის, თითოეული არხისთვის შეყოვნების დრო მოცემულია ქვემოთ მოცემულ ცხრილში. აქ min არის scan time.active.min-ის შემოკლებული ფორმა, ხოლო max არის scan_time.active.max-ის შემოკლებული ფორმა.</p>
+<ul class="simple">
+<li>მინ=0, მაქს=0: სკანირება თითოეულ არხზე 120 მილიწამის განმავლობაში ჩერდება.</li>
+<li>მინ&amp;gt;0, მაქს=0: სკანირება თითოეულ არხზე 120 ms-ის განმავლობაში ჩერდება.</li>
+<li>მინ=0, მაქს&amp;gt;0: სკანირება თითოეულ არხზე ჩერდება <code class="docutils literal notranslate"><span class="pre">max</span></code> ქალბატონი</li>
+<li>min&amp;gt;0, max&amp;gt;0: სკანირების თითოეულ არხზე გაჩერების მინიმალური დროა <code class="docutils literal notranslate"><span class="pre">min</span></code> ms. თუ ამ დროის განმავლობაში წვდომის წერტილი არ მოიძებნება, სკანირება გადადის შემდეგ არხზე. წინააღმდეგ შემთხვევაში, სკანირება ჩერდება არხზე <code class="docutils literal notranslate"><span class="pre">max</span></code> ქალბატონი</li>
+</ul>
+<p class="last">თუ გსურთ სკანირების მუშაობის გაუმჯობესება, შეგიძლიათ სცადოთ ამ ორი პარამეტრის შეცვლა.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>ასევე არსებობს რამდენიმე გლობალური სკანირების ატრიბუტი, რომელიც კონფიგურირებულია API esp_wifi_set_config-ის მიერ, იხილეთ <a class="reference internal" href="wifi.html#station-basic-configuration">სადგურის ძირითადი კონფიგურაცია</a></p>
+</div>
+<div class="section" id="scan-all-aps-in-all-channels-foreground">
+<h3>ყველა არხზე არსებული ყველა წვდომის წერტილის სკანირება (წინა პლანზე)<a class="headerlink" href="wifi.html#scan-all-aps-in-all-channels-foreground" title="Permalink to this headline">¶</a></h3>
+<p>სცენარი:</p>
+<div class="figure align-center" id="id4">
+<div><img height="536" src="../_images/seqdiag-2d33fea19c2b30cfbe115864597b5aa8db083301.png" width="528"/></div><p class="caption"><span class="caption-text">ყველა Wi-Fi არხის წინა პლანზე სკანირება</span><a class="headerlink" href="wifi.html#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>ზემოთ მოცემული სცენარი აღწერს ყველა არხის, წინა პლანის სკანირებას. წინა პლანის სკანირება შესაძლებელია მხოლოდ სადგურის რეჟიმში, სადაც სადგური არ უკავშირდება არცერთ წვდომის წერტილს. წინა პლანის თუ ფონური სკანირება მთლიანად განისაზღვრება Wi-Fi დრაივერით და მისი კონფიგურაცია შეუძლებელია აპლიკაციის მიერ.</p>
+<p>სცენარის დეტალური აღწერა:</p>
+<div class="section" id="scan-configuration-phase">
+<h4>სკანირების კონფიგურაციის ფაზა<a class="headerlink" href="wifi.html#scan-configuration-phase" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>s1.1: თუ ქვეყნის ნაგულისხმევი ინფორმაცია არ შეესაბამება სასურველს, გამოიძახეთ esp_wifi_set_country() ბრძანება ქვეყნის ინფორმაციის დასაყენებლად.<a class="reference internal" href="wifi.html#wi-fi-country-code">Wi-Fi ქვეყნის კოდი</a>&amp;gt;</li>
+<li>s1.2: სკანირების კონფიგურაციისთვის გამოიძახეთ esp_wifi_scan_start() ბრძანება. ამისათვის შეგიძლიათ იხილოთ<a class="reference internal" href="wifi.html#scan-configuration">სკანირების კონფიგურაცია</a>&amp;gt;. რადგან ეს ყველა არხის სკანირებაა, უბრალოდ დააყენეთ SSID/BSSID/არხი 0-ზე.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-driver-s-internal-scan-phase">
+<h4>Wi-Fi მძღოლის შიდა სკანირების ფაზა<a class="headerlink" href="wifi.html#wi-fi-driver-s-internal-scan-phase" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>s2.1: Wi-Fi დრაივერი გადადის 1 არხზე, იმ შემთხვევაში, თუ სკანირების ტიპია WIFI_SCAN_TYPE_ACTIVE, და აგზავნის ზონდის მოთხოვნას. წინააღმდეგ შემთხვევაში, Wi-Fi დაელოდება წვდომის წერტილებიდან შუქურას. Wi-Fi დრაივერი გარკვეული დროის განმავლობაში დარჩება 1 არხზე. დაყოვნების დრო კონფიგურირებულია მინ/მაქს დროში, ნაგულისხმევი მნიშვნელობით 120 ms.</li>
+<li>s2.2: Wi-Fi დრაივერი გადაერთვება მე-2 არხზე და ასრულებს იგივე ოპერაციას, რაც 2.1 ნაბიჯში.</li>
+<li>s2.3: Wi-Fi დრაივერი სკანირებს ბოლო არხს N, სადაც N განისაზღვრება ქვეყნის კოდით, რომელიც კონფიგურირებულია 1.1 ნაბიჯში.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="scan-done-event-handling-phase">
+<h4>სკანირების დასრულების მოვლენების დამუშავების ფაზა<a class="headerlink" href="wifi.html#scan-done-event-handling-phase" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>s3.1: როდესაც ყველა არხი სკანირებულია,<a class="reference internal" href="wifi.html#wifi-event-scan-done">WIFI_EVENT_SCAN_DONE</a>&amp;gt; წარმოიქმნება.</li>
+<li>s3.2: აპლიკაციის მოვლენის უკუკავშირის ფუნქცია აცნობებს აპლიკაციის დავალებას, რომ<a class="reference internal" href="wifi.html#wifi-event-scan-done">WIFI_EVENT_SCAN_DONE</a>&amp;gt; მიღებულია. esp_wifi_scan_get_ap_num() გამოიძახება ამ სკანირებისას ნაპოვნი წვდომის წერტილების რაოდენობის მისაღებად. შემდეგ ის გამოყოფს საკმარის ჩანაწერებს და იძახებს esp_wifi_scan_get_ap_records()-ს წვდომის ჩანაწერების მისაღებად. გაითვალისწინეთ, რომ Wi-Fi დრაივერში წვდომის წერტილების ჩანაწერები გათავისუფლდება esp_wifi_scan_get_ap_records()-ის გამოძახების შემდეგ. ერთი სკანირების მოვლენისთვის არ გამოიძახოთ esp_wifi_scan_get_ap_records() ორჯერ. თუ სკანირების მოვლენის დროს esp_wifi_scan_get_ap_records() არ გამოიძახება, Wi-Fi დრაივერის მიერ გამოყოფილი წვდომის წერტილების ჩანაწერები არ გათავისუფლდება. ამიტომ, დარწმუნდით, რომ გამოიძახებთ esp_wifi_scan_get_ap_records(), მაგრამ მხოლოდ ერთხელ.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="scan-all-aps-on-all-channels-background">
+<h3>ყველა წვდომის წერტილის სკანირება ყველა არხზე (ფონური)<a class="headerlink" href="wifi.html#scan-all-aps-on-all-channels-background" title="Permalink to this headline">¶</a></h3>
+<p>სცენარი:</p>
+<div class="figure align-center" id="id5">
+<div><img height="803" src="../_images/seqdiag-ffc35ba0d023e343319615086c3e984a45dc8b4b.png" width="528"/></div><p class="caption"><span class="caption-text">ყველა Wi-Fi არხის ფონური სკანირება</span><a class="headerlink" href="wifi.html#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>ზემოთ მოცემული სცენარი წარმოადგენს ყველა არხის ფონურ სკანირებას. შედარებით <a class="reference internal" href="wifi.html#scan-all-aps-in-all-channels-foreground">ყველა არხზე არსებული ყველა წვდომის წერტილის სკანირება (წინა პლანზე)</a> ყველა არხის ფონურ სკანირებას შორის განსხვავება ისაა, რომ Wi-Fi დრაივერი შემდეგ არხზე გადასვლამდე 30 მილიწამის განმავლობაში დაასკანირებს უკანა არხს, რათა Wi-Fi კავშირს მონაცემების გადაცემის/მიღების შანსი მისცეს.</p>
+</div>
+<div class="section" id="scan-for-a-specific-ap-in-all-channels">
+<h3>ყველა არხში კონკრეტული წვდომის წერტილის სკანირება<a class="headerlink" href="wifi.html#scan-for-a-specific-ap-in-all-channels" title="Permalink to this headline">¶</a></h3>
+<p>სცენარი:</p>
+<div class="figure align-center" id="id6">
+<div><img height="565" src="../_images/seqdiag-f90cb072db997810592e053b61ff13a8015b0b73.png" width="528"/></div><p class="caption"><span class="caption-text">კონკრეტული Wi-Fi სკანირება 5 არხი</span><a class="headerlink" href="wifi.html#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>ეს სკანირება მსგავსია <a class="reference internal" href="wifi.html#scan-all-aps-in-all-channels-foreground">ყველა არხზე არსებული ყველა წვდომის წერტილის სკანირება (წინა პლანზე)</a>განსხვავებებია:</p>
+<blockquote>
+<div><ul class="simple">
+<li>s1.1: 1.2 ნაბიჯში, სამიზნე წვდომის წერტილი კონფიგურირებული იქნება SSID/BSSID-ზე.</li>
+<li>s2.1~s2.N: ყოველ ჯერზე, როდესაც Wi-Fi დრაივერი სკანირებს წვდომის წერტილს, ის ამოწმებს, არის თუ არა ეს სამიზნე წვდომის წერტილი. თუ სკანირება არის WIFI_FAST_SCAN სკანირება და სამიზნე წვდომის წერტილი მოიძებნება, მაშინ წარმოიქმნება სკანირების დასრულების მოვლენა და სკანირება დასრულდება; წინააღმდეგ შემთხვევაში, სკანირება გაგრძელდება. გაითვალისწინეთ, რომ პირველი სკანირებული არხი შეიძლება არ იყოს პირველი არხი, რადგან Wi-Fi დრაივერი ოპტიმიზაციას უკეთებს სკანირების თანმიმდევრობას.</li>
+</ul>
+</div></blockquote>
+<p>თუ სამიზნე AP-ის ინფორმაციას ემთხვევა რამდენიმე წვდომის წერტილი, მაგალითად, თუ შემთხვევით დავასკანირებთ ორ წვდომის წერტილს, რომელთა SSID არის „ap“. თუ სკანირება არის WIFI_FAST_SCAN, მაშინ მოიძებნება მხოლოდ პირველი სკანირებული „ap“, თუ სკანირება არის WIFI_ALL_CHANNEL_SCAN, მოიძებნება ორივე „ap“ და სადგური დააკავშირებს „ap“-ს კონფიგურირებული სტრატეგიის შესაბამისად, იხილეთ <a class="reference internal" href="wifi.html#station-basic-configuration">სადგურის ძირითადი კონფიგურაცია</a>.</p>
+<p>შეგიძლიათ კონკრეტული წვდომის წერტილის ან ყველა მათგანის სკანირება ნებისმიერ მოცემულ არხში. ეს ორი სცენარი ძალიან ჰგავს ერთმანეთს.</p>
+</div>
+<div class="section" id="scan-in-wi-fi-connect">
+<h3>სკანირება Wi-Fi Connect-ში<a class="headerlink" href="wifi.html#scan-in-wi-fi-connect" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც esp_wifi_connect() გამოიძახება, Wi-Fi დრაივერი ჯერ კონფიგურირებული წვდომის წერტილის სკანირებას შეეცდება. „ Wi-Fi Connect“-ში სკანირება იგივეა, რაც <a class="reference internal" href="wifi.html#scan-for-a-specific-ap-in-all-channels">ყველა არხში კონკრეტული წვდომის წერტილის სკანირება</a>, გარდა იმისა, რომ სკანირების დასრულებისას სკანირების დასრულების მოვლენა არ გენერირდება. თუ სამიზნე წვდომის წერტილი მოიძებნება, მაშინ Wi-Fi დრაივერი დაიწყებს Wi-Fi კავშირს; წინააღმდეგ შემთხვევაში,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; გენერირდება. იხილეთ <a class="reference internal" href="wifi.html#scan-for-a-specific-ap-in-all-channels">ყველა არხში კონკრეტული წვდომის წერტილის სკანირება</a></p>
+</div>
+<div class="section" id="scan-in-blocked-mode">
+<h3>სკანირება დაბლოკილ რეჟიმში<a class="headerlink" href="wifi.html#scan-in-blocked-mode" title="Permalink to this headline">¶</a></h3>
+<p>თუ esp_wifi_scan_start()-ის ბლოკის პარამეტრი true-ს ტოლია, მაშინ სკანირება დაბლოკილია და აპლიკაციის დავალება დაბლოკილი იქნება სკანირების დასრულებამდე. დაბლოკილი სკანირება განბლოკილის მსგავსია, გარდა იმისა, რომ დაბლოკილი სკანირების დასრულებისას სკანირების დასრულების მოვლენა არ წარმოიქმნება.</p>
+</div>
+<div class="section" id="parallel-scan">
+<h3>პარალელური სკანირება<a class="headerlink" href="wifi.html#parallel-scan" title="Permalink to this headline">¶</a></h3>
+<p>ორი აპლიკაციის დავალებამ შეიძლება ერთდროულად გამოიძახოს esp_wifi_scan_start() ფუნქცია, ან ერთი და იგივე აპლიკაციის დავალებამ გამოიძახოს esp_wifi_scan_start() ფუნქცია სკანირების დასრულების მოვლენის მიღებამდე. ორივე სცენარი შეიძლება მოხდეს. <strong>თუმცა, Wi-Fi დრაივერი საკმარისად არ უჭერს მხარს მრავალჯერად ერთდროულ სკანირებას. შედეგად, ერთდროული სკანირება თავიდან უნდა იქნას აცილებული.</strong> ერთდროული სკანირების მხარდაჭერა გაუმჯობესდება მომავალ ვერსიებში, რადგან ESP32-ის Wi-Fi ფუნქციონირება მუდმივად გაუმჯობესდება.</p>
+</div>
+<div class="section" id="scan-when-wi-fi-is-connecting">
+<h3>სკანირება, როდესაც Wi-Fi უკავშირდება<a class="headerlink" href="wifi.html#scan-when-wi-fi-is-connecting" title="Permalink to this headline">¶</a></h3>
+<p>esp_wifi_scan_start() ფუნქცია მაშინვე ვერ ხერხდება, თუ Wi-Fi დაკავშირების პროცესშია, რადგან დაკავშირებას სკანირებაზე მაღალი პრიორიტეტი აქვს. თუ დაკავშირების გამო სკანირება ვერ ხერხდება, რეკომენდებული სტრატეგიაა გარკვეული დროის გადადება და სკანირების ხელახლა ცდა. სკანირება წარმატებით დასრულდება დაკავშირების დასრულების შემდეგ.</p>
+<p>თუმცა, ხელახალი ცდის/დაგვიანების სტრატეგია შეიძლება ყოველთვის არ იმუშაოს. შემდეგი სცენარის გათვალისწინებით: - სადგური არარსებულ წვდომის წერტილს უკავშირებს ან თუ სადგური არსებულ წვდომის წერტილს არასწორი პაროლით უკავშირებს, ის ყოველთვის იწვევს მოვლენას.<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt;. - გათიშვის მოვლენის მიღებისას აპლიკაცია გამოიძახებს esp_wifi_connect() ბრძანებას ხელახალი დაკავშირების განსახორციელებლად. - კიდევ ერთი აპლიკაციის დავალება, მაგ. კონსოლის დავალება, გამოიძახებს esp_wifi_scan_start() ბრძანებას სკანირების განსახორციელებლად, სკანირება ყოველთვის მაშინვე ვერ ხერხდება, რადგან სადგური აგრძელებს დაკავშირებას. - როდესაც სკანირება ვერ ხერხდება, აპლიკაცია უბრალოდ აჭიანურებს და ხელახლა ცდილობს სკანირებას.</p>
+<p>ზემოთ მოცემულ სცენარში სკანირება ვერასდროს წარუმატებელი იქნება, რადგან დაკავშირება მიმდინარეობს. ამიტომ, თუ აპლიკაცია მხარს უჭერს მსგავს სცენარს, მას სჭირდება უკეთესი ხელახალი დაკავშირების სტრატეგიის დანერგვა. მაგ. - აპლიკაციას შეუძლია აირჩიოს მაქსიმალური უწყვეტი ხელახალი დაკავშირების მრიცხველის განსაზღვრა და ხელახალი დაკავშირების შეწყვეტა, როგორც კი ხელახალი დაკავშირების მაქსიმალურ მრიცხველს მიაღწევს. - აპლიკაციას შეუძლია აირჩიოს ხელახალი დაკავშირების დაუყოვნებლივ განხორციელება პირველი N უწყვეტი ხელახალი დაკავშირებისას, შემდეგ კი გარკვეული დროის შეყოვნება და ხელახლა დაკავშირება.</p>
+<p>აპლიკაციას შეუძლია განსაზღვროს საკუთარი ხელახალი დაკავშირების სტრატეგია, რათა თავიდან აიცილოს სკანირების შიმშილი. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reconnect">Wi-Fi ხელახლა დაკავშირება</a>&amp;gt;</p>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-station-connecting-scenario">
+<h2>ESP32 Wi-Fi სადგურის დაკავშირების სცენარი<a class="headerlink" href="wifi.html#esp32-wi-fi-station-connecting-scenario" title="Permalink to this headline">¶</a></h2>
+<p>ეს სცენარი მხოლოდ იმ შემთხვევას ასახავს, როდესაც სკანირების ფაზაში მხოლოდ ერთი სამიზნე წვდომის წერტილია ნაპოვნი, ხოლო იმ სცენარისთვის, როდესაც ერთი და იგივე SSID-ის მქონე ერთზე მეტი წვდომის წერტილია ნაპოვნი, იხილეთ<a class="reference internal" href="wifi.html#esp32-wi-fi-station-connecting-when-multiple-aps-are-found">ESP32 Wi-Fi სადგური უკავშირდება მრავალი წვდომის წერტილის პოვნისას</a>&amp;gt;</p>
+<p>როგორც წესი, აპლიკაციას არ სჭირდება დაკავშირების პროცესზე ზრუნვა. ქვემოთ მოცემულია პროცესის მოკლე შესავალი მათთვის, ვისაც ნამდვილად აინტერესებს.</p>
+<p>სცენარი:</p>
+<div class="figure align-center" id="id7">
+<div><img height="1189" src="../_images/seqdiag-39c85a79c5cdf892867aca38bae76232d5c7993f.png" width="528"/></div><p class="caption"><span class="caption-text">Wi-Fi სადგურის დაკავშირების პროცესი</span><a class="headerlink" href="wifi.html#id7" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="scan-phase">
+<h3>სკანირების ფაზა<a class="headerlink" href="wifi.html#scan-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s1.1, Wi-Fi დრაივერი იწყებს სკანირებას „ Wi-Fi Connect“-ში. იხილეთ<a class="reference internal" href="wifi.html#scan-in-wi-fi-connect">სკანირება Wi-Fi Connect-ში</a>&amp;gt; დამატებითი დეტალებისთვის.</li>
+<li>s1.2, თუ სკანირება ვერ პოულობს სამიზნე წვდომის წერტილს,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და მიზეზის კოდი იქნება WIFI_REASON_NO_AP_FOUND. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="auth-phase">
+<h3>ავტორიზაციის ფაზა<a class="headerlink" href="wifi.html#auth-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s2.1, ავტორიზაციის მოთხოვნის პაკეტი გაიგზავნა და ავტორიზაციის ტაიმერი ჩართულია.</li>
+<li>s2.2, თუ ავტორიზაციის საპასუხო პაკეტი არ მიიღება ავტორიზაციის ტაიმერის ვადის ამოწურვამდე,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და მიზეზის კოდი იქნება WIFI_REASON_AUTH_EXPIRE. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+<li>s2.3, ავტორიზაციის პასუხის პაკეტი მიღებულია და ავტორიზაციის ტაიმერი შეჩერებულია.</li>
+<li>s2.4, წვდომის წერტილი უარყოფს ავთენტიფიკაციას პასუხში და<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება, მაშინ როდესაც მიზეზის კოდია WIFI_REASON_AUTH_FAIL ან AP-ის მიერ მითითებული მიზეზები. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="association-phase">
+<h3>ასოციაციის ფაზა<a class="headerlink" href="wifi.html#association-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s3.1, ასოციაციის მოთხოვნა გაიგზავნა და ასოციაციის ტაიმერი ჩართულია.</li>
+<li>s3.2, თუ ასოციაციის პასუხი არ მიიღება ასოციაციის ტაიმერის ვადის ამოწურვამდე,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და მიზეზის კოდი იქნება WIFI_REASON_ASSOC_EXPIRE. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+<li>s3.3, ასოციაციის პასუხი მიღებულია და ასოციაციის ტაიმერი გაჩერებულია.</li>
+<li>s3.4, AP უარყოფს პასუხში ასოციაციას და<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; ჩნდება, ხოლო მიზეზის კოდი არის ასოციაციის პასუხში მითითებული. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="four-way-handshake-phase">
+<h3>ოთხმხრივი ხელის ჩამორთმევის ფაზა<a class="headerlink" href="wifi.html#four-way-handshake-phase" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>s4.1, ოთხმხრივი ხელის შეხება იგზავნება და ასოციაციის ტაიმერი ჩართულია.</li>
+<li>s4.2, თუ ასოციაციის პასუხი არ მიიღება ასოციაციის ტაიმერის ვადის ამოწურვამდე,<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და მიზეზის კოდი იქნება WIFI_REASON_ASSOC_EXPIRE. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+<li>s4.3, ასოციაციის პასუხი მიღებულია და ასოციაციის ტაიმერი გაჩერებულია.</li>
+<li>s4.4, AP უარყოფს პასუხში ასოციაციას და<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; წარმოიქმნება და მიზეზის კოდი იქნება ასოციაციის პასუხში მითითებული. იხილეთ<a class="reference internal" href="wifi.html#wi-fi-reason-code">Wi-Fi მიზეზის კოდი</a>&amp;gt;</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wi-fi-reason-code">
+<h3>Wi-Fi მიზეზის კოდი<a class="headerlink" href="wifi.html#wi-fi-reason-code" title="Permalink to this headline">¶</a></h3>
+<p>ქვემოთ მოცემულ ცხრილში ნაჩვენებია ESP32-ში განსაზღვრული მიზეზის კოდი. პირველი სვეტი არის esp_wifi_types.h-ში განსაზღვრული მაკროს სახელი. საერთო პრეფიქსი <em>WIFI_REASON</em> ამოღებულია, რაც ნიშნავს, რომ <em>დაუზუსტებელი</em> სინამდვილეში ნიშნავს <em>WIFI_REASON_UNSPECIFICIED</em> და ა.შ. მეორე სვეტი არის მიზეზის მნიშვნელობა. მესამე სვეტი არის სტანდარტული მნიშვნელობა, რომელზეც ეს მიზეზი მიმაგრებულია ieee802.11-2012-ის 8.4.1.7 ნაწილში. (დამატებითი ინფორმაციისთვის იხილეთ ზემოთ ნახსენები სტანდარტი.) ბოლო სვეტი არის მიზეზის აღწერა.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%"/>
+<col width="7%"/>
+<col width="9%"/>
+<col width="59%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">მიზეზის კოდი</th>
+<th class="head">ღირებულება</th>
+<th class="head">მიმაგრებულია</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>დაუზუსტებელი</td>
+<td>1</td>
+<td>1</td>
+<td>როგორც წესი, ეს ნიშნავს შიდა გაუმართაობას, მაგალითად, მეხსიერება ამოიწურება, შიდა გადაცემის პროცესი ვერ ხერხდება, ან მიზეზი დისტანციური მართვისგან მიიღება და ა.შ.</td>
+</tr>
+<tr class="row-odd"><td>ავტორიზაციის ვადა</td>
+<td>2</td>
+<td>2</td>
+<td><p class="first">წინა ავტორიზაცია აღარ არის ძალაში.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ავტორიზაციის ვადა ამოიწურა</li>
+<li>მიზეზი AP-სგან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ბოლო ხუთი წუთის განმავლობაში, წვდომის წერტილს სადგურიდან არცერთი პაკეტი არ მიუღია.</li>
+<li>წვდომის წერტილის გაჩერება ხდება esp_wifi_stop() ფუნქციის გამოძახებით.</li>
+<li>სადგურის ავტორიზაცია გაუქმდება esp_wifi_deauth_sta() ბრძანების გამოძახებით.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>ავტორიზაცია_დატოვე</td>
+<td>3</td>
+<td>3</td>
+<td><p class="first">დეავტორიზაცია, რადგან გამგზავნი STA გადის (ან წავიდა).</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>ASSOC_EXPIRE</td>
+<td>4</td>
+<td>4</td>
+<td><p class="first">უმოქმედობის გამო გათიშულია.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ბოლო ხუთი წუთის განმავლობაში, წვდომის წერტილს სადგურიდან არცერთი პაკეტი არ მიუღია.</li>
+<li>წვდომის წერტილის გაჩერება ხდება esp_wifi_stop() ფუნქციის გამოძახებით.</li>
+<li>სადგურის ავტორიზაცია გაუქმდება esp_wifi_deauth_sta() ბრძანების გამოძახებით.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>ასოციაცია_TOOMANY</td>
+<td>5</td>
+<td>5</td>
+<td><p class="first">გამოყოფილია, რადგან წვდომის წერტილს არ შეუძლია ყველა ამჟამად დაკავშირებული STA-ს ერთდროულად დამუშავება.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>წვდომის წერტილთან დაკავშირებული სადგურები აღწევენ მაქსიმალურ რაოდენობას, რომლის მხარდაჭერაც წვდომის წერტილს შეუძლია.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>არაავტორიზებული</td>
+<td>6</td>
+<td>6</td>
+<td><p class="first">მე-2 კლასის ჩარჩო მიღებულია არაავთენტიფიცირებული STA-სგან.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>წვდომის წერტილი იღებს მონაცემების პაკეტს არაავთენტიფიცირებული სადგურიდან.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>არ არის ასოცირებული</td>
+<td>7</td>
+<td>7</td>
+<td><p class="first">არაასოცირებული STA-დან მიღებული მე-3 კლასის ჩარჩო.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>წვდომის წერტილი იღებს მონაცემების პაკეტს არაადართული სადგურიდან.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>ასოციაციის დატოვება</td>
+<td>8</td>
+<td>8</td>
+<td><p class="first">გამოყოფილია, რადგან გამგზავნი STA ტოვებს (ან დატოვა) BSS-ს.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+<li>სადგური გათიშულია esp_wifi_disconnect() და სხვა API s-ის მეშვეობით.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>ასოცირებული არ არის ავტორიზებული</td>
+<td>9</td>
+<td>9</td>
+<td><p class="first">(ხელა) ასოციაციის მოთხოვნის შემტანი STA არ არის ავთენტიფიკაციაში მოპასუხე STA-ს მიერ.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>წვდომის წერტილი იღებს მონაცემების შემცველ პაკეტებს ასოცირებული, მაგრამ ჯერ კიდევ დაუდასტურებელი სადგურიდან.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>DISASSOC_PWRCAP_BAD</td>
+<td>10</td>
+<td>10</td>
+<td><p class="first">გამოყოფილია, რადგან Power Capability ელემენტში არსებული ინფორმაცია მიუღებელია.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>DISASSOC_SUPCHAN_BAD</td>
+<td>11</td>
+<td>11</td>
+<td><p class="first">გამოყოფილია, რადგან მხარდაჭერილი არხების ელემენტში არსებული ინფორმაცია მიუღებელია.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>IE_INVALID</td>
+<td>13</td>
+<td>13</td>
+<td><p class="first">არასწორი ელემენტი, ანუ ელემენტი, რომლის შინაარსი არ აკმაყოფილებს მე-8 პუნქტში მოცემულ სტანდარტის სპეციფიკაციებს.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>წვდომის წერტილი აანალიზებს არასწორ WPA-ს ან RSN IE-ს.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>მიკროფონის_ჩავარდნა</td>
+<td>14</td>
+<td>14</td>
+<td><p class="first">შეტყობინების მთლიანობის კოდის (MIC) შეცდომა.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>4WAY_HANDSHAKE_TIMEOUT</td>
+<td>15</td>
+<td>15</td>
+<td><p class="first">ოთხმხრივი ხელის შეხების დრო ამოიწურა. მემკვიდრეობით მიღებული მიზეზების გამო, ESP32-ში ეს მიზეზის კოდი შეიცვალა WIFI_REASON_HANDSHAKE_TIMEOUT-ით.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ხელის ჩამორთმევის დრო იწურება</li>
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>GROUP_KEY_UPDATE_TIMEOUT</td>
+<td>16</td>
+<td>16</td>
+<td><p class="first">Group-Key-ის ხელის ჩამორთმევის დრო ამოიწურა.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>IE_IN_4WAY_DIFFERS</td>
+<td>17</td>
+<td>17</td>
+<td><p class="first">ოთხმხრივი ხელის შეხების ელემენტი განსხვავდება (ხელახალი) ასოციაციის მოთხოვნის/გამოკვლევის და რეაგირების/შუქურის ჩარჩოსგან.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+<li>სადგური აღმოაჩენს, რომ ოთხმხრივი ხელის შეხების IE განსხვავდება (ხელახალი) ასოციაციის მოთხოვნის/ზონდისა და პასუხის/შუქურის ჩარჩოში არსებული IE-სგან.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>GROUP_CIPHER_INVALID</td>
+<td>18</td>
+<td>18</td>
+<td><p class="first">არასწორი ჯგუფის შიფრი.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>PAIRWISE_CIPHER_INVALID</td>
+<td>19</td>
+<td>19</td>
+<td><p class="first">არასწორი წყვილური შიფრი.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>AKMP_INVALID</td>
+<td>20</td>
+<td>20</td>
+<td><p class="first">არასწორი AKMP.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>UNSUPP_RSN_IE_VERSION</td>
+<td>21</td>
+<td>21</td>
+<td><p class="first">RSNE ვერსია მხარდაუჭერელია.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>INVALID_RSN_IE_CAP</td>
+<td>22</td>
+<td>22</td>
+<td><p class="first">არასწორი RSNE შესაძლებლობები.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>802_1X_ავტორიზაცია_ვერ მოხერხდა</td>
+<td>23</td>
+<td>23</td>
+<td><p class="first">IEEE 802.1X. ავტორიზაცია ვერ მოხერხდა.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+<p>ESP32 AP-ისთვის, ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>802.1 x ავტორიზაცია ვერ ხერხდება.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>CIPHER_SUITE_REJECTED</td>
+<td>24</td>
+<td>24</td>
+<td><p class="first">შიფრების ნაკრები უარყოფილია უსაფრთხოების პოლიტიკის გამო.</p>
+<p>ESP32 სადგურისთვის ეს მიზეზი იტყობინება, როდესაც:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ის AP-დან არის მიღებული.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>BEACON_TIMEOUT</td>
+<td>200</td>
+<td>დაჯავშნილია</td>
+<td>Espressif-ის სპეციფიკური Wi-Fi მიზეზის კოდი: როდესაც სადგური განუწყვეტლივ კარგავს N შუქურას, ის წყვეტს კავშირს და აცნობებს ამ მიზეზს.</td>
+</tr>
+<tr class="row-even"><td>AP_NOFOUND</td>
+<td>201</td>
+<td>დაჯავშნილია</td>
+<td>Espressif-ის სპეციფიკური Wi-Fi 5 მიზეზის კოდი: როდესაც სადგური ვერ ახერხებს სამიზნე წვდომის წერტილის სკანირებას, ეს მიზეზის კოდი გაიგზავნება.</td>
+</tr>
+<tr class="row-odd"><td>ავტორიზაცია ვერ მოხერხდა</td>
+<td>202</td>
+<td>დაჯავშნილია</td>
+<td>Espressif-ის სპეციფიკური Wi-Fi მიზეზის კოდი: ავთენტიფიკაცია ვერ ხერხდება, მაგრამ არა ვადის ამოწურვის გამო.</td>
+</tr>
+<tr class="row-even"><td>ასოციაციის წარუმატებლობა</td>
+<td>203</td>
+<td>დაჯავშნილია</td>
+<td>Espressif-ის სპეციფიკური Wi-Fi მიზეზის კოდი: ასოციაცია ვერ ხერხდება, მაგრამ არა ASSOC_EXPIRE-ის ან ASSOC_TOOMANY-ის გამო.</td>
+</tr>
+<tr class="row-odd"><td>ხელის ჩამორთმევის დროის ამოწურვა</td>
+<td>204</td>
+<td>დაჯავშნილია</td>
+<td>Espressif-ის სპეციფიკური Wi-Fi მიზეზის კოდი: ხელის შეხება ვერ ხერხდება იმავე მიზეზით, რაც WIFI_REASON_4WAY_HANDSHAKE_TIMEOUT-შია.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-station-connecting-when-multiple-aps-are-found">
+<h2>ESP32 Wi-Fi სადგური უკავშირდება მრავალი წვდომის წერტილის პოვნისას<a class="headerlink" href="wifi.html#esp32-wi-fi-station-connecting-when-multiple-aps-are-found" title="Permalink to this headline">¶</a></h2>
+<p>ეს სცენარი მსგავსია,<a class="reference internal" href="wifi.html#esp32-wi-fi-station-connecting-scenario">ESP32 Wi-Fi სადგურის დაკავშირების სცენარი</a>&amp;gt;, განსხვავება ისაა, რომ სადგური არ გაზრდის მოვლენას<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; თუ ის ვერ აკავშირებს ყველა ნაპოვნი წვდომის წერტილს.</p>
+</div>
+<div class="section" id="wi-fi-reconnect">
+<h2>Wi-Fi ხელახლა დაკავშირება<a class="headerlink" href="wifi.html#wi-fi-reconnect" title="Permalink to this headline">¶</a></h2>
+<p>სადგური შეიძლება გაითიშოს მრავალი მიზეზის გამო, მაგალითად, დაკავშირებული წვდომის წერტილის გადატვირთვა და ა.შ. ხელახლა დაკავშირება აპლიკაციის პასუხისმგებლობაა. რეკომენდებული ხელახლა დაკავშირების სტრატეგიაა esp_wifi_connect()-ის გამოძახება მოვლენის მიღებისას.<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt;</p>
+<p>ზოგჯერ აპლიკაციას უფრო რთული ხელახალი დაკავშირების სტრატეგია სჭირდება: - თუ გათიშვის მოვლენა წარმოიქმნება esp_wifi_disconnect() გამოძახების გამო, აპლიკაციას შეიძლება არ სურდეს ხელახალი დაკავშირების განხორციელება. - თუ esp_wifi_scan_start() შეიძლება გამოიძახონ ნებისმიერ დროს, საჭიროა უკეთესი ხელახალი დაკავშირების სტრატეგია, იხილეთ<a class="reference internal" href="wifi.html#scan-when-wi-fi-is-connecting">სკანირება, როდესაც Wi-Fi უკავშირდება</a>&amp;gt;</p>
+<p>კიდევ ერთი გასათვალისწინებელი ფაქტორი ის არის, რომ ხელახლა დაკავშირებამ შეიძლება ვერ დააკავშიროს იგივე წვდომის წერტილი, თუ არსებობს ერთზე მეტი წვდომის წერტილი ერთი და იგივე SSID-ით. ხელახლა დაკავშირება ყოველთვის ირჩევს დასაკავშირებლად საუკეთესო წვდომის წერტილებს.</p>
+</div>
+<div class="section" id="wi-fi-beacon-timeout">
+<h2>Wi-Fi Beacon-ის ტაიმ-აუტი<a class="headerlink" href="wifi.html#wi-fi-beacon-timeout" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 სადგური იყენებს შუქურის დროის ამოწურვის მექანიზმს იმის დასადგენად, აქტიურია თუ არა წვდომის წერტილი. თუ სადგური განუწყვეტლივ კარგავს დაკავშირებული წვდომის წერტილის 60 შუქურას, ხდება შუქურის დროის ამოწურვა.</p>
+<p>შუქურის დროის ამოწურვის შემდეგ, სადგური წვდომის წერტილს 5 ზონდის მოთხოვნას უგზავნის, წყვეტს წვდომის წერტილს და აჩენს მოვლენის შესახებ შეტყობინებას.<a class="reference internal" href="wifi.html#wifi-event-sta-disconnected">WIFI_EVENT_STA_DISCONNECTED</a>&amp;gt; თუ წვდომის წერტილიდან კვლავ არ მიიღება ზონდის პასუხი ან შუქურა.</p>
+</div>
+<div class="section" id="esp32-wi-fi-configuration">
+<h2>ESP32 Wi-Fi კონფიგურაცია<a class="headerlink" href="wifi.html#esp32-wi-fi-configuration" title="Permalink to this headline">¶</a></h2>
+<p>ყველა კონფიგურაცია შეინახება ფლეშ მეხსიერება ში, როდესაც Wi-Fi NVS ჩართულია; წინააღმდეგ შემთხვევაში, იხილეთ<a class="reference internal" href="wifi.html#wi-fi-nvs-flash">Wi-Fi NVS ფლეშ</a>&amp;gt;</p>
+<div class="section" id="wi-fi-mode">
+<h3>Wi-Fi რეჟიმი<a class="headerlink" href="wifi.html#wi-fi-mode" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi რეჟიმის დასაყენებლად გამოიძახეთ esp_wifi_set_mode() ფუნქცია.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"/>
+<col width="78%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">რეჟიმი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>WIFI_MODE_NULL</td>
+<td>NULL რეჟიმი: ამ რეჟიმში, შიდა მონაცემთა სტრუქტურა არ არის გამოყოფილი სადგურსა და წვდომის წერტილზე, ხოლო როგორც სადგურის, ასევე წვდომის წერტილის ინტერფეისები არ არის ინიციალიზებული RX/TX Wi-Fi მონაცემებისთვის. როგორც წესი, ეს რეჟიმი გამოიყენება Sniffer-ისთვის, ან როდესაც გსურთ მხოლოდ STA-ს და წვდომის წერტილის გაჩერება esp_wifi_deinit()-ის გამოძახების გარეშე მთელი Wi-Fi დრაივერის განტვირთვისთვის.</td>
+</tr>
+<tr class="row-odd"><td>WIFI_MODE_STA</td>
+<td>სადგურის რეჟიმი: ამ რეჟიმში, esp_wifi_start() ინიციალიზაციას გაუკეთებს სადგურის შიდა მონაცემებს, სანამ სადგურის ინტერფეისი მზად იქნება RX და TX Wi-Fi მონაცემებისთვის. esp_wifi_connect()-ის გამოძახების შემდეგ, STA დაუკავშირდება სამიზნე წვდომის წერტილს.</td>
+</tr>
+<tr class="row-even"><td>WIFI_MODE_AP</td>
+<td>AP რეჟიმი: ამ რეჟიმში, esp_wifi_start() ინიციალიზაციას გაუკეთებს შიდა AP მონაცემებს, სანამ AP ინტერფეისი მზად იქნება RX/TX Wi-Fi მონაცემებისთვის. შემდეგ, Wi-Fi დრაივერი იწყებს შუქურების გადაცემას და AP მზადაა სხვა სადგურებთან დასაკავშირებლად.</td>
+</tr>
+<tr class="row-odd"><td>WIFI_MODE_APSTA</td>
+<td>სადგური-წვდომის წერტილის თანაარსებობის რეჟიმი: ამ რეჟიმში, esp_wifi_start() ერთდროულად ინიციალიზაციას გაუკეთებს როგორც სადგურს, ასევე წვდომის წერტილს. ეს ხდება სადგურის და წვდომის წერტილების რეჟიმში. გაითვალისწინეთ, რომ გარე წვდომის წერტილის არხს, რომელთანაც დაკავშირებულია ESP32 სადგური, უფრო მაღალი პრიორიტეტი აქვს ESP32 წვდომის წერტილთან შედარებით.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="station-basic-configuration">
+<h3>სადგურის ძირითადი კონფიგურაცია<a class="headerlink" href="wifi.html#station-basic-configuration" title="Permalink to this headline">¶</a></h3>
+<p>სადგურის კონფიგურაციისთვის შესაძლებელია API esp_wifi_set_config() ფუნქციის გამოყენება. ქვემოთ მოცემულ ცხრილში დეტალურად არის აღწერილი ველები.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"/>
+<col width="78%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ველი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ssid</td>
+<td>ეს არის სამიზნე წვდომის წერტილის SSID, რომელთანაც სადგურს დაკავშირება სურს.</td>
+</tr>
+<tr class="row-odd"><td>პაროლი</td>
+<td>სამიზნე წვდომის წერტილის პაროლი</td>
+</tr>
+<tr class="row-even"><td>სკანირების_მეთოდი</td>
+<td>WIFI_FAST_SCAN სკანირების შემთხვევაში, სკანირება მთავრდება პირველი შესაბამისი წვდომის წერტილის პოვნისას, ხოლო WIFI_ALL_CHANNEL_SCAN-ის შემთხვევაში, სკანირება პოულობს ყველა შესაბამის წვდომის წერტილს ყველა არხში. ნაგულისხმევი სკანირებაა WIFI_FAST_SCAN.</td>
+</tr>
+<tr class="row-odd"><td>bssid_set</td>
+<td>თუ bssid_set 0-ის ტოლია, სადგური უკავშირდება წვდომის წერტილს, რომლის SSID იგივეა, რაც „ssid“ ველი, ხოლო „bssid“ ველი იგნორირებულია. ყველა სხვა შემთხვევაში, სადგური უკავშირდება წვდომის წერტილს, რომლის SSID იგივეა, რაც „ssid“ ველი, ხოლო მისი BSSID იგივეა, რაც „bssid“ ველი.</td>
+</tr>
+<tr class="row-even"><td>bssid</td>
+<td>ეს მხოლოდ მაშინ არის ვალიდური, როდესაც bssid_set 1-ის ტოლია; იხილეთ ველი „bssid_set“.</td>
+</tr>
+<tr class="row-odd"><td>არხი</td>
+<td>თუ არხი 0-ის ტოლია, სადგური სამიზნე წვდომის წერტილის მოსაძებნად 1~N არხებს სკანირებას უკეთებს; წინააღმდეგ შემთხვევაში, სადგური იწყებს იმ არხის სკანირებით, რომლის მნიშვნელობაც „არხის“ ველის მნიშვნელობას ემთხვევა და შემდეგ სხვა არხებს სკანირებას უკეთებს სამიზნე წვდომის წერტილის მოსაძებნად. თუ არ იცით, რომელ არხზე მუშაობს სამიზნე წვდომის წერტილი, დააყენეთ ის 0-ზე.</td>
+</tr>
+<tr class="row-even"><td>დახარისხების_მეთოდი</td>
+<td><p class="first">ეს ველი მხოლოდ WIFI_ALL_CHANNEL_SCAN-ისთვისაა</p>
+<p>თუ დახარისხების მეთოდია WIFI_CONNECT_AP_BY_SIGNAL, ყველა შესაბამისი წვდომის წერტილი დალაგდება სიგნალის მიხედვით, რადგან საუკეთესო სიგნალის მქონე წვდომის წერტილი პირველ რიგში დაუკავშირდება. მაგალითად, თუ სადგურს სურს წვდომის წერტილის დაკავშირება, რომლის ssid არის „apxx“, სკანირება პოულობს ორ წვდომის წერტილს, რომელთა ssid უდრის „apxx“-ს, პირველი წვდომის წერტილის სიგნალი არის -90dBm, მეორე წვდომის წერტილის სიგნალი არის -30dBm, სადგური პირველ რიგში მეორე წვდომის წერტილს აკავშირებს, ის პირველს არ აკავშირებს, თუ მეორეს ვერ აკავშირებს.</p>
+<p class="last">თუ დახარისხების მეთოდია WIFI_CONNECT_AP_BY_SECURITY, ყველა შესაბამისი წვდომის წერტილი დალაგდება უსაფრთხოების მიხედვით. მაგალითად, თუ სადგურს სურს დაუკავშირდეს წვდომის წერტილს, რომლის ssid არის „apxx“, სკანირება პოულობს ორ წვდომის წერტილს, რომელთა ssid არის „apxx“, პირველი ნაპოვნი წვდომის წერტილის უსაფრთხოება ღიაა, ხოლო მეორე არის WPA2, სადგური ჯერ მეორე წვდომის წერტილს უკავშირდება და მეორეს არ აკავშირებს, თუ პირველთან დაკავშირება ვერ მოხერხდა.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ზღვარი</td>
+<td><p class="first">ბარიერი გამოიყენება ნაპოვნი წვდომის წერტილის გასაფილტრად, თუ RSSI ან უსაფრთხოების რეჟიმი კონფიგურირებულ ზღურბლზე ნაკლებია, წვდომის წერტილი გაუქმდება.</p>
+<p class="last">თუ RSSI დაყენებულია 0-ზე, ეს ნიშნავს, რომ ნაგულისხმევი ზღვარი, ნაგულისხმევი RSSI ზღვარი არის -127dBm. თუ ავტორიზაციის რეჟიმის ზღვარი დაყენებულია 0-ზე, ეს ნიშნავს, რომ ნაგულისხმევი ზღვარი, ნაგულისხმევი ავტორიზაციის რეჟიმის ზღვარი ღიაა.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ap-basic-configuration">
+<h3>წვდომის წერტილის ძირითადი კონფიგურაცია<a class="headerlink" href="wifi.html#ap-basic-configuration" title="Permalink to this headline">¶</a></h3>
+<p>წვდომის წერტილის კონფიგურაციისთვის შეგიძლიათ გამოიყენოთ API esp_wifi_set_config(). ქვემოთ მოცემულ ცხრილში დეტალურად არის აღწერილი ველები.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"/>
+<col width="78%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ველი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ssid</td>
+<td>წვდომის წერტილის SSID; თუ ssid[0] არის 0xFF და ssid[1] არის 0xFF, წვდომის წერტილი ნაგულისხმევად SSID-ს ანიჭებს ESP_aabbcc-ს, სადაც „aabbcc“ არის წვდომის წერტილის MAC-ის ბოლო სამი ბაიტი.</td>
+</tr>
+<tr class="row-odd"><td>პაროლი</td>
+<td>წვდომის წერტილის პაროლი; თუ ავტორიზაციის რეჟიმია WIFI_AUTH_OPEN, ეს ველი იგნორირებული იქნება.</td>
+</tr>
+<tr class="row-even"><td>ssid_len</td>
+<td>SSID-ის სიგრძე; თუ ssid_len არის 0, შეამოწმეთ SSID მანამ, სანამ არ გამოჩნდება დასრულების სიმბოლო. თუ ssid_len &amp;gt; 32, შეცვალეთ 32-ით; წინააღმდეგ შემთხვევაში, დააყენეთ SSID-ის სიგრძე ssid_len-ის მიხედვით.</td>
+</tr>
+<tr class="row-odd"><td>არხი</td>
+<td>წვდომის წერტილის არხი; თუ არხი დიაპაზონის გარეთაა, Wi-Fi დრაივერი ნაგულისხმევად არხს 1 არხს ანიჭებს. ამიტომ, გთხოვთ, დარწმუნდეთ, რომ არხი საჭირო დიაპაზონშია. დამატებითი ინფორმაციისთვის იხილეთ<a class="reference internal" href="wifi.html#wi-fi-country-code">Wi-Fi ქვეყნის კოდი</a>&amp;gt;</td>
+</tr>
+<tr class="row-even"><td>ავტორიზაციის რეჟიმი</td>
+<td>ESP32 AP-ის ავტორიზაციის რეჟიმი; ამჟამად, ESP32 Wi-Fi არ უჭერს მხარს AUTH_WEP-ს. თუ ავტორიზაციის რეჟიმი არასწორი მნიშვნელობაა, AP ნაგულისხმევ მნიშვნელობას WIFI_AUTH_OPEN-ზე ანიჭებს.</td>
+</tr>
+<tr class="row-odd"><td>ssid_hidden</td>
+<td>თუ ssid_hidden 1-ის ტოლია, წვდომის წერტილი არ გადასცემს SSID-ს; სხვა შემთხვევაში, ის გადასცემს SSID-ს.</td>
+</tr>
+<tr class="row-even"><td>მაქსიმალური_კავშირი</td>
+<td>ამჟამად, ESP32 Wi-Fi მხარს უჭერს 10-მდე Wi-Fi კავშირს. თუ max_connection &amp;gt; 10, AP ნაგულისხმევ მნიშვნელობას 10-ზე აყენებს.</td>
+</tr>
+<tr class="row-odd"><td>შუქურის_ინტერვალი</td>
+<td>შუქურის ინტერვალი; მნიშვნელობაა 100 ~ 60000 ms, ნაგულისხმევი მნიშვნელობაა 100 ms. თუ მნიშვნელობა დიაპაზონს სცილდება, AP ნაგულისხმევად მას 100 ms-ზე აყენებს.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="wi-fi-protocol-mode">
+<h3>Wi-Fi პროტოკოლის რეჟიმი<a class="headerlink" href="wifi.html#wi-fi-protocol-mode" title="Permalink to this headline">¶</a></h3>
+<p>ამჟამად, IDF მხარს უჭერს შემდეგ პროტოკოლის რეჟიმებს:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%"/>
+<col width="75%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პროტოკოლის რეჟიმი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>802.11 B</td>
+<td>სადგურის/წვდომის წერტილის 802.11B რეჟიმში დასაყენებლად გამოიძახეთ esp_wifi_set_protocol(ifx, WIFI_PROTOCOL_11B).</td>
+</tr>
+<tr class="row-odd"><td>802.11 BG</td>
+<td>სადგურის/წვდომის წერტილის 802.11BG რეჟიმში დასაყენებლად გამოიძახეთ esp_wifi_set_protocol(ifx, WIFI_PROTOCOL_11B|WIFI_ PROTOCOL_11G).</td>
+</tr>
+<tr class="row-even"><td>802.11 BGN</td>
+<td>სადგურის/წვდომის წერტილის BGN რეჟიმში დასაყენებლად გამოიძახეთ esp_wifi_set_protocol(ifx, WIFI_PROTOCOL_11B| WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N).</td>
+</tr>
+<tr class="row-odd"><td>802.11 BGNLR</td>
+<td>სადგურის/წვდომის წერტილის BGN-ზე და Espressif-ის სპეციფიკურ რეჟიმში დასაყენებლად გამოიძახეთ esp_wifi_set_protocol(ifx, WIFI_PROTOCOL_11B| WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N|WIFI_PROTOCOL_LR) ბრძანება.</td>
+</tr>
+<tr class="row-even"><td>802.11 LR</td>
+<td><p class="first">სადგურის/წვდომის წერტილის Espressif-ის სპეციფიკურ რეჟიმში დასაყენებლად გამოიძახეთ esp_wifi_set_protocol(ifx, WIFI_PROTOCOL_LR).</p>
+<p class="last"><strong>ეს რეჟიმი Espressif-ის მიერ დაპატენტებული რეჟიმია, რომელსაც შეუძლია ერთი კილომეტრის მანძილზე ხილვადობის მიღწევა. გთხოვთ, დარწმუნდეთ, რომ როგორც სადგური, ასევე წვდომის წერტილი დაკავშირებულია ESP32 მოწყობილობასთან.</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="long-range-lr">
+<h3>დიდი მანძილი (LR)<a class="headerlink" href="wifi.html#long-range-lr" title="Permalink to this headline">¶</a></h3>
+<p>დიდი მანძილის (LR) რეჟიმი Espressif-ის მიერ დაპატენტებული Wi-Fi რეჟიმია, რომელსაც შეუძლია ერთი კილომეტრის მანძილზე ხილვადობის მიღწევა. მას აქვს უკეთესი მიღების მგრძნობელობა, უფრო ძლიერი ჩარევის საწინააღმდეგო უნარი და უფრო დიდი გადაცემის მანძილი, ვიდრე ტრადიციულ 802.11B რეჟიმს.</p>
+<div class="section" id="lr-compitability">
+<h4>LR თავსებადობა<a class="headerlink" href="wifi.html#lr-compitability" title="Permalink to this headline">¶</a></h4>
+<p>რადგან LR არის Espressif-ის უნიკალური Wi-Fi რეჟიმი, მხოლოდ ESP32 მოწყობილობებს შეუძლიათ LR მონაცემების გადაცემა და მიღება. სხვა სიტყვებით რომ ვთქვათ, ESP32 მოწყობილობამ არ უნდა გადასცეს მონაცემები LR მონაცემთა სიჩქარით, თუ დაკავშირებული მოწყობილობა არ უჭერს მხარს LR-ს. აპლიკაციას ამის მიღწევა შეუძლია შესაბამისი Wi-Fi რეჟიმის კონფიგურაციით. თუ მოლაპარაკების რეჟიმი მხარს უჭერს LR-ს, ESP32-ს შეუძლია მონაცემების გადაცემა LR სიჩქარით, წინააღმდეგ შემთხვევაში, ESP32 გადასცემს ყველა მონაცემს ტრადიციული Wi-Fi მონაცემთა სიჩქარით.</p>
+<p>ქვემოთ მოცემულ ცხრილში მოცემულია Wi-Fi რეჟიმის მოლაპარაკება:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%"/>
+<col width="12%"/>
+<col width="10%"/>
+<col width="7%"/>
+<col width="17%"/>
+<col width="15%"/>
+<col width="12%"/>
+<col width="10%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">აპსტა</th>
+<th class="head">BGN</th>
+<th class="head">BG</th>
+<th class="head">ბ</th>
+<th class="head">BGNLR</th>
+<th class="head">BGLR</th>
+<th class="head">BLR</th>
+<th class="head">მარცხენა მხარეს</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BGN</td>
+<td>BGN</td>
+<td>BG</td>
+<td>ბ</td>
+<td>BGN</td>
+<td>BG</td>
+<td>ბ</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>BG</td>
+<td>BG</td>
+<td>BG</td>
+<td>ბ</td>
+<td>BG</td>
+<td>BG</td>
+<td>ბ</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>ბ</td>
+<td>ბ</td>
+<td>ბ</td>
+<td>ბ</td>
+<td>ბ</td>
+<td>ბ</td>
+<td>ბ</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>BGNLR</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>BGNLR</td>
+<td>BGLR</td>
+<td>BLR</td>
+<td>მარცხენა მხარეს</td>
+</tr>
+<tr class="row-even"><td>BGLR</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>BGLR</td>
+<td>BGLR</td>
+<td>BLR</td>
+<td>მარცხენა მხარეს</td>
+</tr>
+<tr class="row-odd"><td>BLR</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>BLR</td>
+<td>BLR</td>
+<td>BLR</td>
+<td>მარცხენა მხარეს</td>
+</tr>
+<tr class="row-even"><td>მარცხენა მხარეს</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>მარცხენა მხარეს</td>
+<td>მარცხენა მხარეს</td>
+<td>მარცხენა მხარეს</td>
+<td>მარცხენა მხარეს</td>
+</tr>
+</tbody>
+</table>
+<p>ზემოთ მოცემულ ცხრილში, რიგი წარმოადგენს წვდომის წერტილის Wi-Fi რეჟიმს, ხოლო სვეტი - სადგურის Wi-Fi რეჟიმს. „-“ მიუთითებს, რომ წვდომის წერტილის Wi-Fi რეჟიმი და სადგური შეუთავსებელია.</p>
+<dl class="docutils">
+<dt>According to the table, we can conclude that:</dt>
+<dd><ul class="first last simple">
+<li>ESP32 AP-ში ჩართული LR-ისთვის ის შეუთავსებელია ტრადიციულ 802.11 რეჟიმთან, რადგან შუქურა იგზავნება LR რეჟიმში.</li>
+<li>ESP32 სადგურში ჩართული LR-ისთვის და რეჟიმი არ არის მხოლოდ LR რეჟიმი, ის თავსებადია ტრადიციულ 802.11 რეჟიმთან.</li>
+<li>თუ როგორც სადგური, ასევე წვდომის წერტილი ESP32 მოწყობილობებია და ორივე მათგანი ჩართულია LR რეჟიმში, მოლაპარაკების რეჟიმი მხარს უჭერს LR-ს.</li>
+</ul>
+</dd>
+</dl>
+<p>თუ მოლაპარაკებული Wi-Fi რეჟიმი მხარს უჭერს როგორც ტრადიციულ 802.11 რეჟიმს, ასევე LR რეჟიმს, WiFi დრაივერის პასუხისმგებლობაა ავტომატურად შეარჩიოს საუკეთესო მონაცემთა გადაცემის სიჩქარე სხვადასხვა Wi-Fi რეჟიმში და აპლიკაციას ეს არ უნდა ადარდებდეს.</p>
+</div>
+<div class="section" id="lr-impacts-to-traditional-wi-fi-device">
+<h4>LR-ის გავლენა ტრადიციულ Wi-Fi მოწყობილობაზე<a class="headerlink" href="wifi.html#lr-impacts-to-traditional-wi-fi-device" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>The data transmission in LR rate has no impacts on the traditional Wi-Fi device because:</dt>
+<dd><ul class="first last simple">
+<li>CCA და უკუკავშირის პროცესი LR რეჟიმში შეესაბამება 802.11 სპეციფიკაციას.</li>
+<li>ტრადიციულ Wi-Fi მოწყობილობას შეუძლია LR სიგნალის აღმოჩენა CCA-ს მეშვეობით და უკუქცევის განხორციელება.</li>
+</ul>
+</dd>
+</dl>
+<p>სხვა სიტყვებით რომ ვთქვათ, დარტყმითი სიგნალის გადაცემა LR რეჟიმში მსგავსია 802.11B რეჟიმში მიღებული დარტყმითი სიგნალისა.</p>
+</div>
+<div class="section" id="lr-transmission-distance">
+<h4>LR გადაცემის მანძილი<a class="headerlink" href="wifi.html#lr-transmission-distance" title="Permalink to this headline">¶</a></h4>
+<p>LR-ის მიღების მგრძნობელობას დაახლოებით 4 დბ-ით მატება აქვს ტრადიციულ 802.11 B რეჟიმში, თეორიულად გადაცემის მანძილი 11B-ის მანძილზე დაახლოებით 2-დან 2.5-ჯერ მეტია.</p>
+</div>
+<div class="section" id="lr-throughput">
+<h4>LR გამტარუნარიანობა<a class="headerlink" href="wifi.html#lr-throughput" title="Permalink to this headline">¶</a></h4>
+<p>LR სიჩქარეს ძალიან შეზღუდული გამტარუნარიანობა აქვს, რადგან ნედლი PHY მონაცემთა სიჩქარე LR არის 1/2 მბიტი და 1/4 მბიტი.</p>
+</div>
+<div class="section" id="when-to-use-lr">
+<h4>როდის გამოვიყენოთ LR<a class="headerlink" href="wifi.html#when-to-use-lr" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>The general conditions for using LR are:</dt>
+<dd><ul class="first last simple">
+<li>როგორც წვდომის წერტილი, ასევე სადგური ESP32 მოწყობილობებია.</li>
+<li>საჭიროა დიდი მანძილის WiFi კავშირი და მონაცემთა გადაცემა.</li>
+<li>მონაცემთა გამტარუნარიანობის მოთხოვნები ძალიან მცირეა, მაგალითად, მოწყობილობის დისტანციური მართვა და ა.შ.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="wi-fi-country-code">
+<h3>Wi-Fi ქვეყნის კოდი<a class="headerlink" href="wifi.html#wi-fi-country-code" title="Permalink to this headline">¶</a></h3>
+<p>ქვეყნის ინფორმაციის დასაყენებლად გამოიძახეთ esp_wifi_set_country() ბრძანება. ქვემოთ მოცემულ ცხრილში დეტალურად არის აღწერილი ველები, გთხოვთ, ამ ველების კონფიგურაციამდე გაეცნოთ ადგილობრივ 2.4 GHz RF ოპერაციულ რეგულაციებს.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%"/>
+<col width="82%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ველი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>cc[3]</td>
+<td><p class="first">ქვეყნის კოდის სტრიქონი, ეს ატრიბუტები განსაზღვრავს ქვეყანას ან არაქვეყნის ერთეულს, რომელშიც სადგური/AP მუშაობს. თუ ეს ქვეყანაა, ამ სტრიქონის პირველი ორი ოქტეტი არის ორსიმბოლოიანი ქვეყნის ინფორმაცია, როგორც ეს აღწერილია ISO/IEC3166-1 დოკუმენტში. მესამე ოქტექტი არის ერთ-ერთი შემდეგიდან:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>ASCII სივრცის სიმბოლო, თუ სადგურის/წვდომის წერტილის ფუნქციონირების რეგულაციები მოიცავს ქვეყანაში მიმდინარე სიხშირული დიაპაზონის ყველა გარემოს.</li>
+<li>ASCII &amp;#39;O&amp;#39; სიმბოლო, თუ სადგურის/AP-ის მუშაობის რეგულაციები მხოლოდ გარე გარემოსთვისაა განკუთვნილი, ან</li>
+<li>ASCII &amp;#39;I&amp;#39; სიმბოლო, თუ სადგურის/წვდომის წერტილის ფუნქციონირების რეგულაციები მხოლოდ შიდა გარემოსთვისაა განკუთვნილი.</li>
+<li>ASCII &amp;#39;X&amp;#39; სიმბოლო, თუ სადგური/წვდომის წერტილი მუშაობს არაქვეყნის ერთეულის ქვეშ. არაქვეყნის ერთეულის პირველი ორი ოქტეტი ორი ASSCII &amp;#39;XX&amp;#39; სიმბოლოა.</li>
+<li>ოპერაციული კლასის ცხრილის ნომრის ამჟამად გამოყენებული ორობითი წარმოდგენა. იხილეთ 802.11-2012 დანართი E.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>შანი</td>
+<td>საწყისი არხი, ეს არის რეგულაციების მინიმალური არხის რაოდენობა, რომლის მიხედვითაც სადგურს/პირდაპირი წვდომის წერტილს შეუძლია მუშაობა.</td>
+</tr>
+<tr class="row-even"><td>სნუმ</td>
+<td>რეგულაციების არხის საერთო რაოდენობა, მაგ. თუ schan=1, nchan=13, ეს ნიშნავს, რომ სადგურს/წვდომის წერტილს შეუძლია მონაცემების გაგზავნა 1-დან 13 არხამდე.</td>
+</tr>
+<tr class="row-odd"><td>პოლიტიკა</td>
+<td>ქვეყნის პოლიტიკა, ეს ველი აკონტროლებს, თუ რომელი ქვეყნის ინფორმაცია იქნება გამოყენებული, თუ კონფიგურირებული ქვეყნის ინფორმაცია კონფლიქტშია დაკავშირებულ წვდომის წერტილებთან. პოლიტიკის შესახებ დამატებითი აღწერა მოცემულია შემდეგ ნაწილში.</td>
+</tr>
+</tbody>
+</table>
+<p>ნაგულისხმევი ქვეყნის ინფორმაციაა {.cc=”CN”, .schan=1, .nchan=13, policy=WIFI_COUNTRY_POLICY_AUTO}, თუ WiFi რეჟიმი არის სადგურის/წვდომის წერტილის თანაარსებობის რეჟიმი, ისინი იზიარებენ ერთსა და იმავე კონფიგურირებულ ქვეყნის ინფორმაციას. ზოგჯერ, იმ წვდომის წერტილის ქვეყნის ინფორმაცია, რომელთანაც სადგური არის დაკავშირებული, განსხვავდება კონფიგურირებული ქვეყნის ინფორმაციისგან. მაგალითად, კონფიგურირებულ სადგურს აქვს ქვეყნის ინფორმაცია {.cc=”JP”, .schan=1, .nchan=14, policy=WIFI_COUNTRY_POLICY_AUTO}, მაგრამ დაკავშირებულ წვდომის წერტილს აქვს ქვეყნის ინფორმაცია {.cc=”CN”, .schan=1, .nchan=13}, მაშინ გამოიყენება დაკავშირებული წვდომის წერტილების ქვეყნის ინფორმაცია. ქვემოთ მოცემულ ცხრილში ნაჩვენებია, თუ რომელი ქვეყნის ინფორმაცია გამოიყენება სხვადასხვა WiFi რეჟიმში და სხვადასხვა ქვეყნის პოლიტიკაში, ასევე აღწერილია აქტიური სკანირების გავლენა.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%"/>
+<col width="27%"/>
+<col width="62%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">WiFi რეჟიმი</th>
+<th class="head">პოლიტიკა</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>სადგური</td>
+<td>WIFI_COUNTRY_POLICY_AUTO</td>
+<td><p class="first">თუ დაკავშირებულ წვდომის წერტილს ბეკონში აქვს ქვეყნის IE, ქვეყნის ინფორმაცია ბეკონში არსებული ქვეყნის ინფორმაციის ტოლია, წინააღმდეგ შემთხვევაში, გამოიყენეთ ქვეყნის ნაგულისხმევი ინფორმაცია.</p>
+<p>სკანირებისთვის:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სადგურის წვდომის წერტილთან დაკავშირებამდე, აქტიური სკანირებით სკანირებს არხს „schan“-ს „min(11, schan+nchan-1)“-მდე და არხს „min(12, schan+nchan)“-ს 14-მდე პასიური სკანირებით. მაგალითად, თუ გამოყენებული ქვეყნის ინფორმაციაა {.cc=”CN”, .schan=1, .nchan=6}, მაშინ 1-დან 6-მდე აქტიური სკანირებაა, ხოლო 7-დან 14-მდე პასიური სკანირება. თუ გამოყენებული ქვეყნის ინფორმაციაა {.cc=”CN”, .schan=1, .nchan=12}, მაშინ 1-დან 11-მდე აქტიური სკანირებაა, ხოლო 12-დან 14-მდე პასიური სკანირება.</li>
+<li>სადგურის მიერთების შემდეგ, წვდომის წერტილთან, აქტიური სკანირებით სკანირებს არხს „schan“-ს „schan+nchan-1“-ზე და არხს „schan+nchan“-ს პასიური სკანირებით 14-ზე.</li>
+</ul>
+</div></blockquote>
+<p class="last">ყოველთვის გაითვალისწინეთ, რომ თუ დამალული SSID-ის მქონე წვდომის წერტილი დაყენებულია პასიურ სკანირების არხზე, პასიური სკანირება მას ვერ იპოვის. სხვა სიტყვებით რომ ვთქვათ, თუ აპლიკაცია იმედოვნებს, რომ ყველა არხში იპოვის დამალულ SSID-ის მქონე წვდომის წერტილს, ქვეყნის ინფორმაციის პოლიტიკა უნდა იყოს კონფიგურირებული WIFI_COUNTRY_POLICY_MANUAL-ზე.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>სადგური</td>
+<td>WIFI_COUNTRY_POLICY_MANUAL</td>
+<td><p class="first">ყოველთვის გამოიყენეთ კონფიგურირებული ქვეყნის ინფორმაცია</p>
+<p class="last">სკანირებისთვის, აქტიური სკანირებისას, არხი „schan“-დან „schan+nchan-1“-მდე სკანირებს.</p>
+</td>
+</tr>
+<tr class="row-even"><td>AP</td>
+<td>WIFI_COUNTRY_POLICY_AUTO</td>
+<td>ყოველთვის გამოიყენეთ კონფიგურირებული ქვეყნის ინფორმაცია</td>
+</tr>
+<tr class="row-odd"><td>AP</td>
+<td>WIFI_COUNTRY_POLICY_MANUAL</td>
+<td>ყოველთვის გამოიყენეთ კონფიგურირებული ქვეყნის ინფორმაცია</td>
+</tr>
+<tr class="row-even"><td><p class="first">სადგური/AP</p>
+<p class="last">თანაგასასვლელი</p>
+</td>
+<td>WIFI_COUNTRY_POLICY_AUTO</td>
+<td><p class="first">თუ სადგური არ უკავშირდება არცერთ წვდომის წერტილს, წვდომის წერტილი გამოიყენებს კონფიგურირებულ ქვეყნის ინფორმაციას. თუ სადგური დაუკავშირდება წვდომის წერტილს, წვდომის წერტილს ექნება იგივე ქვეყნის ინფორმაცია, რაც სადგურს.</p>
+<p class="last">იგივეა, რაც სადგურის რეჟიმი WIFI_COUNTRY_POLICY_AUTO პოლიტიკით</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="home-channel">
+<h4>სახლის არხი<a class="headerlink" href="wifi.html#home-channel" title="Permalink to this headline">¶</a></h4>
+<p>AP რეჟიმში, სახლის არხი განისაზღვრება, როგორც AP არხი. სადგურის რეჟიმში, სახლის არხი განისაზღვრება, როგორც იმ წვდომის წერტილის არხი, რომელთანაც სადგურია დაკავშირებული. სადგური+AP რეჟიმში, წვდომის წერტილის და სადგურის სახლის არხი უნდა იყოს ერთი და იგივე. თუ სადგურის და წვდომის წერტილის სახლის არხები განსხვავებულია, სადგურის სახლის არხი ყოველთვის პრიორიტეტულია. მაგალითად, ავიღოთ შემდეგი: დასაწყისში, წვდომის წერტილი არის მე-6 არხზე, შემდეგ სადგური უკავშირდება წვდომის წერტილს, რომლის არხიც მე-9ა. რადგან სადგურის სახლის არხს უფრო მაღალი პრიორიტეტი აქვს, წვდომის წერტილმა უნდა შეცვალოს თავისი არხი 6-დან მე-9-ზე, რათა დარწმუნდეს, რომ როგორც სადგურს, ასევე წვდომის წერტილს აქვს ერთი და იგივე სახლის არხი. არხის გადართვისას, ESP32 SoftAP რეჟიმში აცნობებს დაკავშირებულ სადგურებს არხის მიგრაციის შესახებ არხის გადართვის განცხადების (CSA) გამოყენებით. სადგურები, რომლებიც მხარს უჭერენ არხის გადართვას, შეუფერხებლად გადავლენ, ხოლო სადგურები, რომლებიც არ უჭერენ მხარს, გაითიშებიან და ხელახლა დაუკავშირდებიან SoftAP-ს.</p>
+</div>
+</div>
+<div class="section" id="wi-fi-vendor-ie-configuration">
+<h3>Wi-Fi მომწოდებლის IE კონფიგურაცია<a class="headerlink" href="wifi.html#wi-fi-vendor-ie-configuration" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევად, Wi-Fi ყველა მართვის ჩარჩოს ამუშავებს Wi-Fi დრაივერი და აპლიკაციას არ სჭირდება მათზე ზრუნვა. თუმცა, ზოგიერთ აპლიკაციას შეიძლება მოუწიოს შუქურის, ზონდის მოთხოვნის, ზონდის პასუხის და სხვა მართვის ჩარჩოების დამუშავება. მაგალითად, თუ მართვის ჩარჩოებში ჩასვამთ რაიმე მომწოდებლის სპეციფიკურ IE-ს, დამუშავდება მხოლოდ ის მართვის ჩარჩოები, რომლებიც შეიცავს ამ მომწოდებლის სპეციფიკურ IE-ს. ESP32-ში, esp_wifi_set_vendor_ie() და esp_wifi_set_vendor_ie_cb() პასუხისმგებელია ამ ტიპის ამოცანებზე.</p>
+</div>
+</div>
+<div class="section" id="wi-fi-security">
+<h2>Wi-Fi უსაფრთხოება<a class="headerlink" href="wifi.html#wi-fi-security" title="Permalink to this headline">¶</a></h2>
+<p>ტრადიციული უსაფრთხოების მეთოდების (WEP/WPA-TKIP/WPA2-CCMP) გარდა, ESP32 Wi-Fi ამჟამად მხარს უჭერს უახლესი უსაფრთხოების პროტოკოლებს, კერძოდ, 802.11w სტანდარტზე დაფუძნებულ დაცული მართვის ჩარჩოებს და Wi-Fi დაცული წვდომის 3-ს (WPA3-Personal). ერთად, PMF და WPA3 უზრუნველყოფენ უკეთეს კონფიდენციალურობას და მდგრადობას ცნობილი შეტევებისგან ტრადიციულ რეჟიმებში.</p>
+<div class="section" id="protected-management-frames-pmf">
+<h3>დაცული მართვის ჩარჩოები (PMF)<a class="headerlink" href="wifi.html#protected-management-frames-pmf" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi , მართვის ჩარჩოები, როგორიცაა შუქურები, ზონდები, (დე)ავთენტიფიკაცია, (დის)ასოციაცია, გამოიყენება არა-AP სადგურების მიერ AP-ის სკანირებისა და მასთან დასაკავშირებლად. მონაცემთა ჩარჩოებისგან განსხვავებით, ეს ჩარჩოები იგზავნება დაუშიფრავად. თავდამსხმელს შეუძლია გამოიყენოს მოსმენა და პაკეტის ინექცია ყალბი (დე)ავთენტიფიკაცია/(დის)ასოციაციის ჩარჩოების საჭირო დროს გასაგზავნად, რაც დაუცველი მართვის ჩარჩოების გაცვლის შემთხვევაში გამოიწვევს შემდგომ შეტევებს.</p>
+<blockquote>
+<div><ul class="simple">
+<li>DOS შეტევა თავდამსხმელის დიაპაზონში მყოფ ერთ ან ყველა კლიენტზე.</li>
+<li>AP მხარეს არსებული ასოციაციის გაუქმება ასოციაციის მოთხოვნის გაგზავნით.</li>
+<li>კლიენტის იძულება, PTK-ის მისაღებად ხელახლა შეასრულოს ოთხმხრივი ხელის ჩამორთმევა იმ შემთხვევაში, თუ PSK კომპრომეტირებულია.</li>
+<li>ასოციაციის მოთხოვნიდან დამალული ქსელის SSID-ის მიღება.</li>
+<li>კლიენტების ლეგიტიმური წვდომის წერტილიდან ავტორიზაციის გაუქმებისა და არაავტორიზებული წვდომის ადგილთან კავშირის იძულებით განხორციელება.</li>
+</ul>
+</div></blockquote>
+<p>PMF უზრუნველყოფს დაცვას ამ შეტევებისგან უნიქასთ მართვის ჩარჩოების დაშიფვრით და მაუწყებლობის მართვის ჩარჩოების მთლიანობის შემოწმების უზრუნველყოფით. ეს მოიცავს დეავთენტიფიკაციას, დისოციაციას და საიმედო მართვის ჩარჩოებს. ის ასევე უზრუნველყოფს უსაფრთხო ასოციაციის (SA) დაშლის მექანიზმს, რათა თავიდან აიცილოს ყალბი ასოციაციის/ავთენტიფიკაციის ჩარჩოების მიერ უკვე დაკავშირებული კლიენტების გათიშვა.</p>
+<p>ESP32 მხარს უჭერს PMF-თან მიმართებაში მუშაობის შემდეგ სამ რეჟიმს.</p>
+<blockquote>
+<div><ul class="simple">
+<li>PMF არ არის მხარდაჭერილი: ამ რეჟიმში, ESP32 მიუთითებს წვდომის წერტილს, რომ მას არ შეუძლია მართვის დაცვის მხარდაჭერა ასოციაციის დროს. ფაქტობრივად, ამ რეჟიმში უსაფრთხოება ტრადიციული რეჟიმის ეკვივალენტური იქნება.</li>
+<li>PMF-თან თავსებადია, მაგრამ არასავალდებულო: ამ რეჟიმში, ESP32 მიუთითებს წვდომის წერტილს, რომ მას შეუძლია PMF-ის მხარდაჭერა. მართვის დაცვა გამოყენებული იქნება იმ შემთხვევაში, თუ წვდომის წერტილი მოითხოვს PMF-ს ან სულ მცირე შეუძლია PMF-ის მხარდაჭერა.</li>
+<li>PMF-თან თავსებადობა და მოთხოვნა: ამ რეჟიმში, ESP32 მხოლოდ წვდომის წერტილს დაუკავშირდება, თუ წვდომის წერტილი მხარს უჭერს PMF-ს. წინააღმდეგ შემთხვევაში, ESP32 უარს იტყვის წვდომის წერტილთან დაკავშირებაზე.</li>
+</ul>
+</div></blockquote>
+<p><a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv419esp_wifi_set_config16wifi_interface_tP13wifi_config_t" title="esp_wifi_set_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_config()</span></code></a> შეიძლება გამოყენებულ იქნას PMF რეჟიმის კონფიგურაციისთვის შესაბამისი დროშების დაყენებით <cite>pmf_cfg</cite> პარამეტრი. ამჟამად, PMF მხარდაჭერილია მხოლოდ სადგურის რეჟიმში.</p>
+</div>
+<div class="section" id="wpa3-personal">
+<h3>WPA3-პერსონალური<a class="headerlink" href="wifi.html#wpa3-personal" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi Protected Access-3 (WPA3) არის Wi-Fi წვდომის უსაფრთხოების გაუმჯობესებების ნაკრები, რომელიც განკუთვნილია მიმდინარე WPA2 სტანდარტის ჩასანაცვლებლად. უფრო საიმედო ავტორიზაციის უზრუნველსაყოფად, WPA3 იყენებს თანაბარი ერთდროული ავტორიზაციის (SAE) მეთოდს, რომელიც პაროლით ავტორიზებული გასაღების შეთანხმების მეთოდს წარმოადგენს, რომელიც დაფუძნებულია Diffie-Hellman-ის გასაღების გაცვლაზე. WPA2-სგან განსხვავებით, ტექნოლოგია მდგრადია ოფლაინ ლექსიკონის შეტევის მიმართ, სადაც თავდამსხმელი ცდილობს საერთო პაროლის დადგენას ოთხმხრივი ხელის ჩამორთმევის საფუძველზე, ქსელთან შემდგომი ურთიერთქმედების გარეშე. WPA3 ასევე უზრუნველყოფს წინასწარი საიდუმლოების უზრუნველყოფას, რაც ნიშნავს, რომ შეგროვებული მონაცემების გაშიფვრა შეუძლებელია მაშინაც კი, თუ პაროლი მონაცემთა გადაცემის შემდეგ კომპრომეტირებულია. გთხოვთ, იხილოთ <a class="reference external" href="https://www.wi-fi.org/discover-wi-fi/security">უსაფრთხოება</a> დამატებითი ინფორმაციისთვის იხილეთ Wi-Fi Alliance-ის ოფიციალური ვებსაიტის განყოფილება.</p>
+<p>WPA3-Personal-ის ჩასართავად, menuconfig ში უნდა აირჩიოთ „WPA3-Personal-ის ჩართვა“. ჩართვის შემთხვევაში, ESP32 იყენებს SAE-ს ავტორიზაციისთვის, თუ წვდომის წერტილი მას მხარს უჭერს. რადგან PMF WPA3-ისთვის სავალდებულო მოთხოვნაა, PMF შესაძლებლობა უნდა იყოს დაყენებული მინიმუმ „PMF-თან თავსებადია, მაგრამ არ არის საჭირო“, რათა ESP32-მა გამოიყენოს WPA3 რეჟიმი. აპლიკაციის დეველოპერებს არ უნდა ფიქრი უსაფრთხოების რეჟიმზე, რადგან უსაფრთხოების თვალსაზრისით ყველაზე მაღალი ხელმისაწვდომი მნიშვნელობაა შერჩეული. გაითვალისწინეთ, რომ Wi-Fi დასტის ზომის მოთხოვნა დაახლოებით 3 ათასით გაიზრდება WPA3-ის გამოყენებისას. ამჟამად, WPA3 მხარდაჭერილია მხოლოდ Station რეჟიმში.</p>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-power-saving-mode">
+<h2>ESP32 Wi-Fi ენერგიის დაზოგვის რეჟიმი<a class="headerlink" href="wifi.html#esp32-wi-fi-power-saving-mode" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="station-sleep">
+<h3>სადგურის ძილი<a class="headerlink" href="wifi.html#station-sleep" title="Permalink to this headline">¶</a></h3>
+<p>ამჟამად, ESP32 Wi-Fi მხარს უჭერს მოდემის ძილის რეჟიმს, რაც IEEE 802.11 პროტოკოლის მემკვიდრეობით მიღებულ ენერგიის დაზოგვის რეჟიმს ეხება. მოდემის ძილის რეჟიმი მუშაობს მხოლოდ სადგურის რეჟიმში და სადგური ჯერ წვდომის წერტილს უნდა დაუკავშირდეს. თუ მოდემის ძილის რეჟიმი ჩართულია, სადგური პერიოდულად გადაერთვება აქტიურ და ძილის რეჟიმებს შორის. ძილის მდგომარეობაში, RF, PHY და BB გამორთულია ენერგიის მოხმარების შესამცირებლად. სადგურს შეუძლია წვდომის წერტილთან კავშირის შენარჩუნება მოდემის ძილის რეჟიმში.</p>
+<p>მოდემის ძილის რეჟიმი მოიცავს მინიმალური და მაქსიმალური ენერგიის დაზოგვის რეჟიმებს. მინიმალური ენერგიის დაზოგვის რეჟიმში, სადგური აღვიძებს ყველა DTIM-ს შუქურის მისაღებად. სამაუწყებლო მონაცემები არ დაიკარგება, რადგან ისინი DTIM-ის შემდეგ გადაიცემა. თუმცა, თუ DTIM არის DTIM-ის შემოკლებული ვერსია, რომელიც განისაზღვრება წვდომის წერტილით, მას არ შეუძლია გაცილებით მეტი ენერგიის დაზოგვა.</p>
+<p>მაქსიმალური ენერგიის დაზოგვის რეჟიმში, სადგური ყოველ მოსმენის ინტერვალს იღვიძებს შუქურის მისაღებად. ეს მოსმენის ინტერვალი შეიძლება დაყენდეს AP DTIM პერიოდზე უფრო დიდხანს. მაუწყებლობის მონაცემები შეიძლება დაიკარგოს, რადგან სადგური შეიძლება ძილის მდგომარეობაში იყოს DTIM დროს. თუ მოსმენის ინტერვალი უფრო გრძელია, მეტი ენერგია დაიზოგება, მაგრამ მაუწყებლობის მონაცემების დაკარგვა უფრო ადვილია. მოსმენის ინტერვალის კონფიგურაცია შესაძლებელია API გამოძახებით. <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv419esp_wifi_set_config16wifi_interface_tP13wifi_config_t" title="esp_wifi_set_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_config()</span></code></a> წვდომის წერტილთან დაკავშირებამდე.</p>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_wifi_set_ps(WIFI_PS_MIN_MODEM)</span></code> მოდემის ძილის მინიმალური ენერგიის დაზოგვის რეჟიმის ჩასართავად ან <code class="docutils literal notranslate"><span class="pre">esp_wifi_set_ps(WIFI_PS_MAX_MODEM)</span></code> მოდემის ძილის რეჟიმის მაქსიმალური ენერგიის დაზოგვის რეჟიმის ჩართვა ზარის შემდეგ <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv413esp_wifi_initPK18wifi_init_config_t" title="esp_wifi_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_init()</span></code></a>როდესაც სადგური დაუკავშირდება წვდომის წერტილს, მოდემის ძილი დაიწყება. როდესაც სადგური გაითიშება წვდომის წერტილიდან, მოდემის ძილი შეწყდება.</p>
+<p>ზარი <code class="docutils literal notranslate"><span class="pre">esp_wifi_set_ps(WIFI_PS_NONE)</span></code> მოდემის ძილის რეჟიმის სრულად გამორთვა. ეს გაცილებით მაღალ ენერგომოხმარებას იწვევს, მაგრამ რეალურ დროში Wi-Fi მონაცემების მისაღებად მინიმალურ შეყოვნებას უზრუნველყოფს. როდესაც მოდემის ძილის რეჟიმი ჩართულია, მიღებული Wi-Fi მონაცემები შეიძლება გადაიდოს DTIM პერიოდის (მინიმალური ენერგიის დაზოგვის რეჟიმი) ან მოსმენის ინტერვალის (მაქსიმალური ენერგიის დაზოგვის რეჟიმი) ხანგრძლივობით.</p>
+<p>მოდემის ნაგულისხმევი ძილის რეჟიმია WIFI_PS_MIN_MODEM.</p>
+</div>
+<div class="section" id="ap-sleep">
+<h3>AP ძილი<a class="headerlink" href="wifi.html#ap-sleep" title="Permalink to this headline">¶</a></h3>
+<p>ამჟამად ESP32 წვდომის წერტილი არ უჭერს მხარს Wi-Fi სპეციფიკაციაში განსაზღვრულ ენერგიის დაზოგვის ყველა ფუნქციას. უფრო კონკრეტულად, წვდომის წერტილი ინახავს მხოლოდ ამ წვდომის წერტილთან დაკავშირებული სადგურების უნიქასტ მონაცემებს, მაგრამ არ ინახავს სადგურების მულტიქასტ მონაცემებს. თუ ESP32 წვდომის წერტილთან დაკავშირებულ სადგურებს აქვთ ენერგიის დაზოგვის ფუნქცია ჩართული, მათ შეიძლება განიცადონ მულტიქასტ პაკეტების დაკარგვა.</p>
+<p>მომავალში, ESP32 AP-ზე მხარდაჭერილი იქნება ენერგიის დაზოგვის ყველა ფუნქცია.</p>
+</div>
+</div>
+<div class="section" id="esp32-wi-fi-connect-crypto">
+<h2>ESP32 Wi-Fi კრიპტოს დაკავშირება<a class="headerlink" href="wifi.html#esp32-wi-fi-connect-crypto" title="Permalink to this headline">¶</a></h2>
+<p>ახლა ESP32-ს აქვს ორი ჯგუფი კრიპტო ფუნქციები, რომელთა გამოყენება შესაძლებელია wifi-სთან დაკავშირებისას, ერთი არის ორიგინალური ფუნქციები, მეორე კი ოპტიმიზირებულია ESP აპარატურით: 1. ორიგინალური ფუნქციები, რომელიც არის საწყისი კოდი, რომელიც გამოიყენება საქაღალდეში კომპონენტი s/wpa_supplicant/src/crypto function; 2. ოპტიმიზირებული ფუნქციები არის საქაღალდეში კომპონენტი s/wpa_supplicant/src/fast_crypto, ეს ფუნქციები იყენებს აპარატურულ კრიპტოს, რათა ის უფრო სწრაფი იყოს, ვიდრე საწყისი ფუნქცია, ფუნქციის სახელის ტიპი დაამატეთ. <cite>fast_</cite> ორიგინალისგან განსხვავდებისთვის. მაგალითად, API aes_wrap() გამოიყენება ჩარჩოს ინფორმაციის დაშიფვრისთვის ოთხმხრივი კავშირის დროს, fast_aes_wrap()-ს იგივე შედეგი აქვს, მაგრამ შეიძლება უფრო სწრაფიც იყოს.</p>
+<p>wpa_crypto_funcs_t სტრუქტურაში რეგისტრაციისას შესაძლებელია კრიპტო ფუნქციის ორი ჯგუფის გამოყენება: wpa2_crypto_funcs_t და wps_crypto_funcs_t, ასევე მოცემულია რეკომენდებული ფუნქციები fast_crypto_ops.c-ში რეგისტრაციისთვის, შეგიძლიათ ფუნქცია ისე დარეგისტრირდეთ, როგორც გსურთ, თუმცა, მოქმედება უნდა განხორციელდეს იმით, რომ crypto_hash_xxx ფუნქცია და crypto_cipher_xxx ფუნქცია ოპერაციის შესასრულებლად ერთი და იგივე ფუნქციით უნდა დარეგისტრირდეს. მაგალითად, თუ esp_crypto_hash სტრუქტურის ინიციალიზაციისთვის crypto_hash_init() ფუნქციას რეგისტრირებთ, ოპერაციის დასასრულებლად fast_crypto_hash_update() ან fast_crypto_hash_finish() ფუნქციის ნაცვლად, ოპერაციის დასასრულებლად დაგჭირდებათ crypto_hash_update() და crypto_hash_finish() ფუნქციების გამოყენება.</p>
+</div>
+<div class="section" id="esp32-wi-fi-throughput">
+<h2>ESP32 Wi-Fi გამტარუნარიანობა<a class="headerlink" href="wifi.html#esp32-wi-fi-throughput" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ ცხრილში ნაჩვენებია საუკეთესო გამტარუნარიანობის შედეგები, რომლებიც Espressif-ის ლაბორატორიასა და დამცავი ყუთში მივიღეთ.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%"/>
+<col width="20%"/>
+<col width="20%"/>
+<col width="18%"/>
+<col width="16%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტიპი/გამტარუნარიანობა</th>
+<th class="head">ჰაერი ლაბორატორიაში</th>
+<th class="head">ფარის ყუთი</th>
+<th class="head">სატესტო ინსტრუმენტი</th>
+<th class="head">IDF ვერსია (commit ID)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Raw 802.11 Packet RX</td>
+<td>არ არის ხელმისაწვდომი</td>
+<td><strong>130 მბ/წმ</strong></td>
+<td>შიდა ინსტრუმენტი</td>
+<td>ჩრდილოეთ კაროლინა</td>
+</tr>
+<tr class="row-odd"><td>ნედლი 802.11 პაკეტის ტრანზაქცია</td>
+<td>არ არის ხელმისაწვდომი</td>
+<td><strong>130 მბ/წმ</strong></td>
+<td>შიდა ინსტრუმენტი</td>
+<td>ჩრდილოეთ კაროლინა</td>
+</tr>
+<tr class="row-even"><td>UDP RX</td>
+<td>30 მბ/წმ</td>
+<td>90 მბ/წმ</td>
+<td>iperf-ის მაგალითი</td>
+<td>05838641</td>
+</tr>
+<tr class="row-odd"><td>UDP TX</td>
+<td>30 მბ/წმ</td>
+<td>60 მბ/წმ</td>
+<td>iperf-ის მაგალითი</td>
+<td>05838641</td>
+</tr>
+<tr class="row-even"><td>TCP RX</td>
+<td>20 მბ/წმ</td>
+<td>50 მბ/წმ</td>
+<td>iperf-ის მაგალითი</td>
+<td>05838641</td>
+</tr>
+<tr class="row-odd"><td>TCP-ის ტრანზაქცია</td>
+<td>20 მბ/წმ</td>
+<td>50 მბ/წმ</td>
+<td>iperf-ის მაგალითი</td>
+<td>05838641</td>
+</tr>
+</tbody>
+</table>
+<p>როდესაც გამტარუნარიანობა შემოწმებულია iperf-ის მაგალითით, sdkconfig არის <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/examples/wifi/iperf/sdkconfig.defaults.99">examples/wifi/iperf/sdkconfig.defaults.99</a></p>
+</div>
+<div class="section" id="wi-fi-80211-packet-send">
+<h2>Wi-Fi 80211 პაკეტის გაგზავნა<a class="headerlink" href="wifi.html#wi-fi-80211-packet-send" title="Permalink to this headline">¶</a></h2>
+<p><strong>მნიშვნელოვანი შენიშვნები: API esp_wifi_80211_tx არ არის ხელმისაწვდომი IDF 2.1-ში, მაგრამ ხელმისაწვდომი იქნება მომავალ ვერსიაში.</strong></p>
+<p>esp_wifi_80211_tx API გამოყენება შესაძლებელია:</p>
+<blockquote>
+<div><ul class="simple">
+<li>გაგზავნეთ შუქურა, ზონდის მოთხოვნა, ზონდის პასუხი და მოქმედების ჩარჩო.</li>
+<li>არა-QoS მონაცემთა ჩარჩოს გაგზავნა.</li>
+</ul>
+</div></blockquote>
+<p>მისი გამოყენება დაშიფრული ან QoS ჩარჩოების გასაგზავნად არ შეიძლება.</p>
+<div class="section" id="preconditions-of-using-esp-wifi-80211-tx">
+<h3>esp_wifi_80211_tx-ის გამოყენების წინაპირობები<a class="headerlink" href="wifi.html#preconditions-of-using-esp-wifi-80211-tx" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Wi-Fi რეჟიმი არის სადგური, ან AP, ან სადგური+AP.</li>
+<li>ან esp_wifi_set_promiscuous(true), ან esp_wifi_start(), ან ორივე ეს API აბრუნებს ESP_OK-ს. ეს იმიტომ ხდება, რომ esp_wifi_80211_tx()-ის გამოძახებამდე უნდა დავრწმუნდეთ, რომ Wi-Fi აპარატურა ინიციალიზებულია. ESP32-ში, როგორც esp_wifi_set_promiscuous(true), ასევე esp_wifi_start()-ს შეუძლია Wi-Fi აპარატურის ინიციალიზაციის გააქტიურება.</li>
+<li>esp_wifi_80211_tx-ის პარამეტრები ამით სწორად არის მოცემული.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="data-rate">
+<h3>მონაცემთა გადაცემის სიჩქარე<a class="headerlink" href="wifi.html#data-rate" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>თუ Wi-Fi კავშირი არ არის, მონაცემთა გადაცემის სიჩქარე 1 Mbps-ია.</li>
+<li>თუ არსებობს WiFi კავშირი და პაკეტი სადგურიდან წვდომის წერტილამდე ან წვდომის წერტილიდან სადგურამდეა, მონაცემთა გადაცემის სიჩქარე იგივეა, რაც WiFi კავშირისას. სხვა შემთხვევაში, მონაცემთა გადაცემის სიჩქარე 1 მბიტ/წმ-ია.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="side-effects-to-avoid-in-different-scenarios">
+<h3>გვერდითი მოვლენები, რომლებიც უნდა აიცილოთ თავიდან სხვადასხვა სცენარში<a class="headerlink" href="wifi.html#side-effects-to-avoid-in-different-scenarios" title="Permalink to this headline">¶</a></h3>
+<p>თეორიულად, თუ არ გავითვალისწინებთ API მიერ Wi-Fi დრაივერზე ან სხვა სადგურებზე/წვდომის წერტილებზე დაკისრებულ გვერდით მოვლენებს, შეგვიძლია გავაგზავნოთ უმი 802.11 პაკეტი ეთერში, ნებისმიერი დანიშნულების MAC მისამართით, ნებისმიერი წყაროს MAC მისამართით, ნებისმიერი BSSID-ით ან ნებისმიერი სხვა ტიპის პაკეტით. თუმცა, საიმედო/სასარგებლო აპლიკაციებმა თავი უნდა აარიდონ ასეთ გვერდით მოვლენებს. ქვემოთ მოცემულ ცხრილში მოცემულია რამდენიმე რჩევა/რეკომენდაცია, თუ როგორ ავიცილოთ თავიდან esp_wifi_80211_tx-ის გვერდითი მოვლენები სხვადასხვა სცენარში.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%"/>
+<col width="64%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">სცენარი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>WiFi კავშირი არ არის</td>
+<td><p class="first">ამ სცენარში, Wi-Fi კავშირი არ არის დაყენებული, ამიტომ Wi-Fi დრაივერზე გვერდითი მოვლენები არ ხდება. თუ en_sys_seq==true, Wi-Fi დრაივერი პასუხისმგებელია თანმიმდევრობის კონტროლზე. თუ en_sys_seq==false, აპლიკაციამ უნდა უზრუნველყოს, რომ ბუფერს სწორი თანმიმდევრობა ჰქონდეს.</p>
+<p>თეორიულად, MAC მისამართი შეიძლება იყოს ნებისმიერი. თუმცა, ამან შეიძლება გავლენა მოახდინოს სხვა სადგურებზე/წვდომის წერტილებზე იგივე MAC/BSSID-ით.</p>
+<p>გვერდითი ეფექტის მაგალითი #1 აპლიკაცია იძახებს esp_wifi_80211_tx-ს, რათა გაგზავნოს შუქურა BSSID == mac_x-ით AP რეჟიმში, მაგრამ mac_x არ არის AP ინტერფეისის MAC. გარდა ამისა, არსებობს სხვა AP, მაგალითად „other-AP“, რომლის bssid არის mac_x. თუ ეს მოხდება, შეიძლება მოხდეს „მოულოდნელი ქცევა“, რადგან სადგურები, რომლებიც უკავშირდებიან „other-AP“-ს, ვერ ხვდებიან, შუქურა „other-AP“-დან არის თუ esp_wifi_80211_tx-დან.</p>
+<p>ზემოთ ჩამოთვლილი გვერდითი მოვლენების თავიდან ასაცილებლად, გირჩევთ:</p>
+<blockquote>
+<div><ul class="simple">
+<li>თუ esp_wifi_80211_tx გამოიძახება სადგურის რეჟიმში, პირველი MAC მისამართი უნდა იყოს multicast MAC ან ზუსტად სამიზნე მოწყობილობის MAC მისამართი, ხოლო მეორე MAC მისამართი უნდა იყოს სადგურის ინტერფეისის MAC მისამართი.</li>
+<li>თუ esp_wifi_80211_tx გამოიძახება AP რეჟიმში, პირველი MAC მისამართი უნდა იყოს multicast MAC ან ზუსტად სამიზნე მოწყობილობის MAC მისამართი, ხოლო მეორე MAC მისამართი უნდა იყოს AP ინტერფეისის.</li>
+</ul>
+</div></blockquote>
+<p class="last">ზემოთ მოცემული რეკომენდაციები მხოლოდ გვერდითი მოვლენების თავიდან ასაცილებლადაა და მათი იგნორირება შესაძლებელია, თუ ამის გაკეთების კარგი მიზეზები არსებობს.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>აქვს WiFi კავშირი</td>
+<td><p class="first">როდესაც Wi-Fi კავშირი უკვე დაყენებულია და თანმიმდევრობას აპლიკაცია აკონტროლებს, ამ უკანასკნელმა შეიძლება გავლენა მოახდინოს Wi-Fi კავშირის თანმიმდევრობის კონტროლზე, მთლიანობაში. ამრიგად, en_sys_seq უნდა იყოს true, წინააღმდეგ შემთხვევაში დაბრუნდება ESP_ERR_WIFI_ARG.</p>
+<p>„Wi-Fi კავშირის არარსებობის“ სცენარში MAC მისამართის რეკომენდაციები ამ სცენარზეც ვრცელდება.</p>
+<p>თუ WiFi რეჟიმი სადგურის რეჟიმია და MAC მისამართი1 არის იმ წვდომის წერტილის MAC მისამართი, რომელთანაც სადგურია დაკავშირებული, MAC მისამართი2 არის სადგურის ინტერფეისის MAC მისამართი, ვამბობთ, რომ პაკეტები სადგურიდან წვდომის წერტილში იგზავნება. მეორეს მხრივ, თუ WiFi რეჟიმი AP რეჟიმია და MAC მისამართი1 არის იმ სადგურის MAC მისამართი, რომელიც ამ წვდომის წერტილს უკავშირდება, MAC მისამართი2 არის წვდომის წერტილის ინტერფეისის MAC მისამართი, ვამბობთ, რომ პაკეტი წვდომის წერტილიდან სადგურში იგზავნება. WiFi კავშირებთან კონფლიქტის თავიდან ასაცილებლად, გამოიყენება შემდეგი შემოწმებები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>თუ პაკეტის ტიპია მონაცემები და სადგურიდან წვდომის წერტილამდეა, ieee80211 ჩარჩოს კონტროლში ToDS ბიტი უნდა იყოს 1, FromDS ბიტი კი - 0, წინააღმდეგ შემთხვევაში პაკეტი გაუქმდება WiFi დრაივერის მიერ.</li>
+<li>თუ პაკეტის ტიპია მონაცემები და წვდომის წერტილიდან სადგურამდეა, ieee80211 ჩარჩოს კონტროლში ToDS ბიტი უნდა იყოს 0, ხოლო FromDS ბიტი - 1, წინააღმდეგ შემთხვევაში პაკეტი გაუქმდება WiFi დრაივერის მიერ.</li>
+<li>თუ პაკეტი სადგურიდან წვდომის წერტილში ან წვდომის წერტილიდან სადგურში იგზავნება, ენერგიის მართვის, მეტი მონაცემების და ხელახალი გადაცემის ბიტები უნდა იყოს 0, წინააღმდეგ შემთხვევაში პაკეტი გაუქმდება WiFi დრაივერის მიერ.</li>
+</ul>
+</div></blockquote>
+<p class="last">ESP_ERR_WIFI_ARG ბრუნდება, თუ რომელიმე შემოწმება ვერ მოხერხდა.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="wi-fi-sniffer-mode">
+<h2>Wi-Fi სნიფერის რეჟიმი<a class="headerlink" href="wifi.html#wi-fi-sniffer-mode" title="Permalink to this headline">¶</a></h2>
+<p>Wi-Fi სნიფერის რეჟიმის ჩართვა შესაძლებელია esp_wifi_set_promiscuous()-ის მეშვეობით. თუ სნიფერის რეჟიმი ჩართულია, შემდეგი პაკეტები <strong>ქილა</strong> გადაიტანება აპლიკაციაში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>802.11 მართვის ჩარჩო</li>
+<li>802.11 მონაცემთა ჩარჩო, მათ შორის MPDU, AMPDU, AMSDU და ა.შ.</li>
+<li>802.11 MIMO ჩარჩო, MIMO ჩარჩოსთვის, სნიფერი მხოლოდ ჩარჩოს სიგრძეს იღებს.</li>
+<li>802.11 საკონტროლო ჩარჩო</li>
+</ul>
+</div></blockquote>
+<p>შემდეგი პაკეტები იქნება <strong>არა</strong> გადაიტანება აპლიკაციაში:</p>
+<blockquote>
+<div><ul class="simple">
+<li>802.11 შეცდომის ჩარჩო, მაგალითად, CRC შეცდომის მქონე ჩარჩო და ა.შ.</li>
+</ul>
+</div></blockquote>
+<p>სნიფერის მიერ გამოყენებული ჩარჩოებისთვის <strong>ქილა</strong> დემპინგის შემთხვევაში, აპლიკაციას დამატებით შეუძლია გადაწყვიტოს, თუ რომელი კონკრეტული ტიპის პაკეტების ფილტრაცია შეიძლება განხორციელდეს აპლიკაციისთვის esp_wifi_set_promiscuous_filter() და esp_wifi_set_promiscuous_ctrl_filter() ფუნქციების გამოყენებით. ნაგულისხმევად, ის გაფილტრავს ყველა 802.11 მონაცემს და მართვის ჩარჩოს აპლიკაციისთვის.</p>
+<p>Wi-Fi სნიფერის რეჟიმის ჩართვა შესაძლებელია WIFI_MODE_NULL, ან WIFI_MODE_STA, ან WIFI_MODE_AP, ან WIFI_MODE_APSTA Wi-Fi რეჟიმში. სხვა სიტყვებით რომ ვთქვათ, სნიფერის რეჟიმი აქტიურია, როდესაც სადგური დაკავშირებულია წვდომის წერტილთან, ან როდესაც წვდომის წერტილს აქვს Wi-Fi კავშირი. გაითვალისწინეთ, რომ სნიფერს აქვს <strong>დიდი გავლენა</strong> სადგურის ან AP Wi-Fi კავშირის გამტარუნარიანობაზე. ზოგადად, ჩვენ უნდა <strong>არა</strong> ჩართეთ სნიფერი, როდესაც სადგურის/AP Wi-Fi კავშირს დიდი დატვირთვა აქვს, თუ განსაკუთრებული მიზეზები არ გვაქვს.</p>
+<p>სნიფერის კიდევ ერთი აღსანიშნავი პრობლემაა უკუკავშირის ფუნქცია wifi_promiscuous_cb_t. უკუკავშირის ფუნქცია გამოიძახება პირდაპირ Wi-Fi დრაივერის დავალებაში, ამიტომ თუ აპლიკაციას თითოეული გაფილტრული პაკეტისთვის ბევრი სამუშაო აქვს შესასრულებელი, რეკომენდაციაა, რომ უკუკავშირში აპლიკაციის დავალებაში მოვლენა გამოქვეყნდეს და რეალური სამუშაო აპლიკაციის დავალებას გადაეცეს.</p>
+</div>
+<div class="section" id="wi-fi-multiple-antennas">
+<h2>Wi-Fi მრავალჯერადი ანტენები<a class="headerlink" href="wifi.html#wi-fi-multiple-antennas" title="Permalink to this headline">¶</a></h2>
+<p>Wi-Fi მრავალჯერადი ანტენების შერჩევა შეიძლება გამოსახული იყოს შემდეგ სურათზე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">__________</span>
+               <span class="o">|</span><span class="n">Enabled</span>   <span class="o">|</span>
+            <span class="n">___</span><span class="o">|</span><span class="n">Antenna</span> <span class="mi">0</span> <span class="o">|</span>\\                                              <span class="n">_________</span>
+               <span class="o">|</span><span class="n">__________</span><span class="o">|</span> \\        <span class="n">GPIO</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;----&gt;</span> <span class="n">antenna_select</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">---|</span>         <span class="o">|</span> <span class="o">---</span> <span class="n">antenna</span> <span class="mi">0</span>
+<span class="n">RX</span><span class="o">/</span><span class="n">TX</span> <span class="n">___</span>                    \\<span class="n">____</span>\  <span class="n">GPIO</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;----&gt;</span> <span class="n">antenna_select</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">---|</span> <span class="n">Antenna</span> <span class="o">|</span> <span class="o">---</span> <span class="n">antenna</span> <span class="mi">1</span>
+         \      <span class="n">__________</span>   <span class="o">//</span>    <span class="o">/</span>  <span class="n">GPIO</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;----&gt;</span> <span class="n">antenna_select</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">---|</span> <span class="n">Switch</span>  <span class="o">|</span> <span class="o">...</span>  <span class="o">...</span>
+          \ <span class="n">___</span><span class="o">|</span><span class="n">Enabled</span>   <span class="o">|</span> <span class="o">//</span>        <span class="n">GPIO</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;----&gt;</span> <span class="n">antenna_select</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">---|</span><span class="n">_________</span><span class="o">|</span> <span class="o">---</span> <span class="n">antenna</span> <span class="mi">15</span>
+           \   <span class="o">|</span><span class="n">Antenna</span> <span class="mi">1</span> <span class="o">|//</span>
+               <span class="o">|</span><span class="n">__________</span><span class="o">|</span>
+</pre></div>
+</div>
+<p>ESP32 გარე ანტენის გადამრთველის მეშვეობით თექვსმეტამდე ანტენას უჭერს მხარს. ანტენის გადამრთველის მართვა შესაძლებელია ოთხი მისამართის პინით - antenna_select[0:3]. antenna_select[0:3]-ის განსხვავებული შეყვანის მნიშვნელობა ნიშნავს სხვადასხვა ანტენის არჩევას. მაგალითად, მნიშვნელობა &amp;#39;0b1011&amp;#39; ნიშნავს, რომ ანტენა 11 არჩეულია. antenna_select[3:0]-ის ნაგულისხმევი მნიშვნელობაა &amp;#39;0b0000&amp;#39;, რაც ნიშნავს, რომ ანტენა 0 ნაგულისხმევად არის არჩეული.</p>
+<p>ოთხ აქტიურ მაღალი ანტენის შერჩევის პინთან დაკავშირებულია ოთხამდე GPIO . ESP32-ს შეუძლია ანტენის არჩევა GPIO [0:3] კონტროლით. API <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv421esp_wifi_set_ant_gpioPK22wifi_ant_gpio_config_t" title="esp_wifi_set_ant_gpio"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_ant_gpio()</span></code></a> გამოიყენება იმის კონფიგურაციისთვის, თუ რომელი GPIO ებია დაკავშირებული antenna_selects-თან. თუ GPIO [x] დაკავშირებულია antenna_select[x]-თან, მაშინ gpio_config-&amp;gt;gpio_cfg[x].gpio_select უნდა იყოს დაყენებული 1-ზე და მოწოდებული უნდა იყოს gpio_config-&amp;gt;gpio_cfg[x].gpio_num.</p>
+<p>მიუხედავად იმისა, რომ მხარდაჭერილია თექვსმეტამდე ანტენა, RX/TX-ისთვის ერთდროულად მხოლოდ ერთი ან ორი ანტენის ჩართვაა შესაძლებელი. API <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv416esp_wifi_set_antPK17wifi_ant_config_t" title="esp_wifi_set_ant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_ant()</span></code></a> გამოიყენება ჩართული ანტენების კონფიგურაციისთვის.</p>
+<p>ჩართული ანტენების შერჩევის ალგორითმი ასევე კონფიგურირებულია <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv416esp_wifi_set_antPK17wifi_ant_config_t" title="esp_wifi_set_ant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_ant()</span></code></a>RX/TX ანტენის რეჟიმი შეიძლება იყოს WIFI_ANT_MODE_ANT0, WIFI_ANT_MODE_ANT1 ან WIFI_ANT_MODE_AUTO. თუ ანტენის რეჟიმია WIFI_ANT_MODE_ANT0, RX/TX მონაცემებისთვის არჩეულია ჩართული ანტენა 0. თუ ანტენის რეჟიმია WIFI_ANT_MODE_ANT1, RX/TX მონაცემებისთვის არჩეულია ჩართული ანტენა 1. წინააღმდეგ შემთხვევაში, WiFi ავტომატურად ირჩევს ანტენას, რომელსაც აქვს უკეთესი სიგნალი ჩართული ანტენებიდან.</p>
+<p>თუ RX ანტენის რეჟიმია WIFI_ANT_MODE_AUTO, ასევე საჭიროა ანტენის ნაგულისხმევი რეჟიმის დაყენება. რადგან RX ანტენის გადართვა მხოლოდ მაშინ ხდება, როდესაც გარკვეული პირობები დაკმაყოფილებულია, მაგალითად, RX ანტენა იწყებს გადართვას, თუ RSSI -65dBm-ზე დაბალია და თუ სხვა ანტენას უკეთესი სიგნალი აქვს და ა.შ., RX იყენებს ნაგულისხმევ ანტენას, თუ პირობები არ დაკმაყოფილებულია. თუ ანტენის ნაგულისხმევი რეჟიმია WIFI_ANT_MODE_ANT1, ჩართული ანტენა 1 გამოიყენება ნაგულისხმევ RX ანტენად, წინააღმდეგ შემთხვევაში ჩართული ანტენა 0 გამოიყენება ნაგულისხმევ RX ანტენად.</p>
+<dl class="docutils">
+<dt>Some limitations need to be considered:</dt>
+<dd><ul class="first last simple">
+<li>გადამცემი ანტენის WIFI_ANT_MODE_AUTO-ზე დაყენება შესაძლებელია მხოლოდ იმ შემთხვევაში, თუ RX ანტენის რეჟიმია WIFI_ANT_MODE_AUTO, რადგან გადამცემი ანტენის შერჩევის ალგორითმი დაფუძნებულია WIFI_ANT_MODE_AUTO ტიპის RX ანტენაზე.</li>
+<li>ამჟამად BT არ უჭერს მხარს მრავალი ანტენის ფუნქციას, გთხოვთ, არ გამოიყენოთ მრავალი ანტენის დაკავშირებული API s.</li>
+</ul>
+</dd>
+<dt>Following is the recommended scenarios to use the multiple antennas:</dt>
+<dd><ul class="first last simple">
+<li>Wi-Fi რეჟიმში WIFI_MODE_STA, ორივე RX/TX ანტენის რეჟიმი კონფიგურირებულია WIFI_ANT_MODE_AUTO-ზე. WiFi დრაივერი ავტომატურად ირჩევს უკეთეს RX/TX ანტენას.</li>
+<li>RX ანტენის რეჟიმი კონფიგურირებულია WIFI_ANT_MODE_AUTO-ზე. TX ანტენის რეჟიმი კონფიგურირებულია WIFI_ANT_MODE_ANT0-ზე ან WIFI_ANT_MODE_ANT1-ზე. აპლიკაციებს შეუძლიათ აირჩიონ ყოველთვის კონკრეტული ანტენის არჩევა TX-ისთვის, ან განახორციელონ საკუთარი TX ანტენის შერჩევის ალგორითმი, მაგ., TX ანტენის რეჟიმის შერჩევა არხის გადართვის ინფორმაციის საფუძველზე და ა.შ.</li>
+<li>ორივე RX/TX ანტენის რეჟიმი კონფიგურირებულია WIFI_ANT_MODE_ANT0 ან WIFI_ANT_MODE_ANT1-ზე.</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="wi-fi-multiple-antennas-configuration">
+<h3>Wi-Fi მრავალჯერადი ანტენების კონფიგურაცია<a class="headerlink" href="wifi.html#wi-fi-multiple-antennas-configuration" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Generally, following steps can be taken to configure the multiple antennas:</dt>
+<dd><ul class="first last">
+<li><p class="first">კონფიგურაცია გაუკეთეთ GPIO ს, რომელიც დაკავშირებულია antenna_selects-თან, მაგალითად, თუ ოთხი ანტენა მხარდაჭერილია და GPIO 20/ GPIO 21 დაკავშირებულია antenna_select[0]/antenna_select[1]-თან, კონფიგურაციები ასე გამოიყურება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wifi_ant_gpio_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="o">.</span><span class="n">gpio_select</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="n">gpio_num</span> <span class="o">=</span> <span class="mi">20</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="o">.</span><span class="n">gpio_select</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="n">gpio_num</span> <span class="o">=</span> <span class="mi">21</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">დააკონფიგურირეთ, რომელი ანტენებია ჩართული და როგორ იყენებს RX/TX მათ, მაგალითად, თუ ანტენა 1 და ანტენა 3 ჩართულია, RX-მა ავტომატურად უნდა აირჩიოს უკეთესი ანტენა და ანტენა 1-ს ნაგულისხმევ ანტენად გამოიყენებს, ხოლო TX ყოველთვის ანტენა 3-ს ირჩევს. კონფიგურაცია ასე გამოიყურება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wifi_ant_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">rx_ant_mode</span> <span class="o">=</span> <span class="n">WIFI_ANT_MODE_AUTO</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">rx_ant_default</span> <span class="o">=</span> <span class="n">WIFI_ANT_ANT0</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">tx_ant_mode</span> <span class="o">=</span> <span class="n">WIFI_ANT_MODE_ANT1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">enabled_ant0</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">enabled_ant1</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="wi-fi-channel-state-information">
+<h2>Wi-Fi არხის მდგომარეობის ინფორმაცია<a class="headerlink" href="wifi.html#wi-fi-channel-state-information" title="Permalink to this headline">¶</a></h2>
+<p>არხის მდგომარეობის ინფორმაცია (CSI) ეხება Wi-Fi კავშირის არხის ინფორმაციას. ESP32-ში ეს ინფორმაცია შედგება ქვე-მატარებლების არხის სიხშირის პასუხებისგან და შეფასებულია, როდესაც პაკეტები მიიღება გადამცემიდან. ქვე-მატარებლის თითოეული არხის სიხშირის პასუხი ჩაწერილია ხელმოწერილი სიმბოლოების ორი ბაიტით. პირველი არის წარმოსახვითი ნაწილი, ხოლო მეორე - რეალური ნაწილი. მიღებული პაკეტის ტიპის მიხედვით, არხის სიხშირის პასუხების სამამდე ველი არსებობს. ესენია მემკვიდრეობითი გრძელი სასწავლო ველი (LLTF), მაღალი გამტარუნარიანობის LTF (HT-LTF) და სივრცე-დროის ბლოკის კოდი HT-LTF (STBC-HT-LTF). სხვადასხვა ტიპის პაკეტებისთვის, რომლებიც მიიღება სხვადასხვა მდგომარეობის მქონე არხებზე, CSI-ის ქვე-მატარებლის ინდექსი და ხელმოწერილი სიმბოლოების საერთო ბაიტები ნაჩვენებია შემდეგ ცხრილში.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%"/>
+<col width="11%"/>
+<col width="7%"/>
+<col width="7%"/>
+<col width="7%"/>
+<col width="6%"/>
+<col width="6%"/>
+<col width="3%"/>
+<col width="7%"/>
+<col width="7%"/>
+<col width="6%"/>
+<col width="6%"/>
+<col width="4%"/>
+<col width="7%"/>
+<col width="7%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>არხი</td>
+<td>მეორადი არხი</td>
+<td colspan="3">არცერთი</td>
+<td colspan="5">ქვემოთ</td>
+<td colspan="5">ზემოთ</td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p class="first">პაკეტი</p>
+<p class="last">ინფორმაცია</p>
+</td>
+<td>სიგნალის რეჟიმი</td>
+<td>არა-HT</td>
+<td colspan="2">მაღალი ტემპერატურა</td>
+<td>არა-HT</td>
+<td colspan="4">მაღალი ტემპერატურა</td>
+<td>არა-HT</td>
+<td colspan="4">მაღალი ტემპერატურა</td>
+</tr>
+<tr class="row-odd"><td>არხის გამტარუნარიანობა</td>
+<td>20 მჰც</td>
+<td colspan="2">20 მჰც</td>
+<td>20 მჰც</td>
+<td colspan="2">20 მჰც</td>
+<td colspan="2">40 მჰც</td>
+<td>20 მჰც</td>
+<td colspan="2">20 მჰც</td>
+<td colspan="2">40 მჰც</td>
+</tr>
+<tr class="row-even"><td>STBC</td>
+<td>არა-STBC</td>
+<td>არა-STBC</td>
+<td>STBC</td>
+<td>არა-STBC</td>
+<td>არა-STBC</td>
+<td>STBC</td>
+<td>არა-STBC</td>
+<td>STBC</td>
+<td>არა-STBC</td>
+<td>არა-STBC</td>
+<td>STBC</td>
+<td>არა-STBC</td>
+<td>STBC</td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p class="first">ქვე-გადამზიდავი</p>
+<p class="last">ინდექსი</p>
+</td>
+<td>LLTF</td>
+<td>0~31,-32~-1</td>
+<td>0~31,-32~-1</td>
+<td>0~31,-32~-1</td>
+<td>0~63</td>
+<td>0~63</td>
+<td>0~63</td>
+<td>0~63</td>
+<td>0~63</td>
+<td>-64~-1</td>
+<td>-64~-1</td>
+<td>-64~-1</td>
+<td>-64~-1</td>
+<td>-64~-1</td>
+</tr>
+<tr class="row-even"><td>HT-LTF</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~31,-32~-1</td>
+<td>0~31,-32~-1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~63</td>
+<td>0~62</td>
+<td>0~63,-64~-1</td>
+<td>0~60,-60~-1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>-64~-1</td>
+<td>-62~-1</td>
+<td>0~63,-64~-1</td>
+<td>0~60,-60~-1</td>
+</tr>
+<tr class="row-odd"><td>STBC-HT-LTF</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~31,-32~-1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~62</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~60,-60~-1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>-62~-1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>0~60,-60~-1</td>
+</tr>
+<tr class="row-even"><td colspan="2">სულ ბაიტები</td>
+<td>128</td>
+<td>256</td>
+<td>384</td>
+<td>128</td>
+<td>256</td>
+<td>380</td>
+<td>384</td>
+<td>612</td>
+<td>128</td>
+<td>256</td>
+<td>376</td>
+<td>384</td>
+<td>612</td>
+</tr>
+</tbody>
+</table>
+<p>ცხრილში მოცემული ყველა ინფორმაციის პოვნა შესაძლებელია სტრუქტურაში wifi_csi_info_t.</p>
+<blockquote>
+<div><ul class="simple">
+<li>მეორადი არხი ეხება rx_ctrl ველის მეორადი_არხის ველს.</li>
+<li>პაკეტის სიგნალის რეჟიმი ეხება rx_ctrl ველის sig_mode ველს.</li>
+<li>არხის გამტარუნარიანობა ეხება rx_ctrl ველის cwb ველს.</li>
+<li>STBC ეხება rx_ctrl ველის stbc ველს.</li>
+<li>ბაიტების ჯამი ეხება len ველს.</li>
+<li>თითოეული Long Training Field (LTF) ტიპის შესაბამისი CSI მონაცემები ინახება ბუფერში, რომელიც იწყება buf ველიდან. თითოეული ელემენტი ინახება ორ ბაიტად: წარმოსახვითი ნაწილი, რომელსაც მოჰყვება რეალური ნაწილი. თითოეული ელემენტის თანმიმდევრობა იგივეა, რაც ცხრილში ქვე-მატარებლის. LTF-ის თანმიმდევრობაა: LLTF, HT-LTF, STBC-HT-LTF. თუმცა, არხისა და პაკეტის ინფორმაციის მიხედვით (იხილეთ ზემოთ) შესაძლოა სამივე LTF არ იყოს წარმოდგენილი.</li>
+<li>თუ wifi_csi_info_t-ის first_word_invalid ველის მნიშვნელობა true-ს ემთხვევა, ეს ნიშნავს, რომ CSI მონაცემების პირველი ოთხი ბაიტი არასწორია ESP32-ში აპარატურული შეზღუდვის გამო.</li>
+<li>დამატებითი ინფორმაცია, როგორიცაა RSSI, RF ხმაურის დონე, მიღების დრო და ანტენა, შეგიძლიათ იხილოთ rx_ctrl ველში.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<ul class="last simple">
+<li>STBC პაკეტისთვის, CSI მოცემულია ყველა სივრცე-დროის ნაკადისთვის CSD-ის (ციკლური ცვლის შეფერხება) გარეშე. რადგან დამატებით ჯაჭვებზე თითოეული ციკლური ცვლა უნდა იყოს -200ns, HT-LTF-ის და STBC-HT-LTF-ის 0 ქვე-მატარებელში მხოლოდ პირველი სივრცე-დროის ნაკადის CSD კუთხე ჩაიწერება, რადგან 0 ქვე-მატარებელში არ არის არხის სიხშირის რეაქცია. CSD[10:0] არის 11 ბიტი, დიაპაზონში -pi-დან pi-მდე.</li>
+<li>თუ LLTF, HT-LTF ან STBC-HT-LTF არ არის ჩართული API გამოძახებით <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv423esp_wifi_set_csi_configPK17wifi_csi_config_t" title="esp_wifi_set_csi_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_csi_config()</span></code></a>, CSI მონაცემების საერთო ბაიტები ცხრილში მითითებულზე ნაკლები იქნება. მაგალითად, თუ LLTF და HT-LTF არ არის ჩართული და STBC-HT-LTF ჩართულია, როდესაც პაკეტი მიიღება ზემოთ მოცემული პირობით/HT/40MHz/STBC, CSI მონაცემების საერთო ბაიტებია 244 ((61 + 60) * 2 + 2 = 244, შედეგი ოთხ ბაიტს შეესაბამება და ბოლო ორი ბაიტი არასწორია).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="wi-fi-channel-state-information-configure">
+<h2>Wi-Fi არხის მდგომარეობის ინფორმაციის კონფიგურაცია<a class="headerlink" href="wifi.html#wi-fi-channel-state-information-configure" title="Permalink to this headline">¶</a></h2>
+<p>Wi-Fi CSI-ის გამოსაყენებლად, საჭიროა შემდეგი ნაბიჯების შესრულება.</p>
+<blockquote>
+<div><ul class="simple">
+<li>menuconfig ში აირჩიეთ Wi-Fi CSI. ეს არის „მენიუკონფიგურაცია –&amp;gt; კომპონენტების კონფიგურაცია –&amp;gt; Wi-Fi –&amp;gt; WiFi CSI(არხის მდგომარეობის ინფორმაცია)“.</li>
+<li>CSI-ის მიმღები უკუკავშირის ფუნქციის დაყენება API გამოძახებით <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv422esp_wifi_set_csi_rx_cb13wifi_csi_cb_tPv" title="esp_wifi_set_csi_rx_cb"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_csi_rx_cb()</span></code></a>.</li>
+<li>CSI-ის კონფიგურაცია API გამოძახებით <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv423esp_wifi_set_csi_configPK17wifi_csi_config_t" title="esp_wifi_set_csi_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_csi_config()</span></code></a>.</li>
+<li>CSI-ის ჩართვა API დარეკვით <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv416esp_wifi_set_csib" title="esp_wifi_set_csi"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_csi()</span></code></a>.</li>
+</ul>
+</div></blockquote>
+<p>CSI-ის უკუკავშირის მიმღები ფუნქცია Wi-Fi დავალებიდან მუშაობს. ამიტომ, უკუკავშირის ფუნქციაში ხანგრძლივი ოპერაციები არ უნდა შეასრულოთ. ამის ნაცვლად, საჭირო მონაცემები რიგში უნდა გადაიტანოთ და დაბალი პრიორიტეტის დავალებიდან დაამუშაოთ. რადგან სადგური გათიშვისას პაკეტებს არ იღებს და მხოლოდ წვდომის წერტილიდან იღებს პაკეტებს, როდესაც ის დაკავშირებულია, რეკომენდებულია სნიფერის რეჟიმის ჩართვა, რათა მეტი CSI მონაცემი მიიღოთ გამოძახებით. <a class="reference internal" href="../api-reference/network/esp_wifi.html#_CPPv424esp_wifi_set_promiscuousb" title="esp_wifi_set_promiscuous"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_set_promiscuous()</span></code></a>.</p>
+</div>
+<div class="section" id="wi-fi-ht20-40">
+<h2>Wi-Fi HT20/40<a class="headerlink" href="wifi.html#wi-fi-ht20-40" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს Wi-Fi გამტარუნარიანობას HT20 ან HT40, ის არ უჭერს მხარს HT20/40 თანაარსებობას. <cite>esp_wifi_set_bandwidth</cite> შეიძლება გამოყენებულ იქნას სადგურის ან წვდომის წერტილის ნაგულისხმევი გამტარუნარიანობის შესაცვლელად. ESP32 სადგურისა და წვდომის წერტილის ნაგულისხმევი გამტარუნარიანობაა HT40.</p>
+<p>სადგურის რეჟიმში, ფაქტობრივი გამტარობა თავდაპირველად შეთანხმებულია Wi-Fi კავშირის დროს. ის HT40-ად ითვლება მხოლოდ იმ შემთხვევაში, თუ როგორც სადგური, ასევე დაკავშირებული წვდომის წერტილი მხარს უჭერს HT40-ს, წინააღმდეგ შემთხვევაში ის HT20-ად ითვლება. თუ დაკავშირებული წვდომის წერტილის გამტარობა იცვლება, ფაქტობრივი გამტარობა ხელახლა შეთანხმებულია Wi-Fi გათიშვის გარეშე.</p>
+<p>ანალოგიურად, AP რეჟიმში, ფაქტობრივი გამტარუნარიანობა შეთანხმებულია AP-სა და AP-თან დაკავშირებულ სადგურებს შორის. HT40 არის, თუ AP და ერთ-ერთი სადგური მხარს უჭერს HT40-ს, წინააღმდეგ შემთხვევაში HT20 არის.</p>
+<p>სადგურის/წვდომის წერტილის თანაარსებობის რეჟიმში, სადგურს/წვდომის წერტილს შეუძლია HT20/40 ცალ-ცალკე დააკონფიგურიროს. თუ სადგური და წვდომის წერტილი HT40-ზეა მოლაპარაკებული, HT40 არხი უნდა იყოს სადგურის არხი, რადგან ESP32-ში სადგურს ყოველთვის უფრო მაღალი პრიორიტეტი აქვს, ვიდრე წვდომის წერტილს. მაგალითად, წვდომის წერტილის კონფიგურირებული გამტარობაა HT40, კონფიგურირებული პირველადი არხი არის 6 და კონფიგურირებული მეორადი არხი არის 10. სადგური დაკავშირებულია როუტერთან, რომლის პირველადი არხი არის 6 და მეორადი არხი არის 2, მაშინ წვდომის წერტილის ფაქტობრივი არხი ავტომატურად იცვლება პირველად 6-ზე და მეორად 2-ზე.</p>
+<p>თეორიულად, HT40-ს შეუძლია უკეთესი გამტარუნარიანობის მიღწევა, რადგან HT40-ისთვის მაქსიმალური ფიზიკური (PHY) მონაცემთა სიჩქარე 150 მბიტ/წმ-ია, ხოლო HT20-ისთვის - 72 მბიტ/წმ. თუმცა, თუ მოწყობილობა გამოიყენება რაიმე განსაკუთრებულ გარემოში, მაგალითად, ESP32 მოწყობილობის გარშემო ძალიან ბევრი სხვა Wi-Fi მოწყობილობაა, HT40-ის მუშაობა შეიძლება გაუარესდეს. ამიტომ, თუ აპლიკაციებს სჭირდებათ იგივე ან მსგავსი სცენარების მხარდაჭერა, რეკომენდებულია, რომ გამტარუნარიანობა ყოველთვის კონფიგურირებული იყოს HT20-ზე.</p>
+</div>
+<div class="section" id="wi-fi-qos">
+<h2>Wi-Fi QoS<a class="headerlink" href="wifi.html#wi-fi-qos" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს WFA Wi-Fi QoS სერტიფიკაციისთვის საჭირო ყველა სავალდებულო ფუნქციას.</p>
+<p>Wi-Fi სპეციფიკაციაში განსაზღვრულია ოთხი AC (წვდომის კატეგორია), რომელთაგან თითოეულს აქვს საკუთარი პრიორიტეტი Wi-Fi არხზე წვდომისთვის. გარდა ამისა, განსაზღვრულია მიბმის წესი სხვა პროტოკოლის, როგორიცაა 802.11D ან TCP/IP პრიორიტეტი, QoS პრიორიტეტის Wi-Fi AC-ზე მიბმისთვის.</p>
+<p>ქვემოთ მოცემულ ცხრილში აღწერილია, თუ როგორ არის IP პრეცედენტები დაკავშირებული Wi-Fi AC-ებთან ESP32-ში, ასევე მითითებულია, მხარდაჭერილია თუ არა AMPDU ამ AC-სთვის. ცხრილი დალაგებულია პრიორიტეტულობის კლებადობით, კერძოდ, AC_VO-ს აქვს ყველაზე მაღალი პრიორიტეტი.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%"/>
+<col width="41%"/>
+<col width="29%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ინტელექტუალური საკუთრების უპირატესობა</th>
+<th class="head">Wi-Fi AC</th>
+<th class="head">AMPDU-ს მხარდაჭერა?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>6, 7</td>
+<td>AC_VO (ხმა)</td>
+<td>არა</td>
+</tr>
+<tr class="row-odd"><td>4, 5</td>
+<td>AC_VI (ვიდეო)</td>
+<td>დიახ</td>
+</tr>
+<tr class="row-even"><td>3, 0</td>
+<td>AC_BE (საუკეთესო ძალისხმევა)</td>
+<td>დიახ</td>
+</tr>
+<tr class="row-odd"><td>1, 2</td>
+<td>AC_BK (ფონი)</td>
+<td>დიახ</td>
+</tr>
+</tbody>
+</table>
+<p>აპლიკაციას შეუძლია გამოიყენოს QoS ფუნქცია IP პრიორიტეტის კონფიგურაციით სოკეტის IP_TOS ოფციის მეშვეობით. აქ მოცემულია მაგალითი, თუ როგორ მოაწყოთ სოკეტი VI რიგის გამოსაყენებლად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">int</span> <span class="n">ip_precedence_vi</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">const</span> <span class="nb">int</span> <span class="n">ip_precedence_offset</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">priority</span> <span class="o">=</span> <span class="p">(</span><span class="n">ip_precedence_vi</span> <span class="o">&lt;&lt;</span> <span class="n">ip_precedence_offset</span><span class="p">);</span>
+<span class="n">setsockopt</span><span class="p">(</span><span class="n">socket_id</span><span class="p">,</span> <span class="n">IPPROTO_IP</span><span class="p">,</span> <span class="n">IP_TOS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">priority</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">priority</span><span class="p">));</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Theoretically the higher priority AC has better performance than the low priority AC, however, it’s not always be true, here are some suggestions about how to use the Wi-Fi QoS:</dt>
+<dd><ul class="first last simple">
+<li>ზოგიერთი მართლაც მნიშვნელოვანი აპლიკაციის ტრაფიკისთვის, შეგიძლიათ ის AC_VO რიგში მოათავსოთ. მოერიდეთ დიდი ტრაფიკის AC_VO რიგის მეშვეობით გაგზავნას. ერთი მხრივ, AC_VO რიგი არ უჭერს მხარს AMPDU-ს და თუ ტრაფიკი დიდია, მას არ შეუძლია სხვა რიგებთან შედარებით უკეთესი შესრულების მიღწევა, მეორე მხრივ, ამან შეიძლება გავლენა მოახდინოს მართვის ჩარჩოებზე, რომლებიც ასევე იყენებენ AC_VO რიგს.</li>
+<li>მოერიდეთ ორზე მეტი განსხვავებული AMPDU-ს მიერ მხარდაჭერილი პრეცედენტის გამოყენებას, მაგ. სოკეტი A იყენებს პრეცედენტს 0, სოკეტი B იყენებს პრეცედენტს 1, სოკეტი C იყენებს პრეცედენტს 2. ეს ცუდი დიზაინია, რადგან შეიძლება გაცილებით მეტი მეხსიერება დასჭირდეს. უფრო დეტალურად რომ ვთქვათ, Wi-Fi დრაივერმა შეიძლება თითოეული პრეცედენტისთვის Block Ack სესია გენერირება მოახდინოს და თუ Block Ack სესია დაყენებულია, მას მეტი მეხსიერება დასჭირდება.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="wi-fi-amsdu">
+<h2>Wi-Fi AMSDU<a class="headerlink" href="wifi.html#wi-fi-amsdu" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს AMSDU-ს მიღებას, მაგრამ არ უჭერს მხარს AMSDU-ს გადაცემას. გადამცემი AMSDU აუცილებელი არ არის, რადგან ESP32-ს აქვს გადამცემი AMPDU.</p>
+</div>
+<div class="section" id="wi-fi-fragment">
+<h2>Wi-Fi ფრაგმენტი<a class="headerlink" href="wifi.html#wi-fi-fragment" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს Wi-Fi მიმღებ ფრაგმენტს, მაგრამ არ უჭერს მხარს Wi-Fi გადამცემ ფრაგმენტს. Wi-Fi ის გადამცემი ფრაგმენტი მხარდაჭერილი იქნება მომავალ ვერსიებში.</p>
+</div>
+<div class="section" id="wps-enrolle">
+<h2>WPS-ის რეგისტრაცია<a class="headerlink" href="wifi.html#wps-enrolle" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს WPS რეგისტრაციის ფუნქციას Wi-Fi რეჟიმში WIFI_MODE_STA ან WIFI_MODE_APSTA. ამჟამად ESP32 მხარს უჭერს WPS რეგისტრაციის ტიპის PBC და PIN კოდს.</p>
+</div>
+<div class="section" id="wi-fi-buffer-usage">
+<span id="wifi-buffer-usage"></span><h2>Wi-Fi ბუფერის გამოყენება<a class="headerlink" href="wifi.html#wi-fi-buffer-usage" title="Permalink to this headline">¶</a></h2>
+<p>ეს განყოფილება მხოლოდ დინამიური ბუფერის კონფიგურაციას ეხება.</p>
+<div class="section" id="why-buffer-configuration-is-important">
+<h3>რატომ არის ბუფერის კონფიგურაცია მნიშვნელოვანი<a class="headerlink" href="wifi.html#why-buffer-configuration-is-important" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>In order to get a robust, high-performance system, we need to consider the memory usage/configuration very carefully, because:</dt>
+<dd><ul class="first last simple">
+<li>ESP32-ში ხელმისაწვდომი მეხსიერება შეზღუდულია.</li>
+<li>ამჟამად, LwIP და Wi-Fi დრაივერებში ბუფერის ნაგულისხმევი ტიპია „დინამიური“, <strong>რაც ნიშნავს, რომ როგორც LwIP, ასევე Wi-Fi აპლიკაციასთან ერთად იყენებენ მეხსიერებას.</strong>პროგრამისტებმა ეს ყოველთვის უნდა გაითვალისწინონ; წინააღმდეგ შემთხვევაში, მათ მეხსიერების პრობლემა შეექმნებათ, მაგალითად, „ჰიპის მეხსიერების ამოწურვის“.</li>
+<li>ძალიან საშიშია გროვის მეხსიერების ამოწურვა, რადგან ეს ESP32-ს „განუსაზღვრელ ქცევას“ გამოიწვევს. ამრიგად, აპლიკაციისთვის საკმარისი გროვის მეხსიერება უნდა იყოს რეზერვირებული, რათა მას არასდროს ამოეწუროს.</li>
+<li>Wi-Fi გამტარუნარიანობა მნიშვნელოვნად არის დამოკიდებული მეხსიერებასთან დაკავშირებულ კონფიგურაციებზე, როგორიცაა TCP ფანჯრის ზომა, Wi-Fi RX/TX დინამიური ბუფერის რაოდენობა და ა.შ.</li>
+<li>ESP32 LwIP/ Wi-Fi მიერ გამოყენებული პიკური ჰიპის მეხსიერება დამოკიდებულია რიგ ფაქტორებზე, როგორიცაა აპლიკაციის მიერ გათვალისწინებული TCP/UDP კავშირების მაქსიმალური რაოდენობა და ა.შ.</li>
+<li>აპლიკაციის მიერ მოთხოვნილი მთლიანი მეხსიერება ასევე მნიშვნელოვანი ფაქტორია მეხსიერების კონფიგურაციის განხილვისას.</li>
+</ul>
+</dd>
+</dl>
+<p>ამ მიზეზების გამო, არ არსებობს ყველა აპლიკაციისთვის შესაფერისი კონფიგურაცია. ამის ნაცვლად, მეხსიერების კონფიგურაციები ცალ-ცალკე უნდა განვიხილოთ თითოეული განსხვავებული აპლიკაციისთვის.</p>
+</div>
+<div class="section" id="dynamic-vs-static-buffer">
+<h3>დინამიური vs. სტატიკური ბუფერი<a class="headerlink" href="wifi.html#dynamic-vs-static-buffer" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi დრაივერებში ბუფერის ნაგულისხმევი ტიპია „დინამიური“. უმეტეს შემთხვევაში, დინამიურ ბუფერს შეუძლია მეხსიერების მნიშვნელოვნად დაზოგვა. თუმცა, ეს აპლიკაციის პროგრამირებას ცოტათი ართულებს, რადგან ამ შემთხვევაში აპლიკაციას Wi-Fi ში მეხსიერების გამოყენების გათვალისწინება სჭირდება.</p>
+<p>lwIP ასევე ანაწილებს ბუფერებს TCP/IP დონეზე და ეს ბუფერების განაწილებაც დინამიურია. იხილეთ <a class="reference internal" href="lwip.html#lwip-ram-usage"><span class="std std-ref">lwIP დოკუმენტაციის განყოფილება მეხსიერების გამოყენებისა და მუშაობის შესახებ</span></a>.</p>
+</div>
+<div class="section" id="peak-wi-fi-dynamic-buffer">
+<h3>პიკური Wi-Fi 5 დინამიური ბუფერი<a class="headerlink" href="wifi.html#peak-wi-fi-dynamic-buffer" title="Permalink to this headline">¶</a></h3>
+<p>Wi-Fi დრაივერი მხარს უჭერს ბუფერის რამდენიმე ტიპს (იხ. <a class="reference internal" href="wifi.html#wi-fi-buffer-configure">Wi-Fi ბუფერის კონფიგურაცია</a>). თუმცა, ეს განყოფილება მხოლოდ დინამიური Wi-Fi ბუფერის გამოყენებას ეხება. პიკური გროვის მეხსიერება, რომელსაც Wi-Fi მოიხმარს, არის <strong>თეორიულად მაქსიმალური მეხსიერება</strong> რომელსაც Wi-Fi დრაივერი მოიხმარს. ზოგადად, პიკური მეხსიერება დამოკიდებულია:</p>
+<blockquote>
+<div><ul class="simple">
+<li>კონფიგურირებული დინამიური RX ბუფერების რაოდენობა: wifi_rx_dynamic_buf_num</li>
+<li>კონფიგურირებული დინამიური tx ბუფერების რაოდენობა: wifi_tx_dynamic_buf_num</li>
+<li>მაქსიმალური პაკეტის ზომა, რომლის მიღებაც Wi-Fi დრაივერს შეუძლია: wifi_rx_pkt_size_max</li>
+<li>მაქსიმალური პაკეტის ზომა, რომლის გაგზავნაც Wi-Fi დრაივერს შეუძლია: wifi_tx_pkt_size_max</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>So, the peak memory that the Wi-Fi driver consumes can be calculated with the following formula:</dt>
+<dd>wifi_dynamic_peek_memory = (wifi_rx_dynamic_buf_num * wifi_rx_pkt_size_max) + (wifi_tx_dynamic_buf_num * wifi_tx_pkt_size_max)</dd>
+</dl>
+<p>როგორც წესი, ჩვენ არ უნდა გვაინტერესებდეს დინამიური tx long ბუფერები და დინამიური tx long long ბუფერები, რადგან ისინი მართვის ჩარჩოებია, რომლებსაც სისტემაზე მხოლოდ მცირე გავლენა აქვთ.</p>
+</div>
+</div>
+<div class="section" id="wi-fi-menuconfig">
+<h2>Wi-Fi მენიუს კონფიგურაცია<a class="headerlink" href="wifi.html#wi-fi-menuconfig" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wi-fi-buffer-configure">
+<h3>Wi-Fi ბუფერის კონფიგურაცია<a class="headerlink" href="wifi.html#wi-fi-buffer-configure" title="Permalink to this headline">¶</a></h3>
+<p>თუ ბუფერის ნაგულისხმევი რაოდენობის ან ტიპის შეცვლას აპირებთ, სასარგებლო იქნება, თუ ასევე გექნებათ მიმოხილვა, თუ როგორ ხდება ბუფერის გამოყოფა/გათავისუფლება მონაცემთა გზაზე. შემდეგი დიაგრამა აჩვენებს ამ პროცესს გადაცემის მიმართულებით:</p>
+<div class="figure align-center" id="id8">
+<div><img height="160" src="../_images/blockdiag-e3571a5849ad480390b8b5baa3b46b7969db33e5.png" width="590"/></div><p class="caption"><span class="caption-text">TX ბუფერის განაწილება</span><a class="headerlink" href="wifi.html#id8" title="Permalink to this image">¶</a></p>
+</div>
+<dl class="docutils">
+<dt>Description:</dt>
+<dd><ul class="first last simple">
+<li>აპლიკაცია ანაწილებს გასაგზავნ მონაცემებს.</li>
+<li>აპლიკაცია მომხმარებლის მონაცემების გასაგზავნად იძახებს TCPIP-/Socket-თან დაკავშირებულ API ებს. ეს API ები გამოყოფენ LwIP-ში გამოყენებულ PBUF-ს და შექმნიან მომხმარებლის მონაცემების ასლს.</li>
+<li>როდესაც LwIP იძახებს Wi-Fi API PBUF-ის გასაგზავნად, Wi-Fi API გამოყოფს „დინამიურ გადაცემის ბუფერს“ ან „სტატიკურ გადაცემის ბუფერს“, შექმნის LwIP PBUF-ის ასლს და ბოლოს გაგზავნის მონაცემებს.</li>
+</ul>
+</dd>
+</dl>
+<p>შემდეგი დიაგრამა გვიჩვენებს, თუ როგორ ხდება ბუფერის გამოყოფა/გათავისუფლება RX მიმართულებით:</p>
+<div class="figure align-center" id="id9">
+<div><img height="160" src="../_images/blockdiag-a8513103a51e57c6033b081c78419844da56d279.png" width="600"/></div><p class="caption"><span class="caption-text">RX ბუფერის განაწილება</span><a class="headerlink" href="wifi.html#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>აღწერა:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Wi-Fi აპარატურა ეთერში იღებს პაკეტს და პაკეტის შინაარსს ათავსებს „სტატიკურ Rx ბუფერში“, რომელსაც ასევე „RX DMA ბუფერს“ უწოდებენ.</li>
+<li>Wi-Fi დრაივერი გამოყოფს „დინამიურ Rx ბუფერს“, ქმნის „სტატიკური Rx ბუფერის“ ასლს და აბრუნებს „სტატიკურ Rx ბუფერს“ აპარატურაში.</li>
+<li>Wi-Fi დრაივერი პაკეტს ზედა ფენას (LwIP) აწვდის და გამოყოფს PBUF-ს „დინამიური Rx ბუფერის“ შესანახად.</li>
+<li>აპლიკაცია მონაცემებს LwIP-დან იღებს.</li>
+</ul>
+</div></blockquote>
+<p>დიაგრამაზე ნაჩვენებია Wi-Fi შიდა ბუფერის კონფიგურაცია.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%"/>
+<col width="13%"/>
+<col width="13%"/>
+<col width="15%"/>
+<col width="41%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ბუფერის ტიპი</th>
+<th class="head">განაწილების ტიპი</th>
+<th class="head">ნაგულისხმევი</th>
+<th class="head">კონფიგურირებადი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>სტატიკური RX ბუფერი (აპარატურის RX ბუფერი)</td>
+<td>სტატიკური</td>
+<td>10 * 1600 ბაიტი</td>
+<td>დიახ</td>
+<td><p class="first">ეს DMA მეხსიერების ერთგვარი სახეობაა. ის ინიციალიზებულია esp_wifi_init() ფუნქციაში და თავისუფლდება esp_wifi_deinit() ფუნქციაში. „სტატიკური Rx ბუფერი“ ქმნის აპარატურის მიმღებ სიას. ფრეიმის ეთერში მიღებისას, აპარატურა წერს ფრეიმს ბუფერში და იწვევს შეწყვეტას CPU-სთვის. შემდეგ, Wi-Fi დრაივერი კითხულობს ბუფერიდან შინაარსს და აბრუნებს ბუფერს სიაში.</p>
+<p class="last">თუ აპლიკაციას სურს Wi-Fi მიერ სტატიკურად გამოყოფილი მეხსიერების შემცირება, მას შეუძლია ეს მნიშვნელობა 10-დან 6-მდე შეამციროს 6400 ბაიტიანი მეხსიერების დაზოგვის მიზნით. კონფიგურაციის 6-ზე ნაკლებ მნიშვნელობამდე შემცირება არ არის რეკომენდებული, თუ AMPDU ფუნქცია გამორთულია.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>დინამიური RX ბუფერი</td>
+<td>დინამიური</td>
+<td>32</td>
+<td>დიახ</td>
+<td>ბუფერის სიგრძე ცვლადია და დამოკიდებულია მიღებული ფრეიმების სიგრძეზე. როდესაც Wi-Fi დრაივერი იღებს ფრეიმს „აპარატურის Rx ბუფერიდან“, საჭიროა „დინამიური Rx ბუფერის“ გამოყოფა გროვიდან. menuconfig ში კონფიგურირებული დინამიური Rx ბუფერის ნომერი გამოიყენება გაუთავისუფლებელი დინამიური Rx ბუფერების საერთო რაოდენობის შესაზღუდად.</td>
+</tr>
+<tr class="row-even"><td>დინამიური TX ბუფერი</td>
+<td>დინამიური</td>
+<td>32</td>
+<td>დიახ</td>
+<td><p class="first">ეს DMA მეხსიერების ერთგვარი სახეობაა. ის გამოყოფილია გროვაზე. როდესაც ზედა ფენა (LwIP) პაკეტებს აგზავნის Wi-Fi დრაივერთან, ის ჯერ გამოყოფს „დინამიურ TX ბუფერს“ და ქმნის ზედა ფენის ბუფერის ასლს.</p>
+<p class="last">დინამიური და სტატიკური TX ბუფერები ურთიერთგამომრიცხავია.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>სტატიკური TX ბუფერი</td>
+<td>სტატიკური</td>
+<td>16 * 1600 ბაიტი</td>
+<td>დიახ</td>
+<td><p class="first">ეს DMA მეხსიერების ერთგვარი სახეობაა. ის ინიციალიზებულია esp_wifi_init() ფუნქციაში და თავისუფლდება esp_wifi_deinit() ფუნქციაში. როდესაც ზედა ფენა (LwIP) პაკეტებს აგზავნის Wi-Fi დრაივერთან, ის ჯერ გამოყოფს „სტატიკურ TX ბუფერს“ და ქმნის ზედა ფენის ბუფერის ასლს.</p>
+<p>დინამიური და სტატიკური TX ბუფერები ურთიერთგამომრიცხავია.</p>
+<p class="last">რადგან TX ბუფერი უნდა იყოს DMA ბუფერი, ამიტომ როდესაც PSRAM ჩართულია, TX ბუფერი უნდა იყოს სტატიკური.</p>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt>Management Short</dt>
+<dd>Buffer</dd>
+</dl>
+</td>
+<td>დინამიური</td>
+<td>8</td>
+<td>არა</td>
+<td>Wi-Fi დრაივერის შიდა ბუფერი</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt>Management Long</dt>
+<dd>Buffer</dd>
+</dl>
+</td>
+<td>დინამიური</td>
+<td>32</td>
+<td>არა</td>
+<td>Wi-Fi დრაივერის შიდა ბუფერი</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt>Management Long</dt>
+<dd>Long Buffer</dd>
+</dl>
+</td>
+<td>დინამიური</td>
+<td>32</td>
+<td>არა</td>
+<td>Wi-Fi დრაივერის შიდა ბუფერი</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="wi-fi-nvs-flash">
+<h3>Wi-Fi NVS ფლეშ<a class="headerlink" href="wifi.html#wi-fi-nvs-flash" title="Permalink to this headline">¶</a></h3>
+<p>თუ Wi-Fi NVS ფლეშ მეხსიერება ჩართულია, Wi-Fi API ის მეშვეობით დაყენებული ყველა Wi-Fi კონფიგურაცია შეინახება ფლეშ მეხსიერება ში და Wi-Fi დრაივერი ამ კონფიგურაციებით ჩაირთვება შემდეგი ჩართვის/გადატვირთვისას. თუმცა, აპლიკაციას შეუძლია აირჩიოს Wi-Fi NVS ფლეშ მეხსიერება გამორთვა, თუ მას არ სჭირდება კონფიგურაციების მუდმივ მეხსიერებაში შენახვა, ან აქვს საკუთარი მუდმივი მეხსიერება, ან უბრალოდ გამართვა მუშაობის მიზეზების გამო და ა.შ.</p>
+</div>
+<div class="section" id="wi-fi-ampdu">
+<h3>Wi-Fi AMPDU<a class="headerlink" href="wifi.html#wi-fi-ampdu" title="Permalink to this headline">¶</a></h3>
+<p>ESP32 მხარს უჭერს AMPDU-ს მიღებას და გადაცემას, AMPDU-ს შეუძლია მნიშვნელოვნად გააუმჯობესოს Wi-Fi გამტარუნარიანობა.</p>
+<p>როგორც წესი, AMPDU ჩართული უნდა იყოს. AMPDU-ს გამორთვა, როგორც წესი, გამართვა გათიშვის მიზნებისთვის ხდება.</p>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>პრობლემების მოგვარება<a class="headerlink" href="wifi.html#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>გთხოვთ, იხილოთ ცალკე დოკუმენტი, რომელიც შეიცავს <a class="reference internal" href="wireshark-user-guide.html"><span class="doc">Espressif Wireshark-ის მომხმარებლის სახელმძღვანელო</span></a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="wireshark-user-guide.html" rel="next" title="Espressif Wireshark User Guide">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="unit-tests.html" rel="prev" title="Unit Testing in ESP32"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

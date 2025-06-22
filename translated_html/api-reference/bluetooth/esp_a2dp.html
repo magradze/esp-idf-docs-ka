@@ -1,0 +1,778 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bluetooth A2DP API — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_avrc.html" rel="next" title="BT AVRCP APIs"/>
+<link href="esp_gap_bt.html" rel="prev" title="CLASSIC BLUETOOTH GAP API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/bluetooth/esp_a2dp.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/bluetooth/esp_a2dp"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/bluetooth/esp_a2dp.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Bluetooth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller_vhci.html">Bluetooth კონტროლერი და VHCI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bt_common.html">Bluetooth საერთო</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bt_le.html">Bluetooth ტერმინალი</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="classic_bt.html">Bluetooth კლასიკური</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="esp_gap_bt.html">BT GAP</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="esp_a2dp.html#">BT A2DP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_avrc.html">BT AVRC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_spp.html">BT SPP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_hf_defs.html">BT HFP-ის განსაზღვრა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_hf_client.html">BT HFP კლიენტი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_hf_ag.html">BT HFP AG</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nimble/index.html">NimBLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp-ble-mesh.html">ESP-BLE-MESH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">Bluetooth API</a> »</li>
+<li><a href="classic_bt.html">კლასიკური BT</a> »</li>
+<li>Bluetooth A2DP API</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/bluetooth/esp_a2dp.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="bluetooth-a2dp-api">
+<h1>Bluetooth A2DP API<a class="headerlink" href="esp_a2dp.html#bluetooth-a2dp-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_a2dp.html#overview" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="../template.html">ინსტრუქციები</a></p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_a2dp.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>შემოწმება <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/bluedroid/classic_bt">ბლუთუზი/ბლუდროიდი/კლასიკური_ბტ</a> ESP-IDF examples-ში არსებული საქაღალდე, რომელიც შეიცავს შემდეგ აპლიკაციას:</p>
+<ul class="simple">
+<li>ეს არის A2DP სინქ კლიენტის დემო ვერსია. ამ დემოს აღმოჩენა და დაკავშირება შესაძლებელია A2DP წყაროს მოწყობილობით და აუდიო ნაკადის მიღება დისტანციური მოწყობილობიდან - <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/bluedroid/classic_bt/a2dp_sink">ბლუთუზი/ბლუედროიდი/კლასიკური_bt/a2dp_sink</a></li>
+</ul>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_a2dp.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_a2dp.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/host/bluedroid/api/include/api/esp_a2dp_api.h">bt/host/bluedroid/api/include/api/esp_a2dp_api.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_a2dp.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv425esp_a2d_register_callback12esp_a2d_cb_t">
+<span id="_CPPv325esp_a2d_register_callback12esp_a2d_cb_t"></span><span id="_CPPv225esp_a2d_register_callback12esp_a2d_cb_t"></span><span id="esp_a2d_register_callback__esp_a2d_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1a433d36306324508cb61cf5810533a5f2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_register_callback</code><span class="sig-paren">(</span><a class="reference internal" href="esp_a2dp.html#_CPPv412esp_a2d_cb_t" title="esp_a2d_cb_t">esp_a2d_cb_t</a> <em>უკუკავშირი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv425esp_a2d_register_callback12esp_a2d_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპლიკაციის უკუკავშირის ფუნქციის რეგისტრაცია A2DP მოდულში. ეს ფუნქცია უნდა გამოიძახოს მხოლოდ esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ, რომელიც გამოყენებული იქნება როგორც A2DP წყაროს, ასევე სინქორის მიერ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: თუ უკუკავშირი არის NULL ფუნქციის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">callback</span></code>A2DP მოვლენის უკუგამოძახების ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv435esp_a2d_sink_register_data_callback22esp_a2d_sink_data_cb_t">
+<span id="_CPPv335esp_a2d_sink_register_data_callback22esp_a2d_sink_data_cb_t"></span><span id="_CPPv235esp_a2d_sink_register_data_callback22esp_a2d_sink_data_cb_t"></span><span id="esp_a2d_sink_register_data_callback__esp_a2d_sink_data_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1a9ef9de3a35d9f73b74412806544e4650"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_sink_register_data_callback</code><span class="sig-paren">(</span><a class="reference internal" href="esp_a2dp.html#_CPPv422esp_a2d_sink_data_cb_t" title="esp_a2d_sink_data_cb_t">esp_a2d_sink_data_cb_t</a> <em>უკუკავშირი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv435esp_a2d_sink_register_data_callback22esp_a2d_sink_data_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეგისტრის A2DP სინქორის მონაცემთა გამომავალი ფუნქცია; ამ ეტაპზე გამომავალი არის SBC ფორმატიდან დეკოდირებული PCM მონაცემთა ნაკადი. ეს ფუნქცია უნდა გამოიძახოს მხოლოდ esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ, რომელსაც გამოიყენებს მხოლოდ A2DP სინქორი. უკუგამოძახება გამოიძახება A2DP სინქორის დავალების კონტექსტში, რომლის დასტის ზომა კონფიგურირებადია menuconfig მეშვეობით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: თუ უკუკავშირი არის NULL ფუნქციის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">callback</span></code>A2DP მონაცემთა უკუკავშირის ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_a2d_sink_initv">
+<span id="_CPPv317esp_a2d_sink_initv"></span><span id="_CPPv217esp_a2d_sink_initv"></span><span id="esp_a2d_sink_init__void"></span><span class="target" id="esp__a2dp__api_8h_1aff6ad34b206a52979a570590e6370c29"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_sink_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv417esp_a2d_sink_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth A2DP sink მოდულის ინიციალიზაცია. ეს ფუნქცია უნდა გამოიძახოს esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: თუ ინიციალიზაციის მოთხოვნა წარმატებით გაიგზავნა</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_a2d_sink_deinitv">
+<span id="_CPPv319esp_a2d_sink_deinitv"></span><span id="_CPPv219esp_a2d_sink_deinitv"></span><span id="esp_a2d_sink_deinit__void"></span><span class="target" id="esp__a2dp__api_8h_1a8fc6321c014bee0f550335061edea2bf"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_sink_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv419esp_a2d_sink_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP sink მოდულის დეინიციალიზაცია. ეს ფუნქცია უნდა გამოიძახოს მხოლოდ esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_a2d_sink_connect13esp_bd_addr_t">
+<span id="_CPPv320esp_a2d_sink_connect13esp_bd_addr_t"></span><span id="_CPPv220esp_a2d_sink_connect13esp_bd_addr_t"></span><span id="esp_a2d_sink_connect__esp_bd_addr_t"></span><span class="target" id="esp__a2dp__api_8h_1a2c28511e503d9ec4b2b64625fecb266d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_sink_connect</code><span class="sig-paren">(</span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <em>remote_bda</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv420esp_a2d_sink_connect13esp_bd_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაკავშირება დისტანციურ Bluetooth A2DP წყაროს მოწყობილობასთან, აუცილებელია esp_a2d_sink_init()-ის შემდეგ </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დაკავშირების მოთხოვნა იგზავნება ქვედა ფენაში</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">remote_bda</span></code>დისტანციური Bluetooth მოწყობილობის მისამართი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_a2d_sink_disconnect13esp_bd_addr_t">
+<span id="_CPPv323esp_a2d_sink_disconnect13esp_bd_addr_t"></span><span id="_CPPv223esp_a2d_sink_disconnect13esp_bd_addr_t"></span><span id="esp_a2d_sink_disconnect__esp_bd_addr_t"></span><span class="target" id="esp__a2dp__api_8h_1a69e76af6a45ccd1818eadd931da48281"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_sink_disconnect</code><span class="sig-paren">(</span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <em>remote_bda</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv423esp_a2d_sink_disconnect13esp_bd_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გათიშეთ კავშირი დისტანციური A2DP წყაროს მოწყობილობიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გათიშვის მოთხოვნა იგზავნება ქვედა ფენაში</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">remote_bda</span></code>დისტანციური Bluetooth მოწყობილობის მისამართი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_a2d_media_ctrl20esp_a2d_media_ctrl_t">
+<span id="_CPPv318esp_a2d_media_ctrl20esp_a2d_media_ctrl_t"></span><span id="_CPPv218esp_a2d_media_ctrl20esp_a2d_media_ctrl_t"></span><span id="esp_a2d_media_ctrl__esp_a2d_media_ctrl_t"></span><span class="target" id="esp__a2dp__api_8h_1a1660c441074384f06e5f25754ac5602c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_media_ctrl</code><span class="sig-paren">(</span><a class="reference internal" href="esp_a2dp.html#_CPPv420esp_a2d_media_ctrl_t" title="esp_a2d_media_ctrl_t">esp_a2d_media_ctrl_t</a> <em>ctrl</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv418esp_a2d_media_ctrl20esp_a2d_media_ctrl_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის მართვის ბრძანებები; ეს API შეიძლება გამოყენებულ იქნას როგორც A2DP წყაროსთვის, ასევე წყაროსთვის </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: საკონტროლო ბრძანება იგზავნება ქვედა ფენაზე</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ctrl</span></code>: A2DP მონაცემთა არხისთვის მართვის ბრძანებები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_a2d_source_initv">
+<span id="_CPPv319esp_a2d_source_initv"></span><span id="_CPPv219esp_a2d_source_initv"></span><span id="esp_a2d_source_init__void"></span><span class="target" id="esp__a2dp__api_8h_1a880fbff3a21818fb0c6a81fe978e0c16"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_source_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv419esp_a2d_source_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth A2DP წყაროს მოდულის ინიციალიზაცია. ეს ფუნქცია უნდა გამოიძახოს esp_bluedroid_enable() ოპერაციის წარმატებით დასრულების შემდეგ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: თუ ინიციალიზაციის მოთხოვნა წარმატებით გაიგზავნა</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_a2d_source_deinitv">
+<span id="_CPPv321esp_a2d_source_deinitv"></span><span id="_CPPv221esp_a2d_source_deinitv"></span><span id="esp_a2d_source_deinit__void"></span><span class="target" id="esp__a2dp__api_8h_1a466779f0ce6f349c4098176a1adf1700"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_source_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv421esp_a2d_source_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP წყაროს მოდულის დეინიციალიზაცია. ეს ფუნქცია უნდა გამოიძახოს მხოლოდ esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv437esp_a2d_source_register_data_callback24esp_a2d_source_data_cb_t">
+<span id="_CPPv337esp_a2d_source_register_data_callback24esp_a2d_source_data_cb_t"></span><span id="_CPPv237esp_a2d_source_register_data_callback24esp_a2d_source_data_cb_t"></span><span id="esp_a2d_source_register_data_callback__esp_a2d_source_data_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1ab9d6c7f3628d381658244f28d3195d2e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_source_register_data_callback</code><span class="sig-paren">(</span><a class="reference internal" href="esp_a2dp.html#_CPPv424esp_a2d_source_data_cb_t" title="esp_a2d_source_data_cb_t">esp_a2d_source_data_cb_t</a> <em>უკუკავშირი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv437esp_a2d_source_register_data_callback24esp_a2d_source_data_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეგისტრის A2DP წყაროს მონაცემთა შეყვანის ფუნქცია; ამ ეტაპზე შეყვანა არის PCM მონაცემთა ნაკადი. ეს ფუნქცია უნდა გამოიძახონ მხოლოდ esp_bluedroid_enable() ფუნქციის წარმატებით დასრულების შემდეგ. უკუგამოძახება გამოიძახება A2DP წყაროს დავალების კონტექსტში, რომლის დასტის ზომა კონფიგურირებადია menuconfig მეშვეობით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: თუ უკუკავშირი არის NULL ფუნქციის მაჩვენებელი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">callback</span></code>A2DP წყაროს მონაცემების უკუკავშირის ფუნქცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_a2d_source_connect13esp_bd_addr_t">
+<span id="_CPPv322esp_a2d_source_connect13esp_bd_addr_t"></span><span id="_CPPv222esp_a2d_source_connect13esp_bd_addr_t"></span><span id="esp_a2d_source_connect__esp_bd_addr_t"></span><span class="target" id="esp__a2dp__api_8h_1a2dcb955ad477f337a704f17fdcbfac54"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_source_connect</code><span class="sig-paren">(</span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <em>remote_bda</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv422esp_a2d_source_connect13esp_bd_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაკავშირება დისტანციურ A2DP ჩამკეტ მოწყობილობასთან, აუცილებელია esp_a2d_source_init()-ის შემდეგ </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დაკავშირების მოთხოვნა იგზავნება ქვედა ფენაში</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">remote_bda</span></code>დისტანციური Bluetooth მოწყობილობის მისამართი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_a2d_source_disconnect13esp_bd_addr_t">
+<span id="_CPPv325esp_a2d_source_disconnect13esp_bd_addr_t"></span><span id="_CPPv225esp_a2d_source_disconnect13esp_bd_addr_t"></span><span id="esp_a2d_source_disconnect__esp_bd_addr_t"></span><span class="target" id="esp__a2dp__api_8h_1aa6e6089320623cfa49a7650fa2714144"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_a2d_source_disconnect</code><span class="sig-paren">(</span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <em>remote_bda</em><span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv425esp_a2d_source_disconnect13esp_bd_addr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გათიშეთ კავშირი დისტანციური A2DP ჩამრთველი მოწყობილობიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გათიშვის მოთხოვნა იგზავნება ქვედა ფენაში</li>
+<li>ESP_INVALID_STATE: თუ Bluetooth სტეკი ჯერ არ არის ჩართული</li>
+<li>ESP_FAIL: სხვები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">remote_bda</span></code>დისტანციური Bluetooth მოწყობილობის მისამართი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="unions">
+<h3>პროფკავშირები<a class="headerlink" href="esp_a2dp.html#unions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv418esp_a2d_cb_param_t">
+<span id="_CPPv318esp_a2d_cb_param_t"></span><span id="_CPPv218esp_a2d_cb_param_t"></span><span id="esp_a2d_cb_param_t"></span><span class="target" id="unionesp__a2d__cb__param__t"></span><em class="property">კავშირი </em><code class="descname">esp_a2d_cb_param_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><em>#ჩართვა&lt;esp_a2dp_api.h&gt;</em><p>A2DP მდგომარეობის უკუკავშირის პარამეტრები. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t9conn_statE">
+<span id="_CPPv3N18esp_a2d_cb_param_t9conn_statE"></span><span id="_CPPv2N18esp_a2d_cb_param_t9conn_statE"></span><span id="esp_a2d_cb_param_t::conn_stat__esp_a2d_cb_param_t::a2d_conn_stat_param"></span><span class="target" id="unionesp__a2d__cb__param__t_1a74bb814daf3d41226a623fcd36f25fc0"></span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t">esp_a2d_cb_param_t</a>::<a class="reference internal" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_paramE" title="esp_a2d_cb_param_t::a2d_conn_stat_param">a2d_conn_stat_param</a> <code class="descname">conn_stat</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t9conn_statE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP კავშირის სტატუსი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t10audio_statE">
+<span id="_CPPv3N18esp_a2d_cb_param_t10audio_statE"></span><span id="_CPPv2N18esp_a2d_cb_param_t10audio_statE"></span><span id="esp_a2d_cb_param_t::audio_stat__esp_a2d_cb_param_t::a2d_audio_stat_param"></span><span class="target" id="unionesp__a2d__cb__param__t_1a3f6c461e8a6dd5096760291d8396e981"></span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t">esp_a2d_cb_param_t</a>::<a class="reference internal" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_paramE" title="esp_a2d_cb_param_t::a2d_audio_stat_param">a2d_audio_stat_param</a> <code class="descname">audio_stat</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t10audio_statE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო ნაკადის დაკვრის მდგომარეობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t9audio_cfgE">
+<span id="_CPPv3N18esp_a2d_cb_param_t9audio_cfgE"></span><span id="_CPPv2N18esp_a2d_cb_param_t9audio_cfgE"></span><span id="esp_a2d_cb_param_t::audio_cfg__esp_a2d_cb_param_t::a2d_audio_cfg_param"></span><span class="target" id="unionesp__a2d__cb__param__t_1afc789455f647b43338e0901307e84fcc"></span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t">esp_a2d_cb_param_t</a>::<a class="reference internal" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_paramE" title="esp_a2d_cb_param_t::a2d_audio_cfg_param">a2d_audio_cfg_param</a> <code class="descname">audio_cfg</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t9audio_cfgE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედია კოდეკის კონფიგურაციის ინფორმაცია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t15media_ctrl_statE">
+<span id="_CPPv3N18esp_a2d_cb_param_t15media_ctrl_statE"></span><span id="_CPPv2N18esp_a2d_cb_param_t15media_ctrl_statE"></span><span id="esp_a2d_cb_param_t::media_ctrl_stat__esp_a2d_cb_param_t::media_ctrl_stat_param"></span><span class="target" id="unionesp__a2d__cb__param__t_1a153e7729b9c788ff76da5cb4b715ddcd"></span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t">esp_a2d_cb_param_t</a>::<a class="reference internal" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_paramE" title="esp_a2d_cb_param_t::media_ctrl_stat_param">media_ctrl_stat_param</a> <code class="descname">media_ctrl_stat</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t15media_ctrl_statE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სტატუსი მედიის კონტროლის ბრძანებების დადასტურებაში </p>
+</dd></dl>
+</div>
+<dl class="class">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_paramE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_audio_cfg_paramE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_audio_cfg_paramE"></span><span id="esp_a2d_cb_param_t::a2d_audio_cfg_param"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__cfg__param"></span><em class="property">სტრუქტურა </em><code class="descname">a2d_audio_cfg_param</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_paramE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><em>#ჩართვა&lt;esp_a2dp_api.h&gt;</em><p>ESP_A2D_AUDIO_CFG_EVT. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_param10remote_bdaE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_audio_cfg_param10remote_bdaE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_audio_cfg_param10remote_bdaE"></span><span id="esp_a2d_cb_param_t::a2d_audio_cfg_param::remote_bda__esp_bd_addr_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__cfg__param_1ae8eec1abca95b1220e1a8e1e1c09e188"></span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <code class="descname">remote_bda</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_param10remote_bdaE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დისტანციური Bluetooth მოწყობილობის მისამართი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_param3mccE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_audio_cfg_param3mccE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_audio_cfg_param3mccE"></span><span id="esp_a2d_cb_param_t::a2d_audio_cfg_param::mcc__esp_a2d_mcc_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__cfg__param_1a4c5fabe6534c9df8fda99a5ad7f6ef5a"></span><a class="reference internal" href="esp_a2dp.html#_CPPv413esp_a2d_mcc_t" title="esp_a2d_mcc_t">esp_a2d_mcc_t</a> <code class="descname">mcc</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_audio_cfg_param3mccE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP მედია კოდეკის შესაძლებლობების შესახებ ინფორმაცია </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_paramE">
+<span id="_CPPv3N18esp_a2d_cb_param_t20a2d_audio_stat_paramE"></span><span id="_CPPv2N18esp_a2d_cb_param_t20a2d_audio_stat_paramE"></span><span id="esp_a2d_cb_param_t::a2d_audio_stat_param"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__stat__param"></span><em class="property">სტრუქტურა </em><code class="descname">a2d_audio_stat_param</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_paramE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><em>#ჩართვა&lt;esp_a2dp_api.h&gt;</em><p>ESP_A2D_AUDIO_STATE_EVT. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_param5stateE">
+<span id="_CPPv3N18esp_a2d_cb_param_t20a2d_audio_stat_param5stateE"></span><span id="_CPPv2N18esp_a2d_cb_param_t20a2d_audio_stat_param5stateE"></span><span id="esp_a2d_cb_param_t::a2d_audio_stat_param::state__esp_a2d_audio_state_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__stat__param_1a6ca497815ad9256114ee3d8613d2f47b"></span><a class="reference internal" href="esp_a2dp.html#_CPPv421esp_a2d_audio_state_t" title="esp_a2d_audio_state_t">esp_a2d_audio_state_t</a> <code class="descname">state</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_param5stateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_a2d_audio_state_t-დან ერთ-ერთი მნიშვნელობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_param10remote_bdaE">
+<span id="_CPPv3N18esp_a2d_cb_param_t20a2d_audio_stat_param10remote_bdaE"></span><span id="_CPPv2N18esp_a2d_cb_param_t20a2d_audio_stat_param10remote_bdaE"></span><span id="esp_a2d_cb_param_t::a2d_audio_stat_param::remote_bda__esp_bd_addr_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__audio__stat__param_1ac55eb066f6b5ba292b32e6122e87c8bf"></span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <code class="descname">remote_bda</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t20a2d_audio_stat_param10remote_bdaE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დისტანციური Bluetooth მოწყობილობის მისამართი </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_paramE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_conn_stat_paramE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_conn_stat_paramE"></span><span id="esp_a2d_cb_param_t::a2d_conn_stat_param"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__conn__stat__param"></span><em class="property">სტრუქტურა </em><code class="descname">a2d_conn_stat_param</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_paramE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><em>#ჩართვა&lt;esp_a2dp_api.h&gt;</em><p>ESP_A2D_CONNECTION_STATE_EVT. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param5stateE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_conn_stat_param5stateE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_conn_stat_param5stateE"></span><span id="esp_a2d_cb_param_t::a2d_conn_stat_param::state__esp_a2d_connection_state_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__conn__stat__param_1a00b57bca2be6c127585d48a84963b061"></span><a class="reference internal" href="esp_a2dp.html#_CPPv426esp_a2d_connection_state_t" title="esp_a2d_connection_state_t">esp_a2d_connection_state_t</a> <code class="descname">state</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param5stateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_a2d_connection_state_t-დან ერთ-ერთი მნიშვნელობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param10remote_bdaE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_conn_stat_param10remote_bdaE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_conn_stat_param10remote_bdaE"></span><span id="esp_a2d_cb_param_t::a2d_conn_stat_param::remote_bda__esp_bd_addr_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__conn__stat__param_1a3e9f09f15b1639a572ea95786fab430e"></span><a class="reference internal" href="esp_bt_defs.html#_CPPv413esp_bd_addr_t" title="esp_bd_addr_t">esp_bd_addr_t</a> <code class="descname">remote_bda</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param10remote_bdaE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დისტანციური Bluetooth მოწყობილობის მისამართი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param8disc_rsnE">
+<span id="_CPPv3N18esp_a2d_cb_param_t19a2d_conn_stat_param8disc_rsnE"></span><span id="_CPPv2N18esp_a2d_cb_param_t19a2d_conn_stat_param8disc_rsnE"></span><span id="esp_a2d_cb_param_t::a2d_conn_stat_param::disc_rsn__esp_a2d_disc_rsn_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1a2d__conn__stat__param_1a9af7bb2a3e3b78a88da693b9c9644f0d"></span><a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_disc_rsn_t" title="esp_a2d_disc_rsn_t">esp_a2d_disc_rsn_t</a> <code class="descname">disc_rsn</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t19a2d_conn_stat_param8disc_rsnE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გათიშვის მიზეზი „გათიშულია“-სთვის </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_paramE">
+<span id="_CPPv3N18esp_a2d_cb_param_t21media_ctrl_stat_paramE"></span><span id="_CPPv2N18esp_a2d_cb_param_t21media_ctrl_stat_paramE"></span><span id="esp_a2d_cb_param_t::media_ctrl_stat_param"></span><span class="target" id="structesp__a2d__cb__param__t_1_1media__ctrl__stat__param"></span><em class="property">სტრუქტურა </em><code class="descname">media_ctrl_stat_param</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_paramE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><em>#ჩართვა&lt;esp_a2dp_api.h&gt;</em><p>ESP_A2D_MEDIA_CTRL_ACK_EVT. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_param3cmdE">
+<span id="_CPPv3N18esp_a2d_cb_param_t21media_ctrl_stat_param3cmdE"></span><span id="_CPPv2N18esp_a2d_cb_param_t21media_ctrl_stat_param3cmdE"></span><span id="esp_a2d_cb_param_t::media_ctrl_stat_param::cmd__esp_a2d_media_ctrl_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1media__ctrl__stat__param_1addb1eadba7deb0977b5c23791c667fc2"></span><a class="reference internal" href="esp_a2dp.html#_CPPv420esp_a2d_media_ctrl_t" title="esp_a2d_media_ctrl_t">esp_a2d_media_ctrl_t</a> <code class="descname">cmd</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_param3cmdE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის კონტროლის ბრძანებები დასადასტურებლად </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_param6statusE">
+<span id="_CPPv3N18esp_a2d_cb_param_t21media_ctrl_stat_param6statusE"></span><span id="_CPPv2N18esp_a2d_cb_param_t21media_ctrl_stat_param6statusE"></span><span id="esp_a2d_cb_param_t::media_ctrl_stat_param::status__esp_a2d_media_ctrl_ack_t"></span><span class="target" id="structesp__a2d__cb__param__t_1_1media__ctrl__stat__param_1ab7b58da3375549174989191f1d41d2c6"></span><a class="reference internal" href="esp_a2dp.html#_CPPv424esp_a2d_media_ctrl_ack_t" title="esp_a2d_media_ctrl_ack_t">esp_a2d_media_ctrl_ack_t</a> <code class="descname">status</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N18esp_a2d_cb_param_t21media_ctrl_stat_param6statusE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის კონტროლის ბრძანებების დადასტურება </p>
+</dd></dl>
+</div>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_a2dp.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv413esp_a2d_mcc_t">
+<span id="_CPPv313esp_a2d_mcc_t"></span><span id="_CPPv213esp_a2d_mcc_t"></span><span id="esp_a2d_mcc_t"></span><span class="target" id="structesp__a2d__mcc__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_a2d_mcc_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv413esp_a2d_mcc_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP მედია კოდეკის შესაძლებლობების გაერთიანება. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N13esp_a2d_mcc_t4typeE">
+<span id="_CPPv3N13esp_a2d_mcc_t4typeE"></span><span id="_CPPv2N13esp_a2d_mcc_t4typeE"></span><span id="esp_a2d_mcc_t::type__esp_a2d_mct_t"></span><span class="target" id="structesp__a2d__mcc__t_1a1bf8de2a6cfbf3ead25ff61ca2c77fd9"></span><a class="reference internal" href="esp_a2dp.html#_CPPv413esp_a2d_mct_t" title="esp_a2d_mct_t">esp_a2d_mct_t</a> <code class="descname">type</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N13esp_a2d_mcc_t4typeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP მედია კოდეკის ტიპი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13esp_a2d_mcc_t3cieE">
+<span id="_CPPv3N13esp_a2d_mcc_t3cieE"></span><span id="_CPPv2N13esp_a2d_mcc_t3cieE"></span><span class="target" id="structesp__a2d__mcc__t_1a02ce3d92b0d41961cce0cb395e8b7322"></span><em class="property">კავშირი</em> <a class="reference internal" href="esp_a2dp.html#_CPPv413esp_a2d_mcc_t" title="esp_a2d_mcc_t">esp_a2d_mcc_t</a>::<strong>[ანონიმური]</strong> <code class="descname">cie</code><a class="headerlink" href="esp_a2dp.html#_CPPv4N13esp_a2d_mcc_t3cieE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP კოდეკის საინფორმაციო ელემენტი </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_a2dp.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_A2D_MCT_SBC">
+<span class="target" id="esp__a2dp__api_8h_1aa6fb11ab7f1c560208d96c995366255c"></span><code class="descname">ESP_A2D_MCT_SBC</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_MCT_SBC" title="Permalink to this definition">¶</a></dt>
+<dd><p>A2DP-ის მიერ მხარდაჭერილი მედია კოდეკის ტიპები. </p>
+<p>SBC </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_MCT_M12">
+<span class="target" id="esp__a2dp__api_8h_1a4cd00ad917f241267e39ae8adf4eca95"></span><code class="descname">ESP_A2D_MCT_M12</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_MCT_M12" title="Permalink to this definition">¶</a></dt>
+<dd><p>MPEG-1, 2 აუდიო </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_MCT_M24">
+<span class="target" id="esp__a2dp__api_8h_1acb253e1e4810cd67f865c3956f6037b5"></span><code class="descname">ESP_A2D_MCT_M24</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_MCT_M24" title="Permalink to this definition">¶</a></dt>
+<dd><p>MPEG-2, 4 AAC </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_MCT_ATRAC">
+<span class="target" id="esp__a2dp__api_8h_1a52ae87154611e3f2b2a32f1dd2787cdf"></span><code class="descname">ESP_A2D_MCT_ATRAC</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_MCT_ATRAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>ATRAC-ის ოჯახი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_MCT_NON_A2DP">
+<span class="target" id="esp__a2dp__api_8h_1a26a7e7849d73aadd9e9a0566dd0ca9c6"></span><code class="descname">ESP_A2D_MCT_NON_A2DP</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_MCT_NON_A2DP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_CIE_LEN_SBC">
+<span class="target" id="esp__a2dp__api_8h_1a1e5e1bbaba8902f01ce8c4bd118e303f"></span><code class="descname">ESP_A2D_CIE_LEN_SBC</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_CIE_LEN_SBC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_CIE_LEN_M12">
+<span class="target" id="esp__a2dp__api_8h_1a42a5829f0612bada52f5864d9e05d366"></span><code class="descname">ESP_A2D_CIE_LEN_M12</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_CIE_LEN_M12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_CIE_LEN_M24">
+<span class="target" id="esp__a2dp__api_8h_1a0587a55c9b1c78578b062fe51d36343f"></span><code class="descname">ESP_A2D_CIE_LEN_M24</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_CIE_LEN_M24" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_A2D_CIE_LEN_ATRAC">
+<span class="target" id="esp__a2dp__api_8h_1a526e37f3b5a141e0108fa26188b92f19"></span><code class="descname">ESP_A2D_CIE_LEN_ATRAC</code><a class="headerlink" href="esp_a2dp.html#c.ESP_A2D_CIE_LEN_ATRAC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_a2dp.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv413esp_a2d_mct_t">
+<span id="_CPPv313esp_a2d_mct_t"></span><span id="_CPPv213esp_a2d_mct_t"></span><span id="esp_a2d_mct_t"></span><span class="target" id="esp__a2dp__api_8h_1a1260f7f033be5b4904763c76e2920e74"></span><em class="property">typedef </em>uint8_t <code class="descname">esp_a2d_mct_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv413esp_a2d_mct_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv412esp_a2d_cb_t">
+<span id="_CPPv312esp_a2d_cb_t"></span><span id="_CPPv212esp_a2d_cb_t"></span><span id="esp_a2d_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1ad78d206152f366526ef8d6a36012defd"></span><em class="property">typedef </em>void (*<code class="descname">esp_a2d_cb_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_event_t" title="esp_a2d_cb_event_t">esp_a2d_cb_event_t</a> event, <a class="reference internal" href="esp_a2dp.html#_CPPv418esp_a2d_cb_param_t" title="esp_a2d_cb_param_t">esp_a2d_cb_param_t</a> *param<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv412esp_a2d_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP პროფილის უკუგამოძახების ფუნქციის ტიპი. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">event</span></code>: : მოვლენის ტიპი</li>
+<li><code class="docutils literal notranslate"><span class="pre">param</span></code>: : უკუკავშირის პარამეტრის მაჩვენებელი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv422esp_a2d_sink_data_cb_t">
+<span id="_CPPv322esp_a2d_sink_data_cb_t"></span><span id="_CPPv222esp_a2d_sink_data_cb_t"></span><span id="esp_a2d_sink_data_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1a5a6b9aaf84837d40adfda49ebe86d695"></span><em class="property">typedef </em>void (*<code class="descname">esp_a2d_sink_data_cb_t</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> uint8_t *buf, uint32_t len<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv422esp_a2d_sink_data_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP პროფილის მონაცემების უკუგამოძახების ფუნქცია. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: : მონაცემები მიღებულია A2DP წყაროს მოწყობილობიდან და წარმოადგენს PCM ფორმატის დეკოდერს SBC დეკოდერიდან; bu მიუთითებს სტატიკური მეხსიერების ბლოკზე და შეიძლება გადაიწეროს მომავალი მონაცემებით. </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: : ზომა (ბაიტებში) ბუფში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv424esp_a2d_source_data_cb_t">
+<span id="_CPPv324esp_a2d_source_data_cb_t"></span><span id="_CPPv224esp_a2d_source_data_cb_t"></span><span id="esp_a2d_source_data_cb_t"></span><span class="target" id="esp__a2dp__api_8h_1a9775d9552e64882bd7dc1967221df1ba"></span><em class="property">typedef </em>int32_t (*<code class="descname">esp_a2d_source_data_cb_t</code>)<span class="sig-paren">(</span>uint8_t *buf, int32_t len<span class="sig-paren">)</span><a class="headerlink" href="esp_a2dp.html#_CPPv424esp_a2d_source_data_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP წყაროს მონაცემების წაკითხვის უკუგამოძახების ფუნქცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>size of bytes read successfully, if the argument len is -1, this value is ignored. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">buf</span></code>: : ბუფერი, რომელიც უნდა შეივსოს PCM მონაცემთა ნაკადით უმაღლესი ფენიდან</li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: : ბუფერში კოპირებული მონაცემთა ბლოკის ზომა (ბაიტებში). -1 მომხმარებლისთვის მიუთითებს, რომ მონაცემთა ბუფერი უნდა გაიწმინდოს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="esp_a2dp.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv426esp_a2d_connection_state_t">
+<span id="_CPPv326esp_a2d_connection_state_t"></span><span id="_CPPv226esp_a2d_connection_state_t"></span><span id="esp_a2d_connection_state_t"></span><span class="target" id="esp__a2dp__api_8h_1a52caa2d1e1c9d880c9651d52ff78a590"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_connection_state_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv426esp_a2d_connection_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth A2DP კავშირის მდგომარეობები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv437ESP_A2D_CONNECTION_STATE_DISCONNECTED">
+<span id="_CPPv337ESP_A2D_CONNECTION_STATE_DISCONNECTED"></span><span id="_CPPv237ESP_A2D_CONNECTION_STATE_DISCONNECTED"></span><span class="target" id="esp__a2dp__api_8h_1a52caa2d1e1c9d880c9651d52ff78a590ab87fa9d0f4c2fa39a931532f0e02e410"></span><code class="descname">ESP_A2D_CONNECTION_STATE_DISCONNECTED</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv437ESP_A2D_CONNECTION_STATE_DISCONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირი გაითიშა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv435ESP_A2D_CONNECTION_STATE_CONNECTING">
+<span id="_CPPv335ESP_A2D_CONNECTION_STATE_CONNECTING"></span><span id="_CPPv235ESP_A2D_CONNECTION_STATE_CONNECTING"></span><span class="target" id="esp__a2dp__api_8h_1a52caa2d1e1c9d880c9651d52ff78a590a3661beedfd8bd0804def35a94a948543"></span><code class="descname">ESP_A2D_CONNECTION_STATE_CONNECTING</code><a class="headerlink" href="esp_a2dp.html#_CPPv435ESP_A2D_CONNECTION_STATE_CONNECTING" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დისტანციური მოწყობილობის დაკავშირება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv434ESP_A2D_CONNECTION_STATE_CONNECTED">
+<span id="_CPPv334ESP_A2D_CONNECTION_STATE_CONNECTED"></span><span id="_CPPv234ESP_A2D_CONNECTION_STATE_CONNECTED"></span><span class="target" id="esp__a2dp__api_8h_1a52caa2d1e1c9d880c9651d52ff78a590a0248c5f6ba7c85f2044a9a2c79bc57d4"></span><code class="descname">ESP_A2D_CONNECTION_STATE_CONNECTED</code><a class="headerlink" href="esp_a2dp.html#_CPPv434ESP_A2D_CONNECTION_STATE_CONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირი დამყარდა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv438ESP_A2D_CONNECTION_STATE_DISCONNECTING">
+<span id="_CPPv338ESP_A2D_CONNECTION_STATE_DISCONNECTING"></span><span id="_CPPv238ESP_A2D_CONNECTION_STATE_DISCONNECTING"></span><span class="target" id="esp__a2dp__api_8h_1a52caa2d1e1c9d880c9651d52ff78a590aca30f95d06a691676a9d85a0998ea1e0"></span><code class="descname">ESP_A2D_CONNECTION_STATE_DISCONNECTING</code><a class="headerlink" href="esp_a2dp.html#_CPPv438ESP_A2D_CONNECTION_STATE_DISCONNECTING" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დისტანციური მოწყობილობის გათიშვა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418esp_a2d_disc_rsn_t">
+<span id="_CPPv318esp_a2d_disc_rsn_t"></span><span id="_CPPv218esp_a2d_disc_rsn_t"></span><span id="esp_a2d_disc_rsn_t"></span><span class="target" id="esp__a2dp__api_8h_1a89f49d5839b62c24f71654c3ef2b338a"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_disc_rsn_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv418esp_a2d_disc_rsn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth A2DP-ის გათიშვის მიზეზი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_A2D_DISC_RSN_NORMAL">
+<span id="_CPPv323ESP_A2D_DISC_RSN_NORMAL"></span><span id="_CPPv223ESP_A2D_DISC_RSN_NORMAL"></span><span class="target" id="esp__a2dp__api_8h_1a89f49d5839b62c24f71654c3ef2b338aa0446a341bb6ce134f52f129bd1da479f"></span><code class="descname">ESP_A2D_DISC_RSN_NORMAL</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv423ESP_A2D_DISC_RSN_NORMAL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დასრულებული გათიშვა, რომელიც ინიცირებულია ადგილობრივი ან დისტანციური მოწყობილობით </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv425ESP_A2D_DISC_RSN_ABNORMAL">
+<span id="_CPPv325ESP_A2D_DISC_RSN_ABNORMAL"></span><span id="_CPPv225ESP_A2D_DISC_RSN_ABNORMAL"></span><span class="target" id="esp__a2dp__api_8h_1a89f49d5839b62c24f71654c3ef2b338aa90290719c26bfa9241ed4e7da8e7999b"></span><code class="descname">ESP_A2D_DISC_RSN_ABNORMAL</code><a class="headerlink" href="esp_a2dp.html#_CPPv425ESP_A2D_DISC_RSN_ABNORMAL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიგნალის დაკარგვით გამოწვეული არანორმალური გათიშვა </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421esp_a2d_audio_state_t">
+<span id="_CPPv321esp_a2d_audio_state_t"></span><span id="_CPPv221esp_a2d_audio_state_t"></span><span id="esp_a2d_audio_state_t"></span><span class="target" id="esp__a2dp__api_8h_1a49adfa87b1ad7420b0075a0ac03cc194"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_audio_state_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv421esp_a2d_audio_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Bluetooth A2DP მონაცემთა გზის მდგომარეობები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv434ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND">
+<span id="_CPPv334ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND"></span><span id="_CPPv234ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND"></span><span class="target" id="esp__a2dp__api_8h_1a49adfa87b1ad7420b0075a0ac03cc194a2144df52646c47f697ec1f0e4b59686f"></span><code class="descname">ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv434ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო ნაკადის მონაცემთა გზა შეჩერებულია დისტანციური მოწყობილობით </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv427ESP_A2D_AUDIO_STATE_STOPPED">
+<span id="_CPPv327ESP_A2D_AUDIO_STATE_STOPPED"></span><span id="_CPPv227ESP_A2D_AUDIO_STATE_STOPPED"></span><span class="target" id="esp__a2dp__api_8h_1a49adfa87b1ad7420b0075a0ac03cc194a2cac45c7b95065ed02420c5a632ab538"></span><code class="descname">ESP_A2D_AUDIO_STATE_STOPPED</code><a class="headerlink" href="esp_a2dp.html#_CPPv427ESP_A2D_AUDIO_STATE_STOPPED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო ნაკადის მონაცემთა გზა შეჩერდა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv427ESP_A2D_AUDIO_STATE_STARTED">
+<span id="_CPPv327ESP_A2D_AUDIO_STATE_STARTED"></span><span id="_CPPv227ESP_A2D_AUDIO_STATE_STARTED"></span><span class="target" id="esp__a2dp__api_8h_1a49adfa87b1ad7420b0075a0ac03cc194a1fb2443ca89d24271931c19e1554b088"></span><code class="descname">ESP_A2D_AUDIO_STATE_STARTED</code><a class="headerlink" href="esp_a2dp.html#_CPPv427ESP_A2D_AUDIO_STATE_STARTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო ნაკადის მონაცემთა გზა დაიწყო </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv424esp_a2d_media_ctrl_ack_t">
+<span id="_CPPv324esp_a2d_media_ctrl_ack_t"></span><span id="_CPPv224esp_a2d_media_ctrl_ack_t"></span><span id="esp_a2d_media_ctrl_ack_t"></span><span class="target" id="esp__a2dp__api_8h_1a961b3bf8b9c09211b9213d18d5681ef1"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_media_ctrl_ack_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv424esp_a2d_media_ctrl_ack_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP მედია კონტროლის ბრძანების დადასტურების კოდი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv430ESP_A2D_MEDIA_CTRL_ACK_SUCCESS">
+<span id="_CPPv330ESP_A2D_MEDIA_CTRL_ACK_SUCCESS"></span><span id="_CPPv230ESP_A2D_MEDIA_CTRL_ACK_SUCCESS"></span><span class="target" id="esp__a2dp__api_8h_1a961b3bf8b9c09211b9213d18d5681ef1ac1e63d21b149baad90876060c8a1e156"></span><code class="descname">ESP_A2D_MEDIA_CTRL_ACK_SUCCESS</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv430ESP_A2D_MEDIA_CTRL_ACK_SUCCESS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის კონტროლის ბრძანება წარმატებით დადასტურდა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv430ESP_A2D_MEDIA_CTRL_ACK_FAILURE">
+<span id="_CPPv330ESP_A2D_MEDIA_CTRL_ACK_FAILURE"></span><span id="_CPPv230ESP_A2D_MEDIA_CTRL_ACK_FAILURE"></span><span class="target" id="esp__a2dp__api_8h_1a961b3bf8b9c09211b9213d18d5681ef1ac6b7ac4bcda1a145bec467708f875fe1"></span><code class="descname">ESP_A2D_MEDIA_CTRL_ACK_FAILURE</code><a class="headerlink" href="esp_a2dp.html#_CPPv430ESP_A2D_MEDIA_CTRL_ACK_FAILURE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის კონტროლის ბრძანება დადასტურებულია წარუმატებლობით </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv427ESP_A2D_MEDIA_CTRL_ACK_BUSY">
+<span id="_CPPv327ESP_A2D_MEDIA_CTRL_ACK_BUSY"></span><span id="_CPPv227ESP_A2D_MEDIA_CTRL_ACK_BUSY"></span><span class="target" id="esp__a2dp__api_8h_1a961b3bf8b9c09211b9213d18d5681ef1a75e0ec39c27b34ba2550863f8f810ab3"></span><code class="descname">ESP_A2D_MEDIA_CTRL_ACK_BUSY</code><a class="headerlink" href="esp_a2dp.html#_CPPv427ESP_A2D_MEDIA_CTRL_ACK_BUSY" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის კონტროლის ბრძანება უარყოფილია, რადგან წინა ბრძანება ჯერ არ არის დადასტურებული. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_a2d_media_ctrl_t">
+<span id="_CPPv320esp_a2d_media_ctrl_t"></span><span id="_CPPv220esp_a2d_media_ctrl_t"></span><span id="esp_a2d_media_ctrl_t"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_media_ctrl_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv420esp_a2d_media_ctrl_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP მედიის მართვის ბრძანებები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_A2D_MEDIA_CTRL_NONE">
+<span id="_CPPv323ESP_A2D_MEDIA_CTRL_NONE"></span><span id="_CPPv223ESP_A2D_MEDIA_CTRL_NONE"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532a00c6ff01ee7821881103ce56f4bf97a3"></span><code class="descname">ESP_A2D_MEDIA_CTRL_NONE</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv423ESP_A2D_MEDIA_CTRL_NONE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფიქტიური ბრძანება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv432ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY">
+<span id="_CPPv332ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY"></span><span id="_CPPv232ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532a4104ae637c45e1146f2ee7d5414e038b"></span><code class="descname">ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY</code><a class="headerlink" href="esp_a2dp.html#_CPPv432ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამოწმეთ, დაკავშირებულია თუ არა AVDTP, გამოიყენება მხოლოდ A2DP წყაროში </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_A2D_MEDIA_CTRL_START">
+<span id="_CPPv324ESP_A2D_MEDIA_CTRL_START"></span><span id="_CPPv224ESP_A2D_MEDIA_CTRL_START"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532a7d24522d415eaa6d54f38344c3c590e8"></span><code class="descname">ESP_A2D_MEDIA_CTRL_START</code><a class="headerlink" href="esp_a2dp.html#_CPPv424ESP_A2D_MEDIA_CTRL_START" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბრძანება მედია გადაცემის არხის დასაყენებლად </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_A2D_MEDIA_CTRL_STOP">
+<span id="_CPPv323ESP_A2D_MEDIA_CTRL_STOP"></span><span id="_CPPv223ESP_A2D_MEDIA_CTRL_STOP"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532a1f0b8bbd5d469a6fb6ab1684656b25da"></span><code class="descname">ESP_A2D_MEDIA_CTRL_STOP</code><a class="headerlink" href="esp_a2dp.html#_CPPv423ESP_A2D_MEDIA_CTRL_STOP" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბრძანება მედიის გადაცემის შესაჩერებლად </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_A2D_MEDIA_CTRL_SUSPEND">
+<span id="_CPPv326ESP_A2D_MEDIA_CTRL_SUSPEND"></span><span id="_CPPv226ESP_A2D_MEDIA_CTRL_SUSPEND"></span><span class="target" id="esp__a2dp__api_8h_1a2c91e0c7de319e0e523daddb88e63532a0c2514dffeeb2d8648fcfcd15945f5bb"></span><code class="descname">ESP_A2D_MEDIA_CTRL_SUSPEND</code><a class="headerlink" href="esp_a2dp.html#_CPPv426ESP_A2D_MEDIA_CTRL_SUSPEND" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მედიის გადაცემის შეჩერების ბრძანება </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418esp_a2d_cb_event_t">
+<span id="_CPPv318esp_a2d_cb_event_t"></span><span id="_CPPv218esp_a2d_cb_event_t"></span><span id="esp_a2d_cb_event_t"></span><span class="target" id="esp__a2dp__api_8h_1af22c2201ae618b2a5c9516dec691de59"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_a2d_cb_event_t</code><a class="headerlink" href="esp_a2dp.html#_CPPv418esp_a2d_cb_event_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>A2DP უკუკავშირის მოვლენები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv428ESP_A2D_CONNECTION_STATE_EVT">
+<span id="_CPPv328ESP_A2D_CONNECTION_STATE_EVT"></span><span id="_CPPv228ESP_A2D_CONNECTION_STATE_EVT"></span><span class="target" id="esp__a2dp__api_8h_1af22c2201ae618b2a5c9516dec691de59aba7a84c9b01f32129f15663ea340cae1"></span><code class="descname">ESP_A2D_CONNECTION_STATE_EVT</code> = 0<a class="headerlink" href="esp_a2dp.html#_CPPv428ESP_A2D_CONNECTION_STATE_EVT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირის მდგომარეობის შეცვლის მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_A2D_AUDIO_STATE_EVT">
+<span id="_CPPv323ESP_A2D_AUDIO_STATE_EVT"></span><span id="_CPPv223ESP_A2D_AUDIO_STATE_EVT"></span><span class="target" id="esp__a2dp__api_8h_1af22c2201ae618b2a5c9516dec691de59a8af4e2bf851e2aca7fb94e125b003070"></span><code class="descname">ESP_A2D_AUDIO_STATE_EVT</code><a class="headerlink" href="esp_a2dp.html#_CPPv423ESP_A2D_AUDIO_STATE_EVT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო ნაკადის გადაცემის მდგომარეობის ცვლილების მოვლენა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_A2D_AUDIO_CFG_EVT">
+<span id="_CPPv321ESP_A2D_AUDIO_CFG_EVT"></span><span id="_CPPv221ESP_A2D_AUDIO_CFG_EVT"></span><span class="target" id="esp__a2dp__api_8h_1af22c2201ae618b2a5c9516dec691de59a49aadd1e1000b3764c9e0964527380fb"></span><code class="descname">ESP_A2D_AUDIO_CFG_EVT</code><a class="headerlink" href="esp_a2dp.html#_CPPv421ESP_A2D_AUDIO_CFG_EVT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აუდიო კოდეკი კონფიგურირებულია, გამოიყენება მხოლოდ A2DP SINK-ისთვის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_A2D_MEDIA_CTRL_ACK_EVT">
+<span id="_CPPv326ESP_A2D_MEDIA_CTRL_ACK_EVT"></span><span id="_CPPv226ESP_A2D_MEDIA_CTRL_ACK_EVT"></span><span class="target" id="esp__a2dp__api_8h_1af22c2201ae618b2a5c9516dec691de59a14b7ce54f3c66195c6d1bd2ee18ed6ee"></span><code class="descname">ESP_A2D_MEDIA_CTRL_ACK_EVT</code><a class="headerlink" href="esp_a2dp.html#_CPPv426ESP_A2D_MEDIA_CTRL_ACK_EVT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოვლენის დადასტურება მედია კონტროლის ბრძანებების საპასუხოდ </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_avrc.html" rel="next" title="BT AVRCP APIs">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_gap_bt.html" rel="prev" title="CLASSIC BLUETOOTH GAP API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>შეწყვეტის განაწილება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="log.html" rel="next" title="Logging library"/>
+<link href="esp_expression_with_stack.html" rel="prev" title="Call function with external stack"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/intr_alloc.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/intr_alloc"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/intr_alloc.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="intr_alloc.html#">შეწყვეტის განაწილება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="intr_alloc.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intr_alloc.html#multicore-issues">მრავალბირთვიანი პრობლემები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intr_alloc.html#iram-safe-interrupt-handlers">IRAM-უსაფრთხო შეფერხების დამმუშავებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intr_alloc.html#multiple-handlers-sharing-a-source">წყაროს გაზიარება მრავალი დამმუშავებლის მიერ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intr_alloc.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>შეწყვეტის განაწილება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/intr_alloc.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="interrupt-allocation">
+<h1>შეწყვეტის განაწილება<a class="headerlink" href="intr_alloc.html#interrupt-allocation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="intr_alloc.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ს აქვს ორი ბირთვი, თითოეულში 32 შეფერხებით. თითოეულ შეფერხებას აქვს გარკვეული პრიორიტეტის დონე, შეფერხებების უმეტესობა (მაგრამ არა ყველა) დაკავშირებულია შეფერხების მულტიპლექსთან. იმის გამო, რომ შეფერხებების წყაროები უფრო მეტია, ვიდრე შეფერხებები, ზოგჯერ აზრი აქვს შეფერხების გაზიარებას რამდენიმე დრაივერში. esp_intr_alloc აბსტრაქცია არსებობს ყველა ამ იმპლემენტაციის დეტალის დასამალად.</p>
+<p>დრაივერს შეუძლია გარკვეული პერიფერიული მოწყობილობისთვის შეფერხების გამოყოფა esp_intr_alloc (ან esp_intr_alloc_sintrstatus) გამოძახებით. მას შეუძლია გამოიყენოს ამ ფუნქციაზე გადაცემული დროშები გამოყოფილი შეფერხების ტიპის დასაყენებლად, კონკრეტული დონის ან ტრიგერის მეთოდის მითითებით. შემდეგ შეფერხების გამოყოფის კოდი იპოვის შესაბამის შეფერხებას, გამოიყენებს შეფერხების მულტიპლექსს პერიფერიულ მოწყობილობასთან დასაკავშირებლად და დააყენებს მასზე მოცემულ შეფერხების დამმუშავებელს და ISR-ს.</p>
+<p>ამ კოდს აქვს ორი განსხვავებული ტიპის შეფერხება, რომლებსაც ის სხვადასხვაგვარად ამუშავებს: გაზიარებული შეფერხებები და არაგაზიარებული შეფერხებები. ორიდან ყველაზე მარტივი არის არაგაზიარებული შეფერხებები: ცალკე შეფერხება გამოიყოფა თითოეული esp_intr_alloc გამოძახებისთვის და ეს შეფერხება გამოიყენება მხოლოდ მასზე მიერთებული პერიფერიული მოწყობილობისთვის, მხოლოდ ერთი ISR-ით, რომელიც გამოიძახება. გაზიარებულ შეფერხებებს შეიძლება ჰქონდეთ მრავალი პერიფერიული მოწყობილობა, რომელიც ააქტიურებს მას, მრავალი ISR-ით გამოიძახება, როდესაც ერთ-ერთი მიერთებული პერიფერიული მოწყობილობა შეფერხების შესახებ სიგნალს გასცემს. ამრიგად, გაზიარებული შეფერხებებისთვის განკუთვნილი ISR-ები უნდა შეამოწმონ მათ მიერ მომსახურებული პერიფერიული მოწყობილობის შეფერხების სტატუსი, რათა ნახონ, საჭიროა თუ არა რაიმე ქმედება.</p>
+<p>არაგაზიარებული შეფერხებები შეიძლება იყოს როგორც დონის, ასევე კიდის ტრიგერით. გაზიარებული შეფერხებები შეიძლება იყოს მხოლოდ დონის შეფერხებები (კიდის შეფერხებების გამოყენებისას შეფერხებების გამოტოვების ალბათობის გამო). (ამის ლოგიკა შემდეგია: DevA და DevB იზიარებენ ერთ მთელ რიცხვს. DevB აგზავნის სიგნალს მთელ რიცხვზე. Int ხაზი გადადის მაღალ ნიშნულზე. ISR დამმუშავებელი იძახებს DevA-ს კოდს -&amp;gt; არაფერს აკეთებს. ISR დამმუშავებელი იძახებს DevB-ს კოდს, მაგრამ ამის გაკეთებისას DevA აგზავნის სიგნალს მთელ რიცხვზე. ISR DevB დასრულებულია, ასუფთავებს DevB-ს მთელ რიცხვს, წყვეტს შეფერხების კოდს. ახლა DevA-ს შეფერხება კვლავ მოლოდინშია, მაგრამ რადგან მთელი ხაზი არასდროს დაბლა არ დადიოდა (DevA ინარჩუნებდა მას მაღალ ნიშნულზე, მაშინაც კი, როდესაც DevB-ს მთელი რიცხვი წაშლილი იყო), შეფერხება არასდროს მოგემსახურებათ.)</p>
+</div>
+<div class="section" id="multicore-issues">
+<h2>მრავალბირთვიანი პრობლემები<a class="headerlink" href="intr_alloc.html#multicore-issues" title="Permalink to this headline">¶</a></h2>
+<p>პერიფერიული მოწყობილობები, რომლებსაც შეუძლიათ შეფერხებების გენერირება, შეიძლება დაიყოს ორ ტიპად:</p>
+<blockquote>
+<div><ul class="simple">
+<li>გარე პერიფერიული მოწყობილობები, ESP32-ის შიგნით, მაგრამ თავად Xtensa-ს ბირთვების გარეთ. ESP32-ის პერიფერიული მოწყობილობების უმეტესობა ამ ტიპისაა.</li>
+<li>შიდა პერიფერიული მოწყობილობები, თავად Xtensa CPU ბირთვების ნაწილი.</li>
+</ul>
+</div></blockquote>
+<p>შეფერხებების დამუშავება ამ ორი ტიპის პერიფერიულ მოწყობილობას შორის ოდნავ განსხვავდება.</p>
+<div class="section" id="internal-peripheral-interrupts">
+<h3>შიდა პერიფერიული შეფერხებები<a class="headerlink" href="intr_alloc.html#internal-peripheral-interrupts" title="Permalink to this headline">¶</a></h3>
+<p>Xtensa-ს თითოეულ პროცესორის ბირთვს აქვს ექვსი შიდა პერიფერიული მოწყობილობის საკუთარი ნაკრები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სამი ტაიმერის შედარების მოწყობილობა</li>
+<li>შესრულების მონიტორი</li>
+<li>ორი პროგრამული შეფერხება.</li>
+</ul>
+</div></blockquote>
+<p>შიდა შეფერხების წყაროები esp_intr_alloc.h-ში განსაზღვრულია, როგორც <code class="docutils literal notranslate"><span class="pre">ETS_INTERNAL_*_INTR_SOURCE</span></code>.</p>
+<p>ამ პერიფერიული მოწყობილობების კონფიგურაცია შესაძლებელია მხოლოდ იმ ბირთვიდან, რომელთანაც ისინი ასოცირდება. შეფერხების გენერირებისას, მათ მიერ გენერირებული შეფერხება მჭიდროდ არის დაკავშირებული მათთან დაკავშირებულ ბირთვთან; შეუძლებელია, მაგალითად, ერთი ბირთვის შიდა ტაიმერის შედარებამ წარმოქმნას შეფერხება მეორე ბირთვზე. სწორედ ამიტომ, ამ წყაროების მართვა შესაძლებელია მხოლოდ ამ კონკრეტულ ბირთვზე გაშვებული დავალების გამოყენებით. შიდა შეფერხების წყაროები კვლავ გამოყოფადია esp_intr_alloc-ის გამოყენებით, როგორც წესი, მაგრამ მათი გაზიარება შეუძლებელია და ყოველთვის ექნებათ ფიქსირებული შეფერხების დონე (კერძოდ, ის, რაც აპარატურაში ასოცირდება პერიფერიულ მოწყობილობასთან).</p>
+</div>
+<div class="section" id="external-peripheral-interrupts">
+<h3>გარე პერიფერიული შეფერხებები<a class="headerlink" href="intr_alloc.html#external-peripheral-interrupts" title="Permalink to this headline">¶</a></h3>
+<p>დარჩენილი შეფერხების წყაროები გარე პერიფერიული მოწყობილობებიდან არის. ისინი soc/soc.h-ში განსაზღვრულია, როგორც <code class="docutils literal notranslate"><span class="pre">ETS_*_INTR_SOURCE</span></code>.</p>
+<p>ორივე CPU ბირთვის არაშიდა შეფერხების სლოტები დაკავშირებულია შეფერხების მულტიპლექსორთან, რომლის გამოყენებაც შესაძლებელია ნებისმიერი გარე შეფერხების წყაროს ამ შეფერხების სლოტებიდან ნებისმიერზე გადასამისამართებლად.</p>
+<ul class="simple">
+<li>გარე შეფერხების გამოყოფა ყოველთვის გამოყოფს მას იმ ბირთვზე, რომელიც ახორციელებს გამოყოფას.</li>
+<li>გარე შეფერხების გათავისუფლება ყოველთვის უნდა მოხდეს იმავე ბირთვზე, რომელზეც ის იყო გამოყოფილი.</li>
+<li>დაშვებულია სხვა ბირთვიდან გარე შეფერხებების გამორთვა და ჩართვა.</li>
+<li>მრავალ გარე შეფერხების წყაროს შეუძლია შეფერხების სლოტის გაზიარება გავლის გზით. <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_SHARED</span></code> როგორც დროშა esp_intr_alloc()-ისთვის.</li>
+</ul>
+<p>სიფრთხილეა საჭირო esp_intr_alloc()-ის გამოძახებისას დავალებიდან, რომელიც არ არის მიმაგრებული ბირთვზე. დავალებების გადართვის დროს, ამ დავალებებს შეუძლიათ ბირთვებს შორის მიგრაცია. ამიტომ, შეუძლებელია იმის გარკვევა, თუ რომელ CPU-ზეა გამოყოფილი შეფერხება, რაც ართულებს შეფერხების სახელურის გათავისუფლებას და ასევე შეიძლება გამოიწვიოს გამართვა ის მუშაობის სირთულეები. რეკომენდებულია xTaskCreatePinnedToCore()-ის გამოყენება კონკრეტული CoreID არგუმენტით, რათა შეიქმნას დავალებები, რომლებიც გამოყოფენ შეფერხებებს. შიდა შეფერხების წყაროების შემთხვევაში, ეს აუცილებელია.</p>
+</div>
+</div>
+<div class="section" id="iram-safe-interrupt-handlers">
+<h2>IRAM-უსაფრთხო შეფერხების დამმუშავებლები<a class="headerlink" href="intr_alloc.html#iram-safe-interrupt-handlers" title="Permalink to this headline">¶</a></h2>
+<p>ის <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_IRAM</span></code> flag არეგისტრირებს შეწყვეტის დამმუშავებელს, რომელიც ყოველთვის მუშაობს IRAM-დან (და კითხულობს ყველა მონაცემს DRAM-დან) და შესაბამისად, არ საჭიროებს გამორთვას ფლეშ მეხსიერება წაშლისა და ჩაწერის ოპერაციების დროს.</p>
+<p>ეს სასარგებლოა შეფერხებებისთვის, რომლებსაც გარანტირებული მინიმალური შესრულების შეყოვნება სჭირდებათ, რადგან ფლეშ მეხსიერება ჩაწერის და წაშლის ოპერაციები შეიძლება ნელი იყოს (წაშლას შეიძლება ათობით ან ასობით მილიწამი დასჭირდეს).</p>
+<p>ასევე სასარგებლო შეიძლება იყოს IRAM-ში შეწყვეტის დამმუშავებლის შენარჩუნება, თუ ის ძალიან ხშირად გამოიძახება, რათა თავიდან იქნას აცილებული ფლეშ მეხსიერება ქეშის შეცდომები.</p>
+<p>იხილეთ <a class="reference internal" href="../storage/spi_flash.html#iram-safe-interrupt-handlers"><span class="std std-ref">SPI-ის ფლეშ მეხსიერება API დოკუმენტაცია</span></a> დამატებითი დეტალებისთვის.</p>
+</div>
+<div class="section" id="multiple-handlers-sharing-a-source">
+<h2>მრავალი დამმუშავებელი, რომლებიც წყაროს იზიარებენ<a class="headerlink" href="intr_alloc.html#multiple-handlers-sharing-a-source" title="Permalink to this headline">¶</a></h2>
+<p>ერთსა და იმავე წყაროს შეიძლება რამდენიმე დამმუშავებელი დაენიშნოს, იმის გათვალისწინებით, რომ ყველა დამმუშავებელი გამოყოფილია შემდეგი ფუნქციის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">ESP_INTR_FLAG_SHARED</span></code> დროშა. ისინი ყველა მიენიჭება შეფერხებას, რომელსაც წყარო უკავშირდება და თანმიმდევრულად გამოიძახება, როდესაც წყარო აქტიურია. დამმუშავებლების გამორთვა და გათავისუფლება შესაძლებელია ინდივიდუალურად. წყარო მიმაგრებულია შეფერხებაზე (ჩართულია), თუ ერთი ან მეტი დამმუშავებელი ჩართულია, წინააღმდეგ შემთხვევაში გამორთულია. დამმუშავებელი არასდროს გამოიძახება გამორთვის შემთხვევაში, სანამ <strong>მისი წყარო შეიძლება კვლავ გააქტიურებული იყოს</strong> თუ მისი რომელიმე დამმუშავებელი ჩართულია.</p>
+<p>არაგაზიარებულ შეწყვეტასთან დაკავშირებული წყაროები ამ ფუნქციას არ უჭერენ მხარს.</p>
+<p>მიუხედავად იმისა, რომ ჩარჩო მხარს უჭერს ამ ფუნქციას, თქვენ უნდა გამოიყენოთ იგი <em>ძალიან ფრთხილად</em>როგორც წესი, შეფერხების თავიდან ასაცილებლად 2 გზა არსებობს: <em>წყაროს გამორთვა</em> ან <em>პერიფერიული პერიფერიული შეფერხების სტატუსის შენიღბვა</em>IDF მხოლოდ წყაროს ჩართვა-გამორთვას ახორციელებს, სტატუსისა და ნიღბის ბიტებს კი მომხმარებლები ამუშავებენ. <strong>სტატუსის ბიტები ყოველთვის უნდა იყოს ნიღბიანი, სანამ მათზე პასუხისმგებელი დამმუშავებელი გამორთული იქნება, ან სტატუსი სათანადოდ უნდა დამუშავდეს სხვა ჩართულ შეფერხებაში.</strong>თუ სტატუსის ბიტების შენიღბვის გარეშე გამორთავთ ყველა დამმუშავებლიდან ერთ-ერთს, შესაძლოა სტატუსის ზოგიერთი ბიტი დაუმუშავებელი დარჩეს, რაც გამოიწვევს შეფერხების უსასრულო გააქტიურებას, რაც სისტემის კრახს გამოიწვევს.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="intr_alloc.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="intr_alloc.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp32/include/esp_intr_alloc.h">esp32/include/esp_intr_alloc.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="intr_alloc.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv420esp_intr_mark_sharediib">
+<span id="_CPPv320esp_intr_mark_sharediib"></span><span id="_CPPv220esp_intr_mark_sharediib"></span><span id="esp_intr_mark_shared__i.i.b"></span><span class="target" id="esp__intr__alloc_8h_1a3cd2b2d7e19fb7104d43854ddfe24fb4"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_mark_shared</code><span class="sig-paren">(</span>int <em>შიდა</em>, int <em>პროცესორი</em>, bool <em>არის_ირამში</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv420esp_intr_mark_sharediib" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონიშნეთ შეფერხება, როგორც გაზიარებული შეფერხება. </p>
+<p>ეს მითითებულ CPU-ზე გარკვეულ შეფერხებას მონიშნავს, როგორც შეფერხებას, რომლის გამოყენებაც შესაძლებელია საერთო შეფერხების დამმუშავებლების დასაკავშირებლად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if cpu or intno is invalid ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intno</span></code>შეფერხების ნომერი (0-31) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpu</span></code>CPU, რომელზეც შეწყვეტა უნდა იყოს მონიშნული, როგორც გაზიარებული (0 ან 1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">is_in_iram</span></code>გაზიარებული შეწყვეტა განკუთვნილია IRAM-ში არსებული დამმუშავებლებისთვის და int შეიძლება ჩართული დარჩეს, სანამ ფლეშ მეხსიერება ქეში გამორთულია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_intr_reserveii">
+<span id="_CPPv316esp_intr_reserveii"></span><span id="_CPPv216esp_intr_reserveii"></span><span id="esp_intr_reserve__i.i"></span><span class="target" id="esp__intr__alloc_8h_1ae16296204ab2253c7d295fcbb7567245"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_reserve</code><span class="sig-paren">(</span>int <em>შიდა</em>, int <em>პროცესორი</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv416esp_intr_reserveii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეფერხების ამ ჩარჩო გარეთ გამოსაყენებლად დაჯავშნა1. </p>
+<p>ეს მითითებულ CPU-ზე გარკვეულ შეფერხებას დაჯავშნილად მონიშნავს და რაიმე მიზეზით არ გამოყოფს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if cpu or intno is invalid ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intno</span></code>შეფერხების ნომერი (0-31) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpu</span></code>CPU, რომელზეც შეწყვეტა უნდა იყოს მონიშნული, როგორც გაზიარებული (0 ან 1)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_intr_allocii14intr_handler_tPvP13intr_handle_t">
+<span id="_CPPv314esp_intr_allocii14intr_handler_tPvP13intr_handle_t"></span><span id="_CPPv214esp_intr_allocii14intr_handler_tPvP13intr_handle_t"></span><span id="esp_intr_alloc__i.i.intr_handler_t.voidP.intr_handle_tP"></span><span class="target" id="esp__intr__alloc_8h_1a785c44696cfa40da617263561bc974ea"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_alloc</code><span class="sig-paren">(</span>int <em>წყარო</em>, int <em>დროშები</em>, <a class="reference internal" href="intr_alloc.html#_CPPv414intr_handler_t" title="intr_handler_t">intr_handler_t</a> <em>დამმუშავებელი</em>, void *<em>არგუმენტი</em>, <a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> *<em>ret_handle</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv414esp_intr_allocii14intr_handler_tPvP13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული პარამეტრებით შეფერხების გამოყოფა. </p>
+<p>ეს მეთოდი პოულობს შეფერხებას, რომელიც შეესაბამება flags პარამეტრში მოცემულ შეზღუდვებს, მიუთითებს მოცემულ შეფერხების წყაროს მასზე და ასევე აკავშირებს მოცემულ შეფერხების დამმუშავებელს (არასავალდებულო არგუმენტით). საჭიროების შემთხვევაში, მას ასევე შეუძლია დააბრუნოს შეფერხების დამმუშავებელი.</p>
+<p>შეფერხება ყოველთვის გამოიყოფა იმ ბირთვზე, რომელიც ამ ფუნქციას ასრულებს.</p>
+<p>თუ გამოიყენება ESP_INTR_FLAG_IRAM დროშა და დამმუშავებლის მისამართი არ არის IRAM-ში ან RTC_FAST_MEM-ში, მაშინ ბრუნდება ESP_ERR_INVALID_ARG.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if the combination of arguments is invalid. ESP_ERR_NOT_FOUND No free interrupt found with the specified flags ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">source</span></code>შეფერხების წყარო. soc/soc.h ფაილში განსაზღვრული ETS_*_INTR_SOURCE შეფერხების მულტიპლექსის წყაროებიდან ერთ-ერთი, ან ამ სათაურში განსაზღვრული ETS_INTERNAL_*_INTR_SOURCE შიდა წყაროებიდან ერთ-ერთი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">flags</span></code>ESP_INTR_FLAG_*-ის ORred ნიღაბი განსაზღვრავს. ეს ზღუდავს იმ შეფერხებების არჩევანს, რომელთაგანაც ამ რუტინას შეუძლია აირჩიოს. თუ ეს მნიშვნელობა 0-ია, ის ნაგულისხმევად გამოყოფს 1, 2 ან 3 დონის არაგაზიარებულ შეფერხებას. თუ ეს არის ESP_INTR_FLAG_SHARED, ის გამოყოფს 1 დონის გაზიარებულ შეფერხებას. ESP_INTR_FLAG_INTRDISABLED-ის დაყენება ამ ფუნქციიდან დააბრუნებს შეფერხებას გამორთული. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handler</span></code>შეფერხების დამმუშავებელი. უნდა იყოს NULL, როდესაც მოთხოვნილია &amp;gt;3 დონის შეფერხება, რადგან ამ ტიპის შეფერხებები არ არის C-ით გამოძახებადი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: შეწყვეტის დამმუშავებლისთვის გადაცემის არჩევითი არგუმენტი </li>
+<li><code class="docutils literal notranslate"><span class="pre">ret_handle</span></code>: მაჩვენებელი intr_handle_t-ზე, რომელიც შესანახად გამოიყენება სახელური, რომლის გამოყენებაც მოგვიანებით შესაძლებელია დეტალების მოთხოვნისთვის ან შეფერხების გასათავისუფლებლად. შეიძლება იყოს NULL, თუ სახელური არ არის საჭირო.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_intr_alloc_intrstatusii8uint32_t8uint32_t14intr_handler_tPvP13intr_handle_t">
+<span id="_CPPv325esp_intr_alloc_intrstatusii8uint32_t8uint32_t14intr_handler_tPvP13intr_handle_t"></span><span id="_CPPv225esp_intr_alloc_intrstatusii8uint32_t8uint32_t14intr_handler_tPvP13intr_handle_t"></span><span id="esp_intr_alloc_intrstatus__i.i.uint32_t.uint32_t.intr_handler_t.voidP.intr_handle_tP"></span><span class="target" id="esp__intr__alloc_8h_1ab8535ce94aafbeaefed76f5dfa6cfc94"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_alloc_intrstatus</code><span class="sig-paren">(</span>int <em>წყარო</em>, int <em>დროშები</em>, uint32_t <em>რეგისტრაციის სტატუსი</em>, uint32_t <em>ინტრასტატუსნიღაბი</em>, <a class="reference internal" href="intr_alloc.html#_CPPv414intr_handler_t" title="intr_handler_t">intr_handler_t</a> <em>დამმუშავებელი</em>, void *<em>არგუმენტი</em>, <a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> *<em>ret_handle</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv425esp_intr_alloc_intrstatusii8uint32_t8uint32_t14intr_handler_tPvP13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული პარამეტრებით შეფერხების გამოყოფა. </p>
+<p>ეს არსებითად იგივეს აკეთებს, რასაც esp_intr_alloc, მაგრამ საშუალებას იძლევა მიუთითოთ რეგისტრისა და ნიღბის კომბინაცია. გაზიარებული შეფერხებების შემთხვევაში, დამმუშავებელი მხოლოდ მაშინ გამოიძახება, თუ მითითებული რეგისტრიდან წაკითხვა, ნიღაბთან შეერთებით, არანულოვან მნიშვნელობას აბრუნებს. შეფერხების სტატუსის რეგისტრის მისამართისა და შესაბამისი ნიღბის გადაცემით, ეს შეიძლება გამოყენებულ იქნას შეფერხების დამუშავების დასაჩქარებლად იმ შემთხვევაში, თუ გაზიარებული შეფერხება გააქტიურდება; შეფერხების სტატუსების შემოწმებით, კოდს შეუძლია გადაწყვიტოს, რომელი ISR-ები შეიძლება გამოტოვდეს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if the combination of arguments is invalid. ESP_ERR_NOT_FOUND No free interrupt found with the specified flags ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">source</span></code>შეფერხების წყარო. soc/soc.h ფაილში განსაზღვრული ETS_*_INTR_SOURCE შეფერხების მულტიპლექსის წყაროებიდან ერთ-ერთი, ან ამ სათაურში განსაზღვრული ETS_INTERNAL_*_INTR_SOURCE შიდა წყაროებიდან ერთ-ერთი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">flags</span></code>ESP_INTR_FLAG_*-ის ORred ნიღაბი განსაზღვრავს. ეს ზღუდავს იმ შეფერხებების არჩევანს, რომელთაგანაც ამ რუტინას შეუძლია აირჩიოს. თუ ეს მნიშვნელობა 0-ია, ის ნაგულისხმევად გამოყოფს 1, 2 ან 3 დონის არაგაზიარებულ შეფერხებას. თუ ეს არის ESP_INTR_FLAG_SHARED, ის გამოყოფს 1 დონის გაზიარებულ შეფერხებას. ESP_INTR_FLAG_INTRDISABLED-ის დაყენება ამ ფუნქციიდან დააბრუნებს შეფერხებას გამორთული. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intrstatusreg</span></code>შეწყვეტის სტატუსის რეგისტრის მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intrstatusmask</span></code>ნიღაბი. თუ მისამართის intrstatusreg წაკითხვისას ნიღბის ნაკრებში 1-ის ტოლი რომელიმე ბიტი იქნება, ISR გამოიძახება. თუ არა, ის გამოტოვებული იქნება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handler</span></code>შეფერხების დამმუშავებელი. უნდა იყოს NULL, როდესაც მოთხოვნილია &amp;gt;3 დონის შეფერხება, რადგან ამ ტიპის შეფერხებები არ არის C-ით გამოძახებადი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: შეწყვეტის დამმუშავებლისთვის გადაცემის არჩევითი არგუმენტი </li>
+<li><code class="docutils literal notranslate"><span class="pre">ret_handle</span></code>: მაჩვენებელი intr_handle_t-ზე, რომელიც შესანახად გამოიყენება სახელური, რომლის გამოყენებაც მოგვიანებით შესაძლებელია დეტალების მოთხოვნისთვის ან შეფერხების გასათავისუფლებლად. შეიძლება იყოს NULL, თუ სახელური არ არის საჭირო.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_intr_free13intr_handle_t">
+<span id="_CPPv313esp_intr_free13intr_handle_t"></span><span id="_CPPv213esp_intr_free13intr_handle_t"></span><span id="esp_intr_free__intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1a72b74e3a15147c3ca43e77875f71e908"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_free</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv413esp_intr_free13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეფერხების გამორთვა და გათავისუფლება. </p>
+<p>შეფერხების გამოსართავად და მასთან დაკავშირებული რესურსების გასათავისუფლებლად გამოიყენეთ შეფერხების სახელური. თუ მიმდინარე ბირთვი არ არის ის ბირთვი, რომელმაც ეს შეფერხება დაარეგისტრირა, ეს რუტინა მიენიჭება იმ ბირთვს, რომელმაც ეს შეფერხება გამოყო, დაბლოკავს და დაელოდება რესურსის წარმატებით გათავისუფლებას.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>When the handler shares its source with other handlers, the interrupt status bits it’s responsible for should be managed properly before freeing it. see <code class="docutils literal notranslate"><span class="pre">esp_intr_disable</span></code> for more details. Please do not call this function in <code class="docutils literal notranslate"><span class="pre">esp_ipc_call_blocking</span></code>.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG the handle is NULL ESP_FAIL failed to release this handle ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_intr_get_cpu13intr_handle_t">
+<span id="_CPPv316esp_intr_get_cpu13intr_handle_t"></span><span id="_CPPv216esp_intr_get_cpu13intr_handle_t"></span><span id="esp_intr_get_cpu__intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1a04d0b19e3d87390cb7a25c3cdd339141"></span>int <code class="descname">esp_intr_get_cpu</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv416esp_intr_get_cpu13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ CPU ნომერი, რომელთანაც შეფერხებაა დაკავშირებული. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>The core number where the interrupt is allocated </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_intr_get_intno13intr_handle_t">
+<span id="_CPPv318esp_intr_get_intno13intr_handle_t"></span><span id="_CPPv218esp_intr_get_intno13intr_handle_t"></span><span id="esp_intr_get_intno__intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1a0f0269bcfe40a5ff90586c6848cf71cd"></span>int <code class="descname">esp_intr_get_intno</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv418esp_intr_get_intno13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ გარკვეული სახელურისთვის გამოყოფილი შეწყვეტა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>The interrupt number </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_intr_disable13intr_handle_t">
+<span id="_CPPv316esp_intr_disable13intr_handle_t"></span><span id="_CPPv216esp_intr_disable13intr_handle_t"></span><span id="esp_intr_disable__intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1a21397282b09eac4738a3159109b08686"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_disable</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv416esp_intr_disable13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ სახელურთან დაკავშირებული შეფერხება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd><ol class="arabic simple">
+<li>ლოკალური შეფერხებების შემთხვევაში (ESP_INTERNAL_* წყაროები), ეს ფუნქცია უნდა გამოიძახოს იმ CPU-ზე, რომელზეც შეფერხებაა გამოყოფილი. სხვა შეფერხებებს ასეთი შეზღუდვა არ აქვთ.</li>
+<li>როდესაც რამდენიმე დამმუშავებელი იყენებს ერთი და იგივე შეფერხების წყაროს, დამმუშავებელში გამორთვისთვის დამუშავებული შეფერხების სტატუსის ბიტები უნდა დაიფაროს გამორთვამდე ან სათანადოდ დამუშავდეს სხვა ჩართულ შეფერხებებში. შეფერხების სტატუსის დამუშავების შეუსრულებლობა გამოიწვევს შეფერხების უსასრულო გამოძახებებს და საბოლოოდ სისტემის კრახს.</li>
+</ol>
+</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if the combination of arguments is invalid. ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415esp_intr_enable13intr_handle_t">
+<span id="_CPPv315esp_intr_enable13intr_handle_t"></span><span id="_CPPv215esp_intr_enable13intr_handle_t"></span><span id="esp_intr_enable__intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1a8783058099034e57694aae6fe1977559"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_enable</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv415esp_intr_enable13intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩართეთ სახელურთან დაკავშირებული შეწყვეტა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For local interrupts (ESP_INTERNAL_* sources), this function has to be called on the CPU the interrupt is allocated on. Other interrupts have no such restriction.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if the combination of arguments is invalid. ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_intr_set_in_iram13intr_handle_tb">
+<span id="_CPPv320esp_intr_set_in_iram13intr_handle_tb"></span><span id="_CPPv220esp_intr_set_in_iram13intr_handle_tb"></span><span id="esp_intr_set_in_iram__intr_handle_t.b"></span><span class="target" id="esp__intr__alloc_8h_1a80c8c3fd16bf7eaeb49c5bedcad78f02"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_intr_set_in_iram</code><span class="sig-paren">(</span><a class="reference internal" href="intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <em>სახელური</em>, bool <em>არის_ირამში</em><span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv420esp_intr_set_in_iram13intr_handle_tb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ დამმუშავებლის სტატუსი „IRAM-ში“. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Does not work on shared interrupts.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_ERR_INVALID_ARG if the combination of arguments is invalid. ESP_OK otherwise </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური, რომელიც მიღებულია esp_intr_alloc-ის ან esp_intr_alloc_intrstatus-ის მიერ </li>
+<li><code class="docutils literal notranslate"><span class="pre">is_in_iram</span></code>: ამ სახელურთან დაკავშირებული დამმუშავებელი IRAM-შია თუ არა. IRAM-ში არსებული დამმუშავებლების გამოძახება შესაძლებელია ქეშის გამორთვის შემთხვევაში.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_intr_noniram_disablev">
+<span id="_CPPv324esp_intr_noniram_disablev"></span><span id="_CPPv224esp_intr_noniram_disablev"></span><span id="esp_intr_noniram_disable__void"></span><span class="target" id="esp__intr__alloc_8h_1a63263dc3bf78c25b514f739e6381ee64"></span>void <code class="descname">esp_intr_noniram_disable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv424esp_intr_noniram_disablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ შეფერხებები, რომლებიც კონკრეტულად არ არის მონიშნული, როგორც IRAM-დან გაშვებული. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_intr_noniram_enablev">
+<span id="_CPPv323esp_intr_noniram_enablev"></span><span id="_CPPv223esp_intr_noniram_enablev"></span><span id="esp_intr_noniram_enable__void"></span><span class="target" id="esp__intr__alloc_8h_1a917f8af7f0c6af92dfbd1f7689c39cae"></span>void <code class="descname">esp_intr_noniram_enable</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv423esp_intr_noniram_enablev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_intr_noniram_disable-ის მიერ გამორთული შეფერხებების ხელახლა ჩართვა. </p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="intr_alloc.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL1">
+<span class="target" id="group__Intr__Alloc_1gab1ef5952bffcb1811d4f831b98ecf42a"></span><code class="descname">ESP_INTR_FLAG_LEVEL1</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL1" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეწყვეტის განაწილების დროშები. </p>
+<p>ეს დროშები შეიძლება გამოყენებულ იქნას იმის დასადგენად, თუ რომელი შეფერხების თვისებები სჭირდება esp_intr_alloc*-ის გამომძახებელ კოდს. მიიღეთ 1 დონის შეფერხების ვექტორი (ყველაზე დაბალი პრიორიტეტით). </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL2">
+<span class="target" id="group__Intr__Alloc_1ga8e4478d65d49a4f17fb77599764239e2"></span><code class="descname">ESP_INTR_FLAG_LEVEL2</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL2" title="Permalink to this definition">¶</a></dt>
+<dd><p>მე-2 დონის შეფერხების ვექტორის მიღება. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL3">
+<span class="target" id="group__Intr__Alloc_1ga88ed1ea08351b07086a6e73a0487b0d8"></span><code class="descname">ESP_INTR_FLAG_LEVEL3</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL3" title="Permalink to this definition">¶</a></dt>
+<dd><p>მიიღეთ მე-3 დონის შეფერხების ვექტორი. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL4">
+<span class="target" id="group__Intr__Alloc_1gabb43226aa7d32763f17ee6a56090b322"></span><code class="descname">ESP_INTR_FLAG_LEVEL4</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL4" title="Permalink to this definition">¶</a></dt>
+<dd><p>მე-4 დონის შეფერხების ვექტორის მიღება. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL5">
+<span class="target" id="group__Intr__Alloc_1ga44a1013070e7d9a06e8f08ed3f2cbca9"></span><code class="descname">ESP_INTR_FLAG_LEVEL5</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL5" title="Permalink to this definition">¶</a></dt>
+<dd><p>მე-5 დონის შეფერხების ვექტორის მიღება. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVEL6">
+<span class="target" id="group__Intr__Alloc_1ga8defb5130273462e32ed399dece67024"></span><code class="descname">ESP_INTR_FLAG_LEVEL6</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVEL6" title="Permalink to this definition">¶</a></dt>
+<dd><p>მე-6 დონის შეფერხების ვექტორის მიღება. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_NMI">
+<span class="target" id="group__Intr__Alloc_1ga9e57c700cf362161d807657571280abe"></span><code class="descname">ESP_INTR_FLAG_NMI</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_NMI" title="Permalink to this definition">¶</a></dt>
+<dd><p>მე-7 დონის შეფერხების ვექტორის მიღება (უმაღლესი პრიორიტეტი) </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_SHARED">
+<span class="target" id="group__Intr__Alloc_1gafc7bfcea2e621d81336ea6dd23310363"></span><code class="descname">ESP_INTR_FLAG_SHARED</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_SHARED" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეფერხების გაზიარება შესაძლებელია ISR-ებს შორის. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_EDGE">
+<span class="target" id="group__Intr__Alloc_1ga0ab957dd5055fe20725624db223f9535"></span><code class="descname">ESP_INTR_FLAG_EDGE</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_EDGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>კიდით გამოწვეული შეწყვეტა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_IRAM">
+<span class="target" id="group__Intr__Alloc_1ga3fb8d6fa8b5e33b3503e86917bc8367b"></span><code class="descname">ESP_INTR_FLAG_IRAM</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_IRAM" title="Permalink to this definition">¶</a></dt>
+<dd><p>ISR-ის გამოძახება შესაძლებელია, თუ ქეში გამორთულია. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_INTRDISABLED">
+<span class="target" id="group__Intr__Alloc_1ga76d024609ecd48dc17b586b91e779b88"></span><code class="descname">ESP_INTR_FLAG_INTRDISABLED</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_INTRDISABLED" title="Permalink to this definition">¶</a></dt>
+<dd><p>დაბრუნდით ამ შეწყვეტის გამორთვით. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LOWMED">
+<span class="target" id="group__Intr__Alloc_1ga9b0bc1a2b5cc22b499e041742ae1b17b"></span><code class="descname">ESP_INTR_FLAG_LOWMED</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LOWMED" title="Permalink to this definition">¶</a></dt>
+<dd><p>დაბალი და საშუალო პრიორიული შეფერხებები. მათი დამუშავება C-ში შეიძლება. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_HIGH">
+<span class="target" id="group__Intr__Alloc_1ga63b4eee1d70d2e9cb1dc0ecb41f40aa4"></span><code class="descname">ESP_INTR_FLAG_HIGH</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_HIGH" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაღალი დონის შეფერხებები. საჭიროა მათი დამუშავება ასამბლეის დროს. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_FLAG_LEVELMASK">
+<span class="target" id="group__Intr__Alloc_1ga610949ce2bf8d7adae528f816acc5725"></span><code class="descname">ESP_INTR_FLAG_LEVELMASK</code><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_FLAG_LEVELMASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>ნიღაბი ყველა დონის დროშისთვის. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_TIMER0_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1ga2ff354dc48600b4dcbce4569c5d15bc1"></span><code class="descname">ETS_INTERNAL_TIMER0_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_TIMER0_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Xtensa ტაიმერი 0 შეწყვეტის წყარო. </p>
+<p>esp_intr_alloc* ფუნქციებს შეუძლიათ გამოყონ მთელი რიცხვი ETS_*_INTR_SOURCE-ის ყველა შეწყვეტის წყაროსთვის, რომლებიც შეწყვეტის მულტიპლექსის გავლით გადამისამართდებიან. ამ წყაროების გარდა, თითოეულ ბირთვს ასევე აქვს რამდენიმე შიდა წყარო, რომლებიც არ გადის შეწყვეტის მულტიპლექსის გავლით. ამ წყაროებისთვის შეწყვეტის გამოსაყოფად, გადაეცით ეს ფსევდოწყაროები ფუნქციებს. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_TIMER1_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1gad28849af2335d2c6d9e07949f8ea953d"></span><code class="descname">ETS_INTERNAL_TIMER1_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_TIMER1_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Xtensa ტაიმერი 1 შეწყვეტის წყარო. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_TIMER2_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1gad94487ae3c0ae2b9e4bccad6ce26d761"></span><code class="descname">ETS_INTERNAL_TIMER2_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_TIMER2_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Xtensa ტაიმერი 2 შეწყვეტის წყარო. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_SW0_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1ga7cd02abe5015f1be30d77e1be15bd448"></span><code class="descname">ETS_INTERNAL_SW0_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_SW0_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>პროგრამული უზრუნველყოფა int source 1. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_SW1_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1gaa81d606c0199b91aba7633270ca314e6"></span><code class="descname">ETS_INTERNAL_SW1_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_SW1_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>პროგრამული უზრუნველყოფა int source 2. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_PROFILING_INTR_SOURCE">
+<span class="target" id="group__Intr__Alloc__Pseudo__Src_1ga6cac8d828d3ec24b9bb58fe0cb3d59fc"></span><code class="descname">ETS_INTERNAL_PROFILING_INTR_SOURCE</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_PROFILING_INTR_SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>პროფილირების შიდა წყარო. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ETS_INTERNAL_INTR_SOURCE_OFF">
+<span class="target" id="esp__intr__alloc_8h_1a35b94207db1001067dcfd5a9aca8f5f5"></span><code class="descname">ETS_INTERNAL_INTR_SOURCE_OFF</code><a class="headerlink" href="intr_alloc.html#c.ETS_INTERNAL_INTR_SOURCE_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_ENABLE">
+<span class="target" id="esp__intr__alloc_8h_1aa8954da0d5004eeebb2d0f42b5087301"></span><code class="descname">ESP_INTR_ENABLE</code><span class="sig-paren">(</span>inum<span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_ENABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_INTR_DISABLE">
+<span class="target" id="esp__intr__alloc_8h_1a82c62c6d1d5e69f9567082d170f54a30"></span><code class="descname">ESP_INTR_DISABLE</code><span class="sig-paren">(</span>inum<span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#c.ESP_INTR_DISABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="intr_alloc.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv414intr_handler_t">
+<span id="_CPPv314intr_handler_t"></span><span id="_CPPv214intr_handler_t"></span><span id="intr_handler_t"></span><span class="target" id="esp__intr__alloc_8h_1a637aa0db4839d3e945e74c56e82218f2"></span><em class="property">typedef </em>void (*<code class="descname">intr_handler_t</code>)<span class="sig-paren">(</span>void *arg<span class="sig-paren">)</span><a class="headerlink" href="intr_alloc.html#_CPPv414intr_handler_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv418intr_handle_data_t">
+<span id="_CPPv318intr_handle_data_t"></span><span id="_CPPv218intr_handle_data_t"></span><span id="intr_handle_data_t"></span><span class="target" id="esp__intr__alloc_8h_1a3d8b814c26ba94933e16bc264bdbb7f8"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="intr_alloc.html#_CPPv418intr_handle_data_t" title="intr_handle_data_t">intr_handle_data_t</a> <code class="descname">intr_handle_data_t</code><a class="headerlink" href="intr_alloc.html#_CPPv418intr_handle_data_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv413intr_handle_t">
+<span id="_CPPv313intr_handle_t"></span><span id="_CPPv213intr_handle_t"></span><span id="intr_handle_t"></span><span class="target" id="esp__intr__alloc_8h_1ab011a236fc3c9318f38ae4cdb9a26105"></span><em class="property">typedef </em><a class="reference internal" href="intr_alloc.html#_CPPv418intr_handle_data_t" title="intr_handle_data_t">intr_handle_data_t</a> *<code class="descname">intr_handle_t</code><a class="headerlink" href="intr_alloc.html#_CPPv413intr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="log.html" rel="next" title="Logging library">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_expression_with_stack.html" rel="prev" title="Call function with external stack"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

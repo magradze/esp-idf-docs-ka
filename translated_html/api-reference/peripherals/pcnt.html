@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>პულსის მრიცხველი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="rmt.html" rel="next" title="RMT"/>
+<link href="mcpwm.html" rel="prev" title="MCPWM"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/pcnt.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/pcnt"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/pcnt.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="pcnt.html#">პულსის მრიცხველი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#functionality-overview">ფუნქციონალურობის მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#configuration">კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#operating-the-counter">მრიცხველის მართვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#filtering-pulses">ფილტრაციის იმპულსები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#using-interrupts">შეფერხებების გამოყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pcnt.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>პულსის მრიცხველი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/pcnt.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="pulse-counter">
+<h1>პულსის მრიცხველი<a class="headerlink" href="pcnt.html#pulse-counter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="pcnt.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>PCNT (პულსების მრიცხველი) მოდული შექმნილია შემავალი სიგნალის აღმავალი და/ან დაღმავალი კიდეების რაოდენობის დასათვლელად. თითოეულ იმპულსების მრიცხველს აქვს 16-ბიტიანი ხელმოწერილი მრიცხველის რეგისტრი და ორი არხი, რომელთა კონფიგურაციაც შესაძლებელია მრიცხველის გაზრდის ან შემცირებისთვის. თითოეულ არხს აქვს სიგნალის შესასვლელი, რომელიც იღებს სიგნალის კიდეების აღმოსაჩენად, ასევე საკონტროლო შესასვლელი, რომლის გამოყენებაც შესაძლებელია სიგნალის შესასვლელის ჩასართავად ან გამოსართავად. შესასვლელებს აქვთ დამატებითი ფილტრები, რომელთა გამოყენება შესაძლებელია სიგნალში არასასურველი ხარვეზების აღმოსაფხვრელად.</p>
+</div>
+<div class="section" id="functionality-overview">
+<h2>ფუნქციონალურობის მიმოხილვა<a class="headerlink" href="pcnt.html#functionality-overview" title="Permalink to this headline">¶</a></h2>
+<p>ამ API ფუნქციონალურობის აღწერა ოთხ ნაწილად იყოფა:</p>
+<ul class="simple">
+<li><a class="reference internal" href="pcnt.html#pcnt-api-configuration"><span class="std std-ref">კონფიგურაცია</span></a> - აღწერს მრიცხველის კონფიგურაციის პარამეტრებს და მრიცხველის დაყენების წესს.</li>
+<li><a class="reference internal" href="pcnt.html#pcnt-api-operating-the-counter"><span class="std std-ref">მრიცხველის მართვა</span></a> - იძლევა ინფორმაციას მრიცხველის პაუზის, გაზომვისა და გასუფთავების საკონტროლო ფუნქციების შესახებ.</li>
+<li><a class="reference internal" href="pcnt.html#pcnt-api-filtering-pulses"><span class="std std-ref">ფილტრაციის იმპულსები</span></a> - აღწერს იმპულსების ფილტრაციის ვარიანტებს და მრიცხველის მართვის სიგნალებს.</li>
+<li><a class="reference internal" href="pcnt.html#pcnt-api-using-interrupts"><span class="std std-ref">შეფერხებების გამოყენება</span></a> - წარმოგიდგენთ, თუ როგორ უნდა გამოიწვიოთ შეფერხებები მრიცხველის კონკრეტულ მდგომარეობებზე.</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<span id="pcnt-api-configuration"></span><h2>კონფიგურაცია<a class="headerlink" href="pcnt.html#configuration" title="Permalink to this headline">¶</a></h2>
+<p>PCNT მოდულს აქვს რვა დამოუკიდებელი დათვლის „ერთეული“, რომლებიც დანომრილია 0-დან 7-მდე. API ისინი მოხსენიებულია გამოყენებით <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_unit_t</span></code>თითოეულ მოწყობილობას აქვს ორი დამოუკიდებელი არხი, რომლებიც დანომრილია 0-ით და 1-ით და მითითებულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_channel_t</span></code>.</p>
+<p>კონფიგურაცია მოცემულია ცალკე თითოეული მოწყობილობის არხისთვის, გამოყენებით <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_config_t</span></code> და მოიცავს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>მოწყობილობა და არხის ნომერი, რომელზეც ეს კონფიგურაცია ვრცელდება.</li>
+<li>GPIO იმპულსური შეყვანის და იმპულსური კარიბჭის შეყვანის ნომრები.</li>
+<li>პარამეტრების ორი წყვილი: <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_ctrl_mode_t</span></code> და <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_count_mode_t</span></code> იმის დასადგენად, თუ როგორ რეაგირებს მრიცხველი საკონტროლო სიგნალის სტატუსის მიხედვით და როგორ ხდება დათვლა იმპულსების დადებით/უარყოფით კიდეზე.</li>
+<li>ორი საზღვარი მნიშვნელობა (მინიმალური/მაქსიმალური), რომლებიც გამოიყენება საკონტროლო წერტილების დასადგენად და შეფერხებების გამოსაწვევად, როდესაც იმპულსების რაოდენობა აკმაყოფილებს კონკრეტულ ზღვარს.</li>
+</ul>
+</div></blockquote>
+<p>კონკრეტული არხის დაყენება შემდეგ ხდება ფუნქციის გამოძახებით <a class="reference internal" href="pcnt.html#_CPPv416pcnt_unit_configPK13pcnt_config_t" title="pcnt_unit_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_unit_config()</span></code></a> ზემოთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_config_t</span></code> როგორც შეყვანის პარამეტრი.</p>
+<p>კონფიგურაციაში იმპულსის ან მართვის შეყვანის პინის გამოსართავად, მიუთითეთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">PCNT_PIN_NOT_USED</span></code> GPIO ნომრის ნაცვლად.</p>
+</div>
+<div class="section" id="operating-the-counter">
+<span id="pcnt-api-operating-the-counter"></span><h2>მრიცხველის მართვა<a class="headerlink" href="pcnt.html#operating-the-counter" title="Permalink to this headline">¶</a></h2>
+<p>დაყენების შემდეგ <a class="reference internal" href="pcnt.html#_CPPv416pcnt_unit_configPK13pcnt_config_t" title="pcnt_unit_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_unit_config()</span></code></a>, მრიცხველი დაუყოვნებლივ იწყებს მუშაობას. დაგროვილი პულსის რაოდენობის შემოწმება შესაძლებელია ღილაკზე დარეკვით <a class="reference internal" href="pcnt.html#_CPPv422pcnt_get_counter_value11pcnt_unit_tP7int16_t" title="pcnt_get_counter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_get_counter_value()</span></code></a>.</p>
+<p>არსებობს რამდენიმე ფუნქცია, რომელიც საშუალებას გაძლევთ აკონტროლოთ მრიცხველის მუშაობა: <a class="reference internal" href="pcnt.html#_CPPv418pcnt_counter_pause11pcnt_unit_t" title="pcnt_counter_pause"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_counter_pause()</span></code></a>,  <a class="reference internal" href="pcnt.html#_CPPv419pcnt_counter_resume11pcnt_unit_t" title="pcnt_counter_resume"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_counter_resume()</span></code></a> და <a class="reference internal" href="pcnt.html#_CPPv418pcnt_counter_clear11pcnt_unit_t" title="pcnt_counter_clear"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_counter_clear()</span></code></a></p>
+<p>ასევე შესაძლებელია ადრე დაყენებული მრიცხველის რეჟიმების დინამიურად შეცვლა <a class="reference internal" href="pcnt.html#_CPPv416pcnt_unit_configPK13pcnt_config_t" title="pcnt_unit_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_unit_config()</span></code></a> დარეკვით <a class="reference internal" href="pcnt.html#_CPPv413pcnt_set_mode11pcnt_unit_t14pcnt_channel_t17pcnt_count_mode_t17pcnt_count_mode_t16pcnt_ctrl_mode_t16pcnt_ctrl_mode_t" title="pcnt_set_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_set_mode()</span></code></a>.</p>
+<p>სურვილის შემთხვევაში, იმპულსური შეყვანის პინი და საკონტროლო შეყვანის პინი შეიძლება შეიცვალოს „მომენტალურად“ გამოყენებით. <a class="reference internal" href="pcnt.html#_CPPv412pcnt_set_pin11pcnt_unit_t14pcnt_channel_tii" title="pcnt_set_pin"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_set_pin()</span></code></a>კონკრეტული შეყვანის გამოსართავად, ფუნქციის პარამეტრად მიუთითეთ <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">PCNT_PIN_NOT_USED</span></code> GPIO ნომრის ნაცვლად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">იმისათვის, რომ მრიცხველმა არ გამოტოვოს არცერთი იმპულსი, იმპულსის ხანგრძლივობა უნდა იყოს ერთ APB_CLK ციკლზე (12.5 ns) მეტი. იმპულსები APB_CLK საათის კიდეებზეა შერჩეული და შესაძლოა გამოტოვდეს, თუ კიდეებს შორის მოხვდება. ეს ეხება მრიცხველის მუშაობას ან მის გარეშე. <a class="reference internal" href="pcnt.html#pcnt-api-filtering-pulses"><span class="std std-ref">შემფუთველი</span></a>.</p>
+</div>
+</div>
+<div class="section" id="filtering-pulses">
+<span id="pcnt-api-filtering-pulses"></span><h2>ფილტრაციის იმპულსები<a class="headerlink" href="pcnt.html#filtering-pulses" title="Permalink to this headline">¶</a></h2>
+<p>PCNT ბლოკს აქვს ფილტრები თითოეულ იმპულსურ და საკონტროლო შესასვლელზე, რაც სიგნალებში მოკლევადიანი ხარვეზების იგნორირების შესაძლებლობას იძლევა.</p>
+<p>იგნორირებული იმპულსების ხანგრძლივობა მოცემულია APB_CLK საათის ციკლებში გამოძახებით <a class="reference internal" href="pcnt.html#_CPPv421pcnt_set_filter_value11pcnt_unit_t8uint16_t" title="pcnt_set_filter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_set_filter_value()</span></code></a>მიმდინარე ფილტრის პარამეტრის შემოწმება შესაძლებელია <a class="reference internal" href="pcnt.html#_CPPv421pcnt_get_filter_value11pcnt_unit_tP8uint16_t" title="pcnt_get_filter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_get_filter_value()</span></code></a>APB_CLK საათი მუშაობს 80 MHz სიხშირეზე.</p>
+<p>ფილტრი ამოქმედდება / შეჩერდება დარეკვით <a class="reference internal" href="pcnt.html#_CPPv418pcnt_filter_enable11pcnt_unit_t" title="pcnt_filter_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_filter_enable()</span></code></a> / <a class="reference internal" href="pcnt.html#_CPPv419pcnt_filter_disable11pcnt_unit_t" title="pcnt_filter_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_filter_disable()</span></code></a>.</p>
+</div>
+<div class="section" id="using-interrupts">
+<span id="pcnt-api-using-interrupts"></span><h2>შეფერხებების გამოყენება<a class="headerlink" href="pcnt.html#using-interrupts" title="Permalink to this headline">¶</a></h2>
+<p>არსებობს სახელმწიფოს საწინააღმდეგო მეთვალყურეობის ხუთი ღონისძიება, რომლებიც განსაზღვრულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_evt_type_t</span></code>, რომლებსაც შეუძლიათ შეფერხების გამოწვევა. მოვლენა ხდება იმპულსების მრიცხველზე, რომელიც აღწევს კონკრეტულ მნიშვნელობებს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>მინიმალური ან მაქსიმალური რაოდენობის მნიშვნელობები: <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">counter_l_lim</span></code> ან <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">counter_h_lim</span></code> მოწოდებულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">pcnt_config_t</span></code> როგორც განხილულია <a class="reference internal" href="pcnt.html#pcnt-api-configuration"><span class="std std-ref">კონფიგურაცია</span></a></li>
+<li>ფუნქციის გამოყენებით დაყენებულია 0 ან 1 ზღურბლის მნიშვნელობები <a class="reference internal" href="pcnt.html#_CPPv420pcnt_set_event_value11pcnt_unit_t15pcnt_evt_type_t7int16_t" title="pcnt_set_event_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_set_event_value()</span></code></a>.</li>
+<li>პულსის რაოდენობა = 0</li>
+</ul>
+</div></blockquote>
+<p>ზემოთ ჩამოთვლილი მოვლენების მომსახურების შეფერხების რეგისტრაციის, ჩართვის ან გამორთვისთვის დარეკეთ <a class="reference internal" href="pcnt.html#_CPPv417pcnt_isr_registerPFvPvEPviP17pcnt_isr_handle_t" title="pcnt_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_isr_register()</span></code></a>, <a class="reference internal" href="pcnt.html#_CPPv416pcnt_intr_enable11pcnt_unit_t" title="pcnt_intr_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_intr_enable()</span></code></a>. და <a class="reference internal" href="pcnt.html#_CPPv417pcnt_intr_disable11pcnt_unit_t" title="pcnt_intr_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_intr_disable()</span></code></a>ზღვრული მნიშვნელობების მიღწევისას მოვლენების ჩასართავად ან გამოსართავად, ასევე დაგჭირდებათ ფუნქციების გამოძახება. <a class="reference internal" href="pcnt.html#_CPPv417pcnt_event_enable11pcnt_unit_t15pcnt_evt_type_t" title="pcnt_event_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_event_enable()</span></code></a> და <a class="reference internal" href="pcnt.html#_CPPv418pcnt_event_disable11pcnt_unit_t15pcnt_evt_type_t" title="pcnt_event_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_event_disable()</span></code></a>.</p>
+<p>ამჟამად დაყენებული ზღვრული მნიშვნელობების შესამოწმებლად გამოიყენეთ ფუნქცია <a class="reference internal" href="pcnt.html#_CPPv420pcnt_get_event_value11pcnt_unit_t15pcnt_evt_type_tP7int16_t" title="pcnt_get_event_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pcnt_get_event_value()</span></code></a>.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="pcnt.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>პულსის მრიცხველი მართვის სიგნალით და მოვლენის შეწყვეტის მაგალითით: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/pcnt">პერიფერიული მოწყობილობები/ცენტი</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="pcnt.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="pcnt.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/pcnt.h">დრაივერი/ინკლუზია/დრაივერი/pcnt.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="pcnt.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv416pcnt_unit_configPK13pcnt_config_t">
+<span id="_CPPv316pcnt_unit_configPK13pcnt_config_t"></span><span id="_CPPv216pcnt_unit_configPK13pcnt_config_t"></span><span id="pcnt_unit_config__pcnt_config_tCP"></span><span class="target" id="pcnt_8h_1a11ff0cf270bdc47fdc70489d49657c55"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_unit_config</code><span class="sig-paren">(</span><em class="property">კონსტ</em> pcnt_config_t *<em>pcnt_config</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv416pcnt_unit_configPK13pcnt_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პულსის მრიცხველის ბლოკის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function will disable three events: PCNT_EVT_L_LIM, PCNT_EVT_H_LIM, PCNT_EVT_ZERO.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი უკვე ინიციალიზებულია</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_config</span></code>პულსის მრიცხველის ინდიკატორის კონფიგურაციის პარამეტრი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422pcnt_get_counter_value11pcnt_unit_tP7int16_t">
+<span id="_CPPv322pcnt_get_counter_value11pcnt_unit_tP7int16_t"></span><span id="_CPPv222pcnt_get_counter_value11pcnt_unit_tP7int16_t"></span><span id="pcnt_get_counter_value__pcnt_unit_t.int16_tP"></span><span class="target" id="pcnt_8h_1a293795790d2b68f894bc6557b72eee49"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_get_counter_value</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em>, int16_t *<em>დათვლა</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv422pcnt_get_counter_value11pcnt_unit_tP7int16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ პულსის მრიცხველის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>პულსის მრიცხველის ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">count</span></code>: მრიცხველის მნიშვნელობის მიღების მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418pcnt_counter_pause11pcnt_unit_t">
+<span id="_CPPv318pcnt_counter_pause11pcnt_unit_t"></span><span id="_CPPv218pcnt_counter_pause11pcnt_unit_t"></span><span id="pcnt_counter_pause__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1a0ea4698bf645e68cd330c2711328ea13"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_counter_pause</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv418pcnt_counter_pause11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ერთეულის PCNT მრიცხველის პაუზა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419pcnt_counter_resume11pcnt_unit_t">
+<span id="_CPPv319pcnt_counter_resume11pcnt_unit_t"></span><span id="_CPPv219pcnt_counter_resume11pcnt_unit_t"></span><span id="pcnt_counter_resume__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1ab43d72a6993f599aea2e070559d33638"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_counter_resume</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv419pcnt_counter_resume11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>განაახლეთ PCNT მრიცხველის დათვლა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>: PCNT ერთეულის ნომერი, აირჩიეთ pcnt_unit_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418pcnt_counter_clear11pcnt_unit_t">
+<span id="_CPPv318pcnt_counter_clear11pcnt_unit_t"></span><span id="_CPPv218pcnt_counter_clear11pcnt_unit_t"></span><span id="pcnt_counter_clear__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1ad52485ddd6d5a0265659021d6b62ee5e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_counter_clear</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv418pcnt_counter_clear11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაწმინდეთ და PCNT მრიცხველის მნიშვნელობა ნულზე დააბრუნეთ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>: PCNT ერთეულის ნომერი, აირჩიეთ pcnt_unit_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416pcnt_intr_enable11pcnt_unit_t">
+<span id="_CPPv316pcnt_intr_enable11pcnt_unit_t"></span><span id="_CPPv216pcnt_intr_enable11pcnt_unit_t"></span><span id="pcnt_intr_enable__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1ab4ec369a1293ba53077be9c9570d7eb0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_intr_enable</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv416pcnt_intr_enable11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT მოწყობილობისთვის PCNT შეწყვეტის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Each Pulse counter unit has five watch point events that share the same interrupt. Configure events with pcnt_event_enable() and pcnt_event_disable()</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417pcnt_intr_disable11pcnt_unit_t">
+<span id="_CPPv317pcnt_intr_disable11pcnt_unit_t"></span><span id="_CPPv217pcnt_intr_disable11pcnt_unit_t"></span><span id="pcnt_intr_disable__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1a9b3ff5f53084c7f5866abd7b0813fabd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_intr_disable</code><span class="sig-paren">(</span>pcnt_unit_t <em>pcnt_unite</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv417pcnt_intr_disable11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT მოწყობილობისთვის PCNT შეწყვეტის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pcnt_unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417pcnt_event_enable11pcnt_unit_t15pcnt_evt_type_t">
+<span id="_CPPv317pcnt_event_enable11pcnt_unit_t15pcnt_evt_type_t"></span><span id="_CPPv217pcnt_event_enable11pcnt_unit_t15pcnt_evt_type_t"></span><span id="pcnt_event_enable__pcnt_unit_t.pcnt_evt_type_t"></span><span class="target" id="pcnt_8h_1abc5fc0954f19c64885c3ea7fcaccfe7e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_event_enable</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_evt_type_t <em>evt_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv417pcnt_event_enable11pcnt_unit_t15pcnt_evt_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ერთეულის PCNT მოვლენის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">evt_type</span></code>: სათვალთვალო წერტილის მოვლენის ტიპი. ყველა ჩართული მოვლენა იზიარებს ერთსა და იმავე შეფერხებას (თითო შეფერხება თითო იმპულსების მრიცხველ ერთეულზე). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418pcnt_event_disable11pcnt_unit_t15pcnt_evt_type_t">
+<span id="_CPPv318pcnt_event_disable11pcnt_unit_t15pcnt_evt_type_t"></span><span id="_CPPv218pcnt_event_disable11pcnt_unit_t15pcnt_evt_type_t"></span><span id="pcnt_event_disable__pcnt_unit_t.pcnt_evt_type_t"></span><span class="target" id="pcnt_8h_1adc924cb00f2266f2884a38dc656e744f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_event_disable</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_evt_type_t <em>evt_ტიპი</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv418pcnt_event_disable11pcnt_unit_t15pcnt_evt_type_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ერთეულის PCNT მოვლენის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">evt_type</span></code>: სათვალთვალო წერტილის მოვლენის ტიპი. ყველა ჩართული მოვლენა იზიარებს ერთსა და იმავე შეფერხებას (თითო შეფერხება თითო იმპულსების მრიცხველ ერთეულზე). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420pcnt_set_event_value11pcnt_unit_t15pcnt_evt_type_t7int16_t">
+<span id="_CPPv320pcnt_set_event_value11pcnt_unit_t15pcnt_evt_type_t7int16_t"></span><span id="_CPPv220pcnt_set_event_value11pcnt_unit_t15pcnt_evt_type_t7int16_t"></span><span id="pcnt_set_event_value__pcnt_unit_t.pcnt_evt_type_t.int16_t"></span><span class="target" id="pcnt_8h_1aa5ebecc3a1ab9f915d80498e7decad63"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_set_event_value</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_evt_type_t <em>evt_ტიპი</em>, int16_t <em>ღირებულება</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv420pcnt_set_event_value11pcnt_unit_t15pcnt_evt_type_t7int16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ერთეულის PCNT მოვლენის მნიშვნელობის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">evt_type</span></code>: სათვალთვალო წერტილის მოვლენის ტიპი. ყველა ჩართული მოვლენა იზიარებს ერთსა და იმავე შეფერხებას (თითო შეფერხება თითო იმპულსების მრიცხველ ერთეულზე).</li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>PCNT მოვლენის მრიცხველის მნიშვნელობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420pcnt_get_event_value11pcnt_unit_t15pcnt_evt_type_tP7int16_t">
+<span id="_CPPv320pcnt_get_event_value11pcnt_unit_t15pcnt_evt_type_tP7int16_t"></span><span id="_CPPv220pcnt_get_event_value11pcnt_unit_t15pcnt_evt_type_tP7int16_t"></span><span id="pcnt_get_event_value__pcnt_unit_t.pcnt_evt_type_t.int16_tP"></span><span class="target" id="pcnt_8h_1a9c0c3c6dc29232ba31494dc06a12d6dd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_get_event_value</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_evt_type_t <em>evt_ტიპი</em>, int16_t *<em>ღირებულება</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv420pcnt_get_event_value11pcnt_unit_t15pcnt_evt_type_tP7int16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ PCNT ერთეულის PCNT მოვლენის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">evt_type</span></code>: სათვალთვალო წერტილის მოვლენის ტიპი. ყველა ჩართული მოვლენა იზიარებს ერთსა და იმავე შეფერხებას (თითო შეფერხება თითო იმპულსების მრიცხველ ერთეულზე). </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: მაჩვენებელი PCNT მოვლენისთვის მრიცხველის მნიშვნელობის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417pcnt_isr_registerPFvPvEPviP17pcnt_isr_handle_t">
+<span id="_CPPv317pcnt_isr_registerPFvPvEPviP17pcnt_isr_handle_t"></span><span id="_CPPv217pcnt_isr_registerPFvPvEPviP17pcnt_isr_handle_t"></span><span class="target" id="pcnt_8h_1a0c6a645cb722c0fbd87dde7ae0cf2f83"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_isr_register</code><span class="sig-paren">(</span>void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="pcnt.html#_CPPv417pcnt_isr_handle_t" title="pcnt_isr_handle_t">pcnt_isr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv417pcnt_isr_registerPFvPvEPviP17pcnt_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დარეგისტრირდით PCNT შეწყვეტის დამმუშავებელზე, დამმუშავებელი არის ISR. დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს. გთხოვთ, არ გამოიყენოთ pcnt_isr_service_install, თუ ეს ფუნქცია გამოიძახეს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_NOT_FOUND ვერ პოულობს დროშებს შესაბამისი შეფერხებას.</li>
+<li>ESP_ERR_INVALID_ARG ფუნქციის მაჩვენებლის შეცდომა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: მაჩვენებელი დასაბრუნებელი სახელურისთვის. თუ ის არ არის NULL, შეწყვეტის სახელური დაბრუნდება აქ. საჭიროების შემთხვევაში, ამ ISR სერვისის რეგისტრაციის გასაუქმებლად გამოიძახება esp_intr_free, მაგრამ მხოლოდ იმ შემთხვევაში, თუ სახელური არ არის NULL.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412pcnt_set_pin11pcnt_unit_t14pcnt_channel_tii">
+<span id="_CPPv312pcnt_set_pin11pcnt_unit_t14pcnt_channel_tii"></span><span id="_CPPv212pcnt_set_pin11pcnt_unit_t14pcnt_channel_tii"></span><span id="pcnt_set_pin__pcnt_unit_t.pcnt_channel_t.i.i"></span><span class="target" id="pcnt_8h_1ad2b10e9644117cdd517916c7d09e8f37"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_set_pin</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_channel_t <em>არხი</em>, int <em>pulse_io</em>, int <em>ctrl_io</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv412pcnt_set_pin11pcnt_unit_t14pcnt_channel_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT პულსური სიგნალის შეყვანის პინის და საკონტროლო შეყვანის პინის კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Set the signal input to PCNT_PIN_NOT_USED if unused.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: PCNT არხის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">pulse_io</span></code>პულსური სიგნალის შეყვანის GPIO </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctrl_io</span></code>: მართვის სიგნალის შეყვანის GPIO</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418pcnt_filter_enable11pcnt_unit_t">
+<span id="_CPPv318pcnt_filter_enable11pcnt_unit_t"></span><span id="_CPPv218pcnt_filter_enable11pcnt_unit_t"></span><span id="pcnt_filter_enable__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1a3d082c91da3174ccaa4f06994d995f61"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_filter_enable</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv418pcnt_filter_enable11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT შეყვანის ფილტრის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419pcnt_filter_disable11pcnt_unit_t">
+<span id="_CPPv319pcnt_filter_disable11pcnt_unit_t"></span><span id="_CPPv219pcnt_filter_disable11pcnt_unit_t"></span><span id="pcnt_filter_disable__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1aa80d43240af684b6e1daaac5b007d51c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_filter_disable</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv419pcnt_filter_disable11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT შეყვანის ფილტრის გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421pcnt_set_filter_value11pcnt_unit_t8uint16_t">
+<span id="_CPPv321pcnt_set_filter_value11pcnt_unit_t8uint16_t"></span><span id="_CPPv221pcnt_set_filter_value11pcnt_unit_t8uint16_t"></span><span id="pcnt_set_filter_value__pcnt_unit_t.uint16_t"></span><span class="target" id="pcnt_8h_1a4f1a68d29886785964653fc3f5d55f48"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_set_filter_value</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, uint16_t <em>ფილტრის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv421pcnt_set_filter_value11pcnt_unit_t8uint16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ფილტრის მნიშვნელობის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>filter_val is a 10-bit value, so the maximum filter_val should be limited to 1023.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">filter_val</span></code>PCNT სიგნალის ფილტრის მნიშვნელობა, მრიცხველი APB_CLK ციკლებში. ფილტრის ჩართვისას იგნორირებული იქნება ნებისმიერი იმპულსი, რომელიც ამაზე უფრო მოკლეა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421pcnt_get_filter_value11pcnt_unit_tP8uint16_t">
+<span id="_CPPv321pcnt_get_filter_value11pcnt_unit_tP8uint16_t"></span><span id="_CPPv221pcnt_get_filter_value11pcnt_unit_tP8uint16_t"></span><span id="pcnt_get_filter_value__pcnt_unit_t.uint16_tP"></span><span class="target" id="pcnt_8h_1aa310c27d8e0ad49d2305ff3d4f4030b5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_get_filter_value</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, uint16_t *<em>ფილტრის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv421pcnt_get_filter_value11pcnt_unit_tP8uint16_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ PCNT ფილტრის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">filter_val</span></code>: PCNT ფილტრის მნიშვნელობის მისაღებად მითითება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413pcnt_set_mode11pcnt_unit_t14pcnt_channel_t17pcnt_count_mode_t17pcnt_count_mode_t16pcnt_ctrl_mode_t16pcnt_ctrl_mode_t">
+<span id="_CPPv313pcnt_set_mode11pcnt_unit_t14pcnt_channel_t17pcnt_count_mode_t17pcnt_count_mode_t16pcnt_ctrl_mode_t16pcnt_ctrl_mode_t"></span><span id="_CPPv213pcnt_set_mode11pcnt_unit_t14pcnt_channel_t17pcnt_count_mode_t17pcnt_count_mode_t16pcnt_ctrl_mode_t16pcnt_ctrl_mode_t"></span><span id="pcnt_set_mode__pcnt_unit_t.pcnt_channel_t.pcnt_count_mode_t.pcnt_count_mode_t.pcnt_ctrl_mode_t.pcnt_ctrl_mode_t"></span><span class="target" id="pcnt_8h_1ae845958e0b0dbfdff1702d9f4feee8c6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_set_mode</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, pcnt_channel_t <em>არხი</em>, pcnt_count_mode_t <em>pos_mode</em>, pcnt_count_mode_t <em>უარყოფითი_რეჟიმი</em>, pcnt_ctrl_mode_t <em>hctrl_mode</em>, pcnt_ctrl_mode_t <em>lctrl_mode</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv413pcnt_set_mode11pcnt_unit_t14pcnt_channel_t17pcnt_count_mode_t17pcnt_count_mode_t16pcnt_ctrl_mode_t16pcnt_ctrl_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT მრიცხველის რეჟიმის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: PCNT არხის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">pos_mode</span></code>: მრიცხველის რეჟიმი დადებითი კიდის აღმოჩენისას </li>
+<li><code class="docutils literal notranslate"><span class="pre">neg_mode</span></code>უარყოფითი კიდის აღმოჩენისას მრიცხველის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">hctrl_mode</span></code>მრიცხველის რეჟიმი, როდესაც მართვის სიგნალი მაღალია </li>
+<li><code class="docutils literal notranslate"><span class="pre">lctrl_mode</span></code>მრიცხველის რეჟიმი, როდესაც კონტროლის სიგნალი დაბალია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420pcnt_isr_handler_add11pcnt_unit_tPFvPvEPv">
+<span id="_CPPv320pcnt_isr_handler_add11pcnt_unit_tPFvPvEPv"></span><span id="_CPPv220pcnt_isr_handler_add11pcnt_unit_tPFvPvEPv"></span><span class="target" id="pcnt_8h_1a2c019e2f58e0a59517728e8c6c7c42c4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_isr_handler_add</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em>, void (*<em>isr_handler</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტები</em>, <span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv420pcnt_isr_handler_add11pcnt_unit_tPFvPvEPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ერთეულისთვის დაამატეთ ISR დამმუშავებელი. </p>
+<p>გამოიძახეთ ეს ფუნქცია pcnt_isr_service_install() ფუნქციის გამოყენების შემდეგ PCNT დრაივერის ISR დამმუშავებლის სერვისის დასაყენებლად.</p>
+<p>ISR დამმუშავებლების IRAM_ATTR-ით გამოცხადება საჭირო არ არის, თუ pcnt_isr_service_install() ფუნქციაში ISR-ის გამოყოფისას არ გადასცემთ ESP_INTR_FLAG_IRAM ფლაგს.</p>
+<p>ეს ISR დამმუშავებელი გამოიძახება ISR-დან. ამგვარად, არსებობს დასტის ზომის ლიმიტი (კონფიგურირებადია როგორც „ISR დასტის ზომა“ menuconfig ში). ეს ლიმიტი უფრო მცირეა გლობალურ PCNT შეწყვეტის დამმუშავებელთან შედარებით ირიბი შეფერხების დამატებითი დონის გამო.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">isr_handler</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">args</span></code>: დამმუშავებლის ფუნქციის პარამეტრი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424pcnt_isr_service_installi">
+<span id="_CPPv324pcnt_isr_service_installi"></span><span id="_CPPv224pcnt_isr_service_installi"></span><span id="pcnt_isr_service_install__i"></span><span class="target" id="pcnt_8h_1a6ccbccf619047466e046829019ef08bb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_isr_service_install</code><span class="sig-paren">(</span>int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv424pcnt_isr_service_installi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააინსტალირეთ PCNT ISR სერვისი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>We can manage different interrupt service for each unit. This function will use the default ISR handle service, Calling pcnt_isr_service_uninstall to uninstall the default service if needed. Please do not use pcnt_isr_register if this function was called.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_NO_MEM ამ სერვისის ინსტალაციის მეხსიერება არ არის</li>
+<li>ESP_ERR_INVALID_STATE ISR სერვისი უკვე დაინსტალირებულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426pcnt_isr_service_uninstallv">
+<span id="_CPPv326pcnt_isr_service_uninstallv"></span><span id="_CPPv226pcnt_isr_service_uninstallv"></span><span id="pcnt_isr_service_uninstall__void"></span><span class="target" id="pcnt_8h_1af84df6b006315b02d0312a8e45814505"></span>void <code class="descname">pcnt_isr_service_uninstall</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv426pcnt_isr_service_uninstallv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PCNT ISR სერვისის დეინსტალაცია, რაც გაათავისუფლებს დაკავშირებულ რესურსებს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423pcnt_isr_handler_remove11pcnt_unit_t">
+<span id="_CPPv323pcnt_isr_handler_remove11pcnt_unit_t"></span><span id="_CPPv223pcnt_isr_handler_remove11pcnt_unit_t"></span><span id="pcnt_isr_handler_remove__pcnt_unit_t"></span><span class="target" id="pcnt_8h_1a2eafc24a87c1af03a5a882f77e6d95a6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">pcnt_isr_handler_remove</code><span class="sig-paren">(</span>pcnt_unit_t <em>ერთეული</em><span class="sig-paren">)</span><a class="headerlink" href="pcnt.html#_CPPv423pcnt_isr_handler_remove11pcnt_unit_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ერთეულისთვის ISR დამმუშავებლის წაშლა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE pcnt დრაივერი არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">unit</span></code>: PCNT ერთეულის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="pcnt.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417pcnt_isr_handle_t">
+<span id="_CPPv317pcnt_isr_handle_t"></span><span id="_CPPv217pcnt_isr_handle_t"></span><span id="pcnt_isr_handle_t"></span><span class="target" id="pcnt_8h_1a4abe5e1f13f84d59fd620fe2b548b487"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">pcnt_isr_handle_t</code><a class="headerlink" href="pcnt.html#_CPPv417pcnt_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="rmt.html" rel="next" title="RMT">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="mcpwm.html" rel="prev" title="MCPWM"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

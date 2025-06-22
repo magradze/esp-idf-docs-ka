@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SDMMC ჰოსტის დრაივერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="sdspi_host.html" rel="next" title="SD SPI Host Driver"/>
+<link href="sd_pullup_requirements.html" rel="prev" title="SD Pull-up Requirements"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/sdmmc_host.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/sdmmc_host"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/sdmmc_host.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="sdmmc_host.html#">SDMMC ჰოსტი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#supported-speed-modes">მხარდაჭერილი სიჩქარის რეჟიმები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#using-the-sdmmc-host-driver">SDMMC მასპინძელი დრაივერის გამოყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#configuring-bus-width-and-frequency">ავტობუსის სიგანისა და სიხშირის კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#see-also">აგრეთვე იხილეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdmmc_host.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>SDMMC ჰოსტის დრაივერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/sdmmc_host.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="sdmmc-host-driver">
+<h1>SDMMC ჰოსტის დრაივერი<a class="headerlink" href="sdmmc_host.html#sdmmc-host-driver" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="sdmmc_host.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის SDMMC მასპინძელ პერიფერიულ მოწყობილობას ორი სლოტი აქვს:</p>
+<ul class="simple">
+<li>სლოტი 0 (<a class="reference internal" href="sdmmc_host.html#c.SDMMC_HOST_SLOT_0" title="SDMMC_HOST_SLOT_0"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SDMMC_HOST_SLOT_0</span></code></a>) არის 8-ბიტიანი სლოტი. ის იყენებს <code class="docutils literal notranslate"><span class="pre">HS1_*</span></code> სიგნალები PIN MUX-ში.</li>
+<li>სლოტი 1 (<a class="reference internal" href="sdmmc_host.html#c.SDMMC_HOST_SLOT_1" title="SDMMC_HOST_SLOT_1"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SDMMC_HOST_SLOT_1</span></code></a>) არის 4-ბიტიანი სლოტი. ის იყენებს <code class="docutils literal notranslate"><span class="pre">HS2_*</span></code> სიგნალები PIN MUX-ში.</li>
+</ul>
+<p>ამ სლოტების პინების შესაბამისობები მოცემულია ქვემოთ მოცემულ ცხრილში.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="24%"/>
+<col width="38%"/>
+<col width="38%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">სიგნალი</th>
+<th class="head">სლოტი 0</th>
+<th class="head">სლოტი 1</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CMD</td>
+<td>GPIO</td>
+<td>GPIO 15-ე კურსი</td>
+</tr>
+<tr class="row-odd"><td>CLK</td>
+<td>GPIO</td>
+<td>GPIO 14-ე კურსი</td>
+</tr>
+<tr class="row-even"><td>D0</td>
+<td>GPIO 7</td>
+<td>GPIO 2</td>
+</tr>
+<tr class="row-odd"><td>D1</td>
+<td>მე-7 8 GPIO</td>
+<td>GPIO 4</td>
+</tr>
+<tr class="row-even"><td>D2</td>
+<td>მე-7 9 GPIO</td>
+<td>GPIO 12-ე კურსი</td>
+</tr>
+<tr class="row-odd"><td>D3</td>
+<td>GPIO 10 ტერმინალი</td>
+<td>GPIO 13-ე კურსი</td>
+</tr>
+<tr class="row-even"><td>D4</td>
+<td>GPIO 16-ე კურსი</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td>D5</td>
+<td>GPIO 17-ე კურსი</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>D6</td>
+<td>GPIO 5</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td>D7</td>
+<td>GPIO 18-ე კურსი</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>CD</td>
+<td colspan="2">ნებისმიერი შეყვანა GPIO მატრიცის მეშვეობით</td>
+</tr>
+<tr class="row-odd"><td>WP</td>
+<td colspan="2">ნებისმიერი შეყვანა GPIO მატრიცის მეშვეობით</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>ბარათის აღმოჩენის და ჩაწერის დაცვის სიგნალები შეიძლება გადამისამართდეს ნებისმიერ პინებზე GPIO მატრიცის გამოყენებით. პინების დასაჯავშნად, დააყენეთ <code class="docutils literal notranslate"><span class="pre">gpio_cd</span></code> და <code class="docutils literal notranslate"><span class="pre">gpio_wp</span></code> წევრები <a class="reference internal" href="sdmmc_host.html#_CPPv419sdmmc_slot_config_t" title="sdmmc_slot_config_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_slot_config_t</span></code></a> სტრუქტურა დარეკვამდე <a class="reference internal" href="sdmmc_host.html#_CPPv420sdmmc_host_init_slotiPK19sdmmc_slot_config_t" title="sdmmc_host_init_slot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_init_slot()</span></code></a>გთხოვთ გაითვალისწინოთ, რომ SDIO ბარათებთან მუშაობისას არ არის რეკომენდებული Card Detect PIN-ის მითითება, რადგან ESP32-ში ბარათის აღმოჩენის სიგნალმა ასევე შეიძლება გამოიწვიოს SDIO მონათმფლობელის შეფერხება.</p>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">სლოტი 0-ის მიერ გამოყენებული პინები (<code class="docutils literal notranslate"><span class="pre">HS1_*</span></code>) ასევე გამოიყენება SPI ფლეშ მეხსიერება ჩიპის ESP32-WROOM და ESP32-WROVER მოდულებში შესაერთებლად. ეს პინები არ შეიძლება გაზიარდეს SD ბარათსა და SPI ფლეშ მეხსიერება შორის. თუ საჭიროა Slot 0-ის გამოყენება, შეაერთეთ SPI ფლეშ მეხსიერება სხვადასხვა პინებთან და შესაბამისად დააყენეთ eFuse-ები.</p>
+</div>
+</div>
+<div class="section" id="supported-speed-modes">
+<h2>მხარდაჭერილი სიჩქარის რეჟიმები<a class="headerlink" href="sdmmc_host.html#supported-speed-modes" title="Permalink to this headline">¶</a></h2>
+<p>SDMMC მასპინძლის დრაივერი მხარს უჭერს შემდეგ სიჩქარის რეჟიმებს:</p>
+<ul class="simple">
+<li>ნაგულისხმევი სიჩქარე (20 MHz), 4 ხაზი/1 ხაზი (SD ბარათებით) და 8 ხაზი (3.3 V eMMC-ით)</li>
+<li>მაღალი სიჩქარე (40 MHz), 4-ხაზიანი/1-ხაზიანი (SD ბარათებით) და 8-ხაზიანი (3.3 V eMMC-ით)</li>
+<li>მაღალი სიჩქარის DDR (40 MHz), 4-ხაზიანი (3.3 V eMMC-ით)</li>
+</ul>
+<p>სიჩქარის რეჟიმები ამჟამად არ არის მხარდაჭერილი:</p>
+<ul class="simple">
+<li>მაღალი სიჩქარის DDR რეჟიმი, 8-ხაზიანი eMMC</li>
+<li>UHS-I 1.8 V რეჟიმები, 4-ხაზიანი SD ბარათები</li>
+</ul>
+</div>
+<div class="section" id="using-the-sdmmc-host-driver">
+<h2>SDMMC მასპინძელი დრაივერის გამოყენება<a class="headerlink" href="sdmmc_host.html#using-the-sdmmc-host-driver" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ ჩამოთვლილი ყველა ფუნქციიდან, აპლიკაციების უმეტესობა პირდაპირ მხოლოდ შემდეგს გამოიყენებს:</p>
+<ul class="simple">
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv415sdmmc_host_initv" title="sdmmc_host_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_init()</span></code></a></li>
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv420sdmmc_host_init_slotiPK19sdmmc_slot_config_t" title="sdmmc_host_init_slot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_init_slot()</span></code></a></li>
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv417sdmmc_host_deinitv" title="sdmmc_host_deinit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_deinit()</span></code></a></li>
+</ul>
+<p>სხვა ფუნქციები, როგორიცაა ქვემოთ მოცემული, გამოიძახება SD/MMC პროტოკოლის ფენის მიერ ფუნქციის მაჩვენებლების მეშვეობით. <a class="reference internal" href="../storage/sdmmc.html#_CPPv412sdmmc_host_t" title="sdmmc_host_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_host_t</span></code></a> სტრუქტურა:</p>
+<ul class="simple">
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv424sdmmc_host_set_bus_widthi6size_t" title="sdmmc_host_set_bus_width"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_set_bus_width()</span></code></a></li>
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv423sdmmc_host_set_card_clki8uint32_t" title="sdmmc_host_set_card_clk"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_set_card_clk()</span></code></a></li>
+<li><a class="reference internal" href="sdmmc_host.html#_CPPv425sdmmc_host_do_transactioniP15sdmmc_command_t" title="sdmmc_host_do_transaction"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_host_do_transaction()</span></code></a></li>
+</ul>
+</div>
+<div class="section" id="configuring-bus-width-and-frequency">
+<h2>ავტობუსის სიგანისა და სიხშირის კონფიგურაცია<a class="headerlink" href="sdmmc_host.html#configuring-bus-width-and-frequency" title="Permalink to this headline">¶</a></h2>
+<p>ნაგულისხმევი ინიციალიზატორებით <a class="reference internal" href="../storage/sdmmc.html#_CPPv412sdmmc_host_t" title="sdmmc_host_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_host_t</span></code></a> და <a class="reference internal" href="sdmmc_host.html#_CPPv419sdmmc_slot_config_t" title="sdmmc_slot_config_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_slot_config_t</span></code></a> (<a class="reference internal" href="sdmmc_host.html#c.SDMMC_HOST_DEFAULT" title="SDMMC_HOST_DEFAULT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SDMMC_HOST_DEFAULT</span></code></a> და <a class="reference internal" href="sdmmc_host.html#c.SDMMC_SLOT_CONFIG_DEFAULT" title="SDMMC_SLOT_CONFIG_DEFAULT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SDMMC_SLOT_CONFIG_DEFAULT</span></code></a>), SDMMC მასპინძელი დრაივერი შეეცდება გამოიყენოს ბარათის მიერ მხარდაჭერილი ყველაზე ფართო ავტობუსი (4 ხაზი SD-სთვის, 8 ხაზი eMMC-სთვის) და 20 MHz სიხშირე.</p>
+<p>იმ დიზაინებში, სადაც კომუნიკაცია 40 MHz სიხშირეზეა შესაძლებელი, ავტობუსის სიხშირის გაზრდა შესაძლებელია შეცვლით. <code class="docutils literal notranslate"><span class="pre">max_freq_khz</span></code> სფერო <a class="reference internal" href="../storage/sdmmc.html#_CPPv412sdmmc_host_t" title="sdmmc_host_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_host_t</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sdmmc_host_t</span> <span class="n">host</span> <span class="o">=</span> <span class="n">SDMMC_HOST_DEFAULT</span><span class="p">();</span>
+<span class="n">host</span><span class="o">.</span><span class="n">max_freq_khz</span> <span class="o">=</span> <span class="n">SDMMC_FREQ_HIGHSPEED</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ავტობუსის სიგანის კონფიგურაციისთვის, დააყენეთ <code class="docutils literal notranslate"><span class="pre">width</span></code> სფერო <a class="reference internal" href="sdmmc_host.html#_CPPv419sdmmc_slot_config_t" title="sdmmc_slot_config_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sdmmc_slot_config_t</span></code></a>მაგალითად, 1-ხაზიანი რეჟიმის დასაყენებლად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sdmmc_slot_config_t</span> <span class="n">slot</span> <span class="o">=</span> <span class="n">SDMMC_SLOT_CONFIG_DEFAULT</span><span class="p">();</span>
+<span class="n">slot</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>აგრეთვე იხილეთ<a class="headerlink" href="sdmmc_host.html#see-also" title="Permalink to this headline">¶</a></h2>
+<p>იხილეთ <a class="reference internal" href="../storage/sdmmc.html"><span class="doc">SD/SDIO/MMC დრაივერი</span></a> უფრო მაღალი დონის დრაივერისთვის, რომელიც ახორციელებს პროტოკოლის ფენას.</p>
+<p>იხილეთ <a class="reference internal" href="sdspi_host.html"><span class="doc">SD SPI ჰოსტის დრაივერი</span></a> მსგავსი დრაივერისთვის, რომელიც იყენებს SPI კონტროლერს და შემოიფარგლება SD პროტოკოლის SPI რეჟიმით.</p>
+<p>იხილეთ <a class="reference internal" href="sd_pullup_requirements.html"><span class="doc">SD Pull-up-ის მოთხოვნები</span></a> Pull-up მხარდაჭერისა და მოდულებისა და განვითარების ნაკრებების თავსებადობისთვის.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="sdmmc_host.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="sdmmc_host.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/sdmmc_host.h">დრაივერი/include/driver/sdmmc_host.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="sdmmc_host.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv415sdmmc_host_initv">
+<span id="_CPPv315sdmmc_host_initv"></span><span id="_CPPv215sdmmc_host_initv"></span><span id="sdmmc_host_init__void"></span><span class="target" id="sdmmc__host_8h_1ad4e25fc6b18a165a56ba4b17c8521f80"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv415sdmmc_host_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SDMMC მასპინძელი პერიფერიული მოწყობილობის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE, თუ sdmmc_host_init უკვე გამოძახებულია</li>
+<li>ESP_ERR_NO_MEM თუ მეხსიერების გამოყოფა შეუძლებელია </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420sdmmc_host_init_slotiPK19sdmmc_slot_config_t">
+<span id="_CPPv320sdmmc_host_init_slotiPK19sdmmc_slot_config_t"></span><span id="_CPPv220sdmmc_host_init_slotiPK19sdmmc_slot_config_t"></span><span id="sdmmc_host_init_slot__i.sdmmc_slot_config_tCP"></span><span class="target" id="sdmmc__host_8h_1a405b06e5e842236bc8ccb698ffe12702"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_init_slot</code><span class="sig-paren">(</span>int <em>სლოტი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="sdmmc_host.html#_CPPv419sdmmc_slot_config_t" title="sdmmc_slot_config_t">sdmmc_slot_config_t</a> *<em>სლოტის_კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv420sdmmc_host_init_slotiPK19sdmmc_slot_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SDMMC პერიფერიული მოწყობილობის მოცემული სლოტის ინიციალიზაცია. </p>
+<p>ESP32-ზე, SDMMC პერიფერიულ მოწყობილობას ორი სლოტი აქვს:<ul class="simple">
+<li>სლოტი 0: 8 ბიტიანი, PIN MUX-ში HS1_* სიგნალებთან შესაბამისობაშია</li>
+<li>სლოტი 1: 4 ბიტიანი, PIN MUX-ში HS2_* სიგნალებთან შესაბამისობაშია</li>
+</ul>
+</p>
+<p>ბარათის აღმოჩენის და ჩაწერის დაცვის სიგნალები შეიძლება გადამისამართდეს ნებისმიერ GPIO ზე GPIO მატრიცის გამოყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE, თუ ჰოსტი არ არის ინიციალიზებული sdmmc_host_init-ის გამოყენებით. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">slot_config</span></code>: სლოტის დამატებითი კონფიგურაცია </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424sdmmc_host_set_bus_widthi6size_t">
+<span id="_CPPv324sdmmc_host_set_bus_widthi6size_t"></span><span id="_CPPv224sdmmc_host_set_bus_widthi6size_t"></span><span id="sdmmc_host_set_bus_width__i.s"></span><span class="target" id="sdmmc__host_8h_1a1885b43bc897d6143fb416489ffe953d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_set_bus_width</code><span class="sig-paren">(</span>int <em>სლოტი</em>, size_t <em>სიგანე</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv424sdmmc_host_set_bus_widthi6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აირჩიეთ მონაცემთა გადაცემისთვის გამოსაყენებელი ავტობუსის სიგანე. </p>
+<p>SD/MMC ბარათი უნდა იყოს ინიციალიზებული ამ ბრძანებამდე და ბარათზე უნდა გაიგზავნოს ავტობუსის სიგანის დაყენების ბრძანება (მაგ. SD_APP_SET_BUS_WIDTH)</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ სლოტის ნომერი ან სიგანე არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">width</span></code>: ავტობუსის სიგანე (1, 4 ან 8 სლოტი 0-ისთვის; 1 ან 4 სლოტი 1-ისთვის) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425sdmmc_host_get_slot_widthi">
+<span id="_CPPv325sdmmc_host_get_slot_widthi"></span><span id="_CPPv225sdmmc_host_get_slot_widthi"></span><span id="sdmmc_host_get_slot_width__i"></span><span class="target" id="sdmmc__host_8h_1ab633bf17c6260cb4bb3e81bcd5f1159d"></span>size_t <code class="descname">sdmmc_host_get_slot_width</code><span class="sig-paren">(</span>int <em>სლოტი</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv425sdmmc_host_get_slot_widthi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ავტობუსის სიგანის კონფიგურაცია <code class="docutils literal notranslate"><span class="pre">sdmmc_host_init_slot</span></code> მონაცემთა გადაცემისთვის გამოსაყენებლად. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>configured bus width of the specified slot. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423sdmmc_host_set_card_clki8uint32_t">
+<span id="_CPPv323sdmmc_host_set_card_clki8uint32_t"></span><span id="_CPPv223sdmmc_host_set_card_clki8uint32_t"></span><span id="sdmmc_host_set_card_clk__i.uint32_t"></span><span class="target" id="sdmmc__host_8h_1a1a06bfada8deb8b08bd32497bcbfdfe9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_set_card_clk</code><span class="sig-paren">(</span>int <em>სლოტი</em>, uint32_t <em>freq_khz</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv423sdmmc_host_set_card_clki8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბარათის საათის სიხშირის დაყენება. </p>
+<p>ამჟამად, შესაძლებელია მხოლოდ 40 MHz საათის მთელი წილადების გამოყენება. მაღალი სიჩქარის ბარათებისთვის შესაძლებელია 40 MHz-ის გამოყენება. ნაგულისხმევი სიჩქარის ბარათებისთვის კი - 20 MHz-ის.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>მომავალში შესაძლოა სხვა შეცდომის კოდები დაბრუნდეს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">freq_khz</span></code>: ბარათის საათის სიხშირე, kHz-ში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427sdmmc_host_set_bus_ddr_modeib">
+<span id="_CPPv327sdmmc_host_set_bus_ddr_modeib"></span><span id="_CPPv227sdmmc_host_set_bus_ddr_modeib"></span><span id="sdmmc_host_set_bus_ddr_mode__i.b"></span><span class="target" id="sdmmc__host_8h_1ad7095391d1955f8b3259d26832928f01"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_set_bus_ddr_mode</code><span class="sig-paren">(</span>int <em>სლოტი</em>, bool <em>ddr_ჩართულია</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv427sdmmc_host_set_bus_ddr_modeib" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SD ინტერფეისის DDR რეჟიმის ჩართვა ან გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NOT_SUPPORTED თუ DDR რეჟიმი არ არის მხარდაჭერილი ამ სლოტზე </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">ddr_enabled</span></code>: DDR რეჟიმის ჩართვა ან გამორთვა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425sdmmc_host_do_transactioniP15sdmmc_command_t">
+<span id="_CPPv325sdmmc_host_do_transactioniP15sdmmc_command_t"></span><span id="_CPPv225sdmmc_host_do_transactioniP15sdmmc_command_t"></span><span id="sdmmc_host_do_transaction__i.sdmmc_command_tP"></span><span class="target" id="sdmmc__host_8h_1a67df816cbf69383fe20f07eceae97e21"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_do_transaction</code><span class="sig-paren">(</span>int <em>სლოტი</em>, <a class="reference internal" href="../storage/sdmmc.html#_CPPv415sdmmc_command_t" title="sdmmc_command_t">sdmmc_command_t</a> *<em>cmdinfo</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv425sdmmc_host_do_transactioniP15sdmmc_command_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაგზავნეთ ბრძანება ბარათზე და მიიღეთ პასუხი. </p>
+<p>ეს ფუნქცია ბრუნდება ბრძანების გაგზავნისა და პასუხის მიღებისას, მონაცემების გადაცემისას ან დროის ამოწურვისას.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe w.r.t. init/deinit functions, and bus width/clock speed configuration functions. Multiple tasks can call sdmmc_host_do_transaction as long as other sdmmc_host_* functions are not called.</dd>
+<dt><strong>ყურადღება</strong></dt>
+<dd>Data buffer passed in cmdinfo-&gt;data must be in DMA capable memory</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_TIMEOUT თუ პასუხის ან მონაცემთა გადაცემის დრო ამოიწურა</li>
+<li>ESP_ERR_INVALID_CRC, თუ პასუხი ან მონაცემთა გადაცემის CRC შემოწმება ვერ მოხერხდა</li>
+<li>ESP_ERR_INVALID_RESPONSE, თუ ბარათმა არასწორი პასუხი გაგზავნა</li>
+<li>ESP_ERR_INVALID_SIZE თუ მონაცემთა გადაცემის ზომა SD პროტოკოლში არ არის სწორი</li>
+<li>ESP_ERR_INVALID_ARG, თუ მონაცემთა ბუფერი არ არის DMA-სთან თავსებად მეხსიერებაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">cmdinfo</span></code>: მაჩვენებელი სტრუქტურაზე, რომელიც აღწერს ბრძანებას და გადასაცემად მონაცემებს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424sdmmc_host_io_int_enablei">
+<span id="_CPPv324sdmmc_host_io_int_enablei"></span><span id="_CPPv224sdmmc_host_io_int_enablei"></span><span id="sdmmc_host_io_int_enable__i"></span><span class="target" id="sdmmc__host_8h_1afc353c5af64650d69d5f461e64a9f2d2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_io_int_enable</code><span class="sig-paren">(</span>int <em>სლოტი</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv424sdmmc_host_io_int_enablei" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>IO შეფერხებების ჩართვა. </p>
+<p>ეს ფუნქცია აკონფიგურირებს ჰოსტს SDIO შეფერხებების მისაღებად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>returns ESP_OK, other errors possible in the future </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422sdmmc_host_io_int_waiti10TickType_t">
+<span id="_CPPv322sdmmc_host_io_int_waiti10TickType_t"></span><span id="_CPPv222sdmmc_host_io_int_waiti10TickType_t"></span><span id="sdmmc_host_io_int_wait__i.TickType_t"></span><span class="target" id="sdmmc__host_8h_1a4d9c05c13745f353e2e71b13b7e6351f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_io_int_wait</code><span class="sig-paren">(</span>int <em>სლოტი</em>, TickType_t <em>ტაიმ-აუტის_წრეები</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv422sdmmc_host_io_int_waiti10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაბლოკეთ SDIO შეფერხების მიღებამდე ან ტაიმაუტის დადგომამდე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში (შეფერხება მიღებულია)</li>
+<li>ESP_ERR_TIMEOUT, თუ შეფერხება არ მოხდა timeout_ticks-ის ფარგლებში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: სლოტის ნომერი (SDMC_HOST_SLOT_0 ან SDMMC_HOST_SLOT_1) </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout_ticks</span></code>: RTOS შეფერხების მოლოდინის ტიკების რაოდენობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417sdmmc_host_deinitv">
+<span id="_CPPv317sdmmc_host_deinitv"></span><span id="_CPPv217sdmmc_host_deinitv"></span><span id="sdmmc_host_deinit__void"></span><span class="target" id="sdmmc__host_8h_1aed8c00e9ed9bfa4f2ee35db687388f46"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv417sdmmc_host_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ SDMMC ჰოსტი და გაათავისუფლეთ გამოყოფილი რესურსები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is not thread safe</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ sdmmc_host_init ფუნქცია არ არის გამოძახებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420sdmmc_host_pullup_enii">
+<span id="_CPPv320sdmmc_host_pullup_enii"></span><span id="_CPPv220sdmmc_host_pullup_enii"></span><span id="sdmmc_host_pullup_en__i.i"></span><span class="target" id="sdmmc__host_8h_1a47fcd25d7f230c23e2960df5d494df9c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">sdmmc_host_pullup_en</code><span class="sig-paren">(</span>int <em>სლოტი</em>, int <em>სიგანე</em><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#_CPPv420sdmmc_host_pullup_enii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>sd პინების აწევის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>You should always place actual pullups on the lines instead of using this function. Internal pullup resistance are high and not sufficient, may cause instability in products. This is for debug or examples only.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: თუ სიგანე კონფიგურირებულია სლოტის მიერ მხარდაჭერილ მაქსიმალურ სიგანეზე მეტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">slot</span></code>: გამოსაყენებელი სლოტი, ჩვეულებრივ, დააყენეთ 1-ზე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">width</span></code>თქვენი კონფიგურაციის ბიტის სიგანე, 1 ან 4.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="sdmmc_host.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv419sdmmc_slot_config_t">
+<span id="_CPPv319sdmmc_slot_config_t"></span><span id="_CPPv219sdmmc_slot_config_t"></span><span id="sdmmc_slot_config_t"></span><span class="target" id="structsdmmc__slot__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">sdmmc_slot_config_t</code><a class="headerlink" href="sdmmc_host.html#_CPPv419sdmmc_slot_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამატებითი კონფიგურაცია SDMMC პერიფერიული სლოტისთვის </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N19sdmmc_slot_config_t7gpio_cdE">
+<span id="_CPPv3N19sdmmc_slot_config_t7gpio_cdE"></span><span id="_CPPv2N19sdmmc_slot_config_t7gpio_cdE"></span><span id="sdmmc_slot_config_t::gpio_cd__gpio_num_t"></span><span class="target" id="structsdmmc__slot__config__t_1a2cd608084468ca03dae8a9efb257e77f"></span>gpio_num_t <code class="descname">gpio_cd</code><a class="headerlink" href="sdmmc_host.html#_CPPv4N19sdmmc_slot_config_t7gpio_cdE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ბარათის აღმოჩენის სიგნალის ნომერი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19sdmmc_slot_config_t7gpio_wpE">
+<span id="_CPPv3N19sdmmc_slot_config_t7gpio_wpE"></span><span id="_CPPv2N19sdmmc_slot_config_t7gpio_wpE"></span><span id="sdmmc_slot_config_t::gpio_wp__gpio_num_t"></span><span class="target" id="structsdmmc__slot__config__t_1a151e7988d3ca998ee559b5574411933f"></span>gpio_num_t <code class="descname">gpio_wp</code><a class="headerlink" href="sdmmc_host.html#_CPPv4N19sdmmc_slot_config_t7gpio_wpE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO ჩაწერის დაცვის სიგნალის ნომერი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19sdmmc_slot_config_t5widthE">
+<span id="_CPPv3N19sdmmc_slot_config_t5widthE"></span><span id="_CPPv2N19sdmmc_slot_config_t5widthE"></span><span id="sdmmc_slot_config_t::width__uint8_t"></span><span class="target" id="structsdmmc__slot__config__t_1a4c3f931fba2bfbec4e746f01b4bfb01b"></span>uint8_t <code class="descname">width</code><a class="headerlink" href="sdmmc_host.html#_CPPv4N19sdmmc_slot_config_t5widthE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სლოტის მიერ გამოყენებული ავტობუსის სიგანე (შესაძლოა ნაკლები იყოს მხარდაჭერილ მაქსიმალურ სიგანეზე) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19sdmmc_slot_config_t5flagsE">
+<span id="_CPPv3N19sdmmc_slot_config_t5flagsE"></span><span id="_CPPv2N19sdmmc_slot_config_t5flagsE"></span><span id="sdmmc_slot_config_t::flags__uint32_t"></span><span class="target" id="structsdmmc__slot__config__t_1a92c1d87f7e41d8c8eeac984df09c3b56"></span>uint32_t <code class="descname">flags</code><a class="headerlink" href="sdmmc_host.html#_CPPv4N19sdmmc_slot_config_t5flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ სლოტის მიერ გამოყენებული ფუნქციები. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="sdmmc_host.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.SDMMC_HOST_SLOT_0">
+<span class="target" id="sdmmc__host_8h_1a88a462660e420aaa733e74baea2f3812"></span><code class="descname">SDMMC_HOST_SLOT_0</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_HOST_SLOT_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>SDMMC სლოტი 0. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_HOST_SLOT_1">
+<span class="target" id="sdmmc__host_8h_1ac9b60ca4b5a37c072f3abe7291be4b3a"></span><code class="descname">SDMMC_HOST_SLOT_1</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_HOST_SLOT_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>SDMMC სლოტი 1. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_HOST_DEFAULT">
+<span class="target" id="sdmmc__host_8h_1a8499549ca1ee9df0f3f46a49216b7528"></span><code class="descname">SDMMC_HOST_DEFAULT</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#c.SDMMC_HOST_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>ნაგულისხმევი <a class="reference internal" href="../storage/sdmmc.html#structsdmmc__host__t"><span class="std std-ref">sdmmc_host_t</span></a> SDMMC პერიფერიული მოწყობილობის სტრუქტურის ინიციალიზატორი. </p>
+<p>იყენებს SDMMC პერიფერიულ მოწყობილობას, ჩართული 4-ბიტიანი რეჟიმით და მაქსიმალური სიხშირით 20 MHz-ზე. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_SLOT_FLAG_INTERNAL_PULLUP">
+<span class="target" id="sdmmc__host_8h_1a0af1cb8c4ec6379c3566a144652ca4fd"></span><code class="descname">SDMMC_SLOT_FLAG_INTERNAL_PULLUP</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_SLOT_FLAG_INTERNAL_PULLUP" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჩართეთ შიდა pull-up-ები ჩართული პინების შემთხვევაში. თუმცა, შიდა pull-up-ები არასაკმარისია, გთხოვთ, დარწმუნდეთ, რომ გარე pull-up-ები დაკავშირებულია ავტობუსთან. ეს მხოლოდ გამართვა / მაგალითის მიზნებისთვისაა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_SLOT_NO_CD">
+<span class="target" id="sdmmc__host_8h_1ae301afc00d9ccfe9f7e4c44fbe06f75d"></span><code class="descname">SDMMC_SLOT_NO_CD</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_SLOT_NO_CD" title="Permalink to this definition">¶</a></dt>
+<dd><p>მიუთითებს, რომ ბარათის ამოცნობის ხაზი არ გამოიყენება </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_SLOT_NO_WP">
+<span class="target" id="sdmmc__host_8h_1af7a44580db976dd02cf24550f0813740"></span><code class="descname">SDMMC_SLOT_NO_WP</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_SLOT_NO_WP" title="Permalink to this definition">¶</a></dt>
+<dd><p>მიუთითებს, რომ ჩაწერის დამცავი ხაზი არ გამოიყენება </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_SLOT_WIDTH_DEFAULT">
+<span class="target" id="sdmmc__host_8h_1af91de137ebd9f55436279d9540f3e4ac"></span><code class="descname">SDMMC_SLOT_WIDTH_DEFAULT</code><a class="headerlink" href="sdmmc_host.html#c.SDMMC_SLOT_WIDTH_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>გამოიყენეთ სლოტისთვის ნაგულისხმევი სიგანე (8 სლოტი 0-ისთვის, 4 სლოტი 1-ისთვის) </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SDMMC_SLOT_CONFIG_DEFAULT">
+<span class="target" id="sdmmc__host_8h_1a6b66ffa15d83fe88306b93eaeb273cd3"></span><code class="descname">SDMMC_SLOT_CONFIG_DEFAULT</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="sdmmc_host.html#c.SDMMC_SLOT_CONFIG_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც განსაზღვრავს SDMMC ჰოსტის სლოტის ნაგულისხმევ კონფიგურაციას </p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="sdspi_host.html" rel="next" title="SD SPI Host Driver">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="sd_pullup_requirements.html" rel="prev" title="SD Pull-up Requirements"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

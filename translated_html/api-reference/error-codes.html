@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>შეცდომის კოდების მითითება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../hw-reference/index.html" rel="next" title="ESP32 Hardware Reference"/>
+<link href="kconfig.html" rel="prev" title="Project Configuration"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/error-codes.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/error-codes"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/error-codes.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="error-codes.html#">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API მითითება</a> »</li>
+<li>შეცდომის კოდების მითითება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/error-codes.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="error-codes-reference">
+<h1>შეცდომის კოდების მითითება<a class="headerlink" href="error-codes.html#error-codes-reference" title="Permalink to this headline">¶</a></h1>
+<p>ამ განყოფილებაში ჩამოთვლილია ESP-IDF ში განსაზღვრული სხვადასხვა შეცდომის კოდის მუდმივები.</p>
+<p>ESP-IDF -ში შეცდომის კოდების შესახებ ზოგადი ინფორმაციისთვის იხილეთ <a class="reference internal" href="../api-guides/error-handling.html"><span class="doc">შეცდომების დამუშავება</span></a>.</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_FAIL" title="ESP_FAIL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_FAIL</span></code></a> (-1): ზოგადი esp_err_t კოდი, რომელიც მიუთითებს შეცდომაზე</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_OK" title="ESP_OK"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_OK</span></code></a> (0): esp_err_t მნიშვნელობა, რომელიც მიუთითებს წარმატებაზე (შეცდომა არ არის)</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_NO_MEM" title="ESP_ERR_NO_MEM"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NO_MEM</span></code></a> <strong>(0x101)</strong>: მეხსიერება ამოწურულია</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_ARG" title="ESP_ERR_INVALID_ARG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_ARG</span></code></a> <strong>(0x102)</strong>არასწორი არგუმენტი</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_STATE" title="ESP_ERR_INVALID_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_STATE</span></code></a> <strong>(0x103)</strong>არასწორი მდგომარეობა</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_SIZE" title="ESP_ERR_INVALID_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_SIZE</span></code></a> <strong>(0x104)</strong>არასწორი ზომა</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_NOT_FOUND" title="ESP_ERR_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NOT_FOUND</span></code></a> <strong>(0x105)</strong>მოთხოვნილი რესურსი ვერ მოიძებნა</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_NOT_SUPPORTED" title="ESP_ERR_NOT_SUPPORTED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NOT_SUPPORTED</span></code></a> <strong>(0x106)</strong>ოპერაცია ან ფუნქცია არ არის მხარდაჭერილი</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_TIMEOUT" title="ESP_ERR_TIMEOUT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_TIMEOUT</span></code></a> <strong>(0x107)</strong>ოპერაციის დრო ამოიწურა</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_RESPONSE" title="ESP_ERR_INVALID_RESPONSE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_RESPONSE</span></code></a> <strong>(0x108)</strong>მიღებული პასუხი არასწორი იყო</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_CRC" title="ESP_ERR_INVALID_CRC"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_CRC</span></code></a> <strong>(0x109)</strong>CRC ან ჩეკის ჯამი არასწორი იყო</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_VERSION" title="ESP_ERR_INVALID_VERSION"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_VERSION</span></code></a> <strong>(0x10a)</strong>ვერსია არასწორი იყო</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_INVALID_MAC" title="ESP_ERR_INVALID_MAC"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_MAC</span></code></a> <strong>(0x10b)</strong>MAC მისამართი არასწორი იყო</p>
+<p><a class="reference internal" href="protocols/esp_serial_slave_link.html#c.ESP_ERR_NOT_FINISHED" title="ESP_ERR_NOT_FINISHED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NOT_FINISHED</span></code></a> <strong>(0x201)</strong></p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_BASE" title="ESP_ERR_NVS_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_BASE</span></code></a> <strong>(0x1100)</strong>შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_NOT_INITIALIZED" title="ESP_ERR_NVS_NOT_INITIALIZED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_NOT_INITIALIZED</span></code></a> <strong>(0x1101)</strong>შენახვის დრაივერი არ არის ინიციალიზებული</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_NOT_FOUND" title="ESP_ERR_NVS_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_NOT_FOUND</span></code></a> <strong>(0x1102)</strong>იდენტიფიკატორის სახელთა სივრცე ჯერ არ არსებობს და რეჟიმი არის NVS_READONLY</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_TYPE_MISMATCH" title="ESP_ERR_NVS_TYPE_MISMATCH"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_TYPE_MISMATCH</span></code></a> <strong>(0x1103)</strong>set ან get ოპერაციის ტიპი არ ემთხვევა NVS-ში შენახული მნიშვნელობის ტიპს.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_READ_ONLY" title="ESP_ERR_NVS_READ_ONLY"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_READ_ONLY</span></code></a> <strong>(0x1104)</strong>შენახვის სახელური გაიხსნა მხოლოდ წასაკითხად</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_NOT_ENOUGH_SPACE" title="ESP_ERR_NVS_NOT_ENOUGH_SPACE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_NOT_ENOUGH_SPACE</span></code></a> <strong>(0x1105)</strong>: ძირითად საცავში მნიშვნელობის შესანახად საკმარისი ადგილი არ არის</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_INVALID_NAME" title="ESP_ERR_NVS_INVALID_NAME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_INVALID_NAME</span></code></a> <strong>(0x1106)</strong>სახელთა სივრცის სახელი არ აკმაყოფილებს შეზღუდვებს</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_INVALID_HANDLE" title="ESP_ERR_NVS_INVALID_HANDLE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_INVALID_HANDLE</span></code></a> <strong>(0x1107)</strong>სახელური დახურულია ან არის NULL</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_REMOVE_FAILED" title="ESP_ERR_NVS_REMOVE_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_REMOVE_FAILED</span></code></a> <strong>(0x1108)</strong>მნიშვნელობა არ განახლდა, რადგან ფლეშ მეხსიერება ჩაწერის ოპერაცია ვერ შესრულდა. თუმცა, მნიშვნელობა ჩაიწერა და განახლება დასრულდება nvs-ის ხელახალი ინიციალიზაციის შემდეგ, იმ პირობით, რომ ფლეშ მეხსიერება ოპერაცია ხელახლა არ შესრულდება.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_KEY_TOO_LONG" title="ESP_ERR_NVS_KEY_TOO_LONG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_KEY_TOO_LONG</span></code></a> <strong>(0x1109)</strong>გასაღების სახელი ძალიან გრძელია</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_PAGE_FULL" title="ESP_ERR_NVS_PAGE_FULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_PAGE_FULL</span></code></a> <strong>(0x110a)</strong>შიდა შეცდომა; nvs API ფუნქციების მიერ არასდროს დაბრუნებულა</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_INVALID_STATE" title="ESP_ERR_NVS_INVALID_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_INVALID_STATE</span></code></a> <strong>(0x110b)</strong>NVS წინა შეცდომის გამო არათანმიმდევრულ მდგომარეობაშია. ხელახლა გამოიძახეთ nvs_ ფლეშ მეხსიერება _init და nvs_open, შემდეგ სცადეთ ხელახლა.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_INVALID_LENGTH" title="ESP_ERR_NVS_INVALID_LENGTH"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_INVALID_LENGTH</span></code></a> <strong>(0x110c)</strong>სტრიქონის ან blob-ის სიგრძე მონაცემების შესანახად საკმარისი არ არის.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_NO_FREE_PAGES" title="ESP_ERR_NVS_NO_FREE_PAGES"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_NO_FREE_PAGES</span></code></a> <strong>(0x110d)</strong>NVS დანაყოფი არ შეიცავს ცარიელ გვერდებს. ეს შეიძლება მოხდეს, თუ NVS დანაყოფი შემოკლებულია. წაშალეთ მთელი დანაყოფი და ხელახლა გამოიძახეთ nvs_ ფლეშ მეხსიერება _init.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_VALUE_TOO_LONG" title="ESP_ERR_NVS_VALUE_TOO_LONG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_VALUE_TOO_LONG</span></code></a> <strong>(0x110e)</strong>სტრიქონის ან blob-ის სიგრძე იმპლემენტაციის მიერ მხარდაჭერილზე მეტია.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_PART_NOT_FOUND" title="ESP_ERR_NVS_PART_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_PART_NOT_FOUND</span></code></a> <strong>(0x110f)</strong>მითითებული სახელის მქონე დანაყოფი დანაყოფების ცხრილი ში არ არის ნაპოვნი.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_NEW_VERSION_FOUND" title="ESP_ERR_NVS_NEW_VERSION_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_NEW_VERSION_FOUND</span></code></a> <strong>(0x1110)</strong>NVS დანაყოფი შეიცავს მონაცემებს ახალი ფორმატით და კოდის ამ ვერსიით მისი ამოცნობა შეუძლებელია.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_XTS_ENCR_FAILED" title="ESP_ERR_NVS_XTS_ENCR_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_XTS_ENCR_FAILED</span></code></a> <strong>(0x1111)</strong>NVS ჩანაწერის ჩაწერისას XTS დაშიფვრა ვერ მოხერხდა</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_XTS_DECR_FAILED" title="ESP_ERR_NVS_XTS_DECR_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_XTS_DECR_FAILED</span></code></a> <strong>(0x1112)</strong>NVS ჩანაწერის წაკითხვისას XTS გაშიფვრა ვერ მოხერხდა.</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_XTS_CFG_FAILED" title="ESP_ERR_NVS_XTS_CFG_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_XTS_CFG_FAILED</span></code></a> <strong>(0x1113)</strong>XTS კონფიგურაციის დაყენება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_XTS_CFG_NOT_FOUND" title="ESP_ERR_NVS_XTS_CFG_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_XTS_CFG_NOT_FOUND</span></code></a> <strong>(0x1114)</strong>XTS კონფიგურაცია ვერ მოიძებნა</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_ENCR_NOT_SUPPORTED" title="ESP_ERR_NVS_ENCR_NOT_SUPPORTED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_ENCR_NOT_SUPPORTED</span></code></a> <strong>(0x1115)</strong>NVS დაშიფვრა ამ ვერსიაში არ არის მხარდაჭერილი</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_KEYS_NOT_INITIALIZED" title="ESP_ERR_NVS_KEYS_NOT_INITIALIZED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_KEYS_NOT_INITIALIZED</span></code></a> <strong>(0x1116)</strong>NVS გასაღების დანაყოფი არ არის ინიციალიზებული</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_CORRUPT_KEY_PART" title="ESP_ERR_NVS_CORRUPT_KEY_PART"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_CORRUPT_KEY_PART</span></code></a> <strong>(0x1117)</strong>NVS გასაღების დანაყოფი დაზიანებულია</p>
+<p><a class="reference internal" href="storage/nvs_flash.html#c.ESP_ERR_NVS_CONTENT_DIFFERS" title="ESP_ERR_NVS_CONTENT_DIFFERS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NVS_CONTENT_DIFFERS</span></code></a> <strong>(0x1118)</strong>შიდა შეცდომა; nvs API ფუნქციები არასდროს აბრუნებენ. NVS გასაღები განსხვავებულია შედარებით.</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_BASE" title="ESP_ERR_ULP_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_BASE</span></code></a> <strong>(0x1200)</strong>: ULP-თან დაკავშირებული შეცდომის კოდების ოფსეტი</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_SIZE_TOO_BIG" title="ESP_ERR_ULP_SIZE_TOO_BIG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_SIZE_TOO_BIG</span></code></a> <strong>(0x1201)</strong>პროგრამა არ ჯდება ULP-სთვის დაჯავშნილ RTC მეხსიერებაში.</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_INVALID_LOAD_ADDR" title="ESP_ERR_ULP_INVALID_LOAD_ADDR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_INVALID_LOAD_ADDR</span></code></a> <strong>(0x1202)</strong>ჩატვირთვის მისამართი ULP-სთვის დაჯავშნილი RTC მეხსიერების გარეთაა.</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_DUPLICATE_LABEL" title="ESP_ERR_ULP_DUPLICATE_LABEL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_DUPLICATE_LABEL</span></code></a> <strong>(0x1203)</strong>განსაზღვრულია ერთზე მეტი იარლიყი ერთი და იგივე ნომრით</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_UNDEFINED_LABEL" title="ESP_ERR_ULP_UNDEFINED_LABEL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_UNDEFINED_LABEL</span></code></a> <strong>(0x1204)</strong>განშტოების ინსტრუქციები მიუთითებს განუსაზღვრელ ლეიბლზე</p>
+<p><a class="reference internal" href="../api-guides/ulp_macros.html#c.ESP_ERR_ULP_BRANCH_OUT_OF_RANGE" title="ESP_ERR_ULP_BRANCH_OUT_OF_RANGE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ULP_BRANCH_OUT_OF_RANGE</span></code></a> <strong>(0x1205)</strong>: განშტოების სამიზნე B ინსტრუქციის დიაპაზონის გარეთაა (სცადეთ BX-ით ჩანაცვლება)</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_BASE" title="ESP_ERR_OTA_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_BASE</span></code></a> <strong>(0x1500)</strong>: ota_ops api-ს ძირითადი შეცდომის კოდი</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_PARTITION_CONFLICT" title="ESP_ERR_OTA_PARTITION_CONFLICT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_PARTITION_CONFLICT</span></code></a> <strong>(0x1501)</strong>შეცდომა, თუ მოთხოვნა მიმდინარე გაშვებული დანაყოფის ჩაწერას ან წაშლას ისახავდა მიზნად.</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_SELECT_INFO_INVALID" title="ESP_ERR_OTA_SELECT_INFO_INVALID"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_SELECT_INFO_INVALID</span></code></a> <strong>(0x1502)</strong>შეცდომა, თუ OTA მონაცემთა დანაყოფი შეიცავს არასწორ კონტენტს</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_VALIDATE_FAILED" title="ESP_ERR_OTA_VALIDATE_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_VALIDATE_FAILED</span></code></a> <strong>(0x1503)</strong>შეცდომა, თუ OTA აპლიკაციის სურათი არასწორია</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_SMALL_SEC_VER" title="ESP_ERR_OTA_SMALL_SEC_VER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_SMALL_SEC_VER</span></code></a> <strong>(0x1504)</strong>შეცდომაა, თუ პროგრამული უზრუნველყოფა აქვს გაშვებულ პროგრამული უზრუნველყოფა ზე ნაკლები უსაფრთხო ვერსია.</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_ROLLBACK_FAILED" title="ESP_ERR_OTA_ROLLBACK_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_ROLLBACK_FAILED</span></code></a> <strong>(0x1505)</strong>შეცდომა, თუ ფლეშ მეხსიერება პასიურ დანაყოფში არ აქვს ვალიდური პროგრამული უზრუნველყოფა და შესაბამისად, უკან დაბრუნება შეუძლებელია.</p>
+<p><a class="reference internal" href="system/ota.html#c.ESP_ERR_OTA_ROLLBACK_INVALID_STATE" title="ESP_ERR_OTA_ROLLBACK_INVALID_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_OTA_ROLLBACK_INVALID_STATE</span></code></a> <strong>(0x1506)</strong>შეცდომა, თუ მიმდინარე აქტიური პროგრამული უზრუნველყოფა კვლავ მონიშნულია მოლოდინის მდგომარეობაში (ESP_OTA_IMG_PENDING_VERIFY), არსებითად, პროგრამული უზრუნველყოფა სურათის პირველი ჩატვირთვა განახლების შემდეგ და შესაბამისად, პროგრამული უზრუნველყოფა განახლება შეუძლებელია.</p>
+<p><a class="reference internal" href="system/efuse.html#c.ESP_ERR_EFUSE" title="ESP_ERR_EFUSE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_EFUSE</span></code></a> <strong>(0x1600)</strong>efuse api-ს ძირითადი შეცდომის კოდი.</p>
+<p><a class="reference internal" href="system/efuse.html#c.ESP_OK_EFUSE_CNT" title="ESP_OK_EFUSE_CNT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_OK_EFUSE_CNT</span></code></a> <strong>(0x1601)</strong>: კარგი, ბიტების საჭირო რაოდენობა დაყენებულია.</p>
+<p><a class="reference internal" href="system/efuse.html#c.ESP_ERR_EFUSE_CNT_IS_FULL" title="ESP_ERR_EFUSE_CNT_IS_FULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_EFUSE_CNT_IS_FULL</span></code></a> <strong>(0x1602)</strong>შეცდომის ველი სავსეა.</p>
+<p><a class="reference internal" href="system/efuse.html#c.ESP_ERR_EFUSE_REPEATED_PROG" title="ESP_ERR_EFUSE_REPEATED_PROG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_EFUSE_REPEATED_PROG</span></code></a> <strong>(0x1603)</strong>დაპროგრამებული ბიტების შეცდომით განმეორებითი პროგრამირება მკაცრად აკრძალულია.</p>
+<p><a class="reference internal" href="system/efuse.html#c.ESP_ERR_CODING" title="ESP_ERR_CODING"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_CODING</span></code></a> <strong>(0x1604)</strong>შეცდომა კოდირების ოპერაციის დროს.</p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_IMAGE_BASE</span></code> <strong>(0x2000)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_IMAGE_FLASH_FAIL</span></code> <strong>(0x2001)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_IMAGE_INVALID</span></code> <strong>(0x2002)</strong></p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_WIFI_BASE" title="ESP_ERR_WIFI_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_BASE</span></code></a> <strong>(0x3000)</strong>WiFi შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_NOT_INIT" title="ESP_ERR_WIFI_NOT_INIT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_NOT_INIT</span></code></a> <strong>(0x3001)</strong>esp_wifi_init-ის მიერ WiFi დრაივერი არ იყო დაინსტალირებული.</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_NOT_STARTED" title="ESP_ERR_WIFI_NOT_STARTED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_NOT_STARTED</span></code></a> <strong>(0x3002)</strong>WiFi დრაივერი არ იყო გაშვებული esp_wifi_start-ის მიერ.</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_NOT_STOPPED" title="ESP_ERR_WIFI_NOT_STOPPED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_NOT_STOPPED</span></code></a> <strong>(0x3003)</strong>WiFi დრაივერი esp_wifi_stop-მა არ შეაჩერა.</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_IF" title="ESP_ERR_WIFI_IF"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_IF</span></code></a> <strong>(0x3004)</strong>: WiFi ინტერფეისის შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_MODE" title="ESP_ERR_WIFI_MODE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_MODE</span></code></a> <strong>(0x3005)</strong>: WiFi რეჟიმის შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_STATE" title="ESP_ERR_WIFI_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_STATE</span></code></a> <strong>(0x3006)</strong>: WiFi-ის შიდა მდგომარეობის შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_CONN" title="ESP_ERR_WIFI_CONN"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_CONN</span></code></a> <strong>(0x3007)</strong>სადგურის WiFi შიდა მართვის ბლოკი ან soft-AP შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_NVS" title="ESP_ERR_WIFI_NVS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_NVS</span></code></a> <strong>(0x3008)</strong>WiFi-ის შიდა NVS მოდულის შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_MAC" title="ESP_ERR_WIFI_MAC"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_MAC</span></code></a> <strong>(0x3009)</strong>MAC მისამართი არასწორია</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_SSID" title="ESP_ERR_WIFI_SSID"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_SSID</span></code></a> <strong>(0x300a)</strong>: SSID არასწორია</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_PASSWORD" title="ESP_ERR_WIFI_PASSWORD"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_PASSWORD</span></code></a> <strong>(0x300b)</strong>პაროლი არასწორია</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_TIMEOUT" title="ESP_ERR_WIFI_TIMEOUT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_TIMEOUT</span></code></a> <strong>(0x300c)</strong>: ტაიმის ამოწურვის შეცდომა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_WAKE_FAIL" title="ESP_ERR_WIFI_WAKE_FAIL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_WAKE_FAIL</span></code></a> <strong>(0x300d)</strong>Wi-Fi ძილის რეჟიმშია (RF გამორთულია) და გამოღვიძება ვერ ხერხდება</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_WOULD_BLOCK" title="ESP_ERR_WIFI_WOULD_BLOCK"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_WOULD_BLOCK</span></code></a> <strong>(0x300e)</strong>აბონენტი დაბლოკავდა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_NOT_CONNECT" title="ESP_ERR_WIFI_NOT_CONNECT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_NOT_CONNECT</span></code></a> <strong>(0x300f)</strong>სადგური კვლავ გათიშვის მდგომარეობაშია</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_POST" title="ESP_ERR_WIFI_POST"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_POST</span></code></a> <strong>(0x3012)</strong>: ღონისძიების WiFi დავალებაში გამოქვეყნება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_INIT_STATE" title="ESP_ERR_WIFI_INIT_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_INIT_STATE</span></code></a> <strong>(0x3013)</strong>: init/deinit-ის გამოძახებისას WiFi-ის მდგომარეობა არასწორია</p>
+<p><a class="reference internal" href="network/esp_wifi.html#c.ESP_ERR_WIFI_STOP_STATE" title="ESP_ERR_WIFI_STOP_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_STOP_STATE</span></code></a> <strong>(0x3014)</strong>: ბრუნდება, როდესაც WiFi წყდება</p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_REGISTRAR</span></code> <strong>(0x3033)</strong>WPS რეგისტრატორი არ არის მხარდაჭერილი</p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_WPS_TYPE</span></code> <strong>(0x3034)</strong>WPS ტიპის შეცდომა</p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_WIFI_WPS_SM</span></code> <strong>(0x3035)</strong>WPS მდგომარეობის მანქანა არ არის ინიციალიზებული</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_BASE" title="ESP_ERR_ESPNOW_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_BASE</span></code></a> <strong>(0x3064)</strong>: ESPNOW-ის შეცდომის რიცხვითი ბაზა.</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_NOT_INIT" title="ESP_ERR_ESPNOW_NOT_INIT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_NOT_INIT</span></code></a> <strong>(0x3065)</strong>ESPNOW არ არის ინიციალიზებული.</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_ARG" title="ESP_ERR_ESPNOW_ARG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_ARG</span></code></a> <strong>(0x3066)</strong>არასწორი არგუმენტი</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_NO_MEM" title="ESP_ERR_ESPNOW_NO_MEM"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_NO_MEM</span></code></a> <strong>(0x3067)</strong>: მეხსიერება ამოწურულია</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_FULL" title="ESP_ERR_ESPNOW_FULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_FULL</span></code></a> <strong>(0x3068)</strong>ESPNOW-ის თანატოლების სია სავსეა</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_NOT_FOUND" title="ESP_ERR_ESPNOW_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_NOT_FOUND</span></code></a> <strong>(0x3069)</strong>ESPNOW-ის თანამონაწილე ვერ მოიძებნა</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_INTERNAL" title="ESP_ERR_ESPNOW_INTERNAL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_INTERNAL</span></code></a> <strong>(0x306a)</strong>შიდა შეცდომა</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_EXIST" title="ESP_ERR_ESPNOW_EXIST"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_EXIST</span></code></a> <strong>(0x306b)</strong>ESPNOW-ის თანატოლი არსებობდა</p>
+<p><a class="reference internal" href="network/esp_now.html#c.ESP_ERR_ESPNOW_IF" title="ESP_ERR_ESPNOW_IF"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESPNOW_IF</span></code></a> <strong>(0x306c)</strong>ინტერფეისის შეცდომა</p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_MESH_BASE" title="ESP_ERR_MESH_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_BASE</span></code></a> <strong>(0x4000)</strong>MESH შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_WIFI_NOT_START" title="ESP_ERR_MESH_WIFI_NOT_START"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_WIFI_NOT_START</span></code></a> <strong>(0x4001)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NOT_INIT" title="ESP_ERR_MESH_NOT_INIT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NOT_INIT</span></code></a> <strong>(0x4002)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NOT_CONFIG" title="ESP_ERR_MESH_NOT_CONFIG"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NOT_CONFIG</span></code></a> <strong>(0x4003)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NOT_START" title="ESP_ERR_MESH_NOT_START"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NOT_START</span></code></a> <strong>(0x4004)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NOT_SUPPORT" title="ESP_ERR_MESH_NOT_SUPPORT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NOT_SUPPORT</span></code></a> <strong>(0x4005)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NOT_ALLOWED" title="ESP_ERR_MESH_NOT_ALLOWED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NOT_ALLOWED</span></code></a> <strong>(0x4006)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NO_MEMORY" title="ESP_ERR_MESH_NO_MEMORY"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NO_MEMORY</span></code></a> <strong>(0x4007)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_ARGUMENT" title="ESP_ERR_MESH_ARGUMENT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_ARGUMENT</span></code></a> <strong>(0x4008)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_EXCEED_MTU" title="ESP_ERR_MESH_EXCEED_MTU"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_EXCEED_MTU</span></code></a> <strong>(0x4009)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_TIMEOUT" title="ESP_ERR_MESH_TIMEOUT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_TIMEOUT</span></code></a> <strong>(0x400a)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_DISCONNECTED" title="ESP_ERR_MESH_DISCONNECTED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_DISCONNECTED</span></code></a> <strong>(0x400b)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_QUEUE_FAIL" title="ESP_ERR_MESH_QUEUE_FAIL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_QUEUE_FAIL</span></code></a> <strong>(0x400c)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_QUEUE_FULL" title="ESP_ERR_MESH_QUEUE_FULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_QUEUE_FULL</span></code></a> <strong>(0x400d)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NO_PARENT_FOUND" title="ESP_ERR_MESH_NO_PARENT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NO_PARENT_FOUND</span></code></a> <strong>(0x400e)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_NO_ROUTE_FOUND" title="ESP_ERR_MESH_NO_ROUTE_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_NO_ROUTE_FOUND</span></code></a> <strong>(0x400f)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_OPTION_NULL" title="ESP_ERR_MESH_OPTION_NULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_OPTION_NULL</span></code></a> <strong>(0x4010)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_OPTION_UNKNOWN" title="ESP_ERR_MESH_OPTION_UNKNOWN"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_OPTION_UNKNOWN</span></code></a> <strong>(0x4011)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_XON_NO_WINDOW" title="ESP_ERR_MESH_XON_NO_WINDOW"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_XON_NO_WINDOW</span></code></a> <strong>(0x4012)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_INTERFACE" title="ESP_ERR_MESH_INTERFACE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_INTERFACE</span></code></a> <strong>(0x4013)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_DISCARD_DUPLICATE" title="ESP_ERR_MESH_DISCARD_DUPLICATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_DISCARD_DUPLICATE</span></code></a> <strong>(0x4014)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_DISCARD" title="ESP_ERR_MESH_DISCARD"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_DISCARD</span></code></a> <strong>(0x4015)</strong></p>
+<p><a class="reference internal" href="network/esp_mesh.html#c.ESP_ERR_MESH_VOTING" title="ESP_ERR_MESH_VOTING"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MESH_VOTING</span></code></a> <strong>(0x4016)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_BASE</span></code> <strong>(0x5000)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_INVALID_PARAMS</span></code> <strong>(0x5001)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_IF_NOT_READY</span></code> <strong>(0x5002)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DHCPC_START_FAILED</span></code> <strong>(0x5003)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DHCP_ALREADY_STARTED</span></code> <strong>(0x5004)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED</span></code> <strong>(0x5005)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_NO_MEM</span></code> <strong>(0x5006)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DHCP_NOT_STOPPED</span></code> <strong>(0x5007)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DRIVER_ATTACH_FAILED</span></code> <strong>(0x5008)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_INIT_FAILED</span></code> <strong>(0x5009)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_NETIF_DNS_NOT_CONFIGURED</span></code> <strong>(0x500a)</strong></p>
+<p><a class="reference internal" href="system/esp_err.html#c.ESP_ERR_FLASH_BASE" title="ESP_ERR_FLASH_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_BASE</span></code></a> <strong>(0x6000)</strong>: ფლეშ მეხსიერება შეცდომის კოდების საწყისი ნომერი</p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_OP_FAIL</span></code> <strong>(0x6001)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_OP_TIMEOUT</span></code> <strong>(0x6002)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_NOT_INITIALISED</span></code> <strong>(0x6003)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_UNSUPPORTED_HOST</span></code> <strong>(0x6004)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_UNSUPPORTED_CHIP</span></code> <strong>(0x6005)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_FLASH_PROTECTED</span></code> <strong>(0x6006)</strong></p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_BASE" title="ESP_ERR_HTTP_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_BASE</span></code></a> <strong>(0x7000)</strong>HTTP შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_MAX_REDIRECT" title="ESP_ERR_HTTP_MAX_REDIRECT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_MAX_REDIRECT</span></code></a> <strong>(0x7001)</strong>შეცდომა HTTP გადამისამართებების რაოდენობას აღემატება</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_CONNECT" title="ESP_ERR_HTTP_CONNECT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_CONNECT</span></code></a> <strong>(0x7002)</strong>შეცდომა HTTP კავშირის გახსნისას</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_WRITE_DATA" title="ESP_ERR_HTTP_WRITE_DATA"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_WRITE_DATA</span></code></a> <strong>(0x7003)</strong>შეცდომა HTTP მონაცემების ჩაწერისას</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_FETCH_HEADER" title="ESP_ERR_HTTP_FETCH_HEADER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_FETCH_HEADER</span></code></a> <strong>(0x7004)</strong>შეცდომა სერვერიდან HTTP სათაურის წაკითხვისას</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_INVALID_TRANSPORT" title="ESP_ERR_HTTP_INVALID_TRANSPORT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_INVALID_TRANSPORT</span></code></a> <strong>(0x7005)</strong>შეყვანის სქემისთვის ტრანსპორტირების მხარდაჭერა არ არსებობს</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_CONNECTING" title="ESP_ERR_HTTP_CONNECTING"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_CONNECTING</span></code></a> <strong>(0x7006)</strong>HTTP კავშირი ჯერ არ დამყარებულა</p>
+<p><a class="reference internal" href="protocols/esp_http_client.html#c.ESP_ERR_HTTP_EAGAIN" title="ESP_ERR_HTTP_EAGAIN"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTP_EAGAIN</span></code></a> <strong>(0x7007)</strong>errno EAGAIN-ის esp_err_t-თან შესაბამისობაში მოყვანა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_BASE" title="ESP_ERR_ESP_TLS_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_BASE</span></code></a> <strong>(0x8000)</strong>ESP-TLS შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME" title="ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME</span></code></a> <strong>(0x8001)</strong>შეცდომა, თუ მასპინძლის სახელის ამოხსნა TLS კავშირისას ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET" title="ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET</span></code></a> <strong>(0x8002)</strong>: სოკეტის შექმნა ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY" title="ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY</span></code></a> <strong>(0x8003)</strong>: მხარდაუჭერელი პროტოკოლის ოჯახი</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST" title="ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST</span></code></a> <strong>(0x8004)</strong>: ჰოსტთან დაკავშირება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED" title="ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED</span></code></a> <strong>(0x8005)</strong>: სოკეტის ოფციის დაყენება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_CERT_PARTLY_OK" title="ESP_ERR_MBEDTLS_CERT_PARTLY_OK"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_CERT_PARTLY_OK</span></code></a> <strong>(0x8006)</strong>mbedtls სერტიფიკატების დამუშავება ნაწილობრივ წარმატებით დასრულდა.</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED" title="ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED</span></code></a> <strong>(0x8007)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED" title="ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED</span></code></a> <strong>(0x8008)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED" title="ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED</span></code></a> <strong>(0x8009)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED" title="ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED</span></code></a> <strong>(0x800a)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED" title="ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED</span></code></a> <strong>(0x800b)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED" title="ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED</span></code></a> <strong>(0x800c)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_SETUP_FAILED" title="ESP_ERR_MBEDTLS_SSL_SETUP_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_SETUP_FAILED</span></code></a> <strong>(0x800d)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_WRITE_FAILED" title="ESP_ERR_MBEDTLS_SSL_WRITE_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_WRITE_FAILED</span></code></a> <strong>(0x800e)</strong>mbedtls api-მ შეცდომა დააბრუნა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED" title="ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED</span></code></a> <strong>(0x800f)</strong>mbedtls api-ს დაბრუნება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED" title="ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED</span></code></a> <strong>(0x8010)</strong>mbedtls api-ს დაბრუნება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED" title="ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED</span></code></a> <strong>(0x8011)</strong>mbedtls api-ს დაბრუნება ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_tls.html#c.ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT" title="ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT</span></code></a> <strong>(0x8012)</strong>: ახალი კავშირის esp_tls_low_level_conn-ში კავშირის ვადა ამოიწურა</p>
+<p><a class="reference internal" href="system/esp_https_ota.html#c.ESP_ERR_HTTPS_OTA_BASE" title="ESP_ERR_HTTPS_OTA_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPS_OTA_BASE</span></code></a> <strong>(0x9000)</strong></p>
+<p><a class="reference internal" href="system/esp_https_ota.html#c.ESP_ERR_HTTPS_OTA_IN_PROGRESS" title="ESP_ERR_HTTPS_OTA_IN_PROGRESS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPS_OTA_IN_PROGRESS</span></code></a> <strong>(0x9001)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_PING_BASE</span></code> <strong>(0xa000)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_PING_INVALID_PARAMS</span></code> <strong>(0xa001)</strong></p>
+<p><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_PING_NO_MEM</span></code> <strong>(0xa002)</strong></p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_BASE" title="ESP_ERR_HTTPD_BASE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_BASE</span></code></a> <strong>(0xb000)</strong>HTTPD შეცდომის კოდების საწყისი რაოდენობა</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_HANDLERS_FULL" title="ESP_ERR_HTTPD_HANDLERS_FULL"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_HANDLERS_FULL</span></code></a> <strong>(0xb001)</strong>URI დამმუშავებლების რეგისტრაციის ყველა სლოტი დაკავებულია</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_HANDLER_EXISTS" title="ESP_ERR_HTTPD_HANDLER_EXISTS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_HANDLER_EXISTS</span></code></a> <strong>(0xb002)</strong>URI დამმუშავებელი იგივე მეთოდით და სამიზნე URI-ით უკვე რეგისტრირებულია</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_INVALID_REQ" title="ESP_ERR_HTTPD_INVALID_REQ"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_INVALID_REQ</span></code></a> <strong>(0xb003)</strong>არასწორი მოთხოვნის მაჩვენებელი</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_RESULT_TRUNC" title="ESP_ERR_HTTPD_RESULT_TRUNC"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_RESULT_TRUNC</span></code></a> <strong>(0xb004)</strong>შედეგის სტრიქონი შემოკლებულია</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_RESP_HDR" title="ESP_ERR_HTTPD_RESP_HDR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_RESP_HDR</span></code></a> <strong>(0xb005)</strong>: პასუხის სათაურის ველი მხარდაჭერილზე დიდია</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_RESP_SEND" title="ESP_ERR_HTTPD_RESP_SEND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_RESP_SEND</span></code></a> <strong>(0xb006)</strong>: პასუხის პაკეტის გაგზავნისას შეცდომა მოხდა</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_ALLOC_MEM" title="ESP_ERR_HTTPD_ALLOC_MEM"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_ALLOC_MEM</span></code></a> <strong>(0xb007)</strong>რესურსისთვის მეხსიერების დინამიურად გამოყოფა ვერ მოხერხდა</p>
+<p><a class="reference internal" href="protocols/esp_http_server.html#c.ESP_ERR_HTTPD_TASK" title="ESP_ERR_HTTPD_TASK"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_HTTPD_TASK</span></code></a> <strong>(0xb008)</strong>სერვერის დავალების/ძაფის გაშვება ვერ მოხერხდა</p>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../hw-reference/index.html" rel="next" title="ESP32 Hardware Reference">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="kconfig.html" rel="prev" title="Project Configuration"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

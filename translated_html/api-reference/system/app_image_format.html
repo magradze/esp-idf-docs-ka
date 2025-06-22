@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>აპლიკაციის სურათის ფორმატი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="app_trace.html" rel="next" title="Application Level Tracing"/>
+<link href="index.html" rel="prev" title="System API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/app_image_format.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/app_image_format"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/app_image_format.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="app_image_format.html#">აპლიკაციის სურათის ფორმატი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app_image_format.html#application-description">აპლიკაციის აღწერა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app_image_format.html#adding-a-custom-structure-to-an-application">აპლიკაციაში მორგებული სტრუქტურის დამატება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app_image_format.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>აპლიკაციის სურათის ფორმატი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/app_image_format.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="app-image-format">
+<h1>აპლიკაციის სურათის ფორმატი<a class="headerlink" href="app_image_format.html#app-image-format" title="Permalink to this headline">¶</a></h1>
+<p>აპლიკაციის სურათი შედგება შემდეგი სტრუქტურებისგან:</p>
+<ol class="arabic simple">
+<li>ის <a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a> სტრუქტურა აღწერს SPI ფლეშ მეხსიერება ის რეჟიმს და მეხსიერების სეგმენტების რაოდენობას.</li>
+<li>ის <a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a> სტრუქტურა აღწერს თითოეულ სეგმენტს, მის სიგრძეს და მდებარეობას ESP32-ის მეხსიერებაში, რასაც მოჰყვება მონაცემები სიგრძით <code class="docutils literal notranslate"><span class="pre">data_len</span></code>გამოსახულების თითოეული სეგმენტის მონაცემთა ოფსეტი გამოითვლება შემდეგი გზით:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>0 სეგმენტის ოფსეტი = sizeof(<a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a>) + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a>).</li>
+<li>ოფსეტი 1 სეგმენტისთვის = ოფსეტი 0 სეგმენტისთვის + 0 სეგმენტის სიგრძე + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a>).</li>
+<li>ოფსეტი 2 სეგმენტისთვის = ოფსეტი 1 სეგმენტისთვის + 1 სეგმენტის სიგრძე + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a>).</li>
+<li>…</li>
+</ul>
+</div></blockquote>
+<p>თითოეული სეგმენტის რაოდენობა განისაზღვრება <code class="docutils literal notranslate"><span class="pre">segment_count</span></code> ველი, რომელიც ინახება <a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a>რაოდენობა არ შეიძლება იყოს მეტი ვიდრე <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ESP_IMAGE_MAX_SEGMENTS</span></code>.</p>
+<p>თქვენი სურათის სეგმენტების სიის მისაღებად, გთხოვთ, შეასრულოთ შემდეგი ბრძანება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">chip</span> <span class="n">esp32</span> <span class="n">image_info</span> <span class="n">build</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="n">v2</span><span class="o">.</span><span class="mf">3.1</span>
+<span class="n">Image</span> <span class="n">version</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Entry</span> <span class="n">point</span><span class="p">:</span> <span class="mi">40080</span><span class="n">ea4</span>
+<span class="mi">13</span> <span class="n">segments</span>
+<span class="n">Segment</span> <span class="mi">1</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x13ce0</span> <span class="n">load</span> <span class="mh">0x3f400020</span> <span class="n">file_offs</span> <span class="mh">0x00000018</span> <span class="n">SOC_DROM</span>
+<span class="n">Segment</span> <span class="mi">2</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x3ff80000</span> <span class="n">file_offs</span> <span class="mh">0x00013d00</span> <span class="n">SOC_RTC_DRAM</span>
+<span class="n">Segment</span> <span class="mi">3</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x3ff80000</span> <span class="n">file_offs</span> <span class="mh">0x00013d08</span> <span class="n">SOC_RTC_DRAM</span>
+<span class="n">Segment</span> <span class="mi">4</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x028e0</span> <span class="n">load</span> <span class="mh">0x3ffb0000</span> <span class="n">file_offs</span> <span class="mh">0x00013d10</span> <span class="n">DRAM</span>
+<span class="n">Segment</span> <span class="mi">5</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x3ffb28e0</span> <span class="n">file_offs</span> <span class="mh">0x000165f8</span> <span class="n">DRAM</span>
+<span class="n">Segment</span> <span class="mi">6</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00400</span> <span class="n">load</span> <span class="mh">0x40080000</span> <span class="n">file_offs</span> <span class="mh">0x00016600</span> <span class="n">SOC_IRAM</span>
+<span class="n">Segment</span> <span class="mi">7</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x09600</span> <span class="n">load</span> <span class="mh">0x40080400</span> <span class="n">file_offs</span> <span class="mh">0x00016a08</span> <span class="n">SOC_IRAM</span>
+<span class="n">Segment</span> <span class="mi">8</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x62e4c</span> <span class="n">load</span> <span class="mh">0x400d0018</span> <span class="n">file_offs</span> <span class="mh">0x00020010</span> <span class="n">SOC_IROM</span>
+<span class="n">Segment</span> <span class="mi">9</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x06cec</span> <span class="n">load</span> <span class="mh">0x40089a00</span> <span class="n">file_offs</span> <span class="mh">0x00082e64</span> <span class="n">SOC_IROM</span>
+<span class="n">Segment</span> <span class="mi">10</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x400c0000</span> <span class="n">file_offs</span> <span class="mh">0x00089b58</span> <span class="n">SOC_RTC_IRAM</span>
+<span class="n">Segment</span> <span class="mi">11</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00004</span> <span class="n">load</span> <span class="mh">0x50000000</span> <span class="n">file_offs</span> <span class="mh">0x00089b60</span> <span class="n">SOC_RTC_DATA</span>
+<span class="n">Segment</span> <span class="mi">12</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x50000004</span> <span class="n">file_offs</span> <span class="mh">0x00089b6c</span> <span class="n">SOC_RTC_DATA</span>
+<span class="n">Segment</span> <span class="mi">13</span><span class="p">:</span> <span class="nb">len</span> <span class="mh">0x00000</span> <span class="n">load</span> <span class="mh">0x50000004</span> <span class="n">file_offs</span> <span class="mh">0x00089b74</span> <span class="n">SOC_RTC_DATA</span>
+<span class="n">Checksum</span><span class="p">:</span> <span class="n">e8</span> <span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="n">Validation</span> <span class="n">Hash</span><span class="p">:</span> <span class="mi">407089</span><span class="n">ca0eae2bbf83b4120979d3354b1c938a49cb7a0c997f240474ef2ec76b</span> <span class="p">(</span><span class="n">valid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>აპლიკაციის ჩატვირთვისას ასევე შეგიძლიათ იხილოთ ინფორმაცია სეგმენტების შესახებ IDF ჟურნალებში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="p">(</span><span class="mi">443</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">0</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00020020</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x3f400020</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x13ce0</span> <span class="p">(</span> <span class="mi">81120</span><span class="p">)</span> <span class="nb">map</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">489</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">1</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00033d08</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x3ff80000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">530</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">2</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00033d10</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x3ff80000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">571</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">3</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00033d18</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x3ffb0000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x028e0</span> <span class="p">(</span> <span class="mi">10464</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">612</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">4</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00036600</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x3ffb28e0</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">654</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">5</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00036608</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x40080000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00400</span> <span class="p">(</span> <span class="mi">1024</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">695</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">6</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00036a10</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x40080400</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x09600</span> <span class="p">(</span> <span class="mi">38400</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">737</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">7</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x00040018</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x400d0018</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x62e4c</span> <span class="p">(</span><span class="mi">405068</span><span class="p">)</span> <span class="nb">map</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">847</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">8</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x000a2e6c</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x40089a00</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x06cec</span> <span class="p">(</span> <span class="mi">27884</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">888</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">9</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x000a9b60</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x400c0000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">929</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">10</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x000a9b68</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x50000000</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00004</span> <span class="p">(</span> <span class="mi">4</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">971</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">11</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x000a9b74</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x50000004</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+<span class="n">I</span> <span class="p">(</span><span class="mi">1012</span><span class="p">)</span> <span class="n">esp_image</span><span class="p">:</span> <span class="n">segment</span> <span class="mi">12</span><span class="p">:</span> <span class="n">paddr</span><span class="o">=</span><span class="mh">0x000a9b7c</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x50000004</span> <span class="n">size</span><span class="o">=</span><span class="mh">0x00000</span> <span class="p">(</span> <span class="mi">0</span><span class="p">)</span> <span class="n">load</span>
+</pre></div>
+</div>
+<p>მეხსიერების სეგმენტების ტიპისა და მათი მისამართების დიაპაზონების შესახებ დამატებითი ინფორმაციისთვის იხილეთ ESP32 ტექნიკური საცნობარო სახელმძღვანელო, ნაწილი 1.3.2. <em>ჩაშენებული მეხსიერება</em>.</p>
+<ol class="arabic simple" start="3">
+<li>სურათს ბოლო სეგმენტის შემდეგ ერთი საკონტროლო ჯამის ბაიტი აქვს. ეს ბაიტი თექვსმეტბაიტიან შევსებულ საზღვარზეა ჩაწერილი, ამიტომ აპლიკაციის სურათს შესაძლოა შევსება დასჭირდეს.</li>
+<li>თუ <code class="docutils literal notranslate"><span class="pre">hash_appended</span></code> ველი <a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a> დაყენების შემთხვევაში, დაემატება SHA256 ჩეკის ჯამი. SHA256-ის მნიშვნელობა გამოითვლება პირველი ბაიტიდან ამ ველამდე დიაპაზონში. ამ ველის სიგრძე 32 ბაიტია.</li>
+<li>თუ ვარიანტები <a class="reference internal" href="../kconfig.html#config-secure-signed-apps-no-secure-boot"><span class="std std-ref">CONFIG_SECURE_SIGNED_APPS_NO_SECURE_BOOT</span></a> ან <a class="reference internal" href="../kconfig.html#config-secure-boot-enabled"><span class="std std-ref">CONFIG_SECURE_BOOT_ENABLED</span></a> თუ ჩართულია, აპლიკაციის გამოსახულებას ექნება დამატებითი 68 ბაიტი ECDSA ხელმოწერისთვის, რაც მოიცავს:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>ვერსიის სიტყვა (4 ბაიტი),</li>
+<li>ხელმოწერის მონაცემები (64 ბაიტი).</li>
+</ul>
+</div></blockquote>
+<div class="section" id="application-description">
+<h2>აპლიკაციის აღწერა<a class="headerlink" href="app_image_format.html#application-description" title="Permalink to this headline">¶</a></h2>
+<p>ის <code class="docutils literal notranslate"><span class="pre">DROM</span></code> სეგმენტი იწყება იმით, <a class="reference internal" href="app_image_format.html#_CPPv414esp_app_desc_t" title="esp_app_desc_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_app_desc_t</span></code></a> სტრუქტურა, რომელიც შეიცავს კონკრეტულ ველებს, რომლებიც აღწერენ აპლიკაციას:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">secure_version</span></code> - იხილეთ <a class="reference internal" href="ota.html"><span class="doc">ანტი-rollback</span></a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">version</span></code> - იხილეთ <a class="reference internal" href="system.html"><span class="doc">აპლიკაციის ვერსია</span></a>. <code class="docutils literal notranslate"><span class="pre">*</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> ივსება -დან <code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code>. <code class="docutils literal notranslate"><span class="pre">*</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">time</span></code> და <code class="docutils literal notranslate"><span class="pre">date</span></code> - კომპილაცია დრო და თარიღი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">idf_ver</span></code> - ESP-IDF ის ვერსია. <code class="docutils literal notranslate"><span class="pre">*</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">app_elf_sha256</span></code> - შეიცავს sha256-ს elf აპლიკაციის ფაილისთვის.</li>
+</ul>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">*</span></code> - მაქსიმალური სიგრძეა 32 სიმბოლო, ნულოვანი დასრულების სიმბოლოს ჩათვლით. მაგალითად, თუ სიგრძე <code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code> თუ 32 სიმბოლოს გადააჭარბებს, ზედმეტი სიმბოლოები არ იქნება გათვალისწინებული.</p>
+<p>ეს სტრუქტურა სასარგებლოა სურათების ატვირთვა ed OTA-ს იდენტიფიკაციისთვის, რადგან მას აქვს ფიქსირებული offset = sizeof(<a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a>) + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a>როგორც კი მოწყობილობა მიიღებს ამ სტრუქტურის შემცველ პირველ ფრაგმენტს, მას ექნება ყველა ინფორმაცია იმის დასადგენად, უნდა გაგრძელდეს თუ არა განახლება.</p>
+</div>
+<div class="section" id="adding-a-custom-structure-to-an-application">
+<h2>აპლიკაციაში მორგებული სტრუქტურის დამატება<a class="headerlink" href="app_image_format.html#adding-a-custom-structure-to-an-application" title="Permalink to this headline">¶</a></h2>
+<p>მომხმარებელს ასევე აქვს შესაძლებლობა, ჰქონდეს მსგავსი სტრუქტურა სურათის დასაწყისთან შედარებით ფიქსირებული ოფსეტით. თქვენს სურათზე საკუთარი სტრუქტურის დასამატებლად შეგიძლიათ გამოიყენოთ შემდეგი ნიმუში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">section</span><span class="p">(</span><span class="s2">".rodata_custom_desc"</span><span class="p">)))</span> <span class="n">esp_custom_app_desc_t</span> <span class="n">custom_app_desc</span> <span class="o">=</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>მორგებული სტრუქტურის ოფსეტი არის sizeof(<a class="reference internal" href="app_image_format.html#_CPPv418esp_image_header_t" title="esp_image_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_header_t</span></code></a>) + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="esp_image_segment_header_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_image_segment_header_t</span></code></a>) + ზომა(<a class="reference internal" href="app_image_format.html#_CPPv414esp_app_desc_t" title="esp_app_desc_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_app_desc_t</span></code></a>).</p>
+<p>იმისათვის, რომ გარანტირებული იყოს, რომ მორგებული სტრუქტურა გამოსახულებაში იქნება განთავსებული, მაშინაც კი, თუ ის არ გამოიყენება, უნდა დაამატოთ:</p>
+<blockquote>
+<div><ul class="simple">
+<li>მარკისთვის: დამატება <code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_LDFLAGS</span> <span class="pre">+=</span> <span class="pre">-u</span> <span class="pre">custom_app_desc</span></code> შიგნით <code class="docutils literal notranslate"><span class="pre">component.mk</span></code></li>
+<li>Cmake-სთვის: დაამატეთ <code class="docutils literal notranslate"><span class="pre">target_link_libraries(${COMPONENT_TARGET}</span> <span class="pre">"-u</span> <span class="pre">custom_app_desc")</span></code> შიგნით <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="app_image_format.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="app_image_format.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bootloader_support/include/esp_app_format.h">ჩამტვირთავი _support/include/esp_app_format.h</a></li>
+</ul>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="app_image_format.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418esp_image_header_t">
+<span id="_CPPv318esp_image_header_t"></span><span id="_CPPv218esp_image_header_t"></span><span id="esp_image_header_t"></span><span class="target" id="structesp__image__header__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_image_header_t</code><a class="headerlink" href="app_image_format.html#_CPPv418esp_image_header_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ორობითი გამოსახულების მთავარი სათაური. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t5magicE">
+<span id="_CPPv3N18esp_image_header_t5magicE"></span><span id="_CPPv2N18esp_image_header_t5magicE"></span><span id="esp_image_header_t::magic__uint8_t"></span><span class="target" id="structesp__image__header__t_1a6e86ce2b5270807e1f07bb491011f640"></span>uint8_t <code class="descname">magic</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t5magicE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაგიური სიტყვა ESP_IMAGE_HEADER_MAGIC </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t13segment_countE">
+<span id="_CPPv3N18esp_image_header_t13segment_countE"></span><span id="_CPPv2N18esp_image_header_t13segment_countE"></span><span id="esp_image_header_t::segment_count__uint8_t"></span><span class="target" id="structesp__image__header__t_1a99c73ccba6eafee80b779cd9850859ed"></span>uint8_t <code class="descname">segment_count</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t13segment_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მეხსიერების სეგმენტების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t8spi_modeE">
+<span id="_CPPv3N18esp_image_header_t8spi_modeE"></span><span id="_CPPv2N18esp_image_header_t8spi_modeE"></span><span id="esp_image_header_t::spi_mode__uint8_t"></span><span class="target" id="structesp__image__header__t_1a0796675f7219bb7423c360588a275d82"></span>uint8_t <code class="descname">spi_mode</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t8spi_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფლეშ მეხსიერება წაკითხვის რეჟიმი (esp_image_spi_mode_t როგორც uint8_t) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t9spi_speedE">
+<span id="_CPPv3N18esp_image_header_t9spi_speedE"></span><span id="_CPPv2N18esp_image_header_t9spi_speedE"></span><span id="esp_image_header_t::spi_speed__uint8_t"></span><span class="target" id="structesp__image__header__t_1a2b805728b2759bf5925f61b09fc68a24"></span>uint8_t <code class="descname">spi_speed</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t9spi_speedE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფლეშ მეხსიერება სიხშირე (esp_image_spi_freq_t როგორც uint8_t) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t8spi_sizeE">
+<span id="_CPPv3N18esp_image_header_t8spi_sizeE"></span><span id="_CPPv2N18esp_image_header_t8spi_sizeE"></span><span id="esp_image_header_t::spi_size__uint8_t"></span><span class="target" id="structesp__image__header__t_1a4003a38b9328e247dfdb7478d9def152"></span>uint8_t <code class="descname">spi_size</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t8spi_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფლეშ მეხსიერება ჩიპის ზომა (esp_image_ ფლეშ მეხსიერება _size_t როგორც uint8_t) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t10entry_addrE">
+<span id="_CPPv3N18esp_image_header_t10entry_addrE"></span><span id="_CPPv2N18esp_image_header_t10entry_addrE"></span><span id="esp_image_header_t::entry_addr__uint32_t"></span><span class="target" id="structesp__image__header__t_1a6870ed1650d71bd93a5a0b5b0b688907"></span>uint32_t <code class="descname">entry_addr</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t10entry_addrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესასვლელი მისამართი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t6wp_pinE">
+<span id="_CPPv3N18esp_image_header_t6wp_pinE"></span><span id="_CPPv2N18esp_image_header_t6wp_pinE"></span><span id="esp_image_header_t::wp_pin__uint8_t"></span><span class="target" id="structesp__image__header__t_1a9a232c7067a883b3fdb55b5cf3a1427a"></span>uint8_t <code class="descname">wp_pin</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t6wp_pinE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WP პინი, როდესაც SPI პინები დაყენებულია efuse-ის მეშვეობით (წაიკითხება ROM ჩამტვირთავი მიერ, IDF ჩამტვირთავი იყენებს პროგრამულ უზრუნველყოფას WP პინის კონფიგურაციისთვის და ამ ველს აყენებს 0xEE=disabled-ზე) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t11spi_pin_drvE">
+<span id="_CPPv3N18esp_image_header_t11spi_pin_drvE"></span><span id="_CPPv2N18esp_image_header_t11spi_pin_drvE"></span><span id="esp_image_header_t::spi_pin_drv__uint8_tA"></span><span class="target" id="structesp__image__header__t_1a6764abda8e64205b3792aaa3ab0eb43d"></span>uint8_t <code class="descname">spi_pin_drv</code>[3]<a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t11spi_pin_drvE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება პინების დისკის პარამეტრები (წაკითხულია ROM ჩამტვირთავი მიერ) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t7chip_idE">
+<span id="_CPPv3N18esp_image_header_t7chip_idE"></span><span id="_CPPv2N18esp_image_header_t7chip_idE"></span><span id="esp_image_header_t::chip_id__esp_chip_id_t"></span><span class="target" id="structesp__image__header__t_1ab45625634d558f93c740cc9ed963f14b"></span><a class="reference internal" href="app_image_format.html#_CPPv413esp_chip_id_t" title="esp_chip_id_t">esp_chip_id_t</a> <code class="descname">chip_id</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t7chip_idE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩიპის საიდენტიფიკაციო ნომერი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t12min_chip_revE">
+<span id="_CPPv3N18esp_image_header_t12min_chip_revE"></span><span id="_CPPv2N18esp_image_header_t12min_chip_revE"></span><span id="esp_image_header_t::min_chip_rev__uint8_t"></span><span class="target" id="structesp__image__header__t_1a8cb1db2de5c6839ef9991232182fd557"></span>uint8_t <code class="descname">min_chip_rev</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t12min_chip_revE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სურათით მხარდაჭერილი ჩიპის მინიმალური ვერსია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t8reservedE">
+<span id="_CPPv3N18esp_image_header_t8reservedE"></span><span id="_CPPv2N18esp_image_header_t8reservedE"></span><span id="esp_image_header_t::reserved__uint8_tA"></span><span class="target" id="structesp__image__header__t_1a3d32c01282417b16f0380243048a96c0"></span>uint8_t <code class="descname">reserved</code>[8]<a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t8reservedE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამატებით სათაურის სივრცეში დაჯავშნილი ბაიტები, ამჟამად გამოუყენებელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_image_header_t13hash_appendedE">
+<span id="_CPPv3N18esp_image_header_t13hash_appendedE"></span><span id="_CPPv2N18esp_image_header_t13hash_appendedE"></span><span id="esp_image_header_t::hash_appended__uint8_t"></span><span class="target" id="structesp__image__header__t_1a8dd3479541a5e44d805ebdeb330878e6"></span>uint8_t <code class="descname">hash_appended</code><a class="headerlink" href="app_image_format.html#_CPPv4N18esp_image_header_t13hash_appendedE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ 1, ჩეკის ჯამის შემდეგ ემატება SHA256 დაიჯესტი „მარტივი ჰეში“ (მთელი სურათის). შედის სურათის სიგრძეში. ეს დაიჯესტი ცალკეა უსაფრთხო ჩატვირთვისთვის და გამოიყენება მხოლოდ დაზიანების აღმოსაჩენად. უსაფრთხო ჩატვირთვის ხელმოწერილი სურათებისთვის, ხელმოწერა ემატება ამის შემდეგ (და მარტივი ჰეში შედის ხელმოწერილ მონაცემებში). </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv426esp_image_segment_header_t">
+<span id="_CPPv326esp_image_segment_header_t"></span><span id="_CPPv226esp_image_segment_header_t"></span><span id="esp_image_segment_header_t"></span><span class="target" id="structesp__image__segment__header__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_image_segment_header_t</code><a class="headerlink" href="app_image_format.html#_CPPv426esp_image_segment_header_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ორობითი გამოსახულების სეგმენტის სათაური. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N26esp_image_segment_header_t9load_addrE">
+<span id="_CPPv3N26esp_image_segment_header_t9load_addrE"></span><span id="_CPPv2N26esp_image_segment_header_t9load_addrE"></span><span id="esp_image_segment_header_t::load_addr__uint32_t"></span><span class="target" id="structesp__image__segment__header__t_1a9b2c8bd544b6743d38d93351fa3c9e4b"></span>uint32_t <code class="descname">load_addr</code><a class="headerlink" href="app_image_format.html#_CPPv4N26esp_image_segment_header_t9load_addrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სეგმენტის მისამართი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N26esp_image_segment_header_t8data_lenE">
+<span id="_CPPv3N26esp_image_segment_header_t8data_lenE"></span><span id="_CPPv2N26esp_image_segment_header_t8data_lenE"></span><span id="esp_image_segment_header_t::data_len__uint32_t"></span><span class="target" id="structesp__image__segment__header__t_1a2d0fdeef51585d4fb4de6a239604e3b9"></span>uint32_t <code class="descname">data_len</code><a class="headerlink" href="app_image_format.html#_CPPv4N26esp_image_segment_header_t8data_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემების სიგრძე </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv414esp_app_desc_t">
+<span id="_CPPv314esp_app_desc_t"></span><span id="_CPPv214esp_app_desc_t"></span><span id="esp_app_desc_t"></span><span class="target" id="structesp__app__desc__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_app_desc_t</code><a class="headerlink" href="app_image_format.html#_CPPv414esp_app_desc_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპლიკაციის შესახებ აღწერა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t10magic_wordE">
+<span id="_CPPv3N14esp_app_desc_t10magic_wordE"></span><span id="_CPPv2N14esp_app_desc_t10magic_wordE"></span><span id="esp_app_desc_t::magic_word__uint32_t"></span><span class="target" id="structesp__app__desc__t_1ada818e71f07a98107f26b45d752fe1f0"></span>uint32_t <code class="descname">magic_word</code><a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t10magic_wordE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჯადოსნური სიტყვა ESP_APP_DESC_MAGIC_WORD </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t14secure_versionE">
+<span id="_CPPv3N14esp_app_desc_t14secure_versionE"></span><span id="_CPPv2N14esp_app_desc_t14secure_versionE"></span><span id="esp_app_desc_t::secure_version__uint32_t"></span><span class="target" id="structesp__app__desc__t_1a0db365c9f2a9f76b69b8817be99ad479"></span>uint32_t <code class="descname">secure_version</code><a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t14secure_versionE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უსაფრთხო ვერსია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t7reserv1E">
+<span id="_CPPv3N14esp_app_desc_t7reserv1E"></span><span id="_CPPv2N14esp_app_desc_t7reserv1E"></span><span id="esp_app_desc_t::reserv1__uint32_tA"></span><span class="target" id="structesp__app__desc__t_1a847073a005b0633622b7a5e4f835f624"></span>uint32_t <code class="descname">reserv1</code>[2]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t7reserv1E" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეზერვი 1 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t7versionE">
+<span id="_CPPv3N14esp_app_desc_t7versionE"></span><span id="_CPPv2N14esp_app_desc_t7versionE"></span><span id="esp_app_desc_t::version__cA"></span><span class="target" id="structesp__app__desc__t_1a918dd407d5b3b2f1653f9bad5900ef32"></span>char <code class="descname">version</code>[32]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t7versionE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპლიკაციის ვერსია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t12project_nameE">
+<span id="_CPPv3N14esp_app_desc_t12project_nameE"></span><span id="_CPPv2N14esp_app_desc_t12project_nameE"></span><span id="esp_app_desc_t::project_name__cA"></span><span class="target" id="structesp__app__desc__t_1ac45a4bf608969cdef39c31d8718dd1bf"></span>char <code class="descname">project_name</code>[32]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t12project_nameE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პროექტის სახელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t4timeE">
+<span id="_CPPv3N14esp_app_desc_t4timeE"></span><span id="_CPPv2N14esp_app_desc_t4timeE"></span><span id="esp_app_desc_t::time__cA"></span><span class="target" id="structesp__app__desc__t_1a3d0d15c79495dd8a7c510fbbaaa61c0e"></span>char <code class="descname">time</code>[16]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t4timeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კომპილაციის დრო </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t4dateE">
+<span id="_CPPv3N14esp_app_desc_t4dateE"></span><span id="_CPPv2N14esp_app_desc_t4dateE"></span><span id="esp_app_desc_t::date__cA"></span><span class="target" id="structesp__app__desc__t_1ae8f06b367fb4fe0e7d14f8354bd8708e"></span>char <code class="descname">date</code>[16]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t4dateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კომპილაციის თარიღი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t7idf_verE">
+<span id="_CPPv3N14esp_app_desc_t7idf_verE"></span><span id="_CPPv2N14esp_app_desc_t7idf_verE"></span><span id="esp_app_desc_t::idf_ver__cA"></span><span class="target" id="structesp__app__desc__t_1a384908ca882c6ce648e2a312eb004d9e"></span>char <code class="descname">idf_ver</code>[32]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t7idf_verE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>IDF ვერსია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t14app_elf_sha256E">
+<span id="_CPPv3N14esp_app_desc_t14app_elf_sha256E"></span><span id="_CPPv2N14esp_app_desc_t14app_elf_sha256E"></span><span id="esp_app_desc_t::app_elf_sha256__uint8_tA"></span><span class="target" id="structesp__app__desc__t_1aa46eb72403a7916bd14cc7a01b50e501"></span>uint8_t <code class="descname">app_elf_sha256</code>[32]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t14app_elf_sha256E" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>elf ფაილის sha256 </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N14esp_app_desc_t7reserv2E">
+<span id="_CPPv3N14esp_app_desc_t7reserv2E"></span><span id="_CPPv2N14esp_app_desc_t7reserv2E"></span><span id="esp_app_desc_t::reserv2__uint32_tA"></span><span class="target" id="structesp__app__desc__t_1a2b75db8e76c7d6c8e734df01f811d695"></span>uint32_t <code class="descname">reserv2</code>[20]<a class="headerlink" href="app_image_format.html#_CPPv4N14esp_app_desc_t7reserv2E" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეზერვი 2 </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="app_image_format.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_IMAGE_HEADER_MAGIC">
+<span class="target" id="esp__app__format_8h_1a5b8da1a8024d841f49604e58564f8b3d"></span><code class="descname">ESP_IMAGE_HEADER_MAGIC</code><a class="headerlink" href="app_image_format.html#c.ESP_IMAGE_HEADER_MAGIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჯადოსნური სიტყვა იმისთვის, <a class="reference internal" href="app_image_format.html#structesp__image__header__t"><span class="std std-ref">esp_image_header_t</span></a> სტრუქტურა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_IMAGE_MAX_SEGMENTS">
+<span class="target" id="esp__app__format_8h_1aba13cb72e92cdd51402b07bd463a1345"></span><code class="descname">ESP_IMAGE_MAX_SEGMENTS</code><a class="headerlink" href="app_image_format.html#c.ESP_IMAGE_MAX_SEGMENTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>სურათზე სეგმენტების მაქსიმალური რაოდენობა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_APP_DESC_MAGIC_WORD">
+<span class="target" id="esp__app__format_8h_1a32b95c323aa4358f67d9c5c2f9b31c0a"></span><code class="descname">ESP_APP_DESC_MAGIC_WORD</code><a class="headerlink" href="app_image_format.html#c.ESP_APP_DESC_MAGIC_WORD" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჯადოსნური სიტყვა esp_app_desc სტრუქტურისთვის, რომელიც DROM-შია. </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="app_image_format.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv413esp_chip_id_t">
+<span id="_CPPv313esp_chip_id_t"></span><span id="_CPPv213esp_chip_id_t"></span><span id="esp_chip_id_t"></span><span class="target" id="esp__app__format_8h_1aaa179fd7b2aefef3b9a90456d4461302"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_chip_id_t</code><a class="headerlink" href="app_image_format.html#_CPPv413esp_chip_id_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP ჩიპის ID. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_CHIP_ID_ESP32">
+<span id="_CPPv317ESP_CHIP_ID_ESP32"></span><span id="_CPPv217ESP_CHIP_ID_ESP32"></span><span class="target" id="esp__app__format_8h_1aaa179fd7b2aefef3b9a90456d4461302afd5eab33eaf518e2673affa58cb21a88"></span><code class="descname">ESP_CHIP_ID_ESP32</code> = 0x0000<a class="headerlink" href="app_image_format.html#_CPPv417ESP_CHIP_ID_ESP32" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩიპის ID: ESP32 </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419ESP_CHIP_ID_INVALID">
+<span id="_CPPv319ESP_CHIP_ID_INVALID"></span><span id="_CPPv219ESP_CHIP_ID_INVALID"></span><span class="target" id="esp__app__format_8h_1aaa179fd7b2aefef3b9a90456d4461302a68540a6e2bfd149dbf1928f179d13452"></span><code class="descname">ESP_CHIP_ID_INVALID</code> = 0xFFFF<a class="headerlink" href="app_image_format.html#_CPPv419ESP_CHIP_ID_INVALID" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩიპის ID არასწორია (ჩვენ განვსაზღვრეთ ის, რათა დარწმუნებულიყავით, რომ esp_chip_id_t 2 ბაიტის ზომისაა) </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_image_spi_mode_t">
+<span id="_CPPv320esp_image_spi_mode_t"></span><span id="_CPPv220esp_image_spi_mode_t"></span><span id="esp_image_spi_mode_t"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_image_spi_mode_t</code><a class="headerlink" href="app_image_format.html#_CPPv420esp_image_spi_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება რეჟიმი, რომელიც გამოიყენება <a class="reference internal" href="app_image_format.html#structesp__image__header__t"><span class="std std-ref">esp_image_header_t</span></a>. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv422ESP_IMAGE_SPI_MODE_QIO">
+<span id="_CPPv322ESP_IMAGE_SPI_MODE_QIO"></span><span id="_CPPv222ESP_IMAGE_SPI_MODE_QIO"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0ae82bdf1395f792a8007c1920059a6ac9"></span><code class="descname">ESP_IMAGE_SPI_MODE_QIO</code><a class="headerlink" href="app_image_format.html#_CPPv422ESP_IMAGE_SPI_MODE_QIO" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი QIO </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_MODE_QOUT">
+<span id="_CPPv323ESP_IMAGE_SPI_MODE_QOUT"></span><span id="_CPPv223ESP_IMAGE_SPI_MODE_QOUT"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0a78e2a4f0624e7ef70101aa0ab89e878d"></span><code class="descname">ESP_IMAGE_SPI_MODE_QOUT</code><a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_MODE_QOUT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი QOUT </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422ESP_IMAGE_SPI_MODE_DIO">
+<span id="_CPPv322ESP_IMAGE_SPI_MODE_DIO"></span><span id="_CPPv222ESP_IMAGE_SPI_MODE_DIO"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0a978cd51e480967810164467663067a1c"></span><code class="descname">ESP_IMAGE_SPI_MODE_DIO</code><a class="headerlink" href="app_image_format.html#_CPPv422ESP_IMAGE_SPI_MODE_DIO" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი DIO </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_MODE_DOUT">
+<span id="_CPPv323ESP_IMAGE_SPI_MODE_DOUT"></span><span id="_CPPv223ESP_IMAGE_SPI_MODE_DOUT"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0a6cce09f9e30f0dfd6aaeb7a3058e8a49"></span><code class="descname">ESP_IMAGE_SPI_MODE_DOUT</code><a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_MODE_DOUT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი DOUT </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv428ESP_IMAGE_SPI_MODE_FAST_READ">
+<span id="_CPPv328ESP_IMAGE_SPI_MODE_FAST_READ"></span><span id="_CPPv228ESP_IMAGE_SPI_MODE_FAST_READ"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0a080704c7c0e9e8f2e2b5d4a1c3fc3e8f"></span><code class="descname">ESP_IMAGE_SPI_MODE_FAST_READ</code><a class="headerlink" href="app_image_format.html#_CPPv428ESP_IMAGE_SPI_MODE_FAST_READ" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი FAST_READ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv428ESP_IMAGE_SPI_MODE_SLOW_READ">
+<span id="_CPPv328ESP_IMAGE_SPI_MODE_SLOW_READ"></span><span id="_CPPv228ESP_IMAGE_SPI_MODE_SLOW_READ"></span><span class="target" id="esp__app__format_8h_1a91de9829bff47799f639a2a60e6256a0adf37744c441efcd0ad59a2bfd6bf66d7"></span><code class="descname">ESP_IMAGE_SPI_MODE_SLOW_READ</code><a class="headerlink" href="app_image_format.html#_CPPv428ESP_IMAGE_SPI_MODE_SLOW_READ" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი SLOW_READ </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_image_spi_freq_t">
+<span id="_CPPv320esp_image_spi_freq_t"></span><span id="_CPPv220esp_image_spi_freq_t"></span><span id="esp_image_spi_freq_t"></span><span class="target" id="esp__app__format_8h_1a9a4bb6a5ed31cd7e48e6ff956daca6b4"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_image_spi_freq_t</code><a class="headerlink" href="app_image_format.html#_CPPv420esp_image_spi_freq_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება საათის სიხშირე. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_SPEED_40M">
+<span id="_CPPv323ESP_IMAGE_SPI_SPEED_40M"></span><span id="_CPPv223ESP_IMAGE_SPI_SPEED_40M"></span><span class="target" id="esp__app__format_8h_1a9a4bb6a5ed31cd7e48e6ff956daca6b4ae5ef560f2dd8d7c88968de40bb6a4a3f"></span><code class="descname">ESP_IMAGE_SPI_SPEED_40M</code><a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_SPEED_40M" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI საათის სიხშირე 40 MHz </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_SPEED_26M">
+<span id="_CPPv323ESP_IMAGE_SPI_SPEED_26M"></span><span id="_CPPv223ESP_IMAGE_SPI_SPEED_26M"></span><span class="target" id="esp__app__format_8h_1a9a4bb6a5ed31cd7e48e6ff956daca6b4a226423774b503b147b9795a4dd19c502"></span><code class="descname">ESP_IMAGE_SPI_SPEED_26M</code><a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_SPEED_26M" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI საათის სიხშირე 26 MHz </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_SPEED_20M">
+<span id="_CPPv323ESP_IMAGE_SPI_SPEED_20M"></span><span id="_CPPv223ESP_IMAGE_SPI_SPEED_20M"></span><span class="target" id="esp__app__format_8h_1a9a4bb6a5ed31cd7e48e6ff956daca6b4ac16d30a7f0b99f8f59dd0190456d52f0"></span><code class="descname">ESP_IMAGE_SPI_SPEED_20M</code><a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_SPEED_20M" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI საათის სიხშირე 20 MHz </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_IMAGE_SPI_SPEED_80M">
+<span id="_CPPv323ESP_IMAGE_SPI_SPEED_80M"></span><span id="_CPPv223ESP_IMAGE_SPI_SPEED_80M"></span><span class="target" id="esp__app__format_8h_1a9a4bb6a5ed31cd7e48e6ff956daca6b4a043e6c401e1efb508aa091ca2c3172f2"></span><code class="descname">ESP_IMAGE_SPI_SPEED_80M</code> = 0xF<a class="headerlink" href="app_image_format.html#_CPPv423ESP_IMAGE_SPI_SPEED_80M" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI საათის სიხშირე 80 MHz </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv422esp_image_flash_size_t">
+<span id="_CPPv322esp_image_flash_size_t"></span><span id="_CPPv222esp_image_flash_size_t"></span><span id="esp_image_flash_size_t"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60a"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_image_flash_size_t</code><a class="headerlink" href="app_image_format.html#_CPPv422esp_image_flash_size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მხარდაჭერილი SPI ფლეშ მეხსიერება ზომები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_IMAGE_FLASH_SIZE_1MB">
+<span id="_CPPv324ESP_IMAGE_FLASH_SIZE_1MB"></span><span id="_CPPv224ESP_IMAGE_FLASH_SIZE_1MB"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aa2dbb85611f2ce9d30387f2006b84a3f7"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_1MB</code> = 0<a class="headerlink" href="app_image_format.html#_CPPv424ESP_IMAGE_FLASH_SIZE_1MB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა 1 მბ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_IMAGE_FLASH_SIZE_2MB">
+<span id="_CPPv324ESP_IMAGE_FLASH_SIZE_2MB"></span><span id="_CPPv224ESP_IMAGE_FLASH_SIZE_2MB"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aa76d5708749c81bb30ac7bb382fc8bd2c"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_2MB</code><a class="headerlink" href="app_image_format.html#_CPPv424ESP_IMAGE_FLASH_SIZE_2MB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა 2 მბ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_IMAGE_FLASH_SIZE_4MB">
+<span id="_CPPv324ESP_IMAGE_FLASH_SIZE_4MB"></span><span id="_CPPv224ESP_IMAGE_FLASH_SIZE_4MB"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aa7669145246c925eafaa96fbddd799093"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_4MB</code><a class="headerlink" href="app_image_format.html#_CPPv424ESP_IMAGE_FLASH_SIZE_4MB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა 4 მბ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_IMAGE_FLASH_SIZE_8MB">
+<span id="_CPPv324ESP_IMAGE_FLASH_SIZE_8MB"></span><span id="_CPPv224ESP_IMAGE_FLASH_SIZE_8MB"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aa072f6a2c50121b763325650407f6eead"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_8MB</code><a class="headerlink" href="app_image_format.html#_CPPv424ESP_IMAGE_FLASH_SIZE_8MB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა 8 მბ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv425ESP_IMAGE_FLASH_SIZE_16MB">
+<span id="_CPPv325ESP_IMAGE_FLASH_SIZE_16MB"></span><span id="_CPPv225ESP_IMAGE_FLASH_SIZE_16MB"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aa8b127017b2777645ed538541cd248048"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_16MB</code><a class="headerlink" href="app_image_format.html#_CPPv425ESP_IMAGE_FLASH_SIZE_16MB" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა 16 მბ </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_IMAGE_FLASH_SIZE_MAX">
+<span id="_CPPv324ESP_IMAGE_FLASH_SIZE_MAX"></span><span id="_CPPv224ESP_IMAGE_FLASH_SIZE_MAX"></span><span class="target" id="esp__app__format_8h_1a513758795fde686eb25473bbc175c60aab26600350c054ea1a99e28dad57aa9d6"></span><code class="descname">ESP_IMAGE_FLASH_SIZE_MAX</code><a class="headerlink" href="app_image_format.html#_CPPv424ESP_IMAGE_FLASH_SIZE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ფლეშ მეხსიერება ზომა MAX </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="app_trace.html" rel="next" title="Application Level Tracing">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="System API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

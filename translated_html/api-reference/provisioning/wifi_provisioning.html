@@ -1,0 +1,1246 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wi-Fi უზრუნველყოფა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../storage/index.html" rel="next" title="Storage API"/>
+<link href="provisioning.html" rel="prev" title="Unified Provisioning"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/provisioning/wifi_provisioning.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/provisioning/wifi_provisioning"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/provisioning/wifi_provisioning.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">უზრუნველყოფა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="protocomm.html">პროტოკოლის კომუნიკაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="provisioning.html">ერთიანი უზრუნველყოფა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="wifi_provisioning.html#">Wi-Fi უზრუნველყოფა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="wifi_provisioning.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi_provisioning.html#application-examples">გამოყენების მაგალითები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wifi_provisioning.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">უზრუნველყოფის API</a> »</li>
+<li>Wi-Fi უზრუნველყოფა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/provisioning/wifi_provisioning.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="wi-fi-provisioning">
+<h1>Wi-Fi უზრუნველყოფა<a class="headerlink" href="wifi_provisioning.html#wi-fi-provisioning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="wifi_provisioning.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ეს კომპონენტი უზრუნველყოფს API ს, რომელიც აკონტროლებს Wi-Fi მიწოდების სერვისს SoftAP ან BLE ტრანსპორტირების საშუალებით Wi-Fi სერთიფიკატების მიღებისა და კონფიგურაციისთვის. <a class="reference internal" href="protocomm.html"><span class="doc">პროტოკოლური კომუნიკაცია (პროტოკომი)</span></a> სესიები. ნაკრები <code class="docutils literal notranslate"><span class="pre">wifi_prov_mgr_</span></code> API ხელს უწყობს ისეთი უზრუნველყოფის სერვისის სწრაფ დანერგვას, რომელსაც აქვს საჭირო ფუნქციები, კოდის მინიმალური რაოდენობა და საკმარისი მოქნილობა.</p>
+<div class="section" id="initialization">
+<span id="wifi-prov-mgr-init"></span><h3>ინიციალიზაცია<a class="headerlink" href="wifi_provisioning.html#initialization" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="wifi_provisioning.html#_CPPv418wifi_prov_mgr_init22wifi_prov_mgr_config_t" title="wifi_prov_mgr_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_init()</span></code></a> გამოიძახება უზრუნველყოფის მენეჯერის კონფიგურაციისა და ინიციალიზაციისთვის და ამიტომ ის უნდა გამოიძახონ ნებისმიერი სხვა ფუნქციის გამოძახებამდე. <code class="docutils literal notranslate"><span class="pre">wifi_prov_mgr_</span></code> API s. გაითვალისწინეთ, რომ მენეჯერი ეყრდნობა IDF-ის სხვა კომპონენტი s-ებს, კერძოდ NVS-ს, TCP/IP-ს, Event Loop-ს და Wi-Fi (და სურვილისამებრ mDNS-ს), ამიტომ ისინი წინასწარ უნდა იყოს ინიციალიზებული. მენეჯერის დეინიციალიზაცია შესაძლებელია ნებისმიერ დროს ზარის განხორციელებით. <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_mgr_deinitv" title="wifi_prov_mgr_deinit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_deinit()</span></code></a>.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">wifi_prov_mgr_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">wifi_prov_scheme_ble</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">scheme_event_handler</span> <span class="o">=</span> <span class="n">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM</span>
+<span class="p">};</span>
+
+<span class="n">ESP_ERR_CHECK</span><span class="p">(</span> <span class="n">wifi_prov_mgr_init</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>კონფიგურაციის სტრუქტურა <code class="docutils literal notranslate"><span class="pre">wifi_prov_mgr_config_t</span></code> მენეჯერისთვის სასურველი ქცევის მითითებისთვის რამდენიმე ველია:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><cite>scheme</cite> ეს გამოიყენება მიწოდების სქემის დასაზუსტებლად. თითოეული სქემა შეესაბამება პროტოკომის მიერ მხარდაჭერილი ტრანსპორტირების ერთ-ერთ რეჟიმს. შესაბამისად, ჩვენ გვაქვს სამი ვარიანტი:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_ble</span></code> BLE ტრანსპორტი და GATT სერვერი უზრუნველყოფის ბრძანებების დასამუშავებლად</li>
+<li><code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_softap</span></code> Wi-Fi SoftAP ტრანსპორტი და HTTP სერვერი დებულების ბრძანებების დასამუშავებლად</li>
+<li><code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_console</span></code> სერიული ტრანსპორტი და კონსოლი უზრუნველყოფის ბრძანებების დასამუშავებლად</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><cite>scheme_event_handler</cite> : სქემასთან ერთად განსაზღვრული მოვლენების დამმუშავებელი. შესაბამისი სქემისთვის სპეციფიკური მოვლენების დამმუშავებლის არჩევა მენეჯერს საშუალებას აძლევს, ავტომატურად მოაგვაროს გარკვეული საკითხები. ამჟამად ეს არ გამოიყენება არც SoftAP-ისთვის და არც კონსოლზე დაფუძნებული უზრუნველყოფისთვის, მაგრამ ძალიან მოსახერხებელია BLE-სთვის. იმის გასაგებად, თუ როგორ, უნდა გავიხსენოთ, რომ Bluetooth ფუნქციონირებისთვის საკმაოდ დიდი მეხსიერება სჭირდება და უზრუნველყოფის დასრულების შემდეგ, მთავარ აპლიკაციას შეიძლება დასჭირდეს ამ მეხსიერების (ან მისი ნაწილის, თუ მას სჭირდება BLE-ს ან კლასიკური BT-ს გამოყენება) დაბრუნება. ასევე, უზრუნველყოფილი მოწყობილობის ყოველი მომავალი გადატვირთვისას, მეხსიერების ეს აღდგენა ხელახლა უნდა შესრულდეს. ამ გართულების შესამცირებლად გამოყენებაში <code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_ble</span></code>სქემისთვის სპეციფიკური დამმუშავებლები განსაზღვრულია და არჩეული დამმუშავებლის მიხედვით, BLE / classic BT / BTDM მეხსიერება ავტომატურად გათავისუფლდება, როდესაც უზრუნველყოფის მენეჯერი დეინიციალიზებული იქნება. ხელმისაწვდომი ვარიანტებია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM</span></code> - გაათავისუფლეთ როგორც კლასიკური BT, ასევე BLE (BTDM) მეხსიერება. გამოიყენება მაშინ, როდესაც მთავარ აპლიკაციას საერთოდ არ სჭირდება Bluetooth .</li>
+<li><code class="docutils literal notranslate"><span class="pre">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BLE</span></code> - მხოლოდ BLE მეხსიერება თავისუფალია. გამოიყენება, როდესაც მთავარ აპლიკაციას კლასიკური BT სჭირდება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BT</span></code> - მხოლოდ კლასიკური BT უფასოა. გამოიყენება მაშინ, როდესაც მთავარ აპლიკაციას BLE სჭირდება. ამ შემთხვევაში, გათავისუფლება ხდება მენეჯერის ინიციალიზაციისთანავე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">WIFI_PROV_EVENT_HANDLER_NONE</span></code> - არ გამოიყენოთ სქემისთვის სპეციფიკური დამმუშავებელი. გამოიყენება მაშინ, როდესაც უზრუნველყოფის სქემა არ არის BLE (მაგ. SoftAP ან Console), ან როდესაც მთავარ აპლიკაციას სურს მეხსიერების აღდგენის დამოუკიდებლად დამუშავება, ან ფუნქციონირებისთვის სჭირდება როგორც BLE, ასევე კლასიკური BT.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><cite>app_event_handler</cite> (მოძველებულია): ახლა რეკომენდებულია დაჭერა <code class="docutils literal notranslate"><span class="pre">WIFI_PROV_EVENT``s</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">emitted</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">default</span> <span class="pre">event</span> <span class="pre">loop</span> <span class="pre">handler.</span> <span class="pre">See</span> <span class="pre">definition</span> <span class="pre">of</span> <span class="pre">``wifi_prov_cb_event_t</span></code> მიწოდების სერვისის მიერ გენერირებული მოვლენების სიისთვის. აქ მოცემულია ამონარიდი, რომელიც აჩვენებს მიწოდების ზოგიერთ მოვლენას:</p>
+</li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">event_handler</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="n">esp_event_base_t</span> <span class="n">event_base</span><span class="p">,</span>
+                          <span class="kt">int</span> <span class="n">event_id</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">event_data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">event_base</span> <span class="o">==</span> <span class="n">WIFI_PROV_EVENT</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">event_id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nl">WIFI_PROV_START</span><span class="p">:</span>
+                <span class="n">ESP_LOGI</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Provisioning started"</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="nl">WIFI_PROV_CRED_RECV</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">wifi_sta_config_t</span> <span class="o">*</span><span class="n">wifi_sta_cfg</span> <span class="o">=</span> <span class="p">(</span><span class="n">wifi_sta_config_t</span> <span class="o">*</span><span class="p">)</span><span class="n">event_data</span><span class="p">;</span>
+                <span class="n">ESP_LOGI</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Received Wi-Fi credentials"</span>
+                         <span class="s">"</span><span class="se">\n\t</span><span class="s">SSID     : %s</span><span class="se">\n\t</span><span class="s">Password : %s"</span><span class="p">,</span>
+                         <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">wifi_sta_cfg</span><span class="o">-&gt;</span><span class="n">ssid</span><span class="p">,</span>
+                         <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">wifi_sta_cfg</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">case</span> <span class="nl">WIFI_PROV_CRED_FAIL</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">wifi_prov_sta_fail_reason_t</span> <span class="o">*</span><span class="n">reason</span> <span class="o">=</span> <span class="p">(</span><span class="n">wifi_prov_sta_fail_reason_t</span> <span class="o">*</span><span class="p">)</span><span class="n">event_data</span><span class="p">;</span>
+                <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Provisioning failed!</span><span class="se">\n\t</span><span class="s">Reason : %s"</span>
+                         <span class="s">"</span><span class="se">\n\t</span><span class="s">Please reset to factory and retry provisioning"</span><span class="p">,</span>
+                         <span class="p">(</span><span class="o">*</span><span class="n">reason</span> <span class="o">==</span> <span class="n">WIFI_PROV_STA_AUTH_ERROR</span><span class="p">)</span> <span class="o">?</span>
+                         <span class="s">"Wi-Fi station authentication failed"</span> <span class="o">:</span> <span class="s">"Wi-Fi access-point not found"</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">case</span> <span class="nl">WIFI_PROV_CRED_SUCCESS</span><span class="p">:</span>
+                <span class="n">ESP_LOGI</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Provisioning successful"</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="nl">WIFI_PROV_END</span><span class="p">:</span>
+                <span class="cm">/* De-initialize manager once provisioning is finished */</span>
+                <span class="n">wifi_prov_mgr_deinit</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>მენეჯერის დეინიციალიზაცია შესაძლებელია ნებისმიერ დროს, ზარის განხორციელებით. <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_mgr_deinitv" title="wifi_prov_mgr_deinit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_deinit()</span></code></a>.</p>
+</div>
+<div class="section" id="check-provisioning-state">
+<span id="wifi-prov-check-state"></span><h3>შეამოწმეთ უზრუნველყოფის მდგომარეობა<a class="headerlink" href="wifi_provisioning.html#check-provisioning-state" title="Permalink to this headline">¶</a></h3>
+<p>მოწყობილობის უზრუნველყოფა შესაძლებელია თუ არა მისი შემოწმება გაშვების დროს გამოძახებით. <a class="reference internal" href="wifi_provisioning.html#_CPPv428wifi_prov_mgr_is_provisionedPb" title="wifi_prov_mgr_is_provisioned"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_is_provisioned()</span></code></a>ეს შიდა ამოწმებს, ინახება თუ არა Wi-Fi ის ავტორიზაციის მონაცემები NVS-ში.</p>
+<p>გაითვალისწინეთ, რომ ამჟამად მენეჯერს არ აქვს საკუთარი NVS სახელთა სივრცე Wi-Fi სერთიფიკატების შესანახად, სამაგიეროდ ის ეყრდნობა <code class="docutils literal notranslate"><span class="pre">esp_wifi_</span></code> API s NVS-ში შენახული სერთიფიკატების დასაყენებლად და მისაღებად ნაგულისხმევი მდებარეობიდან.</p>
+<p>თუ საჭიროა უზრუნველყოფის მდგომარეობის გადატვირთვა, შეგიძლიათ გამოიყენოთ შემდეგი მიდგომები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>NVS დანაყოფის დაკავშირებული ნაწილი ხელით უნდა წაიშალოს</li>
+<li>მთავარმა აპლიკაციამ უნდა განახორციელოს გარკვეული ლოგიკა გამოძახებისთვის <code class="docutils literal notranslate"><span class="pre">esp_wifi_</span></code> API s სერთიფიკატების წასაშლელად გაშვების დროს</li>
+<li>მთავარმა აპლიკაციამ უნდა დანერგოს გარკვეული ლოგიკა, რათა იძულებით დაიწყოს უზრუნველყოფა, უზრუნველყოფის მდგომარეობის მიუხედავად.</li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">provisioned</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="n">ESP_ERR_CHECK</span><span class="p">(</span> <span class="n">wifi_prov_mgr_is_provisioned</span><span class="p">(</span><span class="o">&amp;</span><span class="n">provisioned</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="start-provisioning-service">
+<h3>უზრუნველყოფის სერვისის დაწყება<a class="headerlink" href="wifi_provisioning.html#start-provisioning-service" title="Permalink to this headline">¶</a></h3>
+<p>უზრუნველყოფის დაწყებისას უნდა მივუთითოთ სერვისის სახელი და შესაბამისი გასაღები. ეს ითარგმნება შემდეგნაირად:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Wi-Fi SoftAP SSID და პაროლი, შესაბამისად, როდესაც სქემა არის <code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_softap</span></code></li>
+<li>BLE მოწყობილობის სახელი (სერვისის გასაღები იგნორირებულია), როდესაც სქემაა <code class="docutils literal notranslate"><span class="pre">wifi_prov_scheme_ble</span></code></li>
+</ul>
+</div></blockquote>
+<p>ასევე, რადგან მენეჯერი შინაგანად იყენებს <cite>protocomm</cite>, ჩვენ გვაქვს შესაძლებლობა ავირჩიოთ მის მიერ მოწოდებული ერთ-ერთი უსაფრთხოების ფუნქცია:</p>
+<blockquote>
+<div><ul class="simple">
+<li>უსაფრთხოება 1 არის უსაფრთხო კომუნიკაცია, რომელიც მოიცავს წინასწარ ხელის ჩამორთმევას, რომელიც მოიცავს X25519 გასაღების გაცვლას, ასევე ავთენტიფიკაციას ფლობის დამადასტურებელი საბუთის გამოყენებით (<cite>pop</cite>), რასაც მოჰყვება AES-CTR შემდგომი შეტყობინებების დაშიფვრა/გაშიფვრისთვის</li>
+<li>უსაფრთხოება 0 უბრალოდ ტექსტური კომუნიკაციაა. ამ შემთხვევაში <cite>pop</cite> უბრალოდ იგნორირებულია</li>
+</ul>
+</div></blockquote>
+<p>იხილეთ <a class="reference internal" href="provisioning.html"><span class="doc">უზრუნველყოფა</span></a> უსაფრთხოების მახასიათებლების შესახებ დეტალებისთვის.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">service_name</span> <span class="o">=</span> <span class="s">"my_device"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">service_key</span>  <span class="o">=</span> <span class="s">"password"</span><span class="p">;</span>
+
+<span class="n">wifi_prov_security_t</span> <span class="n">security</span> <span class="o">=</span> <span class="n">WIFI_PROV_SECURITY_1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pop</span> <span class="o">=</span> <span class="s">"abcd1234"</span><span class="p">;</span>
+
+<span class="n">ESP_ERR_CHECK</span><span class="p">(</span> <span class="n">wifi_prov_mgr_start_provisioning</span><span class="p">(</span><span class="n">security</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="n">service_key</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>უზრუნველყოფის სერვისი ავტომატურად დასრულდება მხოლოდ იმ შემთხვევაში, თუ ის მიიღებს მოქმედ Wi-Fi AP სერთიფიკატებს, რასაც მოჰყვება მოწყობილობის წარმატებით დაკავშირება AP-თან (მიღებული IP მისამართი). ამის მიუხედავად, უზრუნველყოფის სერვისის შეჩერება ნებისმიერ დროს შესაძლებელია ნომერზე დარეკვით. <a class="reference internal" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_stop_provisioningv" title="wifi_prov_mgr_stop_provisioning"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_stop_provisioning()</span></code></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ მოწყობილობა ვერ დაუკავშირდება მოწოდებულ სერთიფიკატებს, ის აღარ მიიღებს ახალ სერთიფიკატებს, მაგრამ მიწოდების სერვისი გააგრძელებს მუშაობას (მხოლოდ კლიენტისთვის წარუმატებლობის შესახებ შეტყობინებისთვის), მოწყობილობის გადატვირთვამდე. გადატვირთვისას მიწოდების მდგომარეობა ამჯერად სწორი აღმოჩნდება (რადგან სერთიფიკატები მოიძებნება NVS-ში), მაგრამ მოწყობილობა კვლავ ვერ დაუკავშირდება იმავე სერთიფიკატებს (თუ შესაბამისი სერთიფიკატების მქონე წვდომის წერტილი არ გახდება ხელმისაწვდომი). ამ სიტუაციის გამოსწორება შესაძლებელია NVS-ში სერთიფიკატების გადატვირთვის ან მიწოდების სერვისის იძულებითი ჩართვის გზით. ეს ზემოთ იყო ახსნილი. <a class="reference internal" href="wifi_provisioning.html#wifi-prov-check-state"><span class="std std-ref">შეამოწმეთ უზრუნველყოფის მდგომარეობა</span></a>.</p>
+</div>
+</div>
+<div class="section" id="waiting-for-completion">
+<h3>დასრულების მოლოდინში<a class="headerlink" href="wifi_provisioning.html#waiting-for-completion" title="Permalink to this headline">¶</a></h3>
+<p>როგორც წესი, მთავარი აპლიკაცია დაელოდება უზრუნველყოფის დასრულებას, შემდეგ მოახდენს მენეჯერის დეინიციალიზაციას რესურსების გასათავისუფლებლად და ბოლოს დაიწყებს საკუთარი ლოგიკის შესრულებას.</p>
+<p>ამის განხორციელების ორი გზა არსებობს. ყველაზე მარტივი გზაა ზარის დაბლოკვის გამოყენება <a class="reference internal" href="wifi_provisioning.html#_CPPv418wifi_prov_mgr_waitv" title="wifi_prov_mgr_wait"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_wait()</span></code></a>.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Start provisioning service</span>
+<span class="n">ESP_ERR_CHECK</span><span class="p">(</span> <span class="n">wifi_prov_mgr_start_provisioning</span><span class="p">(</span><span class="n">security</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="n">service_key</span><span class="p">)</span> <span class="p">);</span>
+
+<span class="c1">// Wait for service to complete</span>
+<span class="n">wifi_prov_mgr_wait</span><span class="p">();</span>
+
+<span class="c1">// Finally de-initialize the manager</span>
+<span class="n">wifi_prov_mgr_deinit</span><span class="p">();</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>მეორე გზაა ნაგულისხმევი მოვლენების ციკლის დამმუშავებლის გამოყენება დასაჭერად <code class="docutils literal notranslate"><span class="pre">WIFI_PROV_EVENT``s</span> <span class="pre">and</span> <span class="pre">call</span> <span class="pre">:cpp:func:`wifi_prov_mgr_deinit()`</span> <span class="pre">when</span> <span class="pre">event</span> <span class="pre">ID</span> <span class="pre">is</span> <span class="pre">``WIFI_PROV_END</span></code>:</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">event_handler</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="n">esp_event_base_t</span> <span class="n">event_base</span><span class="p">,</span>
+                          <span class="kt">int</span> <span class="n">event_id</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">event_data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">event_base</span> <span class="o">==</span> <span class="n">WIFI_PROV_EVENT</span> <span class="o">&amp;&amp;</span> <span class="n">event_id</span> <span class="o">==</span> <span class="n">WIFI_PROV_END</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* De-initialize manager once provisioning is finished */</span>
+        <span class="n">wifi_prov_mgr_deinit</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="user-side-implementation">
+<h3>მომხმარებლის მხარის იმპლემენტაცია<a class="headerlink" href="wifi_provisioning.html#user-side-implementation" title="Permalink to this headline">¶</a></h3>
+<p>სერვისის დაწყებისას, დასაკავშირებელი მოწყობილობა იდენტიფიცირდება რეკლამირებული სერვისის სახელით, რომელიც, არჩეული ტრანსპორტიდან გამომდინარე, არის ან BLE მოწყობილობის სახელი ან SoftAP SSID.</p>
+<p>SoftAP ტრანსპორტის გამოყენებისას, სერვისის აღმოჩენის დასაშვებად, mDNS უნდა იყოს ინიციალიზებული უზრუნველყოფის დაწყებამდე. ამ შემთხვევაში გამოიყენება მთავარი აპლიკაციის მიერ დაყენებული ჰოსტის სახელი და სერვისის ტიპი შიდად დაყენებულია <cite>_esp_wifi_prov</cite>.</p>
+<p>BLE ტრანსპორტის გამოყენებისას, უნდა დაყენდეს მორგებული 128 ბიტიანი UUID გამოყენებით <a class="reference internal" href="wifi_provisioning.html#_CPPv437wifi_prov_scheme_ble_set_service_uuidP7uint8_t" title="wifi_prov_scheme_ble_set_service_uuid"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_scheme_ble_set_service_uuid()</span></code></a>ეს UUID შევა BLE რეკლამაში და შეესაბამება GATT-ის ძირითად სერვისს, რომელიც უზრუნველყოფს საბოლოო წერტილების GATT მახასიათებლების მიწოდებას. თითოეული GATT მახასიათებელი ჩამოყალიბდება ძირითადი სერვისის UUID-ის გამოყენებით, როგორც ბაზისი, სხვადასხვა ავტომატურად მინიჭებული მე-12 და მე-13 ბაიტით (ვვარაუდობთ, რომ დათვლა იწყება მე-0 ბაიტიდან). რადგან საბოლოო წერტილის მახასიათებლის UUID ავტომატურად ენიჭება, ის არ უნდა იქნას გამოყენებული საბოლოო წერტილის იდენტიფიცირებისთვის. ამის ნაცვლად, კლიენტის მხარის აპლიკაციებმა უნდა იდენტიფიცირონ საბოლოო წერტილები თითოეული მახასიათებლის მომხმარებლის მახასიათებლის აღწერის (0x2901) აღმწერის წაკითხვით, რომელიც შეიცავს მახასიათებლის საბოლოო წერტილის სახელს. მაგალითად, თუ სერვისის UUID დაყენებულია <cite>55cc035e-fb27-4f80-be02-3c60828b7451</cite>, თითოეულ საბოლოო წერტილის მახასიათებელს მიენიჭება UUID, მაგალითად <cite>55cc____-fb27-4f80-be02-3c60828b7451</cite>, უნიკალური მნიშვნელობებით მე-12 და მე-13 ბაიტებზე.</p>
+<p>მოწყობილობასთან დაკავშირების შემდეგ, უზრუნველყოფასთან დაკავშირებული პროტოკომის საბოლოო წერტილების იდენტიფიცირება შესაძლებელია შემდეგნაირად:</p>
+<table border="1" class="colwidths-given docutils" id="id12">
+<caption><span class="caption-text">საბოლოო წერტილები უზრუნველყოფილია მიწოდების სერვისით</span><a class="headerlink" href="wifi_provisioning.html#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="12%"/>
+<col width="29%"/>
+<col width="59%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">საბოლოო წერტილის სახელი (BLE + GATT სერვერი)</th>
+<th class="head">URI (SoftAP + HTTP სერვერი + mDNS)</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>სატესტო სესია</td>
+<td><a class="reference external" href="http:/">http:/</a>/&lt;mdns-hostname&gt; .local/prov-session</td>
+<td>სესიის დასამყარებლად გამოყენებული უსაფრთხოების საბოლოო წერტილი</td>
+</tr>
+<tr class="row-odd"><td>საცდელი სკანირება</td>
+<td><a class="reference external" href="http://wifi-prov.local/prov-scan">http://wifi-prov.local/prov-scan</a></td>
+<td>საბოლოო წერტილი, რომელიც გამოიყენება Wi-Fi სკანირების დასაწყებად და სკანირების შედეგების მისაღებად</td>
+</tr>
+<tr class="row-even"><td>prov-კონფიგურაცია</td>
+<td><a class="reference external" href="http:/">http:/</a>/&lt;mdns-hostname&gt; .local/prov-config</td>
+<td>მოწყობილობაზე Wi-Fi სერთიფიკატების კონფიგურაციისთვის გამოყენებული საბოლოო წერტილი</td>
+</tr>
+<tr class="row-odd"><td>პროტო-ვერ</td>
+<td><a class="reference external" href="http:/">http:/</a>/&lt;mdns-hostname&gt; .local/proto-ver</td>
+<td>ვერსიის ინფორმაციის მოძიების საბოლოო წერტილი</td>
+</tr>
+</tbody>
+</table>
+<p>დაკავშირებისთანავე, კლიენტის აპლიკაციამ შეიძლება მიიღოს ვერსიის/შესაძლებლობების ინფორმაცია <cite>proto-ver</cite> საბოლოო წერტილი. ამ საბოლოო წერტილთან ყველა კომუნიკაცია დაუშიფრავია, შესაბამისად, უსაფრთხო სესიის დამყარებამდე შესაძლებელია საჭირო ინფორმაციის (რომელიც შეიძლება რელევანტური იყოს თავსებადობის დასადგენად) მოძიება. პასუხი JSON ფორმატშია და ასე გამოიყურება: <code class="docutils literal notranslate"><span class="pre">prov:</span> <span class="pre">{</span> <span class="pre">ver:</span>  <span class="pre">v1.1,</span> <span class="pre">cap:</span>  <span class="pre">[no_pop]</span> <span class="pre">},</span> <span class="pre">my_app:</span> <span class="pre">{</span> <span class="pre">ver:</span>  <span class="pre">1.345,</span> <span class="pre">cap:</span>  <span class="pre">[cloud,</span> <span class="pre">local_ctrl]</span> <span class="pre">},....</span></code>აქ არის ეტიკეტი <cite>prov</cite> გთავაზობთ უზრუნველყოფის სერვისის ვერსიას (<cite>ver</cite>) და შესაძლებლობები (<cite>cap</cite>). ჯერჯერობით, მხოლოდ <cite>no_pop</cite> შესაძლებლობა მხარდაჭერილია, რაც მიუთითებს, რომ სერვისს არ სჭირდება ფლობის დამადასტურებელი საბუთი ავტორიზაციისთვის. აპლიკაციასთან დაკავშირებული ნებისმიერი ვერსია/შესაძლებლობა მიენიჭება სხვა ეტიკეტებით (მაგალითად <cite>my_app</cite> ამ მაგალითში). ეს დამატებითი ველები დაყენებულია გამოყენებით <a class="reference internal" href="wifi_provisioning.html#_CPPv426wifi_prov_mgr_set_app_infoPKcPKcPPKc6size_t" title="wifi_prov_mgr_set_app_info"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_set_app_info()</span></code></a>.</p>
+<p>მომხმარებლის მხარის აპლიკაციებმა უნდა დანერგონ ხელმოწერის დადასტურება, რომელიც საჭიროა უსაფრთხო პროტოკომის სესიების დასამყარებლად და ავთენტიფიკაციისთვის, გამოსაყენებლად კონფიგურირებული უსაფრთხოების სქემის შესაბამისად (ეს არ არის საჭირო, როდესაც მენეჯერი კონფიგურირებულია პროტოკომის უსაფრთხოების 0-ის გამოსაყენებლად).</p>
+<p>დამატებითი ინფორმაციისთვის უსაფრთხო დაშიფვრისა და გამოყენებული დაშიფვრის შესახებ იხილეთ გაერთიანებული უზრუნველყოფა. აპლიკაციებმა უნდა გამოიყენონ <cite>.proto</cite> ფაილები ნაპოვნია ქვეშ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/components/protocomm/proto">პროტოკომი/პროტო</a>, რომლებიც განსაზღვრავენ Protobuf-ის მიერ მხარდაჭერილ შეტყობინების სტრუქტურებს <cite>prov-session</cite> საბოლოო წერტილი.</p>
+<p>სესიის დამყარების შემდეგ, Wi-Fi ავტორიზაციის მონაცემები კონფიგურირებულია შემდეგი ნაკრების გამოყენებით: <cite>wifi_config</cite> ბრძანებები, სერიალიზებული როგორც Protobuf შეტყობინებები (შესაბამისი <cite>.proto</cite> ფაილები შეგიძლიათ იხილოთ ქვემოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/components/wifi_provisioning/proto">wifi_მომარაგება/პროტო</a>) :</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>get_status</cite> - Wi-Fi კავშირის სტატუსის შესამოწმებლად. მოწყობილობა გიპასუხებთ სტატუსით, რომელიც იქნება დაკავშირება / დაკავშირება / გათიშვა. თუ სტატუსი გათიშულია, სტატუსის პასუხში ასევე მითითებული იქნება გათიშვის მიზეზი.</li>
+<li><cite>set_config</cite> - Wi-Fi კავშირის სერთიფიკატების დასაყენებლად</li>
+<li><cite>apply_config</cite> - შენახული სერთიფიკატების გამოყენებისთვის <cite>set_config</cite> და დაიწყეთ Wi-Fi სადგური</li>
+</ul>
+</div></blockquote>
+<p>სესიის დამყარების შემდეგ, კლიენტს ასევე შეუძლია მოწყობილობიდან მოითხოვოს Wi-Fi სკანირების შედეგები. დაბრუნებული შედეგები წარმოადგენს წვდომის წერტილების SSID-ების სიას, რომლებიც დალაგებულია სიგნალის სიძლიერის კლებადობით. ეს საშუალებას აძლევს კლიენტის აპლიკაციებს აჩვენონ მოწყობილობასთან ახლოს მდებარე წვდომის წერტილები უზრუნველყოფის დროს და მომხმარებლებს შეუძლიათ აირჩიონ ერთ-ერთი SSID და შეიყვანონ პაროლი, რომელიც შემდეგ იგზავნება შემდეგი სქემის გამოყენებით: <cite>wifi_config</cite> ზემოთ აღწერილი ბრძანებები. <cite>wifi_scan</cite> endpoint მხარს უჭერს შემდეგ protobuf ბრძანებებს:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><cite>scan_start</cite> - Wi-Fi სკანირების დასაწყებად სხვადასხვა ვარიანტით:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>blocking</cite> (შეყვანა) - თუ true, ბრძანება ბრუნდება მხოლოდ სკანირების დასრულების შემდეგ</li>
+<li><cite>passive</cite> (შეყვანა) - თუ true სკანირება იწყება პასიურ რეჟიმში (ეს შეიძლება უფრო ნელი იყოს) აქტიური რეჟიმის ნაცვლად</li>
+<li><cite>group_channels</cite> (შეყვანა) - ეს განსაზღვრავს, უნდა მოხდეს თუ არა ყველა არხის ერთ ჯერზე სკანირება (ნულის შემთხვევაში) თუ არხების ჯგუფურად სკანირება, თანმიმდევრული ჯგუფების სკანირებას შორის 120 მილიწამიანი დაყოვნებით, და ამ პარამეტრის მნიშვნელობა განსაზღვრავს თითოეულ ჯგუფში არხების რაოდენობას. ეს სასარგებლოა, როდესაც ტრანსპორტირების რეჟიმია SoftAP, სადაც ყველა არხის ერთ ჯერზე სკანირებამ შეიძლება არ მისცეს Wi-Fi დრაივერს საკმარისი დრო შუქურების გასაგზავნად და შესაბამისად, შეიძლება გამოიწვიოს კავშირის გაწყვეტა ნებისმიერ დაკავშირებულ სადგურთან. ჯგუფურად სკანირებისას, მენეჯერი დაელოდება მინიმუმ 120 მილიწამს არხების ჯგუფზე სკანირების დასრულების შემდეგ და ამით დრაივერს საშუალებას მისცემს გააგზავნოს შუქურები. მაგალითად, იმის გათვალისწინებით, რომ Wi-Fi არხების საერთო რაოდენობა 14-ია, მაშინ group_channels-ის 4-ზე დაყენებით შეიქმნება 5 ჯგუფი, სადაც თითოეულ ჯგუფს ექნება 3 არხი, გარდა ბოლოსა, რომელსაც ექნება 14% 3 = 2 არხი. ამგვარად, სკანირების დაწყებისას, პირველი 3 არხი დასკანირდება, შემდეგ 120 მილიწამიანი დაყოვნებით, შემდეგ შემდეგი 3 არხი და ასე შემდეგ, სანამ ყველა 14 არხი არ დასკანირდება. შესაძლოა, ამ პარამეტრის კორექტირება დაგჭირდეთ, რადგან ჯგუფში მხოლოდ რამდენიმე არხის ქონამ შეიძლება შეანელოს სკანირების საერთო დრო, ხოლო ძალიან ბევრი არხის ქონამ კვლავ შეიძლება გამოიწვიოს კავშირის გაწყვეტა. როგორც წესი, 4 მნიშვნელობა უნდა იმუშაოს შემთხვევათა უმეტესობაში. გაითვალისწინეთ, რომ ნებისმიერი სხვა ტრანსპორტირების რეჟიმისთვის, მაგალითად, BLE-სთვის, ეს შეიძლება უსაფრთხოდ დაყენდეს 0-ზე და შესაბამისად, მიღწეულ იქნას სკანირების ყველაზე სწრაფი საერთო დრო.</li>
+<li><cite>period_ms</cite> (შეყვანა) - სკანირების პარამეტრი, რომელიც განსაზღვრავს თითოეულ არხზე ლოდინის ხანგრძლივობას</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><cite>scan_status</cite> - სკანირების პროცესის სტატუსის შესახებ ინფორმაციის მოწოდება:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>scan_finished</cite> (გამომავალი) - სკანირების დასრულების შემდეგ, ეს აბრუნებს true-ს</li>
+<li><cite>result_count</cite> (გამომავალი) - ეს იძლევა დღემდე მიღებული შედეგების საერთო რაოდენობას. თუ სკანირება ჯერ კიდევ მიმდინარეობს, ეს რიცხვი გააგრძელებს განახლებას.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><cite>scan_result</cite> - სკანირების შედეგების მისაღებად. მისი გამოძახება შესაძლებელია მაშინაც კი, თუ სკანირება ჯერ კიდევ მიმდინარეობს</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>start_index</cite> (შეყვანა) - საწყისი ინდექსი, საიდანაც უნდა მოხდეს ჩანაწერების მიღება შედეგების სიიდან</li>
+<li><cite>count</cite> (შეყვანა) - საწყისი ინდექსიდან ამოსაღები ჩანაწერების რაოდენობა</li>
+<li><cite>entries</cite> (გამომავალი) - დაბრუნებული ჩანაწერების სია. თითოეული ჩანაწერი შედგება <cite>ssid</cite>, <cite>channel</cite> და <cite>rssi</cite> ინფორმაცია</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="additional-endpoints">
+<h3>დამატებითი საბოლოო წერტილები<a class="headerlink" href="wifi_provisioning.html#additional-endpoints" title="Permalink to this headline">¶</a></h3>
+<p>იმ შემთხვევაში, თუ მომხმარებლებს სურთ, რომ მათ მოთხოვნებზე მორგებული დამატებითი პროტოკომის საბოლოო წერტილები ჰქონდეთ, ეს ორ ეტაპად უნდა გაკეთდეს. პირველი არის კონკრეტული სახელის მქონე საბოლოო წერტილის შექმნა, ხოლო მეორე ნაბიჯი არის ამ საბოლოო წერტილის დამმუშავებლის რეგისტრაცია. იხილეთ <a class="reference internal" href="protocomm.html"><span class="doc">პროტოკომი</span></a> საბოლოო წერტილის დამმუშავებლის ფუნქციის ხელმოწერისთვის. ინიციალიზაციის შემდეგ და უზრუნველყოფის სერვისის დაწყებამდე უნდა შეიქმნას მორგებული საბოლოო წერტილი. მაშინ როდესაც, protocomm დამმუშავებელი ამ საბოლოო წერტილისთვის რეგისტრირდება მხოლოდ უზრუნველყოფის სერვისის დაწყების შემდეგ.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">wifi_prov_mgr_init</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<span class="n">wifi_prov_mgr_endpoint_create</span><span class="p">(</span><span class="s">"custom-endpoint"</span><span class="p">);</span>
+<span class="n">wifi_prov_mgr_start_provisioning</span><span class="p">(</span><span class="n">security</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="n">service_key</span><span class="p">);</span>
+<span class="n">wifi_prov_mgr_endpoint_register</span><span class="p">(</span><span class="s">"custom-endpoint"</span><span class="p">,</span> <span class="n">custom_ep_handler</span><span class="p">,</span> <span class="n">custom_ep_data</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>როდესაც უზრუნველყოფის სერვისი შეჩერდება, საბოლოო წერტილი ავტომატურად გაუქმდება რეგისტრაციაში.</p>
+<p>ასევე შეგიძლიათ აირჩიოთ დარეკვა <a class="reference internal" href="wifi_provisioning.html#_CPPv433wifi_prov_mgr_endpoint_unregisterPKc" title="wifi_prov_mgr_endpoint_unregister"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_endpoint_unregister()</span></code></a> გაშვების დროს საბოლოო წერტილის ხელით დეაქტივაციისთვის. ეს ასევე შეიძლება გამოყენებულ იქნას უზრუნველყოფის სერვისის მიერ გამოყენებული შიდა საბოლოო წერტილების დეაქტივაციისთვის.</p>
+</div>
+<div class="section" id="when-how-to-stop-provisioning-service">
+<h3>როდის / როგორ შევწყვიტოთ უზრუნველყოფის სერვისი?<a class="headerlink" href="wifi_provisioning.html#when-how-to-stop-provisioning-service" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევი ქცევაა, რომ მოწყობილობის წარმატებით დაკავშირების შემდეგ, Wi-Fi ის მიერ დადგენილი სერთიფიკატების გამოყენებით <cite>apply_config</cite> ბრძანების შემდეგ, მიწოდების სერვისი შეჩერდება (და BLE / SoftAP გამოირთვება) ავტომატურად შემდეგზე რეაგირების შემდეგ <cite>get_status</cite> ბრძანება. თუ <cite>get_status</cite> თუ მოწყობილობა ბრძანებას არ მიიღებს, სერვისი 30 წამიანი ვადის გასვლის შემდეგ შეჩერდება.</p>
+<p>მეორე მხრივ, თუ მოწყობილობას არ შეეძლო დაკავშირება მოწოდებული Wi-Fi ავტორიზაციის გამოყენებით არასწორი SSID/საიდუმლო ფრაზის გამო, სერვისი გააგრძელებს მუშაობას და <cite>get_status</cite> გათიშვის სტატუსითა და მიზეზით პასუხს გასცემს. Wi-Fi ის სხვა ავტორიზაციის მონაცემების მიწოდების ნებისმიერი შემდგომი მცდელობა უარყოფილი იქნება. ეს ავტორიზაციის მონაცემები შენარჩუნდება, თუ უზრუნველყოფის სერვისი იძულებით არ დაიწყება ან NVS არ წაიშლება.</p>
+<p>თუ ეს ნაგულისხმევი ქცევა არ არის სასურველი, მისი გამორთვა შესაძლებელია გამოძახებით <a class="reference internal" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_disable_auto_stop8uint32_t" title="wifi_prov_mgr_disable_auto_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_disable_auto_stop()</span></code></a>ახლა მიწოდების სერვისი შეჩერდება მხოლოდ მას შემდეგ, რაც ცალსახად გამოაგზავნით ზარს. <a class="reference internal" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_stop_provisioningv" title="wifi_prov_mgr_stop_provisioning"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_stop_provisioning()</span></code></a>, რომელიც სერვისის შეჩერების დავალების დაგეგმვისთანავე ბრუნდება. სერვისი გარკვეული დაყოვნების შემდეგ წყდება და გამოიცემა WIFI_PROV_END მოვლენა. ეს დაყოვნება განისაზღვრება არგუმენტით <a class="reference internal" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_disable_auto_stop8uint32_t" title="wifi_prov_mgr_disable_auto_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_disable_auto_stop()</span></code></a>.</p>
+<p>მორგებული ქცევა სასარგებლოა იმ აპლიკაციებისთვის, რომლებსაც სურთ, რომ მიწოდების სერვისი შეჩერდეს Wi-Fi კავშირის წარმატებით დამყარების შემდეგ გარკვეული დროის შემდეგ. მაგალითად, თუ აპლიკაცია მოითხოვს მოწყობილობის დაკავშირებას რომელიმე ღრუბლოვან სერვისთან და სხვა ავტორიზაციის მონაცემების მიღებას და ამ ავტორიზაციის მონაცემების გაცვლას მორგებული პროტოკომის საბოლოო წერტილის საშუალებით, მაშინ ამის წარმატებით გაკეთების შემდეგ, მიწოდების სერვისი შეჩერებულია. <a class="reference internal" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_stop_provisioningv" title="wifi_prov_mgr_stop_provisioning"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wifi_prov_mgr_stop_provisioning()</span></code></a> თავად პროტოკომის დამმუშავებლის შიგნით. სწორი რაოდენობის შეფერხება უზრუნველყოფს, რომ ტრანსპორტირების რესურსები გათავისუფლდეს მხოლოდ მას შემდეგ, რაც პროტოკომის დამმუშავებლის პასუხი კლიენტის მხარეს აპლიკაციამდე მიაღწევს.</p>
+</div>
+</div>
+<div class="section" id="application-examples">
+<h2>გამოყენების მაგალითები<a class="headerlink" href="wifi_provisioning.html#application-examples" title="Permalink to this headline">¶</a></h2>
+<p>სრული მაგალითის განხორციელებისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/provisioning/manager">უზრუნველყოფა/მენეჯერი</a></p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="wifi_provisioning.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="wifi_provisioning.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/wifi_provisioning/include/wifi_provisioning/manager.h">wifi_provisioning/include/wifi_provisioning/manager.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="wifi_provisioning.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv418wifi_prov_mgr_init22wifi_prov_mgr_config_t">
+<span id="_CPPv318wifi_prov_mgr_init22wifi_prov_mgr_config_t"></span><span id="_CPPv218wifi_prov_mgr_init22wifi_prov_mgr_config_t"></span><span id="wifi_prov_mgr_init__wifi_prov_mgr_config_t"></span><span class="target" id="manager_8h_1a63f473649b7fc33b20073cdbfa429a47"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_init</code><span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv422wifi_prov_mgr_config_t" title="wifi_prov_mgr_config_t">wifi_prov_mgr_config_t</a> <em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv418wifi_prov_mgr_init22wifi_prov_mgr_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უზრუნველყოფის მენეჯერის ეგზემპლარის ინიციალიზაცია. </p>
+<p>ახდენს მენეჯერის კონფიგურაციას და შიდა რესურსების განაწილებას</p>
+<p>კონფიგურაცია განსაზღვრავს უზრუნველყოფის სქემას (ტრანსპორტს) და მოვლენების დამმუშავებლებს</p>
+<p>მოვლენა WIFI_PROV_INIT გამოიცემა ინიციალიზაციის დასრულებისთანავე.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_FAIL: ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>კონფიგურაციის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420wifi_prov_mgr_deinitv">
+<span id="_CPPv320wifi_prov_mgr_deinitv"></span><span id="_CPPv220wifi_prov_mgr_deinitv"></span><span id="wifi_prov_mgr_deinit__void"></span><span class="target" id="manager_8h_1a751e816a6e77fdb1d4073ecab2444f1e"></span>void <code class="descname">wifi_prov_mgr_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv420wifi_prov_mgr_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეწყვიტეთ უზრუნველყოფა (თუ მუშაობს) და გაათავისუფლეთ მენეჯერის მიერ გამოყენებული რესურსი. </p>
+<p>მოვლენა WIFI_PROV_DEINIT გამოიცემა დეინიციალიზაციის დასრულებისთანავე.</p>
+<p>თუ ამ API გამოძახებისას მიწოდების სერვისი კვლავ აქტიურია, ის ჯერ წყვეტს სერვისს, შესაბამისად, გამოსცემს WIFI_PROV_END-ს და შემდეგ ასრულებს დეინიციალიზაციას. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428wifi_prov_mgr_is_provisionedPb">
+<span id="_CPPv328wifi_prov_mgr_is_provisionedPb"></span><span id="_CPPv228wifi_prov_mgr_is_provisionedPb"></span><span id="wifi_prov_mgr_is_provisioned__bP"></span><span class="target" id="manager_8h_1aff1c08c6c636730b2bc3b28d6010b8e3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_is_provisioned</code><span class="sig-paren">(</span>bool *<em>მომარაგებული</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv428wifi_prov_mgr_is_provisionedPb" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოწმებს, მოწყობილობა დაინსტალირებულია თუ არა. </p>
+<p>ეს ამოწმებს, არის თუ არა NVS-ზე Wi-Fi ავტორიზაციის მონაცემები.</p>
+<p>Wi-Fi ავტორიზაციის მონაცემები, სავარაუდოდ, ინახება იმავე NVS სახელთა სივრცეში, რომელსაც იყენებს esp_wifi კომპონენტი</p>
+<p>თუ esp_wifi_set_config()-ს პირდაპირ გამოვიძახებთ დამუშავების პროცესის გავლის ნაცვლად, ეს ფუნქცია მაინც true-ს გამოიტანს (ანუ მოწყობილობა დამუშავებულია).</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling wifi_prov_mgr_start_provisioning() automatically resets the provision state, irrespective of what the state was prior to making the call.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: დებულების სტატუსი წარმატებით იქნა აღებული</li>
+<li>ESP_FAIL: Wi-Fi არ არის ინიციალიზებული</li>
+<li>ESP_ERR_INVALID_ARG: მოცემულია ნულოვანი არგუმენტი</li>
+<li>ESP_ERR_INVALID_STATE: მენეჯერი არ არის ინიციალიზებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">provisioned</span></code>: თუ გათვალისწინებულია, მართალია, თუ არა, ცრუა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432wifi_prov_mgr_start_provisioning20wifi_prov_security_tPKcPKcPKc">
+<span id="_CPPv332wifi_prov_mgr_start_provisioning20wifi_prov_security_tPKcPKcPKc"></span><span id="_CPPv232wifi_prov_mgr_start_provisioning20wifi_prov_security_tPKcPKcPKc"></span><span id="wifi_prov_mgr_start_provisioning__wifi_prov_security_t.cCP.cCP.cCP"></span><span class="target" id="manager_8h_1af02cabeb404389fb506bcb45dc65a3d9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_start_provisioning</code><span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_security_t" title="wifi_prov_security_t">wifi_prov_security_t</a> <em>უსაფრთხოება</em>, <em class="property">კონსტ</em> char *<em>პოპ</em>, <em class="property">კონსტ</em> char *<em>სერვისის_სახელი</em>, <em class="property">კონსტ</em> char *<em>სერვისის_გასაღები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv432wifi_prov_mgr_start_provisioning20wifi_prov_security_tPKcPKcPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ მიწოდების სერვისი. </p>
+<p>ეს იწყებს უზრუნველყოფის სერვისს ინიციალიზაციის დროს კონფიგურირებული სქემის მიხედვით. სქემისთვის:<ul class="simple">
+<li>wifi_prov_scheme_ble: ეს იწყებს protocomm_ble-ს, რომელიც შიდა ინიციალიზაციას უკეთებს BLE ტრანსპორტს და იწყებს GATT სერვერს დებულების მოთხოვნების დასამუშავებლად.</li>
+<li>wifi_prov_scheme_softap: ეს ააქტიურებს Wi-Fi ის SoftAP რეჟიმს და იწყებს protocomm_httpd-ს, რომელიც შინაგანად იწყებს HTTP სერვერს დებულების მოთხოვნების დასამუშავებლად (თუ mDNS აქტიურია, ის ასევე იწყებს სარეკლამო სერვისს _esp_wifi_prov._tcp ტიპის მიხედვით)</li>
+</ul>
+</p>
+<p>მოვლენა WIFI_PROV_START გამოიცემა დაუყოვნებლივ, მას შემდეგ, რაც უზრუნველყოფა დაიწყება შეცდომის გარეშე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API will start provisioning service even if device is found to be already provisioned, i.e. wifi_prov_mgr_is_provisioned() yields true</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: უზრუნველყოფა წარმატებით დაიწყო</li>
+<li>ESP_FAIL: უზრუნველყოფის სერვისის დაწყება ვერ მოხერხდა</li>
+<li>ESP_ERR_INVALID_STATE: დებულების მენეჯერი არ არის ინიციალიზებული ან უკვე დაწყებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">security</span></code>მიუთითეთ, რომელი პროტოკომის უსაფრთხოების სქემა გამოიყენოთ:<ul>
+<li>WIFI_PROV_SECURITY_0: უსაფრთხოების გარეშე</li>
+<li>WIFI_PROV_SECURITY_1: x25519 უსაფრთხო ჰენდშეიკი სესიის დასამყარებლად, რასაც მოჰყვება მიწოდების შეტყობინებების AES-CTR დაშიფვრა. </li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">pop</span></code>: მითითება ფლობის დამადასტურებელი სტრიქონისკენ (NULL, თუ არ არის საჭირო). ეს ეხება მხოლოდ protocomm security 1-ს, ამ შემთხვევაში ის გამოიყენება დაცული სესიის ავტორიზაციისთვის. </li>
+<li><code class="docutils literal notranslate"><span class="pre">service_name</span></code>სერვისის უნიკალური სახელი. ეს ითარგმნება, როგორც:<ul>
+<li>Wi-Fi SSID, როდესაც უზრუნველყოფის რეჟიმი softAP-ია</li>
+<li>მოწყობილობის სახელი, როდესაც უზრუნველყოფის რეჟიმი BLE-ა </li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">service_key</span></code>კლიენტს სერვისზე წვდომისთვის სჭირდება გასაღები (NULL, თუ არ არის საჭირო). ეს ნიშნავს:<ul>
+<li>Wi-Fi პაროლი, როდესაც უზრუნველყოფის რეჟიმი softAP-ია</li>
+<li>იგნორირებულია, როდესაც უზრუნველყოფის რეჟიმი BLE-ა</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431wifi_prov_mgr_stop_provisioningv">
+<span id="_CPPv331wifi_prov_mgr_stop_provisioningv"></span><span id="_CPPv231wifi_prov_mgr_stop_provisioningv"></span><span id="wifi_prov_mgr_stop_provisioning__void"></span><span class="target" id="manager_8h_1a803a3c89c1bbd4b05da46ae0f1725181"></span>void <code class="descname">wifi_prov_mgr_stop_provisioning</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_stop_provisioningv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიწოდების სერვისის შეჩერება. </p>
+<p>თუ უზრუნველყოფის სერვისი აქტიურია, ეს API დაიწყებს პროცესს სერვისის შესაჩერებლად და დაბრუნებისთვის. როგორც კი სერვისი რეალურად შეწყდება, გამოიცემა მოვლენა WIFI_PROV_END.</p>
+<p>თუ wifi_prov_mgr_deinit() გამოიძახება ამ API გამოძახების გარეშე, ის ავტომატურად შეაჩერებს მიწოდების სერვისს და დაბრუნების წინ გამოსცემს WIFI_PROV_END-ს, რასაც მოჰყვება WIFI_PROV_DEINIT.</p>
+<p>ეს API ზოგადად გამოყენებული იქნება wifi_prov_mgr_disable_auto_stop() ფუნქციასთან ერთად იმ შემთხვევაში, როდესაც მთავარ აპლიკაციას უკვე აქვს დარეგისტრირებული საკუთარი საბოლოო წერტილები და სურს, რომ უზრუნველყოფის სერვისი შეჩერდეს მხოლოდ მაშინ, როდესაც კლიენტის მხარის აპლიკაციიდან მიიღება რაიმე protocomm ბრძანება.</p>
+<p>ამ API გამოძახება საბოლოო წერტილის დამმუშავებელში, საკმარისი cleanup_delay-ით, საშუალებას მისცემს პასუხის/დადასტურების წარმატებით გაგზავნას, სანამ ძირითადი protocomm სერვისი შეჩერდება.</p>
+<p>wifi_prov_mgr_disable_auto_stop()-ის გამოძახებისას დაყენებულია Cleaup_delay. თუ არ არის მითითებული, ნაგულისხმევად ის 1000 მილიწამზეა.</p>
+<p>მარტივი შემთხვევებისთვის, ამ API გამოყენება, როგორც წესი, საჭირო არ არის, რადგან უზრუნველყოფა ავტომატურად წყდება WIFI_PROV_CRED_SUCCESS-ის გაგზავნის შემდეგ. შეჩერება დაგვიანებულია (მაქსიმუმ 30 წამი), რაც კლიენტის მხარეს აპლიკაციას საშუალებას აძლევს მოითხოვოს Wi-Fi მდგომარეობა, ანუ პირველი მოთხოვნის მიღებისა და გაგზავნის შემდეგ. <code class="docutils literal notranslate"><span class="pre">Wi-Fi</span> <span class="pre">state</span> <span class="pre">connected</span></code> რეაგირების შემთხვევაში, მომსახურება მყისიერად შეჩერდება. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418wifi_prov_mgr_waitv">
+<span id="_CPPv318wifi_prov_mgr_waitv"></span><span id="_CPPv218wifi_prov_mgr_waitv"></span><span id="wifi_prov_mgr_wait__void"></span><span class="target" id="manager_8h_1a63cdb8fb428acffb9106d8c43e604e95"></span>void <code class="descname">wifi_prov_mgr_wait</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv418wifi_prov_mgr_waitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ მომსახურების მიწოდების დასრულებას. </p>
+<p>ამ API გამოძახება დაიბლოკება მანამ, სანამ მიწოდების სერვისი არ შეჩერდება, ანუ სანამ არ გამოიცემა WIFI_PROV_END მოვლენა.</p>
+<p>ეს არ დაიბლოკება, თუ უზრუნველყოფა არ დაიწყება ან არ იქნება ინიციალიზებული. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431wifi_prov_mgr_disable_auto_stop8uint32_t">
+<span id="_CPPv331wifi_prov_mgr_disable_auto_stop8uint32_t"></span><span id="_CPPv231wifi_prov_mgr_disable_auto_stop8uint32_t"></span><span id="wifi_prov_mgr_disable_auto_stop__uint32_t"></span><span class="target" id="manager_8h_1a01e238bc3ee04713139a73cd5a4a274e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_disable_auto_stop</code><span class="sig-paren">(</span>uint32_t <em>გასუფთავების_დაგვიანება</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_disable_auto_stop8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დასრულების შემდეგ, გამორთეთ მიწოდების სერვისის ავტომატური შეჩერება. </p>
+<p>ნაგულისხმევად, უზრუნველყოფის დასრულების შემდეგ, უზრუნველყოფის სერვისი ავტომატურად წყდება და ყველა საბოლოო წერტილი (მთავარი აპლიკაციის მიერ რეგისტრირებულთა ჩათვლით) დეაქტივირდება.</p>
+<p>ეს API სასარგებლოა იმ შემთხვევაში, როდესაც მთავარ აპლიკაციას სურს უზრუნველყოფის სერვისის დახურვა მხოლოდ მას შემდეგ, რაც კლიენტის მხარის აპლიკაციიდან მიიღებს რაიმე protocomm ბრძანებას. მაგალითად, Wi-Fi თან დაკავშირების შემდეგ, მოწყობილობას შეიძლება სურდეს ღრუბელთან დაკავშირება და მხოლოდ ამის წარმატებით დასრულების შემდეგ ითვლება, რომ მოწყობილობა სრულად კონფიგურირებულია. თუმცა, შემდეგ მთავარ აპლიკაციას ევალება wifi_prov_mgr_stop_provisioning() ფუნქციის გამოძახება მოგვიანებით, როდესაც მოწყობილობა სრულად იქნება კონფიგურირებული და უზრუნველყოფის სერვისი აღარ იქნება საჭირო.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This must be called before executing wifi_prov_mgr_start_provisioning()</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_INVALID_STATE: მენეჯერი არ არის ინიციალიზებული ან უზრუნველყოფის სერვისი უკვე დაწყებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cleanup_delay</span></code>wifi_prov_mgr_stop_provisioning() ფუნქციის გამოძახების შემდეგ, ტრანსპორტირებასთან დაკავშირებული რესურსების ფაქტობრივი გაწმენდა ხდება დაგვიანების შემდეგ. მინიმალური დაშვებული მნიშვნელობაა 100 მილიწამი. თუ არ არის მითითებული, ნაგულისხმევად ის 1000 მილიწამს მიიღებს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426wifi_prov_mgr_set_app_infoPKcPKcPPKc6size_t">
+<span id="_CPPv326wifi_prov_mgr_set_app_infoPKcPKcPPKc6size_t"></span><span id="_CPPv226wifi_prov_mgr_set_app_infoPKcPKcPPKc6size_t"></span><span id="wifi_prov_mgr_set_app_info__cCP.cCP.cCPP.s"></span><span class="target" id="manager_8h_1ac6ecdda7c956ac91fb95aa1bec7940c5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_set_app_info</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ეტიკეტი</em>, <em class="property">კონსტ</em> char *<em>ვერსია</em>, <em class="property">კონსტ</em> char **<em>შესაძლებლობები</em>, size_t <em>სრული_შესაძლებლობები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv426wifi_prov_mgr_set_app_infoPKcPKcPPKc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ აპლიკაციის ვერსია და შესაძლებლობები JSON მონაცემებში, რომლებიც დაბრუნებულია proto-ver-ის საბოლოო წერტილის მიერ. </p>
+<p>ამ ფუნქციის რამდენჯერმე გამოძახება შესაძლებელია მოწყობილობაზე გაშვებული სხვადასხვა აპლიკაციის სპეციფიკური სერვისების შესახებ ინფორმაციის მისაწოდებლად, რომლებიც უნიკალური ეტიკეტებით არის იდენტიფიცირებული.</p>
+<p>თავად უზრუნველყოფის სერვისი არეგისტრირებს ჩანაწერს JSON მონაცემებში „prov“ ლეიბლით, რომელიც შეიცავს მხოლოდ უზრუნველყოფის სერვისის ვერსიას და შესაძლებლობებს. აპლიკაციის სერვისებმა უნდა გამოიყენონ „prov“-სგან განსხვავებული ლეიბლი, რათა არ მოხდეს მისი გადაწერა.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This must be called before executing wifi_prov_mgr_start_provisioning()</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_INVALID_STATE: მენეჯერი არ არის ინიციალიზებული ან უზრუნველყოფის სერვისი უკვე დაწყებულია.</li>
+<li>ESP_ERR_NO_MEM: ვერსიის სტრიქონისთვის მეხსიერების გამოყოფა ვერ მოხერხდა.</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">label</span></code>: სტრიქონი, რომელიც მიუთითებს აპლიკაციის სახელს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">version</span></code>: აპლიკაციის ვერსიის მითითების სტრიქონი. ფორმატზე შეზღუდვა არ არსებობს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">capabilities</span></code>შესაძლებლობების მქონე სტრიქონების მასივი. კლიენტის მხარის აპლიკაციას შეუძლია გამოიყენოს ისინი აპლიკაციის რეგისტრირებული საბოლოო წერტილის შესაძლებლობების გასაგებად.</li>
+<li><code class="docutils literal notranslate"><span class="pre">total_capabilities</span></code>შესაძლებლობების მასივის ზომა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429wifi_prov_mgr_endpoint_createPKc">
+<span id="_CPPv329wifi_prov_mgr_endpoint_createPKc"></span><span id="_CPPv229wifi_prov_mgr_endpoint_createPKc"></span><span id="wifi_prov_mgr_endpoint_create__cCP"></span><span class="target" id="manager_8h_1a8b983818bfa3d936e37a56631c20855a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_endpoint_create</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ep_name</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv429wifi_prov_mgr_endpoint_createPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით დამატებითი საბოლოო წერტილი და გამოყავით მისთვის შიდა რესურსები. </p>
+<p>ეს API უნდა გამოიძახოს აპლიკაციამ, თუ მას სურს დამატებითი საბოლოო წერტილის შექმნა. ყველა დამატებით საბოლოო წერტილს მიენიჭება UUID-ები, დაწყებული 0xFF54-დან და ა.შ. შესრულების თანმიმდევრობით.</p>
+<p>შექმნილი საბოლოო წერტილის protocomm დამმუშავებელი მოგვიანებით უნდა დარეგისტრირდეს wifi_prov_mgr_endpoint_register() ფუნქციის გამოყენებით, დანერგვის დაწყების შემდეგ.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can only be called BEFORE provisioning is started</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Additional endpoints can be used for configuring client provided parameters other than Wi-Fi credentials, that are necessary for the main application and hence must be set prior to starting the application</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>After session establishment, the additional endpoints must be targeted first by the client side application before sending Wi-Fi configuration, because once Wi-Fi configuration finishes the provisioning service is stopped and hence all endpoints are unregistered</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_FAIL: შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ep_name</span></code>: საბოლოო წერტილის უნიკალური სახელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431wifi_prov_mgr_endpoint_registerPKc23protocomm_req_handler_tPv">
+<span id="_CPPv331wifi_prov_mgr_endpoint_registerPKc23protocomm_req_handler_tPv"></span><span id="_CPPv231wifi_prov_mgr_endpoint_registerPKc23protocomm_req_handler_tPv"></span><span id="wifi_prov_mgr_endpoint_register__cCP.protocomm_req_handler_t.voidP"></span><span class="target" id="manager_8h_1a5157021c75c7b27d9c8d8e88333efc9c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_endpoint_register</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ep_name</em>, <a class="reference internal" href="protocomm.html#_CPPv423protocomm_req_handler_t" title="protocomm_req_handler_t">protocomm_req_handler_t</a> <em>დამმუშავებელი</em>, void *<em>მომხმარებლის_ctx</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv431wifi_prov_mgr_endpoint_registerPKc23protocomm_req_handler_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაარეგისტრირეთ დამმუშავებელი ადრე შექმნილი საბოლოო წერტილისთვის. </p>
+<p>ეს API შეიძლება გამოიძახოს აპლიკაციამ, რათა დარეგისტრირდეს protocomm დამმუშავებელი ნებისმიერ საბოლოო წერტილზე, რომელიც შეიქმნა wifi_prov_mgr_endpoint_create() ფუნქციის გამოყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can only be called AFTER provisioning has started</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Additional endpoints can be used for configuring client provided parameters other than Wi-Fi credentials, that are necessary for the main application and hence must be set prior to starting the application</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>After session establishment, the additional endpoints must be targeted first by the client side application before sending Wi-Fi configuration, because once Wi-Fi configuration finishes the provisioning service is stopped and hence all endpoints are unregistered</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_FAIL: შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ep_name</span></code>: საბოლოო წერტილის სახელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">handler</span></code>საბოლოო წერტილის დამმუშავებლის ფუნქცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">user_ctx</span></code>მომხმარებლის მონაცემები</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433wifi_prov_mgr_endpoint_unregisterPKc">
+<span id="_CPPv333wifi_prov_mgr_endpoint_unregisterPKc"></span><span id="_CPPv233wifi_prov_mgr_endpoint_unregisterPKc"></span><span id="wifi_prov_mgr_endpoint_unregister__cCP"></span><span class="target" id="manager_8h_1ade23ebf0658107fef950f357a1c2e2b3"></span>void <code class="descname">wifi_prov_mgr_endpoint_unregister</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ep_name</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv433wifi_prov_mgr_endpoint_unregisterPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>საბოლოო წერტილის დამმუშავებლის რეგისტრაციის გაუქმება. </p>
+<p>ეს API შეიძლება გამოიძახოთ, თუ აპლიკაციას სურს საბოლოო წერტილის დამმუშავებლის შერჩევითი რეგისტრაციის გაუქმება, სანამ უზრუნველყოფა ჯერ კიდევ მიმდინარეობს.</p>
+<p>ყველა საბოლოო წერტილის დამმუშავებელი ავტომატურად გაუქმდება რეგისტრაციიდან, როდესაც უზრუნველყოფა შეწყდება.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ep_name</span></code>: საბოლოო წერტილის სახელი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427wifi_prov_mgr_event_handlerPvP14system_event_t">
+<span id="_CPPv327wifi_prov_mgr_event_handlerPvP14system_event_t"></span><span id="_CPPv227wifi_prov_mgr_event_handlerPvP14system_event_t"></span><span id="wifi_prov_mgr_event_handler__voidP.system_event_tP"></span><span class="target" id="manager_8h_1aa2b4c5a73833512727dc7dd94ae74966"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_event_handler</code><span class="sig-paren">(</span>void *<em>ctx</em>, <a class="reference internal" href="../system/esp_event_legacy.html#_CPPv414system_event_t" title="system_event_t">სისტემის_მოვლენა_t</a> *<em>ღონისძიება</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_mgr_event_handlerPvP14system_event_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოვლენების დამმუშავებელი დებულებების მენეჯერისთვის. </p>
+<p>ეს გამოიძახება მთავარი მოვლენების დამმუშავებლიდან და აკონტროლებს დებულების მენეჯერის შიდა მდგომარეობის მანქანას შემომავალი Wi-Fi მოვლენების მიხედვით.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>: This function is DEPRECATED, because events are now handled internally using the event loop library, esp_event. Calling this will do nothing and simply return ESP_OK.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ღონისძიება წარმატებით დამუშავდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>: მოვლენის კონტექსტის მონაცემები </li>
+<li><code class="docutils literal notranslate"><span class="pre">event</span></code>: ღონისძიების ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428wifi_prov_mgr_get_wifi_stateP21wifi_prov_sta_state_t">
+<span id="_CPPv328wifi_prov_mgr_get_wifi_stateP21wifi_prov_sta_state_t"></span><span id="_CPPv228wifi_prov_mgr_get_wifi_stateP21wifi_prov_sta_state_t"></span><span id="wifi_prov_mgr_get_wifi_state__wifi_prov_sta_state_tP"></span><span class="target" id="manager_8h_1a5f6b06eb09bae91514d12c16278a96db"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_get_wifi_state</code><span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv421wifi_prov_sta_state_t" title="wifi_prov_sta_state_t">wifi_prov_sta_state_t</a> *<em>შტატი</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv428wifi_prov_mgr_get_wifi_stateP21wifi_prov_sta_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ Wi-Fi სადგურის მდგომარეობა დანერგვის დროს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: Wi-Fi მდგომარეობა წარმატებით მოიძებნა</li>
+<li>ESP_FAIL: დებულების აპლიკაცია არ მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">state</span></code>: wifi_prov_sta_state_t ცვლადის შესავსები მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv440wifi_prov_mgr_get_wifi_disconnect_reasonP27wifi_prov_sta_fail_reason_t">
+<span id="_CPPv340wifi_prov_mgr_get_wifi_disconnect_reasonP27wifi_prov_sta_fail_reason_t"></span><span id="_CPPv240wifi_prov_mgr_get_wifi_disconnect_reasonP27wifi_prov_sta_fail_reason_t"></span><span id="wifi_prov_mgr_get_wifi_disconnect_reason__wifi_prov_sta_fail_reason_tP"></span><span class="target" id="manager_8h_1a327f50df15ad8bf933f616d98727376d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_get_wifi_disconnect_reason</code><span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv427wifi_prov_sta_fail_reason_t" title="wifi_prov_sta_fail_reason_t">wifi_prov_sta_fail_reason_t</a> *<em>მიზეზი</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv440wifi_prov_mgr_get_wifi_disconnect_reasonP27wifi_prov_sta_fail_reason_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ მიზეზის კოდი, თუ Wi-Fi სადგური გათიშულია მიწოდების დროს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატებით მოიძიეს Wi-Fi გათიშვის მიზეზი</li>
+<li>ESP_FAIL: დებულების აპლიკაცია არ მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">reason</span></code>: wifi_prov_sta_fail_reason_t ცვლადის შესავსები მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427wifi_prov_mgr_configure_staP13wifi_config_t">
+<span id="_CPPv327wifi_prov_mgr_configure_staP13wifi_config_t"></span><span id="_CPPv227wifi_prov_mgr_configure_staP13wifi_config_t"></span><span id="wifi_prov_mgr_configure_sta__wifi_config_tP"></span><span class="target" id="manager_8h_1a7429014356ad676f0cc45528322d39fc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_mgr_configure_sta</code><span class="sig-paren">(</span><a class="reference internal" href="../network/esp_wifi.html#_CPPv413wifi_config_t" title="wifi_config_t">wifi_config_t</a> *<em>wifi_cfg</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_mgr_configure_staP13wifi_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუშვებს Wi-Fi , როგორც სადგურს, მოწოდებული კონფიგურაციით. </p>
+<p>ახდენს Wi-Fi სადგურის რეჟიმის კონფიგურაციას წვდომის წერტილთან დასაკავშირებლად კონფიგურაციის სტრუქტურაში მითითებული SSID-ითა და პაროლით და Wi-Fi სადგურად მუშაობისთვის დაყენებას.</p>
+<p>ეს ავტომატურად გამოიძახება უზრუნველყოფის სერვისის მიერ ახალი სერთიფიკატების მიღებისთანავე.</p>
+<p>თუ მენეჯერისთვის ავტორიზაციის მონაცემები უნდა მიეწოდოს protocomm-ის გარდა სხვა რეჟიმით, მაშინ საჭიროა API ის გამოძახება.</p>
+<p>WIFI_PROV_CRED_RECV მოვლენა გამოიცემა ავტორიზაციის მონაცემების გამოყენებისა და Wi-Fi სადგურის ჩართვის შემდეგ.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: Wi-Fi კონფიგურირებული და წარმატებით გაშვებული</li>
+<li>ESP_FAIL: კონფიგურაციის დაყენება ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">wifi_cfg</span></code>: Wi-Fi კონფიგურაციის სტრუქტურის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="wifi_provisioning.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv425wifi_prov_event_handler_t">
+<span id="_CPPv325wifi_prov_event_handler_t"></span><span id="_CPPv225wifi_prov_event_handler_t"></span><span id="wifi_prov_event_handler_t"></span><span class="target" id="structwifi__prov__event__handler__t"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_event_handler_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv425wifi_prov_event_handler_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოვლენების დამმუშავებელი, რომელსაც მენეჯერი იყენებს უზრუნველყოფის სერვისის აქტიურობისას. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_event_handler_t8event_cbE">
+<span id="_CPPv3N25wifi_prov_event_handler_t8event_cbE"></span><span id="_CPPv2N25wifi_prov_event_handler_t8event_cbE"></span><span id="wifi_prov_event_handler_t::event_cb__wifi_prov_cb_func_t"></span><span class="target" id="structwifi__prov__event__handler__t_1a3602aae5402aa63f88ec56263209f1c8"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv419wifi_prov_cb_func_t" title="wifi_prov_cb_func_t">wifi_prov_cb_func_t</a> <code class="descname">event_cb</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_event_handler_t8event_cbE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირის ფუნქცია, რომელიც შესასრულებელი იქნება უზრუნველყოფის მოვლენებზე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_event_handler_t9user_dataE">
+<span id="_CPPv3N25wifi_prov_event_handler_t9user_dataE"></span><span id="_CPPv2N25wifi_prov_event_handler_t9user_dataE"></span><span id="wifi_prov_event_handler_t::user_data__voidP"></span><span class="target" id="structwifi__prov__event__handler__t_1ae2577110244025c0bffe49babae2bdfd"></span>void *<code class="descname">user_data</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_event_handler_t9user_dataE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მომხმარებლის კონტექსტის მონაცემები, რომლებიც უნდა გადაეცეს პარამეტრად უკუკავშირის ფუნქციისთვის </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv416wifi_prov_scheme">
+<span id="_CPPv316wifi_prov_scheme"></span><span id="_CPPv216wifi_prov_scheme"></span><span id="wifi_prov_scheme"></span><span class="target" id="structwifi__prov__scheme"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_scheme</code><a class="headerlink" href="wifi_provisioning.html#_CPPv416wifi_prov_scheme" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სტრუქტურა, რომელიც განსაზღვრავს მენეჯერის მიერ დასაცავი უზრუნველყოფის სქემის არსებობას. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Ready to use schemes are available:<ul class="simple">
+<li>wifi_prov_scheme_ble : BLE ტრანსპორტის + GATT სერვერის მეშვეობით უზრუნველყოფისთვის</li>
+<li>wifi_prov_scheme_softap : SoftAP ტრანსპორტის + HTTP სერვერის მეშვეობით უზრუნველყოფისთვის</li>
+<li>wifi_prov_scheme_console : სერიული UART ტრანსპორტის + კონსოლის მეშვეობით უზრუნველყოფისთვის ( გამართვა ging-ისთვის) </li>
+</ul>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme10prov_startE">
+<span id="_CPPv3N16wifi_prov_scheme10prov_startE"></span><span id="_CPPv2N16wifi_prov_scheme10prov_startE"></span><span class="target" id="structwifi__prov__scheme_1abd17038457a4e2a3c4983ccb18be26e1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">prov_start</code>)<span class="sig-paren">(</span><a class="reference internal" href="protocomm.html#_CPPv411protocomm_t" title="protocomm_t">პროტოკომი</a> *pc, void *config<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme10prov_startE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც მენეჯერმა უნდა გამოიძახოს, როდესაც ის აპირებს პროტოკომის ინსტანციასთან და სქემის სპეციფიკურ კონფიგურაციასთან დაკავშირებული უზრუნველყოფის სერვისის დაწყებას. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme9prov_stopE">
+<span id="_CPPv3N16wifi_prov_scheme9prov_stopE"></span><span id="_CPPv2N16wifi_prov_scheme9prov_stopE"></span><span class="target" id="structwifi__prov__scheme_1a09efbee6dd1c130dfb8ca6d77f16c1db"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">prov_stop</code>)<span class="sig-paren">(</span><a class="reference internal" href="protocomm.html#_CPPv411protocomm_t" title="protocomm_t">პროტოკომი</a> *pc<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme9prov_stopE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც უნდა გამოიძახოს მენეჯერმა პროტოკომის ინსტანციასთან ადრე დაკავშირებული უზრუნველყოფის სერვისის შესაჩერებლად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme10new_configE">
+<span id="_CPPv3N16wifi_prov_scheme10new_configE"></span><span id="_CPPv2N16wifi_prov_scheme10new_configE"></span><span class="target" id="structwifi__prov__scheme_1aee1ad4b3e7a72d2a1fbbcb4e7b3ed92d"></span>void *(*<code class="descname">new_config</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme10new_configE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც უნდა გამოიძახოს მენეჯერმა უზრუნველყოფის სერვისის ახალი კონფიგურაციის გენერირებისთვის და რომელიც უნდა გადაეცეს <a class="reference internal" href="wifi_provisioning.html#structwifi__prov__scheme_1abd17038457a4e2a3c4983ccb18be26e1"><span class="std std-ref">prov_start()</span></a> </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme13delete_configE">
+<span id="_CPPv3N16wifi_prov_scheme13delete_configE"></span><span id="_CPPv2N16wifi_prov_scheme13delete_configE"></span><span class="target" id="structwifi__prov__scheme_1a2ff42c23e70a92e72d3c403e84fd31fb"></span>void (*<code class="descname">delete_config</code>)<span class="sig-paren">(</span>void *config<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme13delete_configE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც უნდა გამოიძახოს მენეჯერმა, რათა წაშალოს კონფიგურაცია, რომელიც გენერირებულია <a class="reference internal" href="wifi_provisioning.html#structwifi__prov__scheme_1aee1ad4b3e7a72d2a1fbbcb4e7b3ed92d"><span class="std std-ref">ახალი_კონფიგურაცია()</span></a> </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme18set_config_serviceE">
+<span id="_CPPv3N16wifi_prov_scheme18set_config_serviceE"></span><span id="_CPPv2N16wifi_prov_scheme18set_config_serviceE"></span><span class="target" id="structwifi__prov__scheme_1af78b85f385a9eef9f6b0fd7f972d86ff"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">set_config_service</code>)<span class="sig-paren">(</span>void *config, <em class="property">კონსტ</em> char *service_name, <em class="property">კონსტ</em> char *service_key<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme18set_config_serviceE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც მენეჯერის მიერ უნდა გამოიძახოს კონფიგურაციის სტრუქტურაში სერვისის სახელისა და გასაღების მნიშვნელობების დასაყენებლად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme19set_config_endpointE">
+<span id="_CPPv3N16wifi_prov_scheme19set_config_endpointE"></span><span id="_CPPv2N16wifi_prov_scheme19set_config_endpointE"></span><span class="target" id="structwifi__prov__scheme_1ae0f5a3620e5c09b6ad33450db0b36152"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">set_config_endpoint</code>)<span class="sig-paren">(</span>void *config, <em class="property">კონსტ</em> char *endpoint_name, uint16_t uuid<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme19set_config_endpointE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც მენეჯერის მიერ უნდა გამოიძახოს, რათა კონფიგურაციის სტრუქტურაში protocomm-ის ბოლო წერტილი დააყენოს საიდენტიფიკაციო სახელითა და UUID-ით. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N16wifi_prov_scheme9wifi_modeE">
+<span id="_CPPv3N16wifi_prov_scheme9wifi_modeE"></span><span id="_CPPv2N16wifi_prov_scheme9wifi_modeE"></span><span id="wifi_prov_scheme::wifi_mode__wifi_mode_t"></span><span class="target" id="structwifi__prov__scheme_1a40f54d96e4fbf87630af86109e932eb7"></span><a class="reference internal" href="../network/esp_wifi.html#_CPPv411wifi_mode_t" title="wifi_mode_t">wifi_mode_t</a> <code class="descname">wifi_mode</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N16wifi_prov_scheme9wifi_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ადგენს Wi-Fi ის მუშაობის რეჟიმს უზრუნველყოფის დროს. ეს დაყენებულია:<ul class="simple">
+<li>WIFI_MODE_APSTA SoftAP ტრანსპორტირებისთვის</li>
+<li>WIFI_MODE_STA BLE ტრანსპორტისთვის </li>
+</ul>
+</p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv422wifi_prov_mgr_config_t">
+<span id="_CPPv322wifi_prov_mgr_config_t"></span><span id="_CPPv222wifi_prov_mgr_config_t"></span><span id="wifi_prov_mgr_config_t"></span><span class="target" id="structwifi__prov__mgr__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_mgr_config_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv422wifi_prov_mgr_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მენეჯერის კონფიგურაციის მითითების სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N22wifi_prov_mgr_config_t6schemeE">
+<span id="_CPPv3N22wifi_prov_mgr_config_t6schemeE"></span><span id="_CPPv2N22wifi_prov_mgr_config_t6schemeE"></span><span id="wifi_prov_mgr_config_t::scheme__wifi_prov_scheme_t"></span><span class="target" id="structwifi__prov__mgr__config__t_1abe98e1b5fbb1ea7aefa52ffa6a499300"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv418wifi_prov_scheme_t" title="wifi_prov_scheme_t">wifi_prov_scheme_t</a> <code class="descname">scheme</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N22wifi_prov_mgr_config_t6schemeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოსაყენებელი უზრუნველყოფის სქემა. შემდეგი სქემები უკვე ხელმისაწვდომია:<ul class="simple">
+<li>wifi_prov_scheme_ble : BLE ტრანსპორტის + GATT სერვერის მეშვეობით უზრუნველყოფისთვის</li>
+<li>wifi_prov_scheme_softap : SoftAP ტრანსპორტის + HTTP სერვერის + mDNS-ის მეშვეობით უზრუნველყოფისთვის (არასავალდებულო)</li>
+<li>wifi_prov_scheme_console : სერიული UART ტრანსპორტის + კონსოლის მეშვეობით უზრუნველყოფისთვის ( გამართვა ging-ისთვის) </li>
+</ul>
+</p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22wifi_prov_mgr_config_t20scheme_event_handlerE">
+<span id="_CPPv3N22wifi_prov_mgr_config_t20scheme_event_handlerE"></span><span id="_CPPv2N22wifi_prov_mgr_config_t20scheme_event_handlerE"></span><span id="wifi_prov_mgr_config_t::scheme_event_handler__wifi_prov_event_handler_t"></span><span class="target" id="structwifi__prov__mgr__config__t_1a5bcd15e19a8bb76185926d01d03607b2"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv425wifi_prov_event_handler_t" title="wifi_prov_event_handler_t">wifi_prov_event_handler_t</a> <code class="descname">scheme_event_handler</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N22wifi_prov_mgr_config_t20scheme_event_handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სქემის მიერ მოთხოვნილი მოვლენების დამმუშავებელი სქემის სპეციფიკური ქცევის ინკორპორირებისთვის, როდესაც უზრუნველყოფის მენეჯერი მუშაობს. სქემას შეუძლია ამ ველის დასაყენებლად სხვადასხვა ვარიანტის შეთავაზება. გამოიყენეთ WIFI_PROV_EVENT_HANDLER_NONE, როდესაც არ გამოიყენება. სქემის wifi_prov_scheme_ble გამოყენებისას ხელმისაწვდომია შემდეგი პარამეტრები:<ul class="simple">
+<li>WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM</li>
+<li>WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BLE</li>
+<li>WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BT </li>
+</ul>
+</p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N22wifi_prov_mgr_config_t17app_event_handlerE">
+<span id="_CPPv3N22wifi_prov_mgr_config_t17app_event_handlerE"></span><span id="_CPPv2N22wifi_prov_mgr_config_t17app_event_handlerE"></span><span id="wifi_prov_mgr_config_t::app_event_handler__wifi_prov_event_handler_t"></span><span class="target" id="structwifi__prov__mgr__config__t_1a3ab81e351555aa61035ebe948427b743"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv425wifi_prov_event_handler_t" title="wifi_prov_event_handler_t">wifi_prov_event_handler_t</a> <code class="descname">app_event_handler</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N22wifi_prov_mgr_config_t17app_event_handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოვლენების დამმუშავებელი, რომლის დაყენებაც შესაძლებელია აპლიკაციის სპეციფიკური ქცევის ინკორპორირების მიზნით. გამოიყენეთ WIFI_PROV_EVENT_HANDLER_NONE, როდესაც არ გამოიყენება. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="wifi_provisioning.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.WIFI_PROV_EVENT_HANDLER_NONE">
+<span class="target" id="manager_8h_1ab4cbf4b7bbb7d0417e37afdc931ead9f"></span><code class="descname">WIFI_PROV_EVENT_HANDLER_NONE</code><a class="headerlink" href="wifi_provisioning.html#c.WIFI_PROV_EVENT_HANDLER_NONE" title="Permalink to this definition">¶</a></dt>
+<dd><p>მოვლენების დამმუშავებლის პარამეტრი შეიძლება დაყენდეს „none“-ზე, თუ ის არ გამოიყენება. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="wifi_provisioning.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv419wifi_prov_cb_func_t">
+<span id="_CPPv319wifi_prov_cb_func_t"></span><span id="_CPPv219wifi_prov_cb_func_t"></span><span id="wifi_prov_cb_func_t"></span><span class="target" id="manager_8h_1a908adb45e22aa0dd5185c3137b9e23b9"></span><em class="property">typedef </em>void (*<code class="descname">wifi_prov_cb_func_t</code>)<span class="sig-paren">(</span>void *user_data, <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_cb_event_t" title="wifi_prov_cb_event_t">wifi_prov_cb_event_t</a> event, void *event_data<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv419wifi_prov_cb_func_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv418wifi_prov_scheme_t">
+<span id="_CPPv318wifi_prov_scheme_t"></span><span id="_CPPv218wifi_prov_scheme_t"></span><span id="wifi_prov_scheme_t"></span><span class="target" id="manager_8h_1ad83672d819e4aacab31e5e315c60d9ab"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="wifi_provisioning.html#_CPPv416wifi_prov_scheme" title="wifi_prov_scheme">wifi_prov_scheme</a> <code class="descname">wifi_prov_scheme_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv418wifi_prov_scheme_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სტრუქტურა, რომელიც განსაზღვრავს მენეჯერის მიერ დასაცავი უზრუნველყოფის სქემის არსებობას. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Ready to use schemes are available:<ul class="simple">
+<li>wifi_prov_scheme_ble : BLE ტრანსპორტის + GATT სერვერის მეშვეობით უზრუნველყოფისთვის</li>
+<li>wifi_prov_scheme_softap : SoftAP ტრანსპორტის + HTTP სერვერის მეშვეობით უზრუნველყოფისთვის</li>
+<li>wifi_prov_scheme_console : სერიული UART ტრანსპორტის + კონსოლის მეშვეობით უზრუნველყოფისთვის ( გამართვა ging-ისთვის) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420wifi_prov_security_t">
+<span id="_CPPv320wifi_prov_security_t"></span><span id="_CPPv220wifi_prov_security_t"></span><span id="wifi_prov_security_t"></span><span class="target" id="manager_8h_1adad4cfc335c2a4618275668b78eb167e"></span><em class="property">typedef </em><em class="property">ჩამოთვლა</em> <a class="reference internal" href="wifi_provisioning.html#_CPPv418wifi_prov_security" title="wifi_prov_security">wifi_prov_security</a> <code class="descname">wifi_prov_security_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv420wifi_prov_security_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უსაფრთხოების რეჟიმები, რომლებსაც მხარს უჭერს Provisioning Manager. </p>
+<p>ეს იგივეა, რაც protocomm-ის მიერ მოწოდებული უსაფრთხოების რეჟიმები </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="wifi_provisioning.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv420wifi_prov_cb_event_t">
+<span id="_CPPv320wifi_prov_cb_event_t"></span><span id="_CPPv220wifi_prov_cb_event_t"></span><span id="wifi_prov_cb_event_t"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521"></span><em class="property">ჩამოთვლა </em><code class="descname">wifi_prov_cb_event_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv420wifi_prov_cb_event_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მენეჯერის მიერ გენერირებული მოვლენები. </p>
+<p>ეს მოვლენები გენერირდება გამოცხადების თანმიმდევრობით და მენეჯერის ინიციალიზაციასა და დეინიციალიზაციას შორის დროის მონაკვეთის განმავლობაში, თითოეული მოვლენა მხოლოდ ერთხელ სიგნალირდება. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414WIFI_PROV_INIT">
+<span id="_CPPv314WIFI_PROV_INIT"></span><span id="_CPPv214WIFI_PROV_INIT"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521afd1769cb86c6c24ee29b69ab8f39b956"></span><code class="descname">WIFI_PROV_INIT</code><a class="headerlink" href="wifi_provisioning.html#_CPPv414WIFI_PROV_INIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიცემა მენეჯერის ინიციალიზაციისას </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415WIFI_PROV_START">
+<span id="_CPPv315WIFI_PROV_START"></span><span id="_CPPv215WIFI_PROV_START"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521a9d0a86a5fef1c3d9d356c6a847d3351a"></span><code class="descname">WIFI_PROV_START</code><a class="headerlink" href="wifi_provisioning.html#_CPPv415WIFI_PROV_START" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიუთითებს, რომ დატენვა დაიწყო </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419WIFI_PROV_CRED_RECV">
+<span id="_CPPv319WIFI_PROV_CRED_RECV"></span><span id="_CPPv219WIFI_PROV_CRED_RECV"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521a56cbfb43bb76899296a085d00f1dd1e6"></span><code class="descname">WIFI_PROV_CRED_RECV</code><a class="headerlink" href="wifi_provisioning.html#_CPPv419WIFI_PROV_CRED_RECV" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიცემა, როდესაც Wi-Fi AP სერთიფიკატები მიიღება მეშვეობით <code class="docutils literal notranslate"><span class="pre">protocomm</span></code> საბოლოო წერტილი <code class="docutils literal notranslate"><span class="pre">wifi_config</span></code>ამ შემთხვევაში, მოვლენის მონაცემები შესაბამისი მითითების მაჩვენებელია <code class="docutils literal notranslate"><a class="reference internal" href="../network/esp_wifi.html#structwifi__sta__config__t"><span class="std std-ref"><span class="pre">wifi_sta_config_t</span></span></a></code> სტრუქტურა </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419WIFI_PROV_CRED_FAIL">
+<span id="_CPPv319WIFI_PROV_CRED_FAIL"></span><span id="_CPPv219WIFI_PROV_CRED_FAIL"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521a3a84219e42a60d254076aa7c0a759309"></span><code class="descname">WIFI_PROV_CRED_FAIL</code><a class="headerlink" href="wifi_provisioning.html#_CPPv419WIFI_PROV_CRED_FAIL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიცემა, როდესაც მოწყობილობა ვერ უკავშირდება წვდომის წერტილს, რომლის ავტორიზაციის მონაცემებიც უფრო ადრე იქნა მიღებული მოვლენის დროს. <code class="docutils literal notranslate"><span class="pre">WIFI_PROV_CRED_RECV</span></code>ამ შემთხვევაში, მოვლენის მონაცემები არის მითითება გათიშვის მიზეზის კოდისკენ, რომლის ტიპია <code class="docutils literal notranslate"><span class="pre">wifi_prov_sta_fail_reason_t</span></code> </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422WIFI_PROV_CRED_SUCCESS">
+<span id="_CPPv322WIFI_PROV_CRED_SUCCESS"></span><span id="_CPPv222WIFI_PROV_CRED_SUCCESS"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521ab52c818c61febd5c11fe3759722a0dc1"></span><code class="descname">WIFI_PROV_CRED_SUCCESS</code><a class="headerlink" href="wifi_provisioning.html#_CPPv422WIFI_PROV_CRED_SUCCESS" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიცემა, როდესაც მოწყობილობა წარმატებით უკავშირდება წვდომის წერტილს, რომლის ავტორიზაციის მონაცემებიც უფრო ადრე იქნა მიღებული მოვლენის დროს. <code class="docutils literal notranslate"><span class="pre">WIFI_PROV_CRED_RECV</span></code> </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413WIFI_PROV_END">
+<span id="_CPPv313WIFI_PROV_END"></span><span id="_CPPv213WIFI_PROV_END"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521abe9fe35a48ca412b68d4f63e8a19c421"></span><code class="descname">WIFI_PROV_END</code><a class="headerlink" href="wifi_provisioning.html#_CPPv413WIFI_PROV_END" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიგნალები, რომ მიწოდების სერვისი შეჩერებულია </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416WIFI_PROV_DEINIT">
+<span id="_CPPv316WIFI_PROV_DEINIT"></span><span id="_CPPv216WIFI_PROV_DEINIT"></span><span class="target" id="manager_8h_1a059b90472409847d7baccf92d779c521ad2aed047d47fcb617b1c5650fd33ce1b"></span><code class="descname">WIFI_PROV_DEINIT</code><a class="headerlink" href="wifi_provisioning.html#_CPPv416WIFI_PROV_DEINIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიგნალები, რომ მენეჯერი დეინიციალიზებულია </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418wifi_prov_security">
+<span id="_CPPv318wifi_prov_security"></span><span id="_CPPv218wifi_prov_security"></span><span id="wifi_prov_security"></span><span class="target" id="manager_8h_1a51a7877c57470c50aff26ba4374742c3"></span><em class="property">ჩამოთვლა </em><code class="descname">wifi_prov_security</code><a class="headerlink" href="wifi_provisioning.html#_CPPv418wifi_prov_security" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უსაფრთხოების რეჟიმები, რომლებსაც მხარს უჭერს Provisioning Manager. </p>
+<p>ეს იგივეა, რაც protocomm-ის მიერ მოწოდებული უსაფრთხოების რეჟიმები </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv420WIFI_PROV_SECURITY_0">
+<span id="_CPPv320WIFI_PROV_SECURITY_0"></span><span id="_CPPv220WIFI_PROV_SECURITY_0"></span><span class="target" id="manager_8h_1a51a7877c57470c50aff26ba4374742c3af476be414ed1949c270a448755d3b7b0"></span><code class="descname">WIFI_PROV_SECURITY_0</code> = 0<a class="headerlink" href="wifi_provisioning.html#_CPPv420WIFI_PROV_SECURITY_0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უსაფრთხოების გარეშე (მხოლოდ ტექსტური კომუნიკაცია) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420WIFI_PROV_SECURITY_1">
+<span id="_CPPv320WIFI_PROV_SECURITY_1"></span><span id="_CPPv220WIFI_PROV_SECURITY_1"></span><span class="target" id="manager_8h_1a51a7877c57470c50aff26ba4374742c3a6889ab87db600c0fd18e003f6c0bb942"></span><code class="descname">WIFI_PROV_SECURITY_1</code><a class="headerlink" href="wifi_provisioning.html#_CPPv420WIFI_PROV_SECURITY_1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს უსაფრთხო კომუნიკაციის რეჟიმი შედგება X25519 გასაღების გაცვლისგან<ul class="simple">
+<li>ფლობის დამადასტურებელი საბუთი (POP)-ზე დაფუძნებული ავთენტიფიკაცია</li>
+<li>AES-CTR დაშიფვრა </li>
+</ul>
+</p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="wifi_provisioning.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/wifi_provisioning/include/wifi_provisioning/scheme_ble.h">wifi_provisioning/include/wifi_provisioning/scheme_ble.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="wifi_provisioning.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv439wifi_prov_scheme_ble_event_cb_free_btdmPv20wifi_prov_cb_event_tPv">
+<span id="_CPPv339wifi_prov_scheme_ble_event_cb_free_btdmPv20wifi_prov_cb_event_tPv"></span><span id="_CPPv239wifi_prov_scheme_ble_event_cb_free_btdmPv20wifi_prov_cb_event_tPv"></span><span id="wifi_prov_scheme_ble_event_cb_free_btdm__voidP.wifi_prov_cb_event_t.voidP"></span><span class="target" id="scheme__ble_8h_1a47f185ce4e89102d0f7b9b13868512ff"></span>void <code class="descname">wifi_prov_scheme_ble_event_cb_free_btdm</code><span class="sig-paren">(</span>void *<em>მომხმარებლის_მონაცემები</em>, <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_cb_event_t" title="wifi_prov_cb_event_t">wifi_prov_cb_event_t</a> <em>ღონისძიება</em>, void *<em>მოვლენის_მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv439wifi_prov_scheme_ble_event_cb_free_btdmPv20wifi_prov_cb_event_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv438wifi_prov_scheme_ble_event_cb_free_blePv20wifi_prov_cb_event_tPv">
+<span id="_CPPv338wifi_prov_scheme_ble_event_cb_free_blePv20wifi_prov_cb_event_tPv"></span><span id="_CPPv238wifi_prov_scheme_ble_event_cb_free_blePv20wifi_prov_cb_event_tPv"></span><span id="wifi_prov_scheme_ble_event_cb_free_ble__voidP.wifi_prov_cb_event_t.voidP"></span><span class="target" id="scheme__ble_8h_1a0077462e77e3ae0dbe96f7756e4b347a"></span>void <code class="descname">wifi_prov_scheme_ble_event_cb_free_ble</code><span class="sig-paren">(</span>void *<em>მომხმარებლის_მონაცემები</em>, <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_cb_event_t" title="wifi_prov_cb_event_t">wifi_prov_cb_event_t</a> <em>ღონისძიება</em>, void *<em>მოვლენის_მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv438wifi_prov_scheme_ble_event_cb_free_blePv20wifi_prov_cb_event_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv437wifi_prov_scheme_ble_event_cb_free_btPv20wifi_prov_cb_event_tPv">
+<span id="_CPPv337wifi_prov_scheme_ble_event_cb_free_btPv20wifi_prov_cb_event_tPv"></span><span id="_CPPv237wifi_prov_scheme_ble_event_cb_free_btPv20wifi_prov_cb_event_tPv"></span><span id="wifi_prov_scheme_ble_event_cb_free_bt__voidP.wifi_prov_cb_event_t.voidP"></span><span class="target" id="scheme__ble_8h_1a0fcfce7c934bf6919fabf030f2578921"></span>void <code class="descname">wifi_prov_scheme_ble_event_cb_free_bt</code><span class="sig-paren">(</span>void *<em>მომხმარებლის_მონაცემები</em>, <a class="reference internal" href="wifi_provisioning.html#_CPPv420wifi_prov_cb_event_t" title="wifi_prov_cb_event_t">wifi_prov_cb_event_t</a> <em>ღონისძიება</em>, void *<em>მოვლენის_მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv437wifi_prov_scheme_ble_event_cb_free_btPv20wifi_prov_cb_event_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv437wifi_prov_scheme_ble_set_service_uuidP7uint8_t">
+<span id="_CPPv337wifi_prov_scheme_ble_set_service_uuidP7uint8_t"></span><span id="_CPPv237wifi_prov_scheme_ble_set_service_uuidP7uint8_t"></span><span id="wifi_prov_scheme_ble_set_service_uuid__uint8_tP"></span><span class="target" id="scheme__ble_8h_1ae5c5c8e33fb8191e52bb361747492ae3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_scheme_ble_set_service_uuid</code><span class="sig-paren">(</span>uint8_t *<em>uuid128</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv437wifi_prov_scheme_ble_set_service_uuidP7uint8_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ 128 ბიტიანი GATT სერვისის UUID, რომელიც გამოიყენება უზრუნველყოფისთვის. </p>
+<p>ეს API გამოიყენება ნაგულისხმევი 128-ბიტიანი უზრუნველყოფის სერვისის UUID-ის გადასალახად, რომელიც არის 0000ffff-0000-1000-8000-00805f9b34fb.</p>
+<p>ეს უნდა გამოიძახოთ დებულების დანერგვამდე, ანუ wifi_prov_mgr_start_provisioning()-ის გამოძახებამდე, წინააღმდეგ შემთხვევაში გამოყენებული იქნება ნაგულისხმევი UUID.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The data being pointed to by the argument must be valid atleast till provisioning is started. Upon start, the manager will store an internal copy of this UUID, and this data can be freed or invalidated afterwords.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატება</li>
+<li>ESP_ERR_INVALID_ARG: ნულოვანი არგუმენტი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uuid128</span></code>: მორგებული 128 ბიტიანი UUID</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="id3">
+<h3>მაკროები<a class="headerlink" href="wifi_provisioning.html#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM">
+<span class="target" id="scheme__ble_8h_1a7ca608842152bdf89eafe5dbc6ce8bc6"></span><code class="descname">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM</code><a class="headerlink" href="wifi_provisioning.html#c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BTDM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BLE">
+<span class="target" id="scheme__ble_8h_1af079f29f0836ecc43aabd3d3dd595bfd"></span><code class="descname">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BLE</code><a class="headerlink" href="wifi_provisioning.html#c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BT">
+<span class="target" id="scheme__ble_8h_1a47d306f88a3ab8b8ff2c866f3c96ca84"></span><code class="descname">WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BT</code><a class="headerlink" href="wifi_provisioning.html#c.WIFI_PROV_SCHEME_BLE_EVENT_HANDLER_FREE_BT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="id4">
+<h3>სათაურის ფაილი<a class="headerlink" href="wifi_provisioning.html#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/wifi_provisioning/include/wifi_provisioning/scheme_softap.h">wifi_provisioning/include/wifi_provisioning/scheme_softap.h</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>ფუნქციები<a class="headerlink" href="wifi_provisioning.html#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv440wifi_prov_scheme_softap_set_httpd_handlePv">
+<span id="_CPPv340wifi_prov_scheme_softap_set_httpd_handlePv"></span><span id="_CPPv240wifi_prov_scheme_softap_set_httpd_handlePv"></span><span id="wifi_prov_scheme_softap_set_httpd_handle__voidP"></span><span class="target" id="scheme__softap_8h_1a9b2d3fb2c31628c7aded8a3cfa6cec1e"></span>void <code class="descname">wifi_prov_scheme_softap_set_httpd_handle</code><span class="sig-paren">(</span>void *<em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv440wifi_prov_scheme_softap_set_httpd_handlePv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPD სერვერის გარე სახელურის მიწოდება. </p>
+<p>სასარგებლოა იმ შემთხვევებში, როდესაც აპლიკაციებს ვებ სერვერი სჭირდებათ სხვადასხვა ოპერაციებისთვის და არ სურთ, რომ wifi-ს მიწოდების კომპონენტი ახალი ინსტანციის დაწყება/შეჩერება გამოიწვიოს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API should be called before wifi_prov_mgr_start_provisioning()</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: HTTPD სერვერის ეგზემპლარის მართვა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="id6">
+<h3>სათაურის ფაილი<a class="headerlink" href="wifi_provisioning.html#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/wifi_provisioning/include/wifi_provisioning/scheme_console.h">wifi_provisioning/include/wifi_provisioning/scheme_console.h</a></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>სათაურის ფაილი<a class="headerlink" href="wifi_provisioning.html#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/wifi_provisioning/include/wifi_provisioning/wifi_config.h">wifi_provisioning/include/wifi_provisioning/wifi_config.h</a></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>ფუნქციები<a class="headerlink" href="wifi_provisioning.html#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv429wifi_prov_config_data_handler8uint32_tPK7uint8_t7ssize_tPP7uint8_tP7ssize_tPv">
+<span id="_CPPv329wifi_prov_config_data_handler8uint32_tPK7uint8_t7ssize_tPP7uint8_tP7ssize_tPv"></span><span id="_CPPv229wifi_prov_config_data_handler8uint32_tPK7uint8_t7ssize_tPP7uint8_tP7ssize_tPv"></span><span id="wifi_prov_config_data_handler__uint32_t.uint8_tCP.ssize_t.uint8_tPP.ssize_tP.voidP"></span><span class="target" id="wifi__config_8h_1a8aba5450fce29d8035d5623c7afad26b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">wifi_prov_config_data_handler</code><span class="sig-paren">(</span>uint32_t <em>სესიის_იდენტიფიკატორი</em>, <em class="property">კონსტ</em> uint8_t *<em>ინბუფი</em>, ssize_t <em>ინლენი</em>, uint8_t **<em>აუტბაფი</em>, ssize_t *<em>აუთლენი</em>, void *<em>პრივილეგირებული_მონაცემები</em><span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv429wifi_prov_config_data_handler8uint32_tPK7uint8_t7ssize_tPP7uint8_tP7ssize_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამმუშავებელი მასტერისგან მოთხოვნების მისაღებად და მათზე რეაგირებისთვის. </p>
+<p>ეს უნდა დარეგისტრირდეს, როგორც <code class="docutils literal notranslate"><span class="pre">wifi_config</span></code> საბოლოო წერტილის დამმუშავებელი (protocomm <code class="docutils literal notranslate"><span class="pre">protocomm_req_handler_t</span></code>) გამოყენებით <code class="docutils literal notranslate"><span class="pre">protocomm_add_endpoint()</span></code> </p>
+</dd></dl>
+</div>
+<div class="section" id="id9">
+<h3>სტრუქტურები<a class="headerlink" href="wifi_provisioning.html#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv425wifi_prov_sta_conn_info_t">
+<span id="_CPPv325wifi_prov_sta_conn_info_t"></span><span id="_CPPv225wifi_prov_sta_conn_info_t"></span><span id="wifi_prov_sta_conn_info_t"></span><span class="target" id="structwifi__prov__sta__conn__info__t"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_sta_conn_info_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv425wifi_prov_sta_conn_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WiFi STA-ს დაკავშირების სტატუსის ინფორმაცია. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_sta_conn_info_t7ip_addrE">
+<span id="_CPPv3N25wifi_prov_sta_conn_info_t7ip_addrE"></span><span id="_CPPv2N25wifi_prov_sta_conn_info_t7ip_addrE"></span><span id="wifi_prov_sta_conn_info_t::ip_addr__cA"></span><span class="target" id="structwifi__prov__sta__conn__info__t_1a734d8968964f0681e3b5542eb39ce698"></span>char <code class="descname">ip_addr</code>[<code class="descname">IP4ADDR_STRLEN_MAX</code>]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_sta_conn_info_t7ip_addrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სადგურის მიერ მიღებული IP მისამართი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_sta_conn_info_t5bssidE">
+<span id="_CPPv3N25wifi_prov_sta_conn_info_t5bssidE"></span><span id="_CPPv2N25wifi_prov_sta_conn_info_t5bssidE"></span><span id="wifi_prov_sta_conn_info_t::bssid__cA"></span><span class="target" id="structwifi__prov__sta__conn__info__t_1ab3f574ddb08fefe57513bd2b5e76e5e1"></span>char <code class="descname">bssid</code>[6]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_sta_conn_info_t5bssidE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იმ წვდომის წერტილის BSSID, რომელთანაც კავშირი დამყარდა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_sta_conn_info_t4ssidE">
+<span id="_CPPv3N25wifi_prov_sta_conn_info_t4ssidE"></span><span id="_CPPv2N25wifi_prov_sta_conn_info_t4ssidE"></span><span id="wifi_prov_sta_conn_info_t::ssid__cA"></span><span class="target" id="structwifi__prov__sta__conn__info__t_1ac47bc47e6fe39c5c3aca99f15d193150"></span>char <code class="descname">ssid</code>[33]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_sta_conn_info_t4ssidE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იმ მოწყობილობის SSID, რომელთანაც კავშირი დამყარდა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_sta_conn_info_t7channelE">
+<span id="_CPPv3N25wifi_prov_sta_conn_info_t7channelE"></span><span id="_CPPv2N25wifi_prov_sta_conn_info_t7channelE"></span><span id="wifi_prov_sta_conn_info_t::channel__uint8_t"></span><span class="target" id="structwifi__prov__sta__conn__info__t_1aef765c169c44869267e1115e33838eb3"></span>uint8_t <code class="descname">channel</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_sta_conn_info_t7channelE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>AP-ის არხი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_sta_conn_info_t9auth_modeE">
+<span id="_CPPv3N25wifi_prov_sta_conn_info_t9auth_modeE"></span><span id="_CPPv2N25wifi_prov_sta_conn_info_t9auth_modeE"></span><span id="wifi_prov_sta_conn_info_t::auth_mode__uint8_t"></span><span class="target" id="structwifi__prov__sta__conn__info__t_1a3a872cd92a0be7fb2458e0b8c49c72cc"></span>uint8_t <code class="descname">auth_mode</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_sta_conn_info_t9auth_modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წვდომის წერტილის ავტორიზაციის რეჟიმი </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv427wifi_prov_config_get_data_t">
+<span id="_CPPv327wifi_prov_config_get_data_t"></span><span id="_CPPv227wifi_prov_config_get_data_t"></span><span id="wifi_prov_config_get_data_t"></span><span class="target" id="structwifi__prov__config__get__data__t"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_config_get_data_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_config_get_data_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WiFi სტატუსის მონაცემები უნდა გაიგზავნოს საპასუხოდ <code class="docutils literal notranslate"><span class="pre">get_status</span></code> მოთხოვნა ოსტატისგან. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_get_data_t10wifi_stateE">
+<span id="_CPPv3N27wifi_prov_config_get_data_t10wifi_stateE"></span><span id="_CPPv2N27wifi_prov_config_get_data_t10wifi_stateE"></span><span id="wifi_prov_config_get_data_t::wifi_state__wifi_prov_sta_state_t"></span><span class="target" id="structwifi__prov__config__get__data__t_1a6446a33204338113b095c2bf7cd8ad91"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv421wifi_prov_sta_state_t" title="wifi_prov_sta_state_t">wifi_prov_sta_state_t</a> <code class="descname">wifi_state</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_get_data_t10wifi_stateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სადგურის WiFi მდგომარეობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_get_data_t11fail_reasonE">
+<span id="_CPPv3N27wifi_prov_config_get_data_t11fail_reasonE"></span><span id="_CPPv2N27wifi_prov_config_get_data_t11fail_reasonE"></span><span id="wifi_prov_config_get_data_t::fail_reason__wifi_prov_sta_fail_reason_t"></span><span class="target" id="structwifi__prov__config__get__data__t_1aa0727c01d146fd34ab2e5760de77a129"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv427wifi_prov_sta_fail_reason_t" title="wifi_prov_sta_fail_reason_t">wifi_prov_sta_fail_reason_t</a> <code class="descname">fail_reason</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_get_data_t11fail_reasonE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გათიშვის მიზეზი (მოქმედებს მხოლოდ მაშინ, როდესაც <code class="docutils literal notranslate"><span class="pre">wifi_state</span></code> არის <code class="docutils literal notranslate"><span class="pre">WIFI_STATION_DISCONNECTED</span></code>) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_get_data_t9conn_infoE">
+<span id="_CPPv3N27wifi_prov_config_get_data_t9conn_infoE"></span><span id="_CPPv2N27wifi_prov_config_get_data_t9conn_infoE"></span><span id="wifi_prov_config_get_data_t::conn_info__wifi_prov_sta_conn_info_t"></span><span class="target" id="structwifi__prov__config__get__data__t_1a691fa5914f53d2c3cdce2c30d1f9e691"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv425wifi_prov_sta_conn_info_t" title="wifi_prov_sta_conn_info_t">wifi_prov_sta_conn_info_t</a> <code class="descname">conn_info</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_get_data_t9conn_infoE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კავშირის ინფორმაცია (მოქმედებს მხოლოდ მაშინ, როდესაც <code class="docutils literal notranslate"><span class="pre">wifi_state</span></code> არის <code class="docutils literal notranslate"><span class="pre">WIFI_STATION_CONNECTED</span></code>) </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv427wifi_prov_config_set_data_t">
+<span id="_CPPv327wifi_prov_config_set_data_t"></span><span id="_CPPv227wifi_prov_config_set_data_t"></span><span id="wifi_prov_config_set_data_t"></span><span class="target" id="structwifi__prov__config__set__data__t"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_config_set_data_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_config_set_data_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WiFi კონფიგურაციის მონაცემები მიღებულია მონა-მონაწილის მიერ <code class="docutils literal notranslate"><span class="pre">set_config</span></code> მოთხოვნა ოსტატისგან. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_set_data_t4ssidE">
+<span id="_CPPv3N27wifi_prov_config_set_data_t4ssidE"></span><span id="_CPPv2N27wifi_prov_config_set_data_t4ssidE"></span><span id="wifi_prov_config_set_data_t::ssid__cA"></span><span class="target" id="structwifi__prov__config__set__data__t_1a26ee3662c7c3ab0342976c1678dcafa2"></span>char <code class="descname">ssid</code>[33]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_set_data_t4ssidE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იმ წვდომის წერტილის SSID, რომელთანაც უნდა იყოს დაკავშირებული მონა მოწყობილობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_set_data_t8passwordE">
+<span id="_CPPv3N27wifi_prov_config_set_data_t8passwordE"></span><span id="_CPPv2N27wifi_prov_config_set_data_t8passwordE"></span><span id="wifi_prov_config_set_data_t::password__cA"></span><span class="target" id="structwifi__prov__config__set__data__t_1a96727c31b4acca82a6e35fd827665329"></span>char <code class="descname">password</code>[64]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_set_data_t8passwordE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>AP-ის პაროლი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_set_data_t5bssidE">
+<span id="_CPPv3N27wifi_prov_config_set_data_t5bssidE"></span><span id="_CPPv2N27wifi_prov_config_set_data_t5bssidE"></span><span id="wifi_prov_config_set_data_t::bssid__cA"></span><span class="target" id="structwifi__prov__config__set__data__t_1ac17b03532d2280db6ed9aca78f60239f"></span>char <code class="descname">bssid</code>[6]<a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_set_data_t5bssidE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წვდომის წერტილის BSSID </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N27wifi_prov_config_set_data_t7channelE">
+<span id="_CPPv3N27wifi_prov_config_set_data_t7channelE"></span><span id="_CPPv2N27wifi_prov_config_set_data_t7channelE"></span><span id="wifi_prov_config_set_data_t::channel__uint8_t"></span><span class="target" id="structwifi__prov__config__set__data__t_1a71826cdde352d1e5a3210c3977f4b24b"></span>uint8_t <code class="descname">channel</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N27wifi_prov_config_set_data_t7channelE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>AP-ის არხი </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv425wifi_prov_config_handlers">
+<span id="_CPPv325wifi_prov_config_handlers"></span><span id="_CPPv225wifi_prov_config_handlers"></span><span id="wifi_prov_config_handlers"></span><span class="target" id="structwifi__prov__config__handlers"></span><em class="property">სტრუქტურა </em><code class="descname">wifi_prov_config_handlers</code><a class="headerlink" href="wifi_provisioning.html#_CPPv425wifi_prov_config_handlers" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შიდა დამმუშავებლები მთავარი სერვერისგან protocomm მოთხოვნების მისაღებად და მათზე რეაგირებისთვის. </p>
+<p>ეს უნდა გადაეცეს როგორც priv_data protocomm მოთხოვნის დამმუშავებლისთვის (იხ. <code class="docutils literal notranslate"><span class="pre">wifi_prov_config_data_handler()</span></code>) დარეკვისას <code class="docutils literal notranslate"><span class="pre">protocomm_add_endpoint()</span></code>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_config_handlers18get_status_handlerE">
+<span id="_CPPv3N25wifi_prov_config_handlers18get_status_handlerE"></span><span id="_CPPv2N25wifi_prov_config_handlers18get_status_handlerE"></span><span class="target" id="structwifi__prov__config__handlers_1a2745e9c7d36157abd64e05cf0e397c02"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">get_status_handler</code>)<span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv427wifi_prov_config_get_data_t" title="wifi_prov_config_get_data_t">wifi_prov_config_get_data_t</a> *resp_data, <a class="reference internal" href="wifi_provisioning.html#_CPPv415wifi_prov_ctx_t" title="wifi_prov_ctx_t">wifi_prov_ctx_t</a> **ctx<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_config_handlers18get_status_handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Handler ფუნქცია გამოიძახება, როდესაც მოთხოვნილია მონა-მონაწილის კავშირის სტატუსი (Wi-Fi სადგურის რეჟიმში). </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_config_handlers18set_config_handlerE">
+<span id="_CPPv3N25wifi_prov_config_handlers18set_config_handlerE"></span><span id="_CPPv2N25wifi_prov_config_handlers18set_config_handlerE"></span><span class="target" id="structwifi__prov__config__handlers_1ab2771b2929f894f19be1068804254eab"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">set_config_handler</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="wifi_provisioning.html#_CPPv427wifi_prov_config_set_data_t" title="wifi_prov_config_set_data_t">wifi_prov_config_set_data_t</a> *req_data, <a class="reference internal" href="wifi_provisioning.html#_CPPv415wifi_prov_ctx_t" title="wifi_prov_ctx_t">wifi_prov_ctx_t</a> **ctx<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_config_handlers18set_config_handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Handler ფუნქცია გამოიძახება, როდესაც slave-ის WiFi კავშირის კონფიგურაცია (მაგ. AP SSID, პაროლი და ა.შ.) (Wi-Fi სადგურის რეჟიმში) უნდა დაყენდეს მომხმარებლის მიერ მოწოდებულ მნიშვნელობებზე. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_config_handlers20apply_config_handlerE">
+<span id="_CPPv3N25wifi_prov_config_handlers20apply_config_handlerE"></span><span id="_CPPv2N25wifi_prov_config_handlers20apply_config_handlerE"></span><span class="target" id="structwifi__prov__config__handlers_1aa34523d1724822eaaa52b487b750b9ad"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">apply_config_handler</code>)<span class="sig-paren">(</span><a class="reference internal" href="wifi_provisioning.html#_CPPv415wifi_prov_ctx_t" title="wifi_prov_ctx_t">wifi_prov_ctx_t</a> **ctx<span class="sig-paren">)</span><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_config_handlers20apply_config_handlerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამმუშავებლის ფუნქცია დაყენებული კონფიგურაციის გამოსაყენებლად <code class="docutils literal notranslate"><span class="pre">set_config_handler</span></code>გამოყენების შემდეგ, სადგური შეიძლება დაუკავშირდეს წვდომის წერტილს ან ვერ შეძლოს დაკავშირება. მონა უნდა იყოს მზად განახლებული კავშირის სტატუსის ინფორმაციის გადასაცემად, როდესაც <code class="docutils literal notranslate"><span class="pre">get_status_handler</span></code> ხელახლა იძახებს ოსტატი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N25wifi_prov_config_handlers3ctxE">
+<span id="_CPPv3N25wifi_prov_config_handlers3ctxE"></span><span id="_CPPv2N25wifi_prov_config_handlers3ctxE"></span><span id="wifi_prov_config_handlers::ctx__wifi_prov_ctx_tP"></span><span class="target" id="structwifi__prov__config__handlers_1a0f6799ec11d79e24ac6e32a80611a847"></span><a class="reference internal" href="wifi_provisioning.html#_CPPv415wifi_prov_ctx_t" title="wifi_prov_ctx_t">wifi_prov_ctx_t</a> *<code class="descname">ctx</code><a class="headerlink" href="wifi_provisioning.html#_CPPv4N25wifi_prov_config_handlers3ctxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტექსტური მაჩვენებელი, რომელიც გადაეცემა ზემოთ მოცემულ დამმუშავებელ ფუნქციებს გამოძახებისას </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="id10">
+<h3>ტიპის განმარტებები<a class="headerlink" href="wifi_provisioning.html#id10" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv415wifi_prov_ctx_t">
+<span id="_CPPv315wifi_prov_ctx_t"></span><span id="_CPPv215wifi_prov_ctx_t"></span><span id="wifi_prov_ctx_t"></span><span class="target" id="wifi__config_8h_1ada31be0259553c17c6a348118c8ab794"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> wifi_prov_ctx <code class="descname">wifi_prov_ctx_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv415wifi_prov_ctx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონტექსტური მონაცემების ტიპი, რომელიც გადაეცემა თითოეულ get/set/apply დამმუშავებელი ფუნქციის ნაკრებში <code class="docutils literal notranslate"><a class="reference internal" href="wifi_provisioning.html#structwifi__prov__config__handlers"><span class="std std-ref"><span class="pre">wifi_prov_config_handlers</span></span></a></code> სტრუქტურა. </p>
+<p>ეს გადაეცემა გაუმჭვირვალე მაჩვენებლის სახით, რითაც საშუალებას იძლევა, რომ ის მოგვიანებით განისაზღვროს აპლიკაციის კოდში მოთხოვნების შესაბამისად. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv427wifi_prov_config_handlers_t">
+<span id="_CPPv327wifi_prov_config_handlers_t"></span><span id="_CPPv227wifi_prov_config_handlers_t"></span><span id="wifi_prov_config_handlers_t"></span><span class="target" id="wifi__config_8h_1a595499e08f99cf114fa162a38949b9c9"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="wifi_provisioning.html#_CPPv425wifi_prov_config_handlers" title="wifi_prov_config_handlers">wifi_prov_config_handlers</a> <code class="descname">wifi_prov_config_handlers_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_config_handlers_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შიდა დამმუშავებლები მთავარი სერვერისგან protocomm მოთხოვნების მისაღებად და მათზე რეაგირებისთვის. </p>
+<p>ეს უნდა გადაეცეს როგორც priv_data protocomm მოთხოვნის დამმუშავებლისთვის (იხ. <code class="docutils literal notranslate"><span class="pre">wifi_prov_config_data_handler()</span></code>) დარეკვისას <code class="docutils literal notranslate"><span class="pre">protocomm_add_endpoint()</span></code>. </p>
+</dd></dl>
+</div>
+<div class="section" id="id11">
+<h3>ჩამოთვლები<a class="headerlink" href="wifi_provisioning.html#id11" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv421wifi_prov_sta_state_t">
+<span id="_CPPv321wifi_prov_sta_state_t"></span><span id="_CPPv221wifi_prov_sta_state_t"></span><span id="wifi_prov_sta_state_t"></span><span class="target" id="wifi__config_8h_1a64cbdacbc8b09ae467a9d1701e30c5ec"></span><em class="property">ჩამოთვლა </em><code class="descname">wifi_prov_sta_state_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv421wifi_prov_sta_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WiFi STA სტატუსი მონაცემთა უზრუნველყოფის მთავარ მოწყობილობაზე დაბრუნებისთვის. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv424WIFI_PROV_STA_CONNECTING">
+<span id="_CPPv324WIFI_PROV_STA_CONNECTING"></span><span id="_CPPv224WIFI_PROV_STA_CONNECTING"></span><span class="target" id="wifi__config_8h_1a64cbdacbc8b09ae467a9d1701e30c5eca6eb262189575763c6a0a0f42508a1c7f"></span><code class="descname">WIFI_PROV_STA_CONNECTING</code><a class="headerlink" href="wifi_provisioning.html#_CPPv424WIFI_PROV_STA_CONNECTING" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423WIFI_PROV_STA_CONNECTED">
+<span id="_CPPv323WIFI_PROV_STA_CONNECTED"></span><span id="_CPPv223WIFI_PROV_STA_CONNECTED"></span><span class="target" id="wifi__config_8h_1a64cbdacbc8b09ae467a9d1701e30c5ecafbb71f34667147c3c3a70502acd3f5a3"></span><code class="descname">WIFI_PROV_STA_CONNECTED</code><a class="headerlink" href="wifi_provisioning.html#_CPPv423WIFI_PROV_STA_CONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426WIFI_PROV_STA_DISCONNECTED">
+<span id="_CPPv326WIFI_PROV_STA_DISCONNECTED"></span><span id="_CPPv226WIFI_PROV_STA_DISCONNECTED"></span><span class="target" id="wifi__config_8h_1a64cbdacbc8b09ae467a9d1701e30c5eca0241c35d80decb36fd547bbe961c0a68"></span><code class="descname">WIFI_PROV_STA_DISCONNECTED</code><a class="headerlink" href="wifi_provisioning.html#_CPPv426WIFI_PROV_STA_DISCONNECTED" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv427wifi_prov_sta_fail_reason_t">
+<span id="_CPPv327wifi_prov_sta_fail_reason_t"></span><span id="_CPPv227wifi_prov_sta_fail_reason_t"></span><span id="wifi_prov_sta_fail_reason_t"></span><span class="target" id="wifi__config_8h_1a12b961739b836842361f6545f4c174a6"></span><em class="property">ჩამოთვლა </em><code class="descname">wifi_prov_sta_fail_reason_t</code><a class="headerlink" href="wifi_provisioning.html#_CPPv427wifi_prov_sta_fail_reason_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>WiFi STA კავშირის წარუმატებლობის მიზეზი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv424WIFI_PROV_STA_AUTH_ERROR">
+<span id="_CPPv324WIFI_PROV_STA_AUTH_ERROR"></span><span id="_CPPv224WIFI_PROV_STA_AUTH_ERROR"></span><span class="target" id="wifi__config_8h_1a12b961739b836842361f6545f4c174a6a9f5b5cea7828d2a550986abaccc296d3"></span><code class="descname">WIFI_PROV_STA_AUTH_ERROR</code><a class="headerlink" href="wifi_provisioning.html#_CPPv424WIFI_PROV_STA_AUTH_ERROR" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426WIFI_PROV_STA_AP_NOT_FOUND">
+<span id="_CPPv326WIFI_PROV_STA_AP_NOT_FOUND"></span><span id="_CPPv226WIFI_PROV_STA_AP_NOT_FOUND"></span><span class="target" id="wifi__config_8h_1a12b961739b836842361f6545f4c174a6ac8f1aa250047f103e26150260674895b"></span><code class="descname">WIFI_PROV_STA_AP_NOT_FOUND</code><a class="headerlink" href="wifi_provisioning.html#_CPPv426WIFI_PROV_STA_AP_NOT_FOUND" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../storage/index.html" rel="next" title="Storage API">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="provisioning.html" rel="prev" title="Unified Provisioning"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1242 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>კონტროლერის არეალური ქსელი (CAN) — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="dac.html" rel="next" title="Digital To Analog Converter"/>
+<link href="adc.html" rel="prev" title="Analog to Digital Converter"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/can.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/can"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/can.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="can.html#">შეიძლება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="can.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#basic-can-concepts">CAN-ის ძირითადი კონცეფციები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#signals-lines-and-transceiver">სიგნალის ხაზები და გადამცემ-მიმღები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#configuration">კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#driver-operation">მძღოლის ოპერაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#examples">მაგალითები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="can.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>კონტროლერის არეალური ქსელი (CAN)</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/can.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="controller-area-network-can">
+<h1>კონტროლერის არეალური ქსელი (CAN)<a class="headerlink" href="can.html#controller-area-network-can" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="can.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის პერიფერიული მოწყობილობები შეიცავს CAN კონტროლერს, რომელიც მხარს უჭერს CAN2.0B სპეციფიკაციის სტანდარტული ჩარჩოს ფორმატს (11-ბიტიანი ID) და გაფართოებული ჩარჩოს ფორმატს (29-ბიტიანი ID).</p>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ESP32 CAN კონტროლერი არ არის თავსებადი CAN FD ჩარჩოებთან და ასეთ ჩარჩოებს შეცდომებად აღიქვამს.</p>
+</div>
+<p>ეს პროგრამირების სახელმძღვანელო დაყოფილია შემდეგ სექციებად:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><a class="reference internal" href="can.html#basic-can-concepts"><span class="std std-ref">CAN-ის ძირითადი კონცეფციები</span></a></li>
+<li><a class="reference internal" href="can.html#signals-lines-and-transceiver"><span class="std std-ref">სიგნალის ხაზები და გადამცემ-მიმღები</span></a></li>
+<li><a class="reference internal" href="can.html#configuration"><span class="std std-ref">კონფიგურაცია</span></a></li>
+<li><a class="reference internal" href="can.html#driver-operation"><span class="std std-ref">მძღოლის ოპერაცია</span></a></li>
+<li><a class="reference internal" href="can.html#examples"><span class="std std-ref">მაგალითები</span></a></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="basic-can-concepts">
+<span id="id1"></span><h2>CAN-ის ძირითადი კონცეფციები<a class="headerlink" href="can.html#basic-can-concepts" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">შემდეგი განყოფილება მოიცავს მხოლოდ CAN-ის ძირითად ასპექტებს. სრული დეტალებისთვის იხილეთ CAN2.0B სპეციფიკაცია.</p>
+</div>
+<p>CAN პროტოკოლი არის მრავალმასტერიანი, მრავალქასტიანი საკომუნიკაციო პროტოკოლი შეცდომების აღმოჩენის/სიგნალიზაციის ფუნქციით და ჩაშენებული შეტყობინებების პრიორიტეტიზაციის ფუნქციით. CAN პროტოკოლი ხშირად გამოიყენება საკომუნიკაციო ავტობუსის სახით საავტომობილო აპლიკაციებში.</p>
+<p><strong>მულტიმასტერი:</strong> CAN ავტობუსში ნებისმიერ კვანძს შეუძლია მონაცემთა გადაცემის ინიცირება.</p>
+<p><strong>მრავალჯერადი გადაცემა:</strong> როდესაც კვანძი გადასცემს შეტყობინებას, ყველა კვანძს შეუძლია შეტყობინების მიღება (მაუწყებლობა). თუმცა, ზოგიერთ კვანძს შეუძლია შერჩევითად აირჩიოს, რომელი შეტყობინებები მიიღოს მიღების ფილტრაციის (მრავალჯერადი გადაცემა) გამოყენებით.</p>
+<p><strong>შეცდომის აღმოჩენა და სიგნალიზაცია:</strong> ყველა CAN კვანძი მუდმივად აკონტროლებს CAN ავტობუსს. როდესაც რომელიმე კვანძი აღმოაჩენს შეცდომას, ის შეცდომის შესახებ სიგნალს შეცდომის ჩარჩოს გადაცემით გაგზავნის. სხვა კვანძები მიიღებენ შეცდომის ჩარჩოს და საპასუხოდ გადასცემენ საკუთარ შეცდომის ჩარჩოებს. ამის შედეგად, შეცდომის აღმოჩენის შესახებ ინფორმაცია ავტობუსზე არსებულ ყველა კვანძზე გავრცელდება.</p>
+<p><strong>შეტყობინების პრიორიტეტები:</strong> თუ ორი კვანძი ერთდროულად შეეცდება გადაცემას, არბიტრაჟს მოიგებს ის კვანძი, რომელიც უფრო დაბალი ID-ით გადასცემს შეტყობინებას. ყველა სხვა კვანძი გახდება მიმღები, რაც უზრუნველყოფს, რომ ნებისმიერ დროს მაქსიმუმ ერთი გადამცემი იქნება.</p>
+<div class="section" id="can-message-frames">
+<h3>CAN შეტყობინების ჩარჩოები<a class="headerlink" href="can.html#can-message-frames" title="Permalink to this headline">¶</a></h3>
+<p>CAN2.0B სპეციფიკაცია შეიცავს ორ ჩარჩო ფორმატს, რომლებიც ცნობილია როგორც <strong>გაფართოებული ჩარჩო</strong> და <strong>სტანდარტული ჩარჩო</strong> რომლებიც შესაბამისად შეიცავს 29-ბიტიან და 11-ბიტიან ID-ებს. CAN შეტყობინება შედგება შემდეგი კომპონენტი s</p>
+<blockquote>
+<div><ul class="simple">
+<li>29-ბიტიანი ან 11-ბიტიანი ID</li>
+<li>მონაცემთა სიგრძის კოდი (DLC) 0-დან 8-მდე</li>
+<li>8 ბაიტამდე მონაცემები (უნდა შეესაბამებოდეს DLC-ს)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="error-states-and-counters">
+<h3>შეცდომების მდგომარეობები და მთვლელები<a class="headerlink" href="can.html#error-states-and-counters" title="Permalink to this headline">¶</a></h3>
+<p>CAN2.0B სპეციფიკაცია ახორციელებს ხარვეზების შეზღუდვას, რაც მოითხოვს, რომ ყველა CAN კვანძმა შეინარჩუნოს ორი შიდა შეცდომის მრიცხველი, რომლებიც ცნობილია როგორც <strong>გადაცემის შეცდომების მრიცხველი (TEC)</strong> და <strong>მიღების შეცდომების მრიცხველი (REC)</strong>ორი შეცდომის მრიცხველი გამოიყენება CAN კვანძის დასადგენად <strong>შეცდომის მდგომარეობა</strong>, ხოლო მრიცხველები იზრდება და მცირდება წესების ერთობლიობის შესაბამისად (იხილეთ CAN2.0B სპეციფიკაცია). ეს შეცდომის მდგომარეობები ცნობილია, როგორც <strong>შეცდომა აქტიურია</strong>, <strong>შეცდომის პასიური</strong>და <strong>ავტობუსის გასვლა</strong>.</p>
+<p><strong>შეცდომა აქტიურია:</strong> CAN კვანძი შეცდომით აქტიურია, როდესაც <strong>როგორც TEC, ასევე REC 128-ზე ნაკლებია</strong> და მიუთითებს, რომ CAN კვანძი ნორმალურად მუშაობს. შეცდომა აქტიურ კვანძებს უფლება აქვთ მონაწილეობა მიიღონ CAN ავტობუსის აქტივობებში და აქტიურად გააგზავნიან სიგნალს ნებისმიერი შეცდომის მდგომარეობის შესახებ, რომელსაც ისინი აღმოაჩენენ, შეტყობინების გადაცემით. <strong>აქტიური შეცდომის დროშა</strong> CAN ავტობუსის მეშვეობით.</p>
+<p><strong>შეცდომის პასიური:</strong> CAN კვანძი შეცდომის პასიურია, როდესაც <strong>ან TEC ან REC ხდება 128-ზე მეტი ან ტოლი</strong>შეცდომა პასიური კვანძები კვლავ შეუძლიათ მონაწილეობა მიიღონ CAN ავტობუსის აქტივობებში, მაგრამ ამის ნაცვლად გადასცემენ <strong>პასიური შეცდომის დროშა</strong> შეცდომის აღმოჩენისთანავე.</p>
+<p><strong>ავტობუსიდან გასვლა:</strong> CAN კვანძი გამორთულია, როდესაც <strong>TEC ხდება 256-ზე მეტი ან ტოლი</strong>Bus-Off კვანძს არ შეუძლია CAN ავტობუსის აქტივობაში მონაწილეობა და ასე დარჩება ავტობუსის აღდგენამდე.</p>
+</div>
+</div>
+<div class="section" id="signals-lines-and-transceiver">
+<span id="id2"></span><h2>სიგნალის ხაზები და გადამცემ-მიმღები<a class="headerlink" href="can.html#signals-lines-and-transceiver" title="Permalink to this headline">¶</a></h2>
+<p>CAN კონტროლერი არ შეიცავს შიდა გადამცემ-მიმღებს და შესაბამისად <strong>საჭიროებს გარე გადამცემ-მიმღებს</strong> მუშაობისთვის. გარე გადამცემ-მიმღების ტიპი დამოკიდებული იქნება აპლიკაციის ფიზიკური ფენის სპეციფიკაციაზე (მაგ. SN65HVD23X გადამცემ-მიმღებების გამოყენება ISO 11898-2 თავსებადობისთვის).</p>
+<p>CAN კონტროლერის ინტერფეისი შედგება 4 სიგნალის ხაზისგან, რომლებიც ცნობილია როგორც <strong>ტრანზაქცია, გაშვება, ავტობუსიდან გათიშვა და გათიშვა</strong>ეს ოთხი სიგნალის ხაზი შეიძლება გადამისამართდეს GPIO მატრიცის გავლით GPIO s-მდე.</p>
+<div class="figure align-center" id="id10">
+<div><img height="360" src="../../_images/blockdiag-053fad20a7ef694a42329cbbcaf0d2fe799053d1.png" width="704"/></div><p class="caption"><span class="caption-text">CAN კონტროლერის სიგნალის ხაზები</span><a class="headerlink" href="can.html#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p><strong>ტეხასი და რექსი:</strong> TX და RX სიგნალის ხაზები საჭიროა გარე CAN გადამცემ-მიმღებთან დასაკავშირებლად. ორივე სიგნალის ხაზი წარმოადგენს/ინტერპრეტაციას უკეთებს დომინანტურ ბიტს, როგორც დაბალი ლოგიკური დონეს (0V), ხოლო რეცესიულ ბიტს, როგორც მაღალ ლოგიკურ დონეს (3.3V).</p>
+<p><strong>ავტობუსიდან გასვლა:</strong> BUS-OFF სიგნალის ხაზი არის <strong>სურვილისამებრ</strong> და დაყენებულია დაბალ ლოგიკურ დონეზე (0V) ყოველთვის, როდესაც CAN კონტროლერი აღწევს ავტობუსის გამორთვის მდგომარეობას. სხვა შემთხვევაში, ავტობუსის გამორთვის სიგნალის ხაზი დაყენებულია მაღალ ლოგიკურ დონეზე (3.3V).</p>
+<p><strong>კლკაუტი:</strong> CLKOUT სიგნალის ხაზი არის <strong>სურვილისამებრ</strong> და გამოაქვს CAN კონტროლერის წყაროს საათის (APB საათი) წინასწარ მასშტაბირებულ ვერსიას.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გარე გადამცემ-მიმღები <strong>შიდად უნდა დააკავშიროს TX შესასვლელი და RX გამოსასვლელი</strong> ისე, რომ RX ხაზზე შეინიშნებოდეს TX სიგნალის ხაზის ლოგიკური დონის ცვლილება. წინააღმდეგ შემთხვევაში, CAN კონტროლერი ორ სიგნალის ხაზს შორის ლოგიკური დონეების სხვაობას არბიტრაჟში დაკარგვად ან ბიტის შეცდომად აღიქვამს.</p>
+</div>
+</div>
+<div class="section" id="configuration">
+<span id="id3"></span><h2>კონფიგურაცია<a class="headerlink" href="can.html#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="operating-modes">
+<h3>ოპერაციული რეჟიმები<a class="headerlink" href="can.html#operating-modes" title="Permalink to this headline">¶</a></h3>
+<p>CAN დრაივერი მხარს უჭერს ოპერაციის შემდეგ რეჟიმებს:</p>
+<p><strong>ჩვეულებრივი რეჟიმი:</strong> ნორმალური მუშაობის რეჟიმი CAN კონტროლერს საშუალებას აძლევს მონაწილეობა მიიღოს ავტობუსის აქტივობებში, როგორიცაა შეტყობინებების/შეცდომის ჩარჩოების გადაცემა და მიღება. შეტყობინებების ჩარჩოების გადაცემისას საჭიროა სხვა CAN კვანძის დადასტურება.</p>
+<p><strong>დადასტურების რეჟიმის გარეშე:</strong> „დადასტურების გარეშე“ რეჟიმი ჩვეულებრივი რეჟიმის მსგავსია, თუმცა შეტყობინების ჩარჩოების გადაცემისას დადასტურება საჭირო არ არის. ეს რეჟიმი სასარგებლოა CAN კონტროლერის თვითტესტირებისას.</p>
+<p><strong>მხოლოდ მოსმენის რეჟიმი:</strong> ეს რეჟიმი ხელს შეუშლის CAN კონტროლერის მონაწილეობას ავტობუსის აქტივობებში. შესაბამისად, შეტყობინებების/დადასტურების/შეცდომის ჩარჩოების გადაცემა გამორთული იქნება. თუმცა, CAN კონტროლერი მაინც შეძლებს შეტყობინებების მიღებას (დადასტურების გარეშე). ეს რეჟიმი შესაფერისია ისეთი აპლიკაციებისთვის, როგორიცაა CAN ავტობუსის მონიტორინგი.</p>
+</div>
+<div class="section" id="alerts">
+<h3>შეტყობინებები<a class="headerlink" href="can.html#alerts" title="Permalink to this headline">¶</a></h3>
+<p>CAN დრაივერი შეიცავს შეტყობინების ფუნქციას, რომელიც გამოიყენება აპლიკაციის დონისთვის CAN დრაივერის გარკვეული მოვლენების შესახებ შეტყობინებისთვის. შეტყობინებები შერჩევითად აქტიურდება CAN დრაივერის ინსტალაციისას, მაგრამ მათი ხელახლა კონფიგურაცია შესაძლებელია გაშვების დროს გამოძახებით. <a class="reference internal" href="can.html#_CPPv422can_reconfigure_alerts8uint32_tP8uint32_t" title="can_reconfigure_alerts"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_reconfigure_alerts()</span></code></a>შემდეგ აპლიკაციას შეუძლია დაელოდოს ნებისმიერი ჩართული შეტყობინების გამოსვლას ზარით <a class="reference internal" href="can.html#_CPPv415can_read_alertsP8uint32_t10TickType_t" title="can_read_alerts"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_read_alerts()</span></code></a>CAN დრაივერი მხარს უჭერს შემდეგ შეტყობინებებს:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="47%"/>
+<col width="53%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">გაფრთხილება</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_TX_IDLE</span></code></td>
+<td>გადაცემის რიგში აღარ არის შეტყობინებები</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_TX_SUCCESS</span></code></td>
+<td>წინა გადაცემა წარმატებით დასრულდა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_BELOW_ERR_WARN</span></code></td>
+<td>ორივე შეცდომის მრიცხველი შეცდომის გაფრთხილების ზღვარს ქვემოთ დაეცა</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ERR_ACTIVE</span></code></td>
+<td>CAN კონტროლერი შეცდომით გააქტიურდა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_RECOVERY_IN_PROGRESS</span></code></td>
+<td>CAN კონტროლერი ავტობუსის აღდგენის პროცესშია</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_BUS_RECOVERED</span></code></td>
+<td>CAN კონტროლერმა წარმატებით დაასრულა ავტობუსის აღდგენა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ARB_LOST</span></code></td>
+<td>წინა გადაცემამ არბიტრაჟი წააგო</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ABOVE_ERR_WARN</span></code></td>
+<td>ერთ-ერთმა შეცდომის მრიცხველმა გადააჭარბა შეცდომის გაფრთხილების ლიმიტს</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_BUS_ERROR</span></code></td>
+<td>ავტობუსში მოხდა (Bit, Stuff, CRC, Form, ACK) შეცდომა.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_TX_FAILED</span></code></td>
+<td>წინა გადაცემა ჩაიშალა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_RX_QUEUE_FULL</span></code></td>
+<td>RX რიგი სავსეა, რაც მიღებული ჩარჩოს დაკარგვას იწვევს.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ERR_PASS</span></code></td>
+<td>CAN კონტროლერი შეცდომების პასიური გახდა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_ALERT_BUS_OFF</span></code></td>
+<td>მოხდა ავტობუსის გათიშვის მდგომარეობა. CAN კონტროლერს აღარ შეუძლია ავტობუსზე გავლენის მოხდენა.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ის <strong>შეცდომის გაფრთხილების ლიმიტი</strong> შეიძლება გამოყენებულ იქნას ავტობუსის შეცდომების წინასწარ გასაფრთხილებლად, სანამ შეცდომის პასიური მდგომარეობა მიაღწევს. ნაგულისხმევად, CAN დრაივერი აყენებს <strong>შეცდომის გაფრთხილების ლიმიტი</strong> რომ <strong>96</strong>. ის <code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ABOVE_ERR_WARN</span></code> იზრდება, როდესაც TEC ან REC შეცდომის გაფრთხილების ზღვარზე მეტი ან ტოლი ხდება. <code class="docutils literal notranslate"><span class="pre">CAN_ALERT_BELOW_ERR_WARN</span></code> იზრდება, როდესაც TEC-იც და REC-იც უბრუნდება ქვემოთ მოცემულ მნიშვნელობებს <strong>96</strong>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">შეტყობინებების ჩართვისას, <code class="docutils literal notranslate"><span class="pre">CAN_ALERT_AND_LOG</span></code> დროშის გამოყენება შესაძლებელია იმისათვის, რომ CAN დრაივერმა UART-ზე დააფიქსიროს ნებისმიერი გაფრთხილება. <code class="docutils literal notranslate"><span class="pre">CAN_ALERT_ALL</span></code> და <code class="docutils literal notranslate"><span class="pre">CAN_ALERT_NONE</span></code> მაკროების გამოყენება ასევე შესაძლებელია კონფიგურაციის/ხელახალი კონფიგურაციის დროს ყველა შეტყობინების ჩასართავად/გამოსართავად.</p>
+</div>
+</div>
+<div class="section" id="bit-timing">
+<h3>ბიტის დრო<a class="headerlink" href="can.html#bit-timing" title="Permalink to this headline">¶</a></h3>
+<p>CAN კონტროლერის ოპერაციული ბიტური სიჩქარე კონფიგურირებულია შემდეგის გამოყენებით: <a class="reference internal" href="can.html#_CPPv419can_timing_config_t" title="can_timing_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_timing_config_t</span></code></a> სტრუქტურა. თითოეული ბიტის პერიოდი შედგება მრავალი <strong>დროის კვანტები</strong>და პერიოდი <strong>დროის კვანტები</strong> განისაზღვრება CAN კონტროლერის საწყისი საათის წინასწარ მასშტაბირებული ვერსიით. ერთი ბიტი შეიცავს შემდეგ სეგმენტებს შემდეგი თანმიმდევრობით:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ის <strong>სინქრონიზაციის სეგმენტი</strong> შედგება ერთი დროის კვანტისგან</li>
+<li><strong>დროის სეგმენტი 1</strong> შედგება 1-დან 16-მდე დროის კვანტისგან ნიმუშის წერტილამდე</li>
+<li><strong>დროის მე-2 სეგმენტი</strong> შედგება ნიმუშის წერტილის შემდეგ 1-დან 8-მდე დროის კვანტებისგან</li>
+</ol>
+</div></blockquote>
+<p>ის <strong>ბაუდრატის პრესკალერი</strong> გამოიყენება თითოეული დროის კვანტის პერიოდის დასადგენად CAN კონტროლერის წყაროს საათის (80 MHz APB საათი) გაყოფით. <code class="docutils literal notranslate"><span class="pre">brp</span></code> შეიძლება იყოს <strong>ნებისმიერი ლუწი რიცხვი 2-დან 128-მდე</strong>თუ ESP32 არის მე-2 ან უფრო გვიანდელი ჩიპი, <code class="docutils literal notranslate"><span class="pre">brp</span></code> ასევე მხარს დაუჭერს <strong>4-ის ნებისმიერი ჯერადი 132-დან 256-მდე</strong>და მისი ჩართვა შესაძლებელია დაყენებით <a class="reference internal" href="../kconfig.html#config-esp32-rev-min"><span class="std std-ref">CONFIG_ESP32_REV_MIN</span></a> მე-2 ან უფრო მაღალ ვერსიამდე.</p>
+<div class="figure align-center" id="id11">
+<div><img height="155" src="../../_images/packetdiag-264d6ce62e3b5940d8fe4e56087c1c4dc5c2ec36.png" width="928"/></div><p class="caption"><span class="caption-text">ბიტის დროის კონფიგურაცია 500 კბიტ/წმ-ისთვის, BRP = 8-ის გათვალისწინებით</span><a class="headerlink" href="can.html#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>ბიტის ნიმუშის წერტილი მდებარეობს დროის სეგმენტ 1-ისა და 2-ის გადაკვეთაზე. ჩართვა <strong>სამმაგი შერჩევა</strong> გამოიწვევს თითო ბიტზე 1-ის ნაცვლად 3 დროის კვანტის შერჩევას (დამატებითი ნიმუშები განლაგებულია დროის სეგმენტი 1-ის ბოლოში).</p>
+<p>ის <strong>სინქრონიზაციის ნახტომის სიგანე</strong> გამოიყენება სინქრონიზაციის მიზნით, ერთი ბიტით დროის გახანგრძლივების/შემოკლების მაქსიმალური რაოდენობის დასადგენად. <code class="docutils literal notranslate"><span class="pre">sjw</span></code> ქილა <strong>დიაპაზონი 1-დან 4-მდე</strong>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მრავალი კომბინაცია <code class="docutils literal notranslate"><span class="pre">brp</span></code>, <code class="docutils literal notranslate"><span class="pre">tseg_1</span></code>, <code class="docutils literal notranslate"><span class="pre">tseg_2</span></code>და <code class="docutils literal notranslate"><span class="pre">sjw</span></code> იგივე ბიტური სიჩქარის მიღწევა შეუძლია. მომხმარებლებმა ეს მნიშვნელობები უნდა მოარგონ CAN ავტობუსის ფიზიკურ მახასიათებლებს, ისეთი ფაქტორების გათვალისწინებით, როგორიცაა <strong>გავრცელების შეფერხება, კვანძის ინფორმაციის დამუშავების დრო და ფაზის შეცდომები</strong>.</p>
+</div>
+<p>ბიტის დრო <strong>მაკრო ინიციალიზატორები</strong> ასევე ხელმისაწვდომია ხშირად გამოყენებული CAN ავტობუსის ბიტური სიჩქარისთვის. შემდეგი მაკრო ინიციალიზატორები მოწოდებულია CAN დრაივერის მიერ.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_12_5KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_16KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_20KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_25KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_50KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_100KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_125KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_250KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_500KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_800KBITS()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CAN_TIMING_CONFIG_1MBITS()</span></code></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">12.5K, 16K და 20K ბიტური სიჩქარის მაკრო ინიციალიზატორები ხელმისაწვდომია მხოლოდ ESP32 ვერსიის 2 ან უფრო გვიანდელი ვერსიებისთვის.</p>
+</div>
+</div>
+<div class="section" id="acceptance-filter">
+<h3>მიღების ფილტრი<a class="headerlink" href="can.html#acceptance-filter" title="Permalink to this headline">¶</a></h3>
+<p>CAN კონტროლერი შეიცავს აპარატურის მიღების ფილტრს, რომლის გამოყენება შესაძლებელია კონკრეტული ID-ის CAN შეტყობინებების გასაფილტრად. კვანძი, რომელიც ფილტრავს შეტყობინებას. <strong>შეტყობინებას არ მიიღებს, მაგრამ მაინც დაადასტურებს</strong>მიღების ფილტრებს შეუძლიათ კვანძის ეფექტურობა გაზარდონ CAN ავტობუსით გაგზავნილი შეტყობინებების გაფილტვრით, რომლებიც არ არის შესაბამისი CAN კვანძისთვის. CAN კონტროლერის მიღების ფილტრი კონფიგურირებულია ორი 32-ბიტიანი მნიშვნელობის გამოყენებით. <a class="reference internal" href="can.html#_CPPv419can_filter_config_t" title="can_filter_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_filter_config_t</span></code></a> ცნობილი როგორც <strong>მიღების კოდი</strong> და <strong>მიღების ნიღაბი</strong>.</p>
+<p>ის <strong>მიღების კოდი</strong> განსაზღვრავს ბიტების თანმიმდევრობას, რომელსაც შეტყობინების ID, RTR და მონაცემთა ბაიტები უნდა ემთხვეოდეს, რათა შეტყობინება CAN კონტროლერმა მიიღოს. <strong>მიღების ნიღაბი</strong> არის ბიტების თანმიმდევრობა, რომელიც განსაზღვრავს მიღების კოდის რომელი ბიტების იგნორირებაა შესაძლებელი. ეს საშუალებას იძლევა, სხვადასხვა ID-ების მქონე შეტყობინებები ერთი მიღების კოდით იქნას მიღებული.</p>
+<p>მიღების ფილტრის გამოყენება შესაძლებელია შემდეგნაირად: <strong>ერთჯერადი ან ორმაგი ფილტრის რეჟიმი</strong>ერთი ფილტრის რეჟიმი გამოიყენებს მიღების კოდს და ნიღაბს ერთი ფილტრის დასადგენად. ეს საშუალებას იძლევა გაფილტრული იქნას სტანდარტული ჩარჩოს პირველი ორი მონაცემთა ბაიტი ან გაფართოებული ჩარჩოს 29-ბიტიანი ID-ის მთლიანობა. შემდეგი დიაგრამა ასახავს, თუ როგორ იქნება ინტერპრეტირებული 32-ბიტიანი მიღების კოდი და ნიღაბი ერთი ფილტრის რეჟიმში (შენიშვნა: ყვითელი და ლურჯი ველები შესაბამისად წარმოადგენს სტანდარტულ და გაფართოებულ CAN ჩარჩოებს).</p>
+<div class="figure align-center" id="id12">
+<div><img height="190" src="../../_images/packetdiag-117e79378d15c5fb2cf97e29f2c59fbcd88760dc.png" width="1088"/></div><p class="caption"><span class="caption-text">ერთი ფილტრის რეჟიმის ბიტების განლაგება (მარჯვენა მხარე MSBit)</span><a class="headerlink" href="can.html#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p><strong>ორმაგი ფილტრის რეჟიმი</strong> გამოიყენებს მიღების კოდს და ნიღაბს ორი ცალკეული ფილტრის დასადგენად, რაც გაზრდის ID-ების მიღების მოქნილობას, მაგრამ არ იძლევა გაფართოებული ID-ის ყველა 29-ბიტიანი ფილტრაციის საშუალებას. შემდეგი დიაგრამა ასახავს, თუ როგორ იქნება ინტერპრეტირებული 32-ბიტიანი მიღების კოდი და ნიღაბი. <strong>ორმაგი ფილტრის რეჟიმი</strong> (შენიშვნა: ყვითელი და ლურჯი ველები შესაბამისად წარმოადგენს სტანდარტულ და გაფართოებულ CAN ჩარჩოებს).</p>
+<div class="figure align-center" id="id13">
+<div><img height="190" src="../../_images/packetdiag-3af0649128b63028a2c309525e7dc995fc7e9698.png" width="1088"/></div><p class="caption"><span class="caption-text">ორმაგი ფილტრის რეჟიმის ბიტების განლაგება (მარჯვენა მხარე MSBit)</span><a class="headerlink" href="can.html#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="disabling-tx-queue">
+<h3>TX რიგის გამორთვა<a class="headerlink" href="can.html#disabling-tx-queue" title="Permalink to this headline">¶</a></h3>
+<p>კონფიგურაციის დროს TX რიგის გამორთვა შესაძლებელია შემდეგი პარამეტრების დაყენებით: <code class="docutils literal notranslate"><span class="pre">tx_queue_len</span></code> წევრი <a class="reference internal" href="can.html#_CPPv420can_general_config_t" title="can_general_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_general_config_t</span></code></a> რომ <code class="docutils literal notranslate"><span class="pre">0</span></code>ეს საშუალებას მისცემს აპლიკაციებს, რომლებსაც არ სჭირდებათ შეტყობინებების გადაცემა, დაზოგონ მეხსიერების მცირე რაოდენობა CAN დრაივერის გამოყენებისას.</p>
+</div>
+</div>
+<div class="section" id="driver-operation">
+<span id="id4"></span><h2>მძღოლის ოპერაცია<a class="headerlink" href="can.html#driver-operation" title="Permalink to this headline">¶</a></h2>
+<p>CAN დრაივერი შექმნილია განსხვავებული მდგომარეობებით და მკაცრი წესებით იმ ფუნქციების ან პირობების შესახებ, რომლებიც მდგომარეობის გადასვლას იწვევს. შემდეგი დიაგრამა ასახავს სხვადასხვა მდგომარეობებს და მათ გადასვლებს.</p>
+<div class="figure align-center" id="id14">
+<div><img height="280" src="../../_images/blockdiag-ba6d016828f4ed968ed275f17e009cf3e11a1e8f.png" width="940"/></div><p class="caption"><span class="caption-text">CAN დრაივერის მდგომარეობის გადასვლის დიაგრამა (იხილეთ ქვემოთ მოცემული ცხრილი)</span><a class="headerlink" href="can.html#id14" title="Permalink to this image">¶</a></p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%"/>
+<col width="36%"/>
+<col width="54%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ეტიკეტი</th>
+<th class="head">გადასვლა</th>
+<th class="head">მოქმედება/პირობა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ა</td>
+<td>დეინსტალაცია -&amp;gt; შეჩერებულია</td>
+<td><a class="reference internal" href="can.html#_CPPv418can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t" title="can_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_driver_install()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>ბ</td>
+<td>შეჩერებულია -&amp;gt; დეინსტალირებულია</td>
+<td><a class="reference internal" href="can.html#_CPPv420can_driver_uninstallv" title="can_driver_uninstall"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_driver_uninstall()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>C</td>
+<td>გაჩერდა -&amp;gt; მუშაობს</td>
+<td><a class="reference internal" href="can.html#_CPPv49can_startv" title="can_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_start()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>დ</td>
+<td>გაშვებული -&amp;gt; შეჩერებულია</td>
+<td><a class="reference internal" href="can.html#_CPPv48can_stopv" title="can_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_stop()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>E</td>
+<td>სირბილი -&amp;gt; ავტობუსით გასვლა</td>
+<td>გადაცემის შეცდომის მრიცხველი &amp;gt;= 256</td>
+</tr>
+<tr class="row-odd"><td>ფ</td>
+<td>ავტობუსის გამორთვა -&amp;gt; დეინსტალაცია</td>
+<td><a class="reference internal" href="can.html#_CPPv420can_driver_uninstallv" title="can_driver_uninstall"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_driver_uninstall()</span></code></a></td>
+</tr>
+<tr class="row-even"><td>გ</td>
+<td>ავტობუსიდან გასვლა -&amp;gt; აღდგენა</td>
+<td><a class="reference internal" href="can.html#_CPPv421can_initiate_recoveryv" title="can_initiate_recovery"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_initiate_recovery()</span></code></a></td>
+</tr>
+<tr class="row-odd"><td>ჰ</td>
+<td>აღდგენა -&amp;gt; შეჩერებულია</td>
+<td>ავტობუსის გარეშე სიგნალის 128 შემთხვევა</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="driver-states">
+<h3>მძღოლის შტატები<a class="headerlink" href="can.html#driver-states" title="Permalink to this headline">¶</a></h3>
+<p><strong>დეინსტალაცია</strong>დეინსტალაციის მდგომარეობაში, დრაივერისთვის მეხსიერება არ არის გამოყოფილი და CAN კონტროლერი გამორთულია.</p>
+<p><strong>შეჩერებულია</strong>ამ მდგომარეობაში, CAN კონტროლერი ჩართულია და CAN დრაივერი დაინსტალირებულია. თუმცა, CAN კონტროლერი ვერ შეძლებს მონაწილეობას CAN ავტობუსის არცერთ აქტივობაში, როგორიცაა შეტყობინებების გადაცემა, მიღება ან დადასტურება.</p>
+<p><strong>სირბილი</strong>გაშვებული მდგომარეობისას, CAN კონტროლერს შეუძლია მონაწილეობა მიიღოს ავტობუსის აქტივობებში. შესაბამისად, შესაძლებელია შეტყობინებების გადაცემა/მიღება/დადასტურება. გარდა ამისა, CAN კონტროლერს შეეძლება შეცდომის ჩარჩოების გადაცემა CAN ავტობუსზე შეცდომების აღმოჩენის შემთხვევაში.</p>
+<p><strong>ავტობუსის გასვლა</strong>ავტობუსის გათიშვის მდგომარეობა ავტომატურად შედის, როდესაც CAN კონტროლერის გადაცემის შეცდომების მრიცხველი 256-ზე მეტი ან ტოლი ხდება (იხილეთ CAN2.0B სპეციფიკაცია შეცდომების მრიცხველის წესების შესახებ). ავტობუსის გათიშვის მდგომარეობა მიუთითებს CAN ავტობუსზე ან CAN კონტროლერში სერიოზული შეცდომების არსებობაზე. ავტობუსის გათიშვის მდგომარეობაში ყოფნისას, CAN კონტროლერი ვერ შეძლებს მონაწილეობას CAN ავტობუსის არცერთ აქტივობაში. ავტობუსის გათიშვის მდგომარეობიდან გამოსასვლელად, CAN კონტროლერმა უნდა გაიაროს ავტობუსის აღდგენის პროცესი.</p>
+<p><strong>გამოჯანმრთელების პროცესში</strong>აღდგენის მდგომარეობაში შეყვანა ხდება მაშინ, როდესაც CAN დრაივერი ავტობუსის აღდგენას გადის. CAN დრაივერი/კონტროლერი აღდგენის მდგომარეობაში დარჩება მანამ, სანამ CAN ავტობუსზე ავტობუსისგან თავისუფალი სიგნალის 128-ჯერ (იხილეთ CAN2.0B სპეციფიკაცია) არ დაფიქსირდება.</p>
+</div>
+<div class="section" id="message-flags">
+<h3>შეტყობინების დროშები<a class="headerlink" href="can.html#message-flags" title="Permalink to this headline">¶</a></h3>
+<p>CAN დრაივერი განასხვავებს CAN შეტყობინებების სხვადასხვა ტიპს მისი სხვადასხვა ბიტური ველის წევრების გამოყენებით. <a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_message_t</span></code></a> სტრუქტურა. ეს ბიტური ველის წევრები გვეხმარება განვსაზღვროთ, არის თუ არა შეტყობინება სტანდარტული თუ გაფართოებული ფორმატით, RTR და ასეთი შეტყობინების გადაცემისას გამოსაყენებელი გადაცემის ტიპი. ამ ბიტური ველის წევრების გადართვა ასევე შესაძლებელია <cite>flags</cite> წევრი <a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_message_t</span></code></a> და შემდეგი შეტყობინებების დროშები:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%"/>
+<col width="60%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">დროშა</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_EXTD</span></code></td>
+<td>შეტყობინება გაფართოებული ჩარჩოს ფორმატშია (29 ბიტიანი ID)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_RTR</span></code></td>
+<td>შეტყობინება დისტანციური გადაცემის მოთხოვნაა</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_SS</span></code></td>
+<td>შეტყობინების გადაცემა ერთჯერადი გადაცემის გამოყენებით (შეცდომის ან არბიტრაჟის დაკარგვის შემთხვევაში შეტყობინება ხელახლა არ გადაიცემა). მიღებული შეტყობინებისთვის არ გამოიყენება.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_SELF</span></code></td>
+<td>შეტყობინების გადაცემა თვითმიღების მოთხოვნის გამოყენებით (გადაცემულ შეტყობინებას იგივე კვანძი მიიღებს). მიღებული შეტყობინებისთვის არ გამოიყენება.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_DLC_NON_COMP</span></code></td>
+<td>შეტყობინების მონაცემთა სიგრძის კოდი 8-ზე მეტია. ეს დაარღვევს CAN2.0B-თან შესაბამისობას.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">CAN_MSG_FLAG_NONE</span></code></td>
+<td>ასუფთავებს ყველა ბიტურ ველს. სტანდარტული ჩარჩოს ფორმატის (11 ბიტიანი ID) მონაცემთა ჩარჩოს ექვივალენტურია.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="examples">
+<span id="id5"></span><h2>მაგალითები<a class="headerlink" href="can.html#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration-installation">
+<h3>კონფიგურაცია და ინსტალაცია<a class="headerlink" href="can.html#configuration-installation" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი კოდის ფრაგმენტი აჩვენებს, თუ როგორ უნდა დააკონფიგურიროთ, დააინსტალიროთ და გაუშვათ CAN დრაივერი სხვადასხვა კონფიგურაციის სტრუქტურების, მაკრო ინიციალიზატორების და <a class="reference internal" href="can.html#_CPPv418can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t" title="can_driver_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_driver_install()</span></code></a> ფუნქცია და <a class="reference internal" href="can.html#_CPPv49can_startv" title="can_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_start()</span></code></a> ფუნქცია.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/gpio.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"driver/can.h"</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//Initialize configuration structures using macro initializers</span>
+    <span class="n">can_general_config_t</span> <span class="n">g_config</span> <span class="o">=</span> <span class="n">CAN_GENERAL_CONFIG_DEFAULT</span><span class="p">(</span><span class="n">GPIO_NUM_21</span><span class="p">,</span> <span class="n">GPIO_NUM_22</span><span class="p">,</span> <span class="n">CAN_MODE_NORMAL</span><span class="p">);</span>
+    <span class="n">can_timing_config_t</span> <span class="n">t_config</span> <span class="o">=</span> <span class="n">CAN_TIMING_CONFIG_500KBITS</span><span class="p">();</span>
+    <span class="n">can_filter_config_t</span> <span class="n">f_config</span> <span class="o">=</span> <span class="n">CAN_FILTER_CONFIG_ACCEPT_ALL</span><span class="p">();</span>
+
+    <span class="c1">//Install CAN driver</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">can_driver_install</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_config</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t_config</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_config</span><span class="p">)</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Driver installed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to install driver</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">//Start CAN driver</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">can_start</span><span class="p">()</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Driver started</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to start driver</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">...</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>მაკრო ინიციალიზატორების გამოყენება სავალდებულო არ არის და თითოეული კონფიგურაციის სტრუქტურა შეიძლება ხელით შეიცვალოს.</p>
+</div>
+<div class="section" id="message-transmission">
+<h3>შეტყობინების გადაცემა<a class="headerlink" href="can.html#message-transmission" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი კოდის ფრაგმენტი აჩვენებს, თუ როგორ უნდა გადაიტანოთ შეტყობინება შემდეგი ფუნქციის გამოყენებით: <a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_message_t</span></code></a> ტიპი და <a class="reference internal" href="can.html#_CPPv412can_transmitPK13can_message_t10TickType_t" title="can_transmit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_transmit()</span></code></a> ფუნქცია.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/can.h"</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+<span class="c1">//Configure message to transmit</span>
+<span class="n">can_message_t</span> <span class="n">message</span><span class="p">;</span>
+<span class="n">message</span><span class="p">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="mh">0xAAAA</span><span class="p">;</span>
+<span class="n">message</span><span class="p">.</span><span class="n">extd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">message</span><span class="p">.</span><span class="n">data_length_code</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">message</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Queue message for transmission</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">can_transmit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">message</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Message queued for transmission</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to queue message for transmission</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="message-reception">
+<h3>შეტყობინების მიღება<a class="headerlink" href="can.html#message-reception" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი კოდის ფრაგმენტი აჩვენებს, თუ როგორ მიიღოთ შეტყობინება შემდეგი ფუნქციის გამოყენებით: <a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_message_t</span></code></a> ტიპი და <a class="reference internal" href="can.html#_CPPv411can_receiveP13can_message_t10TickType_t" title="can_receive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_receive()</span></code></a> ფუნქცია.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/can.h"</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+<span class="c1">//Wait for message to be received</span>
+<span class="n">can_message_t</span> <span class="n">message</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">can_receive</span><span class="p">(</span><span class="o">&amp;</span><span class="n">message</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Message received</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to receive message</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Process received message</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">extd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Message is in Extended Format</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Message is in Standard Format</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"ID is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">message</span><span class="p">.</span><span class="n">identifier</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">rtr</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">message</span><span class="p">.</span><span class="n">data_length_code</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Data byte %d = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">message</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reconfiguring-and-reading-alerts">
+<h3>შეტყობინებების ხელახლა კონფიგურაცია და წაკითხვა<a class="headerlink" href="can.html#reconfiguring-and-reading-alerts" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი კოდის ფრაგმენტი აჩვენებს, თუ როგორ უნდა მოხდეს CAN დრაივერის შეტყობინებების ხელახლა კონფიგურაცია და წაკითხვა შემდეგი ფუნქციის გამოყენებით: <a class="reference internal" href="can.html#_CPPv422can_reconfigure_alerts8uint32_tP8uint32_t" title="can_reconfigure_alerts"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_reconfigure_alerts()</span></code></a> და <a class="reference internal" href="can.html#_CPPv415can_read_alertsP8uint32_t10TickType_t" title="can_read_alerts"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_read_alerts()</span></code></a> ფუნქციები.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/can.h"</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+<span class="c1">//Reconfigure alerts to detect Error Passive and Bus-Off error states</span>
+<span class="kt">uint32_t</span> <span class="n">alerts_to_enable</span> <span class="o">=</span> <span class="n">CAN_ALERT_ERR_PASS</span> <span class="o">|</span> <span class="n">CAN_ALERT_BUS_OFF</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">can_reconfigure_alerts</span><span class="p">(</span><span class="n">alerts_to_enable</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Alerts reconfigured</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to reconfigure alerts"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//Block indefinitely until an alert occurs</span>
+<span class="kt">uint32_t</span> <span class="n">alerts_triggered</span><span class="p">;</span>
+<span class="n">can_read_alerts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">alerts_triggered</span><span class="p">,</span> <span class="n">portMAX_DELAY</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-and-uninstall">
+<h3>შეჩერება და დეინსტალაცია<a class="headerlink" href="can.html#stop-and-uninstall" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი კოდი აჩვენებს, თუ როგორ უნდა შეწყვიტოთ და წაშალოთ CAN დრაივერი შემდეგი ბრძანების გამოყენებით: <a class="reference internal" href="can.html#_CPPv48can_stopv" title="can_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_stop()</span></code></a> და <a class="reference internal" href="can.html#_CPPv420can_driver_uninstallv" title="can_driver_uninstall"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">can_driver_uninstall()</span></code></a> ფუნქციები.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"driver/can.h"</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+<span class="c1">//Stop the CAN driver</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">can_stop</span><span class="p">()</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Driver stopped</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to stop driver</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Uninstall the CAN driver</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">can_driver_uninstall</span><span class="p">()</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Driver uninstalled</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to uninstall driver</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-id-filter-configuration">
+<h3>მრავალი ID ფილტრის კონფიგურაცია<a class="headerlink" href="can.html#multiple-id-filter-configuration" title="Permalink to this headline">¶</a></h3>
+<p>მიღების ნიღაბი <a class="reference internal" href="can.html#_CPPv419can_filter_config_t" title="can_filter_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">can_filter_config_t</span></code></a> შესაძლებელია კონფიგურაცია ისე, რომ ერთი ფილტრისთვის მიღებული იყოს ორი ან მეტი ID. იმისათვის, რომ კონკრეტულმა ფილტრმა მიიღოს მრავალი ID, ID-ებს შორის კონფლიქტური ბიტების პოზიციები უნდა იყოს დაყენებული მიღების ნიღაბში. მიღების კოდის დაყენება შესაძლებელია ნებისმიერი ID-სთვის.</p>
+<p>შემდეგი მაგალითი გვიჩვენებს, თუ როგორ გამოითვლება მიღების ნიღაბი მრავალი ID-ის გათვალისწინებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ID1</span> <span class="o">=</span>  <span class="mi">11</span><span class="s1">'b101 1010 0000</span>
+<span class="n">ID2</span> <span class="o">=</span>  <span class="mi">11</span><span class="s1">'b101 1010 0001</span>
+<span class="n">ID3</span> <span class="o">=</span>  <span class="mi">11</span><span class="s1">'b101 1010 0100</span>
+<span class="n">ID4</span> <span class="o">=</span>  <span class="mi">11</span><span class="s1">'b101 1010 1000</span>
+<span class="o">//</span><span class="n">Acceptance</span> <span class="n">Mask</span>
+<span class="n">MASK</span> <span class="o">=</span> <span class="mi">11</span><span class="s1">'b000 0000 1101</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-examples">
+<h3>გამოყენების მაგალითები<a class="headerlink" href="can.html#application-examples" title="Permalink to this headline">¶</a></h3>
+<p><strong>ქსელის მაგალითი:</strong> CAN ქსელის მაგალითი აჩვენებს ორ ESP32-ს შორის კომუნიკაციას CAN დრაივერის API გამოყენებით. ერთი CAN კვანძი მოქმედებს როგორც ქსელის მთავარი კვანძი, რომელიც იწყებს და წყვეტს მონაცემების გადაცემას სხვა CAN კვანძიდან, რომელიც მოქმედებს როგორც ქსელის მონის კვანძი. მაგალითის პოვნა შესაძლებელია შემდეგნაირად: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/can/can_network">პერიფერიული მოწყობილობები/can/can_network</a>.</p>
+<p><strong>განგაშისა და აღდგენის მაგალითი:</strong> ეს მაგალითი აჩვენებს, თუ როგორ გამოვიყენოთ CAN დრაივერის განგაში და ავტობუსის აღდგენის API . მაგალითი განზრახ შეაქვს შეცდომები CAN ავტობუსში, რათა CAN კონტროლერი ავტობუსის გამორთვის მდგომარეობაში გადაიყვანოს. განგაში გამოიყენება ავტობუსის გამორთვის მდგომარეობის დასადგენად და ავტობუსის აღდგენის პროცესის გასააქტიურებლად. მაგალითის პოვნა შესაძლებელია შემდეგნაირად: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/can/can_alert_and_recovery">პერიფერიული მოწყობილობები/can/can_alert_and_recovery</a>.</p>
+<p><strong>თვითტესტირების მაგალითი:</strong> ეს მაგალითი იყენებს No Acknowledge რეჟიმს და Self Receiving Request-ს, რათა CAN კონტროლერმა გაგზავნოს და ერთდროულად მიიღოს შეტყობინებების სერია. ეს მაგალითი შეიძლება გამოყენებულ იქნას იმის შესამოწმებლად, სწორად მუშაობს თუ არა კავშირები CAN კონტროლერსა და გარე გადამცემ-მიმღებს შორის. მაგალითის პოვნა შესაძლებელია შემდეგნაირად: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/can/can_self_test">პერიფერიული მოწყობილობები/შეუძლია/შეუძლია თვითტესტირება</a>.</p>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="can.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="can.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/soc/include/hal/can_types.h">soc/include/hal/can_types.h</a></li>
+</ul>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="can.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv413can_message_t">
+<span id="_CPPv313can_message_t"></span><span id="_CPPv213can_message_t"></span><span id="can_message_t"></span><span class="target" id="structcan__message__t"></span><em class="property">სტრუქტურა </em><code class="descname">can_message_t</code><a class="headerlink" href="can.html#_CPPv413can_message_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN შეტყობინების შესანახი სტრუქტურა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd></dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The flags member is deprecated </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t4extdE">
+<span id="_CPPv3N13can_message_t4extdE"></span><span id="_CPPv2N13can_message_t4extdE"></span><span id="can_message_t::extd__uint32_t"></span><span class="target" id="structcan__message__t_1a873a6fb3688bfad00dd42a629dd08ad1"></span>uint32_t <code class="descname">extd</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t4extdE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაფართოებული ჩარჩოს ფორმატი (29 ბიტიანი ID) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t3rtrE">
+<span id="_CPPv3N13can_message_t3rtrE"></span><span id="_CPPv2N13can_message_t3rtrE"></span><span id="can_message_t::rtr__uint32_t"></span><span class="target" id="structcan__message__t_1a2535cc52d099268ad1ec48498473f2eb"></span>uint32_t <code class="descname">rtr</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t3rtrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინება დისტანციური გადაცემის მოთხოვნაა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t2ssE">
+<span id="_CPPv3N13can_message_t2ssE"></span><span id="_CPPv2N13can_message_t2ssE"></span><span id="can_message_t::ss__uint32_t"></span><span class="target" id="structcan__message__t_1a139f96177d664db87994819505b76652"></span>uint32_t <code class="descname">ss</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t2ssE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემა ერთჯერადი გადაცემის სახით. მიღებისთვის არ გამოიყენება. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t4selfE">
+<span id="_CPPv3N13can_message_t4selfE"></span><span id="_CPPv2N13can_message_t4selfE"></span><span id="can_message_t::self__uint32_t"></span><span class="target" id="structcan__message__t_1ae2f72f53d378ac8812c4692cfc5e8da1"></span>uint32_t <code class="descname">self</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t4selfE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თვითმიღების მოთხოვნის სახით გადაცემა. მიღებულისთვის არ გამოიყენება. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t12dlc_non_compE">
+<span id="_CPPv3N13can_message_t12dlc_non_compE"></span><span id="_CPPv2N13can_message_t12dlc_non_compE"></span><span id="can_message_t::dlc_non_comp__uint32_t"></span><span class="target" id="structcan__message__t_1ae9fd8ccf3bbcf5f57a24878637bce366"></span>uint32_t <code class="descname">dlc_non_comp</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t12dlc_non_compE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინების მონაცემთა სიგრძის კოდი 8-ზე მეტია. ეს დაარღვევს CAN2.0B-თან შესაბამისობას. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t8reservedE">
+<span id="_CPPv3N13can_message_t8reservedE"></span><span id="_CPPv2N13can_message_t8reservedE"></span><span id="can_message_t::reserved__uint32_t"></span><span class="target" id="structcan__message__t_1aa54892a0fb8f8312b3827512affd5878"></span>uint32_t <code class="descname">reserved</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t8reservedE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაჯავშნილი ბიტები </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t5flagsE">
+<span id="_CPPv3N13can_message_t5flagsE"></span><span id="_CPPv2N13can_message_t5flagsE"></span><span id="can_message_t::flags__uint32_t"></span><span class="target" id="structcan__message__t_1a76bf3e04a7f145c74bd85110061af1a6"></span>uint32_t <code class="descname">flags</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t5flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინების დროშის მაკროების გამოყენებით შეტყობინების დროშის დაყენების ალტერნატიული გზა (იხილეთ დოკუმენტაცია) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t10identifierE">
+<span id="_CPPv3N13can_message_t10identifierE"></span><span id="_CPPv2N13can_message_t10identifierE"></span><span id="can_message_t::identifier__uint32_t"></span><span class="target" id="structcan__message__t_1a8bfc6352f104c72e3d88c83c7d353519"></span>uint32_t <code class="descname">identifier</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t10identifierE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>11 ან 29 ბიტიანი იდენტიფიკატორი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t16data_length_codeE">
+<span id="_CPPv3N13can_message_t16data_length_codeE"></span><span id="_CPPv2N13can_message_t16data_length_codeE"></span><span id="can_message_t::data_length_code__uint8_t"></span><span class="target" id="structcan__message__t_1a4cad34a22b2e65b3826f0c88da41606f"></span>uint8_t <code class="descname">data_length_code</code><a class="headerlink" href="can.html#_CPPv4N13can_message_t16data_length_codeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემთა სიგრძის კოდი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N13can_message_t4dataE">
+<span id="_CPPv3N13can_message_t4dataE"></span><span id="_CPPv2N13can_message_t4dataE"></span><span id="can_message_t::data__uint8_tA"></span><span class="target" id="structcan__message__t_1aeed0536dbb2208bfccb41198d4634d0f"></span>uint8_t <code class="descname">data</code>[<code class="descname">CAN_FRAME_MAX_DLC</code>]<a class="headerlink" href="can.html#_CPPv4N13can_message_t4dataE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემთა ბაიტები (RTR ჩარჩოში არ არის რელევანტური) </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv419can_timing_config_t">
+<span id="_CPPv319can_timing_config_t"></span><span id="_CPPv219can_timing_config_t"></span><span id="can_timing_config_t"></span><span class="target" id="structcan__timing__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">can_timing_config_t</code><a class="headerlink" href="can.html#_CPPv419can_timing_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის ბიტური დროის კონფიგურაციის სტრუქტურა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Macro initializers are available for this structure </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N19can_timing_config_t3brpE">
+<span id="_CPPv3N19can_timing_config_t3brpE"></span><span id="_CPPv2N19can_timing_config_t3brpE"></span><span id="can_timing_config_t::brp__uint32_t"></span><span class="target" id="structcan__timing__config__t_1a82b1870f4bb95d66645b66080d3a5570"></span>uint32_t <code class="descname">brp</code><a class="headerlink" href="can.html#_CPPv4N19can_timing_config_t3brpE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბაუდრაიტის წინასწარი სკალერი (ანუ APB საათის გამყოფი) შეიძლება იყოს ნებისმიერი ლუწი რიცხვი 2-დან 128-მდე. ESP32 Rev 2-ის ან უფრო გვიანდელი ვერსიისთვის, ასევე მხარდაჭერილია 4-ის ჯერადები 132-დან 256-მდე. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_timing_config_t6tseg_1E">
+<span id="_CPPv3N19can_timing_config_t6tseg_1E"></span><span id="_CPPv2N19can_timing_config_t6tseg_1E"></span><span id="can_timing_config_t::tseg_1__uint8_t"></span><span class="target" id="structcan__timing__config__t_1a7e50caca26109e86fd6fa3815330fb9e"></span>uint8_t <code class="descname">tseg_1</code><a class="headerlink" href="can.html#_CPPv4N19can_timing_config_t6tseg_1E" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დროის სეგმენტი 1 (დროის კვანტების რაოდენობა, 1-დან 16-მდე) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_timing_config_t6tseg_2E">
+<span id="_CPPv3N19can_timing_config_t6tseg_2E"></span><span id="_CPPv2N19can_timing_config_t6tseg_2E"></span><span id="can_timing_config_t::tseg_2__uint8_t"></span><span class="target" id="structcan__timing__config__t_1a8aa2748ec79b3ea9f57488917a0758cf"></span>uint8_t <code class="descname">tseg_2</code><a class="headerlink" href="can.html#_CPPv4N19can_timing_config_t6tseg_2E" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დროის სეგმენტი 2 (დროის კვანტების რაოდენობა, 1-დან 8-მდე) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_timing_config_t3sjwE">
+<span id="_CPPv3N19can_timing_config_t3sjwE"></span><span id="_CPPv2N19can_timing_config_t3sjwE"></span><span id="can_timing_config_t::sjw__uint8_t"></span><span class="target" id="structcan__timing__config__t_1a2c1b59e1cd04c281587783b227b510fe"></span>uint8_t <code class="descname">sjw</code><a class="headerlink" href="can.html#_CPPv4N19can_timing_config_t3sjwE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სინქრონიზაციის ნახტომის სიგანე (სინქრონიზაციისთვის მაქსიმალური დრო 1-დან 4-მდე კვანტური ნახტომისთვის) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_timing_config_t15triple_samplingE">
+<span id="_CPPv3N19can_timing_config_t15triple_samplingE"></span><span id="_CPPv2N19can_timing_config_t15triple_samplingE"></span><span id="can_timing_config_t::triple_sampling__b"></span><span class="target" id="structcan__timing__config__t_1a30cea67001a6358236a35034eddb54e1"></span>bool <code class="descname">triple_sampling</code><a class="headerlink" href="can.html#_CPPv4N19can_timing_config_t15triple_samplingE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რთავს სამმაგ შერჩევას, როდესაც CAN კონტროლერი იღებს მცირე ნიმუშებს. </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv419can_filter_config_t">
+<span id="_CPPv319can_filter_config_t"></span><span id="_CPPv219can_filter_config_t"></span><span id="can_filter_config_t"></span><span class="target" id="structcan__filter__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">can_filter_config_t</code><a class="headerlink" href="can.html#_CPPv419can_filter_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის მიღების ფილტრის კონფიგურაციის სტრუქტურა (იხილეთ დოკუმენტაცია) </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Macro initializers are available for this structure </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N19can_filter_config_t15acceptance_codeE">
+<span id="_CPPv3N19can_filter_config_t15acceptance_codeE"></span><span id="_CPPv2N19can_filter_config_t15acceptance_codeE"></span><span id="can_filter_config_t::acceptance_code__uint32_t"></span><span class="target" id="structcan__filter__config__t_1a35fe86479cc30b0e2318bbad67c9f40b"></span>uint32_t <code class="descname">acceptance_code</code><a class="headerlink" href="can.html#_CPPv4N19can_filter_config_t15acceptance_codeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>32-ბიტიანი მიღების კოდი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_filter_config_t15acceptance_maskE">
+<span id="_CPPv3N19can_filter_config_t15acceptance_maskE"></span><span id="_CPPv2N19can_filter_config_t15acceptance_maskE"></span><span id="can_filter_config_t::acceptance_mask__uint32_t"></span><span class="target" id="structcan__filter__config__t_1afe5376816a38d159ff13112ac2c533c7"></span>uint32_t <code class="descname">acceptance_mask</code><a class="headerlink" href="can.html#_CPPv4N19can_filter_config_t15acceptance_maskE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>32-ბიტიანი მიღების ნიღაბი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19can_filter_config_t13single_filterE">
+<span id="_CPPv3N19can_filter_config_t13single_filterE"></span><span id="_CPPv2N19can_filter_config_t13single_filterE"></span><span id="can_filter_config_t::single_filter__b"></span><span class="target" id="structcan__filter__config__t_1a4d2f448eb0158773d07a26f8e4473b2e"></span>bool <code class="descname">single_filter</code><a class="headerlink" href="can.html#_CPPv4N19can_filter_config_t13single_filterE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიყენეთ ერთი ფილტრის რეჟიმი (იხილეთ დოკუმენტაცია) </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="can.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.CAN_EXTD_ID_MASK">
+<span class="target" id="can__types_8h_1a552ae3e96a25c72aab07689575591bc2"></span><code class="descname">CAN_EXTD_ID_MASK</code><a class="headerlink" href="can.html#c.CAN_EXTD_ID_MASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>CAN2.0B კონსტანტები. </p>
+<p>ბიტის ნიღაბი 29 ბიტიანი გაფართოებული ჩარჩოს ფორმატის ID-სთვის </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.CAN_STD_ID_MASK">
+<span class="target" id="can__types_8h_1a4cd8ce34887b90baeeaa6a4aa048b398"></span><code class="descname">CAN_STD_ID_MASK</code><a class="headerlink" href="can.html#c.CAN_STD_ID_MASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>ბიტური ნიღაბი 11 ბიტიანი სტანდარტული ჩარჩოს ფორმატის ID-სთვის </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.CAN_FRAME_MAX_DLC">
+<span class="target" id="can__types_8h_1a8b1cf634d1a03237353f734b46f2af23"></span><code class="descname">CAN_FRAME_MAX_DLC</code><a class="headerlink" href="can.html#c.CAN_FRAME_MAX_DLC" title="Permalink to this definition">¶</a></dt>
+<dd><p>CAN2.0-ში დაშვებული მონაცემთა ბაიტების მაქსიმალური რაოდენობა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.CAN_FRAME_EXTD_ID_LEN_BYTES">
+<span class="target" id="can__types_8h_1ac74c6740e89ea482cb55720101bd3a80"></span><code class="descname">CAN_FRAME_EXTD_ID_LEN_BYTES</code><a class="headerlink" href="can.html#c.CAN_FRAME_EXTD_ID_LEN_BYTES" title="Permalink to this definition">¶</a></dt>
+<dd><p>EFF ID-ს სჭირდება 4 ბაიტი (29 ბიტი) </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.CAN_FRAME_STD_ID_LEN_BYTES">
+<span class="target" id="can__types_8h_1a275d80cdb50a3d5d958419f8a2fd9567"></span><code class="descname">CAN_FRAME_STD_ID_LEN_BYTES</code><a class="headerlink" href="can.html#c.CAN_FRAME_STD_ID_LEN_BYTES" title="Permalink to this definition">¶</a></dt>
+<dd><p>SFF ID-ს სჭირდება 2 ბაიტი (11 ბიტი) </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.CAN_ERR_PASS_THRESH">
+<span class="target" id="can__types_8h_1a99167cc62b7f0c1fab3bf9ee707037f3"></span><code class="descname">CAN_ERR_PASS_THRESH</code><a class="headerlink" href="can.html#c.CAN_ERR_PASS_THRESH" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომის პასიურობისთვის შეცდომის მრიცხველის ზღვარი </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="can.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv410can_mode_t">
+<span id="_CPPv310can_mode_t"></span><span id="_CPPv210can_mode_t"></span><span id="can_mode_t"></span><span class="target" id="can__types_8h_1ad6f5bfd4c152b830a94c2066e9c81710"></span><em class="property">ჩამოთვლა </em><code class="descname">can_mode_t</code><a class="headerlink" href="can.html#_CPPv410can_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN კონტროლერის მუშაობის რეჟიმები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv415CAN_MODE_NORMAL">
+<span id="_CPPv315CAN_MODE_NORMAL"></span><span id="_CPPv215CAN_MODE_NORMAL"></span><span class="target" id="can__types_8h_1ad6f5bfd4c152b830a94c2066e9c81710a348bb9f30d4a51d086e37ad73f9c5cf0"></span><code class="descname">CAN_MODE_NORMAL</code><a class="headerlink" href="can.html#_CPPv415CAN_MODE_NORMAL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ნორმალური მუშაობის რეჟიმი, სადაც CAN კონტროლერს შეუძლია შეტყობინებების გაგზავნა/მიღება/დადასტურება </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415CAN_MODE_NO_ACK">
+<span id="_CPPv315CAN_MODE_NO_ACK"></span><span id="_CPPv215CAN_MODE_NO_ACK"></span><span class="target" id="can__types_8h_1ad6f5bfd4c152b830a94c2066e9c81710a8df943d7810c59c5ed02b93393b4c8eb"></span><code class="descname">CAN_MODE_NO_ACK</code><a class="headerlink" href="can.html#_CPPv415CAN_MODE_NO_ACK" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემას დადასტურება არ სჭირდება. გამოიყენეთ ეს რეჟიმი თვითტესტირებისთვის. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420CAN_MODE_LISTEN_ONLY">
+<span id="_CPPv320CAN_MODE_LISTEN_ONLY"></span><span id="_CPPv220CAN_MODE_LISTEN_ONLY"></span><span class="target" id="can__types_8h_1ad6f5bfd4c152b830a94c2066e9c81710a4130fa46dba5f9dc6b0f693135caf9f7"></span><code class="descname">CAN_MODE_LISTEN_ONLY</code><a class="headerlink" href="can.html#_CPPv420CAN_MODE_LISTEN_ONLY" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN კონტროლერი გავლენას არ მოახდენს ავტობუსზე (გადაცემები ან დადასტურებები არ ხდება), მაგრამ შეუძლია შეტყობინებების მიღება. </p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="id6">
+<h3>სათაურის ფაილი<a class="headerlink" href="can.html#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/can.h">დრაივერი/ინკლუზია/დრაივერი/can.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="can.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv418can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t">
+<span id="_CPPv318can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t"></span><span id="_CPPv218can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t"></span><span id="can_driver_install__can_general_config_tCP.can_timing_config_tCP.can_filter_config_tCP"></span><span class="target" id="can_8h_1a5d6d3950c3fa7124d6a86a19ac2bf0f8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_driver_install</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="can.html#_CPPv420can_general_config_t" title="can_general_config_t">can_general_config_t</a> *<em>g_config</em>, <em class="property">კონსტ</em> <a class="reference internal" href="can.html#_CPPv419can_timing_config_t" title="can_timing_config_t">can_time_config_t</a> *<em>t_config</em>, <em class="property">კონსტ</em> <a class="reference internal" href="can.html#_CPPv419can_filter_config_t" title="can_filter_config_t">can_filter_config_t</a> *<em>f_config</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv418can_driver_installPK20can_general_config_tPK19can_timing_config_tPK19can_filter_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააინსტალირეთ CAN დრაივერი. </p>
+<p>ეს ფუნქცია CAN დრაივერს სამი კონფიგურაციის სტრუქტურის გამოყენებით აყენებს. საჭირო მეხსიერება გამოიყოფა და ამ ფუნქციის გაშვების შემდეგ CAN დრაივერი გაჩერებულ მდგომარეობაში გადადის.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Macro initializers are available for the configuration structures (see documentation)</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>To reinstall the CAN driver, call can_driver_uninstall() first</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: CAN დრაივერი წარმატებით დაინსტალირდა</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტები არასწორია</li>
+<li>ESP_ERR_NO_MEM: არასაკმარისი მეხსიერება</li>
+<li>ESP_ERR_INVALID_STATE: დრაივერი უკვე დაინსტალირებულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">g_config</span></code>ზოგადი კონფიგურაციის სტრუქტურა </li>
+<li><code class="docutils literal notranslate"><span class="pre">t_config</span></code>: დროის კონფიგურაციის სტრუქტურა </li>
+<li><code class="docutils literal notranslate"><span class="pre">f_config</span></code>ფილტრის კონფიგურაციის სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420can_driver_uninstallv">
+<span id="_CPPv320can_driver_uninstallv"></span><span id="_CPPv220can_driver_uninstallv"></span><span id="can_driver_uninstall__void"></span><span class="target" id="can_8h_1a6ed3b692caeb0109bb5a902269ee4e87"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_driver_uninstall</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv420can_driver_uninstallv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის დეინსტალაცია. </p>
+<p>ეს ფუნქცია ახდენს CAN დრაივერის დეინსტალაციას, რითაც ათავისუფლებს დრაივერის მიერ გამოყენებულ მეხსიერებას. ამ ფუნქციის გამოძახება შესაძლებელია მხოლოდ მაშინ, როდესაც დრაივერი გაჩერებულ ან ავტობუსის გამორთვის მდგომარეობაშია.</p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>The application must ensure that no tasks are blocked on TX/RX queues or alerts when this function is called.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: CAN დრაივერი წარმატებით წაიშალა</li>
+<li>ESP_ERR_INVALID_STATE: დრაივერი არ არის გაჩერებული/ავტობუსის გამორთვის მდგომარეობაში, ან არ არის დაინსტალირებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv49can_startv">
+<span id="_CPPv39can_startv"></span><span id="_CPPv29can_startv"></span><span id="can_start__void"></span><span class="target" id="can_8h_1a19e8190f9919e70285b07117a56d4187"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv49can_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩართეთ CAN დრაივერი. </p>
+<p>ეს ფუნქცია იწყებს CAN დრაივერს, რის შედეგადაც CAN დრაივერი გაშვებულ მდგომარეობაში გადადის. ეს საშუალებას აძლევს CAN დრაივერს მონაწილეობა მიიღოს CAN ავტობუსის აქტივობებში, როგორიცაა შეტყობინებების გადაცემა/მიღება. ამ ფუნქციაში RX რიგი გადატვირთულია, რაც წაშლის ყველა წაუკითხავ შეტყობინებას. ამ ფუნქციის გამოძახება შესაძლებელია მხოლოდ მაშინ, როდესაც CAN დრაივერი გაჩერებულ მდგომარეობაშია.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: CAN დრაივერი ახლა მუშაობს</li>
+<li>ESP_ERR_INVALID_STATE: დრაივერი არ არის გაჩერებულ მდგომარეობაში ან არ არის დაინსტალირებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv48can_stopv">
+<span id="_CPPv38can_stopv"></span><span id="_CPPv28can_stopv"></span><span id="can_stop__void"></span><span class="target" id="can_8h_1a9876edbaf6c66a954d9235ce9f510c5c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_stop</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv48can_stopv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეაჩერე CAN დრაივერი. </p>
+<p>ეს ფუნქცია აჩერებს CAN დრაივერს, რაც ხელს უშლის შემდგომი შეტყობინებების გადაცემას ან მიღებას can_start() ფუნქციის გამოძახებამდე. TX რიგში არსებული ნებისმიერი შეტყობინება იწმინდება. RX რიგში არსებული ნებისმიერი შეტყობინება უნდა წაიკითხოს აპლიკაციამ ამ ფუნქციის გამოძახების შემდეგ. ამ ფუნქციის გამოძახება შესაძლებელია მხოლოდ მაშინ, როდესაც CAN დრაივერი გაშვებულია.</p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>A message currently being transmitted/received on the CAN bus will be ceased immediately. This may lead to other CAN nodes interpreting the unfinished message as an error.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: CAN დრაივერი ახლა გაჩერებულია</li>
+<li>ESP_ERR_INVALID_STATE: დრაივერი არ არის გაშვებული ან არ არის დაინსტალირებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412can_transmitPK13can_message_t10TickType_t">
+<span id="_CPPv312can_transmitPK13can_message_t10TickType_t"></span><span id="_CPPv212can_transmitPK13can_message_t10TickType_t"></span><span id="can_transmit__can_message_tCP.TickType_t"></span><span class="target" id="can_8h_1a87560a2fb0417f9502fff53fc19f5fda"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_transmit</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t">can_message_t</a> *<em>შეტყობინება</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv412can_transmitPK13can_message_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაეცით CAN შეტყობინება. </p>
+<p>ეს ფუნქცია CAN შეტყობინებას გადაცემის რიგში აყენებს. გადაცემა დაუყოვნებლივ დაიწყება, თუ გადაცემის რიგში სხვა შეტყობინებები არ არის. თუ გადაცემის რიგი სავსეა, ეს ფუნქცია დაიბლოკება მანამ, სანამ მეტი ადგილი არ გათავისუფლდება ან მისი დროის ამოწურვამდე. თუ გადაცემის რიგი გამორთულია (კონფიგურაციაში გადაცემის რიგის სიგრძე = 0), ეს ფუნქცია დაუყოვნებლივ დაბრუნდება, თუ გადაცემის პროცესშია სხვა შეტყობინება. ამ ფუნქციის გამოძახება შესაძლებელია მხოლოდ მაშინ, როდესაც CAN დრაივერი გაშვებულ მდგომარეობაშია და მისი გამოძახება შეუძლებელია მხოლოდ მოსმენის რეჟიმში.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function does not guarantee that the transmission is successful. The TX_SUCCESS/TX_FAILED alert can be enabled to alert the application upon the success/failure of a transmission.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The TX_IDLE alert can be used to alert the application when no other messages are awaiting transmission.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაცემა წარმატებით რიგშია/ინიცირდა</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტები არასწორია</li>
+<li>ESP_ERR_TIMEOUT: ტექსტრაქციონის რიგში ადგილის მოლოდინის დრო ამოიწურა</li>
+<li>ESP_FAIL: გაგზავნის რიგი გამორთულია და ამჟამად სხვა შეტყობინება იგზავნება.</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის გაშვებული ან არ არის დაინსტალირებული.</li>
+<li>ESP_ERR_NOT_SUPPORTED: მხოლოდ მოსმენის რეჟიმი არ უჭერს მხარს გადაცემას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">message</span></code>: გადასაცემი შეტყობინება </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: TX რიგში დასაბლოკი Free RTOS ტიკების რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411can_receiveP13can_message_t10TickType_t">
+<span id="_CPPv311can_receiveP13can_message_t10TickType_t"></span><span id="_CPPv211can_receiveP13can_message_t10TickType_t"></span><span id="can_receive__can_message_tP.TickType_t"></span><span class="target" id="can_8h_1a2a8b5fefa4fc57740cfbf28afc401a66"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_receive</code><span class="sig-paren">(</span><a class="reference internal" href="can.html#_CPPv413can_message_t" title="can_message_t">can_message_t</a> *<em>შეტყობინება</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv411can_receiveP13can_message_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ CAN შეტყობინება. </p>
+<p>ეს ფუნქცია იღებს შეტყობინებას RX რიგიდან. შეტყობინების სტრუქტურის flags ველი მიუთითებს მიღებული შეტყობინების ტიპს. ეს ფუნქცია დაიბლოკება, თუ RX რიგში შეტყობინებები არ არის.</p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>The flags field of the received message should be checked to determine if the received message contains any data bytes.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: შეტყობინება წარმატებით მიღებულია RX რიგიდან</li>
+<li>ESP_ERR_TIMEOUT: შეტყობინების მოლოდინის დრო ამოიწურა</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტები არასწორია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">message</span></code>მიღებული შეტყობინება </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: RX რიგში დასაბლოკი Free RTOS ტიკების რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415can_read_alertsP8uint32_t10TickType_t">
+<span id="_CPPv315can_read_alertsP8uint32_t10TickType_t"></span><span id="_CPPv215can_read_alertsP8uint32_t10TickType_t"></span><span id="can_read_alerts__uint32_tP.TickType_t"></span><span class="target" id="can_8h_1a96bc99fa578fb1b175efb4b04c242fee"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_read_alerts</code><span class="sig-paren">(</span>uint32_t *<em>შეტყობინებები</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv415can_read_alertsP8uint32_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ CAN დრაივერის შეტყობინებები. </p>
+<p>ეს ფუნქცია წაიკითხავს CAN დრაივერის მიერ წარმოდგენილ შეტყობინებებს. თუ ამ ფუნქციის გამოძახებისას შეტყობინება არ ყოფილა, ის დაიბლოკება შეტყობინების გაჩენამდე ან მისი ვადის ამოწურვამდე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Multiple alerts can be raised simultaneously. The application should check for all alerts that have been enabled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: შეტყობინებები წაკითხულია</li>
+<li>ESP_ERR_TIMEOUT: შეტყობინებების მოლოდინის დრო ამოიწურა</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტები არასწორია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">alerts</span></code>: ამოქმედებული შეტყობინებების ბიტის ველი (განგაშის დროშების შესახებ იხილეთ დოკუმენტაცია) </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: განგაშის დაბლოკვისთვის Free RTOS მონიშვნების რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422can_reconfigure_alerts8uint32_tP8uint32_t">
+<span id="_CPPv322can_reconfigure_alerts8uint32_tP8uint32_t"></span><span id="_CPPv222can_reconfigure_alerts8uint32_tP8uint32_t"></span><span id="can_reconfigure_alerts__uint32_t.uint32_tP"></span><span class="target" id="can_8h_1a09ead5c8ff15ffb0c4a35d376cfdd07a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_reconfigure_alerts</code><span class="sig-paren">(</span>uint32_t <em>შეტყობინებები_ჩართულია</em>, uint32_t *<em>მიმდინარე_გაფრთხილებები</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv422can_reconfigure_alerts8uint32_tP8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ხელახლა დააკონფიგურირეთ ჩართული შეტყობინებები. </p>
+<p>ეს ფუნქცია ხელახლა აკონფიგურირებს, თუ რომელი შეტყობინებებია ჩართული. თუ არსებობს შეტყობინებები, რომლებიც ხელახლა კონფიგურაციის დროს არ წაიკითხა, ამ ფუნქციას შეუძლია ამ შეტყობინებების წაკითხვა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: შეტყობინებები ხელახლა კონფიგურირებულია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">alerts_enabled</span></code>: ჩასართავი შეტყობინებების ბიტის ველი (იხილეთ დოკუმენტაცია შეტყობინებების დროშებისთვის) </li>
+<li><code class="docutils literal notranslate"><span class="pre">current_alerts</span></code>: ამჟამად გააქტიურებული შეტყობინებების ბიტის ველი. დააყენეთ NULL-ზე, თუ არ გამოიყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421can_initiate_recoveryv">
+<span id="_CPPv321can_initiate_recoveryv"></span><span id="_CPPv221can_initiate_recoveryv"></span><span id="can_initiate_recovery__void"></span><span class="target" id="can_8h_1a15cee5f82f7a5e6cb9ac904918a9fac6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_initiate_recovery</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv421can_initiate_recoveryv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ ავტობუსის აღდგენის პროცესი. </p>
+<p>ეს ფუნქცია იწყებს ავტობუსის აღდგენის პროცესს, როდესაც CAN დრაივერი ავტობუსის გამორთვის მდგომარეობაშია. ინიცირების შემდეგ, CAN დრაივერი შევა აღდგენის მდგომარეობაში და დაელოდება ავტობუსის გარეშე სიგნალის 128-ჯერ გამოჩენას CAN ავტობუსზე, სანამ გაჩერებულ მდგომარეობაში დაბრუნდება. ეს ფუნქცია გადატვირთავს გადაცემის რიგს, წაშლის გადაცემამდე დარჩენილი ყველა შეტყობინებას.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The BUS_RECOVERED alert can be enabled to alert the application when the bus recovery process completes.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ავტობუსის აღდგენა დაიწყო</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის ავტობუსის გამორთვის მდგომარეობაში ან არ არის დაინსტალირებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419can_get_status_infoP17can_status_info_t">
+<span id="_CPPv319can_get_status_infoP17can_status_info_t"></span><span id="_CPPv219can_get_status_infoP17can_status_info_t"></span><span id="can_get_status_info__can_status_info_tP"></span><span class="target" id="can_8h_1a3aac248f4f28f0e426e33895b4990b96"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_get_status_info</code><span class="sig-paren">(</span><a class="reference internal" href="can.html#_CPPv417can_status_info_t" title="can_status_info_t">can_status_info_t</a> *<em>სტატუსის_ინფორმაცია</em><span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv419can_get_status_infoP17can_status_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინფორმაცია CAN დრაივერის მიმდინარე სტატუსის შესახებ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: სტატუსის ინფორმაცია ამოღებულია</li>
+<li>ESP_ERR_INVALID_ARG: არგუმენტები არასწორია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">status_info</span></code>სტატუსის ინფორმაცია</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424can_clear_transmit_queuev">
+<span id="_CPPv324can_clear_transmit_queuev"></span><span id="_CPPv224can_clear_transmit_queuev"></span><span id="can_clear_transmit_queue__void"></span><span class="target" id="can_8h_1a40badf9f364a6759ad9006ba76c03f7e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_clear_transmit_queue</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv424can_clear_transmit_queuev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემის რიგის გასუფთავება. </p>
+<p>ეს ფუნქცია გაწმენდს გადაცემის რიგს ყველა შეტყობინებისგან.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The transmit queue is automatically cleared when can_stop() or can_initiate_recovery() is called.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაცემის რიგი წაშლილია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული ან TX რიგი გამორთულია. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423can_clear_receive_queuev">
+<span id="_CPPv323can_clear_receive_queuev"></span><span id="_CPPv223can_clear_receive_queuev"></span><span id="can_clear_receive_queue__void"></span><span class="target" id="can_8h_1a451bccbb272b2f7a6a042d4ab6834e9f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">can_clear_receive_queue</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="can.html#_CPPv423can_clear_receive_queuev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიღების რიგის გასუფთავება. </p>
+<p>ეს ფუნქცია გაასუფთავებს მიღების რიგს ყველა შეტყობინებისგან.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The receive queue is automatically cleared when can_start() is called.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გადაცემის რიგი წაშლილია</li>
+<li>ESP_ERR_INVALID_STATE: CAN დრაივერი არ არის დაინსტალირებული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="id7">
+<h3>სტრუქტურები<a class="headerlink" href="can.html#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv420can_general_config_t">
+<span id="_CPPv320can_general_config_t"></span><span id="_CPPv220can_general_config_t"></span><span id="can_general_config_t"></span><span class="target" id="structcan__general__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">can_general_config_t</code><a class="headerlink" href="can.html#_CPPv420can_general_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის ზოგადი კონფიგურაციის სტრუქტურა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Macro initializers are available for this structure </dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t4modeE">
+<span id="_CPPv3N20can_general_config_t4modeE"></span><span id="_CPPv2N20can_general_config_t4modeE"></span><span id="can_general_config_t::mode__can_mode_t"></span><span class="target" id="structcan__general__config__t_1a74c07e66e8bfe4cb7f9ca7a4ba88a40d"></span><a class="reference internal" href="can.html#_CPPv410can_mode_t" title="can_mode_t">can_mode_t</a> <code class="descname">mode</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t4modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN კონტროლერის რეჟიმი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t5tx_ioE">
+<span id="_CPPv3N20can_general_config_t5tx_ioE"></span><span id="_CPPv2N20can_general_config_t5tx_ioE"></span><span id="can_general_config_t::tx_io__gpio_num_t"></span><span class="target" id="structcan__general__config__t_1add3046b9254932aac53b70788cc849c4"></span>gpio_num_t <code class="descname">tx_io</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t5tx_ioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემის GPIO ნომერი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t5rx_ioE">
+<span id="_CPPv3N20can_general_config_t5rx_ioE"></span><span id="_CPPv2N20can_general_config_t5rx_ioE"></span><span id="can_general_config_t::rx_io__gpio_num_t"></span><span class="target" id="structcan__general__config__t_1af9ad16ba924e8b218e7fdef911847cb2"></span>gpio_num_t <code class="descname">rx_io</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t5rx_ioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ GPIO ნომერი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t9clkout_ioE">
+<span id="_CPPv3N20can_general_config_t9clkout_ioE"></span><span id="_CPPv2N20can_general_config_t9clkout_ioE"></span><span id="can_general_config_t::clkout_io__gpio_num_t"></span><span class="target" id="structcan__general__config__t_1a87de9993c23f8e12c137dfd0e57eb9f4"></span>gpio_num_t <code class="descname">clkout_io</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t9clkout_ioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CLKOUT GPIO ნომერი (არასავალდებულო, დაყენებულია -1-ზე, თუ არ გამოიყენება) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t10bus_off_ioE">
+<span id="_CPPv3N20can_general_config_t10bus_off_ioE"></span><span id="_CPPv2N20can_general_config_t10bus_off_ioE"></span><span id="can_general_config_t::bus_off_io__gpio_num_t"></span><span class="target" id="structcan__general__config__t_1aa865490b8c029f19f25339b9f76955e8"></span>gpio_num_t <code class="descname">bus_off_io</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t10bus_off_ioE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ავტობუსის გათიშვის ინდიკატორის ნომერი GPIO (არასავალდებულო, დაყენებულია -1-ზე, თუ არ გამოიყენება) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t12tx_queue_lenE">
+<span id="_CPPv3N20can_general_config_t12tx_queue_lenE"></span><span id="_CPPv2N20can_general_config_t12tx_queue_lenE"></span><span id="can_general_config_t::tx_queue_len__uint32_t"></span><span class="target" id="structcan__general__config__t_1a898cc6124e020c1372d7ef6716d0d2ca"></span>uint32_t <code class="descname">tx_queue_len</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t12tx_queue_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინებების რაოდენობა, რომელთა შენახვაც შესაძლებელია გადაგზავნის რიგში (გადაგზავნის რიგის გამოსართავად დააყენეთ 0-ზე) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t12rx_queue_lenE">
+<span id="_CPPv3N20can_general_config_t12rx_queue_lenE"></span><span id="_CPPv2N20can_general_config_t12rx_queue_lenE"></span><span id="can_general_config_t::rx_queue_len__uint32_t"></span><span class="target" id="structcan__general__config__t_1a29b32ceaeaea85a8708bb1153710c60d"></span>uint32_t <code class="descname">rx_queue_len</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t12rx_queue_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინებების რაოდენობა, რომელთა შენახვაც RX რიგშია შესაძლებელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t14alerts_enabledE">
+<span id="_CPPv3N20can_general_config_t14alerts_enabledE"></span><span id="_CPPv2N20can_general_config_t14alerts_enabledE"></span><span id="can_general_config_t::alerts_enabled__uint32_t"></span><span class="target" id="structcan__general__config__t_1ac2b5339d689987b37c01cc7832b95fbb"></span>uint32_t <code class="descname">alerts_enabled</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t14alerts_enabledE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩასართავი შეტყობინებების ბიტური ველი (იხილეთ დოკუმენტაცია) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20can_general_config_t14clkout_dividerE">
+<span id="_CPPv3N20can_general_config_t14clkout_dividerE"></span><span id="_CPPv2N20can_general_config_t14clkout_dividerE"></span><span id="can_general_config_t::clkout_divider__uint32_t"></span><span class="target" id="structcan__general__config__t_1a250b44ef90148ada7968e3557aee3b76"></span>uint32_t <code class="descname">clkout_divider</code><a class="headerlink" href="can.html#_CPPv4N20can_general_config_t14clkout_dividerE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CLKOUT გამყოფი. შეიძლება იყოს 1 ან ნებისმიერი ლუწი რიცხვი 2-დან 14-მდე (არასავალდებულო, დააყენეთ 0-ზე, თუ არ გამოიყენება) </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv417can_status_info_t">
+<span id="_CPPv317can_status_info_t"></span><span id="_CPPv217can_status_info_t"></span><span id="can_status_info_t"></span><span class="target" id="structcan__status__info__t"></span><em class="property">სტრუქტურა </em><code class="descname">can_status_info_t</code><a class="headerlink" href="can.html#_CPPv417can_status_info_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის სტატუსის ინფორმაციის შესანახი სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t5stateE">
+<span id="_CPPv3N17can_status_info_t5stateE"></span><span id="_CPPv2N17can_status_info_t5stateE"></span><span id="can_status_info_t::state__can_state_t"></span><span class="target" id="structcan__status__info__t_1af03052573567c777ef4670538b93e246"></span><a class="reference internal" href="can.html#_CPPv411can_state_t" title="can_state_t">can_state_t</a> <code class="descname">state</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t5stateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN კონტროლერის მიმდინარე მდგომარეობა (გაჩერებული/გაშვებული/ავტობუსის გამორთვა/აღდგენა) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t10msgs_to_txE">
+<span id="_CPPv3N17can_status_info_t10msgs_to_txE"></span><span id="_CPPv2N17can_status_info_t10msgs_to_txE"></span><span id="can_status_info_t::msgs_to_tx__uint32_t"></span><span class="target" id="structcan__status__info__t_1a0e4b977cbad533f060da564d9b4922d3"></span>uint32_t <code class="descname">msgs_to_tx</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t10msgs_to_txE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემის რიგში მდგომი ან გადაცემის დასრულების მომლოდინე შეტყობინებების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t10msgs_to_rxE">
+<span id="_CPPv3N17can_status_info_t10msgs_to_rxE"></span><span id="_CPPv2N17can_status_info_t10msgs_to_rxE"></span><span id="can_status_info_t::msgs_to_rx__uint32_t"></span><span class="target" id="structcan__status__info__t_1a8bf7bb375ba9ed8df468dd9c08c73c61"></span>uint32_t <code class="descname">msgs_to_rx</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t10msgs_to_rxE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RX რიგში წასაკითხი შეტყობინებების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t16tx_error_counterE">
+<span id="_CPPv3N17can_status_info_t16tx_error_counterE"></span><span id="_CPPv2N17can_status_info_t16tx_error_counterE"></span><span id="can_status_info_t::tx_error_counter__uint32_t"></span><span class="target" id="structcan__status__info__t_1a4fa26a33b38bcd7f099750c0f4cf2006"></span>uint32_t <code class="descname">tx_error_counter</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t16tx_error_counterE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გადაცემის შეცდომის მრიცხველის მიმდინარე მნიშვნელობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t16rx_error_counterE">
+<span id="_CPPv3N17can_status_info_t16rx_error_counterE"></span><span id="_CPPv2N17can_status_info_t16rx_error_counterE"></span><span id="can_status_info_t::rx_error_counter__uint32_t"></span><span class="target" id="structcan__status__info__t_1af7caa36b3f334eef84c7c0ab9a0c457c"></span>uint32_t <code class="descname">rx_error_counter</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t16rx_error_counterE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიღების შეცდომის მრიცხველის მიმდინარე მნიშვნელობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t15tx_failed_countE">
+<span id="_CPPv3N17can_status_info_t15tx_failed_countE"></span><span id="_CPPv2N17can_status_info_t15tx_failed_countE"></span><span id="can_status_info_t::tx_failed_count__uint32_t"></span><span class="target" id="structcan__status__info__t_1a28957f4f5d43859cd05ea9d88cb87d84"></span>uint32_t <code class="descname">tx_failed_count</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t15tx_failed_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წარუმატებელი გადაცემის შეტყობინებების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t15rx_missed_countE">
+<span id="_CPPv3N17can_status_info_t15rx_missed_countE"></span><span id="_CPPv2N17can_status_info_t15rx_missed_countE"></span><span id="can_status_info_t::rx_missed_count__uint32_t"></span><span class="target" id="structcan__status__info__t_1a511782db44bb861dd982ff82c5ec46c5"></span>uint32_t <code class="descname">rx_missed_count</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t15rx_missed_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RX რიგის შევსების გამო დაკარგული შეტყობინებების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t14arb_lost_countE">
+<span id="_CPPv3N17can_status_info_t14arb_lost_countE"></span><span id="_CPPv2N17can_status_info_t14arb_lost_countE"></span><span id="can_status_info_t::arb_lost_count__uint32_t"></span><span class="target" id="structcan__status__info__t_1ade2b9fd4e47850a5616199db05367913"></span>uint32_t <code class="descname">arb_lost_count</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t14arb_lost_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაგებული არბიტრაჟის ინსტანციების რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N17can_status_info_t15bus_error_countE">
+<span id="_CPPv3N17can_status_info_t15bus_error_countE"></span><span id="_CPPv2N17can_status_info_t15bus_error_countE"></span><span id="can_status_info_t::bus_error_count__uint32_t"></span><span class="target" id="structcan__status__info__t_1a25be7af396e3edabed2006cc098b9449"></span>uint32_t <code class="descname">bus_error_count</code><a class="headerlink" href="can.html#_CPPv4N17can_status_info_t15bus_error_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ავტობუსის შეცდომის შემთხვევების რაოდენობა </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="id8">
+<h3>მაკროები<a class="headerlink" href="can.html#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.CAN_IO_UNUSED">
+<span class="target" id="can_8h_1a8f1cb8b41c0e5ad74c1e0fce84b26f0d"></span><code class="descname">CAN_IO_UNUSED</code><a class="headerlink" href="can.html#c.CAN_IO_UNUSED" title="Permalink to this definition">¶</a></dt>
+<dd><p>CAN კონფიგურაციაში GPIO გამოუყენებლად აღნიშნავს </p>
+</dd></dl>
+</div>
+<div class="section" id="id9">
+<h3>ჩამოთვლები<a class="headerlink" href="can.html#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv411can_state_t">
+<span id="_CPPv311can_state_t"></span><span id="_CPPv211can_state_t"></span><span id="can_state_t"></span><span class="target" id="can_8h_1a69173288ca0cb5f7e7c0ad8be7911fa1"></span><em class="property">ჩამოთვლა </em><code class="descname">can_state_t</code><a class="headerlink" href="can.html#_CPPv411can_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CAN დრაივერის მდგომარეობები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv417CAN_STATE_STOPPED">
+<span id="_CPPv317CAN_STATE_STOPPED"></span><span id="_CPPv217CAN_STATE_STOPPED"></span><span class="target" id="can_8h_1a69173288ca0cb5f7e7c0ad8be7911fa1a644e7a441f2e607b93528d3128508cc8"></span><code class="descname">CAN_STATE_STOPPED</code><a class="headerlink" href="can.html#_CPPv417CAN_STATE_STOPPED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაჩერებული მდგომარეობა. CAN კონტროლერი არ მიიღებს მონაწილეობას CAN ავტობუსის არცერთ აქტივობაში. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417CAN_STATE_RUNNING">
+<span id="_CPPv317CAN_STATE_RUNNING"></span><span id="_CPPv217CAN_STATE_RUNNING"></span><span class="target" id="can_8h_1a69173288ca0cb5f7e7c0ad8be7911fa1a1c668664d6a9f36f50eca79132385230"></span><code class="descname">CAN_STATE_RUNNING</code><a class="headerlink" href="can.html#_CPPv417CAN_STATE_RUNNING" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაშვებული მდგომარეობა. CAN კონტროლერს შეუძლია შეტყობინებების გადაცემა და მიღება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417CAN_STATE_BUS_OFF">
+<span id="_CPPv317CAN_STATE_BUS_OFF"></span><span id="_CPPv217CAN_STATE_BUS_OFF"></span><span class="target" id="can_8h_1a69173288ca0cb5f7e7c0ad8be7911fa1a679935a8710667fcb99423d217cd9959"></span><code class="descname">CAN_STATE_BUS_OFF</code><a class="headerlink" href="can.html#_CPPv417CAN_STATE_BUS_OFF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ავტობუსის გამორთვის მდგომარეობა. CAN კონტროლერი ვერ მიიღებს მონაწილეობას ავტობუსის აქტივობებში მანამ, სანამ არ აღდგება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420CAN_STATE_RECOVERING">
+<span id="_CPPv320CAN_STATE_RECOVERING"></span><span id="_CPPv220CAN_STATE_RECOVERING"></span><span class="target" id="can_8h_1a69173288ca0cb5f7e7c0ad8be7911fa1a3a4c0dfe72438d2b77242ea54d214bcd"></span><code class="descname">CAN_STATE_RECOVERING</code><a class="headerlink" href="can.html#_CPPv420CAN_STATE_RECOVERING" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აღდგენის მდგომარეობა. CAN კონტროლერი ავტობუსის აღდგენის პროცესშია. </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="dac.html" rel="next" title="Digital To Analog Converter">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="adc.html" rel="prev" title="Analog to Digital Converter"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

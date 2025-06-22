@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>სისტემის შექმნა (Legacy GNU Make) — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="console.html" rel="next" title="Console"/>
+<link href="build-system.html" rel="prev" title="Build System"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system-legacy.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/build-system-legacy"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/build-system-legacy.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="build-system-legacy.html#">სისტემის შექმნა (Legacy GNU Make)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-system-legacy.html#using-the-build-system">შექმნის სისტემის გამოყენება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-system-legacy.html#overview">მიმოხილვა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#concepts">კონცეფციები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#example-project">პროექტის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#project-makefiles">პროექტის Makefile-ები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#component-makefiles">კომპონენტის მაკეფაილები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#searching-for-components">კომპონენტების ძიება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#component-configuration">კომპონენტის კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#preprocessor-definitions">წინასწარი პროცესორის განმარტებები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#build-process-internals">შექმნის პროცესის შიდა ელემენტები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#running-make-non-interactively">არაინტერაქტიულად გაშვებული შექმნა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#advanced-make-targets">გაფართოებული მარკის სამიზნეები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#debugging-the-make-process">შექმნის პროცესის გამართვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#overriding-parts-of-the-project">პროექტის გადამწყვეტი ნაწილები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#example-component-makefiles">კომპონენტის Makefile-ის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#code-and-data-placements">კოდისა და მონაცემების განთავსება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#fully-overriding-the-component-makefile">კომპონენტის Makefile-ის სრული გადაფარვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#custom-sdkconfig-defaults">sdkconfig-ის მორგებული ნაგულისხმევი პარამეტრები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build-system-legacy.html#save-flash-arguments">ფლეშ მეხსიერება არგუმენტების შენახვა</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="build-system-legacy.html#building-the-bootloader">Bootloader-ის შექმნა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>სისტემის შექმნა (Legacy GNU Make)</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/build-system-legacy.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="build-system-legacy-gnu-make">
+<h1>სისტემის შექმნა (Legacy GNU Make)<a class="headerlink" href="build-system-legacy.html#build-system-legacy-gnu-make" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/build-system-legacy.html">[中文]</a></p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-IDF V4.0-დან დაწყებული, ნაგულისხმევი აწყობის სისტემა დაფუძნებულია CMake-ზე. ეს დოკუმენტაცია განკუთვნილია GNU Make-ზე დაფუძნებული მემკვიდრეობითი აწყობის სისტემისთვის. ამ აწყობის სისტემის მხარდაჭერა შესაძლოა მომავალ ძირითად ვერსიებში გაუქმდეს.</p>
+</div>
+<p>ეს დოკუმენტი განმარტავს GNU Make Espressif IoT Development Framework-ის მემკვიდრეობით მიღებულ სისტემას და „ კომპონენტი s“-ის კონცეფციას.</p>
+<p>თუ გსურთ იცოდეთ, თუ როგორ უნდა ორგანიზოთ ESP-IDF პროექტი GNU Make build სისტემის გამოყენებით, წაიკითხეთ ეს დოკუმენტი.</p>
+<p>ჩვენ გირჩევთ გამოიყენოთ <a class="reference external" href="https://github.com/espressif/esp-idf-template">esp-idf-შაბლონი</a> პროექტი, როგორც თქვენი პროექტის საწყისი წერტილი.</p>
+<div class="section" id="using-the-build-system">
+<h2>შექმნის სისტემის გამოყენება<a class="headerlink" href="build-system-legacy.html#using-the-build-system" title="Permalink to this headline">¶</a></h2>
+<p>esp-idf README ფაილი შეიცავს აღწერას, თუ როგორ გამოიყენოთ შექმნის სისტემა თქვენი პროექტის ასაწყობად.</p>
+</div>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="build-system-legacy.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF პროექტი შეიძლება განვიხილოთ, როგორც კომპონენტი ის რამდენიმე პროექტის გაერთიანება. მაგალითად, ვებ სერვერისთვის, რომელიც მიმდინარე ტენიანობას აჩვენებს, შეიძლება არსებობდეს:</p>
+<ul class="simple">
+<li>ESP32 ბაზის ბიბლიოთეკები (libc, rom ბმულები და ა.შ.)</li>
+<li>Wi-Fi მძღოლები</li>
+<li>TCP/IP დასტა</li>
+<li>Free RTOS ოპერაციული სისტემა</li>
+<li>ვებ სერვერი</li>
+<li>ტენიანობის სენსორის დრაივერი</li>
+<li>მთავარი კოდი, რომელიც ყველაფერს აერთიანებს</li>
+</ul>
+<p>ESP-IDF ამ კომპონენტი ებს ცალსახად და კონფიგურირებადს ხდის. ამისათვის, როდესაც პროექტი კომპილაცია d-ია, შექმნის გარემო მოძებნის ყველა კომპონენტი ს ESP-IDF დირექტორიებში, პროექტის დირექტორიებში და (სურვილისამებრ) დამატებით მორგებულ კომპონენტი დირექტორიებში. შემდეგ ის საშუალებას აძლევს მომხმარებელს დააკონფიგურიროს ESP-IDF პროექტი ტექსტზე დაფუძნებული მენიუს სისტემის გამოყენებით, რათა თითოეული კომპონენტი მორგებული იყოს. პროექტში კომპონენტი ების კონფიგურაციის შემდეგ, შექმნის პროცესი კომპილაცია პროექტს მოახდენს.</p>
+<div class="section" id="concepts">
+<h3>კონცეფციები<a class="headerlink" href="build-system-legacy.html#concepts" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>„პროექტი“ არის დირექტორია, რომელიც შეიცავს ყველა ფაილს და კონფიგურაციას ერთი „აპლიკაციის“ (შესრულებელი ფაილის) შესაქმნელად, ასევე დამატებით დამხმარე გამომავალს, როგორიცაა დანაყოფების ცხრილი , მონაცემთა/ფაილური სისტემის დანაყოფები და ჩამტვირთავი .</li>
+<li>„პროექტის კონფიგურაცია“ ინახება ერთ ფაილში, სახელწოდებით sdkconfig, პროექტის root დირექტორიაში. ეს კონფიგურაციის ფაილი შეცვლილია შემდეგი გზით: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code> პროექტის კონფიგურაციის პერსონალიზებისთვის. ერთი პროექტი შეიცავს ზუსტად ერთ პროექტის კონფიგურაცია .</li>
+<li>„აპლიკაცია“ არის შესრულებადი ფაილი, რომელიც აგებულია esp-idf-ის მიერ. ერთი პროექტი, როგორც წესი, ქმნის ორ აპლიკაციას - „პროექტის აპლიკაციას“ (ძირითადი შესრულებადი ფაილი, ანუ თქვენი მორგებული პროგრამული უზრუნველყოფა ) და „ ჩამტვირთავი აპლიკაციას“ (საწყისი ჩამტვირთავი პროგრამა, რომელიც რთავს პროექტის აპლიკაციას).</li>
+<li>„ კომპონენტი “ არის დამოუკიდებელი კოდის მოდულური ნაწილები, რომლებიც კომპილაცია შია ჩასმული სტატიკურ ბიბლიოთეკებში (.a ფაილებში) და დაკავშირებულია აპლიკაციასთან. ზოგიერთ მათგანს თავად esp-idf უზრუნველყოფს, ზოგი კი შეიძლება სხვა წყაროებიდან იყოს აღებული.</li>
+</ul>
+<p>ზოგიერთი რამ პროექტის ნაწილი არ არის:</p>
+<ul class="simple">
+<li>„ ESP-IDF “ პროექტის ნაწილი არ არის. ის დამოუკიდებელია და პროექტთან დაკავშირებულია შემდეგი გზით: <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> გარემოს ცვლადი, რომელიც ინახავს გზას <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code> დირექტორია. ეს საშუალებას იძლევა IDF ჩარჩო გამოეყოს თქვენი პროექტიდან.</li>
+<li>კომპილაციისთვის განკუთვნილი ინსტრუმენტების ნაკრები პროექტის ნაწილი არ არის. ინსტრუმენტების ნაკრები უნდა დაინსტალირდეს სისტემის ბრძანების ხაზში PATH, ან ინსტრუმენტების ნაკრები ისკენ მიმავალი გზა შეიძლება დაყენდეს პროექტის კონფიგურაცია ში კომპილაცია r პრეფიქსის ნაწილად.</li>
+</ul>
+</div>
+<div class="section" id="example-project">
+<h3>პროექტის მაგალითი<a class="headerlink" href="build-system-legacy.html#example-project" title="Permalink to this headline">¶</a></h3>
+<p>პროექტის დირექტორიის ხის მაგალითი შეიძლება ასე გამოიყურებოდეს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">myProject</span><span class="o">/</span>
+             <span class="o">-</span> <span class="n">Makefile</span>
+             <span class="o">-</span> <span class="n">sdkconfig</span>
+             <span class="o">-</span> <span class="n">components</span><span class="o">/</span> <span class="o">-</span> <span class="n">component1</span><span class="o">/</span> <span class="o">-</span> <span class="n">component</span><span class="o">.</span><span class="n">mk</span>
+                                         <span class="o">-</span> <span class="n">Kconfig</span>
+                                         <span class="o">-</span> <span class="n">src1</span><span class="o">.</span><span class="n">c</span>
+                           <span class="o">-</span> <span class="n">component2</span><span class="o">/</span> <span class="o">-</span> <span class="n">component</span><span class="o">.</span><span class="n">mk</span>
+                                         <span class="o">-</span> <span class="n">Kconfig</span>
+                                         <span class="o">-</span> <span class="n">src1</span><span class="o">.</span><span class="n">c</span>
+                                         <span class="o">-</span> <span class="n">include</span><span class="o">/</span> <span class="o">-</span> <span class="n">component2</span><span class="o">.</span><span class="n">h</span>
+             <span class="o">-</span> <span class="n">main</span><span class="o">/</span>       <span class="o">-</span> <span class="n">src1</span><span class="o">.</span><span class="n">c</span>
+                           <span class="o">-</span> <span class="n">src2</span><span class="o">.</span><span class="n">c</span>
+                           <span class="o">-</span> <span class="n">component</span><span class="o">.</span><span class="n">mk</span>
+
+             <span class="o">-</span> <span class="n">build</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>ეს მაგალითი „ჩემი პროექტი“ შეიცავს შემდეგ ელემენტებს:</p>
+<ul class="simple">
+<li>უმაღლესი დონის პროექტის Makefile. ეს Makefile ადგენს <code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code> ცვლადი და (არასავალდებულო) განსაზღვრავს სხვა პროექტის მასშტაბით make ცვლადებს. ის მოიცავს ბირთვს <code class="docutils literal notranslate"><span class="pre">$(IDF_PATH)/make/project.mk</span></code> makefile, რომელიც ახორციელებს ESP-IDF აწყობის სისტემის დანარჩენ ნაწილს.</li>
+<li>„sdkconfig“ პროექტის კონფიგურაცია ფაილი. ეს ფაილი იქმნება/განახლდება „make menuconfig “-ის გაშვებისას და ინახავს პროექტში არსებული ყველა კომპონენტი ფაილის კონფიგურაციას (მათ შორის თავად esp-idf-ს). „sdkconfig“ ფაილი შეიძლება დაემატოს ან არ დაემატოს პროექტის საწყისი მართვის სისტემას.</li>
+<li>სურვილისამებრ „ კომპონენტი s“ დირექტორია შეიცავს კომპონენტი ს, რომლებიც პროექტის ნაწილია. პროექტი არ უნდა შეიცავდეს ამ ტიპის მორგებულ კომპონენტი ს, მაგრამ ის შეიძლება სასარგებლო იყოს მრავალჯერადი გამოყენების კოდის სტრუქტურირებისთვის ან მესამე მხარის კომპონენტი ების ჩართვისთვის, რომლებიც ESP-IDF ის ნაწილი არ არის.</li>
+<li>„main“ დირექტორია არის სპეციალური „ კომპონენტი “, რომელიც შეიცავს თავად პროექტის საწყის კოდს. „main“ არის ნაგულისხმევი სახელი, Makefile ცვლადი. <code class="docutils literal notranslate"><span class="pre">COMPONENT_DIRS</span></code> მოიცავს ამ კომპონენტი მაგრამ შეგიძლიათ შეცვალოთ ეს ცვლადი (ან დააყენოთ <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>) სხვა ადგილებში კომპონენტი ის მოსაძებნად.</li>
+<li>„build“ დირექტორია არის ის, სადაც იქმნება build გამომავალი. make პროცესის გაშვების შემდეგ, ეს დირექტორია შეიცავს შუალედურ ობიექტის ფაილებს და ბიბლიოთეკებს, ასევე საბოლოო ბინარულ გამომავალ ფაილებს. ეს დირექტორია, როგორც წესი, არ ემატება წყაროს კონტროლს და არ ნაწილდება პროექტის წყაროს კოდთან ერთად.</li>
+</ul>
+<p>კომპონენტების დირექტორიები შეიცავს კომპონენტი makefile-ს - <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>ეს შეიძლება შეიცავდეს ცვლადების განმარტებებს კომპონენტი ის შექმნის პროცესის გასაკონტროლებლად და მისი მთლიან პროექტში ინტეგრაციისთვის. იხილეთ <a class="reference internal" href="build-system-legacy.html#component-makefiles">კომპონენტის მაკეფაილები</a> დამატებითი დეტალებისთვის.</p>
+<p>თითოეული კომპონენტი შეიძლება ასევე მოიცავდეს <code class="docutils literal notranslate"><span class="pre">Kconfig</span></code> ფაილი, რომელიც განსაზღვრავს <cite>component configuration</cite> პარამეტრები, რომელთა დაყენებაც შესაძლებელია პროექტის კონფიგურაცია მეშვეობით. ზოგიერთი კომპონენტი ასევე შეიძლება მოიცავდეს <code class="docutils literal notranslate"><span class="pre">Kconfig.projbuild</span></code> და <code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> ფაილები, რომლებიც სპეციალური ფაილებია <cite>overriding parts of the project</cite>.</p>
+</div>
+<div class="section" id="project-makefiles">
+<h3>პროექტის Makefile-ები<a class="headerlink" href="build-system-legacy.html#project-makefiles" title="Permalink to this headline">¶</a></h3>
+<p>თითოეულ პროექტს აქვს ერთი Makefile, რომელიც შეიცავს მთელი პროექტის შექმნის პარამეტრებს. ნაგულისხმევად, პროექტის Makefile შეიძლება საკმაოდ მინიმალური იყოს.</p>
+<div class="section" id="minimal-example-makefile">
+<h4>მინიმალური მაგალითი Makefile<a class="headerlink" href="build-system-legacy.html#minimal-example-makefile" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PROJECT_NAME := myProject
+
+include $(IDF_PATH)/make/project.mk
+</pre></div>
+</div>
+</div>
+<div class="section" id="mandatory-project-variables">
+<h4>სავალდებულო პროექტის ცვლადები<a class="headerlink" href="build-system-legacy.html#mandatory-project-variables" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code>პროექტის სახელი. ორობითი გამომავალი ფაილები გამოიყენებენ ამ სახელს - მაგ. myProject.bin, myProject.elf.</li>
+</ul>
+</div>
+<div class="section" id="optional-project-variables">
+<h4>პროექტის არჩევითი ცვლადები<a class="headerlink" href="build-system-legacy.html#optional-project-variables" title="Permalink to this headline">¶</a></h4>
+<p>ამ ცვლადებს აქვთ ნაგულისხმევი მნიშვნელობები, რომელთა შეცვლა შესაძლებელია მორგებული ქცევისთვის. იხილეთ <code class="docutils literal notranslate"><span class="pre">make/project.mk</span></code> განხორციელების ყველა დეტალისთვის.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">PROJECT_PATH</span></code>: პროექტის ზედა დონის დირექტორია. ნაგულისხმევად გამოიყენება Makefile-ის შემცველი დირექტორია. პროექტის მრავალი სხვა ცვლადი ამ ცვლადზეა დაფუძნებული. პროექტის გზა არ შეიძლება შეიცავდეს ინტერვალებს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">BUILD_DIR_BASE</span></code>: ყველა ობიექტის/ბიბლიოთეკის/ბინარული ფაილის შექმნის დირექტორია. ნაგულისხმევად <code class="docutils literal notranslate"><span class="pre">$(PROJECT_PATH)/build</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_DIRS</span></code>: დირექტორიები კომპონენტი ის მოსაძებნად. ნაგულისხმევად <cite>$(IDF_PATH)/components</cite>, <cite>$(PROJECT_PATH)/components</cite>, <code class="docutils literal notranslate"><span class="pre">$(PROJECT_PATH)/main</span></code> და <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>თუ არ გსურთ ამ ადგილებში კომპონენტი ის ძებნა, გადახედეთ ამ ცვლადს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>: დამატებითი დირექტორიების არასავალდებულო სია კომპონენტი s-ის მოსაძებნად.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENTS</span></code>პროექტში ჩასართავად განკუთვნილი კომპონენტი სახელების სია. ნაგულისხმევად გამოიყენება COMPONENT_DIRS დირექტორიებში ნაპოვნი ყველა კომპონენტი .</li>
+<li><code class="docutils literal notranslate"><span class="pre">EXCLUDE_COMPONENTS</span></code>: აწყობის პროცესში გამოსარიცხი კომპონენტი სახელების არასავალდებულო სია. გაითვალისწინეთ, რომ ეს ამცირებს აწყობის დროს, მაგრამ არა ბინარულ ზომას.</li>
+<li><code class="docutils literal notranslate"><span class="pre">TEST_EXCLUDE_COMPONENTS</span></code>: ერთეული ტესტების შექმნის პროცესში გამოსარიცხად კომპონენტი სახელების არასავალდებულო სია.</li>
+</ul>
+<p>ამ Makefile ცვლადებში ნებისმიერი გზა უნდა იყოს აბსოლუტური გზა. თქვენ შეგიძლიათ ფარდობითი გზების კონვერტაცია გამოიყენოთ <code class="docutils literal notranslate"><span class="pre">$(PROJECT_PATH)/xxx</span></code>, <code class="docutils literal notranslate"><span class="pre">$(IDF_PATH)/xxx</span></code>, ან გამოიყენეთ Make ფუნქცია <code class="docutils literal notranslate"><span class="pre">$(abspath</span> <span class="pre">xxx)</span></code>.</p>
+<p>ეს ცვლადები ყველა ხაზის წინ უნდა იყოს დაყენებული <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">$(IDF_PATH)/make/project.mk</span></code> Makefile-ში.</p>
+</div>
+</div>
+<div class="section" id="component-makefiles">
+<h3>კომპონენტის მაკეფაილები<a class="headerlink" href="build-system-legacy.html#component-makefiles" title="Permalink to this headline">¶</a></h3>
+<p>თითოეული პროექტი შეიცავს ერთ ან მეტ კომპონენტი ფაილს, რომელიც შეიძლება იყოს esp-idf-ის ნაწილი ან დამატებული იყოს სხვა კომპონენტი დირექტორიებიდან.</p>
+<p>კომპონენტი არის ნებისმიერი დირექტორია, რომელიც შეიცავს <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი.</p>
+</div>
+<div class="section" id="searching-for-components">
+<h3>კომპონენტების ძიება<a class="headerlink" href="build-system-legacy.html#searching-for-components" title="Permalink to this headline">¶</a></h3>
+<p>დირექტორიების სია, რომლებიც <code class="docutils literal notranslate"><span class="pre">COMPONENT_DIRS</span></code> პროექტის კომპონენტი s-ის ძიება ხდება. ამ სიაში არსებული დირექტორიები შეიძლება თავად კომპონენტი s იყოს (ანუ ისინი შეიცავენ <cite>component.mk</cite> ფაილი), ან ისინი შეიძლება იყოს ზედა დონის დირექტორიები, რომელთა ქვედირექტორიებიც არის კომპონენტი s.</p>
+<p>გაშვება <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">list-components</span></code> target ამ ცვლადების უმეტესობას ამუშავებს და გამართვა კომპონენტი დირექტორიების აღმოჩენაში დაეხმარება.</p>
+<div class="section" id="multiple-components-with-the-same-name">
+<h4>ერთი და იგივე სახელის მქონე მრავალი კომპონენტი 19<a class="headerlink" href="build-system-legacy.html#multiple-components-with-the-same-name" title="Permalink to this headline">¶</a></h4>
+<p>როდესაც esp-idf აგროვებს ყველა კომპონენტი ს კომპილაცია მდე, ის ამას გააკეთებს მითითებული თანმიმდევრობით. <code class="docutils literal notranslate"><span class="pre">COMPONENT_DIRS</span></code>; ნაგულისხმევად, ეს ნიშნავს, რომ პირველ რიგში idf კომპონენტი s, მეორეში - პროექტის კომპონენტი s და სურვილისამებრ, შიგნით კომპონენტი s <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code> ბოლო. თუ ამ დირექტორიებიდან ორი ან მეტი შეიცავს კომპონენტი ქვედირექტორიებს ერთი და იგივე სახელით, გამოიყენება კომპონენტი , რომელიც ბოლო ძიების ადგილასაა. ეს საშუალებას იძლევა, მაგალითად, esp-idf კომპონენტი ის გადაფარვა შეცვლილი ვერსიით, უბრალოდ კომპონენტი ის esp-idf კომპონენტი დირექტორიიდან პროექტის კომპონენტი ხეზე კოპირებით და შემდეგ იქ მისი შეცვლით. ამ გზით გამოყენების შემთხვევაში, თავად esp-idf დირექტორია შეიძლება ხელუხლებელი დარჩეს.</p>
+</div>
+<div class="section" id="minimal-component-makefile">
+<h4>მინიმალური კომპონენტის Makefile<a class="headerlink" href="build-system-legacy.html#minimal-component-makefile" title="Permalink to this headline">¶</a></h4>
+<p>მინიმალური <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი ცარიელი ფაილია (!). თუ ფაილი ცარიელია, დაყენებულია კომპონენტი ნაგულისხმევი ქცევა:</p>
+<ul class="simple">
+<li>ყველა საწყისი ფაილი იმავე დირექტორიაშია, სადაც makefile (<code class="docutils literal notranslate"><span class="pre">*.c</span></code>, <code class="docutils literal notranslate"><span class="pre">*.cpp</span></code>, <code class="docutils literal notranslate"><span class="pre">*.cc</span></code>, <code class="docutils literal notranslate"><span class="pre">*.S</span></code>) კომპილაცია კომპონენტი ბიბლიოთეკაში შევა</li>
+<li>ყველა სხვა კომპონენტი ისთვის გლობალურ include ძიების გზას დაემატება ქვედირექტორია „include“.</li>
+<li>კომპონენტი ბიბლიოთეკა პროექტის აპლიკაციასთან იქნება დაკავშირებული.</li>
+</ul>
+<p>იხილეთ <a class="reference internal" href="build-system-legacy.html#example-component-makefiles">კომპონენტი makefiles-ის მაგალითი</a> კომპონენტი makefile-ის უფრო სრულყოფილი მაგალითებისთვის.</p>
+<p>გაითვალისწინეთ, რომ არსებობს განსხვავება ცარიელ ველს შორის <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი (რომელიც იწვევს კომპონენტი ნაგულისხმევ აწყობის ქცევას) და არა <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი (რაც ნიშნავს, რომ კომპონენტი ნაგულისხმევი აწყობის ქცევა არ მოხდება.) შესაძლებელია, რომ კომპონენტი არ ჰქონდეს <cite>component.mk</cite> ფაილი, თუ ის შეიცავს მხოლოდ სხვა ფაილებს, რომლებიც გავლენას ახდენენ პროექტის კონფიგურაცია ან შექმნის პროცესზე.</p>
+</div>
+<div class="section" id="preset-component-variables">
+<h4>წინასწარ დაყენებული კომპონენტის ცვლადები<a class="headerlink" href="build-system-legacy.html#preset-component-variables" title="Permalink to this headline">¶</a></h4>
+<p>შემდეგი კომპონენტი -ის სპეციფიკური ცვლადები ხელმისაწვდომია შიგნით გამოსაყენებლად <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>, მაგრამ არ უნდა შეიცვალოს:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_PATH</span></code>კომპონენტი დირექტორია. ფასდება დირექტორიის აბსოლუტური გზის მიხედვით, რომელიც შეიცავს <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>კომპონენტი გზა არ შეიძლება შეიცავდეს ინტერვალებს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_NAME</span></code>: კომპონენტი ის სახელი. ნაგულისხმევად კომპონენტი დირექტორიის სახელია გამოყენებული.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_BUILD_DIR</span></code>კომპონენტი ის შექმნის დირექტორია. ფასდება შიგნით არსებული დირექტორიის აბსოლუტური გზის მიხედვით. <cite>$(BUILD_DIR_BASE)</cite> სადაც უნდა შეიქმნას ამ კომპონენტი ის საწყისი ფაილები. ეს ასევე არის მიმდინარე სამუშაო დირექტორია ნებისმიერ დროს, როდესაც კომპონენტი იქმნება, ამიტომ make სამიზნეებში და ა.შ. ფარდობითი გზები ამ დირექტორიასთან ფარდობითი იქნება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_LIBRARY</span></code>: სტატიკური ბიბლიოთეკის ფაილის სახელი ( კომპონენტი build დირექტორიასთან მიმართებაში), რომელიც შეიქმნება ამ კომპონენტი ისთვის. ნაგულისხმევად <code class="docutils literal notranslate"><span class="pre">$(COMPONENT_NAME).a</span></code>.</li>
+</ul>
+<p>შემდეგი ცვლადები დაყენებულია პროექტის დონეზე, მაგრამ ექსპორტირებულია კომპონენტი ბილდში გამოსაყენებლად:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code>პროექტის სახელი, როგორც მითითებულია პროექტის Makefile-ში</li>
+<li><code class="docutils literal notranslate"><span class="pre">PROJECT_PATH</span></code>პროექტის Makefile-ის შემცველი პროექტის დირექტორიის აბსოლუტური გზა.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENTS</span></code>: ამ ბილდში შემავალი ყველა კომპონენტი ის სახელი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">CONFIG_*</span></code>: პროექტის კონფიგურაცია ში თითოეულ მნიშვნელობას აქვს შესაბამისი ცვლადი, რომელიც ხელმისაწვდომია make-ში. ყველა სახელი იწყება <code class="docutils literal notranslate"><span class="pre">CONFIG_</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">CC</span></code>, <code class="docutils literal notranslate"><span class="pre">LD</span></code>, <code class="docutils literal notranslate"><span class="pre">AR</span></code>, <code class="docutils literal notranslate"><span class="pre">OBJCOPY</span></code>gcc xtensa cross- ინსტრუმენტების ნაკრები დან თითოეული ინსტრუმენტისკენ მიმავალი სრული გზები.</li>
+<li><code class="docutils literal notranslate"><span class="pre">HOSTCC</span></code>, <code class="docutils literal notranslate"><span class="pre">HOSTLD</span></code>, <code class="docutils literal notranslate"><span class="pre">HOSTAR</span></code>: მასპინძელი მშობლიური ინსტრუმენტების ნაკრები დან თითოეული ინსტრუმენტის სრული სახელები.</li>
+<li><code class="docutils literal notranslate"><span class="pre">IDF_VER</span></code>: ESP-IDF ვერსია, აღებულია რომელიმედან <code class="docutils literal notranslate"><span class="pre">$(IDF_PATH)/version.txt</span></code> ფაილი (თუ არსებობს) სხვა ფაილი git ბრძანების გამოყენებით <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code>რეკომენდებული ფორმატი აქ არის ერთი ხაზი, რომელიც მიუთითებს IDF-ის ძირითადი გამოშვების ვერსიას, მაგ. <code class="docutils literal notranslate"><span class="pre">v2.0</span></code> მონიშნული გამოშვებისთვის ან <code class="docutils literal notranslate"><span class="pre">v2.0-275-g0efaa4f</span></code> თვითნებური commit-ისთვის. აპლიკაციას შეუძლია გამოიყენოს ეს გამოძახებით <a class="reference internal" href="../api-reference/system/system.html#_CPPv419esp_get_idf_versionv" title="esp_get_idf_version"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_get_idf_version()</span></code></a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">IDF_VERSION_MAJOR</span></code>, <code class="docutils literal notranslate"><span class="pre">IDF_VERSION_MINOR</span></code>, <code class="docutils literal notranslate"><span class="pre">IDF_VERSION_PATCH</span></code>პირობით გამოსახულებებში გამოსაყენებელი ESP-IDF ვერსიის კომპონენტები. გაითვალისწინეთ, რომ ეს ინფორმაცია ნაკლებად ზუსტია, ვიდრე მოწოდებული <code class="docutils literal notranslate"><span class="pre">IDF_VER</span></code> ცვლადი. <code class="docutils literal notranslate"><span class="pre">v4.0-dev-*</span></code>, <code class="docutils literal notranslate"><span class="pre">v4.0-beta1</span></code>, <code class="docutils literal notranslate"><span class="pre">v4.0-rc1</span></code> და <code class="docutils literal notranslate"><span class="pre">v4.0</span></code> ყველას ერთნაირი ღირებულებები ექნება <code class="docutils literal notranslate"><span class="pre">ESP_IDF_VERSION_*</span></code> ცვლადები, მაგრამ განსხვავებული <code class="docutils literal notranslate"><span class="pre">IDF_VER</span></code> ღირებულებები.</li>
+<li><code class="docutils literal notranslate"><span class="pre">PROJECT_VER</span></code>: პროექტის ვერსია.<ul>
+<li>თუ <a class="reference internal" href="../api-reference/kconfig.html#config-app-project-ver-from-config"><span class="std std-ref">CONFIG_APP_PROJECT_VER_FROM_CONFIG</span></a> ოფცია დაყენებულია, მნიშვნელობა <a class="reference internal" href="../api-reference/kconfig.html#config-app-project-ver"><span class="std std-ref">CONFIG_APP_PROJECT_VER</span></a> გამოყენებული იქნება.</li>
+<li>წინააღმდეგ შემთხვევაში, თუ <code class="docutils literal notranslate"><span class="pre">PROJECT_VER</span></code> ცვლადი დაყენებულია პროექტის Makefile ფაილში, გამოყენებული იქნება მისი მნიშვნელობა.</li>
+<li>წინააღმდეგ შემთხვევაში, თუ <code class="docutils literal notranslate"><span class="pre">$PROJECT_PATH/version.txt</span></code> არსებობს, მისი შინაარსი გამოყენებული იქნება როგორც <code class="docutils literal notranslate"><span class="pre">PROJECT_VER</span></code>.</li>
+<li>წინააღმდეგ შემთხვევაში, თუ პროექტი Git რეპოზიტორიაში მდებარეობს, გამოყენებული იქნება git describe-ის გამომავალი.</li>
+<li>წინააღმდეგ შემთხვევაში, <code class="docutils literal notranslate"><span class="pre">PROJECT_VER</span></code> იქნება „1“.</li>
+</ul>
+</li>
+</ul>
+<p>თუ ამ ცვლადებიდან რომელიმეს შეცვლით შიგნით <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> მაშინ ეს ხელს არ შეუშლის სხვა კომპონენტი სემესტრების მშენებლობას, მაგრამ შეიძლება გაართულოს თქვენი კომპონენტი და/ან გამართვა მშენებლობა.</p>
+</div>
+<div class="section" id="optional-project-wide-component-variables">
+<h4>პროექტის მასშტაბით კომპონენტის არჩევითი ცვლადები<a class="headerlink" href="build-system-legacy.html#optional-project-wide-component-variables" title="Permalink to this headline">¶</a></h4>
+<p>შემდეგი ცვლადების დაყენება შესაძლებელია შიგნით <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> მთელი პროექტის განმავლობაში აწყობის პარამეტრების გასაკონტროლებლად:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_INCLUDEDIRS</span></code>: კომპონენტი დირექტორიასთან მიმართებაში არსებული გზები, რომლებიც დაემატება პროექტში ყველა კომპონენტი ის ჩართვის ძიების გზას. ნაგულისხმევად არის <code class="docutils literal notranslate"><span class="pre">include</span></code> თუ არ არის გადაფარული. თუ ჩართვის დირექტორია საჭიროა მხოლოდ ამ კონკრეტული კომპონენტი კომპილაცია , დაამატეთ იგი <code class="docutils literal notranslate"><span class="pre">COMPONENT_PRIV_INCLUDEDIRS</span></code> სამაგიეროდ.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_LDFLAGS</span></code>: დაამატეთ ბმულის არგუმენტები LDFLAGS-ში აპლიკაციის შესრულებადი ფაილისთვის. ნაგულისხმევად <code class="docutils literal notranslate"><span class="pre">-l$(COMPONENT_NAME)</span></code>თუ ამ დირექტორიაში წინასწარი კომპილაცია d ბიბლიოთეკებს ამატებთ, დაამატეთ ისინი აბსოლუტური გზების სახით - მაგ. $(COMPONENT_PATH)/libwhatever.a</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_DEPENDS</span></code>: კომპონენტი სახელების არასავალდებულო სია, რომლებიც უნდა იყოს კომპილაცია d ამ კომპონენტი მდე. ეს არ არის აუცილებელი ბმულ-დროის დამოკიდებულებებისთვის, რადგან კომპონენტი ყველა ჩართვის დირექტორია ყოველთვის ხელმისაწვდომია. ეს აუცილებელია, თუ ერთი კომპონენტი წარმოქმნის ჩართვის ფაილს, რომლის ჩართვაც შემდეგ გსურთ სხვა კომპონენტი ში. კომპონენტი ების უმეტესობას არ სჭირდება ამ ცვლადის დაყენება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_LINKER_DEPS</span></code>კომპონენტი ფაილების ფარდობითი გზების არასავალდებულო სია, რომლებმაც უნდა გამოიწვიოს ELF ფაილის ხელახლა დაკავშირება, თუ ისინი შეიცვლება. როგორც წესი, გამოიყენება დამაკავშირებელი სკრიპტის ფაილებისა და ბინარული ბიბლიოთეკებისთვის. კომპონენტი ფაილების უმეტესობას არ სჭირდება ამ ცვლადის დაყენება.</li>
+</ul>
+<p>შემდეგი ცვლადი მუშაობს მხოლოდ კომპონენტი ისთვის, რომლებიც თავად esp-idf-ის ნაწილია:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_SUBMODULES</span></code>კომპონენტი ის მიერ გამოყენებული git ქვემოდულის ბილიკების (COMPONENT_PATH-თან მიმართებაში) არასავალდებულო სია. ეს ცვლადები შემოწმდება (და საჭიროების შემთხვევაში ინიციალიზებული იქნება) შექმნის პროცესის მიერ. ეს ცვლადი იგნორირებულია, თუ კომპონენტი IDF_PATH დირექტორიის გარეთაა.</li>
+</ul>
+</div>
+<div class="section" id="optional-component-specific-variables">
+<h4>კომპონენტისთვის სპეციფიკური ცვლადები<a class="headerlink" href="build-system-legacy.html#optional-component-specific-variables" title="Permalink to this headline">¶</a></h4>
+<p>შემდეგი ცვლადების დაყენება შესაძლებელია შიგნით <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ამ კომპონენტი აგების გასაკონტროლებლად19:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_PRIV_INCLUDEDIRS</span></code>დირექტორიის გზები უნდა იყოს ფარდობითი კომპონენტი დირექტორიასთან, რომელიც დაემატება მხოლოდ ამ კომპონენტი ის საწყისი ფაილების ჩართვის ძიების გზას.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_EXTRA_INCLUDES</span></code>ნებისმიერი დამატებითი ბილიკი მოიცავს კომპონენტი ის საწყისი ფაილების კომპილაციისას გამოყენებულ ბილიკებს. ესენი იქნება „-I“-ს პრეფიქსით და გადაეცემა კომპილაცია r-ს უცვლელი სახით. მსგავსია
+<code class="docutils literal notranslate"><span class="pre">COMPONENT_PRIV_INCLUDEDIRS</span></code> ცვლადი, გარდა იმისა, რომ ეს გზები არ არის გაფართოებული კომპონენტი დირექტორიასთან მიმართებაში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_SRCDIRS</span></code>დირექტორიის ბილიკები უნდა იყოს ფარდობითი კომპონენტი დირექტორიასთან, რომელშიც მოიძებნება საწყისი ფაილები (<code class="docutils literal notranslate"><span class="pre">*.cpp</span></code>,
+<code class="docutils literal notranslate"><span class="pre">*.c</span></code>, <code class="docutils literal notranslate"><span class="pre">*.S</span></code>). ნაგულისხმევად, მნიშვნელობაა &amp;#39;.&amp;#39;, ანუ თავად კომპონენტი დირექტორია. გადაფარეთ ეს, რათა მიუთითოთ დირექტორიების სხვა სია, რომლებიც შეიცავს წყაროს ფაილებს.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_OBJS</span></code>ობიექტის ფაილები კომპილაცია ში. ნაგულისხმევი მნიშვნელობა არის .o ფაილი თითოეული წყაროს ფაილისთვის, რომელიც ნაპოვნია <code class="docutils literal notranslate"><span class="pre">COMPONENT_SRCDIRS</span></code>ამ სიის გადაფარვა საშუალებას გაძლევთ გამორიცხოთ საწყისი ფაილები
+<code class="docutils literal notranslate"><span class="pre">COMPONENT_SRCDIRS</span></code> სხვა შემთხვევაში ეს იქნებოდა კომპილაცია დ. იხ.
+<cite>Specifying source files</cite></li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_EXTRA_CLEAN</span></code>კომპონენტი .mk ფაილში მორგებული შექმნის წესების გამოყენებით გენერირებული ნებისმიერი ფაილის გზები, რომლებიც უნდა წაიშალოს, როგორც ნაწილი. კომპონენტი build დირექტორიასთან მიმართებაში.
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code>. იხილეთ <a class="reference internal" href="build-system-legacy.html#source-code-generation">საწყისი კოდის გენერირება</a> მაგალითად.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_OWNBUILDTARGET</span></code> და <code class="docutils literal notranslate"><span class="pre">COMPONENT_OWNCLEANTARGET</span></code>ეს სამიზნეები საშუალებას გაძლევთ სრულად გადახედოთ კომპონენტი ნაგულისხმევ შექმნის ქცევას. იხილეთ <a class="reference internal" href="build-system-legacy.html#fully-overriding-the-component-makefile">კომპონენტის Makefile-ის სრული გადაფარვა</a> დამატებითი დეტალებისთვის.</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_CONFIG_ONLY</span></code>თუ დაყენებულია, ეს დროშა მიუთითებს, რომ კომპონენტი საერთოდ არ აწარმოებს აწყობილ გამოსავალს (მაგ. <code class="docutils literal notranslate"><span class="pre">COMPONENT_LIBRARY</span></code> არ არის აგებული), და სხვა კომპონენტი ცვლადების უმეტესობა იგნორირებულია. ეს დროშა გამოიყენება IDF შიდა კომპონენტი ებისთვის, რომლებიც შეიცავს მხოლოდ <code class="docutils literal notranslate"><span class="pre">KConfig.projbuild</span></code> და/ან
+<code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> ფაილები პროექტის კონფიგურაციისთვის, მაგრამ არა წყაროს ფაილები.</li>
+<li><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>: დროშები გადაეცემა C კომპილაცია r. ნაგულისხმევი ნაკრები
+<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> განისაზღვრება პროექტის პარამეტრების მიხედვით. კომპონენტისთვის სპეციფიკური დამატებების შეტანა შესაძლებელია <code class="docutils literal notranslate"><span class="pre">CFLAGS</span> <span class="pre">+=</span></code>ასევე შესაძლებელია (თუმცა არ არის რეკომენდებული) ამ ცვლადის სრულად გადაფარვა კომპონენტი .</li>
+<li><code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code>: C წინასწარი პროცესორისთვის გადაცემული დროშები (გამოიყენება .c, .cpp და .S ფაილებისთვის). ნაგულისხმევი ნაკრები <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code> განისაზღვრება პროექტის პარამეტრების მიხედვით. კომპონენტისთვის სპეციფიკური დამატებების შეტანა შესაძლებელია
+<code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span> <span class="pre">+=</span></code>ასევე შესაძლებელია (თუმცა არ არის რეკომენდებული) ამ ცვლადის სრულად გადაფარვა კომპონენტი .</li>
+<li><code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code>: დროშები გადაეცემა C++ კომპილაცია r-ს. ნაგულისხმევი ნაკრები
+<code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> განისაზღვრება პროექტის პარამეტრების მიხედვით. კომპონენტისთვის სპეციფიკური დამატებების შეტანა შესაძლებელია <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span>
+<span class="pre">+=</span></code>ასევე შესაძლებელია (თუმცა არ არის რეკომენდებული) ამ ცვლადის სრულად გადაფარვა კომპონენტი .</li>
+<li><code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_LDFRAGMENTS</span></code>ლინკერის სკრიპტის გენერირების ფუნქციონალისთვის ლინკერის ფრაგმენტების ფაილებისკენ მიმავალი გზები. იხილეთ <a class="reference internal" href="linker-script-generation.html"><span class="doc">ლინკერის სკრიპტის გენერირება</span></a>.</li>
+</ul>
+<p>კომპილაციის ფლაგების ერთ წყაროს ფაილზე გამოსაყენებლად, შეგიძლიათ დაამატოთ ცვლადი გადაფარვა, როგორც სამიზნე, მაგ.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apps</span><span class="o">/</span><span class="n">dhcpserver</span><span class="o">.</span><span class="n">o</span><span class="p">:</span> <span class="n">CFLAGS</span> <span class="o">+=</span> <span class="o">-</span><span class="n">Wno</span><span class="o">-</span><span class="n">unused</span><span class="o">-</span><span class="n">variable</span>
+</pre></div>
+</div>
+<p>ეს შეიძლება სასარგებლო იყოს, თუ არსებობს ზემოთ მოცემული კოდი, რომელიც გაფრთხილებებს ასხივებს.</p>
+</div>
+</div>
+<div class="section" id="component-configuration">
+<h3>კომპონენტის კონფიგურაცია<a class="headerlink" href="build-system-legacy.html#component-configuration" title="Permalink to this headline">¶</a></h3>
+<p>თითოეულ კომპონენტი ასევე შეიძლება ჰქონდეს Kconfig ფაილი, <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>ეს შეიცავს კონფიგურაციის პარამეტრებს, რომლებიც უნდა დაემატოს „make menuconfig “-ს ამ კომპონენტი ისთვის.</p>
+<p>ეს პარამეტრები მოცემულია „კომპონენტის პარამეტრების“ მენიუში, როდესაც menuconfig გაშვებულია.</p>
+<p>კომპონენტი KConfig ფაილის შესაქმნელად, ყველაზე მარტივი გზაა esp-idf-ით გავრცელებული ერთ-ერთი KConfig ფაილით დაწყება.</p>
+<p>მაგალითისთვის იხილეთ <a class="reference internal" href="build-system-legacy.html#adding-conditional-configuration">პირობითი კონფიგურაციის დამატება</a>.</p>
+</div>
+<div class="section" id="preprocessor-definitions">
+<h3>წინასწარი პროცესორის განმარტებები<a class="headerlink" href="build-system-legacy.html#preprocessor-definitions" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF build systems ბრძანების ხაზზე შემდეგ C წინასწარი პროცესორის განმარტებებს ამატებს:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ESP_PLATFORM</span></code> — შეიძლება გამოყენებულ იქნას იმის დასადგენად, ხდება თუ არა აწყობა ESP-IDF ფარგლებში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">IDF_VER</span></code> — ESP-IDF ვერსია, იხ. <a class="reference internal" href="build-system-legacy.html#preset-component-variables">წინასწარ დაყენებული კომპონენტის ცვლადები</a> დამატებითი დეტალებისთვის.</li>
+</ul>
+</div>
+<div class="section" id="build-process-internals">
+<h3>შექმნის პროცესის შიდა ელემენტები<a class="headerlink" href="build-system-legacy.html#build-process-internals" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="top-level-project-makefile">
+<h4>ზედა დონე: პროექტის Makefile<a class="headerlink" href="build-system-legacy.html#top-level-project-makefile" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>„make“ ყოველთვის იშვება პროექტის დირექტორიიდან და პროექტის makefile-დან, რომელსაც ჩვეულებრივ Makefile ეწოდება.</li>
+<li>პროექტის makefile-ის ნაკრები <code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code> და სურვილისამებრ, სხვა პარამეტრების პერსონალიზაციასაც ახდენს <cite>optional project variables</cite></li>
+<li>პროექტის makefile შეიცავს <code class="docutils literal notranslate"><span class="pre">$(IDF_PATH)/make/project.mk</span></code> რომელიც შეიცავს პროექტის დონის Make ლოგიკას.</li>
+<li><code class="docutils literal notranslate"><span class="pre">project.mk</span></code> ავსებს პროექტის დონის ნაგულისხმევ make ცვლადებს და მოიცავს პროექტის კონფიგურაცია დან make ცვლადებს. თუ პროექტის კონფიგურაცია შემცველი გენერირებული makefile მოძველებულია, მაშინ ის ხელახლა გენერირდება (სამიზნეების მეშვეობით <code class="docutils literal notranslate"><span class="pre">project_config.mk</span></code>) და შემდეგ შექმნის პროცესი თავიდან იწყება ზემოდან.</li>
+<li><code class="docutils literal notranslate"><span class="pre">project.mk</span></code> ქმნის კომპონენტი ის ასაშენებელ სიას, ნაგულისხმევი კომპონენტი დირექტორიების ან ში მითითებული კომპონენტი ის მორგებული სიის საფუძველზე. <cite>optional project variables</cite>.</li>
+<li>თითოეულ კომპონენტი შეუძლია დააყენოს გარკვეული <a class="reference internal" href="build-system-legacy.html#optional-project-wide-component-variables">პროექტის მასშტაბით არასავალდებულო კომპონენტი ცვლადები</a>ესენი შედის გენერირებული makefiles-ის მეშვეობით, სახელწოდებით <code class="docutils literal notranslate"><span class="pre">component_project_vars.mk</span></code> - თითო კომპონენტი ერთია19. ეს გენერირებული makefiles შედის <code class="docutils literal notranslate"><span class="pre">project.mk</span></code>თუ რომელიმე აკლია ან მოძველებულია, ისინი ხელახლა იქმნება ( კომპონენტი makefile-ზე რეკურსიული make გამოძახების გზით) და შემდეგ make პროცესი თავიდან იწყება ზემოდან.</li>
+<li><cite>Makefile.projbuild</cite> კომპონენტი დან ფაილები შედის make პროცესში, დამატებითი სამიზნეების ან კონფიგურაციის დასამატებლად.</li>
+<li>ნაგულისხმევად, პროექტის makefile ასევე წარმოქმნის უმაღლესი დონის შექმნისა და გასუფთავების სამიზნეებს თითოეული კომპონენტი და აყენებს <cite>app</cite> და <cite>clean</cite> სამიზნეები ყველა ამ ქვესამიზნის გამოსაძახებლად.</li>
+<li>თითოეული კომპონენტი კომპილაცია დასამატებლად, კომპონენტი makefile-ისთვის სრულდება რეკურსიული შექმნა.</li>
+</ul>
+<p>პროექტის შექმნის პროცესის უკეთ გასაგებად, გაეცანით <code class="docutils literal notranslate"><span class="pre">project.mk</span></code> თავად ფაილი.</p>
+</div>
+<div class="section" id="second-level-component-makefiles">
+<h4>მეორე დონე: კომპონენტის მაკეფაილები<a class="headerlink" href="build-system-legacy.html#second-level-component-makefiles" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>კომპონენტი makefile-ის თითოეული გამოძახება გადის შემდეგის მეშვეობით: <code class="docutils literal notranslate"><span class="pre">$(IDF_PATH)/make/component_wrapper.mk</span></code> შემფუთვის makefile.</li>
+<li>ეს კომპონენტი შეფუთვა მოიცავს ყველა კომპონენტი <code class="docutils literal notranslate"><span class="pre">Makefile.componentbuild</span></code> ფაილები, რაც ამ ფაილებში არსებულ ნებისმიერ რეცეპტს, ცვლადს და ა.შ. ხელმისაწვდომს ხდის ყველა კომპონენტი ისთვის.</li>
+<li>ის <code class="docutils literal notranslate"><span class="pre">component_wrapper.mk</span></code> გამოიძახება მიმდინარე დირექტორიაში, რომელიც მითითებულია კომპონენტი build დირექტორიაზე და <code class="docutils literal notranslate"><span class="pre">COMPONENT_MAKEFILE</span></code> ცვლადი დაყენებულია აბსოლუტურ გზაზე <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">component_wrapper.mk</span></code> ყველასთვის ნაგულისხმევ მნიშვნელობებს ადგენს <cite>component variables</cite>, შემდეგ მოიცავს <cite>component.mk</cite> ფაილი, რომელსაც შეუძლია მათი შეცვლა ან გადაფარვა.</li>
+<li>თუ <code class="docutils literal notranslate"><span class="pre">COMPONENT_OWNBUILDTARGET</span></code> და <code class="docutils literal notranslate"><span class="pre">COMPONENT_OWNCLEANTARGET</span></code> არ არის განსაზღვრული, ნაგულისხმევი აწყობის და სუფთა სამიზნეები იქმნება კომპონენტი ის საწყისი ფაილებისთვის და წინაპირობისთვის. <code class="docutils literal notranslate"><span class="pre">COMPONENT_LIBRARY</span></code> სტატიკური ბიბლიოთეკის ფაილი.</li>
+<li>ის <code class="docutils literal notranslate"><span class="pre">component_project_vars.mk</span></code> ფაილს აქვს საკუთარი სამიზნე <code class="docutils literal notranslate"><span class="pre">component_wrapper.mk</span></code>, რომელიც შეფასებულია <code class="docutils literal notranslate"><span class="pre">project.mk</span></code> თუ ამ ფაილის ხელახლა შექმნაა საჭირო კომპონენტი makefile-ში ან პროექტის კონფიგურაცია ში შეტანილი ცვლილებების გამო.</li>
+</ul>
+<p>კომპონენტი შექმნის პროცესის უკეთ გასაგებად, წაიკითხეთ <code class="docutils literal notranslate"><span class="pre">component_wrapper.mk</span></code> ფაილი და ზოგიერთი მათგანი <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> esp-idf-ში შემავალი ფაილები.</p>
+</div>
+</div>
+<div class="section" id="running-make-non-interactively">
+<h3>არაინტერაქტიულად გაშვებული შექმნა<a class="headerlink" href="build-system-legacy.html#running-make-non-interactively" title="Permalink to this headline">¶</a></h3>
+<p>სირბილის დროს <code class="docutils literal notranslate"><span class="pre">make</span></code> იმ სიტუაციაში, როდესაც არ გსურთ ინტერაქტიული მოთხოვნების დამატება (მაგალითად: IDE-ს ან ავტომატიზირებული აწყობის სისტემის შიგნით) <code class="docutils literal notranslate"><span class="pre">BATCH_BUILD=1</span></code> არგუმენტების შესაქმნელად (ან გარემოს ცვლადად დასაყენებლად).</p>
+<p>პარამეტრი <code class="docutils literal notranslate"><span class="pre">BATCH_BUILD</span></code> გულისხმობს შემდეგს:</p>
+<ul class="simple">
+<li>დეტალური გამომავალი (იგივეა, რაც <code class="docutils literal notranslate"><span class="pre">V=1</span></code>, იხილეთ ქვემოთ). თუ არ გსურთ დეტალური გამომავალი, ასევე დააყენეთ <code class="docutils literal notranslate"><span class="pre">V=0</span></code>.</li>
+<li>თუ პროექტის კონფიგურაცია აკლია ახალი კონფიგურაციის ელემენტები (ახალი კომპონენტი დან ან esp-idf განახლებებიდან), მაშინ პროექტი გამოიყენებს ნაგულისხმევ მნიშვნელობებს, მომხმარებლისგან თითოეული ელემენტის მოთხოვნის ნაცვლად.</li>
+<li>თუ აწყობის სისტემას სჭირდება გამოძახება <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>, შეცდომა იბეჭდება და აწყობა ვერ ხერხდება.</li>
+</ul>
+</div>
+<div class="section" id="advanced-make-targets">
+<span id="make-size"></span><h3>გაფართოებული მარკის სამიზნეები<a class="headerlink" href="build-system-legacy.html#advanced-make-targets" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">app</span></code>, <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bootloader</span></code>, <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">partition</span> <span class="pre">table</span></code> შესაძლებელია მისი გამოყენება პროექტიდან მხოლოდ აპლიკაციის, ჩამტვირთავი ან დანაყოფების ცხრილი ასაგებად, შესაბამის შემთხვევაში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">erase_flash</span></code> და <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">erase_otadata</span></code> esptool.py-ს გამოიყენებს ფლეშ მეხსიერება ჩიპისა და ფლეშ მეხსიერება ჩიპიდან OTA შერჩევის პარამეტრის წასაშლელად, შესაბამისად.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">size</span></code> ბეჭდავს აპლიკაციის ზომის შესახებ გარკვეულ ინფორმაციას. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">size-components</span></code> და <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">size-files</span></code> მსგავსი სამიზნეებია, რომლებიც, შესაბამისად, უფრო დეტალურ ინფორმაციას ბეჭდავენ თითოეული კომპონენტი ან თითოეული წყაროს ფაილის შესახებ.</li>
+</ul>
+</div>
+<div class="section" id="debugging-the-make-process">
+<h3>შექმნის პროცესის გამართვა<a class="headerlink" href="build-system-legacy.html#debugging-the-make-process" title="Permalink to this headline">¶</a></h3>
+<p>რამდენიმე რჩევა esp-idf სისტემის აწყობის გამართვა ისთვის:</p>
+<ul class="simple">
+<li>დამატება <code class="docutils literal notranslate"><span class="pre">V=1</span></code> make არგუმენტების გამოყენება (ან მისი გარემოს ცვლადად დაყენება) გამოიწვევს იმას, რომ make გაიმეორებს ყველა შესრულებული ბრძანების და ასევე თითოეული დირექტორიის მოქმედებას, როდესაც ის შეყვანილია ქვე-make-სთვის.</li>
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-w</span></code> გამოიწვევს make-ის მიერ თითოეული დირექტორიის გამეორებას, როდესაც ის შეყვანილია ქვე-make-სთვის - იგივეა, რაც <code class="docutils literal notranslate"><span class="pre">V=1</span></code> მაგრამ ასევე ყველა ბრძანების გამეორების გარეშე.</li>
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">--trace</span></code> (შესაძლოა, ზემოთ ჩამოთვლილი ერთ-ერთი არგუმენტის გარდა) დაბეჭდავს ყველა სამიზნეს მისი აგებისთანავე და დამოკიდებულებას, რამაც გამოიწვია მისი აგება.</li>
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-p</span></code> ბეჭდავს თითოეულ makefile-ში გენერირებული ყველა სამიზნის (ძალიან დეტალურ) შეჯამებას.</li>
+</ul>
+<p>მეტი გამართვა გინინგის რჩევებისა და ზოგადი ინფორმაციისთვის იხილეთ <cite>GNU Make Manual</cite>.</p>
+<div class="section" id="warning-on-undefined-variables">
+<span id="warn-undefined-variables-legacy"></span><h4>გაფრთხილება განუსაზღვრელი ცვლადების შესახებ<a class="headerlink" href="build-system-legacy.html#warning-on-undefined-variables" title="Permalink to this headline">¶</a></h4>
+<p>ნაგულისხმევად, შექმნის პროცესი გაფრთხილებას გამოაჩენს, თუ მითითებული იქნება განუსაზღვრელი ცვლადი (მაგალითად <code class="docutils literal notranslate"><span class="pre">$(DOES_NOT_EXIST)</span></code>). ეს შეიძლება სასარგებლო იყოს ცვლადების სახელებში შეცდომების მოსაძებნად.</p>
+<p>თუ ეს ქცევა არ გსურთ, მისი გამორთვა შესაძლებელია menuconfig ის ზედა დონის მენიუში, ქვემოთ. <cite>SDK tool configuration</cite>.</p>
+<p>გაითვალისწინეთ, რომ ეს პარამეტრი არ იწვევს გაფრთხილებას, თუ <code class="docutils literal notranslate"><span class="pre">ifdef</span></code> ან <code class="docutils literal notranslate"><span class="pre">ifndef</span></code> გამოიყენება Makefiles-ში.</p>
+</div>
+</div>
+<div class="section" id="overriding-parts-of-the-project">
+<h3>პროექტის გადამწყვეტი ნაწილები<a class="headerlink" href="build-system-legacy.html#overriding-parts-of-the-project" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="makefile-projbuild">
+<h4>Makefile.projbuild<a class="headerlink" href="build-system-legacy.html#makefile-projbuild" title="Permalink to this headline">¶</a></h4>
+<p>კომპონენტი ისთვის, რომლის შექმნის მოთხოვნებიც უნდა შეფასდეს ზედა დონის პროექტში make pass, შეგიძლიათ შექმნათ ფაილი სახელწოდებით <code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> კომპონენტი დირექტორიაში. ეს makefile შედის, როდესაც <code class="docutils literal notranslate"><span class="pre">project.mk</span></code> შეფასებულია.</p>
+<p>მაგალითად, თუ თქვენს კომპონენტი სჭირდება CFLAGS-ში დამატება მთელი პროექტისთვის (და არა მხოლოდ საკუთარი წყაროს ფაილებისთვის), მაშინ შეგიძლიათ დააყენოთ
+<code class="docutils literal notranslate"><span class="pre">CFLAGS</span> <span class="pre">+=</span></code> Makefile.projbuild-ში.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> ფაილები ფართოდ გამოიყენება esp-idf-ში, პროექტის მასშტაბით აწყობის ფუნქციების განსაზღვრისთვის, როგორიცაა <code class="docutils literal notranslate"><span class="pre">esptool.py</span></code> ბრძანების ხაზის არგუმენტები და <code class="docutils literal notranslate"><span class="pre">bootloader</span></code> „სპეციალური აპლიკაცია“.</p>
+<p>გაითვალისწინეთ, რომ <code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> არ არის აუცილებელი კომპონენტი ყველაზე გავრცელებული გამოყენებისთვის19 - მაგალითად, პროექტში ჩართვის დირექტორიების ან LDFLAGS-ის დამატებისას საბოლოო დაკავშირების ეტაპზე. ამ მნიშვნელობების მორგება შესაძლებელია <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> თავად ფაილი. იხილეთ <a class="reference internal" href="build-system-legacy.html#optional-project-wide-component-variables">პროექტის მასშტაბით კომპონენტის არჩევითი ცვლადები</a> დეტალებისთვის.</p>
+<p>ფრთხილად იყავით ამ ფაილში ცვლადების ან სამიზნეების დაყენებისას. რადგან მნიშვნელობები შედის პროექტის ზედა დონის makefile ფაილში, მათ შეუძლიათ გავლენა მოახდინონ ან შეაფერხონ ფუნქციონალობა ყველა კომპონენტი ში!</p>
+</div>
+<div class="section" id="kconfig-projbuild">
+<h4>KConfig.projbuild<a class="headerlink" href="build-system-legacy.html#kconfig-projbuild" title="Permalink to this headline">¶</a></h4>
+<p>ეს ეკვივალენტია <code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code> ამისთვის <cite>component configuration</cite> KConfig ფაილები. თუ გსურთ კონფიგურაციის პარამეტრების ჩართვა menuconfig ის ზედა დონეზე, „კომპონენტის კონფიგურაციის“ ქვემენიუს ნაცვლად, მაშინ მათი განსაზღვრა შესაძლებელია KConfig.projbuild ფაილში, <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი.</p>
+<p>ფრთხილად იყავით ამ ფაილში კონფიგურაციის მნიშვნელობების დამატებისას, რადგან ისინი მთელი პროექტის კონფიგურაცია განმავლობაში იქნება ჩართული. სადაც შესაძლებელია, ზოგადად უმჯობესია შექმნათ KConfig ფაილი. <cite>component configuration</cite>.</p>
+</div>
+<div class="section" id="makefile-componentbuild">
+<h4>Makefile. კომპონენტი build<a class="headerlink" href="build-system-legacy.html#makefile-componentbuild" title="Permalink to this headline">¶</a></h4>
+<p>კომპონენტი ფაილებისთვის, რომლებიც, მაგალითად, მოიცავს სხვა ფაილებიდან წყაროს ფაილების გენერირების ინსტრუმენტებს, აუცილებელია, რომ ყველა კომპონენტი ფაილის კომპონენტი შექმნის პროცესში რეცეპტების, მაკროების ან ცვლადების განმარტებების დამატება იყოს შესაძლებელი. ეს კეთდება შემდეგი გზით: <code class="docutils literal notranslate"><span class="pre">Makefile.componentbuild</span></code> კომპონენტი დირექტორიაში. ეს ფაილი შედის <code class="docutils literal notranslate"><span class="pre">component_wrapper.mk</span></code>, სანამ <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> კომპონენტი ის ფაილი შედის. როგორც Makefile.projbuild-ის შემთხვევაში, ფრთხილად იყავით ამ ფაილებთან: რადგან ისინი შედის თითოეულ კომპონენტი ბილდში, <code class="docutils literal notranslate"><span class="pre">Makefile.componentbuild</span></code> შეცდომა შეიძლება მხოლოდ სრულიად განსხვავებული კომპონენტი კომპილაციისას გამოჩნდეს19.</p>
+</div>
+<div class="section" id="configuration-only-components">
+<h4>მხოლოდ კონფიგურაციის კომპონენტები<a class="headerlink" href="build-system-legacy.html#configuration-only-components" title="Permalink to this headline">¶</a></h4>
+<p>ზოგიერთი სპეციალური კომპონენტი , რომელიც არ შეიცავს წყაროს ფაილებს, მხოლოდ <code class="docutils literal notranslate"><span class="pre">Kconfig.projbuild</span></code> და <code class="docutils literal notranslate"><span class="pre">Makefile.projbuild</span></code>, შეიძლება დროშის დაყენება <code class="docutils literal notranslate"><span class="pre">COMPONENT_CONFIG_ONLY</span></code> კომპონენტი .mk ფაილში. თუ ეს დროშა დაყენებულია, კომპონენტი სხვა ცვლადების უმეტესობა იგნორირებული იქნება და კომპონენტი ისთვის აწყობის ნაბიჯი არ შესრულდება.</p>
+</div>
+</div>
+<div class="section" id="example-component-makefiles">
+<h3>კომპონენტის Makefile-ის მაგალითი<a class="headerlink" href="build-system-legacy.html#example-component-makefiles" title="Permalink to this headline">¶</a></h3>
+<p>რადგან შექმნის გარემო ცდილობს დააყენოს გონივრული ნაგულისხმევი პარამეტრები, რომლებიც უმეტეს შემთხვევაში იმუშავებს, კომპონენტი .mk შეიძლება იყოს ძალიან პატარა ან თუნდაც ცარიელი (იხ. <a class="reference internal" href="build-system-legacy.html#minimal-component-makefile">მინიმალური კომპონენტის Makefile</a>თუმცა, გადამწყვეტი <cite>component variables</cite> როგორც წესი, ეს საჭიროა გარკვეული ფუნქციონირებისთვის.</p>
+<p>აქ მოცემულია რამდენიმე უფრო მოწინავე მაგალითი <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> makefiles:</p>
+<div class="section" id="adding-source-directories">
+<h4>წყაროს დირექტორიების დამატება<a class="headerlink" href="build-system-legacy.html#adding-source-directories" title="Permalink to this headline">¶</a></h4>
+<p>ნაგულისხმევად, ქვედირექტორიები იგნორირებულია. თუ თქვენს პროექტს აქვს წყაროები ქვედირექტორიებში და არა კომპონენტი ის ძირში, მაშინ ამის შესახებ შეგიძლიათ აცნობოთ build სისტემას დაყენებით <code class="docutils literal notranslate"><span class="pre">COMPONENT_SRCDIRS</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPONENT_SRCDIRS</span> <span class="p">:</span><span class="o">=</span> <span class="n">src1</span> <span class="n">src2</span>
+</pre></div>
+</div>
+<p>ეს კომპილაცია ად გამოიყენებს src1/ და src2/ ქვედირექტორიებში არსებულ ყველა წყაროს ფაილს.</p>
+</div>
+<div class="section" id="specifying-source-files">
+<h4>წყაროს ფაილების მითითება<a class="headerlink" href="build-system-legacy.html#specifying-source-files" title="Permalink to this headline">¶</a></h4>
+<p>სტანდარტული კომპონენტი .mk ლოგიკა უპირობოდ ამატებს ყველა .S და .c ფაილს წყაროს დირექტორიებში, როგორც წყაროებს, რომლებიც კომპილაცია d-ს წარმოადგენენ. შესაძლებელია ამ ლოგიკის გვერდის ავლა და კომპილაცია d ობიექტების მყარი კოდირება ხელით დაყენებით. <code class="docutils literal notranslate"><span class="pre">COMPONENT_OBJS</span></code> ცვლადი იმ ობიექტების სახელწოდებისთვის, რომელთა გენერირებაც საჭიროა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPONENT_OBJS</span> <span class="p">:</span><span class="o">=</span> <span class="n">file1</span><span class="o">.</span><span class="n">o</span> <span class="n">file2</span><span class="o">.</span><span class="n">o</span> <span class="n">thing</span><span class="o">/</span><span class="n">filea</span><span class="o">.</span><span class="n">o</span> <span class="n">thing</span><span class="o">/</span><span class="n">fileb</span><span class="o">.</span><span class="n">o</span> <span class="n">anotherthing</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">o</span>
+<span class="n">COMPONENT_SRCDIRS</span> <span class="p">:</span><span class="o">=</span> <span class="o">.</span> <span class="n">thing</span> <span class="n">anotherthing</span>
+</pre></div>
+</div>
+<p>გაითვალისწინეთ, რომ <code class="docutils literal notranslate"><span class="pre">COMPONENT_SRCDIRS</span></code> ასევე უნდა იყოს დაყენებული.</p>
+</div>
+<div class="section" id="adding-conditional-configuration">
+<h4>პირობითი კონფიგურაციის დამატება<a class="headerlink" href="build-system-legacy.html#adding-conditional-configuration" title="Permalink to this headline">¶</a></h4>
+<p>კონფიგურაციის სისტემის გამოყენება შესაძლებელია ზოგიერთი ფაილის პირობითი კომპილაცია , არჩეული პარამეტრების მიხედვით. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code>ამისათვის ESP-IDF აქვს კომპილაცია _only_if და კომპილაცია _only_if_not მაკროები:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Kconfig</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="n">FOO_ENABLE_BAR</span>
+    <span class="nb">bool</span> <span class="s2">"Enable the BAR feature."</span>
+    <span class="n">help</span>
+        <span class="n">This</span> <span class="n">enables</span> <span class="n">the</span> <span class="n">BAR</span> <span class="n">feature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">FOO</span> <span class="n">component</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">component.mk</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$(call compile_only_if,$(CONFIG_FOO_ENABLE_BAR),bar.o)
+</pre></div>
+</div>
+<p>როგორც მაგალითში ჩანს, <code class="docutils literal notranslate"><span class="pre">compile_only_if</span></code> მაკრო პარამეტრებად იღებს პირობას და ობიექტის ფაილების სიას. თუ პირობა მართალია (ამ შემთხვევაში: თუ BAR ფუნქცია ჩართულია menuconfig ში), ობიექტის ფაილები (ამ შემთხვევაში: bar.o) ყოველთვის იქნება კომპილაცია d. საპირისპიროც შეიძლება ითქვას: თუ პირობა არ არის სიმართლე, bar.o არასდროს იქნება კომპილაცია d. <code class="docutils literal notranslate"><span class="pre">compile_only_if_not</span></code> აკეთებს საპირისპიროს: კომპილაცია თუ პირობა მცდარია, და არა კომპილაცია , თუ პირობა მართალია.</p>
+<p>ეს ასევე შეიძლება გამოყენებულ იქნას იმპლემენტაციის შესარჩევად ან გამოსართავად, შემდეგნაირად:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Kconfig</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="n">ENABLE_LCD_OUTPUT</span>
+    <span class="nb">bool</span> <span class="s2">"Enable LCD output."</span>
+    <span class="n">help</span>
+        <span class="n">Select</span> <span class="n">this</span> <span class="k">if</span> <span class="n">your</span> <span class="n">board</span> <span class="n">has</span> <span class="n">a</span> <span class="n">LCD</span><span class="o">.</span>
+
+<span class="n">config</span> <span class="n">ENABLE_LCD_CONSOLE</span>
+    <span class="nb">bool</span> <span class="s2">"Output console text to LCD"</span>
+    <span class="n">depends</span> <span class="n">on</span> <span class="n">ENABLE_LCD_OUTPUT</span>
+    <span class="n">help</span>
+        <span class="n">Select</span> <span class="n">this</span> <span class="n">to</span> <span class="n">output</span> <span class="n">debugging</span> <span class="n">output</span> <span class="n">to</span> <span class="n">the</span> <span class="n">lcd</span>
+
+<span class="n">config</span> <span class="n">ENABLE_LCD_PLOT</span>
+    <span class="nb">bool</span> <span class="s2">"Output temperature plots to LCD"</span>
+    <span class="n">depends</span> <span class="n">on</span> <span class="n">ENABLE_LCD_OUTPUT</span>
+    <span class="n">help</span>
+        <span class="n">Select</span> <span class="n">this</span> <span class="n">to</span> <span class="n">output</span> <span class="n">temperature</span> <span class="n">plots</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">component.mk</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># If LCD is enabled, compile interface to it, otherwise compile dummy interface
+$(call compile_only_if,$(CONFIG_ENABLE_LCD_OUTPUT),lcd-real.o lcd-spi.o)
+$(call compile_only_if_not,$(CONFIG_ENABLE_LCD_OUTPUT),lcd-dummy.o)
+
+#We need font if either console or plot is enabled
+$(call compile_only_if,$(or $(CONFIG_ENABLE_LCD_CONSOLE),$(CONFIG_ENABLE_LCD_PLOT)), font.o)
+</pre></div>
+</div>
+<p>ყურადღება მიაქციეთ Make &amp;#39;or&amp;#39; ფუნქციის გამოყენებას შრიფტის ფაილის ჩასართავად. აქ ასევე იმუშავებს სხვა ჩანაცვლებითი ფუნქციები, როგორიცაა &amp;#39;and&amp;#39; და &amp;#39;if&amp;#39;. ასევე შეიძლება გამოყენებულ იქნას ცვლადები, რომლებიც არ მომდინარეობენ menuconfig დან: ESP-IDF იყენებს ნაგულისხმევ Make პოლიტიკას, რომელიც ცარიელ ან მხოლოდ თეთრ სივრცეებს შეიცავს ცვლადს, როგორც false-ს, მაშინ როდესაც ცვლადი, რომელშიც ნებისმიერი არა-თეთრი სივრცეა, არის true.</p>
+<p>(შენიშვნა: ამ დოკუმენტის ძველი ვერსიები გვირჩევდა ობიექტის ფაილების სახელების პირობითად დამატებას)
+<code class="docutils literal notranslate"><span class="pre">COMPONENT_OBJS</span></code>მიუხედავად იმისა, რომ ეს ჯერ კიდევ შესაძლებელია, ის მხოლოდ მაშინ იმუშავებს, როდესაც კომპონენტი ის ყველა ობიექტის ფაილი აშკარად არის დასახელებული და არ წაშლის მოხსნილ ობიექტის ფაილებს. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> გაივლის.)</p>
+</div>
+<div class="section" id="source-code-generation">
+<h4>საწყისი კოდის გენერირება<a class="headerlink" href="build-system-legacy.html#source-code-generation" title="Permalink to this headline">¶</a></h4>
+<p>ზოგიერთ კომპონენტი ფაილს ექნება სიტუაცია, როდესაც წყაროს ფაილი თავად კომპონენტი თან ერთად არ მოყვება, არამედ სხვა ფაილიდან უნდა გენერირდეს. დავუშვათ, ჩვენს კომპონენტი აქვს სათაურის ფაილი, რომელიც შედგება BMP ფაილის გადაკეთებული ბინარული მონაცემებისგან, რომლებიც გადაკეთებულია ჰიპოთეტური ინსტრუმენტის, სახელწოდებით bmp2h. სათაურის ფაილი შემდეგ შედის C წყაროს ფაილში, სახელწოდებით graphics_lib.c:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>COMPONENT_EXTRA_CLEAN := logo.h
+
+graphics_lib.o: logo.h
+
+logo.h: $(COMPONENT_PATH)/logo.bmp
+    bmp2h -i $^ -o $@
+</pre></div>
+</div>
+<p>ამ მაგალითში, graphics_lib.o და logo.h გენერირებული იქნება მიმდინარე დირექტორიაში (build დირექტორია), ხოლო logo.bmp მოყვება კომპონენტი ს და მდებარეობს კომპონენტი გზაში. რადგან logo.h არის გენერირებული ფაილი, მისი გაწმენდა საჭიროა make clean-ის გამოძახებისას, რის გამოც ის ემატება COMPONENT_EXTRA_CLEAN ცვლადს.</p>
+</div>
+<div class="section" id="cosmetic-improvements">
+<h4>კოსმეტიკური გაუმჯობესება<a class="headerlink" href="build-system-legacy.html#cosmetic-improvements" title="Permalink to this headline">¶</a></h4>
+<p>რადგან logo.h გენერირებული ფაილია, მისი გაწმენდა საჭიროა make clean-ის გამოძახებისას, რის გამოც ის ემატება COMPONENT_EXTRA_CLEAN ცვლადს.</p>
+<p>logo.h-ის დამატება <code class="docutils literal notranslate"><span class="pre">graphics_lib.o</span></code> დამოკიდებულებები იწვევს მის გენერირებას ადრე <code class="docutils literal notranslate"><span class="pre">graphics_lib.c</span></code> არის კომპილაცია .</p>
+<p>თუ სხვა კომპონენტი შედის წყაროს ფაილი <code class="docutils literal notranslate"><span class="pre">logo.h</span></code>, მაშინ ამ კომპონენტი ის სახელი უნდა დაემატოს სხვა კომპონენტი ის სახელებს
+<code class="docutils literal notranslate"><span class="pre">COMPONENT_DEPENDS</span></code> სია იმის უზრუნველსაყოფად, რომ კომპონენტი ები თანმიმდევრობით იყო აგებული.</p>
+</div>
+<div class="section" id="embedding-binary-data">
+<h4>ორობითი მონაცემების ჩასმა<a class="headerlink" href="build-system-legacy.html#embedding-binary-data" title="Permalink to this headline">¶</a></h4>
+<p>ზოგჯერ გაქვთ ფაილი, რომელიც შეიცავს ორობით ან ტექსტურ მონაცემებს, რომელთა გამოყენებაც გსურთ თქვენი კომპონენტი ისთვის, მაგრამ არ გსურთ ფაილის C წყაროს სახით გადაფორმატება.</p>
+<p>კომპონენტი .mk ფაილში შეგიძლიათ დააყენოთ COMPONENT_EMBED_FILES ცვლადი, რომელიც ჩასაშენებელი ფაილების სახელებს ამ გზით მიანიჭებს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPONENT_EMBED_FILES</span> <span class="p">:</span><span class="o">=</span> <span class="n">server_root_cert</span><span class="o">.</span><span class="n">der</span>
+</pre></div>
+</div>
+<p>ან თუ ფაილი სტრიქონია, შეგიძლიათ გამოიყენოთ ცვლადი COMPONENT_EMBED_TXTFILES. ეს ტექსტური ფაილის შინაარსს ნულოვანი ტერმინალით დასრულებულ სტრიქონად ჩასთავს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPONENT_EMBED_TXTFILES</span> <span class="p">:</span><span class="o">=</span> <span class="n">server_root_cert</span><span class="o">.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>ფაილის შინაარსი დაემატება ფლეშ მეხსიერება ის .rodata განყოფილებას და ხელმისაწვდომია შემდეგი სიმბოლოების სახელწოდებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">const</span> <span class="n">uint8_t</span> <span class="n">server_root_cert_pem_start</span><span class="p">[]</span> <span class="n">asm</span><span class="p">(</span><span class="s2">"_binary_server_root_cert_pem_start"</span><span class="p">);</span>
+<span class="n">extern</span> <span class="n">const</span> <span class="n">uint8_t</span> <span class="n">server_root_cert_pem_end</span><span class="p">[]</span>   <span class="n">asm</span><span class="p">(</span><span class="s2">"_binary_server_root_cert_pem_end"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>სახელები გენერირდება ფაილის სრული სახელიდან, როგორც ეს მოცემულია COMPONENT_EMBED_FILES-ში. სიმბოლოები /, . და ა.შ. ჩანაცვლებულია ქვედახაზებით. სიმბოლოს სახელში _binary პრეფიქსი დამატებულია objcopy-ის მიერ და იგივეა როგორც ტექსტური, ასევე ორობითი ფაილებისთვის.</p>
+<p>ამ ტექნიკის გამოყენების მაგალითისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/https_request">პროტოკოლები/https_მოთხოვნა</a> - სერტიფიკატის ფაილის შიგთავსი იტვირთება ტექსტური .pem ფაილიდან კომპილაცია დროს.</p>
+</div>
+</div>
+<div class="section" id="code-and-data-placements">
+<h3>კოდისა და მონაცემების განთავსება<a class="headerlink" href="build-system-legacy.html#code-and-data-placements" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF აქვს ფუნქცია, რომელსაც ლინკერის სკრიპტის გენერირება ეწოდება, რომელიც კომპონენტი ს საშუალებას აძლევს ლინკერის ფრაგმენტების ფაილების მეშვეობით განსაზღვროს, თუ სად განთავსდება მისი კოდი და მონაცემები მეხსიერებაში. ეს ფაილები მუშავდება შექმნის სისტემის მიერ და გამოიყენება აპლიკაციის ბინარული ფაილის დასაკავშირებლად გამოყენებული ლინკერის სკრიპტის გასაძლიერებლად. იხილეთ <a class="reference internal" href="linker-script-generation.html"><span class="doc">ლინკერის სკრიპტის გენერირება</span></a> სწრაფი დაწყების სახელმძღვანელოსთვის, ასევე მექანიზმის დეტალური განხილვისთვის.</p>
+</div>
+<div class="section" id="fully-overriding-the-component-makefile">
+<h3>კომპონენტის Makefile-ის სრული გადაფარვა<a class="headerlink" href="build-system-legacy.html#fully-overriding-the-component-makefile" title="Permalink to this headline">¶</a></h3>
+<p>ცხადია, არსებობს შემთხვევები, როდესაც ყველა ეს რეცეპტი არასაკმარისია გარკვეული კომპონენტი , მაგალითად, როდესაც კომპონენტი ძირითადად წარმოადგენს სხვა მესამე მხარის კომპონენტი შემოხვევას, რომელიც თავდაპირველად არ იყო განკუთვნილი ამ აწყობის სისტემაში კომპილაცია d-სთვის. ამ შემთხვევაში, შესაძლებელია esp-idf აწყობის სისტემის მთლიანად უარყოფა COMPONENT_OWNBUILDTARGET-ის და შესაძლოა COMPONENT_OWNCLEANTARGET-ის დაყენებით და საკუთარი სამიზნეების განსაზღვრით, სახელწოდებით <code class="docutils literal notranslate"><span class="pre">build</span></code> და <code class="docutils literal notranslate"><span class="pre">clean</span></code> ში <code class="docutils literal notranslate"><span class="pre">component.mk</span></code>
+სამიზნე. შექმნის სამიზნეს შეუძლია ნებისმიერი რამის გაკეთება, მთავარია, რომ ის შექმნას $(COMPONENT_LIBRARY) პროექტის შექმნის პროცესისთვის, რათა დაუკავშირდეს აპლიკაციის ბინარულ ფაილს.</p>
+<p>(სინამდვილეში, ესეც კი არ არის მკაცრად აუცილებელი - თუ COMPONENT_ADD_LDFLAGS ცვლადი გადაფარებულია, მაშინ კომპონენტი შეუძლია ლინკერს მისცეს მითითება, რომ სხვა ბინარული ფაილები დააკავშიროს.)</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">PSRAM-ით გარე აწყობის პროცესის გამოყენებისას, გახსოვდეთ, რომ დაამატოთ <code class="docutils literal notranslate"><span class="pre">-mfix-esp32-psram-cache-issue</span></code> C კომპილაცია r არგუმენტებისკენ. იხ. <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-cache-workaround"><span class="std std-ref">CONFIG_SPIRAM_CACHE_WORKAROUND</span></a> ამ დროშის დეტალებისთვის.</p>
+</div>
+</div>
+<div class="section" id="custom-sdkconfig-defaults">
+<span id="custom-sdkconfig-defaults-legacy"></span><h3>sdkconfig-ის მორგებული ნაგულისხმევი პარამეტრები<a class="headerlink" href="build-system-legacy.html#custom-sdkconfig-defaults" title="Permalink to this headline">¶</a></h3>
+<p>მაგალითად, პროექტების ან სხვა პროექტების შემთხვევაში, სადაც არ გსურთ sdkconfig-ის სრული კონფიგურაციის მითითება, მაგრამ გსურთ esp-idf-ის ნაგულისხმევი პარამეტრებიდან ზოგიერთი ძირითადი მნიშვნელობის გადაფარვა, შესაძლებელია ფაილის შექმნა <code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code> პროექტის დირექტორიაში. ეს ფაილი გამოყენებული იქნება გაშვებისას <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">defconfig</span></code>, ან ახალი კონფიგურაციის ნულიდან შექმნა.</p>
+<p>ამ ფაილის სახელის გადასაწერად, დააყენეთ <code class="docutils literal notranslate"><span class="pre">SDKCONFIG_DEFAULTS</span></code> გარემოს ცვლადი.</p>
+</div>
+<div class="section" id="save-flash-arguments">
+<h3>ფლეშ მეხსიერება არგუმენტების შენახვა<a class="headerlink" href="build-system-legacy.html#save-flash-arguments" title="Permalink to this headline">¶</a></h3>
+<p>არსებობს რამდენიმე სცენარი, როდესაც გვსურს სამიზნე დაფის ფლეშ მეხსიერება დამუშავება IDF-ის გარეშე. ამ შემთხვევაში გვინდა აწყობილი ბინარული ფაილების, esptool.py და esptool write_ ფლეშ მეხსიერება არგუმენტების შენახვა. ბინარული ფაილების და esptool.py-ის შესანახად სკრიპტის დაწერა მარტივია. შეგვიძლია გამოვიყენოთ ბრძანება <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">print_flash_cmd</span></code>, ის დაბეჭდავს ფლეშ მეხსიერება არგუმენტებს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">flash_mode</span> <span class="n">dio</span> <span class="o">--</span><span class="n">flash_freq</span> <span class="mi">40</span><span class="n">m</span> <span class="o">--</span><span class="n">flash_size</span> <span class="n">detect</span> <span class="mh">0x1000</span> <span class="n">bootloader</span><span class="o">/</span><span class="n">bootloader</span><span class="o">.</span><span class="n">bin</span> <span class="mh">0x10000</span> <span class="n">example_app</span><span class="o">.</span><span class="n">bin</span> <span class="mh">0x8000</span> <span class="n">partition_table_unit_test_app</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>შემდეგ გამოიყენეთ ფლეშ მეხსიერება არგუმენტები, როგორც არგუმენტები esptool write_ ფლეშ მეხსიერება არგუმენტებისთვის:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">chip</span> <span class="n">esp32</span> <span class="o">--</span><span class="n">port</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyUSB0</span> <span class="o">--</span><span class="n">baud</span> <span class="mi">921600</span> <span class="o">--</span><span class="n">before</span> <span class="n">default_reset</span> <span class="o">--</span><span class="n">after</span> <span class="n">hard_reset</span> <span class="n">write_flash</span> <span class="o">-</span><span class="n">z</span> <span class="o">--</span><span class="n">flash_mode</span> <span class="n">dio</span> <span class="o">--</span><span class="n">flash_freq</span> <span class="mi">40</span><span class="n">m</span> <span class="o">--</span><span class="n">flash_size</span> <span class="n">detect</span> <span class="mh">0x1000</span> <span class="n">bootloader</span><span class="o">/</span><span class="n">bootloader</span><span class="o">.</span><span class="n">bin</span> <span class="mh">0x10000</span> <span class="n">example_app</span><span class="o">.</span><span class="n">bin</span> <span class="mh">0x8000</span> <span class="n">partition_table_unit_test_app</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="building-the-bootloader">
+<h2>Bootloader-ის შექმნა<a class="headerlink" href="build-system-legacy.html#building-the-bootloader" title="Permalink to this headline">¶</a></h2>
+<p>ჩამტვირთავი აგებულია ნაგულისხმევად, როგორც „make all“-ის ნაწილი, ან შეიძლება აშენდეს დამოუკიდებლად „make ჩამტვირთავი -clean“-ის მეშვეობით. ასევე არსებობს „make ჩამტვირთავი -list- კომპონენტი s“, რათა ნახოთ ჩამტვირთავი build-ში შემავალი კომპონენტი s.</p>
+<p>IDF კომპონენტი s/ ჩამტვირთავი ში კომპონენტი განსაკუთრებულია, რადგან მეორე ეტაპის ჩამტვირთავი არის მთავარი პროექტისგან ცალკე .ELF და .BIN ფაილი. თუმცა, ის ძირითად პროექტს უზიარებს კონფიგურაციისა და შექმნის დირექტორიას.</p>
+<p>ეს მიიღწევა კომპონენტი s/ ჩამტვირთავი /subproject ფაილში ქვეპროექტის დამატებით. ამ ქვეპროექტს აქვს საკუთარი Makefile, მაგრამ მოსალოდნელია, რომ მისი გამოძახება პროექტის საკუთარი Makefile-დან მოხდება კომპონენტი s/ ჩამტვირთავი /Makefile.projectbuild ფაილში არსებული წებოს მეშვეობით. დამატებითი ინფორმაციისთვის იხილეთ ეს ფაილები.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="console.html" rel="next" title="Console">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="build-system.html" rel="prev" title="Build System"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

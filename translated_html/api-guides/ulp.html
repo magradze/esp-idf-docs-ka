@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ULP კოპროცესორის პროგრამირება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="ulp_instruction_set.html" rel="next" title="ESP32 ULP coprocessor instruction set"/>
+<link href="tools/idf-docker-image.html" rel="prev" title="IDF Docker Image"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/ulp.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/ulp"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/ulp.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="ulp.html#">ULP კოპროცესორი</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ulp_instruction_set.html">ESP32 ULP-ის ინსტრუქციის ნაკრების მითითება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulps2_instruction_set.html">ESP32-S2 ULP-ის ინსტრუქციის ნაკრების მითითება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp_macros.html">პროგრამირება მაკროების გამოყენებით (მემკვიდრეობითი)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp.html#installing-the-toolchain">ხელსაწყოების ჯაჭვის ინსტალაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp.html#compiling-the-ulp-code">ULP კოდის შედგენა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp.html#accessing-the-ulp-program-variables">ULP პროგრამის ცვლადებზე წვდომა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp.html#starting-the-ulp-program">ULP პროგრამის დაწყება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ulp.html#ulp-program-flow">ULP პროგრამის ნაკადი</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ULP კოპროცესორის პროგრამირება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/ulp.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="ulp-coprocessor-programming">
+<h1>ULP კოპროცესორის პროგრამირება<a class="headerlink" href="ulp.html#ulp-coprocessor-programming" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/ulp.html">[中文]</a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ulp_instruction_set.html">ESP32 ULP-ის ინსტრუქციის ნაკრების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ulps2_instruction_set.html">ESP32-S2 ULP-ის ინსტრუქციის ნაკრების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ulp_macros.html">პროგრამირება მაკროების გამოყენებით (მემკვიდრეობითი)</a></li>
+</ul>
+</div>
+<p>ULP (ულტრა დაბალი სიმძლავრის) კოპროცესორი არის მარტივი FSM (სასრული მდგომარეობის მანქანა), რომელიც შექმნილია გაზომვების შესასრულებლად ანალოგურ-ციფრული გადამყვანის, ტემპერატურის სენსორის და გარე I2C სენსორების გამოყენებით, სანამ მთავარი პროცესორები ღრმა ძილის რეჟიმში არიან. ULP კოპროცესორს შეუძლია წვდომა RTC_SLOW_MEM მეხსიერების რეგიონზე და რეგისტრირდება RTC_CNTL, RTC_IO და SARADC პერიფერიულ მოწყობილობებში. ULP კოპროცესორი იყენებს ფიქსირებული სიგანის 32-ბიტიან ინსტრუქციებს, 32-ბიტიან მეხსიერების მისამართებას და აქვს 4 ზოგადი დანიშნულების 16-ბიტიანი რეგისტრი.</p>
+<div class="section" id="installing-the-toolchain">
+<h2>ხელსაწყოების ჯაჭვის ინსტალაცია<a class="headerlink" href="ulp.html#installing-the-toolchain" title="Permalink to this headline">¶</a></h2>
+<p>ULP კოპროცესორის კოდი იწერება ასამბლეაში და კომპილაცია d-ში, შემდეგი ფორმულის გამოყენებით: <a class="reference external" href="https://github.com/espressif/binutils-esp32ulp">binutils-esp32ulp ინსტრუმენტების ნაკრები</a>.</p>
+<p>თუ უკვე დააყენეთ ESP-IDF CMake build სისტემის გამოყენებით შემდეგის მიხედვით: <a class="reference internal" href="../get-started/index.html"><span class="doc">დაწყების სახელმძღვანელო</span></a>, მაშინ ULP ინსტრუმენტების ნაკრები უკვე დაინსტალირებული იქნება.</p>
+<p>თუ ESP-IDF იყენებთ GNU Make-ზე დაფუძნებულ მემკვიდრეობით მიღებულ აწყობის სისტემასთან, იხილეთ ამ გვერდზე მოცემული ინსტრუქციები: <a class="reference internal" href="ulp-legacy.html"><span class="doc">ULP კოპროცესორი (Legacy GNU Make)</span></a>.</p>
+</div>
+<div class="section" id="compiling-the-ulp-code">
+<h2>ULP კოდის შედგენა<a class="headerlink" href="ulp.html#compiling-the-ulp-code" title="Permalink to this headline">¶</a></h2>
+<p>კომპილაცია ში ULP კოდის, როგორც კომპონენტი ის ნაწილის, მისაღებად, შემდეგი ნაბიჯები უნდა გადაიდგას:</p>
+<ol class="arabic simple">
+<li>ასამბლეის ფორმატში დაწერილი ULP კოდი უნდა დაემატოს ერთ ან რამდენიმე ფაილს შემდეგი ტექსტით: <cite>.S</cite> გაფართოება. ეს ფაილები უნდა განთავსდეს ცალკე დირექტორიაში კომპონენტი დირექტორიაში, მაგალითად <cite>ulp/</cite>.</li>
+</ol>
+<ol class="arabic" start="2">
+<li><p class="first">ზარი <code class="docutils literal notranslate"><span class="pre">ulp_embed_binary</span></code> რეგისტრაციის შემდეგ კომპონენტი CMakeLists.txt ფაილიდან. მაგალითად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>...
+idf_component_register()
+
+set(ulp_app_name ulp_${COMPONENT_NAME})
+set(ulp_s_sources ulp/ulp_assembly_source_file.S)
+set(ulp_exp_dep_srcs "ulp_c_source_file.c")
+
+ulp_embed_binary(${ulp_app_name} ${ulp_s_sources} ${ulp_exp_dep_srcs})
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div>The first argument to <code class="docutils literal notranslate"><span class="pre">ulp_embed_binary</span></code> specifies the ULP binary name. The name specified here will also be used by other generated artifacts
+such as the ELF file, map file, header file and linker export file. The second argument specifies the ULP assembly source files.
+Finally, the third argument specifies the list of component source files which include the header file to be generated.
+This list is needed to build the dependencies correctly and ensure that the generated header file will be created before any of these files are compiled.
+See section below for the concept of generated header files for ULP applications.</div></blockquote>
+<ol class="arabic" start="3">
+<li><p class="first">შექმენით აპლიკაცია ჩვეულებრივად (მაგ. <cite>idf.py app</cite>)</p>
+<p>შიგნით, შექმნის სისტემა გადადგამს შემდეგ ნაბიჯებს ULP პროგრამის ასაშენებლად:</p>
+<ol class="arabic simple">
+<li><strong>გაუშვით თითოეული ასამბლეის ფაილი (foo.S) C წინასწარი პროცესორის მეშვეობით.</strong> ეს ნაბიჯი კომპონენტი build დირექტორიაში წინასწარ დამუშავებული ასამბლეის ფაილების (foo.ulp.S) გენერირებას ახდენს. ეს ნაბიჯი ასევე დამოკიდებულების ფაილებს (foo.ulp.d) წარმოქმნის.</li>
+<li><strong>წინასწარ დამუშავებული ასამბლერის წყაროების გაშვება ასამბლერში.</strong> ეს ქმნის ობიექტის (foo.ulp.o) და სიის (foo.ulp.lst) ფაილებს. სიის ფაილები გენერირდება გამართვა ის გინგისთვის და არ გამოიყენება შექმნის პროცესის შემდგომ ეტაპებზე.</li>
+<li><strong>გაუშვით ლინკერის სკრიპტის შაბლონი C წინასწარი პროცესორის მეშვეობით.</strong> შაბლონი მდებარეობს <code class="docutils literal notranslate"><span class="pre">components/ulp/ld</span></code> დირექტორია.</li>
+<li><strong>ობიექტის ფაილების დაკავშირება გამომავალ ELF ფაილთან</strong> (<code class="docutils literal notranslate"><span class="pre">ulp_app_name.elf</span></code>). რუკის ფაილი (<code class="docutils literal notranslate"><span class="pre">ulp_app_name.map</span></code>ამ ეტაპზე გენერირებული ) შეიძლება სასარგებლო იყოს გამართვა დამუშავების მიზნებისთვის.</li>
+<li><strong>ELF ფაილის შინაარსი ორობით ფაილში გადაიტანეთ</strong> (<code class="docutils literal notranslate"><span class="pre">ulp_app_name.bin</span></code>), რომლის შემდეგაც შესაძლებელია აპლიკაციაში ჩასმა.</li>
+<li><strong>გლობალური სიმბოლოების სიის გენერირება</strong> (<code class="docutils literal notranslate"><span class="pre">ulp_app_name.sym</span></code>) ELF ფაილში, გამოყენებით <code class="docutils literal notranslate"><span class="pre">esp32ulp-elf-nm</span></code>.</li>
+<li><strong>შექმენით LD ექსპორტის სკრიპტი და სათაურის ფაილი</strong> (<code class="docutils literal notranslate"><span class="pre">ulp_app_name.ld</span></code> და <code class="docutils literal notranslate"><span class="pre">ulp_app_name.h</span></code>), რომელიც შეიცავს სიმბოლოებს <code class="docutils literal notranslate"><span class="pre">ulp_app_name.sym</span></code>ეს კეთდება გამოყენებით <code class="docutils literal notranslate"><span class="pre">esp32ulp_mapgen.py</span></code> სარგებლიანობა.</li>
+<li><strong>დაამატეთ გენერირებული ორობითი ფაილი ორობითი ფაილების სიაში</strong> აპლიკაციაში ჩასართავად.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="accessing-the-ulp-program-variables">
+<h2>ULP პროგრამის ცვლადებზე წვდომა<a class="headerlink" href="ulp.html#accessing-the-ulp-program-variables" title="Permalink to this headline">¶</a></h2>
+<p>ULP პროგრამაში განსაზღვრული გლობალური სიმბოლოების გამოყენება შესაძლებელია მთავარ პროგრამაში.</p>
+<p>მაგალითად, ULP პროგრამას შეუძლია განსაზღვროს ცვლადი <code class="docutils literal notranslate"><span class="pre">measurement_count</span></code> რომელიც განსაზღვრავს ADC გაზომვების რაოდენობას, რომელიც პროგრამამ უნდა განახორციელოს ჩიპის ღრმა ძილის რეჟიმიდან გამოღვიძებამდე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                        <span class="o">.</span><span class="k">global</span> <span class="n">measurement_count</span>
+<span class="n">measurement_count</span><span class="p">:</span>      <span class="o">.</span><span class="n">long</span> <span class="mi">0</span>
+
+                        <span class="o">/*</span> <span class="n">later</span><span class="p">,</span> <span class="n">use</span> <span class="n">measurement_count</span> <span class="o">*/</span>
+                        <span class="n">move</span> <span class="n">r3</span><span class="p">,</span> <span class="n">measurement_count</span>
+                        <span class="n">ld</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>ძირითად პროგრამას ULP პროგრამის დაწყებამდე ეს ცვლადი ინიციალიზაცია სჭირდება. აწყობის სისტემა ამას შესაძლებელს ხდის შემდეგი ცვლადის გენერირებით: <code class="docutils literal notranslate"><span class="pre">${ULP_APP_NAME}.h</span></code> და <code class="docutils literal notranslate"><span class="pre">${ULP_APP_NAME}.ld</span></code> ფაილები, რომლებიც განსაზღვრავენ ULP პროგრამაში არსებულ გლობალურ სიმბოლოებს. ULP პროგრამაში განსაზღვრული თითოეული გლობალური სიმბოლო შედის ამ ფაილებში და მათ პრეფიქსით <code class="docutils literal notranslate"><span class="pre">ulp_</span></code>.</p>
+<p>სათაურის ფაილი შეიცავს სიმბოლოს დეკლარაციას:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">uint32_t</span> <span class="n">ulp_measurement_count</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>გაითვალისწინეთ, რომ ყველა სიმბოლო (ცვლადი, მასივი, ფუნქცია) გამოცხადებულია, როგორც <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>ფუნქციებისა და მასივებისთვის, აიღეთ სიმბოლოს მისამართი და მიანიჭეთ მას შესაბამისი ტიპი.</p>
+<p>გენერირებული ლინკერის სკრიპტის ფაილი განსაზღვრავს სიმბოლოების მდებარეობას RTC_SLOW_MEM-ში:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PROVIDE</span> <span class="p">(</span> <span class="n">ulp_measurement_count</span> <span class="o">=</span> <span class="mh">0x50000060</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>ძირითადი პროგრამიდან ULP პროგრამის ცვლადებზე წვდომისთვის, გენერირებული სათაურის ფაილი უნდა იყოს ჩართული შემდეგი ფრაზის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">include</span></code> ეს საშუალებას მოგცემთ, ULP პროგრამის ცვლადებზე წვდომა რეგულარული ცვლადების სახით მოხდეს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include "ulp_app_name.h"</span>
+
+<span class="o">//</span> <span class="n">later</span>
+<span class="n">void</span> <span class="n">init_ulp_vars</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ulp_measurement_count</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>გაითვალისწინეთ, რომ ULP პროგრამას RTC მეხსიერებაში თითოეული 32-ბიტიანი სიტყვის მხოლოდ ქვედა 16 ბიტის გამოყენება შეუძლია, რადგან რეგისტრები 16-ბიტიანია და სიტყვის ზედა ნაწილიდან ჩატვირთვის ინსტრუქცია არ არსებობს.</p>
+<p>ანალოგიურად, ULP შენახვის ინსტრუქცია რეგისტრის მნიშვნელობას 32-ბიტიანი სიტყვის ქვედა 16 ბიტიან ნაწილში წერს. ზედა 16 ბიტი იწერება მნიშვნელობით, რომელიც დამოკიდებულია შენახვის ინსტრუქციის მისამართზე, ამიტომ ULP-ის მიერ დაწერილი ცვლადების წაკითხვისას, მთავარ აპლიკაციას ზედა 16 ბიტის შენიღბვა სჭირდება, მაგალითად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">"Last measurement value: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">ulp_last_measurement</span> <span class="o">&amp;</span> <span class="n">UINT16_MAX</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="starting-the-ulp-program">
+<h2>ULP პროგრამის დაწყება<a class="headerlink" href="ulp.html#starting-the-ulp-program" title="Permalink to this headline">¶</a></h2>
+<p>ULP პროგრამის გასაშვებად, მთავარ აპლიკაციას სჭირდება ULP პროგრამის RTC მეხსიერებაში ჩატვირთვა შემდეგი ბრძანების გამოყენებით: <code class="docutils literal notranslate"><span class="pre">ulp_load_binary</span></code> ფუნქცია და შემდეგ ჩართეთ იგი <code class="docutils literal notranslate"><span class="pre">ulp_run</span></code> ფუნქცია.</p>
+<p>გაითვალისწინეთ, რომ ULP-სთვის მეხსიერების დასაჯავშნად menuconfig ში უნდა იყოს ჩართული ოფცია „ულტრა დაბალი სიმძლავრის (ULP) კოპროცესორის ჩართვა“. ოფცია „RTC ნელი მეხსიერება დაჯავშნილია კოპროცესორისთვის“ უნდა იყოს დაყენებული ისეთ მნიშვნელობაზე, რომელიც საკმარისია ULP კოდისა და მონაცემების შესანახად. თუ აპლიკაცია კომპონენტი შეიცავს რამდენიმე ULP პროგრამას, მაშინ RTC მეხსიერების ზომა საკმარისი უნდა იყოს ყველაზე დიდი პროგრამის შესანახად.</p>
+<p>თითოეული ULP პროგრამა ESP-IDF აპლიკაციაში ჩაშენებულია ორობითი ბლობის სახით. აპლიკაციას შეუძლია ამ ბლობზე მითითება და მისი ჩატვირთვა შემდეგი გზით (დავუშვათ, რომ ULP_APP_NAME განისაზღვრა <code class="docutils literal notranslate"><span class="pre">ulp_app_name</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">const</span> <span class="n">uint8_t</span> <span class="n">bin_start</span><span class="p">[]</span> <span class="n">asm</span><span class="p">(</span><span class="s2">"_binary_ulp_app_name_bin_start"</span><span class="p">);</span>
+<span class="n">extern</span> <span class="n">const</span> <span class="n">uint8_t</span> <span class="n">bin_end</span><span class="p">[]</span>   <span class="n">asm</span><span class="p">(</span><span class="s2">"_binary_ulp_app_name_bin_end"</span><span class="p">);</span>
+
+<span class="n">void</span> <span class="n">start_ulp_program</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">ulp_load_binary</span><span class="p">(</span>
+        <span class="mi">0</span> <span class="o">/*</span> <span class="n">load</span> <span class="n">address</span><span class="p">,</span> <span class="nb">set</span> <span class="n">to</span> <span class="mi">0</span> <span class="n">when</span> <span class="n">using</span> <span class="n">default</span> <span class="n">linker</span> <span class="n">scripts</span> <span class="o">*/</span><span class="p">,</span>
+        <span class="n">bin_start</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">bin_end</span> <span class="o">-</span> <span class="n">bin_start</span><span class="p">)</span> <span class="o">/</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">uint32_t</span><span class="p">))</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="_CPPv415ulp_load_binary8uint32_tPK7uint8_t6size_t">
+<span id="_CPPv315ulp_load_binary8uint32_tPK7uint8_t6size_t"></span><span id="_CPPv215ulp_load_binary8uint32_tPK7uint8_t6size_t"></span><span id="ulp_load_binary__uint32_t.uint8_tCP.s"></span><span class="target" id="ulp__common_8h_1a1ace28e6f59b6e073f7b5d7885bbfe3b"></span><a class="reference internal" href="../api-reference/system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ulp_load_binary</code><span class="sig-paren">(</span>uint32_t <em>load_addr</em>, <em class="property">კონსტ</em> uint8_t *<em>პროგრამის_ბინარული</em>, size_t <em>პროგრამის_ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="ulp.html#_CPPv415ulp_load_binary8uint32_tPK7uint8_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ULP პროგრამის ბინარული ფაილის ჩატვირთვა RTC მეხსიერებაში. </p>
+<p>ULP პროგრამის ბინარულ ფაილს უნდა ჰქონდეს შემდეგი ფორმატი (ყველა მნიშვნელობა little-endian):</p>
+<p><ol class="arabic simple">
+<li>MAGIC, (მნიშვნელობა 0x00706c75, 4 ბაიტი)</li>
+<li>TEXT_OFFSET, .text სექციის ოფსეტი ორობითი ფაილის დასაწყისიდან (2 ბაიტი)</li>
+<li>TEXT_SIZE, .text სექციის ზომა (2 ბაიტი)</li>
+<li>DATA_SIZE, .data სექციის ზომა (2 ბაიტი)</li>
+<li>BSS_SIZE, .bss სექციის ზომა (2 ბაიტი)</li>
+<li>(TEXT_OFFSET - 12) ბაიტი თვითნებური მონაცემები (არ ჩაიტვირთება RTC მეხსიერებაში)</li>
+<li>.ტექსტის სექცია</li>
+<li>.მონაცემების სექცია</li>
+</ol>
+</p>
+<p>კომპონენტი s/ulp/ld/esp32.ulp.ld-ში მოცემული ლინკერის სკრიპტი ქმნის ELF ფაილებს, რომლებიც შეესაბამება ამ ფორმატს. ეს ლინკერის სკრიპტი ქმნის ბინარულ ფაილებს load_addr == 0-ით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ load_addr დიაპაზონის მიღმაა</li>
+<li>ESP_ERR_INVALID_SIZE თუ პროგრამის ზომა არ ემთხვევა (TEXT_OFFSET + TEXT_SIZE + DATA_SIZE)</li>
+<li>ESP_ERR_NOT_SUPPORTED თუ მაგიური რიცხვი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">load_addr</span></code>მისამართი, სადაც პროგრამა უნდა ჩაიტვირთოს, გამოხატული 32-ბიტიანი სიტყვებით </li>
+<li><code class="docutils literal notranslate"><span class="pre">program_binary</span></code>: პროგრამის ორობითი ფაილის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">program_size</span></code>: პროგრამის ბინარული ფაილის ზომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>როგორც კი პროგრამა RTC მეხსიერებაში ჩაიტვირთება, აპლიკაციას შეუძლია მისი გაშვება, შესვლის წერტილის მისამართის გადაცემით. <code class="docutils literal notranslate"><span class="pre">ulp_run</span></code> ფუნქცია:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">ulp_run</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ulp_entry</span> <span class="o">-</span> <span class="n">RTC_SLOW_MEM</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="_CPPv47ulp_run8uint32_t">
+<span id="_CPPv37ulp_run8uint32_t"></span><span id="_CPPv27ulp_run8uint32_t"></span><span id="ulp_run__uint32_t"></span><span class="target" id="ulp__common_8h_1a586dfe0767743d066bccd30a1ed517d5"></span><a class="reference internal" href="../api-reference/system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ulp_run</code><span class="sig-paren">(</span>uint32_t <em>შესვლის_პუნქტი</em><span class="sig-paren">)</span><a class="headerlink" href="ulp.html#_CPPv47ulp_run8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუშვით RTC მეხსიერებაში ჩატვირთული პროგრამა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK on success </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">entry_point</span></code>: შესვლის წერტილი, გამოხატული 32-ბიტიანი სიტყვებით </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>შესვლის წერტილის სიმბოლოს დეკლარაცია მომდინარეობს ზემოთ ხსენებული გენერირებული სათაურის ფაილიდან, <code class="docutils literal notranslate"><span class="pre">${ULP_APP_NAME}.h</span></code>ULP აპლიკაციის ასამბლეის კოდში ეს სიმბოლო უნდა იყოს მონიშნული, როგორც <code class="docutils literal notranslate"><span class="pre">.global</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="o">.</span><span class="k">global</span> <span class="n">entry</span>
+<span class="n">entry</span><span class="p">:</span>
+        <span class="o">/*</span> <span class="n">code</span> <span class="n">starts</span> <span class="n">here</span> <span class="o">*/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ulp-program-flow">
+<h2>ULP პროგრამის ნაკადი<a class="headerlink" href="ulp.html#ulp-program-flow" title="Permalink to this headline">¶</a></h2>
+<p>ULP კოპროცესორი იწყება ტაიმერით. ტაიმერი იწყება ერთხელ <code class="docutils literal notranslate"><span class="pre">ulp_run</span></code> გამოიძახება. ტაიმერი ითვლის RTC_SLOW_CLK ტიკების რაოდენობას (ნაგულისხმევად, წარმოიქმნება შიდა 150kHz RC ოსცილატორის მიერ). ტიკების რაოდენობა დგინდება <code class="docutils literal notranslate"><span class="pre">SENS_ULP_CP_SLEEP_CYCx_REG</span></code> რეგისტრები (x = 0..4). ULP-ის პირველად გაშვებისას, <code class="docutils literal notranslate"><span class="pre">SENS_ULP_CP_SLEEP_CYC0_REG</span></code> გამოყენებული იქნება ტაიმერის ტიკების რაოდენობის დასაყენებლად. მოგვიანებით, ULP პროგრამას შეუძლია სხვა აირჩიოს <code class="docutils literal notranslate"><span class="pre">SENS_ULP_CP_SLEEP_CYCx_REG</span></code> დარეგისტრირდით გამოყენებით <code class="docutils literal notranslate"><span class="pre">sleep</span></code> ინსტრუქცია.</p>
+<p>აპლიკაციას შეუძლია დააყენოს ULP ტაიმერის პერიოდის მნიშვნელობები (SENS_ULP_CP_SLEEP_CYCx_REG, x = 0..4) შემდეგის გამოყენებით: <code class="docutils literal notranslate"><span class="pre">ulp_set_wakeup_period</span></code> ფუნქცია.</p>
+<dl class="function">
+<dt id="_CPPv421ulp_set_wakeup_period6size_t8uint32_t">
+<span id="_CPPv321ulp_set_wakeup_period6size_t8uint32_t"></span><span id="_CPPv221ulp_set_wakeup_period6size_t8uint32_t"></span><span id="ulp_set_wakeup_period__s.uint32_t"></span><span class="target" id="ulp__common_8h_1a3024599c23b343bb5042da3758317703"></span><a class="reference internal" href="../api-reference/system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ulp_set_wakeup_period</code><span class="sig-paren">(</span>size_t <em>პერიოდის_ინდექსი</em>, uint32_t <em>პერიოდი_აშშ</em><span class="sig-paren">)</span><a class="headerlink" href="ulp.html#_CPPv421ulp_set_wakeup_period6size_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ ULP გაღვიძების პერიოდის ერთ-ერთი მნიშვნელობა. </p>
+<p>ULP კოპროცესორი პროგრამის გაშვებას იწყებს, როდესაც გაღვიძების ტაიმერი მოცემულ მნიშვნელობამდე (პერიოდამდე) ითვლის. არსებობს 5 პერიოდის მნიშვნელობა, რომელთა დაპროგრამება შესაძლებელია SENS_ULP_CP_SLEEP_CYCx_REG რეგისტრებში, x = 0..4. ნაგულისხმევად, გაღვიძების ტაიმერი გამოიყენებს SENS_ULP_CP_SLEEP_CYC0_REG-ში მითითებულ პერიოდს, ანუ პერიოდის ნომერს 0. ULP პროგრამის კოდს შეუძლია გამოიყენოს SLEEP ინსტრუქცია იმის ასარჩევად, თუ SENS_ULP_CP_SLEEP_CYCx_REG-დან რომელი უნდა იქნას გამოყენებული შემდგომი გაღვიძებისთვის.</p>
+<p>თუმცა, გთხოვთ გაითვალისწინოთ, რომ სისტემის ღრმა ძილის რეჟიმში ყოფნისას (ULP პროგრამიდან) გაცემულ SLEEP ინსტრუქციას ეფექტი არ აქვს და გამოიყენება ძილის ციკლების რაოდენობა 0.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The ULP FSM requires two clock cycles to wakeup before being able to run the program. Then additional 16 cycles are reserved after wakeup waiting until the 8M clock is stable. The FSM also requires two more clock cycles to go to sleep after the program execution is halted. The minimum wakeup period that may be set up for the ULP is equal to the total number of cycles spent on the above internal tasks. For a default configuration of the ULP running at 150kHz it makes about 133us. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ period_index დიაპაზონს სცილდება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">period_index</span></code>: გაღვიძების პერიოდის პარამეტრის ნომერი (0 - 4) </li>
+<li><code class="docutils literal notranslate"><span class="pre">period_us</span></code>: გამოღვიძების პერიოდი, აშშ </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<p>მას შემდეგ, რაც ტაიმერი დაითვლის არჩეულში დაყენებული ტიკების რაოდენობას <code class="docutils literal notranslate"><span class="pre">SENS_ULP_CP_SLEEP_CYCx_REG</span></code> რეგისტრის შემდეგ, ULP კოპროცესორი ჩაირთვება და დაიწყებს პროგრამის გაშვებას ზარში მითითებული შესვლის წერტილიდან. <code class="docutils literal notranslate"><span class="pre">ulp_run</span></code>.</p>
+<p>პროგრამა მუშაობს მანამ, სანამ არ შეხვდება <code class="docutils literal notranslate"><span class="pre">halt</span></code> ინსტრუქცია ან დაუშვებელი ინსტრუქცია. პროგრამის შეჩერების შემდეგ, ULP კოპროცესორი გამოირთვება და ტაიმერი ხელახლა ჩაირთვება.</p>
+<p>ტაიმერის გამოსართავად (ULP პროგრამის ხელახლა გაშვების ეფექტურად თავიდან ასაცილებლად), გთხოვთ, წაშალოთ <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_ULP_CP_SLP_TIMER_EN</span></code> ცოტა <code class="docutils literal notranslate"><span class="pre">RTC_CNTL_STATE0_REG</span></code> რეგისტრაცია. ეს შეიძლება გაკეთდეს როგორც ULP კოდიდან, ასევე ძირითადი პროგრამიდან.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ulp_instruction_set.html" rel="next" title="ESP32 ULP coprocessor instruction set">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="tools/idf-docker-image.html" rel="prev" title="IDF Docker Image"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

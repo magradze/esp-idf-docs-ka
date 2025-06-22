@@ -1,0 +1,765 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ძილის რეჟიმები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="wdts.html" rel="next" title="Watchdogs"/>
+<link href="power_management.html" rel="prev" title="Power Management"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/sleep_modes.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/sleep_modes"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/sleep_modes.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="sleep_modes.html#">ძილის რეჟიმები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#wifi-bt-and-sleep-modes">WiFi/BT და ძილის რეჟიმები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#wakeup-sources">გაღვიძების წყაროები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#power-down-of-rtc-peripherals-and-memories">RTC პერიფერიული მოწყობილობების და მეხსიერების გამორთვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#entering-light-sleep">მსუბუქ ძილში შესვლა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#entering-deep-sleep">ღრმა ძილში შესვლა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#configuring-ios">IO-ების კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#uart-output-handling">UART გამომავალი დამუშავება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#checking-sleep-wakeup-cause">ძილში გაღვიძების მიზეზის შემოწმება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#disable-sleep-wakeup-source">ძილის გაღვიძების წყაროს გამორთვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sleep_modes.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>ძილის რეჟიმები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/sleep_modes.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="sleep-modes">
+<h1>ძილის რეჟიმები<a class="headerlink" href="sleep_modes.html#sleep-modes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="sleep_modes.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ს შეუძლია მსუბუქი და ღრმა ძილის ენერგოდაზოგვის რეჟიმების გამოყენება.</p>
+<p>მსუბუქი ძილის რეჟიმში ციფრული პერიფერიული მოწყობილობები, ოპერატიული მეხსიერების უმეტესი ნაწილი და ცენტრალური პროცესორები საათის რეგულირების რეჟიმშია და კვების ძაბვა მცირდება. მსუბუქი ძილის რეჟიმიდან გამოსვლის შემდეგ, პერიფერიული მოწყობილობები და ცენტრალური პროცესორები განაახლებენ მუშაობას, მათი შიდა მდგომარეობა შენარჩუნებულია.</p>
+<p>ღრმა ძილის რეჟიმში, ცენტრალური პროცესორები, ოპერატიული მეხსიერების უმეტესი ნაწილი და ყველა ციფრული პერიფერიული მოწყობილობა, რომელიც APB_CLK-დან იტვირთება, გამოირთვება. ჩიპის ერთადერთი ნაწილები, რომელთა ჩართვაც კვლავ შესაძლებელია, არის: RTC კონტროლერი, RTC პერიფერიული მოწყობილობები (მათ შორის ULP კოპროცესორი) და RTC მეხსიერების მეხსიერება (ნელი და სწრაფი).</p>
+<p>ღრმა და მსუბუქი ძილის რეჟიმებიდან გამოღვიძება შესაძლებელია რამდენიმე წყაროს გამოყენებით. ეს წყაროები შეიძლება გაერთიანდეს, ამ შემთხვევაში ჩიპი გაიღვიძებს, როდესაც რომელიმე წყარო გააქტიურდება. გამოღვიძების წყაროების ჩართვა შესაძლებელია <code class="docutils literal notranslate"><span class="pre">esp_sleep_enable_X_wakeup</span></code> API s და შეიძლება გამორთოთ გამოყენებით <a class="reference internal" href="sleep_modes.html#_CPPv431esp_sleep_disable_wakeup_source18esp_sleep_source_t" title="esp_sleep_disable_wakeup_source"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_disable_wakeup_source()</span></code></a> API . შემდეგ ნაწილში დეტალურად არის აღწერილი ეს API ები. გაღვიძების წყაროების კონფიგურაცია შესაძლებელია ნებისმიერ მომენტში, მსუბუქი ან ღრმა ძილის რეჟიმში გადასვლამდე.</p>
+<p>გარდა ამისა, აპლიკაციას შეუძლია RTC პერიფერიული მოწყობილობებისა და RTC მეხსიერების კონკრეტული გამორთვის რეჟიმების იძულებით დაყენება. <a class="reference internal" href="sleep_modes.html#_CPPv419esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t" title="esp_sleep_pd_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_pd_config()</span></code></a> API .</p>
+<p>გაღვიძების წყაროების კონფიგურაციის შემდეგ, აპლიკაციას შეუძლია ძილის რეჟიმში გადასვლა <a class="reference internal" href="sleep_modes.html#_CPPv421esp_light_sleep_startv" title="esp_light_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_light_sleep_start()</span></code></a> ან <a class="reference internal" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="esp_deep_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_deep_sleep_start()</span></code></a> API s. ამ ეტაპზე აპარატურა კონფიგურირებული იქნება მოთხოვნილი გაღვიძების წყაროების მიხედვით და RTC კონტროლერი ან გამორთავს ენერგიას, ან გამორთავს პროცესორებს და ციფრულ პერიფერიულ მოწყობილობებს.</p>
+</div>
+<div class="section" id="wifi-bt-and-sleep-modes">
+<h2>WiFi/BT და ძილის რეჟიმები<a class="headerlink" href="sleep_modes.html#wifi-bt-and-sleep-modes" title="Permalink to this headline">¶</a></h2>
+<p>ღრმა და მსუბუქი ძილის რეჟიმებში უკაბელო პერიფერიული მოწყობილობები გამორთულია. ღრმა ან მსუბუქი ძილის რეჟიმებში გადასვლამდე, აპლიკაციებმა უნდა გამორთონ WiFi და BT შესაბამისი ზარების გამოყენებით (<a class="reference internal" href="../bluetooth/esp_bt_main.html#_CPPv421esp_bluedroid_disablev" title="esp_bluedroid_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_bluedroid_disable()</span></code></a>, <a class="reference internal" href="../bluetooth/controller_vhci.html#_CPPv425esp_bt_controller_disablev" title="esp_bt_controller_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_bt_controller_disable()</span></code></a>, <a class="reference internal" href="../network/esp_wifi.html#_CPPv413esp_wifi_stopv" title="esp_wifi_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_wifi_stop()</span></code></a>). WiFi და BT კავშირები არ შენარჩუნდება ღრმა ან მსუბუქი ძილის რეჟიმში, მაშინაც კი, თუ ეს ფუნქციები არ გამოიძახება.</p>
+<p>თუ WiFi კავშირის შენარჩუნებაა საჭირო, ჩართეთ WiFi მოდემის ძილის რეჟიმი და ავტომატური მსუბუქი ძილის ფუნქცია (იხ. <a class="reference internal" href="power_management.html"><span class="doc">ენერგიის მართვის API წმ</span></a>). ეს სისტემას საშუალებას მისცემს ავტომატურად გამოვიდეს ძილის რეჟიმიდან, როდესაც ამას WiFi დრაივერი მოითხოვს, რითაც შეინარჩუნებს კავშირს წვდომის წერტილთან.</p>
+</div>
+<div class="section" id="wakeup-sources">
+<h2>გაღვიძების წყაროები<a class="headerlink" href="sleep_modes.html#wakeup-sources" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="timer">
+<h3>ტაიმერი<a class="headerlink" href="sleep_modes.html#timer" title="Permalink to this headline">¶</a></h3>
+<p>RTC კონტროლერს აქვს ჩაშენებული ტაიმერი, რომლის გამოყენებაც შესაძლებელია ჩიპის გასაღვიძებლად წინასწარ განსაზღვრული დროის შემდეგ. დრო მითითებულია მიკროწამების სიზუსტით, მაგრამ ფაქტობრივი გარჩევადობა დამოკიდებულია RTC SLOW_CLK-ისთვის არჩეულ საათის წყაროზე. RTC საათის პარამეტრების შესახებ დამატებითი ინფორმაციისთვის იხილეთ ESP32 ტექნიკური საცნობარო სახელმძღვანელოს თავი „გადატვირთვა და საათი“.</p>
+<p>გაღვიძების ეს რეჟიმი არ საჭიროებს RTC პერიფერიული მოწყობილობების ან RTC მეხსიერების ჩართვას ძილის დროს.</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv429esp_sleep_enable_timer_wakeup8uint64_t" title="esp_sleep_enable_timer_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_timer_wakeup()</span></code></a> ფუნქციის გამოყენება შესაძლებელია ღრმა ძილის დროს გაღვიძების ჩასართავად ტაიმერის გამოყენებით.</p>
+</div>
+<div class="section" id="touch-pad">
+<h3>სენსორული პანელი<a class="headerlink" href="sleep_modes.html#touch-pad" title="Permalink to this headline">¶</a></h3>
+<p>RTC IO მოდული შეიცავს ლოგიკას, რომელიც გამოღვიძებას ასტიმულირებს შეხების სენსორის შეფერხებისას. ჩიპის ღრმა ძილის რეჟიმში გადასვლამდე საჭიროა სენსორული პანელის შეფერხების კონფიგურაცია.</p>
+<p>ESP32-ის 0 და 1 ვერსიები ამ გაღვიძების რეჟიმს მხოლოდ მაშინ უჭერენ მხარს, როდესაც RTC პერიფერიული მოწყობილობები იძულებით არ არის ჩართული (მაგ. ESP_PD_DOMAIN_RTC_PERIPH უნდა იყოს დაყენებული ESP_PD_OPTION_AUTO-ზე).</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv432esp_sleep_enable_touchpad_wakeupv" title="esp_sleep_enable_touchpad_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_touchpad_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+</div>
+<div class="section" id="external-wakeup-ext0">
+<h3>გარე გამოღვიძება (ext0)<a class="headerlink" href="sleep_modes.html#external-wakeup-ext0" title="Permalink to this headline">¶</a></h3>
+<p>RTC IO მოდული შეიცავს ლოგიკას, რომელიც ააქტიურებს გამოღვიძებას, როდესაც RTC GPIO დან ერთ-ერთი დაყენებულია წინასწარ განსაზღვრულ ლოგიკურ დონეზე. RTC IO არის RTC პერიფერიული მოწყობილობების კვების დომენის ნაწილი, ამიტომ RTC პერიფერიული მოწყობილობები ჩართული დარჩება ღრმა ძილის დროს, თუ მოთხოვნილი იქნება ეს გამოღვიძების წყარო.</p>
+<p>რადგან RTC IO მოდული ჩართულია ამ რეჟიმში, ასევე შესაძლებელია შიდა ასაწევი ან ასაწევი რეზისტორების გამოყენება. მათი კონფიგურაცია საჭიროა აპლიკაციის მიერ. <a class="reference internal" href="../peripherals/gpio.html#_CPPv418rtc_gpio_pullup_en10gpio_num_t" title="rtc_gpio_pullup_en"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rtc_gpio_pullup_en()</span></code></a> და <a class="reference internal" href="../peripherals/gpio.html#_CPPv420rtc_gpio_pulldown_en10gpio_num_t" title="rtc_gpio_pulldown_en"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rtc_gpio_pulldown_en()</span></code></a> ფუნქციები, დარეკვამდე <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_start()</span></code>.</p>
+<p>ESP32-ის 0 და 1 ვერსიებში, ეს გაღვიძების წყარო შეუთავსებელია ULP და სენსორული გაღვიძების წყაროებთან.</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv428esp_sleep_enable_ext0_wakeup10gpio_num_ti" title="esp_sleep_enable_ext0_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_ext0_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ძილიდან გამოღვიძების შემდეგ, გამოღვიძებისთვის გამოყენებული IO პანელი კონფიგურირებული იქნება როგორც RTC IO. ამ პანელის ციფრულ GPIO გამოყენებამდე, ხელახლა დააკონფიგურირეთ იგი <code class="docutils literal notranslate"><span class="pre">rtc_gpio_deinit(gpio_num)</span></code> ფუნქცია.</p>
+</div>
+</div>
+<div class="section" id="external-wakeup-ext1">
+<h3>გარე გამოღვიძება (ext1)<a class="headerlink" href="sleep_modes.html#external-wakeup-ext1" title="Permalink to this headline">¶</a></h3>
+<p>RTC კონტროლერი შეიცავს ლოგიკას, რომელიც გამოღვიძებას ასტიმულირებს მრავალი RTC GPIO გამოყენებით. გამოღვიძების ასამოქმედებლად შეიძლება გამოყენებულ იქნას ორი ლოგიკური ფუნქციიდან ერთ-ერთი:</p>
+<blockquote>
+<div><ul class="simple">
+<li>გაიღვიძეთ, თუ რომელიმე არჩეული პინი მაღალია (<code class="docutils literal notranslate"><span class="pre">ESP_EXT1_WAKEUP_ANY_HIGH</span></code>)</li>
+<li>გაიღვიძეთ, თუ ყველა არჩეული პინი დაბალია (<code class="docutils literal notranslate"><span class="pre">ESP_EXT1_WAKEUP_ALL_LOW</span></code>)</li>
+</ul>
+</div></blockquote>
+<p>ეს გაღვიძების წყარო დანერგილია RTC კონტროლერის მიერ. ამრიგად, RTC პერიფერიული მოწყობილობების და RTC მეხსიერების გამორთვა შესაძლებელია ამ რეჟიმში. თუმცა, თუ RTC პერიფერიული მოწყობილობები გამორთულია, შიდა ამწევი და დაწევის რეზისტორები გამორთული იქნება. შიდა ამწევი ან დაწევის რეზისტორების გამოსაყენებლად, მოითხოვეთ, რომ RTC პერიფერიული მოწყობილობების კვების დომენი ჩართული იყოს ძილის რეჟიმში და დააკონფიგურირეთ ამწევი/დაწევის რეზისტორები გამოყენებით. <code class="docutils literal notranslate"><span class="pre">rtc_gpio_</span></code> ფუნქციები, ძილში შესვლამდე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esp_sleep_pd_config</span><span class="p">(</span><span class="n">ESP_PD_DOMAIN_RTC_PERIPH</span><span class="p">,</span> <span class="n">ESP_PD_OPTION_ON</span><span class="p">);</span>
+<span class="n">gpio_pullup_dis</span><span class="p">(</span><span class="n">gpio_num</span><span class="p">);</span>
+<span class="n">gpio_pulldown_en</span><span class="p">(</span><span class="n">gpio_num</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ძილიდან გამოღვიძების შემდეგ, გამოღვიძებისთვის გამოყენებული IO პანელი(ები) კონფიგურირებული იქნება როგორც RTC IO. ამ პანელებს ციფრული GPIO სახით გამოყენებამდე, ხელახლა დააკონფიგურირეთ ისინი გამოყენებით <code class="docutils literal notranslate"><span class="pre">rtc_gpio_deinit(gpio_num)</span></code> ფუნქცია.</p>
+</div>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv428esp_sleep_enable_ext1_wakeup8uint64_t28esp_sleep_ext1_wakeup_mode_t" title="esp_sleep_enable_ext1_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_ext1_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+</div>
+<div class="section" id="ulp-coprocessor-wakeup">
+<h3>ULP კოპროცესორის გაღვიძება<a class="headerlink" href="sleep_modes.html#ulp-coprocessor-wakeup" title="Permalink to this headline">¶</a></h3>
+<p>ULP კოპროცესორს შეუძლია იმუშაოს ჩიპის ძილის რეჟიმში ყოფნისას და შეიძლება გამოყენებულ იქნას სენსორების გამოსაკვლევად, ანალოგურ-ციფრული ინდიკატორის (ADC) ან სენსორების შეხების მნიშვნელობების მონიტორინგისთვის და ჩიპის გასაღვიძებლად კონკრეტული მოვლენის აღმოჩენისას. ULP კოპროცესორი RTC პერიფერიული მოწყობილობების კვების დომენის ნაწილია და ის გაუშვებს RTC ნელი სიხშირის მეხსიერებაში შენახულ პროგრამას. RTC ნელი მეხსიერება ჩაირთვება ძილის დროს, თუ მოთხოვნილი იქნება ეს გაღვიძების რეჟიმი. RTC პერიფერიული მოწყობილობები ავტომატურად ჩაირთვება, სანამ ULP კოპროცესორი დაიწყებს პროგრამის გაშვებას; როგორც კი პროგრამა შეწყვეტს მუშაობას, RTC პერიფერიული მოწყობილობები ავტომატურად გამოირთვება ისევ.</p>
+<p>ESP32-ის 0 და 1 ვერსიები ამ გაღვიძების რეჟიმს მხოლოდ მაშინ უჭერენ მხარს, როდესაც RTC პერიფერიული მოწყობილობები იძულებით არ არის ჩართული (მაგ. ESP_PD_DOMAIN_RTC_PERIPH უნდა იყოს დაყენებული ESP_PD_OPTION_AUTO-ზე).</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv427esp_sleep_enable_ulp_wakeupv" title="esp_sleep_enable_ulp_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_ulp_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+</div>
+<div class="section" id="gpio-wakeup-light-sleep-only">
+<h3>GPIO გამოღვიძება (მხოლოდ მსუბუქი ძილი)<a class="headerlink" href="sleep_modes.html#gpio-wakeup-light-sleep-only" title="Permalink to this headline">¶</a></h3>
+<p>ზემოთ აღწერილი EXT0 და EXT1 გაღვიძების წყაროების გარდა, მსუბუქი ძილის რეჟიმში ხელმისაწვდომია გარე შეყვანებიდან გაღვიძების კიდევ ერთი მეთოდი. ამ გაღვიძების წყაროს შემთხვევაში, თითოეული პინი შეიძლება ინდივიდუალურად იყოს კონფიგურირებული მაღალ ან დაბალ დონეზე გაღვიძების გასააქტიურებლად. <a class="reference internal" href="../peripherals/gpio.html#_CPPv418gpio_wakeup_enable10gpio_num_t15gpio_int_type_t" title="gpio_wakeup_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gpio_wakeup_enable()</span></code></a> ფუნქცია. EXT0 და EXT1 გაღვიძების წყაროებისგან განსხვავებით, რომელთა გამოყენება მხოლოდ RTC IO-ებთან არის შესაძლებელი, ამ გაღვიძების წყაროს გამოყენება შესაძლებელია ნებისმიერ IO-სთან (RTC ან ციფრული).</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv428esp_sleep_enable_gpio_wakeupv" title="esp_sleep_enable_gpio_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_gpio_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+</div>
+<div class="section" id="uart-wakeup-light-sleep-only">
+<h3>UART გაღვიძება (მხოლოდ მსუბუქი ძილი)<a class="headerlink" href="sleep_modes.html#uart-wakeup-light-sleep-only" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც ESP32 იღებს UART შეყვანას გარე მოწყობილობებიდან, ხშირად საჭიროა ჩიპის გამოღვიძება, როდესაც შეყვანის მონაცემები ხელმისაწვდომია. UART პერიფერიული მოწყობილობა შეიცავს ფუნქციას, რომელიც საშუალებას იძლევა ჩიპი გამოაღვიძოს მსუბუქი ძილის რეჟიმიდან, როდესაც RX პინზე დადებითი კიდეების გარკვეული რაოდენობა ჩანს. დადებითი კიდეების ეს რაოდენობა შეიძლება დაყენდეს გამოყენებით <a class="reference internal" href="../peripherals/uart.html#_CPPv425uart_set_wakeup_threshold11uart_port_ti" title="uart_set_wakeup_threshold"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_set_wakeup_threshold()</span></code></a> ფუნქცია. გაითვალისწინეთ, რომ გაღვიძების პროცესის გამომწვევი სიმბოლო (და მის წინა სიმბოლოები) UART-ის მიერ გაღვიძების შემდეგ არ იქნება მიღებული. ეს ნიშნავს, რომ გარე მოწყობილობას, როგორც წესი, მონაცემების გაგზავნამდე, გაღვიძების პროცესის გამოსაწვევად ESP32-ზე დამატებითი სიმბოლოს გაგზავნა სჭირდება.</p>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv428esp_sleep_enable_uart_wakeupi" title="esp_sleep_enable_uart_wakeup"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_enable_uart_wakeup()</span></code></a> ფუნქცია შეიძლება გამოყენებულ იქნას ამ გაღვიძების წყაროს ჩასართავად.</p>
+</div>
+</div>
+<div class="section" id="power-down-of-rtc-peripherals-and-memories">
+<h2>RTC პერიფერიული მოწყობილობების და მეხსიერების გამორთვა<a class="headerlink" href="sleep_modes.html#power-down-of-rtc-peripherals-and-memories" title="Permalink to this headline">¶</a></h2>
+<p>ნაგულისხმევად, <a class="reference internal" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="esp_deep_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_deep_sleep_start()</span></code></a> და <a class="reference internal" href="sleep_modes.html#_CPPv421esp_light_sleep_startv" title="esp_light_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_light_sleep_start()</span></code></a> ფუნქციები გამორთავს ყველა RTC კვების დომენს, რომელიც არ არის საჭირო ჩართული გაღვიძების წყაროებისთვის. ამ ქცევის გადასალახავად, <a class="reference internal" href="sleep_modes.html#_CPPv419esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t" title="esp_sleep_pd_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_pd_config()</span></code></a> ფუნქციაა გათვალისწინებული.</p>
+<p>შენიშვნა: ESP32-ის 0 ვერსიაში, RTC სწრაფი მეხსიერება ყოველთვის ჩართული იქნება ღრმა ძილის რეჟიმში, რათა გადატვირთვის შემდეგ ღრმა ძილის სტაბმა შეძლოს მუშაობა. ეს შეიძლება შეიცვალოს, თუ აპლიკაციას ღრმა ძილის შემდეგ სუფთა გადატვირთვის ქცევა არ სჭირდება.</p>
+<p>თუ პროგრამაში ზოგიერთი ცვლადი მოთავსებულია RTC ნელ მეხსიერებაში (მაგალითად, გამოყენებით <code class="docutils literal notranslate"><span class="pre">RTC_DATA_ATTR</span></code> ატრიბუტი), RTC ნელი მეხსიერება ნაგულისხმევად ჩართული დარჩება. ამის გადაფარვა შესაძლებელია <a class="reference internal" href="sleep_modes.html#_CPPv419esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t" title="esp_sleep_pd_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_pd_config()</span></code></a> ფუნქცია, სურვილის შემთხვევაში.</p>
+</div>
+<div class="section" id="entering-light-sleep">
+<h2>მსუბუქ ძილში შესვლა<a class="headerlink" href="sleep_modes.html#entering-light-sleep" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv421esp_light_sleep_startv" title="esp_light_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_light_sleep_start()</span></code></a> ფუნქციის გამოყენება შესაძლებელია მსუბუქი ძილის რეჟიმში გადასასვლელად, მას შემდეგ, რაც გაღვიძების წყაროები კონფიგურირებული იქნება. ასევე შესაძლებელია მსუბუქი ძილის რეჟიმში გადასვლა გაღვიძების წყაროების კონფიგურირების გარეშე, ამ შემთხვევაში ჩიპი განუსაზღვრელი ვადით იქნება მსუბუქი ძილის რეჟიმში, გარე გადატვირთვამდე.</p>
+</div>
+<div class="section" id="entering-deep-sleep">
+<h2>ღრმა ძილში შესვლა<a class="headerlink" href="sleep_modes.html#entering-deep-sleep" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="esp_deep_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_deep_sleep_start()</span></code></a> ფუნქციის გამოყენება შესაძლებელია ღრმა ძილის რეჟიმში გადასასვლელად, მას შემდეგ, რაც გაღვიძების წყაროები კონფიგურირებული იქნება. ასევე შესაძლებელია ღრმა ძილის რეჟიმში გადასვლა გაღვიძების წყაროების გარეშე, ამ შემთხვევაში ჩიპი განუსაზღვრელი ვადით იქნება ღრმა ძილის რეჟიმში, სანამ გარე გადატვირთვა არ განხორციელდება.</p>
+</div>
+<div class="section" id="configuring-ios">
+<h2>IO-ების კონფიგურაცია<a class="headerlink" href="sleep_modes.html#configuring-ios" title="Permalink to this headline">¶</a></h2>
+<p>ზოგიერთ ESP32 IO-ს აქვს შიდა pull-up ან pull-down ფუნქციები, რომლებიც ნაგულისხმევად ჩართულია. თუ გარე წრედი ამ პინს ღრმა ძილის რეჟიმში მართავს, დენის მოხმარება შეიძლება გაიზარდოს ამ pull-up და pull-down ფუნქციების მეშვეობით დენის გავლის გამო.</p>
+<p>დამატებითი დენის მოხმარების თავიდან ასაცილებლად, პინის იზოლირებისთვის დარეკეთ <a class="reference internal" href="../peripherals/gpio.html#_CPPv416rtc_gpio_isolate10gpio_num_t" title="rtc_gpio_isolate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rtc_gpio_isolate()</span></code></a> ფუნქცია.</p>
+<p>მაგალითად, ESP32-WROVER მოდულზე, GPIO 12 გარედან იხსნება. GPIO 12-ს ასევე აქვს შიდა ჩამოსაწევი ფუნქცია ESP32 ჩიპში. ეს ნიშნავს, რომ ღრმა ძილის დროს, გარკვეული დენი გაივლის ამ გარე და შიდა რეზისტორებში, რაც ღრმა ძილის დენს მინიმალურ შესაძლო მნიშვნელობაზე მაღლა აყენებს. დაამატეთ შემდეგი კოდი შემდეგ ველამდე: <a class="reference internal" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="esp_deep_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_deep_sleep_start()</span></code></a> ამ დამატებითი დენის მოსაშორებლად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rtc_gpio_isolate</span><span class="p">(</span><span class="n">GPIO_NUM_12</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uart-output-handling">
+<h2>UART გამომავალი დამუშავება<a class="headerlink" href="sleep_modes.html#uart-output-handling" title="Permalink to this headline">¶</a></h2>
+<p>ძილის რეჟიმში გადასვლამდე, <a class="reference internal" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="esp_deep_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_deep_sleep_start()</span></code></a> გაასუფთავებს UART FIFO-ების შიგთავსს.</p>
+<p>მსუბუქი ძილის რეჟიმში გადასვლისას, გამოიყენეთ <a class="reference internal" href="sleep_modes.html#_CPPv421esp_light_sleep_startv" title="esp_light_sleep_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_light_sleep_start()</span></code></a>, UART FIFO-ები არ გაიწმინდება. ამის ნაცვლად, UART გამომავალი შეჩერდება და FIFO-ში დარჩენილი სიმბოლოები გაიგზავნება მსუბუქი ძილის რეჟიმიდან გამოღვიძების შემდეგ.</p>
+</div>
+<div class="section" id="checking-sleep-wakeup-cause">
+<h2>ძილში გაღვიძების მიზეზის შემოწმება<a class="headerlink" href="sleep_modes.html#checking-sleep-wakeup-cause" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="sleep_modes.html#_CPPv426esp_sleep_get_wakeup_causev" title="esp_sleep_get_wakeup_cause"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_get_wakeup_cause()</span></code></a> ფუნქციის გამოყენება შესაძლებელია იმის შესამოწმებლად, რომელმა გაღვიძების წყარომ გამოიწვია ძილის რეჟიმიდან გაღვიძება.</p>
+<p>სენსორული პანელის და ext1 გაღვიძების წყაროების შემთხვევაში, შესაძლებელია PIN-ის ან სენსორული პანელის იდენტიფიცირება, რომელმაც გაღვიძება გამოიწვია, გამოყენებით. <a class="reference internal" href="sleep_modes.html#_CPPv436esp_sleep_get_touchpad_wakeup_statusv" title="esp_sleep_get_touchpad_wakeup_status"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_get_touchpad_wakeup_status()</span></code></a> და <a class="reference internal" href="sleep_modes.html#_CPPv432esp_sleep_get_ext1_wakeup_statusv" title="esp_sleep_get_ext1_wakeup_status"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_get_ext1_wakeup_status()</span></code></a> ფუნქციები.</p>
+</div>
+<div class="section" id="disable-sleep-wakeup-source">
+<h2>ძილის გაღვიძების წყაროს გამორთვა<a class="headerlink" href="sleep_modes.html#disable-sleep-wakeup-source" title="Permalink to this headline">¶</a></h2>
+<p>ადრე კონფიგურირებული გაღვიძების წყაროს გამორთვა მოგვიანებით შესაძლებელია გამოყენებით <a class="reference internal" href="sleep_modes.html#_CPPv431esp_sleep_disable_wakeup_source18esp_sleep_source_t" title="esp_sleep_disable_wakeup_source"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_sleep_disable_wakeup_source()</span></code></a> API . ეს ფუნქცია გამორთავს ტრიგერს მოცემული გაღვიძების წყაროსთვის. გარდა ამისა, მას შეუძლია გამორთოს ყველა ტრიგერი, თუ არგუმენტი არის <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_ALL</span></code>.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="sleep_modes.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>ღრმა ძილის ძირითადი ფუნქციონალურობის განხორციელება ნაჩვენებია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/sntp">პროტოკოლები/SNTP</a> მაგალითად, სადაც ESP მოდული პერიოდულად იღვიძებს NTP სერვერიდან დროის აღსადგენად.</p>
+<p>უფრო ვრცელი მაგალითია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/deep_sleep">სისტემა/ღრმა_ძილი</a> ასახავს ღრმა ძილის დროს გაღვიძების სხვადასხვა ტრიგერების და ULP კოპროცესორული პროგრამირების გამოყენებას.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="sleep_modes.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="sleep_modes.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp32/include/esp_sleep.h">esp32/include/esp_sleep.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="sleep_modes.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv431esp_sleep_disable_wakeup_source18esp_sleep_source_t">
+<span id="_CPPv331esp_sleep_disable_wakeup_source18esp_sleep_source_t"></span><span id="_CPPv231esp_sleep_disable_wakeup_source18esp_sleep_source_t"></span><span id="esp_sleep_disable_wakeup_source__esp_sleep_source_t"></span><span class="target" id="esp__sleep_8h_1a6d47ae16727df68b286e7fa97833db1b"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_disable_wakeup_source</code><span class="sig-paren">(</span><a class="reference internal" href="sleep_modes.html#_CPPv418esp_sleep_source_t" title="esp_sleep_source_t">esp_sleep_source_t</a> <em>წყარო</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv431esp_sleep_disable_wakeup_source18esp_sleep_source_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთეთ გაღვიძების წყარო. </p>
+<p>ეს ფუნქცია გამოიყენება ფუნქციის პარამეტრად განსაზღვრული წყაროს გაღვიძების ტრიგერის გამოსართავად.</p>
+<p><p>დეტალებისთვის იხილეთ docs/sleep-modes.rst.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function does not modify wake up configuration in RTC. It will be performed in esp_sleep_start function.</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ ტრიგერი არ იყო აქტიური </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">source</span></code>: - esp_sleep_source_t ტიპის გამოსართავი წყაროს რაოდენობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_sleep_enable_ulp_wakeupv">
+<span id="_CPPv327esp_sleep_enable_ulp_wakeupv"></span><span id="_CPPv227esp_sleep_enable_ulp_wakeupv"></span><span id="esp_sleep_enable_ulp_wakeup__void"></span><span class="target" id="esp__sleep_8h_1a0503fee9ec3674232d1f54d671d32b54"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_ulp_wakeup</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv427esp_sleep_enable_ulp_wakeupv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ULP კოპროცესორის მიერ გაღვიძების ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In revisions 0 and 1 of the ESP32, ULP wakeup source can not be used when RTC_PERIPH power domain is forced to be powered on (ESP_PD_OPTION_ON) or when ext0 wakeup source is used. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NOT_SUPPORTED, თუ შეხებით დამატებითი დენის მიწოდება (CONFIG_ESP32_RTC_EXT_CRYST_ADDIT_CURRENT) ჩართულია.</li>
+<li>ESP_ERR_INVALID_STATE თუ ULP თანაპროცესორი არ არის ჩართული ან თუ გაღვიძება კონფლიქტს იწვევს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429esp_sleep_enable_timer_wakeup8uint64_t">
+<span id="_CPPv329esp_sleep_enable_timer_wakeup8uint64_t"></span><span id="_CPPv229esp_sleep_enable_timer_wakeup8uint64_t"></span><span id="esp_sleep_enable_timer_wakeup__uint64_t"></span><span class="target" id="esp__sleep_8h_1ac95bf1825c25ef5265baab867c36f513"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_timer_wakeup</code><span class="sig-paren">(</span>uint64_t <em>დრო_აშშ-ში</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv429esp_sleep_enable_timer_wakeup8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერით გაღვიძების ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ მნიშვნელობა დიაპაზონს სცილდება (დაზუსტდება) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">time_in_us</span></code>: გაღვიძებამდე დრო, მიკროწამებში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_sleep_enable_touchpad_wakeupv">
+<span id="_CPPv332esp_sleep_enable_touchpad_wakeupv"></span><span id="_CPPv232esp_sleep_enable_touchpad_wakeupv"></span><span id="esp_sleep_enable_touchpad_wakeup__void"></span><span class="target" id="esp__sleep_8h_1afb310a12fb149a3dc52a22fa209e00df"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_touchpad_wakeup</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv432esp_sleep_enable_touchpad_wakeupv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეხების სენსორით გაღვიძების ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In revisions 0 and 1 of the ESP32, touch wakeup source can not be used when RTC_PERIPH power domain is forced to be powered on (ESP_PD_OPTION_ON) or when ext0 wakeup source is used.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The FSM mode of the touch button should be configured as the timer trigger mode.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NOT_SUPPORTED, თუ შეხებით დამატებითი დენის მიწოდება (CONFIG_ESP32_RTC_EXT_CRYST_ADDIT_CURRENT) ჩართულია.</li>
+<li>ESP_ERR_INVALID_STATE თუ გაღვიძება კონფლიქტს იწვევს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv436esp_sleep_get_touchpad_wakeup_statusv">
+<span id="_CPPv336esp_sleep_get_touchpad_wakeup_statusv"></span><span id="_CPPv236esp_sleep_get_touchpad_wakeup_statusv"></span><span id="esp_sleep_get_touchpad_wakeup_status__void"></span><span class="target" id="esp__sleep_8h_1aa144ca60946608e201b62e07db49cc0b"></span><a class="reference internal" href="../peripherals/touch_pad.html#_CPPv411touch_pad_t" title="touch_pad_t">სენსორული_პანელი_t</a> <code class="descname">esp_sleep_get_touchpad_wakeup_status</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv436esp_sleep_get_touchpad_wakeup_statusv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იპოვეთ სენსორული პანელი, რომელმაც გამოღვიძება გამოიწვია. </p>
+<p>თუ გამოღვიძება სხვა წყარომ გამოიწვია, ეს ფუნქცია დააბრუნებს TOUCH_PAD_MAX-ს;</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>touch pad which caused wakeup </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_sleep_enable_ext0_wakeup10gpio_num_ti">
+<span id="_CPPv328esp_sleep_enable_ext0_wakeup10gpio_num_ti"></span><span id="_CPPv228esp_sleep_enable_ext0_wakeup10gpio_num_ti"></span><span id="esp_sleep_enable_ext0_wakeup__gpio_num_t.i"></span><span class="target" id="esp__sleep_8h_1a776f51f2a1411927b5f21e09ed4653fb"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_ext0_wakeup</code><span class="sig-paren">(</span>gpio_num_t <em>gpio_num</em>, int <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_sleep_enable_ext0_wakeup10gpio_num_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გააქტიურეთ გაღვიძება PIN კოდის გამოყენებით. </p>
+<p>ეს ფუნქცია იყენებს RTC_IO პერიფერიული მოწყობილობის გარე გაღვიძების ფუნქციას. ის იმუშავებს მხოლოდ იმ შემთხვევაში, თუ RTC პერიფერიული მოწყობილობები ჩართულია ძილის დროს.</p>
+<p>ამ ფუნქციას შეუძლია ნებისმიერი პინის მონიტორინგი, რომელიც RTC IO-ა. როგორც კი პინი level არგუმენტით მითითებულ მდგომარეობაში გადავა, ჩიპი გაიღვიძებს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function does not modify pin configuration. The pin is configured in esp_sleep_start, immediately before entering sleep mode.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In revisions 0 and 1 of the ESP32, ext0 wakeup source can not be used together with touch or ULP wakeup sources.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ არჩეული GPIO არ არის RTC GPIO , ან რეჟიმი არასწორია</li>
+<li>ESP_ERR_INVALID_STATE თუ გაღვიძება კონფლიქტს იწვევს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">gpio_num</span></code>: GPIO ნომერი გამოიყენება გაღვიძების წყაროდ. მხოლოდ GPIO ის გამოყენებაა შესაძლებელი, რომელსაც აქვს RTC ფუნქციონალი: 0,2,4,12-15,25-27,32-39. </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>შეყვანის დონე, რომელიც გამოიწვევს გაღვიძებას (0=დაბალი, 1=მაღალი) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_sleep_enable_ext1_wakeup8uint64_t28esp_sleep_ext1_wakeup_mode_t">
+<span id="_CPPv328esp_sleep_enable_ext1_wakeup8uint64_t28esp_sleep_ext1_wakeup_mode_t"></span><span id="_CPPv228esp_sleep_enable_ext1_wakeup8uint64_t28esp_sleep_ext1_wakeup_mode_t"></span><span id="esp_sleep_enable_ext1_wakeup__uint64_t.esp_sleep_ext1_wakeup_mode_t"></span><span class="target" id="esp__sleep_8h_1aad77f259412b0cc1882829ccb09eaeb1"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_ext1_wakeup</code><span class="sig-paren">(</span>uint64_t <em>ნიღაბი</em>, <a class="reference internal" href="sleep_modes.html#_CPPv428esp_sleep_ext1_wakeup_mode_t" title="esp_sleep_ext1_wakeup_mode_t">esp_sleep_ext1_wakeup_mode_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_sleep_enable_ext1_wakeup8uint64_t28esp_sleep_ext1_wakeup_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გააქტიურეთ გაღვიძება მრავალი პინის გამოყენებით. </p>
+<p>ეს ფუნქცია იყენებს RTC კონტროლერის გარე გაღვიძების ფუნქციას. ის იმუშავებს მაშინაც კი, თუ RTC პერიფერიული მოწყობილობები გამორთულია ძილის რეჟიმში.</p>
+<p>ამ ფუნქციას შეუძლია RTC IO-ებში არსებული ნებისმიერი რაოდენობის პინების მონიტორინგი. როგორც კი რომელიმე არჩეული პინი mode არგუმენტით მითითებულ მდგომარეობაში გადავა, ჩიპი გაიღვიძებს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function does not modify pin configuration. The pins are configured in esp_sleep_start, immediately before entering sleep mode.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>internal pullups and pulldowns don’t work when RTC peripherals are shut down. In this case, external resistors need to be added. Alternatively, RTC peripherals (and pullups/pulldowns) may be kept enabled using esp_sleep_pd_config function.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ არჩეული GPIO რომელიმე არ არის RTC GPIO , ან რეჟიმი არასწორია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mask</span></code>: GPIO რიცხვების ბიტური ნიღაბი, რომელიც გამოღვიძებას გამოიწვევს. ამ ბიტურ რუკაში მხოლოდ GPIO რიცხვების გამოყენებაა შესაძლებელი, რომლებსაც აქვთ RTC ფუნქციონალობა: 0,2,4,12-15,25-27,32-39. </li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: აირჩიეთ ლოგიკური ფუნქცია, რომელიც გამოიყენება გაღვიძების მდგომარეობის დასადგენად:<ul>
+<li>ESP_EXT1_WAKEUP_ALL_LOW: გამოღვიძება, როდესაც ყველა არჩეული GPIO დაბალია</li>
+<li>ESP_EXT1_WAKEUP_ANY_HIGH: გამოღვიძება, როდესაც რომელიმე არჩეული GPIO 7-დან მაღალია </li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_sleep_enable_gpio_wakeupv">
+<span id="_CPPv328esp_sleep_enable_gpio_wakeupv"></span><span id="_CPPv228esp_sleep_enable_gpio_wakeupv"></span><span id="esp_sleep_enable_gpio_wakeup__void"></span><span class="target" id="esp__sleep_8h_1aa54aa7764ed851b205671f65bd7248e6"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_gpio_wakeup</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_sleep_enable_gpio_wakeupv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მსუბუქი ძილიდან გამოღვიძების ჩართვა GPIO s-ის გამოყენებით. </p>
+<p>თითოეული GPIO მხარს უჭერს გაღვიძების ფუნქციას, რომლის გააქტიურება შესაძლებელია როგორც დაბალ, ასევე მაღალ დონეზე. EXT0 და EXT1 გაღვიძების წყაროებისგან განსხვავებით, ეს მეთოდი შეიძლება გამოყენებულ იქნას როგორც ყველა IO-სთვის: RTC IO-ებისთვის, ასევე ციფრული IO-ებისთვის. თუმცა, მისი გამოყენება მხოლოდ მსუბუქი ძილის რეჟიმიდან გაღვიძებისთვისაა შესაძლებელი.</p>
+<p>გაღვიძების ფუნქციის ჩასართავად, ჯერ გამოიძახეთ gpio_wakeup_enable, თითოეული GPIO ისთვის, რომელიც გამოიყენება გაღვიძებისთვის, მიუთითეთ gpio ნომერი და გაღვიძების დონე. შემდეგ გამოიძახეთ ეს ფუნქცია გაღვიძების ფუნქციის ჩასართავად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>In revisions 0 and 1 of the ESP32, GPIO wakeup source can not be used together with touch or ULP wakeup sources.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ გაღვიძება კონფლიქტს იწვევს </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_sleep_enable_uart_wakeupi">
+<span id="_CPPv328esp_sleep_enable_uart_wakeupi"></span><span id="_CPPv228esp_sleep_enable_uart_wakeupi"></span><span id="esp_sleep_enable_uart_wakeup__i"></span><span class="target" id="esp__sleep_8h_1aba663fd929cb2006a4e3b8a666cd63ec"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_enable_uart_wakeup</code><span class="sig-paren">(</span>int <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_sleep_enable_uart_wakeupi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მსუბუქი ძილის რეჟიმიდან გამოღვიძების ჩართვა UART-ის გამოყენებით. </p>
+<p>UART გაღვიძების ზღურბლის კონფიგურაციისთვის გამოიყენეთ uart_set_wakeup_threshold ფუნქცია.</p>
+<p>მსუბუქი ძილის რეჟიმიდან გამოღვიძებას გარკვეული დრო სჭირდება, ამიტომ აპლიკაციას UART-ზე გაგზავნილი ყველა სიმბოლოს მიღება არ შეუძლია.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ESP32 does not support wakeup from UART2.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG, თუ მოცემული UART-დან გამოღვიძება არ არის მხარდაჭერილი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პორტი გასაღვიძებლად </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_sleep_get_ext1_wakeup_statusv">
+<span id="_CPPv332esp_sleep_get_ext1_wakeup_statusv"></span><span id="_CPPv232esp_sleep_get_ext1_wakeup_statusv"></span><span id="esp_sleep_get_ext1_wakeup_status__void"></span><span class="target" id="esp__sleep_8h_1aa4a24a3ae25910689d743e4b0bf1f7b8"></span>uint64_t <code class="descname">esp_sleep_get_ext1_wakeup_status</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv432esp_sleep_get_ext1_wakeup_statusv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ GPIO ის ბიტური ნიღაბი, რომელმაც გამოიწვია გამოღვიძება (ext1) </p>
+<p>თუ გამოღვიძება სხვა წყარომ გამოიწვია, ეს ფუნქცია 0-ს დააბრუნებს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>bit mask, if GPIOn caused wakeup, BIT(n) will be set </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t">
+<span id="_CPPv319esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t"></span><span id="_CPPv219esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t"></span><span id="esp_sleep_pd_config__esp_sleep_pd_domain_t.esp_sleep_pd_option_t"></span><span class="target" id="esp__sleep_8h_1a0b9e62edc70f5811acf9ed71323a769a"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_sleep_pd_config</code><span class="sig-paren">(</span><a class="reference internal" href="sleep_modes.html#_CPPv421esp_sleep_pd_domain_t" title="esp_sleep_pd_domain_t">esp_sleep_pd_domain_t</a> <em>დომენი</em>, <a class="reference internal" href="sleep_modes.html#_CPPv421esp_sleep_pd_option_t" title="esp_sleep_pd_option_t">esp_sleep_pd_option_t</a> <em>ვარიანტი</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv419esp_sleep_pd_config21esp_sleep_pd_domain_t21esp_sleep_pd_option_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილის რეჟიმში RTC კვების დომენისთვის გამორთვის რეჟიმის დაყენება. </p>
+<p>თუ ამ API გამოყენებით არ არის დაყენებული, ყველა სიმძლავრის დომენი ნაგულისხმევად ESP_PD_OPTION_AUTO-ზე იქნება დაყენებული.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG, თუ რომელიმე არგუმენტი დიაპაზონის მიღმაა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">domain</span></code>: კონფიგურაციისთვის განკუთვნილი power domain </li>
+<li><code class="docutils literal notranslate"><span class="pre">option</span></code>: გამორთვის ვარიანტი (ESP_PD_OPTION_OFF, ESP_PD_OPTION_ON ან ESP_PD_OPTION_AUTO) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_deep_sleep_startv">
+<span id="_CPPv320esp_deep_sleep_startv"></span><span id="_CPPv220esp_deep_sleep_startv"></span><span id="esp_deep_sleep_start__void"></span><span class="target" id="esp__sleep_8h_1aaab646dc5c929e79401be3074a194dab"></span>void <code class="descname">esp_deep_sleep_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv420esp_deep_sleep_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონფიგურირებული გაღვიძების პარამეტრებით, გადადით ღრმა ძილში. </p>
+<p>ეს ფუნქცია არ აბრუნებს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_light_sleep_startv">
+<span id="_CPPv321esp_light_sleep_startv"></span><span id="_CPPv221esp_light_sleep_startv"></span><span id="esp_light_sleep_start__void"></span><span class="target" id="esp__sleep_8h_1af809e1a635680bdb6953e056fe37088c"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_light_sleep_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv421esp_light_sleep_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კონფიგურირებული გაღვიძების პარამეტრებით გადადით მსუბუქ ძილში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში (დაბრუნებული გაღვიძების შემდეგ)</li>
+<li>ESP_ERR_INVALID_STATE თუ WiFi ან BT არ არის გაჩერებული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_deep_sleep8uint64_t">
+<span id="_CPPv314esp_deep_sleep8uint64_t"></span><span id="_CPPv214esp_deep_sleep8uint64_t"></span><span id="esp_deep_sleep__uint64_t"></span><span class="target" id="esp__sleep_8h_1a1aef330235c8be02f5c0cd779a333912"></span>void <code class="descname">esp_deep_sleep</code><span class="sig-paren">(</span>uint64_t <em>დრო_აშშ-ში</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv414esp_deep_sleep8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის რეჟიმში გადადით. </p>
+<p>მოწყობილობა ავტომატურად გაიღვიძებს ღრმა ძილის შემდეგ. გაღვიძებისთანავე, მოწყობილობა გამოიძახებს ღრმა ძილის გაღვიძების შეტყობინებას და შემდეგ განაგრძობს აპლიკაციის ჩატვირთვას.</p>
+<p>ამ ფუნქციის გამოძახება ეკვივალენტურია esp_deep_sleep_enable_timer_wakeup-ის გამოძახებისა, რასაც მოჰყვება esp_deep_sleep_start-ის გამოძახება.</p>
+<p>esp_deep_sleep არ თიშავს WiFi-ს, BT-ს და უფრო მაღალი დონის პროტოკოლის კავშირებს ელეგანტურად. დარწმუნდით, რომ შესაბამისი WiFi და BT დასტის ფუნქციები გამოიძახება ნებისმიერი კავშირის დასახურად და პერიფერიული მოწყობილობების დეინიციალიზაციისთვის. ესენია:<ul class="simple">
+<li>esp_bluedroid_disable</li>
+<li>esp_bt_controller_disable</li>
+<li>esp_wifi_stop</li>
+</ul>
+</p>
+<p>ეს ფუნქცია არ აბრუნებს.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">time_in_us</span></code>ღრმა ძილის დრო, ერთეული: მიკროწამი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_sleep_get_wakeup_causev">
+<span id="_CPPv326esp_sleep_get_wakeup_causev"></span><span id="_CPPv226esp_sleep_get_wakeup_causev"></span><span id="esp_sleep_get_wakeup_cause__void"></span><span class="target" id="esp__sleep_8h_1ab052ea488a7f3319a46c5db5a31fb59c"></span><a class="reference internal" href="sleep_modes.html#_CPPv424esp_sleep_wakeup_cause_t" title="esp_sleep_wakeup_cause_t">esp_sleep_wakeup_cause_t</a> <code class="descname">esp_sleep_get_wakeup_cause</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv426esp_sleep_get_wakeup_causev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>იპოვეთ გამოღვიძების წყარო, რომელმაც გამოიწვია ძილის რეჟიმიდან გამოღვიძება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>cause of wake up from last sleep (deep sleep or light sleep) </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_wake_deep_sleepv">
+<span id="_CPPv319esp_wake_deep_sleepv"></span><span id="_CPPv219esp_wake_deep_sleepv"></span><span id="esp_wake_deep_sleep__void"></span><span class="target" id="esp__sleep_8h_1a0b71eb3acc3a86dad1813a6a20529a53"></span>void <code class="descname">esp_wake_deep_sleep</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv419esp_wake_deep_sleepv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის შემდეგ გაშვებისას გასაშვებად ნაგულისხმევი stub. </p>
+<p>საშუალებას იძლევა კოდის შესრულების დაუყოვნებლივ, ძილის რეჟიმიდან გამოღვიძებისთანავე, პროგრამული უზრუნველყოფის ჩამტვირთავი ან ESP-IDF აპლიკაციის გაშვებამდე.</p>
+<p>ეს ფუნქცია სუსტად არის დაკავშირებული, ამიტომ თქვენ შეგიძლიათ დანერგოთ თქვენი საკუთარი ვერსია, რათა კოდი დაუყოვნებლივ გაუშვათ, როდესაც ჩიპი ძილის რეჟიმიდან გამოვა.</p>
+<p>დეტალებისთვის იხილეთ docs/deep-sleep-stub.rst. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_set_deep_sleep_wake_stub29esp_deep_sleep_wake_stub_fn_t">
+<span id="_CPPv328esp_set_deep_sleep_wake_stub29esp_deep_sleep_wake_stub_fn_t"></span><span id="_CPPv228esp_set_deep_sleep_wake_stub29esp_deep_sleep_wake_stub_fn_t"></span><span id="esp_set_deep_sleep_wake_stub__esp_deep_sleep_wake_stub_fn_t"></span><span class="target" id="esp__sleep_8h_1a28e9e608be308c5d7035fa22cfc7d660"></span>void <code class="descname">esp_set_deep_sleep_wake_stub</code><span class="sig-paren">(</span><a class="reference internal" href="sleep_modes.html#_CPPv429esp_deep_sleep_wake_stub_fn_t" title="esp_deep_sleep_wake_stub_fn_t">esp_deep_sleep_wake_stub_fn_t</a> <em>ახალი_ნაწყვეტი</em><span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_set_deep_sleep_wake_stub29esp_deep_sleep_wake_stub_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის რეჟიმიდან გაღვიძებისას გასაშვებად, გაშვების დროს დააინსტალირეთ ახალი stub. </p>
+<p>თუ esp_wake_deep_sleep() ფუნქციას ახორციელებთ, მაშინ ამ ფუნქციის გამოძახება საჭირო არ არის.</p>
+<p>თუმცა, შესაძლებელია ამ ფუნქციის გამოძახება სხვა ღრმა ძილის სტაბით ჩასანაცვლებლად. ღრმა ძილის სტაბად გამოყენებული ნებისმიერი ფუნქცია უნდა იყოს მონიშნული, როგორც RTC_IRAM_ATTR და უნდა ემორჩილებოდეს esp_wake_deep_sleep()-სთვის მოცემულ წესებს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_get_deep_sleep_wake_stubv">
+<span id="_CPPv328esp_get_deep_sleep_wake_stubv"></span><span id="_CPPv228esp_get_deep_sleep_wake_stubv"></span><span id="esp_get_deep_sleep_wake_stub__void"></span><span class="target" id="esp__sleep_8h_1ad3fa90e99f46b2380f088e6ec95355ba"></span><a class="reference internal" href="sleep_modes.html#_CPPv429esp_deep_sleep_wake_stub_fn_t" title="esp_deep_sleep_wake_stub_fn_t">esp_deep_sleep_wake_stub_fn_t</a> <code class="descname">esp_get_deep_sleep_wake_stub</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv428esp_get_deep_sleep_wake_stubv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის მიმდინარე გამოღვიძების ჩანაწერის მიღება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Return current wake from deep sleep stub, or NULL if no stub is installed. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_default_wake_deep_sleepv">
+<span id="_CPPv327esp_default_wake_deep_sleepv"></span><span id="_CPPv227esp_default_wake_deep_sleepv"></span><span id="esp_default_wake_deep_sleep__void"></span><span class="target" id="esp__sleep_8h_1a1373d7493d398449918abaeadffb351a"></span>void <code class="descname">esp_default_wake_deep_sleep</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv427esp_default_wake_deep_sleepv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp-idf-ის მიერ მოწოდებული ნაგულისხმევი esp_wake_deep_sleep() stub. </p>
+<p>დეტალებისთვის იხილეთ docs/deep-sleep-stub.rst. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434esp_deep_sleep_disable_rom_loggingv">
+<span id="_CPPv334esp_deep_sleep_disable_rom_loggingv"></span><span id="_CPPv234esp_deep_sleep_disable_rom_loggingv"></span><span id="esp_deep_sleep_disable_rom_logging__void"></span><span class="target" id="esp__sleep_8h_1ab611cb52689e4cb6d80ac0d1b58ee09c"></span>void <code class="descname">esp_deep_sleep_disable_rom_logging</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv434esp_deep_sleep_disable_rom_loggingv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის შემდეგ ROM კოდიდან ჟურნალირების გამორთვა. </p>
+<p>RTC_STORE4-ის LSB-ის გამოყენება. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="sleep_modes.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv424esp_sleep_wakeup_cause_t">
+<span id="_CPPv324esp_sleep_wakeup_cause_t"></span><span id="_CPPv224esp_sleep_wakeup_cause_t"></span><span id="esp_sleep_wakeup_cause_t"></span><span class="target" id="esp__sleep_8h_1a49bc0850fb4f1b360639d6d9fddabe1c"></span><em class="property">typedef </em><a class="reference internal" href="sleep_modes.html#_CPPv418esp_sleep_source_t" title="esp_sleep_source_t">esp_sleep_source_t</a> <code class="descname">esp_sleep_wakeup_cause_t</code><a class="headerlink" href="sleep_modes.html#_CPPv424esp_sleep_wakeup_cause_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv429esp_deep_sleep_wake_stub_fn_t">
+<span id="_CPPv329esp_deep_sleep_wake_stub_fn_t"></span><span id="_CPPv229esp_deep_sleep_wake_stub_fn_t"></span><span id="esp_deep_sleep_wake_stub_fn_t"></span><span class="target" id="esp__sleep_8h_1a259d82fc0eeea248abc84e054fb83ed1"></span><em class="property">typedef </em>void (*<code class="descname">esp_deep_sleep_wake_stub_fn_t</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="sleep_modes.html#_CPPv429esp_deep_sleep_wake_stub_fn_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილის რეჟიმიდან გამოსვლისას stub-ის გასაშვებად საჭირო ფუნქციის ტიპი. </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="sleep_modes.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv428esp_sleep_ext1_wakeup_mode_t">
+<span id="_CPPv328esp_sleep_ext1_wakeup_mode_t"></span><span id="_CPPv228esp_sleep_ext1_wakeup_mode_t"></span><span id="esp_sleep_ext1_wakeup_mode_t"></span><span class="target" id="esp__sleep_8h_1a59e4ee8b694634410244984273634a27"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_sleep_ext1_wakeup_mode_t</code><a class="headerlink" href="sleep_modes.html#_CPPv428esp_sleep_ext1_wakeup_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>EXT1 გაღვიძების რეჟიმისთვის გამოყენებული ლოგიკური ფუნქცია. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv423ESP_EXT1_WAKEUP_ALL_LOW">
+<span id="_CPPv323ESP_EXT1_WAKEUP_ALL_LOW"></span><span id="_CPPv223ESP_EXT1_WAKEUP_ALL_LOW"></span><span class="target" id="esp__sleep_8h_1a59e4ee8b694634410244984273634a27a015b0e3182e78ef7bea49c63e2917442"></span><code class="descname">ESP_EXT1_WAKEUP_ALL_LOW</code> = 0<a class="headerlink" href="sleep_modes.html#_CPPv423ESP_EXT1_WAKEUP_ALL_LOW" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩიპის გააქტიურება, როდესაც ყველა არჩეული GPIO ის დონე დაეცემა. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_EXT1_WAKEUP_ANY_HIGH">
+<span id="_CPPv324ESP_EXT1_WAKEUP_ANY_HIGH"></span><span id="_CPPv224ESP_EXT1_WAKEUP_ANY_HIGH"></span><span class="target" id="esp__sleep_8h_1a59e4ee8b694634410244984273634a27a0e5205e8ae9e4b0aa0c4fc07afc45d20"></span><code class="descname">ESP_EXT1_WAKEUP_ANY_HIGH</code> = 1<a class="headerlink" href="sleep_modes.html#_CPPv424ESP_EXT1_WAKEUP_ANY_HIGH" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩიპის გააქტიურება, როდესაც არჩეული GPIO 7-დან რომელიმე მაღალი იქნება. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421esp_sleep_pd_domain_t">
+<span id="_CPPv321esp_sleep_pd_domain_t"></span><span id="_CPPv221esp_sleep_pd_domain_t"></span><span id="esp_sleep_pd_domain_t"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3b"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_sleep_pd_domain_t</code><a class="headerlink" href="sleep_modes.html#_CPPv421esp_sleep_pd_domain_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ენერგიის დომენები, რომელთა გამორთვა შესაძლებელია ძილის რეჟიმში. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv424ESP_PD_DOMAIN_RTC_PERIPH">
+<span id="_CPPv324ESP_PD_DOMAIN_RTC_PERIPH"></span><span id="_CPPv224ESP_PD_DOMAIN_RTC_PERIPH"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3ba9bfb741d7788ffcf3234adf7322c733e"></span><code class="descname">ESP_PD_DOMAIN_RTC_PERIPH</code><a class="headerlink" href="sleep_modes.html#_CPPv424ESP_PD_DOMAIN_RTC_PERIPH" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC IO, სენსორები და ULP თანაპროცესორი. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_PD_DOMAIN_RTC_SLOW_MEM">
+<span id="_CPPv326ESP_PD_DOMAIN_RTC_SLOW_MEM"></span><span id="_CPPv226ESP_PD_DOMAIN_RTC_SLOW_MEM"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3ba00413d024925ca3d136aaf4cfa187ccc"></span><code class="descname">ESP_PD_DOMAIN_RTC_SLOW_MEM</code><a class="headerlink" href="sleep_modes.html#_CPPv426ESP_PD_DOMAIN_RTC_SLOW_MEM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC ნელი მეხსიერება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_PD_DOMAIN_RTC_FAST_MEM">
+<span id="_CPPv326ESP_PD_DOMAIN_RTC_FAST_MEM"></span><span id="_CPPv226ESP_PD_DOMAIN_RTC_FAST_MEM"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3ba5f5a6de6c8226092c638632f5e6e7803"></span><code class="descname">ESP_PD_DOMAIN_RTC_FAST_MEM</code><a class="headerlink" href="sleep_modes.html#_CPPv426ESP_PD_DOMAIN_RTC_FAST_MEM" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC სწრაფი მეხსიერება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_PD_DOMAIN_XTAL">
+<span id="_CPPv318ESP_PD_DOMAIN_XTAL"></span><span id="_CPPv218ESP_PD_DOMAIN_XTAL"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3bab8214d4331241173972711280ba5db24"></span><code class="descname">ESP_PD_DOMAIN_XTAL</code><a class="headerlink" href="sleep_modes.html#_CPPv418ESP_PD_DOMAIN_XTAL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>XTAL ოსცილატორი. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_PD_DOMAIN_MAX">
+<span id="_CPPv317ESP_PD_DOMAIN_MAX"></span><span id="_CPPv217ESP_PD_DOMAIN_MAX"></span><span class="target" id="esp__sleep_8h_1a537e34af6cbc6ea60328c231f25a5d3bac6e03b0c8323dc9eb574b7f99c58fcfc"></span><code class="descname">ESP_PD_DOMAIN_MAX</code><a class="headerlink" href="sleep_modes.html#_CPPv417ESP_PD_DOMAIN_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დომენების რაოდენობა. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv421esp_sleep_pd_option_t">
+<span id="_CPPv321esp_sleep_pd_option_t"></span><span id="_CPPv221esp_sleep_pd_option_t"></span><span id="esp_sleep_pd_option_t"></span><span class="target" id="esp__sleep_8h_1a4d6bcbb6b09439fb877e6a94e4099552"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_sleep_pd_option_t</code><a class="headerlink" href="sleep_modes.html#_CPPv421esp_sleep_pd_option_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამორთვის ვარიანტები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_PD_OPTION_OFF">
+<span id="_CPPv317ESP_PD_OPTION_OFF"></span><span id="_CPPv217ESP_PD_OPTION_OFF"></span><span class="target" id="esp__sleep_8h_1a4d6bcbb6b09439fb877e6a94e4099552aa6d39d13b6bcbd4768e64f2e82bd39f4"></span><code class="descname">ESP_PD_OPTION_OFF</code><a class="headerlink" href="sleep_modes.html#_CPPv417ESP_PD_OPTION_OFF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილის რეჟიმში გამორთეთ კვების დომენი. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416ESP_PD_OPTION_ON">
+<span id="_CPPv316ESP_PD_OPTION_ON"></span><span id="_CPPv216ESP_PD_OPTION_ON"></span><span class="target" id="esp__sleep_8h_1a4d6bcbb6b09439fb877e6a94e4099552ac107569619e115f5dc9ba37234205cda"></span><code class="descname">ESP_PD_OPTION_ON</code><a class="headerlink" href="sleep_modes.html#_CPPv416ESP_PD_OPTION_ON" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილის რეჟიმის დროს კვების დომენი ჩართული უნდა იყოს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_PD_OPTION_AUTO">
+<span id="_CPPv318ESP_PD_OPTION_AUTO"></span><span id="_CPPv218ESP_PD_OPTION_AUTO"></span><span class="target" id="esp__sleep_8h_1a4d6bcbb6b09439fb877e6a94e4099552a33fc2d1890e28d2cfa3c9887a2dc8938"></span><code class="descname">ESP_PD_OPTION_AUTO</code><a class="headerlink" href="sleep_modes.html#_CPPv418ESP_PD_OPTION_AUTO" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ გაღვიძების ერთ-ერთი ვარიანტი ამას მოითხოვს, ძილის რეჟიმში ჩართეთ კვების დომენი. სხვა შემთხვევაში, გამორთეთ. </p>
+</dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418esp_sleep_source_t">
+<span id="_CPPv318esp_sleep_source_t"></span><span id="_CPPv218esp_sleep_source_t"></span><span id="esp_sleep_source_t"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77e"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_sleep_source_t</code><a class="headerlink" href="sleep_modes.html#_CPPv418esp_sleep_source_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძილი - გაღვიძების მიზეზი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv426ESP_SLEEP_WAKEUP_UNDEFINED">
+<span id="_CPPv326ESP_SLEEP_WAKEUP_UNDEFINED"></span><span id="_CPPv226ESP_SLEEP_WAKEUP_UNDEFINED"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77eadf7d386748701c5c253c7986d42b71f5"></span><code class="descname">ESP_SLEEP_WAKEUP_UNDEFINED</code><a class="headerlink" href="sleep_modes.html#_CPPv426ESP_SLEEP_WAKEUP_UNDEFINED" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ღრმა ძილის შემთხვევაში, გადატვირთვა ღრმა ძილიდან გამოსვლით არ იყო გამოწვეული. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420ESP_SLEEP_WAKEUP_ALL">
+<span id="_CPPv320ESP_SLEEP_WAKEUP_ALL"></span><span id="_CPPv220ESP_SLEEP_WAKEUP_ALL"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ea23fbc1965d79466f6332816941548a83"></span><code class="descname">ESP_SLEEP_WAKEUP_ALL</code><a class="headerlink" href="sleep_modes.html#_CPPv420ESP_SLEEP_WAKEUP_ALL" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არ არის გაღვიძების მიზეზი, გამოიყენება ყველა გაღვიძების წყაროს გამოსართავად esp_sleep_disable_wakeup_source-ის გამოყენებით. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SLEEP_WAKEUP_EXT0">
+<span id="_CPPv321ESP_SLEEP_WAKEUP_EXT0"></span><span id="_CPPv221ESP_SLEEP_WAKEUP_EXT0"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77eabaff3e5b3c50a0dc9a56822b9bed3a9e"></span><code class="descname">ESP_SLEEP_WAKEUP_EXT0</code><a class="headerlink" href="sleep_modes.html#_CPPv421ESP_SLEEP_WAKEUP_EXT0" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC_IO-ს გამოყენებით გარე სიგნალით გამოწვეული გამოღვიძება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SLEEP_WAKEUP_EXT1">
+<span id="_CPPv321ESP_SLEEP_WAKEUP_EXT1"></span><span id="_CPPv221ESP_SLEEP_WAKEUP_EXT1"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ea5bdb7df8d4e8dca78c3985538deb2848"></span><code class="descname">ESP_SLEEP_WAKEUP_EXT1</code><a class="headerlink" href="sleep_modes.html#_CPPv421ESP_SLEEP_WAKEUP_EXT1" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>RTC_CNTL-ის გამოყენებით გარე სიგნალით გამოწვეული გამოღვიძება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv422ESP_SLEEP_WAKEUP_TIMER">
+<span id="_CPPv322ESP_SLEEP_WAKEUP_TIMER"></span><span id="_CPPv222ESP_SLEEP_WAKEUP_TIMER"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ead40d5379c43a56dd4b40497213ced9a4"></span><code class="descname">ESP_SLEEP_WAKEUP_TIMER</code><a class="headerlink" href="sleep_modes.html#_CPPv422ESP_SLEEP_WAKEUP_TIMER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის გამო გამოღვიძება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv425ESP_SLEEP_WAKEUP_TOUCHPAD">
+<span id="_CPPv325ESP_SLEEP_WAKEUP_TOUCHPAD"></span><span id="_CPPv225ESP_SLEEP_WAKEUP_TOUCHPAD"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77eae0ac52e5176c91bee7334634885e3d00"></span><code class="descname">ESP_SLEEP_WAKEUP_TOUCHPAD</code><a class="headerlink" href="sleep_modes.html#_CPPv425ESP_SLEEP_WAKEUP_TOUCHPAD" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სენსორული პანელის მიერ გამოწვეული გამოღვიძება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420ESP_SLEEP_WAKEUP_ULP">
+<span id="_CPPv320ESP_SLEEP_WAKEUP_ULP"></span><span id="_CPPv220ESP_SLEEP_WAKEUP_ULP"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ea5669c91f44a45a6836a82a93a713d9d0"></span><code class="descname">ESP_SLEEP_WAKEUP_ULP</code><a class="headerlink" href="sleep_modes.html#_CPPv420ESP_SLEEP_WAKEUP_ULP" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ULP პროგრამის მიერ გამოწვეული გამოღვიძება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SLEEP_WAKEUP_GPIO">
+<span id="_CPPv321ESP_SLEEP_WAKEUP_GPIO"></span><span id="_CPPv221ESP_SLEEP_WAKEUP_GPIO"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ead1a9d59e39eebe93d9c217fadd6fbefa"></span><code class="descname">ESP_SLEEP_WAKEUP_GPIO</code><a class="headerlink" href="sleep_modes.html#_CPPv421ESP_SLEEP_WAKEUP_GPIO" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>GPIO გამოწვეული გამოღვიძება (მხოლოდ მსუბუქი ძილი) </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_SLEEP_WAKEUP_UART">
+<span id="_CPPv321ESP_SLEEP_WAKEUP_UART"></span><span id="_CPPv221ESP_SLEEP_WAKEUP_UART"></span><span class="target" id="esp__sleep_8h_1ab0c5a40853767ff62c91ed79f5e8f77ea536d9f7e5b88ebb404202072c433bc26"></span><code class="descname">ESP_SLEEP_WAKEUP_UART</code><a class="headerlink" href="sleep_modes.html#_CPPv421ESP_SLEEP_WAKEUP_UART" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>UART-ით გამოწვეული გამოღვიძება (მხოლოდ მსუბუქი ძილი) </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="wdts.html" rel="next" title="Watchdogs">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="power_management.html" rel="prev" title="Power Management"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP32 მოდულებისა და დაფების წინა ვერსიები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../esp32s2.html" rel="next" title="ESP32-S2 Preview Support"/>
+<link href="modules-and-boards.html" rel="prev" title="ESP32 Modules and Boards"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/hw-reference/modules-and-boards-previous.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "hw-reference/modules-and-boards-previous"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/hw-reference/modules-and-boards-previous.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ტექნიკის/საშუალებების მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf"> ტექნიკური საცნობარო სახელმძღვანელო (PDF)</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"> მონაცემთა ცხრილი (PDF)</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_hardware_design_guidelines_en.pdf"> აპარატურის დიზაინის სახელმძღვანელო პრინციპები (PDF)</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://espressif.com/sites/default/files/documentation/eco_and_workarounds_for_bugs_in_esp32_en.pdf"> სილიკონის შეცდომები (PDF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules-and-boards.html"> მოდულები და დაფები</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="modules-and-boards-previous.html#"> მოდულებისა და დაფების წინა ვერსიები</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules-and-boards-previous.html#modules-no-updated-or-discontinued-modules">მოდულები (განახლებული ან შეწყვეტილი მოდულები არ არის)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules-and-boards-previous.html#development-boards">განვითარების საბჭოები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp32-pico-kit-v4">ESP32-PICO-KIT V4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp32-pico-kit-v3">ESP32-PICO-KIT V3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp32-core-board-v2-esp32-devkitc">ESP32 ბირთვის დაფა V2 / ESP32 DevKitC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp-wrover-kit-v3">ESP-WROVER-KIT V3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp-wrover-kit-v2">ESP-WROVER-KIT V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp-wrover-kit-v1-esp32-devkitj-v1">ESP-WROVER-KIT V1 / ESP32 DevKitJ V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules-and-boards-previous.html#esp32-demo-board-v2">ESP32 დემო დაფა V2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules-and-boards-previous.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="http://www.espressif.com/sites/default/files/documentation/espressif_products_ordering_information_en.pdf"> Espressif-ის პროდუქტების შეკვეთის ინფორმაცია (PDF)</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://www.espressif.com/en/certificates"> მარეგულირებელი სერტიფიკატები</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">ESP32 აპარატურის ცნობარი</a> »</li>
+<li>ESP32 მოდულებისა და დაფების წინა ვერსიები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/hw-reference/modules-and-boards-previous.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="previous-versions-of-esp32-modules-and-boards">
+<span id="esp-modules-and-boards-previous"></span><h1>ESP32 მოდულებისა და დაფების წინა ვერსიები<a class="headerlink" href="modules-and-boards-previous.html#previous-versions-of-esp32-modules-and-boards" title="Permalink to this headline">¶</a></h1>
+<p>ეს სექცია შეიცავს მიმოხილვას და ბმულებს ESP32 მოდულებისა და დაფების წინა ვერსიების დოკუმენტაციაზე, რომლებიც შეიცვალა უფრო ახალი ვერსიებით ან შეწყვეტილია წარმოებაში. ის შენარჩუნებულია მომხმარებლების მოხერხებულობისთვის, რადგან ზოგიერთი მოდულისა და დაფის წინა ვერსიები კვლავ გამოიყენება და ზოგიერთი შეიძლება კვლავ ხელმისაწვდომი იყოს შესაძენად.</p>
+<div class="section" id="modules-no-updated-or-discontinued-modules">
+<h2>მოდულები (განახლებული ან შეწყვეტილი მოდულები არ არის)<a class="headerlink" href="modules-and-boards-previous.html#modules-no-updated-or-discontinued-modules" title="Permalink to this headline">¶</a></h2>
+<p>ჯერჯერობით არცერთი მოდული არ განახლებულა ან შეწყვეტილა.</p>
+</div>
+<div class="section" id="development-boards">
+<h2>განვითარების საბჭოები<a class="headerlink" href="modules-and-boards-previous.html#development-boards" title="Permalink to this headline">¶</a></h2>
+<p>უახლესი განვითარების დაფების სანახავად, გთხოვთ, იხილოთ განყოფილება <a class="reference internal" href="modules-and-boards.html#esp-modules-and-boards"><span class="std std-ref">ESP32 მოდულები და დაფები</span></a>.</p>
+<div class="section" id="esp32-pico-kit-v4">
+<span id="esp-modules-and-boards-esp32-pico-kit-v4"></span><h3>ESP32-PICO-KIT V4<a class="headerlink" href="modules-and-boards-previous.html#esp32-pico-kit-v4" title="Permalink to this headline">¶</a></h3>
+<p>ყველაზე პატარა ESP32 დეველოპერული დაფა, რომელიც აღჭურვილია ყველა საჭირო კომპონენტი ფუნქციით კომპიუტერის USB პორტთან პირდაპირ შესაერთებლად და პინის ჰედერებით მინი პუდბორდზე შესაერთებლად. იგი აღჭურვილია ESP32-PICO-D4 მოდულით, რომელიც აერთიანებს 4 მბ ფლეშ მეხსიერება მეხსიერებას, კრისტალურ ოსცილატორს, ფილტრის კონდენსატორებს და RF შესაბამის წრედს ერთ პაკეტში. შედეგად, სრულად ფუნქციონალურ დეველოპერულ დაფას მხოლოდ რამდენიმე გარე კომპონენტი ფუნქციონირებს, რომლებიც ადვილად მოთავსდება 20 x 52 მმ დაფაზე, მათ შორის ანტენა, LDO, USB-UART ხიდი და ორი ღილაკი მისი გადატვირთვისა და ჩამოტვირთვის რეჟიმში გადასაყვანად.</p>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp32-pico-kit-v4.jpeg"><img alt="ESP32-PICO-KIT V4 board" src="https://dl.espressif.com/dl/schematics/pictures/esp32-pico-kit-v4.jpeg" style="width: 50%;"/></a>
+<p class="caption"><span class="caption-text">ESP32-PICO-KIT V4 დაფა</span></p>
+</div>
+<p>ESP32-PICO-KIT V3-თან შედარებით, ამ ვერსიას აქვს გადამუშავებული ბეჭდვა და შემცირებული ღია პინების რაოდენობა. 20-ის ნაცვლად, მხოლოდ 17 ჰედერის პინია განთავსებული, ამიტომ V4 ვერსია შეიძლება მოთავსდეს მინი პუდბორდში.</p>
+<div class="section" id="documentation">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#documentation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-pico-kit.html"><span class="doc">ESP32-PICO-KIT V4 / V4.1 დაწყების სახელმძღვანელო</span></a></li>
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/esp32-pico-kit-v4_schematic.pdf">ESP32-PICO-KIT V4 სქემა</a> (PDF)</li>
+<li><a class="reference external" href="http://espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf">ESP32-PICO-D4 მონაცემთა ფურცელი</a> (PDF)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp32-pico-kit-v3">
+<span id="esp-modules-and-boards-esp32-pico-kit-v3"></span><h3>ESP32-PICO-KIT V3<a class="headerlink" href="modules-and-boards-previous.html#esp32-pico-kit-v3" title="Permalink to this headline">¶</a></h3>
+<p>Espressif-ის ESP32-PICO-D4 მოდულის პირველი საჯარო გამოშვება მინი დეველოპერულ დაფაზე. დაფას აქვს USB პორტი პროგრამირებისა და გამართვა დამუშავებისთვის და 20-პინიანი ჰედერის ორი რიგი პულტ დაფაზე შესაერთებლად. ESP32-PICO-D4 მოდული თავად პატარაა და მხოლოდ რამდენიმე გარე კომპონენტი პროცესორს საჭიროებს. ორი ბირთვიანი პროცესორის გარდა, ის ერთ 7 x 7 მმ შეფუთვაში აერთიანებს 4 მბ ფლეშ მეხსიერება მეხსიერებას, კრისტალურ ოსცილატორს და ანტენას, რომელიც კომპონენტი პროცესორს შეესაბამება. შედეგად, მოდული და ყველა კომპონენტი პროცესორი, რომელიც სრულ დეველოპერულ დაფას ქმნის, ეტევა 20 x 52 მმ PCB-ში.</p>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp32-pico-kit-v3.jpeg"><img alt="ESP32-PICO-KIT V3 board" src="https://dl.espressif.com/dl/schematics/pictures/esp32-pico-kit-v3.jpeg" style="width: 50%;"/></a>
+<p class="caption"><span class="caption-text">ESP32-PICO-KIT V3 დაფა</span></p>
+</div>
+<div class="section" id="id1">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-pico-kit-v3.html"><span class="doc">ESP32-PICO-KIT V3 დაწყების სახელმძღვანელო</span></a></li>
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/esp32-pico-kit-v3_schematic.pdf">ESP32-PICO-KIT V3 სქემა</a> (PDF)</li>
+<li><a class="reference external" href="http://espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf">ESP32-PICO-D4 მონაცემთა ფურცელი</a> (PDF)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp32-core-board-v2-esp32-devkitc">
+<span id="esp-modules-and-boards-esp32-devkitc-v2"></span><h3>ESP32 ბირთვის დაფა V2 / ESP32 DevKitC<a class="headerlink" href="modules-and-boards-previous.html#esp32-core-board-v2-esp32-devkitc" title="Permalink to this headline">¶</a></h3>
+<p>პატარა და მოსახერხებელი დეველოპერული დაფა დაინსტალირებული ESP-WROOM-32 მოდულით, გამხსნელი პინების ჰედერებით და მინიმუმ დამატებითი კომპონენტი წამით. მოყვება USB-დან სერიულ პროგრამირების ინტერფეისი, რომელიც ასევე უზრუნველყოფს დაფას კვების წყაროს. აქვს ღილაკები დაფის გადატვირთვისა და ტერმინალი ატვირთვა რეჟიმში გადასაყვანად.</p>
+<div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp32-core-board-v2.png"><img alt="ESP32 Core Board V2 / ESP32 DevKitC board" src="https://dl.espressif.com/dl/schematics/pictures/esp32-core-board-v2.png" style="width: 50%;"/></a>
+<p class="caption"><span class="caption-text">ESP32 ბირთვის დაფა V2 / ESP32 DevKitC დაფა</span></p>
+</div>
+<div class="section" id="id3">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-devkitc-v2.html"><span class="doc">ESP32-DevKitC V2-ის დაწყების სახელმძღვანელო</span></a></li>
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP32-Core-Board-V2_sch.pdf">ESP32 DevKitC V2 სქემა</a> (PDF)</li>
+<li><a class="reference external" href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB-დან UART ხიდზე გადამყვანი VCP დრაივერები</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp-wrover-kit-v3">
+<span id="esp-modules-and-boards-esp-wrover-kit-v3"></span><h3>ESP-WROVER-KIT V3<a class="headerlink" href="modules-and-boards-previous.html#esp-wrover-kit-v3" title="Permalink to this headline">¶</a></h3>
+<p>ESP-WROVER-KIT V3 დეველოპერის დაფას აქვს ორმაგი პორტის USB-დან სერიულ გადამყვანი პროგრამირებისთვის და JTAG ინტერფეისი გამართვა ging-ისთვის. კვების წყარო მიეწოდება USB ინტერფეისით ან სტანდარტული 5 მმ კვების წყაროს ჯეკიდან. კვების წყაროს შერჩევა ხდება ჯამპერით და შესაძლებელია მისი ჩართვა/გამორთვა ცალკე გადამრთველით. ამ დაფას აქვს MicroSD ბარათის სლოტი, 3.2” SPI LCD ეკრანი და სპეციალური კონექტორი კამერის შესაერთებლად. ის უზრუნველყოფს RGB დიოდს დიაგნოსტიკისთვის. მოყვება 32.768 kHz XTAL შიდა RTC-სთვის, რათა ის დაბალი ენერგომოხმარების რეჟიმებში იმუშაოს.</p>
+<p>ESP-WROVER-KIT დაფების ყველა წინა ვერსიის მსგავსად, ის მზადაა მოერგოს <a class="reference internal" href="modules-and-boards.html#esp-modules-and-boards-esp32-wroom-32"><span class="std std-ref">ESP32-WROOM-32</span></a> ან <a class="reference internal" href="modules-and-boards.html#esp-modules-and-boards-esp32-wrover"><span class="std std-ref">ESP32-WROVER სერია</span></a> მოდული.</p>
+<p>ეს არის ESP-WROVER-KIT-ის პირველი გამოშვება, რომელიც მოწოდებულია <a class="reference internal" href="modules-and-boards.html#esp-modules-and-boards-esp32-wrover"><span class="std std-ref">ESP32-WROVER სერია</span></a> მოდული ნაგულისხმევად არის დაინსტალირებული. ამ გამოშვებაში ასევე შემოტანილია რამდენიმე დიზაინში ცვლილება სიგნალების კონდიცირებასა და ჩამტვირთავ პინებთან ურთიერთდაკავშირებაში. ასევე, WROVER/WROOM მოდულსა და VDD33 ქსელს შორის დაემატა ნულოვანი ომიანი რეზისტორი (R166), რომლის დენის გაზომვისთვის შესაძლებელია მისი მოხსნა ან შუნტირების რეზისტორით ჩანაცვლება. ეს გამიზნულია ESP32-ის სხვადასხვა მუშაობის რეჟიმში ენერგომოხმარების ანალიზის გასაადვილებლად. იხილეთ სქემა - ცვლილებები მონიშნულია მწვანე კონტურში.</p>
+<div class="figure align-center" id="id11">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp-wrover-kit-v3.jpg"><img alt="ESP-WROVER-KIT V3 board" src="https://dl.espressif.com/dl/schematics/pictures/esp-wrover-kit-v3.jpg" style="width: 90%;"/></a>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT V3 დაფა</span></p>
+</div>
+<p>კამერის თავსართი მამრობითი სქესის ნაცვლად ისევ მდედრობითი სქესისაა. დაფის დამცავი ნიღაბი მქრქალი შავია. ზემოთ მოცემულ სურათზე გამოსახულ დაფას აქვს <a class="reference internal" href="modules-and-boards.html#esp-modules-and-boards-esp32-wrover"><span class="std std-ref">ESP32-WROVER სერია</span></a> დამონტაჟებულია.</p>
+<div class="section" id="id4">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-wrover-kit-v3.html"><span class="doc">ESP-WROVER-KIT V3-ის დაწყების სახელმძღვანელო</span></a></li>
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP-WROVER-KIT_SCH-3.pdf">ESP-WROVER-KIT V3 სქემა</a> (PDF)</li>
+<li><a class="reference internal" href="../api-guides/jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a></li>
+<li><a class="reference external" href="http://www.ftdichip.com/Drivers/VCP.htm">FTDI ვირტუალური COM პორტის დრაივერები</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp-wrover-kit-v2">
+<span id="esp-modules-and-boards-esp-wrover-kit-v2"></span><h3>ESP-WROVER-KIT V2<a class="headerlink" href="modules-and-boards-previous.html#esp-wrover-kit-v2" title="Permalink to this headline">¶</a></h3>
+<p>ეს არის ზემოთ აღწერილი ESP32 DevKitJ V1-ის განახლებული ვერსია, რომლის დიზაინიც DevKitJ-ის გამოყენებისას გამოვლინდა, მაგალითად, გაუმჯობესებული მხარდაჭერა SD ბარათისთვის. სტანდარტულად, დაფაზე დაინსტალირებულია ESP-WROOM-32 მოდული.</p>
+<div class="figure align-center" id="id12">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp-wrover-kit-v2.jpg"><img alt="ESP-WROVER-KIT V2 board" src="https://dl.espressif.com/dl/schematics/pictures/esp-wrover-kit-v2.jpg" style="width: 90%;"/></a>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT V2 დაფა</span></p>
+</div>
+<p>წინა ვერსიასთან შედარებით, ამ დაფას აქვს მბზინავი შავი საფარი და მამრობითი კამერის კონექტორი.</p>
+<div class="section" id="id5">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="get-started-wrover-kit-v2.html"><span class="doc">ESP-WROVER-KIT V2-ის დაწყების სახელმძღვანელო</span></a></li>
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP-WROVER-KIT_SCH-2.pdf">ESP-WROVER-KIT V2 სქემა</a> (PDF)</li>
+<li><a class="reference internal" href="../api-guides/jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a></li>
+<li><a class="reference external" href="http://www.ftdichip.com/Drivers/VCP.htm">FTDI ვირტუალური COM პორტის დრაივერები</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp-wrover-kit-v1-esp32-devkitj-v1">
+<span id="esp-modules-and-boards-esp-wrover-kit-v1"></span><h3>ESP-WROVER-KIT V1 / ESP32 DevKitJ V1<a class="headerlink" href="modules-and-boards-previous.html#esp-wrover-kit-v1-esp32-devkitj-v1" title="Permalink to this headline">¶</a></h3>
+<p>ESP-WROVER-KIT-ის დეველოპერული დაფის პირველი ვერსია. მოყვება ESP-WROOM-32 დაფა.</p>
+<p>ESP-WROVER-KIT-ს აქვს ორმაგი პორტი USB-დან სერიულ გადამყვანში პროგრამირებისთვის და JTAG ინტერფეისი გამართვა ging-ისთვის. კვების წყარო მიეწოდება USB ინტერფეისით ან სტანდარტული 5 მმ კვების წყაროს ჯეკიდან. კვების წყაროს შერჩევა ხდება ჯამპერით და შესაძლებელია მისი ჩართვა/გამორთვა ცალკე ჩამრთველით. დაფას აქვს MicroSD ბარათის სლოტი, 3.2” SPI LCD ეკრანი და სპეციალური კონექტორი კამერის შესაერთებლად. ის უზრუნველყოფს RGB დიოდს დიაგნოსტიკისთვის. მოყვება 32.768 kHz XTAL შიდა RTC-სთვის, რათა ის დაბალი ენერგომოხმარების რეჟიმებში იმუშაოს.</p>
+<p>ESP-WROVER-KIT-ის ყველა ვერსია მზადაა ESP-WROOM-32 ან ESP32-WROVER მოდულის განსათავსებლად.</p>
+<div class="figure align-center" id="id13">
+<a class="reference internal image-reference" href="https://dl.espressif.com/dl/schematics/pictures/esp32-devkitj-v1.jpg"><img alt="ESP-WROVER-KIT V1 / ESP32 DevKitJ V1 board" src="https://dl.espressif.com/dl/schematics/pictures/esp32-devkitj-v1.jpg" style="width: 90%;"/></a>
+<p class="caption"><span class="caption-text">ESP-WROVER-KIT V1 / ESP32 DevKitJ V1 დაფა</span></p>
+</div>
+<p>დაფას აქვს წითელი შედუღების ნიღაბი.</p>
+<div class="section" id="id6">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP32-DevKitJ-v1_sch.pdf">ESP-WROVER-KIT V1 სქემა</a> (PDF)</li>
+<li><a class="reference internal" href="../api-guides/jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a></li>
+<li><a class="reference external" href="http://www.ftdichip.com/Drivers/VCP.htm">FTDI ვირტუალური COM პორტის დრაივერები</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="esp32-demo-board-v2">
+<span id="esp-modules-and-boards-esp32-demo-board"></span><h3>ESP32 დემო დაფა V2<a class="headerlink" href="modules-and-boards-previous.html#esp32-demo-board-v2" title="Permalink to this headline">¶</a></h3>
+<p>ერთ-ერთი პირველი, ფუნქციურად მდიდარი შეფასების დაფა, რომელიც შეიცავს რამდენიმე პინის ჰედერს, დიპ-გადამრთველებს, USB-დან სერიულ პროგრამირების ინტერფეისს, გადატვირთვისა და ჩატვირთვის რეჟიმის ღილაკებს, ჩართვის გადამრთველს, 10 სენსორულ პანელს და ცალკეულ ჰედერს LCD ეკრანის შესაერთებლად.</p>
+<div class="figure align-center" id="id14">
+<img alt="ESP32 Demo Board V2" src="https://dl.espressif.com/dl/schematics/pictures/esp32-demo-board-v2.jpg"/>
+<p class="caption"><span class="caption-text">ESP32 დემო დაფა V2</span></p>
+</div>
+<p>ამ ფირის წარმოება შეწყვეტილია.</p>
+<div class="section" id="id7">
+<h4>დოკუმენტაცია<a class="headerlink" href="modules-and-boards-previous.html#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://dl.espressif.com/dl/schematics/ESP32-Demo-Board-V2_sch.pdf">ESP32 დემო დაფის V2 სქემა</a> (PDF)</li>
+<li><a class="reference external" href="http://www.ftdichip.com/Drivers/VCP.htm">FTDI ვირტუალური COM პორტის დრაივერები</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="related-documents">
+<h2>დაკავშირებული დოკუმენტები<a class="headerlink" href="modules-and-boards-previous.html#related-documents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="modules-and-boards.html"><span class="doc">ESP32 მოდულები და დაფები</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../esp32s2.html" rel="next" title="ESP32-S2 Preview Support">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="modules-and-boards.html" rel="prev" title="ESP32 Modules and Boards"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

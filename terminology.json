@@ -1,0 +1,27 @@
+{
+  "en_to_ka": {
+    "ESP-IDF": "ESP-IDF",
+    "framework": "ჩარჩო",
+    "firmware": "პროგრამული უზრუნველყოფა",
+    "flash": "ფლეშ მეხსიერება",
+    "bootloader": "ჩამტვირთავი",
+    "Wi-Fi": "Wi-Fi",
+    "Bluetooth": "Bluetooth",
+    "GPIO": "GPIO",
+    "API": "API",
+    "SDK": "SDK",
+    "toolchain": "ინსტრუმენტების ნაკრები",
+    "debug": "გამართვა",
+    "compile": "კომპილაცია",
+    "upload": "ატვირთვა",
+    "serial port": "სერიული პორტი",
+    "baud rate": "ბოდის სიჩქარე",
+    "microcontroller": "მიკროკონტროლერი",
+    "RTOS": "RTOS",
+    "FreeRTOS": "FreeRTOS",
+    "component": "კომპონენტი",
+    "project configuration": "პროექტის კონფიგურაცია",
+    "menuconfig": "menuconfig",
+    "partition table": "დანაყოფების ცხრილი"
+  }
+}

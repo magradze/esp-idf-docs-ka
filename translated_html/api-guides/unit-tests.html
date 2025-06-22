@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP32-ში ერთეულის ტესტირება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="wifi.html" rel="next" title="Wi-Fi Driver"/>
+<link href="unit-tests-legacy.html" rel="prev" title="Unit Testing (Legacy GNU Make)"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/unit-tests.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/unit-tests"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/unit-tests.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="unit-tests.html#">ერთეულის ტესტირება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#normal-test-cases">ჩვეულებრივი ტესტის შემთხვევები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#multi-device-test-cases">მრავალმოწყობილობაზე ტესტირების შემთხვევები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#multi-stage-test-cases">მრავალსაფეხურიანი ტესტის შემთხვევები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#building-unit-test-app">შენობის ერთეულის სატესტო აპლიკაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#running-unit-tests">ერთეულის ტესტების გაშვება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit-tests.html#timing-code-with-cache-compensated-timer">დროის კოდი ქეშით კომპენსირებული ტაიმერით</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ერთეულის ტესტირება ESP32-ში</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/unit-tests.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="unit-testing-in-esp32">
+<h1>ერთეულის ტესტირება ESP32-ში<a class="headerlink" href="unit-tests.html#unit-testing-in-esp32" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/unit-tests.html">[中文]</a></p>
+<p>ESP-IDF მოყვება ერთეული ტესტის აპლიკაცია, რომელიც დაფუძნებულია Unity-ზე - ერთეული ტესტი ჩარჩო . ერთეული ტესტები ინტეგრირებულია ESP-IDF საცავში და მოთავსებულია <code class="docutils literal notranslate"><span class="pre">test</span></code> თითოეული კომპონენტი ქვედირექტორიები შესაბამისად.</p>
+<div class="section" id="normal-test-cases">
+<h2>ჩვეულებრივი ტესტის შემთხვევები<a class="headerlink" href="unit-tests.html#normal-test-cases" title="Permalink to this headline">¶</a></h2>
+<p>ერთეულის ტესტები განთავსებულია <code class="docutils literal notranslate"><span class="pre">test</span></code> კომპონენტი ის ქვედირექტორია. ტესტები იწერება C-ში და ერთი C საწყისი ფაილი შეიძლება შეიცავდეს რამდენიმე სატესტო შემთხვევას. სატესტო ფაილები იწყება სიტყვით „test“.</p>
+<p>თითოეული სატესტო ფაილი უნდა შეიცავდეს <code class="docutils literal notranslate"><span class="pre">unity.h</span></code> სათაური და შესამოწმებელი C მოდულის სათაური.</p>
+<p>ტესტები C ფაილში ფუნქციაში შემდეგნაირად ემატება:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"test name"</span><span class="p">,</span> <span class="s">"[module name]"</span>
+<span class="p">{</span>
+        <span class="c1">// Add test here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>პირველი არგუმენტი ტესტის აღწერილობითი სახელია, მეორე არგუმენტი კი კვადრატულ ფრჩხილებში მოცემული იდენტიფიკატორია. იდენტიფიკატორები გამოიყენება დაკავშირებული ტესტების ან კონკრეტული თვისებების მქონე ტესტების დასაჯგუფებლად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მთავარი ფუნქციის დამატება საჭირო არ არის <code class="docutils literal notranslate"><span class="pre">UNITY_BEGIN()</span></code> და <code class="docutils literal notranslate"><span class="pre">​UNITY_END()</span></code> თითოეულ სატესტო შემთხვევაში. <code class="docutils literal notranslate"><span class="pre">unity_platform.c</span></code> გაიქცევა <code class="docutils literal notranslate"><span class="pre">UNITY_BEGIN()</span></code> ავტონომიურად და გაუშვით სატესტო შემთხვევები, შემდეგ გამოიძახეთ <code class="docutils literal notranslate"><span class="pre">​UNITY_END()</span></code>.</p>
+</div>
+<p>ის <code class="docutils literal notranslate"><span class="pre">test</span></code> ქვედირექტორია უნდა შეიცავდეს <a class="reference internal" href="build-system.html#component-directories"><span class="std std-ref">კომპონენტი CMakeLists.txt</span></a>, რადგან ისინი თავად არიან, კომპონენტი s. ESP-IDF იყენებს <code class="docutils literal notranslate"><span class="pre">unity</span></code> ტესტის ჩარჩო და უნდა იყოს მითითებული, როგორც მოთხოვნა კომპონენტი ისთვის. ჩვეულებრივ, კომპონენტი 19 <a class="reference internal" href="build-system.html#cmake-file-globbing"><span class="std std-ref">მათი წყაროები ხელით უნდა ჩამოთვალონ</span></a>; თუმცა, კომპონენტი ტესტებისთვის ეს მოთხოვნა შემსუბუქებულია და გამოყენება <code class="docutils literal notranslate"><span class="pre">SRC_DIRS</span></code> არგუმენტი <code class="docutils literal notranslate"><span class="pre">idf_component_register</span></code> რეკომენდებულია.</p>
+<p>საერთო ჯამში, მინიმალური <code class="docutils literal notranslate"><span class="pre">test</span></code> ქვედირექტორია <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> ფაილი უნდა შეიცავდეს შემდეგს:</p>
+<div class="code cmake highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idf_component_register</span><span class="p">(</span><span class="n">SRC_DIRS</span> <span class="s2">"."</span>
+                       <span class="n">INCLUDE_DIRS</span> <span class="s2">"."</span>
+                       <span class="n">REQUIRES</span> <span class="n">unity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>იხილეთ <a class="reference external" href="http://www.throwtheswitch.org/unity">http://www.throwtheswitch.org/unity</a> Unity-ში ტესტების წერის შესახებ დამატებითი ინფორმაციისთვის.</p>
+</div>
+<div class="section" id="multi-device-test-cases">
+<h2>მრავალმოწყობილობაზე ტესტირების შემთხვევები<a class="headerlink" href="unit-tests.html#multi-device-test-cases" title="Permalink to this headline">¶</a></h2>
+<p>ჩვეულებრივი სატესტო შემთხვევები შესრულდება ერთ DUT-ზე (ტესტირებადი მოწყობილობა). თუმცა, კომპონენტი ს, რომელიც მოითხოვს კომუნიკაციის გარკვეულ ფორმას (მაგ., GPIO , SPI), კომუნიკაციისთვის სხვა მოწყობილობა სჭირდება, ამიტომ არ შეიძლება ჩაითვალოს ნორმალურ სატესტო შემთხვევებში. მრავალმოწყობილობაზე დაფუძნებული სატესტო შემთხვევები გულისხმობს მრავალი სატესტო ფუნქციის დაწერას და მათ მრავალ DUT-ზე გაშვებას.</p>
+<p>ქვემოთ მოცემულია მრავალმოწყობილობაზე დაფუძნებული ტესტის მაგალითი:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">gpio_master_test</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">gpio_config_t</span> <span class="n">slave_config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">.</span><span class="n">pin_bit_mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">MASTER_GPIO_PIN</span><span class="p">,</span>
+            <span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">GPIO_MODE_INPUT</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="n">gpio_config</span><span class="p">(</span><span class="o">&amp;</span><span class="n">slave_config</span><span class="p">);</span>
+    <span class="n">unity_wait_for_signal</span><span class="p">(</span><span class="s">"output high level"</span><span class="p">);</span>
+    <span class="n">TEST_ASSERT</span><span class="p">(</span><span class="n">gpio_get_level</span><span class="p">(</span><span class="n">MASTER_GPIO_PIN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">gpio_slave_test</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">gpio_config_t</span> <span class="n">master_config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">.</span><span class="n">pin_bit_mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">SLAVE_GPIO_PIN</span><span class="p">,</span>
+            <span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">GPIO_MODE_OUTPUT</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="n">gpio_config</span><span class="p">(</span><span class="o">&amp;</span><span class="n">master_config</span><span class="p">);</span>
+    <span class="n">gpio_set_level</span><span class="p">(</span><span class="n">SLAVE_GPIO_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">unity_send_signal</span><span class="p">(</span><span class="s">"output high level"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST_CASE_MULTIPLE_DEVICES</span><span class="p">(</span><span class="s">"gpio multiple devices test example"</span><span class="p">,</span> <span class="s">"[driver]"</span><span class="p">,</span> <span class="n">gpio_master_test</span><span class="p">,</span> <span class="n">gpio_slave_test</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>მაკრო <code class="docutils literal notranslate"><span class="pre">TEST_CASE_MULTIPLE_DEVICES</span></code> გამოიყენება მრავალმოწყობილობაზე დაფუძნებული ტესტის შემთხვევის დეკლარირებისთვის. პირველი არგუმენტი არის ტესტის შემთხვევის სახელი, მეორე არგუმენტი კი - ტესტის შემთხვევის აღწერა. მესამე არგუმენტიდან შესაძლებელია 5-მდე სატესტო ფუნქციის განსაზღვრა, თითოეული ფუნქცია იქნება თითოეულ DUT-ზე გაშვებული ტესტების საწყისი წერტილი.</p>
+<p>სხვადასხვა DUT-ებიდან ტესტის შემთხვევების გაშვებამ შეიძლება მოითხოვოს DUT-ებს შორის სინქრონიზაცია. ჩვენ გთავაზობთ <code class="docutils literal notranslate"><span class="pre">unity_wait_for_signal</span></code> და <code class="docutils literal notranslate"><span class="pre">unity_send_signal</span></code> UART-თან სინქრონიზაციის მხარდასაჭერად. ზემოთ მოცემულ მაგალითში ნაჩვენები სცენარის მსგავსად, მონამ უნდა მიიღოს GPIO დონე მასტერ დონის დაყენების შემდეგ. DUT UART კონსოლი მოგთხოვთ და საჭირო იქნება მომხმარებლის ინტერაქცია:</p>
+<p>DUT1 (მასტერ) კონსოლი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Waiting for signal: [output high level]!
+Please press "Enter" key to once any board send this signal.
+</pre></div>
+</div>
+<p>DUT2 (მონაწილე) კონსოლი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Send signal: [output high level]!
+</pre></div>
+</div>
+<p>როგორც კი სიგნალი DUT2-დან გაიგზავნება, DUT1-ზე უნდა დააჭიროთ „Enter“-ს, რის შემდეგაც DUT1 განბლოკავს მას. <code class="docutils literal notranslate"><span class="pre">unity_wait_for_signal</span></code> და იწყებს GPIO დონის შეცვლას.</p>
+</div>
+<div class="section" id="multi-stage-test-cases">
+<h2>მრავალსაფეხურიანი ტესტის შემთხვევები<a class="headerlink" href="unit-tests.html#multi-stage-test-cases" title="Permalink to this headline">¶</a></h2>
+<p>ნორმალური ტესტის შემთხვევები, სავარაუდოდ, გადატვირთვის გარეშე დასრულდება (ან მხოლოდ გადატვირთვა უნდა შემოწმდეს). ზოგჯერ გარკვეული ტიპის გადატვირთვის შემდეგ გარკვეული სპეციფიკური ტესტების ჩატარებას ველით. მაგალითად, ღრმა ძილიდან გამოღვიძების შემდეგ გადატვირთვის მიზეზის სისწორის შემოწმებას ველით. ჯერ ღრმა ძილის გადატვირთვა უნდა შევქმნათ და შემდეგ გადატვირთვის მიზეზი შევამოწმოთ. ამის მხარდასაჭერად, შეგვიძლია განვსაზღვროთ მრავალსაფეხურიანი ტესტის შემთხვევები, ტესტის ფუნქციების ნაკრების დასაჯგუფებლად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">void</span> <span class="n">trigger_deepsleep</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">esp_sleep_enable_timer_wakeup</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+    <span class="n">esp_deep_sleep_start</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">check_deepsleep_reset_reason</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">RESET_REASON</span> <span class="n">reason</span> <span class="o">=</span> <span class="n">rtc_get_reset_reason</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">TEST_ASSERT</span><span class="p">(</span><span class="n">reason</span> <span class="o">==</span> <span class="n">DEEPSLEEP_RESET</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST_CASE_MULTIPLE_STAGES</span><span class="p">(</span><span class="s2">"reset reason check for deepsleep"</span><span class="p">,</span> <span class="s2">"[esp32]"</span><span class="p">,</span> <span class="n">trigger_deepsleep</span><span class="p">,</span> <span class="n">check_deepsleep_reset_reason</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>მრავალსაფეხურიანი ტესტის შემთხვევები მომხმარებლებს ტესტის ფუნქციების ჯგუფს წარუდგენს. შემთხვევის გასაშვებად საჭიროა მომხმარებლის ურთიერთქმედება (შემთხვევების შერჩევა და სხვადასხვა ეტაპის შერჩევა).</p>
+</div>
+<div class="section" id="building-unit-test-app">
+<h2>შენობის ერთეულის სატესტო აპლიკაცია<a class="headerlink" href="unit-tests.html#building-unit-test-app" title="Permalink to this headline">¶</a></h2>
+<p>მიჰყევით esp-idf README-ის ზედა დონის დაყენების ინსტრუქციებს. დარწმუნდით, რომ <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> გარემოს ცვლადი დაყენებულია ისე, რომ მიუთითებდეს esp-idf ზედა დონის დირექტორიის გზაზე.</p>
+<p>შეცვლა <code class="docutils literal notranslate"><span class="pre">tools/unit-test-app</span></code> დირექტორია მისი კონფიგურაციისა და ასაშენებლად:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> - ერთეულის ტესტის აპლიკაციის კონფიგურაცია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">all</span> <span class="pre">build</span></code> - შექმენით ერთეულის ტესტის აპლიკაცია ტესტებით თითოეული კომპონენტი ისთვის, რომელიც შეიცავს ტესტებს <code class="docutils literal notranslate"><span class="pre">test</span></code> ქვედირექტორია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">xxx</span> <span class="pre">build</span></code> - შექმენით ერთეულის ტესტის აპლიკაცია ტესტებით კონკრეტული კომპონენტი სემესტრის განმავლობაში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">all</span> <span class="pre">-E</span> <span class="pre">xxxbuild</span></code> - შექმენით unit test აპლიკაცია ყველა unit ტესტით, გარდა ზოგიერთი კომპონენტი ის unit tests-ისა. (მაგალითად: <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">all</span> <span class="pre">-E</span> <span class="pre">ulp</span> <span class="pre">mbedtls</span> <span class="pre">build</span></code> - შექმენით ყველა ერთეულის ტესტი, გარდა <code class="docutils literal notranslate"><span class="pre">ulp</span></code> და <code class="docutils literal notranslate"><span class="pre">mbedtls</span></code> კომპონენტი სემესტრის დასაწყისი).</li>
+</ul>
+<p>როდესაც აწყობა დასრულდება, ის დაბეჭდავს ჩიპის ფლეშ მეხსიერება დაყენების ინსტრუქციებს. შეგიძლიათ უბრალოდ გაუშვათ <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">flash</span></code> ფლეშ მეხსიერება ში ყველა აწყობის შედეგი.</p>
+<p>ასევე შეგიძლიათ სირბილი <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">all</span> <span class="pre">flash</span></code> ან <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">-T</span> <span class="pre">xxx</span> <span class="pre">flash</span></code> ასაშენებლად და ფლეშ მეხსიერება . ყველაფერი, რაც საჭიროა, ავტომატურად აღდგება ფლეშ მეხსიერება ის დაწყებამდე.</p>
+<p>გამოიყენეთ menuconfig , რათა დააყენოთ სერიული პორტი ფლეშ მეხსიერება ისთვის.</p>
+</div>
+<div class="section" id="running-unit-tests">
+<h2>ერთეულის ტესტების გაშვება<a class="headerlink" href="unit-tests.html#running-unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>ფლეშ მეხსიერება ტერმინალის შემდეგ, ESP32 გადაიტვირთეთ და ის ჩაირთვება ერთეულის ტესტირების აპლიკაციაში.</p>
+<p>როდესაც ერთეულის ტესტის აპლიკაცია უმოქმედოა, „Enter“-ის დაჭერით ის დაბეჭდავს ტესტის მენიუს ყველა ხელმისაწვდომი ტესტით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Here</span><span class="s1">'s the test menu, pick your combo:</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="s2">"esp_ota_begin() verifies arguments"</span> <span class="p">[</span><span class="n">ota</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span>     <span class="s2">"esp_ota_get_next_update_partition logic"</span> <span class="p">[</span><span class="n">ota</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span>     <span class="s2">"Verify bootloader image in flash"</span> <span class="p">[</span><span class="n">bootloader_support</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span>     <span class="s2">"Verify unit test app image"</span> <span class="p">[</span><span class="n">bootloader_support</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">)</span>     <span class="s2">"can use new and delete"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">)</span>     <span class="s2">"can call virtual functions"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">)</span>     <span class="s2">"can use static initializers for non-POD types"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">)</span>     <span class="s2">"can use std::vector"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">9</span><span class="p">)</span>     <span class="s2">"static initialization guards work as expected"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">10</span><span class="p">)</span>    <span class="s2">"global initializers run in the correct order"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">)</span>    <span class="s2">"before scheduler has started, static initializers work correctly"</span> <span class="p">[</span><span class="n">cxx</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">12</span><span class="p">)</span>    <span class="s2">"adc2 work with wifi"</span> <span class="p">[</span><span class="n">adc</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">13</span><span class="p">)</span>    <span class="s2">"gpio master/slave test example"</span> <span class="p">[</span><span class="n">ignore</span><span class="p">][</span><span class="n">misc</span><span class="p">][</span><span class="n">test_env</span><span class="o">=</span><span class="n">UT_T2_1</span><span class="p">][</span><span class="n">multi_device</span><span class="p">]</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="s2">"gpio_master_test"</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">)</span>     <span class="s2">"gpio_slave_test"</span>
+<span class="p">(</span><span class="mi">14</span><span class="p">)</span>    <span class="s2">"SPI Master clockdiv calculation routines"</span> <span class="p">[</span><span class="n">spi</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">15</span><span class="p">)</span>    <span class="s2">"SPI Master test"</span> <span class="p">[</span><span class="n">spi</span><span class="p">][</span><span class="n">ignore</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">)</span>    <span class="s2">"SPI Master test, interaction of multiple devs"</span> <span class="p">[</span><span class="n">spi</span><span class="p">][</span><span class="n">ignore</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">17</span><span class="p">)</span>    <span class="s2">"SPI Master no response when switch from host1 (HSPI) to host2 (VSPI)"</span> <span class="p">[</span><span class="n">spi</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">18</span><span class="p">)</span>    <span class="s2">"SPI Master DMA test, TX and RX in different regions"</span> <span class="p">[</span><span class="n">spi</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">19</span><span class="p">)</span>    <span class="s2">"SPI Master DMA test: length, start, not aligned"</span> <span class="p">[</span><span class="n">spi</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">20</span><span class="p">)</span>    <span class="s2">"reset reason check for deepsleep"</span> <span class="p">[</span><span class="n">esp32</span><span class="p">][</span><span class="n">test_env</span><span class="o">=</span><span class="n">UT_T2_1</span><span class="p">][</span><span class="n">multi_stage</span><span class="p">]</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="s2">"trigger_deepsleep"</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">)</span>     <span class="s2">"check_deepsleep_reset_reason"</span>
+</pre></div>
+</div>
+<p>ჩვეულებრივი კეისი დაბეჭდავს საქმის სახელს და აღწერას. მასტერ-სლეი კეისები ასევე დაბეჭდავენ ქვემენიუს (რეგისტრირებული სატესტო ფუნქციების სახელები).</p>
+<p>ტესტის შემთხვევების გაშვება შესაძლებელია შემდეგიდან ერთ-ერთის შეყვანით:</p>
+<ul class="simple">
+<li>ტესტ-ქეისის სახელი ბრჭყალებში ერთი ტესტ-ქეისის გასაშვებად</li>
+<li>ტესტ-ქეისის ინდექსი ერთი ტესტ-ქეისის გასაშვებად</li>
+<li>მოდულის სახელი კვადრატულ ფრჩხილებში კონკრეტული მოდულის ყველა სატესტო შემთხვევის გასაშვებად</li>
+<li>ვარსკვლავი ყველა სატესტო შემთხვევის გასაშვებად</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">[multi_device]</span></code> და <code class="docutils literal notranslate"><span class="pre">[multi_stage]</span></code> ტეგები ტესტის შემსრულებელს ეუბნება, ტესტის შემთხვევა რამდენიმე მოწყობილობაა თუ ტესტის შემთხვევის რამდენიმე ეტაპი. ეს ტეგები ავტომატურად ემატება <code class="docutils literal notranslate"><span class="pre">`TEST_CASE_MULTIPLE_STAGES</span></code> და <code class="docutils literal notranslate"><span class="pre">TEST_CASE_MULTIPLE_DEVICES</span></code> მაკროები.</p>
+<p>მრავალმოწყობილობაზე დაფუძნებული ტესტის შემთხვევის არჩევის შემდეგ, ის დაბეჭდავს ქვემენიუს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Running</span> <span class="n">gpio</span> <span class="n">master</span><span class="o">/</span><span class="n">slave</span> <span class="n">test</span> <span class="n">example</span><span class="o">...</span>
+<span class="n">gpio</span> <span class="n">master</span><span class="o">/</span><span class="n">slave</span> <span class="n">test</span> <span class="n">example</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="s2">"gpio_master_test"</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">)</span>     <span class="s2">"gpio_slave_test"</span>
+</pre></div>
+</div>
+<p>DUT-ზე გაშვებული ტესტის ასარჩევად, საჭიროა რიცხვის შეყვანა.</p>
+<p>მრავალმოწყობილობაზე დაფუძნებული ტესტის შემთხვევების მსგავსად, მრავალსაფეხურიანი ტესტის შემთხვევებიც დაბეჭდავს ქვემენიუს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Running</span> <span class="n">reset</span> <span class="n">reason</span> <span class="n">check</span> <span class="k">for</span> <span class="n">deepsleep</span><span class="o">...</span>
+<span class="n">reset</span> <span class="n">reason</span> <span class="n">check</span> <span class="k">for</span> <span class="n">deepsleep</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="s2">"trigger_deepsleep"</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">)</span>     <span class="s2">"check_deepsleep_reset_reason"</span>
+</pre></div>
+</div>
+<p>პირველად, როდესაც ამ შემთხვევას ასრულებთ, შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">1</span></code> პირველი ეტაპის გასაშვებად (ღრმა ძილის რეჟიმის გააქტიურება). DUT-ის გადატვირთვისა და სატესტო შემთხვევების გაშვების შემდეგ, ხელახლა აირჩიეთ ეს შემთხვევა და შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">2</span></code> მეორე ეტაპის გასაშვებად. საქმე მხოლოდ იმ შემთხვევაში ჩაითვლება წარმატებით, თუ ბოლო ეტაპი წარმატებით ჩატარდება და ყველა წინა ეტაპი გადატვირთვას გამოიწვევს.</p>
+</div>
+<div class="section" id="timing-code-with-cache-compensated-timer">
+<h2>დროის კოდი ქეშით კომპენსირებული ტაიმერით<a class="headerlink" href="unit-tests.html#timing-code-with-cache-compensated-timer" title="Permalink to this headline">¶</a></h2>
+<p>გარე მეხსიერებაში (მაგ. SPI Flash და SPI RAM) შენახულ ინსტრუქციებსა და მონაცემებზე წვდომა ხდება CPU-ს ერთიანი ინსტრუქციებისა და მონაცემთა ქეშის მეშვეობით. როდესაც კოდი ან მონაცემები ქეშშია, წვდომა ძალიან სწრაფია (ანუ ქეშის დაფიქსირება).</p>
+<p>თუმცა, თუ ინსტრუქცია ან მონაცემები ქეშში არ არის, ის გარე მეხსიერებიდან უნდა იქნას აღებული (ანუ ქეშის შეცდომა). გარე მეხსიერებაზე წვდომა მნიშვნელოვნად ნელია, რადგან CPU-მ ინსტრუქციის ან მონაცემების გარე მეხსიერებიდან აღების მოლოდინში უნდა შეასრულოს შეფერხების ციკლები. ამან შეიძლება გამოიწვიოს კოდის შესრულების საერთო სიჩქარის ცვლილება ქეშის მოხვედრის ან გამოტოვების რაოდენობის მიხედვით.</p>
+<p>კოდისა და მონაცემების განლაგება შეიძლება განსხვავდებოდეს ბილდებს შორის და ზოგიერთი განლაგება შეიძლება უფრო ხელსაყრელი იყოს ქეშზე წვდომის თვალსაზრისით (ანუ ქეშის შეცდომების მინიმიზაცია). ამან ტექნიკურად შეიძლება გავლენა მოახდინოს შესრულების სიჩქარეზე, თუმცა ეს ფაქტორები, როგორც წესი, უმნიშვნელოა, რადგან მათი გავლენა „საშუალოდ“ აისახება მოწყობილობის მუშაობაზე.</p>
+<p>თუმცა, ქეშის გავლენა შესრულების სიჩქარეზე შეიძლება მნიშვნელოვანი იყოს ბენჩმარკინგის სცენარებში (განსაკუთრებით მიკრობენჩმარკებში). შესაძლოა, გარკვეული ცვალებადობა იყოს გაშვებებსა და სხვადასხვა აწყობებს შორის გაზომილ დროში. ცვალებადობის ნაწილის აღმოფხვრის ერთ-ერთი ტექნიკაა კოდისა და მონაცემების განთავსება შესაბამისად ინსტრუქციის ან მონაცემთა ოპერატიულ მეხსიერებაში (IRAM/DRAM). CPU-ს შეუძლია პირდაპირ წვდომა IRAM-სა და DRAM-ზე, რაც ქეშს განტოლებიდან გამორიცხავს. თუმცა, ეს ყოველთვის არ არის მიზანშეწონილი, რადგან IRAM-ის და DRAM-ის ზომა შეზღუდულია.</p>
+<p>ქეშით კომპენსირებული ტაიმერი წარმოადგენს კოდის/მონაცემების IRAM/DRAM-ში შესაფასებელი მონაცემების განთავსების ალტერნატივას. ეს ტაიმერი იყენებს პროცესორის შიდა მოვლენების მთვლელებს, რათა განსაზღვროს კოდის/მონაცემების მოლოდინში დახარჯული დრო ქეშის შეცდომის შემთხვევაში, შემდეგ კი ეს დრო გამოაკლოს ჩაწერილ კედლის დროს.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Start the timer</span>
+<span class="n">ccomp_timer_start</span><span class="p">();</span>
+
+<span class="c1">// Function to time</span>
+<span class="n">func_code_to_time</span><span class="p">();</span>
+
+<span class="c1">// Stop the timer, and return the elapsed time in microseconds relative to</span>
+<span class="c1">// ccomp_timer_start</span>
+<span class="kt">int64_t</span> <span class="n">t</span> <span class="o">=</span> <span class="n">ccomp_timer_stop</span><span class="p">();</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>ქეშის კომპენსირებული ტაიმერის ერთ-ერთი შეზღუდვა ის არის, რომ დავალება, რომლის დროსაც ბენჩმარკინგის ფუნქციები უნდა იყოს მიმაგრებული ბირთვზე. ეს იმიტომ ხდება, რომ თითოეულ ბირთვს აქვს საკუთარი მოვლენების მთვლელები, რომლებიც ერთმანეთისგან დამოუკიდებელია. მაგალითად, თუ <code class="docutils literal notranslate"><span class="pre">ccomp_timer_start</span></code> გამოიძახება ერთ ბირთვზე, დამგეგმავი აჩერებს მას ძილის რეჟიმში, იღვიძებს და ხელახლა იგეგმება მეორე ბირთვზე, შემდეგ კი შესაბამისი <code class="docutils literal notranslate"><span class="pre">ccomp_timer_stop</span></code> არასწორი იქნება. არასწორი.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="wifi.html" rel="next" title="Wi-Fi Driver">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="unit-tests-legacy.html" rel="prev" title="Unit Testing (Legacy GNU Make)"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

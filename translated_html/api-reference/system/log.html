@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ჟურნალირების ბიბლიოთეკა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="system.html" rel="next" title="Miscellaneous System APIs"/>
+<link href="intr_alloc.html" rel="prev" title="Interrupt allocation"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/log.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/log"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/log.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="log.html#">ლოგირება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="log.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="log.html#how-to-use-this-library">როგორ გამოვიყენოთ ეს ბიბლიოთეკა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="log.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="log.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>ჟურნალირების ბიბლიოთეკა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/log.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="logging-library">
+<h1>ჟურნალირების ბიბლიოთეკა<a class="headerlink" href="log.html#logging-library" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="log.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ჟურნალის ბიბლიოთეკა ჟურნალის დეტალიზაციის დაყენების ორ გზას გთავაზობთ:</p>
+<ul class="simple">
+<li><strong>კომპილაცია დროს</strong>: menuconfig ში, დააყენეთ დეტალიზაციის დონე ოფციის გამოყენებით <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CONFIG_LOG_DEFAULT_LEVEL</span></code>ყველა ჟურნალირების ინსტრუქცია დეტალიზაციის დონეებისთვის, რომელიც უფრო მაღალია, ვიდრე <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CONFIG_LOG_DEFAULT_LEVEL</span></code> წაიშლება წინასწარი პროცესორის მიერ.</li>
+<li><strong>გაშვების დროს</strong>: ყველა ჟურნალი უფრო დაბალია, ვიდრე <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CONFIG_LOG_DEFAULT_LEVEL</span></code> ნაგულისხმევად ჩართულია. ფუნქცია <a class="reference internal" href="log.html#_CPPv417esp_log_level_setPKc15esp_log_level_t" title="esp_log_level_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_log_level_set()</span></code></a> შეიძლება გამოყენებულ იქნას თითოეული მოდულის მიხედვით ჟურნალირების დონის დასაყენებლად. მოდულები იდენტიფიცირდება მათი თეგებით, რომლებიც ადამიანის მიერ წასაკითხი ASCII ნულოვანი დაბოლოებით დასრულებულ სტრიქონებს წარმოადგენს.</li>
+</ul>
+<p>არსებობს შემდეგი სიზუსტის დონეები:</p>
+<ul class="simple">
+<li>შეცდომა (ყველაზე დაბალი)</li>
+<li>გაფრთხილება</li>
+<li>ინფორმაცია</li>
+<li>გამართვა</li>
+<li>ვრცელი (ყველაზე მაღალი)</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ფუნქცია <a class="reference internal" href="log.html#_CPPv417esp_log_level_setPKc15esp_log_level_t" title="esp_log_level_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_log_level_set()</span></code></a> ჟურნალირების დონის დაყენება მითითებულზე მაღალი არ არის <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CONFIG_LOG_DEFAULT_LEVEL</span></code>კონკრეტული ფაილისთვის ლოგის დონის გასაზრდელად კომპილაცია დროს, გამოიყენეთ მაკრო <cite>LOG_LOCAL_LEVEL</cite> (დეტალები იხილეთ ქვემოთ).</p>
+</div>
+</div>
+<div class="section" id="how-to-use-this-library">
+<h2>როგორ გამოვიყენოთ ეს ბიბლიოთეკა<a class="headerlink" href="log.html#how-to-use-this-library" title="Permalink to this headline">¶</a></h2>
+<p>თითოეულ C ფაილში, რომელიც იყენებს ჟურნალირების ფუნქციონალს, განსაზღვრეთ TAG ცვლადი, როგორც ნაჩვენებია ქვემოთ:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">"MyModule"</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>შემდეგ გამომავალი მონაცემების მისაღებად გამოიყენეთ ჟურნალირების ერთ-ერთი მაკრო, მაგალითად:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ESP_LOGW</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"Baud rate error %.1f%%. Requested: %d baud, actual: %d baud"</span><span class="p">,</span> <span class="n">error</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">baud_req</span><span class="p">,</span> <span class="n">baud_real</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>სხვადასხვა დეტალიზაციის დონისთვის ხელმისაწვდომია რამდენიმე მაკრო:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code> - შეცდომა (ყველაზე დაბალი)</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_LOGW</span></code> - გაფრთხილება</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_LOGI</span></code> - ინფორმაცია</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_LOGD</span></code> - გამართვა</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_LOGV</span></code> - ვრცელი (ყველაზე მაღალი)</li>
+</ul>
+<p>გარდა ამისა, არსებობს <code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGx</span></code> თითოეული ამ მაკროსის ვერსიები, მაგ., <a class="reference internal" href="log.html#c.ESP_EARLY_LOGE" title="ESP_EARLY_LOGE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_EARLY_LOGE</span></code></a>ეს ვერსიები უნდა იქნას გამოყენებული მხოლოდ ადრეული გაშვების კოდში, სანამ heap allocator და syscalls ინიციალიზაციას მოახდენს. ნორმალური <code class="docutils literal notranslate"><span class="pre">ESP_LOGx</span></code> მაკროების გამოყენება ასევე შესაძლებელია ჩამტვირთავი კომპილაციის დროს, მაგრამ ისინი იმავე იმპლემენტაციას გამოიყენებენ, როგორც <code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGx</span></code> მაკროები.</p>
+<p>ფაილში ან კომპონენტი ფარგლებში ნაგულისხმევი დეტალიზაციის დონის გადასაჭრელად, განსაზღვრეთ <code class="docutils literal notranslate"><span class="pre">LOG_LOCAL_LEVEL</span></code> მაკრო.</p>
+<p>ფაილის მასშტაბში, განსაზღვრეთ ის ჩართვამდე <code class="docutils literal notranslate"><span class="pre">esp_log.h</span></code>, მაგ.:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE</span>
+<span class="cp">#include</span> <span class="cpf">"esp_log.h"</span><span class="cp"></span>
+</pre></div>
+</div>
+<p>კომპონენტი სკოპის ფარგლებში, განსაზღვრეთ ის კომპონენტი makefile-ში:</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">CFLAGS</span> <span class="o">+=</span> -D <span class="nv">LOG_LOCAL_LEVEL</span><span class="o">=</span>ESP_LOG_DEBUG
+</pre></div>
+</div>
+<p>გაშვების დროს თითოეული მოდულის ლოგირების გამომავალი მონაცემების კონფიგურაციისთვის, დაამატეთ გამოძახებები ფუნქციას. <a class="reference internal" href="log.html#_CPPv417esp_log_level_setPKc15esp_log_level_t" title="esp_log_level_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_log_level_set()</span></code></a> შემდეგნაირად:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">esp_log_level_set</span><span class="p">(</span><span class="s">"*"</span><span class="p">,</span> <span class="n">ESP_LOG_ERROR</span><span class="p">);</span>        <span class="c1">// set all components to ERROR level</span>
+<span class="n">esp_log_level_set</span><span class="p">(</span><span class="s">"wifi"</span><span class="p">,</span> <span class="n">ESP_LOG_WARN</span><span class="p">);</span>      <span class="c1">// enable WARN logs from WiFi stack</span>
+<span class="n">esp_log_level_set</span><span class="p">(</span><span class="s">"dhcpc"</span><span class="p">,</span> <span class="n">ESP_LOG_INFO</span><span class="p">);</span>     <span class="c1">// enable INFO logs from DHCP client</span>
+</pre></div>
+</div>
+<div class="section" id="logging-to-host-via-jtag">
+<h3>ჰოსტზე შესვლა JTAG-ის საშუალებით<a class="headerlink" href="log.html#logging-to-host-via-jtag" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევად, ჟურნალის ბიბლიოთეკა იყენებს vprintf-ის მსგავს ფუნქციას ფორმატირებული გამომავალი მონაცემების სპეციალურ UART-ზე ჩასაწერად. მარტივი API გამოძახებით, ჟურნალის ყველა გამომავალი შეიძლება გადამისამართდეს JTAG-ზე, რაც ჟურნალის შენახვას რამდენჯერმე დააჩქარებს. დეტალებისთვის იხილეთ განყოფილება <a class="reference internal" href="../../api-guides/app_trace.html#app-trace-logging-to-host"><span class="std std-ref">ჰოსტზე შესვლა</span></a>.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="log.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>ჟურნალის ბიბლიოთეკა ხშირად გამოიყენება esp-idf კომპონენტი ის უმეტესობის მიერ და მაგალითებით. ჟურნალის ფუნქციონალურობის დემონსტრირებისთვის, შეამოწმეთ ESP-IDF . <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples">მაგალითები</a> დირექტორია. ჟურნალირებასთან დაკავშირებული ყველაზე მნიშვნელოვანი მაგალითებია შემდეგი:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/ota">სისტემა/ოტა</a></li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/storage/sd_card">მეხსიერება/sd_ბარათი</a></li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/https_request">პროტოკოლები/https_მოთხოვნა</a></li>
+</ul>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="log.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="log.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/log/include/esp_log.h">log/include/esp_log.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="log.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv417esp_log_level_setPKc15esp_log_level_t">
+<span id="_CPPv317esp_log_level_setPKc15esp_log_level_t"></span><span id="_CPPv217esp_log_level_setPKc15esp_log_level_t"></span><span id="esp_log_level_set__cCP.esp_log_level_t"></span><span class="target" id="esp__log_8h_1a7fad1451d9dd6f1d1ed1497b9fe04007"></span>void <code class="descname">esp_log_level_set</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ტეგი</em>, <a class="reference internal" href="log.html#_CPPv415esp_log_level_t" title="esp_log_level_t">esp_log_level_t</a> <em>დონე</em><span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv417esp_log_level_setPKc15esp_log_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული თეგისთვის ჟურნალის დონის დაყენება. </p>
+<p>თუ მოცემული კომპონენტი ისთვის ჟურნალირება უკვე ჩართულია, იცვლება წინა პარამეტრი.</p>
+<p>გაითვალისწინეთ, რომ ამ ფუნქციას არ შეუძლია ლოგარითმის დონის აწევა menuconfig ში CONFIG_LOG_DEFAULT_LEVEL პარამეტრის გამოყენებით დაყენებულ დონეზე მაღლა.</p>
+<p>მოცემული ფაილისთვის ლოგის დონის ნაგულისხმევ დონეზე მაღლა ასაწევად, ამ ფაილში esp_log.h-ის ჩართვამდე, LOG_LOCAL_LEVEL განსაზღვრეთ ESP_LOG_* მნიშვნელობებიდან ერთ-ერთად.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: ჩასართავი ჟურნალის ჩანაწერების თეგი. უნდა იყოს არა-NULL ნულით დასრულებული სტრიქონი. მნიშვნელობა „*“ აღადგენს ყველა თეგის ჟურნალის დონეს მოცემულ მნიშვნელობაზე.</li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: ირჩევს ჩასართავად ჟურნალის დონეს. ნაჩვენები იქნება მხოლოდ ამ და უფრო დაბალი დეტალური დონის ჟურნალები. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_log_set_vprintf14vprintf_like_t">
+<span id="_CPPv319esp_log_set_vprintf14vprintf_like_t"></span><span id="_CPPv219esp_log_set_vprintf14vprintf_like_t"></span><span id="esp_log_set_vprintf__vprintf_like_t"></span><span class="target" id="esp__log_8h_1a087fd1c2e310257cf86ec827c8691000"></span><a class="reference internal" href="log.html#_CPPv414vprintf_like_t" title="vprintf_like_t">vprintf_like_t</a> <code class="descname">esp_log_set_vprintf</code><span class="sig-paren">(</span><a class="reference internal" href="log.html#_CPPv414vprintf_like_t" title="vprintf_like_t">vprintf_like_t</a> <em>ფუნქცია</em><span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv419esp_log_set_vprintf14vprintf_like_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჟურნალის ჩანაწერების გამოსატანად გამოყენებული ფუნქციის დაყენება. </p>
+<p>ნაგულისხმევად, ჟურნალის გამომავალი მონაცემები UART0-ზე გადადის. ეს ფუნქცია შეიძლება გამოყენებულ იქნას ჟურნალის გამომავალი მონაცემების სხვა დანიშნულების ადგილას, მაგალითად ფაილში ან ქსელში გადამისამართებლად. აბრუნებს ჟურნალის საწყის დამმუშავებელს, რომელიც შეიძლება საჭირო იყოს გამომავალი მონაცემების წინა დანიშნულების ადგილას დასაბრუნებლად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>func old Function used for output. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">func</span></code>გამომავალი ვერსიისთვის გამოყენებული ახალი ფუნქცია. უნდა ჰქონდეს იგივე ხელმოწერა, რაც vprintf-ს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_log_timestampv">
+<span id="_CPPv317esp_log_timestampv"></span><span id="_CPPv217esp_log_timestampv"></span><span id="esp_log_timestamp__void"></span><span class="target" id="esp__log_8h_1a806e516960a25bc218b55ee70387776e"></span>uint32_t <code class="descname">esp_log_timestamp</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv417esp_log_timestampv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც აბრუნებს დროის ნიშნულს ჟურნალის გამომავალში გამოსაყენებლად. </p>
+<p>ეს ფუნქცია გამოიყენება ESP_LOGx მაკროების გაფართოებისას. მე-2 ეტაპზე ჩამტვირთავი და აპლიკაციის ადრეულ გაშვების ეტაპზე ეს ფუნქცია დროის წყაროდ იყენებს CPU ციკლის მრიცხველს. მოგვიანებით, როდესაც Free RTOS დამგეგმავი იწყებს მუშაობას, ის გადადის Free RTOS tick count-ზე.</p>
+<p>ამჟამად, ჩვენ უგულებელვყოფთ მილიწამიანი მრიცხველის გადავსებას.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>timestamp, in milliseconds </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_log_system_timestampv">
+<span id="_CPPv324esp_log_system_timestampv"></span><span id="_CPPv224esp_log_system_timestampv"></span><span id="esp_log_system_timestamp__void"></span><span class="target" id="esp__log_8h_1a9ad1d90afcf91c34876a57ba0f1783ae"></span>char *<code class="descname">esp_log_system_timestamp</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv424esp_log_system_timestampv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც აბრუნებს სისტემის დროის ნიშნულს ჟურნალის გამომავალში გამოსაყენებლად. </p>
+<p>ეს ფუნქცია გამოიყენება ESP_LOGx მაკროების გაფართოებისას, რათა სისტემის დრო დაიბეჭდოს, როგორც „HH:MM:SS.ss“. გაშვებისას სისტემის დრო ინიციალიზდება 0-ზე, მისი სწორ დროზე დაყენება შესაძლებელია SNTP სინქრონიზაციით ან ხელით სტანდარტული POSIX დროის ფუნქციებით.</p>
+<p>ამჟამად ეს არ იქნება გამოყენებული ბინარული ბლობებიდან (მაგ. WiFi და Bluetooth ბიბლიოთეკებიდან) ჟურნალირებისთვის, ისინი მაინც დაბეჭდავენ RTOS ის ტიკის დროს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>timestamp, in “HH:MM:SS.sss” </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_log_early_timestampv">
+<span id="_CPPv323esp_log_early_timestampv"></span><span id="_CPPv223esp_log_early_timestampv"></span><span id="esp_log_early_timestamp__void"></span><span class="target" id="esp__log_8h_1af4e003310edcaca0fcb9e00a2d085623"></span>uint32_t <code class="descname">esp_log_early_timestamp</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv423esp_log_early_timestampv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც აბრუნებს დროის ნიშნულს ჟურნალის გამომავალში გამოსაყენებლად. </p>
+<p>ეს ფუნქცია იყენებს აპარატურის ციკლის მრიცხველს და არ არის დამოკიდებული ოპერაციულ სისტემაზე, ამიტომ მისი უსაფრთხოდ გამოყენება შესაძლებელია აპლიკაციის გაფუჭების შემდეგ.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>timestamp, in milliseconds </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_log_write15esp_log_level_tPKcPKcz">
+<span id="_CPPv313esp_log_write15esp_log_level_tPKcPKcz"></span><span id="_CPPv213esp_log_write15esp_log_level_tPKcPKcz"></span><span id="esp_log_write__esp_log_level_t.cCP.cCP.z"></span><span class="target" id="esp__log_8h_1aee0ff0441723f0b5cde34529c0aa603f"></span>void <code class="descname">esp_log_write</code><span class="sig-paren">(</span><a class="reference internal" href="log.html#_CPPv415esp_log_level_t" title="esp_log_level_t">esp_log_level_t</a> <em>დონე</em>, <em class="property">კონსტ</em> char *<em>ტეგი</em>, <em class="property">კონსტ</em> char *<em>ფორმატი</em>, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv413esp_log_write15esp_log_level_tPKcPKcz" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩაწერეთ შეტყობინება ჟურნალში. </p>
+<p>ეს ფუნქცია არ არის განკუთვნილი პირდაპირი გამოყენებისთვის. ამის ნაცვლად, გამოიყენეთ ESP_LOGE, ESP_LOGW, ESP_LOGI, ESP_LOGD, ESP_LOGV მაკროებიდან ერთ-ერთი.</p>
+<p>ეს ფუნქცია ან ეს მაკროები არ უნდა იქნას გამოყენებული შეწყვეტიდან. </p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="log.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_LOG_BUFFER_HEX_LEVEL">
+<span class="target" id="esp__log_8h_1af712b480f50ca86b4d17c4b43696ddd4"></span><code class="descname">ESP_LOG_BUFFER_HEX_LEVEL</code><span class="sig-paren">(</span>tag, buffer, buff_len, level<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_BUFFER_HEX_LEVEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>მითითებულ დონეზე თექვსმეტობითი ბაიტების ბუფერის ჟურნალირება, რომელიც თითოეულ ხაზზე 16 ბაიტად არის გამოყოფილი. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: აღწერის თეგი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>ბუფერული მასივის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buff_len</span></code>: ბუფერის სიგრძე ბაიტებში </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: ჟურნალის დონე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_BUFFER_CHAR_LEVEL">
+<span class="target" id="esp__log_8h_1ab868f4c8be583bc47982fcadd01815f7"></span><code class="descname">ESP_LOG_BUFFER_CHAR_LEVEL</code><span class="sig-paren">(</span>tag, buffer, buff_len, level<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_BUFFER_CHAR_LEVEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>მითითებულ დონეზე სიმბოლოების ბუფერის ჟურნალირება, თითოეული ხაზისთვის 16 ბაიტად დაყოფილი. ბუფერი უნდა შეიცავდეს მხოლოდ დასაბეჭდ სიმბოლოებს. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: აღწერის თეგი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>ბუფერული მასივის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buff_len</span></code>: ბუფერის სიგრძე ბაიტებში </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: ჟურნალის დონე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_BUFFER_HEXDUMP">
+<span class="target" id="esp__log_8h_1ab32020016063ecd37a957965538050e1"></span><code class="descname">ESP_LOG_BUFFER_HEXDUMP</code><span class="sig-paren">(</span>tag, buffer, buff_len, level<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_BUFFER_HEXDUMP" title="Permalink to this definition">¶</a></dt>
+<dd><p>ბუფერის გადატანა ლოგში მითითებულ დონეზე. </p>
+<p>დემპინგის ჟურნალი ზუსტად ისე გამოიყურება, როგორც ქვემოთ მოცემულია: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">W</span> <span class="p">(</span><span class="mi">195</span><span class="p">)</span> <span class="n">log_example</span><span class="p">:</span> <span class="mh">0x3ffb4280</span>   <span class="mi">45</span> <span class="mi">53</span> <span class="mi">50</span> <span class="mi">33</span> <span class="mi">32</span> <span class="mi">20</span> <span class="mi">69</span> <span class="mi">73</span>  <span class="mi">20</span> <span class="mi">67</span> <span class="mi">72</span> <span class="mi">65</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">2</span><span class="n">c</span> <span class="mi">20</span>  <span class="o">|</span><span class="n">ESP32</span> <span class="ow">is</span> <span class="n">great</span><span class="p">,</span> <span class="o">|</span>
+ <span class="n">W</span> <span class="p">(</span><span class="mi">195</span><span class="p">)</span> <span class="n">log_example</span><span class="p">:</span> <span class="mh">0x3ffb4290</span>   <span class="mi">77</span> <span class="mi">6</span><span class="n">f</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">b</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">67</span> <span class="mi">20</span>  <span class="mi">61</span> <span class="mi">6</span><span class="n">c</span> <span class="mi">6</span><span class="n">f</span> <span class="mi">6</span><span class="n">e</span> <span class="mi">67</span> <span class="mi">20</span> <span class="mi">77</span> <span class="mi">69</span>  <span class="o">|</span><span class="n">working</span> <span class="n">along</span> <span class="n">wi</span><span class="o">|</span>
+ <span class="n">W</span> <span class="p">(</span><span class="mi">205</span><span class="p">)</span> <span class="n">log_example</span><span class="p">:</span> <span class="mh">0x3ffb42a0</span>   <span class="mi">74</span> <span class="mi">68</span> <span class="mi">20</span> <span class="mi">74</span> <span class="mi">68</span> <span class="mi">65</span> <span class="mi">20</span> <span class="mi">49</span>  <span class="mi">44</span> <span class="mi">46</span> <span class="mi">2</span><span class="n">e</span> <span class="mi">00</span>              <span class="o">|</span><span class="n">th</span> <span class="n">the</span> <span class="n">IDF</span><span class="o">..|</span>
+</pre></div>
+</div>
+</p>
+<p>მკაცრად რეკომენდებულია 102-ზე მეტი ტექსტის სიგანის ტერმინალების გამოყენება.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: აღწერის თეგი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>ბუფერული მასივის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buff_len</span></code>: ბუფერის სიგრძე ბაიტებში </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: ჟურნალის დონე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_BUFFER_HEX">
+<span class="target" id="esp__log_8h_1a9298d7dfd6e10a562bb589bb72a9afef"></span><code class="descname">ESP_LOG_BUFFER_HEX</code><span class="sig-paren">(</span>tag, buffer, buff_len<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_BUFFER_HEX" title="Permalink to this definition">¶</a></dt>
+<dd><p>ინფორმაციული დონის თექვსმეტობითი ბაიტების ბუფერის ჟურნალირება. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">esp_log_buffer_hex_level</span></code> </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: აღწერის თეგი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>ბუფერული მასივის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buff_len</span></code>: ბუფერის სიგრძე ბაიტებში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_BUFFER_CHAR">
+<span class="target" id="esp__log_8h_1acd26659713af7587ea7ad878127195d5"></span><code class="descname">ESP_LOG_BUFFER_CHAR</code><span class="sig-paren">(</span>tag, buffer, buff_len<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_BUFFER_CHAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>ინფორმაციის დონეზე სიმბოლოების ბუფერის ჟურნალირება. ბუფერი უნდა შეიცავდეს მხოლოდ დასაბეჭდ სიმბოლოებს. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">esp_log_buffer_char_level</span></code> </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: აღწერის თეგი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buffer</span></code>ბუფერული მასივის მაჩვენებელი </li>
+<li><code class="docutils literal notranslate"><span class="pre">buff_len</span></code>: ბუფერის სიგრძე ბაიტებში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_EARLY_LOGE">
+<span class="target" id="esp__log_8h_1a7f3db31e473a3568996bda162b11f3c1"></span><code class="descname">ESP_EARLY_LOGE</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_EARLY_LOGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც გაშვების კოდში ლოგებს გამოიტანს, სანამ გროვის გამანაწილებელი და სისტემური ზარები ინიციალიზებული იქნება. log at <code class="docutils literal notranslate"><span class="pre">ESP_LOG_ERROR</span></code> დონე. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">printf</span></code>,<code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code> </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_EARLY_LOGW">
+<span class="target" id="esp__log_8h_1a6f0f26d4f9289bd710b9ffd2cb202474"></span><code class="descname">ESP_EARLY_LOGW</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_EARLY_LOGW" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც გაშვების კოდში ჟურნალებს გამოიტანს <code class="docutils literal notranslate"><span class="pre">ESP_LOG_WARN</span></code> დონე. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGE</span></code>,<code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code>, <code class="docutils literal notranslate"><span class="pre">printf</span></code> </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_EARLY_LOGI">
+<span class="target" id="esp__log_8h_1a79b39fcf567b4dddb8046a28e33d6d52"></span><code class="descname">ESP_EARLY_LOGI</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_EARLY_LOGI" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც გაშვების კოდში ჟურნალებს გამოიტანს <code class="docutils literal notranslate"><span class="pre">ESP_LOG_INFO</span></code> დონე. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGE</span></code>,<code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code>, <code class="docutils literal notranslate"><span class="pre">printf</span></code> </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_EARLY_LOGD">
+<span class="target" id="esp__log_8h_1a1078521d557503305afd41e3c11d08a5"></span><code class="descname">ESP_EARLY_LOGD</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_EARLY_LOGD" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც გაშვების კოდში ჟურნალებს გამოიტანს <code class="docutils literal notranslate"><span class="pre">ESP_LOG_DEBUG</span></code> დონე. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGE</span></code>,<code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code>, <code class="docutils literal notranslate"><span class="pre">printf</span></code> </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_EARLY_LOGV">
+<span class="target" id="esp__log_8h_1a4503ce4c40d5a45329598662bbafea27"></span><code class="descname">ESP_EARLY_LOGV</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_EARLY_LOGV" title="Permalink to this definition">¶</a></dt>
+<dd><p>მაკრო, რომელიც გაშვების კოდში ჟურნალებს გამოიტანს <code class="docutils literal notranslate"><span class="pre">ESP_LOG_VERBOSE</span></code> დონე. </p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">ESP_EARLY_LOGE</span></code>,<code class="docutils literal notranslate"><span class="pre">ESP_LOGE</span></code>, <code class="docutils literal notranslate"><span class="pre">printf</span></code> </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_EARLY_IMPL">
+<span class="target" id="esp__log_8h_1a0730c9ab8cd3c51917df7a6655c9f126"></span><code class="descname">ESP_LOG_EARLY_IMPL</code><span class="sig-paren">(</span>tag, format, log_level, log_tag_letter, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_EARLY_IMPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOGE">
+<span class="target" id="esp__log_8h_1a0c91bbd80ead9ea543d5daa29fd2d4f7"></span><code class="descname">ESP_LOGE</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOGW">
+<span class="target" id="esp__log_8h_1a0a3a477e12d72b64e44a4dac5c1a1f71"></span><code class="descname">ESP_LOGW</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOGW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOGI">
+<span class="target" id="esp__log_8h_1a34ea7419b25257f6e80f4684ab7d52f4"></span><code class="descname">ESP_LOGI</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOGI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOGD">
+<span class="target" id="esp__log_8h_1a0937281fcaf8ab281c69e0c180642e52"></span><code class="descname">ESP_LOGD</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOGD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOGV">
+<span class="target" id="esp__log_8h_1a3ea25c0d0070d76df75a3eaf5fdfcd36"></span><code class="descname">ESP_LOGV</code><span class="sig-paren">(</span>tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOGV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_LOG_LEVEL_LOCAL">
+<span class="target" id="esp__log_8h_1a8560afd66647af60cb5cd9b85227c115"></span><code class="descname">ESP_LOG_LEVEL_LOCAL</code><span class="sig-paren">(</span>level, tag, format, ...<span class="sig-paren">)</span><a class="headerlink" href="log.html#c.ESP_LOG_LEVEL_LOCAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>გაშვების დროს მაკრო, რომელიც ლოგებს მითითებულ დონეზე გამოაქვს.</p>
+<p><dl class="docutils">
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">printf</span></code> runtime macro to output logs at a specified level. Also check the level with <code class="docutils literal notranslate"><span class="pre">LOG_LOCAL_LEVEL</span></code>.</dd>
+<dt><strong>იხილეთ</strong></dt>
+<dd><code class="docutils literal notranslate"><span class="pre">printf</span></code>, <code class="docutils literal notranslate"><span class="pre">ESP_LOG_LEVEL</span></code> </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tag</span></code>: ჟურნალის თეგი, რომლის გამოყენებაც შესაძლებელია ჟურნალის დონის შესაცვლელად <code class="docutils literal notranslate"><span class="pre">esp_log_level_set</span></code> გაშვების დროს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">level</span></code>: გამომავალი ჟურნალის დონე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">format</span></code>: გამომავალი ჟურნალის ფორმატი. იხილეთ <code class="docutils literal notranslate"><span class="pre">printf</span></code> </li>
+<li><code class="docutils literal notranslate"><span class="pre">...</span></code>: ცვლადები, რომლებიც უნდა ჩანაცვლდეს ჟურნალში. იხილეთ <code class="docutils literal notranslate"><span class="pre">printf</span></code></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="log.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv414vprintf_like_t">
+<span id="_CPPv314vprintf_like_t"></span><span id="_CPPv214vprintf_like_t"></span><span id="vprintf_like_t"></span><span class="target" id="esp__log_8h_1a6d96e60b13bda9ffe1c27d850be4ae54"></span><em class="property">typedef </em>int (*<code class="descname">vprintf_like_t</code>)<span class="sig-paren">(</span><em class="property">კონსტ</em> char *, va_list<span class="sig-paren">)</span><a class="headerlink" href="log.html#_CPPv414vprintf_like_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="log.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv415esp_log_level_t">
+<span id="_CPPv315esp_log_level_t"></span><span id="_CPPv215esp_log_level_t"></span><span id="esp_log_level_t"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62ad"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_log_level_t</code><a class="headerlink" href="log.html#_CPPv415esp_log_level_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჟურნალის დონე. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_LOG_NONE">
+<span id="_CPPv312ESP_LOG_NONE"></span><span id="_CPPv212ESP_LOG_NONE"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62ada219005ddee564bf542667b1661578ad0"></span><code class="descname">ESP_LOG_NONE</code><a class="headerlink" href="log.html#_CPPv412ESP_LOG_NONE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჟურნალის გამომავალი არ არის </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413ESP_LOG_ERROR">
+<span id="_CPPv313ESP_LOG_ERROR"></span><span id="_CPPv213ESP_LOG_ERROR"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62adae3f44d5417a3c2614aa2a754e4aa8f67"></span><code class="descname">ESP_LOG_ERROR</code><a class="headerlink" href="log.html#_CPPv413ESP_LOG_ERROR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კრიტიკული შეცდომები, პროგრამული უზრუნველყოფის მოდული ვერ აღდგება თავისით </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_LOG_WARN">
+<span id="_CPPv312ESP_LOG_WARN"></span><span id="_CPPv212ESP_LOG_WARN"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62ada4a8b1cc52ed1a3f09157fb8b3fc46eb9"></span><code class="descname">ESP_LOG_WARN</code><a class="headerlink" href="log.html#_CPPv412ESP_LOG_WARN" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის პირობები, რომელთა აღმოფხვრის ზომები იქნა მიღებული </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_LOG_INFO">
+<span id="_CPPv312ESP_LOG_INFO"></span><span id="_CPPv212ESP_LOG_INFO"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62adabf5442d9cb533e5a21b1942be4bd69ca"></span><code class="descname">ESP_LOG_INFO</code><a class="headerlink" href="log.html#_CPPv412ESP_LOG_INFO" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>საინფორმაციო შეტყობინებები, რომლებიც აღწერს მოვლენების ნორმალურ მიმდინარეობას </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv413ESP_LOG_DEBUG">
+<span id="_CPPv313ESP_LOG_DEBUG"></span><span id="_CPPv213ESP_LOG_DEBUG"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62ada8c408bea91bc26713f5aff2dad5221d5"></span><code class="descname">ESP_LOG_DEBUG</code><a class="headerlink" href="log.html#_CPPv413ESP_LOG_DEBUG" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დამატებითი ინფორმაცია, რომელიც არ არის აუცილებელი ნორმალური გამოყენებისთვის (მნიშვნელობები, მაჩვენებლები, ზომები და ა.შ.). </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv415ESP_LOG_VERBOSE">
+<span id="_CPPv315ESP_LOG_VERBOSE"></span><span id="_CPPv215ESP_LOG_VERBOSE"></span><span class="target" id="esp__log_8h_1a28900c8f111c325f656d19c30b1d62ada5ffb425ea119e9e6f1c58cbf1f6f8be1"></span><code class="descname">ESP_LOG_VERBOSE</code><a class="headerlink" href="log.html#_CPPv415ESP_LOG_VERBOSE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამართვა ის ინფორმაციის უფრო დიდი ნაწილები ან ხშირი შეტყობინებები, რომლებმაც პოტენციურად შეიძლება დატბოროს გამომავალი. </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="system.html" rel="next" title="Miscellaneous System APIs">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="intr_alloc.html" rel="prev" title="Interrupt allocation"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

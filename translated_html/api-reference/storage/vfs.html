@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ვირტუალური ფაილური სისტემა კომპონენტი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="wear-levelling.html" rel="next" title="Wear Levelling API"/>
+<link href="spiffs.html" rel="prev" title="SPIFFS Filesystem"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/vfs.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/storage/vfs"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/storage/vfs.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">შენახვა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fatfs.html">FAT ფაილური სისტემა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mass_mfg.html">მასობრივი წარმოების კომუნალური მომსახურება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvs_flash.html">არასტაბილური საცავი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvs_partition_gen.html">NVS დანაყოფების გენერირების პროგრამა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc.html">SD/SDIO/MMC დრაივერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_flash.html">SPI Flash და Partition API s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spiffs.html">SPIFFS ფაილური სისტემა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="vfs.html#">ვირტუალური ფაილური სისტემა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#fs-registration">FS რეგისტრაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#paths">ბილიკები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#file-descriptors">ფაილის აღმწერები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#standard-io-streams-stdin-stdout-stderr">სტანდარტული IO ნაკადები (stdin, stdout, stderr)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vfs.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wear-levelling.html">ცვეთის გასწორება</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">შენახვის API</a> »</li>
+<li>ვირტუალური ფაილური სისტემა კომპონენტი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/storage/vfs.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="virtual-filesystem-component">
+<h1>ვირტუალური ფაილური სისტემა კომპონენტი<a class="headerlink" href="vfs.html#virtual-filesystem-component" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/storage/vfs.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="vfs.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ვირტუალური ფაილური სისტემა (VFS) კომპონენტი უზრუნველყოფს ერთიან ინტერფეისს დრაივერებისთვის, რომლებსაც შეუძლიათ ფაილების მსგავს ობიექტებზე ოპერაციების შესრულება. ეს შეიძლება იყოს რეალური ფაილური სისტემები (FAT, SPIFFS და ა.შ.) ან მოწყობილობის დრაივერები, რომლებიც უზრუნველყოფენ ფაილის მსგავს ინტერფეისს.</p>
+<p>ეს კომპონენტი საშუალებას აძლევს C ბიბლიოთეკის ფუნქციებს, როგორიცაა fopen და fprintf, იმუშაონ FS დრაივერებთან. მაღალ დონეზე, თითოეული FS დრაივერი ასოცირდება გარკვეული გზის პრეფიქსთან. როდესაც C ბიბლიოთეკის ერთ-ერთ ფუნქციას სჭირდება ფაილის გახსნა, VFS კომპონენტი ეძებს ფაილის გზასთან დაკავშირებულ FS დრაივერს და გადამისამართებს ზარს ამ დრაივერზე. VFS ასევე გადამისამართებს მოცემული ფაილის წაკითხვის, ჩაწერის და სხვა ზარებს იმავე FS დრაივერზე.</p>
+<p>მაგალითად, შეგიძლიათ დარეგისტრირდეთ FAT ფაილური სისტემის დრაივერი შემდეგით: <code class="docutils literal notranslate"><span class="pre">/fat</span></code> პრეფიქსი და ზარი <code class="docutils literal notranslate"><span class="pre">fopen("/fat/file.txt",</span> <span class="pre">"w")</span></code>შემდეგ VFS კომპონენტი გამოიძახებს ფუნქციას <code class="docutils literal notranslate"><span class="pre">open</span></code> FAT დრაივერის და არგუმენტის გადაცემის <code class="docutils literal notranslate"><span class="pre">/file.txt</span></code> შესაბამისი რეჟიმის ფლაგებთან ერთად. დაბრუნებული C ბიბლიოთეკის ფუნქციების ყველა შემდგომი გამოძახება <code class="docutils literal notranslate"><span class="pre">FILE*</span></code> ნაკადი ასევე გადამისამართდება FAT დრაივერზე.</p>
+</div>
+<div class="section" id="fs-registration">
+<h2>FS რეგისტრაცია<a class="headerlink" href="vfs.html#fs-registration" title="Permalink to this headline">¶</a></h2>
+<p>FS დრაივერის რეგისტრაციისთვის, აპლიკაციამ უნდა განსაზღვროს მისი ეგზემპლარი. <a class="reference internal" href="vfs.html#_CPPv49esp_vfs_t" title="esp_vfs_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_vfs_t</span></code></a> სტრუქტურა და შეავსეთ ის FS API s-ის ფუნქციის მაჩვენებლებით:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">esp_vfs_t</span> <span class="n">myfs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">ESP_VFS_FLAG_DEFAULT</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_write</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">open</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_open</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">fstat</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_fstat</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">close</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_close</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">read</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_read</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">esp_vfs_register</span><span class="p">(</span><span class="s">"/data"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myfs</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>იმისდა მიხედვით, თუ როგორ აცხადებს FS დრაივერი თავის API ფუნქციას, ან <code class="docutils literal notranslate"><span class="pre">read</span></code>, <code class="docutils literal notranslate"><span class="pre">write</span></code>და ა.შ., ან <code class="docutils literal notranslate"><span class="pre">read_p</span></code>, <code class="docutils literal notranslate"><span class="pre">write_p</span></code>და ა.შ., უნდა იქნას გამოყენებული.</p>
+<p>შემთხვევა 1: API ფუნქციები გამოცხადებულია დამატებითი კონტექსტური მაჩვენებლის გარეშე (FS დრაივერი არის სინგლტონი):</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">myfs_write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="c1">// In definition of esp_vfs_t:</span>
+    <span class="p">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">ESP_VFS_FLAG_DEFAULT</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_write</span><span class="p">,</span>
+<span class="c1">// ... other members initialized</span>
+
+<span class="c1">// When registering FS, context pointer (third argument) is NULL:</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">esp_vfs_register</span><span class="p">(</span><span class="s">"/data"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myfs</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>შემთხვევა 2: API ფუნქციები გამოცხადებულია დამატებითი კონტექსტური მაჩვენებლით (FS დრაივერი მხარს უჭერს მრავალ ეგზემპლარს):</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">myfs_write</span><span class="p">(</span><span class="n">myfs_t</span><span class="o">*</span> <span class="n">fs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="c1">// In definition of esp_vfs_t:</span>
+    <span class="p">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">ESP_VFS_FLAG_CONTEXT_PTR</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">write_p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">myfs_write</span><span class="p">,</span>
+<span class="c1">// ... other members initialized</span>
+
+<span class="c1">// When registering FS, pass the FS context pointer into the third argument</span>
+<span class="c1">// (hypothetical myfs_mount function is used for illustrative purposes)</span>
+<span class="n">myfs_t</span><span class="o">*</span> <span class="n">myfs_inst1</span> <span class="o">=</span> <span class="n">myfs_mount</span><span class="p">(</span><span class="n">partition1</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">,</span> <span class="n">partition1</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">);</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">esp_vfs_register</span><span class="p">(</span><span class="s">"/data1"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myfs</span><span class="p">,</span> <span class="n">myfs_inst1</span><span class="p">));</span>
+
+<span class="c1">// Can register another instance:</span>
+<span class="n">myfs_t</span><span class="o">*</span> <span class="n">myfs_inst2</span> <span class="o">=</span> <span class="n">myfs_mount</span><span class="p">(</span><span class="n">partition2</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">,</span> <span class="n">partition2</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">);</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">esp_vfs_register</span><span class="p">(</span><span class="s">"/data2"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myfs</span><span class="p">,</span> <span class="n">myfs_inst2</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="section" id="synchronous-input-output-multiplexing">
+<h3>სინქრონული შეყვანა/გამომავალი მულტიპლექსირება<a class="headerlink" href="vfs.html#synchronous-input-output-multiplexing" title="Permalink to this headline">¶</a></h3>
+<p>სინქრონული შეყვანა/გამომავალი მულტიპლექსირება <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> მხარდაჭერილია VFS კომპონენტი . იმპლემენტაცია შემდეგი წესით მუშაობს.</p>
+<ol class="arabic simple">
+<li><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> გამოიძახება ფაილის აღწერით, რომლებიც შეიძლება ეკუთვნოდეს სხვადასხვა VFS დრაივერს.</li>
+<li>ფაილის აღწერილობები იყოფა ჯგუფებად, რომელთაგან თითოეული ეკუთვნის ერთ VFS დრაივერს.</li>
+<li>არასოკეტური VFS დრაივერების კუთვნილი ფაილის აღწერილები მოცემულ VFS დრაივერებს გადაეცემა <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">start_select()</span></code>
+აღწერილია ამ გვერდზე მოგვიანებით. ეს ფუნქცია წარმოადგენს დრაივერის სპეციფიკურ იმპლემენტაციას <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> მოცემული დრაივერისთვის. ეს უნდა იყოს არაბლოკირებადი გამოძახება, რაც ნიშნავს, რომ ფუნქცია დაუყოვნებლივ უნდა დაბრუნდეს მოცემული ფაილის აღმწერებთან დაკავშირებული მოვლენების შემოწმების გარემოს დაყენების შემდეგ.</li>
+<li>სოკეტ VFS დრაივერის კუთვნილი ფაილის აღწერილობები სოკეტ დრაივერს გადაეცემა
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">socket_select()</span></code> აღწერილია ამ გვერდზე მოგვიანებით. ეს არის ბლოკირების ზარი, რაც ნიშნავს, რომ ის დაბრუნდება მხოლოდ იმ შემთხვევაში, თუ არსებობს მოვლენა, რომელიც დაკავშირებულია სოკეტის ფაილის აღწერილობებთან ან არასოკეტის დრაივერის სიგნალებთან. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">socket_select()</span></code>
+გასასვლელად.</li>
+<li>შედეგები გროვდება თითოეული VFS დრაივერიდან და ყველა დრაივერი ჩერდება გარემოს დეინიციალიზაციის გზით მოვლენების შესამოწმებლად.</li>
+<li>ის <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> ზარი მთავრდება და შესაბამის შედეგებს აბრუნებს.</li>
+</ol>
+<div class="section" id="non-socket-vfs-drivers">
+<h4>არასოკეტური VFS დრაივერები<a class="headerlink" href="vfs.html#non-socket-vfs-drivers" title="Permalink to this headline">¶</a></h4>
+<p>თუ გსურთ გამოიყენოთ <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> ფაილის აღწერით, რომელიც ეკუთვნის არა-სოკეტ VFS დრაივერს, მაშინ თქვენ უნდა დარეგისტრირდეთ დრაივერი ფუნქციებით. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">start_select()</span></code> და
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">end_select()</span></code> ანალოგიურად, შემდეგი მაგალითის მიხედვით:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// In definition of esp_vfs_t:</span>
+    <span class="p">.</span><span class="n">start_select</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">uart_start_select</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">end_select</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">uart_end_select</span><span class="p">,</span>
+<span class="c1">// ... other members initialized</span>
+</pre></div>
+</div>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">start_select()</span></code> გამოიყენება მოცემული VFS დრაივერის კუთვნილ ფაილის აღწერილობებზე წაკითხვის/ჩაწერის/შეცდომის პირობების აღმოსაჩენად გარემოს დასაყენებლად.</p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">end_select()</span></code> გამოიძახება გარემოს შესაჩერებლად/დეინიციალიზაციისთვის/გასათავისუფლებლად, რომელიც შეიქმნა <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">start_select()</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">end_select()</span></code> შეიძლება გამოიძახონ წინასწარი შეთანხმების გარეშე <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">start_select()</span></code> იშვიათ შემთხვევებში დარეკვა. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">end_select()</span></code> თუ ასეა, კეთილსინდისიერად უნდა ჩავარდეს.</p>
+</div>
+<p>გთხოვთ, იხილოთ UART პერიფერიული მოწყობილობის საცნობარო იმპლემენტაცია.
+<a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/vfs/vfs_uart.c">vfs/vfs_uart.c</a> და განსაკუთრებით ფუნქციების მიმართ
+<a class="reference internal" href="vfs.html#_CPPv425esp_vfs_dev_uart_registerv" title="esp_vfs_dev_uart_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_vfs_dev_uart_register()</span></code></a>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_start_select()</span></code>და
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">uart_end_select()</span></code> დამატებითი ინფორმაციისთვის.</p>
+<dl class="docutils">
+<dt>Please check the following examples that demonstrate the use of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> with VFS file descriptors:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/uart/uart_select">პერიფერიული მოწყობილობები/uart/uart_select</a></li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/select">სისტემა/აირჩიეთ</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="socket-vfs-drivers">
+<h4>Socket VFS დრაივერები<a class="headerlink" href="vfs.html#socket-vfs-drivers" title="Permalink to this headline">¶</a></h4>
+<p>Socket VFS დრაივერი იყენებს საკუთარ შიდა იმპლემენტაციას. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> და არა-სოკეტური VFS დრაივერები აცნობებენ მას წაკითხვის/ჩაწერის/შეცდომის პირობების შესახებ.</p>
+<p>Socket VFS დრაივერი უნდა იყოს რეგისტრირებული შემდეგი ფუნქციებით:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// In definition of esp_vfs_t:</span>
+    <span class="p">.</span><span class="n">socket_select</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lwip_select</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">get_socket_select_semaphore</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lwip_get_socket_select_semaphore</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">stop_socket_select</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lwip_stop_socket_select</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">stop_socket_select_isr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lwip_stop_socket_select_isr</span><span class="p">,</span>
+<span class="c1">// ... other members initialized</span>
+</pre></div>
+</div>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">socket_select()</span></code> არის შიდა განხორციელება <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> სოკეტის დრაივერისთვის. ის მუშაობს მხოლოდ VFS სოკეტის კუთვნილ ფაილის აღწერილობებთან.</p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_socket_select_semaphore()</span></code> აბრუნებს სიგნალიზაციის ობიექტს (სემფორს), რომელიც გამოყენებული იქნება არასოკეტურ დრაივერებში ლოდინის შესაჩერებლად. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">socket_select()</span></code>.</p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">stop_socket_select()</span></code> ზარი გამოიყენება ლოდინის შესაჩერებლად <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">socket_select()</span></code> დაბრუნებული ობიექტის გადაცემით <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_socket_select_semaphore()</span></code>.</p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">stop_socket_select_isr()</span></code> იგივე ფუნქციონალი აქვს, რაც <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">stop_socket_select()</span></code> მაგრამ მისი გამოყენება შესაძლებელია ISR-დან.</p>
+<p>გთხოვთ იხილოთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/lwip/port/esp32/vfs_lwip.c">lwip/port/esp32/vfs_lwip.c</a> LWIP-ის გამოყენებით საცნობარო სოკეტის დრაივერის იმპლემენტაციისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ იყენებთ <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> მხოლოდ სოკეტის ფაილის აღწერებისთვის შეგიძლიათ ჩართოთ
+<span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CONFIG_LWIP_USE_ONLY_LWIP_SELECT</span></code> კოდის ზომის შემცირებისა და შესრულების გაუმჯობესების ვარიანტი.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">აქტიური რეჟიმის დროს არ შეცვალოთ სოკეტის დრაივერი <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">select()</span></code> დარეკეთ, თორემ შეიძლება გაურკვეველი ქცევა განიცადოთ.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="paths">
+<h2>ბილიკები<a class="headerlink" href="vfs.html#paths" title="Permalink to this headline">¶</a></h2>
+<p>თითოეულ რეგისტრირებულ FS-ს აქვს მასთან დაკავშირებული გზის პრეფიქსი. ეს პრეფიქსი შეიძლება ჩაითვალოს ამ დანაყოფის „დამონტაჟების წერტილად“.</p>
+<p>იმ შემთხვევაში, თუ მონტაჟის წერტილები ჩადგმულია, ფაილის გახსნისას გამოიყენება ყველაზე გრძელი შესატყვისი გზის პრეფიქსის მქონე მონტაჟის წერტილი. მაგალითად, დავუშვათ, რომ VFS-ში რეგისტრირებულია შემდეგი ფაილური სისტემები:</p>
+<ul class="simple">
+<li>FS 1 /data-ზე</li>
+<li>FS 2 /data/static-ზე</li>
+</ul>
+<p>შემდეგ:</p>
+<ul class="simple">
+<li>FS 1 გამოყენებული იქნება ფაილის გახსნისას, სახელწოდებით <code class="docutils literal notranslate"><span class="pre">/data/log.txt</span></code></li>
+<li>FS 2 გამოყენებული იქნება ფაილის გახსნისას, სახელწოდებით <code class="docutils literal notranslate"><span class="pre">/data/static/index.html</span></code></li>
+<li>მაშინაც კი, თუ <code class="docutils literal notranslate"><span class="pre">/index.html"</span></code> FS 2-ში არ არსებობს, FS 1-ში იარსებებს <em>არა</em> ეძებენ <code class="docutils literal notranslate"><span class="pre">/static/index.html</span></code>.</li>
+</ul>
+<p>როგორც წესი, დამონტაჟების წერტილის სახელები უნდა იწყებოდეს ბილიკის გამყოფით (<code class="docutils literal notranslate"><span class="pre">/</span></code>) და უნდა შეიცავდეს მინიმუმ ერთ სიმბოლოს გზის გამყოფის შემდეგ. თუმცა, ასევე მხარდაჭერილია ცარიელი დამონტაჟების წერტილის სახელი და შეიძლება გამოყენებულ იქნას იმ შემთხვევებში, როდესაც აპლიკაციას სჭირდება „სათადარიგო“ ფაილური სისტემის უზრუნველყოფა ან VFS ფუნქციონალურობის მთლიანად გადაფარვა. ასეთი ფაილური სისტემა გამოყენებული იქნება, თუ მოცემულ გზას არცერთი პრეფიქსი არ ემთხვევა.</p>
+<p>VFS წერტილებს არ ამუშავებს (<code class="docutils literal notranslate"><span class="pre">.</span></code>) გზის სახელებში რაიმე განსაკუთრებული გზით. VFS არ ამუშავებს <code class="docutils literal notranslate"><span class="pre">..</span></code> როგორც მშობელ დირექტორიაზე მითითება. ზემოთ მოცემულ მაგალითში, გზის გამოყენებით <code class="docutils literal notranslate"><span class="pre">/data/static/../log.txt</span></code> არ გამოიწვევს FS 1-ზე ზარის გაშვებას გასახსნელად <code class="docutils literal notranslate"><span class="pre">/log.txt</span></code>კონკრეტული FS დრაივერები (მაგალითად, FATFS) შეიძლება ფაილების სახელებში წერტილებს განსხვავებულად ამუშავებდნენ.</p>
+<p>ფაილების გახსნისას, FS დრაივერი იღებს მხოლოდ ფაილების ფარდობით გზებს. მაგალითად:</p>
+<ol class="arabic simple">
+<li>ის <code class="docutils literal notranslate"><span class="pre">myfs</span></code> მძღოლი რეგისტრირებულია <code class="docutils literal notranslate"><span class="pre">/data</span></code> როგორც გზის პრეფიქსი.</li>
+<li>აპლიკაცია იძახებს <code class="docutils literal notranslate"><span class="pre">fopen("/data/config.json",</span> <span class="pre">...)</span></code>.</li>
+<li>VFS კომპონენტი მოწოდებები <code class="docutils literal notranslate"><span class="pre">myfs_open("/config.json",</span> <span class="pre">...)</span></code>.</li>
+<li>ის <code class="docutils literal notranslate"><span class="pre">myfs</span></code> მძღოლი ხსნის, <code class="docutils literal notranslate"><span class="pre">/config.json</span></code> ფაილი.</li>
+</ol>
+<p>VFS არ აწესებს რაიმე შეზღუდვას ფაილის მთლიანი ბილიკის სიგრძეზე, მაგრამ ზღუდავს FS ბილიკის პრეფიქსს. <code class="docutils literal notranslate"><span class="pre">ESP_VFS_PATH_MAX</span></code> სიმბოლოები. ცალკეულ FS დრაივერებს შეიძლება ჰქონდეთ საკუთარი შეზღუდვები ფაილის სახელის სიგრძეზე.</p>
+</div>
+<div class="section" id="file-descriptors">
+<h2>ფაილის აღმწერები<a class="headerlink" href="vfs.html#file-descriptors" title="Permalink to this headline">¶</a></h2>
+<p>ფაილის აღმწერები მცირე დადებითი მთელი რიცხვებია <code class="docutils literal notranslate"><span class="pre">0</span></code> რომ <code class="docutils literal notranslate"><span class="pre">FD_SETSIZE</span> <span class="pre">-</span> <span class="pre">1</span></code>, სადაც <code class="docutils literal notranslate"><span class="pre">FD_SETSIZE</span></code> განსაზღვრულია newlib-ში <code class="docutils literal notranslate"><span class="pre">sys/types.h</span></code>ყველაზე დიდი ფაილის აღწერილობები (კონფიგურირებულია <code class="docutils literal notranslate"><span class="pre">CONFIG_LWIP_MAX_SOCKETS</span></code>) სოკეტებისთვისაა განკუთვნილი. VFS კომპონენტი შეიცავს საძიებო ცხრილს, სახელწოდებით <code class="docutils literal notranslate"><span class="pre">s_fd_table</span></code> გლობალური ფაილის აღწერილობების VFS დრაივერის ინდექსებთან შესაბამისობისთვის, რომლებიც რეგისტრირებულია <code class="docutils literal notranslate"><span class="pre">s_vfs</span></code> მასივი.</p>
+</div>
+<div class="section" id="standard-io-streams-stdin-stdout-stderr">
+<h2>სტანდარტული IO ნაკადები (stdin, stdout, stderr)<a class="headerlink" href="vfs.html#standard-io-streams-stdin-stdout-stderr" title="Permalink to this headline">¶</a></h2>
+<p>თუ menuconfig ვარიანტი <code class="docutils literal notranslate"><span class="pre">UART</span> <span class="pre">for</span> <span class="pre">console</span> <span class="pre">output</span></code> არ არის დაყენებული <code class="docutils literal notranslate"><span class="pre">None</span></code>, შემდეგ <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>და <code class="docutils literal notranslate"><span class="pre">stderr</span></code> კონფიგურირებულია UART-დან წასაკითხად და ჩასაწერად. სტანდარტული IO-სთვის შესაძლებელია UART0-ის ან UART1-ის გამოყენება. ნაგულისხმევად, UART0 გამოიყენება 115200 ბოდის სიჩქარე თან; TX პინი არის GPIO 1; RX პინი არის GPIO 3. ეს პარამეტრების შეცვლა შესაძლებელია menuconfig ში.</p>
+<p>წერა <code class="docutils literal notranslate"><span class="pre">stdout</span></code> ან <code class="docutils literal notranslate"><span class="pre">stderr</span></code> სიმბოლოებს UART-ში გადასცემს FIFO-ს. კითხულობს <code class="docutils literal notranslate"><span class="pre">stdin</span></code> ამოიღებს სიმბოლოებს UART-დან და მიიღებს FIFO-ს.</p>
+<p>ნაგულისხმევად, VFS იყენებს მარტივ ფუნქციებს UART-დან წასაკითხად და ჩასაწერად. წერს დაკავებულს და ელოდება მანამ, სანამ ყველა მონაცემი არ შეივსება UART FIFO-ში, ხოლო წაკითხვები არაბლოკირებადია, აბრუნებს მხოლოდ FIFO-ში არსებულ მონაცემებს. ამ არაბლოკირებადი წაკითხვის ქცევის გამო, უფრო მაღალი დონის C ბიბლიოთეკის გამოძახებები, როგორიცაა <code class="docutils literal notranslate"><span class="pre">fscanf("%d\n",</span> <span class="pre">&amp;var);</span></code>, შესაძლოა სასურველი შედეგი არ მოჰყოლოდა.</p>
+<p>UART დრაივერის გამოყენებით აპლიკაციებს შეუძლიათ VFS-ს მისცენ მითითება, გამოიყენოს დრაივერის მიერ მართული შეფერხებები, რომლებიც ბლოკავს წაკითხვისა და ჩაწერის ფუნქციებს. ეს შეიძლება გაკეთდეს ზარის გამოყენებით. <code class="docutils literal notranslate"><span class="pre">esp_vfs_dev_uart_use_driver</span></code> ფუნქცია. ასევე შესაძლებელია ძირითად არაბლოკირებად ფუნქციებზე დაბრუნება გამოძახების გამოყენებით <code class="docutils literal notranslate"><span class="pre">esp_vfs_dev_uart_use_nonblocking</span></code>.</p>
+<p>VFS ასევე უზრუნველყოფს შეყვანისა და გამოყვანისთვის ახალი ხაზის გარდაქმნის ფუნქციას. შიდა დონეზე, აპლიკაციების უმეტესობა აგზავნის და იღებს ხაზებს, რომლებიც LF (&amp;#39;&amp;#39;n&amp;#39;&amp;#39;) სიმბოლოთი მთავრდება. სხვადასხვა ტერმინალურ პროგრამას შეიძლება დასჭირდეს ხაზის განსხვავებული დასრულება, როგორიცაა CR ან CRLF. აპლიკაციებს შეუძლიათ ამის ცალ-ცალკე კონფიგურაცია შეყვანისა და გამოყვანისთვის, menuconfig მეშვეობით ან ფუნქციების გამოძახებით. <code class="docutils literal notranslate"><span class="pre">esp_vfs_dev_uart_set_rx_line_endings</span></code> და <code class="docutils literal notranslate"><span class="pre">esp_vfs_dev_uart_set_tx_line_endings</span></code>.</p>
+<div class="section" id="standard-streams-and-freertos-tasks">
+<h3>სტანდარტული ნაკადები და უფასო RTOS ამოცანები<a class="headerlink" href="vfs.html#standard-streams-and-freertos-tasks" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">FILE</span></code> ობიექტები <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>და <code class="docutils literal notranslate"><span class="pre">stderr</span></code> გაზიარებულია ყველა Free RTOS დავალებას შორის, მაგრამ ამ ობიექტების მითითებები ინახება თითოეულ დავალებაში. <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">_reent</span></code>.</p>
+<p>შემდეგი კოდი გადადის <code class="docutils literal notranslate"><span class="pre">fprintf(__getreent()-&gt;_stderr,</span> <span class="pre">"42\n");</span></code> წინასწარი პროცესორის მიერ:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"42</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ის <code class="docutils literal notranslate"><span class="pre">__getreent()</span></code> ფუნქცია აბრუნებს თითოეული დავალების მაჩვენებელს <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">_reent</span></code> (<a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/newlib/include/sys/reent.h#L370-L417">newlib/include/sys/reent.h#L370-L417</a>). ეს სტრუქტურა გამოყოფილია თითოეული დავალების TCB-ზე. როდესაც დავალება ინიციალიზებულია, <code class="docutils literal notranslate"><span class="pre">_stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">_stdout</span></code>და <code class="docutils literal notranslate"><span class="pre">_stderr</span></code> წევრები <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">_reent</span></code> დაყენებულია მნიშვნელობებზე <code class="docutils literal notranslate"><span class="pre">_stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">_stdout</span></code>და <code class="docutils literal notranslate"><span class="pre">_stderr</span></code> -ის <code class="docutils literal notranslate"><span class="pre">_GLOBAL_REENT</span></code> (ანუ სტრუქტურა, რომელიც გამოიყენება Free RTOS დაწყებამდე).</p>
+<p>ასეთ დიზაინს შემდეგი შედეგები მოჰყვება:</p>
+<ul class="simple">
+<li>შესაძლებელია დაყენება <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>და <code class="docutils literal notranslate"><span class="pre">stderr</span></code> ნებისმიერი მოცემული დავალებისთვის სხვა ამოცანებზე გავლენის მოხდენის გარეშე, მაგ., შესრულებით <code class="docutils literal notranslate"><span class="pre">stdin</span> <span class="pre">=</span> <span class="pre">fopen("/dev/uart/1",</span> <span class="pre">"r")</span></code>.</li>
+<li>დახურვის ნაგულისხმევი <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, ან <code class="docutils literal notranslate"><span class="pre">stderr</span></code> გამოყენებით <code class="docutils literal notranslate"><span class="pre">fclose</span></code> დახურავს <code class="docutils literal notranslate"><span class="pre">FILE</span></code> ნაკადის ობიექტი, რომელიც გავლენას მოახდენს ყველა სხვა დავალებაზე.</li>
+<li>ნაგულისხმევის შესაცვლელად <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">stderr</span></code> ახალი დავალებების ნაკადები, შეცვლა <code class="docutils literal notranslate"><span class="pre">_GLOBAL_REENT-&gt;_stdin</span></code> (<code class="docutils literal notranslate"><span class="pre">_stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">_stderr</span></code>) დავალების შექმნამდე.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="vfs.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/en/latest/template.html">ინსტრუქციები</a></p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="vfs.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="vfs.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/vfs/include/esp_vfs.h">vfs/include/esp_vfs.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="vfs.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_writeP6_reentiPKv6size_t">
+<span id="_CPPv313esp_vfs_writeP6_reentiPKv6size_t"></span><span id="_CPPv213esp_vfs_writeP6_reentiPKv6size_t"></span><span id="esp_vfs_write___reentP.i.voidCP.s"></span><span class="target" id="esp__vfs_8h_1a3a2e3e1bf108c6e7984912f5f6e60259"></span>ssize_t <code class="descname">esp_vfs_write</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, int <em>ფრენის ველი</em>, <em class="property">კონსტ</em> void *<em>მონაცემები</em>, size_t <em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_writeP6_reentiPKv6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს ფუნქციები newlib-ის სისტემური ზარების ცხრილში უნდა იქნას გამოყენებული. newlib მათ გამოიძახებს, როდესაც მას რომელიმე სისტემური ზარის გამოყენება დასჭირდება. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_lseekP6_reenti5off_ti">
+<span id="_CPPv313esp_vfs_lseekP6_reenti5off_ti"></span><span id="_CPPv213esp_vfs_lseekP6_reenti5off_ti"></span><span id="esp_vfs_lseek___reentP.i.off_t.i"></span><span class="target" id="esp__vfs_8h_1a4745673c71fa8df4e2863c93c8d3de59"></span>off_t <code class="descname">esp_vfs_lseek</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, int <em>ფრენის ველი</em>, off_t <em>ზომა</em>, int <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_lseekP6_reenti5off_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_vfs_readP6_reentiPv6size_t">
+<span id="_CPPv312esp_vfs_readP6_reentiPv6size_t"></span><span id="_CPPv212esp_vfs_readP6_reentiPv6size_t"></span><span id="esp_vfs_read___reentP.i.voidP.s"></span><span class="target" id="esp__vfs_8h_1a884f29cef422f25fdea6cd372de4c6b6"></span>ssize_t <code class="descname">esp_vfs_read</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, int <em>ფრენის ველი</em>, void *<em>თარიღი</em>, size_t <em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_readP6_reentiPv6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_vfs_openP6_reentPKcii">
+<span id="_CPPv312esp_vfs_openP6_reentPKcii"></span><span id="_CPPv212esp_vfs_openP6_reentPKcii"></span><span id="esp_vfs_open___reentP.cCP.i.i"></span><span class="target" id="esp__vfs_8h_1a5f4b2b4e6427cdaff417b3dd89cd021c"></span>int <code class="descname">esp_vfs_open</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, <em class="property">კონსტ</em> char *<em>გზა</em>, int <em>დროშები</em>, int <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_openP6_reentPKcii" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_closeP6_reenti">
+<span id="_CPPv313esp_vfs_closeP6_reenti"></span><span id="_CPPv213esp_vfs_closeP6_reenti"></span><span id="esp_vfs_close___reentP.i"></span><span class="target" id="esp__vfs_8h_1af1e87f8a6cf7278ec4c53834010a4b6b"></span>int <code class="descname">esp_vfs_close</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, int <em>ფრენის ველი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_closeP6_reenti" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_fstatP6_reentiP4stat">
+<span id="_CPPv313esp_vfs_fstatP6_reentiP4stat"></span><span id="_CPPv213esp_vfs_fstatP6_reentiP4stat"></span><span id="esp_vfs_fstat___reentP.i.statP"></span><span class="target" id="esp__vfs_8h_1a7a66a9415e2ad2e48e61dc96f36b4908"></span>int <code class="descname">esp_vfs_fstat</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, int <em>ფრენის ველი</em>, <em class="property">სტრუქტურა</em> stat *<em>ქ.</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_fstatP6_reentiP4stat" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_vfs_statP6_reentPKcP4stat">
+<span id="_CPPv312esp_vfs_statP6_reentPKcP4stat"></span><span id="_CPPv212esp_vfs_statP6_reentPKcP4stat"></span><span id="esp_vfs_stat___reentP.cCP.statP"></span><span class="target" id="esp__vfs_8h_1a0635dc938339f8f1400e09ab1f134b6d"></span>int <code class="descname">esp_vfs_stat</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, <em class="property">კონსტ</em> char *<em>გზა</em>, <em class="property">სტრუქტურა</em> stat *<em>ქ.</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_statP6_reentPKcP4stat" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_vfs_linkP6_reentPKcPKc">
+<span id="_CPPv312esp_vfs_linkP6_reentPKcPKc"></span><span id="_CPPv212esp_vfs_linkP6_reentPKcPKc"></span><span id="esp_vfs_link___reentP.cCP.cCP"></span><span class="target" id="esp__vfs_8h_1a62cd80733cae312790d3c8197947af5b"></span>int <code class="descname">esp_vfs_link</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, <em class="property">კონსტ</em> char *<em>n1</em>, <em class="property">კონსტ</em> char *<em>n2</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_linkP6_reentPKcPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_vfs_unlinkP6_reentPKc">
+<span id="_CPPv314esp_vfs_unlinkP6_reentPKc"></span><span id="_CPPv214esp_vfs_unlinkP6_reentPKc"></span><span id="esp_vfs_unlink___reentP.cCP"></span><span class="target" id="esp__vfs_8h_1ae66ff057997b607c2cafc3250163985e"></span>int <code class="descname">esp_vfs_unlink</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, <em class="property">კონსტ</em> char *<em>გზა</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv414esp_vfs_unlinkP6_reentPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_vfs_renameP6_reentPKcPKc">
+<span id="_CPPv314esp_vfs_renameP6_reentPKcPKc"></span><span id="_CPPv214esp_vfs_renameP6_reentPKcPKc"></span><span id="esp_vfs_rename___reentP.cCP.cCP"></span><span class="target" id="esp__vfs_8h_1abca72e5d3a37e9269cbe888de867ea1f"></span>int <code class="descname">esp_vfs_rename</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> _reent *<em>რ</em>, <em class="property">კონსტ</em> char *<em>src</em>, <em class="property">კონსტ</em> char *<em>თარიღი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv414esp_vfs_renameP6_reentPKcPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_utimePKcPK7utimbuf">
+<span id="_CPPv313esp_vfs_utimePKcPK7utimbuf"></span><span id="_CPPv213esp_vfs_utimePKcPK7utimbuf"></span><span id="esp_vfs_utime__cCP.utimbufCP"></span><span class="target" id="esp__vfs_8h_1a0be295b88b71c7e7dcfd35762d942c13"></span>int <code class="descname">esp_vfs_utime</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>გზა</em>, <em class="property">კონსტ</em> <em class="property">სტრუქტურა</em> utimbuf *<em>ჯერ</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_utimePKcPK7utimbuf" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_vfs_registerPKcPK9esp_vfs_tPv">
+<span id="_CPPv316esp_vfs_registerPKcPK9esp_vfs_tPv"></span><span id="_CPPv216esp_vfs_registerPKcPK9esp_vfs_tPv"></span><span id="esp_vfs_register__cCP.esp_vfs_tCP.voidP"></span><span class="target" id="esp__vfs_8h_1a732fcf8679e84bc69c9477e326877a2c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_register</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ბაზისური_გზა</em>, <em class="property">კონსტ</em> <a class="reference internal" href="vfs.html#_CPPv49esp_vfs_t" title="esp_vfs_t">esp_vfs_t</a> *<em>VFS</em>, void *<em>ctx</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv416esp_vfs_registerPKcPK9esp_vfs_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული გზის პრეფიქსისთვის ვირტუალური ფაილური სისტემის რეგისტრაცია.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if successful, ESP_ERR_NO_MEM if too many VFSes are registered. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">base_path</span></code>: ფაილურ სისტემასთან დაკავშირებული ფაილის გზის პრეფიქსი. უნდა იყოს ნულოვანი დაბოლოების მქონე C სტრიქონი, ESP_VFS_PATH_MAX სიმბოლომდე და მინიმუმ 2 სიმბოლოს სიგრძის. სახელი უნდა იწყებოდეს „/“-ით და არ უნდა მთავრდებოდეს „/“-ით. მაგალითად, „/data“ ან „/dev/spi“ სწორია. ეს VFS-ები შემდეგ გამოიძახება ფაილის გზის დასამუშავებლად, როგორიცაა „/data/myfile.txt“ ან „/dev/spi/0“. </li>
+<li><code class="docutils literal notranslate"><span class="pre">vfs</span></code>: მითითება <a class="reference internal" href="vfs.html#structesp__vfs__t"><span class="std std-ref">esp_vfs_t</span></a>, სტრუქტურა, რომელიც სისტემურ გამოძახებებს ფაილური სისტემის დრაივერის ფუნქციებთან აკავშირებს. VFS კომპონენტი არ იღებს ამ მაჩვენებლის საკუთრებას. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>თუ vfs-&amp;gt;flags-ში დაყენებულია ESP_VFS_FLAG_CONTEXT_PTR, მაჩვენებელი, რომელიც უნდა გადაეცეს VFS ფუნქციებს. სხვა შემთხვევაში, NULL.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425esp_vfs_register_fd_rangePK9esp_vfs_tPvii">
+<span id="_CPPv325esp_vfs_register_fd_rangePK9esp_vfs_tPvii"></span><span id="_CPPv225esp_vfs_register_fd_rangePK9esp_vfs_tPvii"></span><span id="esp_vfs_register_fd_range__esp_vfs_tCP.voidP.i.i"></span><span class="target" id="esp__vfs_8h_1a6c6723ef8863d26af3e0d1ffb4822723"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_register_fd_range</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="vfs.html#_CPPv49esp_vfs_t" title="esp_vfs_t">esp_vfs_t</a> *<em>VFS</em>, void *<em>ctx</em>, int <em>მინ_ფდ</em>, int <em>max_fd</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv425esp_vfs_register_fd_rangePK9esp_vfs_tPvii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-ის რეგისტრაციის სპეციალური შემთხვევა, რომელიც იყენებს open()-სგან განსხვავებულ მეთოდს ინტერვალიდან ახალი ფაილის აღმწერების გასახსნელად.</p>
+<p>ეს არის სპეციალური დანიშნულების ფუნქცია, რომელიც განკუთვნილია LWIP სოკეტების VFS-ში რეგისტრაციისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if successful, ESP_ERR_NO_MEM if too many VFSes are registered, ESP_ERR_INVALID_ARG if the file descriptor boundaries are incorrect. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">vfs</span></code>: მითითება <a class="reference internal" href="vfs.html#structesp__vfs__t"><span class="std std-ref">esp_vfs_t</span></a>მნიშვნელობა იგივეა, რაც esp_vfs_register()-ის შემთხვევაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>: კონტექსტური სტრუქტურის მაჩვენებელი. მნიშვნელობა იგივეა, რაც esp_vfs_register()-ის შემთხვევაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">min_fd</span></code>ყველაზე პატარა ფაილის აღწერილობა, რომელსაც ეს VFS გამოიყენებს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_fd</span></code>ფაილის დესკრიპტორების ზედა ზღვარი, რომელსაც ეს VFS გამოიყენებს (ყველაზე დიდი ფაილის დესკრიპტორი პლუს ერთი).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_vfs_register_with_idPK9esp_vfs_tPvP12esp_vfs_id_t">
+<span id="_CPPv324esp_vfs_register_with_idPK9esp_vfs_tPvP12esp_vfs_id_t"></span><span id="_CPPv224esp_vfs_register_with_idPK9esp_vfs_tPvP12esp_vfs_id_t"></span><span id="esp_vfs_register_with_id__esp_vfs_tCP.voidP.esp_vfs_id_tP"></span><span class="target" id="esp__vfs_8h_1a7ffeba44d124631d0ec8227c84f4a9ba"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_register_with_id</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="vfs.html#_CPPv49esp_vfs_t" title="esp_vfs_t">esp_vfs_t</a> *<em>VFS</em>, void *<em>ctx</em>, <a class="reference internal" href="vfs.html#_CPPv412esp_vfs_id_t" title="esp_vfs_id_t">esp_vfs_id_t</a> *<em>vfs_id</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv424esp_vfs_register_with_idPK9esp_vfs_tPvP12esp_vfs_id_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-ის რეგისტრაციის სპეციალური შემთხვევა, რომელიც ახალი ფაილის აღმწერების გასახსნელად იყენებს open()-სგან განსხვავებულ მეთოდს. esp_vfs_register_fd_range-თან შედარებით, ეს ფუნქცია არ ახდენს ფაილის აღმწერების ინტერვალის წინასწარ რეგისტრაციას. ფაილის აღმწერების რეგისტრაცია შესაძლებელია მოგვიანებით, esp_vfs_register_fd-ის გამოყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if successful, ESP_ERR_NO_MEM if too many VFSes are registered, ESP_ERR_INVALID_ARG if the file descriptor boundaries are incorrect. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">vfs</span></code>: მითითება <a class="reference internal" href="vfs.html#structesp__vfs__t"><span class="std std-ref">esp_vfs_t</span></a>მნიშვნელობა იგივეა, რაც esp_vfs_register()-ის შემთხვევაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ctx</span></code>: კონტექსტური სტრუქტურის მაჩვენებელი. მნიშვნელობა იგივეა, რაც esp_vfs_register()-ის შემთხვევაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">vfs_id</span></code>აქ ჩაიწერება VFS ID, რომლის გადაცემა esp_vfs_register_fd-სთვის ფაილის აღმწერების რეგისტრაციისთვის შეიძლება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_vfs_unregisterPKc">
+<span id="_CPPv318esp_vfs_unregisterPKc"></span><span id="_CPPv218esp_vfs_unregisterPKc"></span><span id="esp_vfs_unregister__cCP"></span><span class="target" id="esp__vfs_8h_1a0d1f4219100762f93da1ba6f7a45a737"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_unregister</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ბაზისური_გზა</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv418esp_vfs_unregisterPKc" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოცემული გზის პრეფიქსისთვის ვირტუალური ფაილური სისტემის რეგისტრაციის გაუქმება</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if successful, ESP_ERR_INVALID_STATE if VFS for given prefix hasn’t been registered </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">base_path</span></code>: ფაილის პრეფიქსი, რომელიც ადრე გამოიყენებოდა esp_vfs_register გამოძახებაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_vfs_register_fd12esp_vfs_id_tPi">
+<span id="_CPPv319esp_vfs_register_fd12esp_vfs_id_tPi"></span><span id="_CPPv219esp_vfs_register_fd12esp_vfs_id_tPi"></span><span id="esp_vfs_register_fd__esp_vfs_id_t.iP"></span><span class="target" id="esp__vfs_8h_1afe94c9ad16195f1c83936a8f57a83462"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_register_fd</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv412esp_vfs_id_t" title="esp_vfs_id_t">esp_vfs_id_t</a> <em>vfs_id</em>, int *<em>ფრენის ველი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv419esp_vfs_register_fd12esp_vfs_id_tPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სპეციალური ფუნქცია esp_vfs_register_with_id-ის მიერ რეგისტრირებული VFS-ისთვის სხვა ფაილის აღმწერის რეგისტრაციისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if the registration is successful, ESP_ERR_NO_MEM if too many file descriptors are registered, ESP_ERR_INVALID_ARG if the arguments are incorrect. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">vfs_id</span></code>esp_vfs_register_with_id-ის მიერ დაბრუნებული VFS იდენტიფიკატორი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">fd</span></code>რეგისტრირებული ფაილის აღწერილობა ამ მისამართზე ჩაიწერება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_vfs_unregister_fd12esp_vfs_id_ti">
+<span id="_CPPv321esp_vfs_unregister_fd12esp_vfs_id_ti"></span><span id="_CPPv221esp_vfs_unregister_fd12esp_vfs_id_ti"></span><span id="esp_vfs_unregister_fd__esp_vfs_id_t.i"></span><span class="target" id="esp__vfs_8h_1a8b697a5ecf593a78b9e164d8859d11a2"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_vfs_unregister_fd</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv412esp_vfs_id_t" title="esp_vfs_id_t">esp_vfs_id_t</a> <em>vfs_id</em>, int <em>ფრენის ველი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv421esp_vfs_unregister_fd12esp_vfs_id_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სპეციალური ფუნქცია esp_vfs_register_with_id-ის მიერ რეგისტრირებული VFS-ის კუთვნილი ფაილის აღმწერის რეგისტრაციის გასაუქმებლად.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if the registration is successful, ESP_ERR_INVALID_ARG if the arguments are incorrect. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">vfs_id</span></code>esp_vfs_register_with_id-ის მიერ დაბრუნებული VFS იდენტიფიკატორი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">fd</span></code>ფაილის აღწერილობა, რომელიც არ უნდა იყოს რეგისტრირებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_vfs_selectiP6fd_setP6fd_setP6fd_setP7timeval">
+<span id="_CPPv314esp_vfs_selectiP6fd_setP6fd_setP6fd_setP7timeval"></span><span id="_CPPv214esp_vfs_selectiP6fd_setP6fd_setP6fd_setP7timeval"></span><span id="esp_vfs_select__i.fd_setP.fd_setP.fd_setP.timevalP"></span><span class="target" id="esp__vfs_8h_1a29b7501ddf5027ed24f0a3869bf35043"></span>int <code class="descname">esp_vfs_select</code><span class="sig-paren">(</span>int <em>nfds</em>, fd_set *<em>readfds</em>, fd_set *<em>writefds</em>, fd_set *<em>errorfds</em>, <em class="property">სტრუქტურა</em> timeval *<em>ტაიმ-აუტი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv414esp_vfs_selectiP6fd_setP6fd_setP6fd_setP7timeval" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სინქრონული შეყვანა/გამოყვანის მულტიპლექსირება, რომელიც ახორციელებს POSIX select() ფუნქციონალს VFS-ისთვის. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>The number of descriptors set in the descriptor sets, or -1 when an error (specified by errno) have occurred. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">nfds</span></code>: განსაზღვრავს შესამოწმებელი აღმწერების დიაპაზონს. თითოეულ ნაკრებში შემოწმდება პირველი nfds აღმწერები. </li>
+<li><code class="docutils literal notranslate"><span class="pre">readfds</span></code>თუ არ არის NULL, მაშინ მიუთითებს აღმწერთა ნაკრებზე, რომელიც შეყვანისას განსაზღვრავს, თუ რომელი აღმწერები უნდა შემოწმდეს წასაკითხად მზადყოფნაში, ხოლო გამომავალში მიუთითებს, რომელი აღმწერებია წასაკითხად მზად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">writefds</span></code>თუ არ არის NULL, მაშინ მიუთითებს აღმწერთა ნაკრებზე, რომელიც შეყვანისას განსაზღვრავს, თუ რომელი აღმწერები უნდა შემოწმდეს ჩასაწერად მზადყოფნაში, ხოლო გამომავალში მიუთითებს, რომელი აღმწერებია ჩასაწერად მზად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">errorfds</span></code>თუ არ არის NULL, მაშინ მიუთითებს აღმწერთა ნაკრებზე, რომელიც შეყვანისას განსაზღვრავს, თუ რომელი აღმწერები უნდა შემოწმდეს შეცდომის პირობებზე, ხოლო გამომავალში მიუთითებს, რომელ აღმწერებს აქვთ შეცდომის პირობები. </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>თუ არ არის NULL, მაშინ მიუთითებს დროის მნიშვნელობის სტრუქტურაზე, რომელიც განსაზღვრავს დროის პერიოდს, რომლის შემდეგაც ფუნქციები უნდა ამოიწუროს და დაბრუნდეს. თუ ის NULL-ია, მაშინ ფუნქცია არ ამოიწურება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_vfs_select_triggered20esp_vfs_select_sem_t">
+<span id="_CPPv324esp_vfs_select_triggered20esp_vfs_select_sem_t"></span><span id="_CPPv224esp_vfs_select_triggered20esp_vfs_select_sem_t"></span><span id="esp_vfs_select_triggered__esp_vfs_select_sem_t"></span><span class="target" id="esp__vfs_8h_1aceeb367936ed4a827707210bb332e761"></span>void <code class="descname">esp_vfs_select_triggered</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv420esp_vfs_select_sem_t" title="esp_vfs_select_sem_t">esp_vfs_select_sem_t</a> <em>სემ</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv424esp_vfs_select_triggered20esp_vfs_select_sem_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS დრაივერის შეტყობინება წაკითხვის/ჩაწერის/შეცდომის მდგომარეობის შესახებ. </p>
+<p>ეს ფუნქცია გამოიძახება, როდესაც VFS დრაივერი აღმოაჩენს წაკითხვის/ჩაწერის/შეცდომის პირობას, როგორც ეს მოთხოვნილი იყო start_select-ის წინა გამოძახებით.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">sem</span></code>სემაფორის სტრუქტურა, რომელიც დრაივერს start_select გამოძახებით გადაეცა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_vfs_select_triggered_isr20esp_vfs_select_sem_tP10BaseType_t">
+<span id="_CPPv328esp_vfs_select_triggered_isr20esp_vfs_select_sem_tP10BaseType_t"></span><span id="_CPPv228esp_vfs_select_triggered_isr20esp_vfs_select_sem_tP10BaseType_t"></span><span id="esp_vfs_select_triggered_isr__esp_vfs_select_sem_t.BaseType_tP"></span><span class="target" id="esp__vfs_8h_1ad5f6a513785744dcaac55094e9a3ae8d"></span>void <code class="descname">esp_vfs_select_triggered_isr</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv420esp_vfs_select_sem_t" title="esp_vfs_select_sem_t">esp_vfs_select_sem_t</a> <em>სემ</em>, BaseType_t *<em>გამოღვიძებული</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv428esp_vfs_select_triggered_isr20esp_vfs_select_sem_tP10BaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეტყობინება VFS დრაივერისგან წაკითხვის/ჩაწერის/შეცდომის მდგომარეობის შესახებ (ISR ვერსია) </p>
+<p>ეს ფუნქცია გამოიძახება, როდესაც VFS დრაივერი აღმოაჩენს წაკითხვის/ჩაწერის/შეცდომის პირობას, როგორც ეს მოთხოვნილი იყო start_select-ის წინა გამოძახებით.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">sem</span></code>სემაფორის სტრუქტურა, რომელიც დრაივერს start_select გამოძახებით გადაეცა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">woken</span></code>: დაყენებულია pdTRUE-ზე, თუ ფუნქცია გააღვიძებს უფრო მაღალი პრიორიტეტის მქონე დავალებას. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412esp_vfs_pollP6pollfd6nfds_ti">
+<span id="_CPPv312esp_vfs_pollP6pollfd6nfds_ti"></span><span id="_CPPv212esp_vfs_pollP6pollfd6nfds_ti"></span><span id="esp_vfs_poll__pollfdP.nfds_t.i"></span><span class="target" id="esp__vfs_8h_1a39459decbdb16effa1b61e32af067648"></span>int <code class="descname">esp_vfs_poll</code><span class="sig-paren">(</span><em class="property">სტრუქტურა</em> pollfd *<em>FDS</em>, nfds_t <em>nfds</em>, int <em>ტაიმ-აუტი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_pollP6pollfd6nfds_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სინქრონული შეყვანის/გამოყვანის მულტიპლექსირებისთვის VFS ფენის იმპლემენტაცია poll()-ის მეშვეობით. </p>
+<p>იმპლემენტაცია ეფუძნება esp_vfs_select-ს. პარამეტრები და დაბრუნებული მნიშვნელობები თავსებადია POSIX poll()-თან.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A positive return value indicates the number of file descriptors that have been selected. The 0 return value indicates a timed-out poll. -1 is return on failure and errno is set accordingly. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fds</span></code>: ფაილის აღმწერებისა და მოვლენების შემცველი მასივის მაჩვენებელი უნდა იქნას გათვალისწინებული poll() ფუნქციის გამოყენებით. </li>
+<li><code class="docutils literal notranslate"><span class="pre">nfds</span></code>: ელემენტების რაოდენობა მასივში fds. </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>Poll()-მა უნდა დაელოდოს მინიმუმ მილიწამების განმავლობაში. თუ მნიშვნელობა 0-ია, მაშინ ის დაუყოვნებლივ უნდა დააბრუნოს. თუ მნიშვნელობა -1-ია, მაშინ ის უნდა დაელოდოს (დაბლოკოს) მოვლენის მოხდენას.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_vfs_preadiPv6size_t5off_t">
+<span id="_CPPv313esp_vfs_preadiPv6size_t5off_t"></span><span id="_CPPv213esp_vfs_preadiPv6size_t5off_t"></span><span id="esp_vfs_pread__i.voidP.s.off_t"></span><span class="target" id="esp__vfs_8h_1a18730cf0872e6ce7e9b6429f370e7713"></span>ssize_t <code class="descname">esp_vfs_pread</code><span class="sig-paren">(</span>int <em>ფრენის ველი</em>, void *<em>თარიღი</em>, size_t <em>ზომა</em>, off_t <em>ოფსეტი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv413esp_vfs_preadiPv6size_t5off_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ახორციელებს POSIX pread()-ის VFS ფენას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A positive return value indicates the number of bytes read. -1 is return on failure and errno is set accordingly. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fd</span></code>: ფაილის აღწერილობა, რომელიც გამოიყენება წასაკითხად </li>
+<li><code class="docutils literal notranslate"><span class="pre">dst</span></code>: ბუფერის მაჩვენებელი, სადაც გამომავალი ჩაიწერება </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>წასაკითხი ბაიტების რაოდენობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">offset</span></code>წაკითხვის საწყისი ოფსეტი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_vfs_pwriteiPKv6size_t5off_t">
+<span id="_CPPv314esp_vfs_pwriteiPKv6size_t5off_t"></span><span id="_CPPv214esp_vfs_pwriteiPKv6size_t5off_t"></span><span id="esp_vfs_pwrite__i.voidCP.s.off_t"></span><span class="target" id="esp__vfs_8h_1a90328829e6856258ac4b6bfbb30ed49c"></span>ssize_t <code class="descname">esp_vfs_pwrite</code><span class="sig-paren">(</span>int <em>ფრენის ველი</em>, <em class="property">კონსტ</em> void *<em>src</em>, size_t <em>ზომა</em>, off_t <em>ოფსეტი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv414esp_vfs_pwriteiPKv6size_t5off_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ახორციელებს POSIX pwrite()-ის VFS ფენას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A positive return value indicates the number of bytes written. -1 is return on failure and errno is set accordingly. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fd</span></code>ფაილის აღწერილობა, რომელიც გამოიყენება ჩაწერისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">src</span></code>ბუფერის მაჩვენებელი, საიდანაც გამომავალი წაიკითხავენ </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>: ჩასაწერი ბაიტების რაოდენობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">offset</span></code>ჩაწერის საწყისი ოფსეტი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="vfs.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv420esp_vfs_select_sem_t">
+<span id="_CPPv320esp_vfs_select_sem_t"></span><span id="_CPPv220esp_vfs_select_sem_t"></span><span id="esp_vfs_select_sem_t"></span><span class="target" id="structesp__vfs__select__sem__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_vfs_select_sem_t</code><a class="headerlink" href="vfs.html#_CPPv420esp_vfs_select_sem_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS სემაფორის ტიპი select()-ისთვის </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N20esp_vfs_select_sem_t12is_sem_localE">
+<span id="_CPPv3N20esp_vfs_select_sem_t12is_sem_localE"></span><span id="_CPPv2N20esp_vfs_select_sem_t12is_sem_localE"></span><span id="esp_vfs_select_sem_t::is_sem_local__b"></span><span class="target" id="structesp__vfs__select__sem__t_1adac059708bba965eb7d9690d1b5a30d9"></span>bool <code class="descname">is_sem_local</code><a class="headerlink" href="vfs.html#_CPPv4N20esp_vfs_select_sem_t12is_sem_localE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>„sem“-ის ტიპი არის SemaphoreHandle_t, როდესაც true-ა, სხვა შემთხვევაში განისაზღვრება სოკეტის დრაივერით. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N20esp_vfs_select_sem_t3semE">
+<span id="_CPPv3N20esp_vfs_select_sem_t3semE"></span><span id="_CPPv2N20esp_vfs_select_sem_t3semE"></span><span id="esp_vfs_select_sem_t::sem__voidP"></span><span class="target" id="structesp__vfs__select__sem__t_1a49002b47d65bf464568436841f7fd04a"></span>void *<code class="descname">sem</code><a class="headerlink" href="vfs.html#_CPPv4N20esp_vfs_select_sem_t3semE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სემაფორის ეგზემპლარი </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv49esp_vfs_t">
+<span id="_CPPv39esp_vfs_t"></span><span id="_CPPv29esp_vfs_t"></span><span id="esp_vfs_t"></span><span class="target" id="structesp__vfs__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_vfs_t</code><a class="headerlink" href="vfs.html#_CPPv49esp_vfs_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-ის განმარტების სტრუქტურა. </p>
+<p>ეს სტრუქტურა უნდა შეივსოს შესაბამისი FS დრაივერის ფუნქციების მითითებებით.</p>
+<p>VFS კომპონენტი გადათარგმნის ყველა FD-ს ისე, რომ ფაილური სისტემის იმპლემენტაცია ხედავს მათ ნულიდან დაწყებას. გამომძახებელი ხედავს გლობალურ FD-ს, რომელსაც წინ უძღვის pre-file system-implementation.</p>
+<p>ზოგიერთი FS იმპლემენტაცია ელის, რომ გარკვეული მდგომარეობა (მაგ., რომელიმე სტრუქტურის მაჩვენებელი) გადაეცემა პირველ არგუმენტად. ამ იმპლემენტაციებისთვის, შეავსეთ ამ სტრუქტურის წევრები, რომლებსაც აქვთ _p სუფიქსი, flags member-ად დააყენეთ ESP_VFS_FLAG_CONTEXT_PTR-ზე და კონტექსტური მაჩვენებელი მიეცით esp_vfs_register ფუნქციას. თუ იმპლემენტაცია არ იყენებს ამ დამატებით არგუმენტს, შეავსეთ წევრები _p სუფიქსის გარეშე და flags member-ად დააყენეთ ESP_VFS_FLAG_DEFAULT-ზე.</p>
+<p>თუ FS დრაივერი ზოგიერთ ფუნქციას არ უზრუნველყოფს, შესაბამისი წევრები NULL-ზე დააყენეთ. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t5flagsE">
+<span id="_CPPv3N9esp_vfs_t5flagsE"></span><span id="_CPPv2N9esp_vfs_t5flagsE"></span><span id="esp_vfs_t::flags__i"></span><span class="target" id="structesp__vfs__t_1a12d8a41bee2fd76b18e205efb40cc460"></span>int <code class="descname">flags</code><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t5flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP_VFS_FLAG_CONTEXT_PTR ან ESP_VFS_FLAG_DEFAULT </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t12start_selectE">
+<span id="_CPPv3N9esp_vfs_t12start_selectE"></span><span id="_CPPv2N9esp_vfs_t12start_selectE"></span><span class="target" id="structesp__vfs__t_1a36974d0cfb1e9e6a4fd179e21abf7e84"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">start_select</code>)<span class="sig-paren">(</span>int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, <a class="reference internal" href="vfs.html#_CPPv420esp_vfs_select_sem_t" title="esp_vfs_select_sem_t">esp_vfs_select_sem_t</a> sem, void **end_select_args<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t12start_selectE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>start_select გამოიძახება მოცემულ VFS-ში სასურველი ფაილის აღმწერების სინქრონული შეყვანის/გამოყვანის მულტიპლექსირების დასაყენებლად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t13socket_selectE">
+<span id="_CPPv3N9esp_vfs_t13socket_selectE"></span><span id="_CPPv2N9esp_vfs_t13socket_selectE"></span><span class="target" id="structesp__vfs__t_1a4fb6134a0a5fb7855307f13e2468dd52"></span>int (*<code class="descname">socket_select</code>)<span class="sig-paren">(</span>int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds, <em class="property">სტრუქტურა</em> timeval *timeout<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t13socket_selectE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სოკეტის შერჩევის ფუნქცია სოკეტის FD-ებისთვის POSIX select()-ის ფუნქციონალურობით; ეს უნდა იყოს დაყენებული მხოლოდ სოკეტ VFS-ისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t18stop_socket_selectE">
+<span id="_CPPv3N9esp_vfs_t18stop_socket_selectE"></span><span id="_CPPv2N9esp_vfs_t18stop_socket_selectE"></span><span class="target" id="structesp__vfs__t_1ab2fe6938dcee77b3a5a7816f64f26363"></span>void (*<code class="descname">stop_socket_select</code>)<span class="sig-paren">(</span>void *sem<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t18stop_socket_selectE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-ის მიერ გამოძახებული socket_select გამოძახების შესაწყვეტად, როდესაც select გააქტიურებულია არა-სოკეტის VFS დრაივერიდან; დაყენებულია მხოლოდ სოკეტის დრაივერისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t22stop_socket_select_isrE">
+<span id="_CPPv3N9esp_vfs_t22stop_socket_select_isrE"></span><span id="_CPPv2N9esp_vfs_t22stop_socket_select_isrE"></span><span class="target" id="structesp__vfs__t_1a5e65df7575724b3aa36c48ddf5288bba"></span>void (*<code class="descname">stop_socket_select_isr</code>)<span class="sig-paren">(</span>void *sem, BaseType_t *woken<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t22stop_socket_select_isrE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>stop_socket_select, რომლის გამოძახებაც შესაძლებელია ISR-დან; დაყენებულია მხოლოდ სოკეტის დრაივერისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t27get_socket_select_semaphoreE">
+<span id="_CPPv3N9esp_vfs_t27get_socket_select_semaphoreE"></span><span id="_CPPv2N9esp_vfs_t27get_socket_select_semaphoreE"></span><span class="target" id="structesp__vfs__t_1a7d42f3b077981132d7bde54625814412"></span>void *(*<code class="descname">get_socket_select_semaphore</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t27get_socket_select_semaphoreE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>end_select გამოიძახება შემავალი/გამომავალი მულტიპლექსირების შესაჩერებლად და მოცემული VFS-ისთვის start_select-ის მიერ შექმნილი გარემოს დეინიციალიზაციისთვის. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N9esp_vfs_t10end_selectE">
+<span id="_CPPv3N9esp_vfs_t10end_selectE"></span><span id="_CPPv2N9esp_vfs_t10end_selectE"></span><span class="target" id="structesp__vfs__t_1a3f8c00dc86604b7c6b3b0cddc2f27027"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> (*<code class="descname">end_select</code>)<span class="sig-paren">(</span>void *end_select_args<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv4N9esp_vfs_t10end_selectE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>get_socket_select_semaphore აბრუნებს სოკეტის დრაივერში გამოყოფილ სემაფორას; დაყენებულია მხოლოდ სოკეტის დრაივერისთვის. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="vfs.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.MAX_FDS">
+<span class="target" id="esp__vfs_8h_1a816ccaf3e5e64cc98f2b5613cc177398"></span><code class="descname">MAX_FDS</code><a class="headerlink" href="vfs.html#c.MAX_FDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>(გლობალური) ფაილის აღმწერების მაქსიმალური რაოდენობა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_VFS_PATH_MAX">
+<span class="target" id="esp__vfs_8h_1a627b235f37e74d5852546f228484e93a"></span><code class="descname">ESP_VFS_PATH_MAX</code><a class="headerlink" href="vfs.html#c.ESP_VFS_PATH_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>გზის პრეფიქსის მაქსიმალური სიგრძე (ნულოვანი ტერმინატორის გარეშე) </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_VFS_FLAG_DEFAULT">
+<span class="target" id="esp__vfs_8h_1a12d4f495ac0b2513c069f9f6c809ab9b"></span><code class="descname">ESP_VFS_FLAG_DEFAULT</code><a class="headerlink" href="vfs.html#c.ESP_VFS_FLAG_DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>დროშის წევრის ნაგულისხმევი მნიშვნელობა <a class="reference internal" href="vfs.html#structesp__vfs__t"><span class="std std-ref">esp_vfs_t</span></a> სტრუქტურა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_VFS_FLAG_CONTEXT_PTR">
+<span class="target" id="esp__vfs_8h_1ac145ec9b3f732b1f3a8b71cf3db349b5"></span><code class="descname">ESP_VFS_FLAG_CONTEXT_PTR</code><a class="headerlink" href="vfs.html#c.ESP_VFS_FLAG_CONTEXT_PTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>დროშა, რომელიც მიუთითებს, რომ FS-ს სისტემურ ზარებში დამატებითი კონტექსტური მაჩვენებელი სჭირდება. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="vfs.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv412esp_vfs_id_t">
+<span id="_CPPv312esp_vfs_id_t"></span><span id="_CPPv212esp_vfs_id_t"></span><span id="esp_vfs_id_t"></span><span class="target" id="esp__vfs_8h_1a82e0aff0fff000942b566e66a78e7375"></span><em class="property">typedef </em>int <code class="descname">esp_vfs_id_t</code><a class="headerlink" href="vfs.html#_CPPv412esp_vfs_id_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="vfs.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/vfs/include/esp_vfs_dev.h">vfs/include/esp_vfs_dev.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="vfs.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv425esp_vfs_dev_uart_registerv">
+<span id="_CPPv325esp_vfs_dev_uart_registerv"></span><span id="_CPPv225esp_vfs_dev_uart_registerv"></span><span id="esp_vfs_dev_uart_register__void"></span><span class="target" id="esp__vfs__dev_8h_1a5e4aa2120ee2c9c4bf73c0e1dc7f16a9"></span>void <code class="descname">esp_vfs_dev_uart_register</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv425esp_vfs_dev_uart_registerv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაამატეთ /dev/uart ვირტუალური ფაილური სისტემის დრაივერი </p>
+<p>ეს ფუნქცია გამოიძახება გაშვების კოდიდან სერიული გამომავალის ჩასართავად. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv436esp_vfs_dev_uart_set_rx_line_endings18esp_line_endings_t">
+<span id="_CPPv336esp_vfs_dev_uart_set_rx_line_endings18esp_line_endings_t"></span><span id="_CPPv236esp_vfs_dev_uart_set_rx_line_endings18esp_line_endings_t"></span><span id="esp_vfs_dev_uart_set_rx_line_endings__esp_line_endings_t"></span><span class="target" id="esp__vfs__dev_8h_1af1367db500cd5aff1ecd13fdd6db2c41"></span>void <code class="descname">esp_vfs_dev_uart_set_rx_line_endings</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv418esp_line_endings_t" title="esp_line_endings_t">esp_line_endings_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv436esp_vfs_dev_uart_set_rx_line_endings18esp_line_endings_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ UART-ზე მოსალოდნელი ხაზის დასასრულები. </p>
+<p>ეს განსაზღვრავს UART-ზე მიღებულ სტრიქონების დაბოლოებებსა და ახალ სტრიქონებს შორის კონვერტაციას (&amp;#39;)<p>&amp;#39;, LF) გადაეცა stdin-ში:</p>
+</p>
+<p><ul class="simple">
+<li>ESP_LINE_ENDINGS_CRLF: CRLF-ის LF-ად გადაკეთება</li>
+<li>ESP_LINE_ENDINGS_CR: CR-ის LF-ად გადაყვანა</li>
+<li>ESP_LINE_ENDINGS_LF: მოდიფიკაციის გარეშე</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>this function is not thread safe w.r.t. reading from UART</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: UART-ზე მოსალოდნელია სტრიქონის დასასრული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv436esp_vfs_dev_uart_set_tx_line_endings18esp_line_endings_t">
+<span id="_CPPv336esp_vfs_dev_uart_set_tx_line_endings18esp_line_endings_t"></span><span id="_CPPv236esp_vfs_dev_uart_set_tx_line_endings18esp_line_endings_t"></span><span id="esp_vfs_dev_uart_set_tx_line_endings__esp_line_endings_t"></span><span class="target" id="esp__vfs__dev_8h_1a1f9628b1b7802ebe30c6bc153a8dbec2"></span>void <code class="descname">esp_vfs_dev_uart_set_tx_line_endings</code><span class="sig-paren">(</span><a class="reference internal" href="vfs.html#_CPPv418esp_line_endings_t" title="esp_line_endings_t">esp_line_endings_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv436esp_vfs_dev_uart_set_tx_line_endings18esp_line_endings_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ ხაზის დაბოლოებები UART-ზე გაგზავნილზე. </p>
+<p>ეს განსაზღვრავს ახალ ხაზებს შორის კონვერტაციას (&amp;#39;)<p>&amp;#39;, LF) stdout-ზე და UART-ით გაგზავნილი ხაზის დაბოლოებები:</p>
+</p>
+<p><ul class="simple">
+<li>ESP_LINE_ENDINGS_CRLF: LF-ის CRLF-ად გადაკეთება</li>
+<li>ESP_LINE_ENDINGS_CR: LF-ის CR-ად გადაყვანა</li>
+<li>ESP_LINE_ENDINGS_LF: მოდიფიკაციის გარეშე</li>
+</ul>
+</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>this function is not thread safe w.r.t. writing to UART</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: UART-ში გასაგზავნი სტრიქონის დაბოლოებები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_vfs_dev_uart_use_nonblockingi">
+<span id="_CPPv332esp_vfs_dev_uart_use_nonblockingi"></span><span id="_CPPv232esp_vfs_dev_uart_use_nonblockingi"></span><span id="esp_vfs_dev_uart_use_nonblocking__i"></span><span class="target" id="esp__vfs__dev_8h_1a018841872464e2d2a79cdf8157efafb5"></span>void <code class="descname">esp_vfs_dev_uart_use_nonblocking</code><span class="sig-paren">(</span>int <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv432esp_vfs_dev_uart_use_nonblockingi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ VFS-ის ფუნქცია, რომ გამოიყენოს მარტივი ფუნქციები UART წაკითხვისა და ჩაწერისთვის. წაკითხვა არ არის ბლოკირებადი, ჩაწერა დაკავებულია და ელოდება, სანამ TX FIFO-ს საკმარისი ადგილი არ ექნება. ეს ფუნქციები გამოიყენება ნაგულისხმევად. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პერიფერიული ნომერი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_vfs_dev_uart_use_driveri">
+<span id="_CPPv327esp_vfs_dev_uart_use_driveri"></span><span id="_CPPv227esp_vfs_dev_uart_use_driveri"></span><span id="esp_vfs_dev_uart_use_driver__i"></span><span class="target" id="esp__vfs__dev_8h_1a3c6c34c20a967574b779166ad6bfdf3c"></span>void <code class="descname">esp_vfs_dev_uart_use_driver</code><span class="sig-paren">(</span>int <em>uart_num</em><span class="sig-paren">)</span><a class="headerlink" href="vfs.html#_CPPv427esp_vfs_dev_uart_use_driveri" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VFS-ის დაყენება, რომ წაკითხვისა და ჩაწერისთვის UART დრაივერი გამოიყენოს </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>application must configure UART driver before calling these functions With these functions, read and write are blocking and interrupt-driven. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">uart_num</span></code>: UART პერიფერიული ნომერი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="vfs.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv418esp_line_endings_t">
+<span id="_CPPv318esp_line_endings_t"></span><span id="_CPPv218esp_line_endings_t"></span><span id="esp_line_endings_t"></span><span class="target" id="esp__vfs__dev_8h_1a01e0eb6622c4b3717282875c4effdf16"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_line_endings_t</code><a class="headerlink" href="vfs.html#_CPPv418esp_line_endings_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ხაზის დასრულების პარამეტრები. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv421ESP_LINE_ENDINGS_CRLF">
+<span id="_CPPv321ESP_LINE_ENDINGS_CRLF"></span><span id="_CPPv221ESP_LINE_ENDINGS_CRLF"></span><span class="target" id="esp__vfs__dev_8h_1a01e0eb6622c4b3717282875c4effdf16a812df487e1b1214d2ae1ef1631b67880"></span><code class="descname">ESP_LINE_ENDINGS_CRLF</code><a class="headerlink" href="vfs.html#_CPPv421ESP_LINE_ENDINGS_CRLF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CR + LF. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419ESP_LINE_ENDINGS_CR">
+<span id="_CPPv319ESP_LINE_ENDINGS_CR"></span><span id="_CPPv219ESP_LINE_ENDINGS_CR"></span><span class="target" id="esp__vfs__dev_8h_1a01e0eb6622c4b3717282875c4effdf16afba5656982f4c111803912a37579f75d"></span><code class="descname">ESP_LINE_ENDINGS_CR</code><a class="headerlink" href="vfs.html#_CPPv419ESP_LINE_ENDINGS_CR" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CR. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv419ESP_LINE_ENDINGS_LF">
+<span id="_CPPv319ESP_LINE_ENDINGS_LF"></span><span id="_CPPv219ESP_LINE_ENDINGS_LF"></span><span class="target" id="esp__vfs__dev_8h_1a01e0eb6622c4b3717282875c4effdf16a3525702b9521dd82991163b5a7067b0e"></span><code class="descname">ESP_LINE_ENDINGS_LF</code><a class="headerlink" href="vfs.html#_CPPv419ESP_LINE_ENDINGS_LF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მარცხენა მხარე. </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="wear-levelling.html" rel="next" title="Wear Levelling API">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="spiffs.html" rel="prev" title="SPIFFS Filesystem"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

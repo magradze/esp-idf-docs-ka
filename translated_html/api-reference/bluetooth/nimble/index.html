@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NimBLE-ზე დაფუძნებული ჰოსტი API s — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../../about.html" rel="author" title="About these documents"/>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="../esp-ble-mesh.html" rel="next" title="ESP-BLE-MESH"/>
+<link href="../esp_hf_ag.html" rel="prev" title="HFP AG API"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/bluetooth/nimble/" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/bluetooth/nimble/index"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/bluetooth/nimble/index.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Bluetooth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../controller_vhci.html">Bluetooth კონტროლერი და VHCI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bt_common.html">Bluetooth საერთო</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bt_le.html">Bluetooth ტერმინალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classic_bt.html">Bluetooth კლასიკური</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="index.html#">NimBLE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#architecture">არქიტექტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#threading-model">ძაფების მოდელი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#programming-sequence">პროგრამირების თანმიმდევრობა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-ble-mesh.html">ESP-BLE-MESH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../../index.html">API მითითება</a> »</li>
+<li><a href="../index.html">Bluetooth API</a> »</li>
+<li>NimBLE-ზე დაფუძნებული მასპინძელი API 8 s</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/bluetooth/nimble/index.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="nimble-based-host-apis">
+<h1>NimBLE-ზე დაფუძნებული მასპინძელი API 8 s<a class="headerlink" href="index.html#nimble-based-host-apis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="index.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>Apache MyNewt NimBLE არის მაღალკონფიგურირებადი და BT SIG-ის შესაბამისი BLE სტეკი, რომელიც უზრუნველყოფს როგორც მასპინძლის, ასევე კონტროლერის ფუნქციონალურობას. ESP-IDF მხარს უჭერს NimBLE მასპინძლის სტეკს, რომელიც სპეციალურად პორტირებულია ESP32 პლატფორმისთვის და Free RTOS ისთვის. ძირითადი კონტროლერი იგივეა (როგორც Bluedroid-ის შემთხვევაში), რომელიც უზრუნველყოფს VHCI ინტერფეისს. იხილეთ  <a class="reference external" href="http://mynewt.apache.org/latest/network/index.html#">NimBLE-ის მომხმარებლის სახელმძღვანელო</a> ფუნქციების სრული სიისა და NimBLE დასტის შესახებ დამატებითი ინფორმაციისთვის იხილეთ. NimBLE-ს უმეტესი ფუნქცია, მათ შორის BLE Mesh, მხარდაჭერილია ESP-IDF მიერ. პორტირების ფენა უფრო სუფთად ინახება NimBLE-ს ყველა არსებული API ის შენარჩუნებით, ინიციალიზაციისთვის ერთი ESP-NimBLE API ჩათვლით, რაც ამარტივებს აპლიკაციათა შემქმნელებისთვის პროცესს.</p>
+</div>
+<div class="section" id="architecture">
+<h2>არქიტექტურა<a class="headerlink" href="index.html#architecture" title="Permalink to this headline">¶</a></h2>
+<p>ამჟამად, NimBLE ჰოსტი და კონტროლერი მხარს უჭერენ სხვადასხვა ტრანსპორტირებას, როგორიცაა UART და RAM მათ შორის. თუმცა, RAM ტრანსპორტის გამოყენება შეუძლებელია ისე, როგორც ეს ESP-ის შემთხვევაშია, რადგან ESP კონტროლერი მხარს უჭერს VHCI ინტერფეისს და NimBLE ჰოსტის მიერ გამოყენებული ბუფერული სქემები შეუთავსებელია ESP კონტროლერის მიერ გამოყენებულ სქემებთან. ამიტომ, დაემატა ახალი ტრანსპორტი NimBLE ჰოსტსა და ESP კონტროლერს შორის. ეს ნაჩვენებია ქვემოთ მოცემულ ფიგურაში. ეს ფენა პასუხისმგებელია ტრანსპორტის ბუფერების პულის შენარჩუნებაზე და ჰოსტსა და კონტროლერს შორის ბუფერების გაცვლის ფორმატირებაზე მოთხოვნების შესაბამისად.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../../_images/esp32_nimble_stack.png"><img alt="ESP NimBLE Stack." src="../../../_images/esp32_nimble_stack.png" style="width: 320.5px; height: 113.5px;"/></a>
+<p class="caption"><span class="caption-text">ESP NimBLE სტეკი</span></p>
+</div>
+</div>
+<div class="section" id="threading-model">
+<h2>ძაფების მოდელი<a class="headerlink" href="index.html#threading-model" title="Permalink to this headline">¶</a></h2>
+<p>NimBLE ჰოსტს შეუძლია აპლიკაციის ნაკადში მუშაობა ან საკუთარი დამოუკიდებელი ნაკადური ჰქონდეს. ეს მოქნილობა თავისთავად უზრუნველყოფილია NimBLE-ს დიზაინით. ნაგულისხმევად, ნაკადური იქმნება პორტირების ფუნქციით. <code class="docutils literal notranslate"><span class="pre">nimble_port_freertos_init</span></code>ეს ქცევა შეიძლება შეიცვალოს იმავე ფუნქციის გადაფარვით. BLE Mesh-ისთვის გამოიყენება დამატებითი ძაფი (სარეკლამო ძაფი), რომელიც აგრძელებს სარეკლამო მოვლენების მიწოდებას მთავარ ძაფისთვის.</p>
+</div>
+<div class="section" id="programming-sequence">
+<h2>პროგრამირების თანმიმდევრობა<a class="headerlink" href="index.html#programming-sequence" title="Permalink to this headline">¶</a></h2>
+<p>დასაწყისისთვის, დარწმუნდით, რომ NimBLE სტეკი ჩართულია menuconfig დან. <a class="reference internal" href="../../kconfig.html#config-bt-host"><span class="std std-ref">აირჩიეთ NimBLE Bluetooth მასპინძლისთვის</span></a>.</p>
+<dl class="docutils">
+<dt>Typical programming sequence with NimBLE stack consists of the following steps:</dt>
+<dd><ul class="first last simple">
+<li>NVS ფლეშ მეხსიერება ინიციალიზაცია <a class="reference internal" href="../../storage/nvs_flash.html#_CPPv414nvs_flash_initv" title="nvs_flash_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">nvs_flash_init()</span></code></a> API . ეს იმიტომ ხდება, რომ ESP კონტროლერი ინიციალიზაციის დროს იყენებს NVS-ს.</li>
+<li>ზარი <a class="reference internal" href="index.html#_CPPv434esp_nimble_hci_and_controller_initv" title="esp_nimble_hci_and_controller_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_nimble_hci_and_controller_init()</span></code></a> ESP კონტროლერის, ასევე ტრანსპორტის ფენის ინიციალიზაციისთვის. ეს ასევე დააკავშირებს მასპინძელ და კონტროლერის მოდულებს ერთმანეთთან. ალტერნატიულად, თუ ESP კონტროლერი უკვე ინიციალიზებულია, მაშინ <a class="reference internal" href="index.html#_CPPv419esp_nimble_hci_initv" title="esp_nimble_hci_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_nimble_hci_init()</span></code></a> შეიძლება გამოძახებული იყოს დარჩენილი ინიციალიზაციისთვის.</li>
+<li>ჰოსტის დასტის ინიციალიზაცია <code class="docutils literal notranslate"><span class="pre">nimble_port_init</span></code>.</li>
+<li>საჭირო NimBLE მასპინძლის კონფიგურაციის პარამეტრების და უკუკავშირების ინიციალიზაცია</li>
+<li>აპლიკაციის სპეციფიკური დავალებების/ინიციალიზაციის შესრულება</li>
+<li>გაუშვით ძაფი ჰოსტის დასტისთვის, გამოიყენეთ <code class="docutils literal notranslate"><span class="pre">nimble_port_freertos_init</span></code></li>
+</ul>
+</dd>
+</dl>
+<p>ეს დოკუმენტაცია არ მოიცავს NimBLE-ის API ტერმინს. იხილეთ <a class="reference external" href="https://mynewt.apache.org/latest/network/index.html#ble-user-guide">NimBLE-ის სახელმძღვანელო</a> სხვადასხვა სცენარისთვის პროგრამირების თანმიმდევრობის/NimBLE API ის შესახებ დამატებითი ინფორმაციისთვის იხილეთ.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="index.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="index.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/bt/host/nimble/esp-hci/include/esp_nimble_hci.h">bt/host/nimble/esp-hci/include/esp_nimble_hci.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="index.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419esp_nimble_hci_initv">
+<span id="_CPPv319esp_nimble_hci_initv"></span><span id="_CPPv219esp_nimble_hci_initv"></span><span id="esp_nimble_hci_init__void"></span><span class="target" id="esp__nimble__hci_8h_1a4287fa93b8f9b6f6529884e8f7f715d2"></span><a class="reference internal" href="../../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_nimble_hci_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv419esp_nimble_hci_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>VHCI სატრანსპორტო ფენის ინიციალიზაცია NimBLE Host-სა და ESP Bluetooth კონტროლერს შორის. </p>
+<p>ეს ფუნქცია ახდენს NimBLE ჰოსტსა და ESP კონტროლერს შორის გასაცვლი ტრანსპორტის ბუფერების ინიციალიზაციას. ის ასევე არეგისტრირებს კონტროლერთან საჭირო ჰოსტის უკუკავშირს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ ინიციალიზაცია წარმატებულია</li>
+<li>შეცდომის შემთხვევაში esp_err_t-დან შესაბამისი შეცდომის კოდი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434esp_nimble_hci_and_controller_initv">
+<span id="_CPPv334esp_nimble_hci_and_controller_initv"></span><span id="_CPPv234esp_nimble_hci_and_controller_initv"></span><span id="esp_nimble_hci_and_controller_init__void"></span><span class="target" id="esp__nimble__hci_8h_1ad51f2432cd4505b2bc18f30c4a2da2d3"></span><a class="reference internal" href="../../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_nimble_hci_and_controller_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv434esp_nimble_hci_and_controller_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>NimBLE Host-სა და ESP Bluetooth კონტროლერს შორის ESP Bluetooth კონტროლერის (ბმულის ფენა) და VHCI სატრანსპორტო ფენის ინიციალიზაცია. </p>
+<p>ეს ფუნქცია ინიციალიზაციას უკეთებს ESP კონტროლერს მხოლოდ BLE რეჟიმში და ტრანსპორტის ბუფერებს, რომლებიც უნდა გაცვალონ NimBLE ჰოსტსა და ESP კონტროლერს შორის. ის ასევე არეგისტრირებს საჭირო ჰოსტის უკუკავშირს კონტროლერთან.</p>
+<p>ქვემოთ მოცემულია API ბრძანებების თანმიმდევრობა, რომლებიც უნდა გამოიძახოთ NimBLE მასპინძლისა და ESP კონტროლერის ინიციალიზაციის/ჩართვისთვის:</p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">ble_host_task</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">param</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">nimble_port_run</span><span class="p">();</span> <span class="o">//</span><span class="n">This</span> <span class="n">function</span> <span class="n">will</span> <span class="k">return</span> <span class="n">only</span> <span class="n">when</span> <span class="n">nimble_port_stop</span><span class="p">()</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span>
+     <span class="n">nimble_port_freertos_deinit</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nb">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">esp_nimble_hci_and_controller_init</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s2">"esp_nimble_hci_and_controller_init() failed with error: </span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+     <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">nimble_port_init</span><span class="p">();</span>
+
+<span class="o">//</span><span class="n">Initialize</span> <span class="n">the</span> <span class="n">NimBLE</span> <span class="n">Host</span> <span class="n">configuration</span>
+
+<span class="n">nimble_port_freertos_init</span><span class="p">(</span><span class="n">ble_host_task</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>nimble_port_freertos_init() არის არასავალდებულო გამოძახება, რომელიც ქმნის ახალ დავალებას, რომელშიც NimBLE ჰოსტი გაშვებული იქნება. დავალების ფუნქციას უნდა ჰქონდეს გამოძახება nimble_port_run()-ზე. თუ ცალკე დავალება არ არის საჭირო, nimble_port_run()-ის გამოძახება გაუშვებს NimBLE ჰოსტს მიმდინარე დავალებაში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ ინიციალიზაცია წარმატებულია</li>
+<li>შეცდომის შემთხვევაში esp_err_t-დან შესაბამისი შეცდომის კოდი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_nimble_hci_deinitv">
+<span id="_CPPv321esp_nimble_hci_deinitv"></span><span id="_CPPv221esp_nimble_hci_deinitv"></span><span id="esp_nimble_hci_deinit__void"></span><span class="target" id="esp__nimble__hci_8h_1adb3152b91cb72122e5baee1761610b81"></span><a class="reference internal" href="../../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_nimble_hci_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv421esp_nimble_hci_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>NimBLE Host-სა და ESP Bluetooth კონტროლერს შორის VHCI სატრანსპორტო ფენის დეინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should be called after the NimBLE host is deinitialized.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ დეინიციალიზაცია წარმატებულია</li>
+<li>შეცდომის შემთხვევაში esp_err_t-დან შესაბამისი შეცდომის კოდები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv436esp_nimble_hci_and_controller_deinitv">
+<span id="_CPPv336esp_nimble_hci_and_controller_deinitv"></span><span id="_CPPv236esp_nimble_hci_and_controller_deinitv"></span><span id="esp_nimble_hci_and_controller_deinit__void"></span><span class="target" id="esp__nimble__hci_8h_1a40cfa693165120293e2617f37f9830ab"></span><a class="reference internal" href="../../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_nimble_hci_and_controller_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv436esp_nimble_hci_and_controller_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>NimBLE Host-სა და ESP Bluetooth კონტროლერს შორის VHCI სატრანსპორტო ფენის დეინიციალიზაცია და კონტროლერის გამორთვა და დეინიციალიზაცია. </p>
+<p><p>ქვემოთ მოცემულია API ის თანმიმდევრობა, რომელიც უნდა გამოიძახოთ NimBLE მასპინძლისა და ESP კონტროლერის გამორთვის/წაშლისთვის:</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should not be executed in the context of Bluetooth host task.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should be called after the NimBLE host is deinitialized.</dd>
+</dl>
+</p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">nimble_port_stop</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">nimble_port_deinit</span><span class="p">();</span>
+
+     <span class="n">ret</span> <span class="o">=</span> <span class="n">esp_nimble_hci_and_controller_deinit</span><span class="p">();</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s2">"esp_nimble_hci_and_controller_deinit() failed with error: </span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>თუ ინიციალიზაციის დროს გამოიყენება nimble_port_freertos_init(), მაშინ nimble_port_freertos_deinit() უნდა გამოიძახონ ჰოსტის დავალებაში nimble_port_run()-ის შემდეგ.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ დეინიციალიზაცია წარმატებულია</li>
+<li>შეცდომის შემთხვევაში esp_err_t-დან შესაბამისი შეცდომის კოდები </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="index.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.BLE_HCI_UART_H4_NONE">
+<span class="target" id="esp__nimble__hci_8h_1a9857db7caf9f8acf814f99e6876c5166"></span><code class="descname">BLE_HCI_UART_H4_NONE</code><a class="headerlink" href="index.html#c.BLE_HCI_UART_H4_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.BLE_HCI_UART_H4_CMD">
+<span class="target" id="esp__nimble__hci_8h_1a8f22056db4fdfb73794c634e817e38c0"></span><code class="descname">BLE_HCI_UART_H4_CMD</code><a class="headerlink" href="index.html#c.BLE_HCI_UART_H4_CMD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.BLE_HCI_UART_H4_ACL">
+<span class="target" id="esp__nimble__hci_8h_1a7b565821b67e77b15ed4bedc698b0734"></span><code class="descname">BLE_HCI_UART_H4_ACL</code><a class="headerlink" href="index.html#c.BLE_HCI_UART_H4_ACL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.BLE_HCI_UART_H4_SCO">
+<span class="target" id="esp__nimble__hci_8h_1a8ef0d658b8ebaf1ad06099f4ff5bc719"></span><code class="descname">BLE_HCI_UART_H4_SCO</code><a class="headerlink" href="index.html#c.BLE_HCI_UART_H4_SCO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.BLE_HCI_UART_H4_EVT">
+<span class="target" id="esp__nimble__hci_8h_1a92e5b054375dd757699613f552081139"></span><code class="descname">BLE_HCI_UART_H4_EVT</code><a class="headerlink" href="index.html#c.BLE_HCI_UART_H4_EVT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../esp-ble-mesh.html" rel="next" title="ESP-BLE-MESH">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../esp_hf_ag.html" rel="prev" title="HFP AG API"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

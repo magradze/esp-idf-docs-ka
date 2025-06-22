@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>უსაფრთხო ჩატვირთვა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../api-guides/thread-local-storage.html" rel="next" title="Thread Local Storage"/>
+<link href="../api-guides/romconsole.html" rel="prev" title="ESP32 ROM console"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/security/secure-boot.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "security/secure-boot"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/security/secure-boot.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="secure-boot.html#">უსაფრთხო ჩატვირთვა</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#background">ფონი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#secure-boot-process-overview">უსაფრთხო ჩატვირთვის პროცესის მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#keys">კლავიშები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#bootloader-size">ჩატვირთვის ზომა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#how-to-enable-secure-boot">როგორ ჩართოთ უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#re-flashable-software-bootloader">ხელახლა ფლეშირებადი პროგრამული ჩატვირთვის პროგრამა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#generating-secure-boot-signing-key">უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების გენერირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#remote-signing-of-images">სურათების დისტანციური ხელმოწერა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#secure-boot-best-practices">უსაფრთხო ჩატვირთვის საუკეთესო პრაქტიკები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#technical-details">ტექნიკური დეტალები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="secure-boot.html#secure-boot-hardware-support">უსაფრთხო ჩატვირთვის აპარატურის მხარდაჭერა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="secure-boot.html#secure-bootloader-digest-algorithm">უსაფრთხო Bootloader-ის დაიჯესტის ალგორითმი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="secure-boot.html#image-signing-algorithm">სურათის ხელმოწერის ალგორითმი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="secure-boot.html#manual-commands">ხელით შესრულებული ბრძანებები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#secure-boot-flash-encryption">უსაფრთხო ჩატვირთვა და ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secure-boot.html#signed-app-verification-without-hardware-secure-boot">ხელმოწერილი აპლიკაციის ვერიფიკაცია აპარატურის უსაფრთხო ჩატვირთვის გარეშე</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="secure-boot.html#how-to-enable-signed-app-verification">როგორ ჩართოთ ხელმოწერილი აპლიკაციის ვერიფიკაცია</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api-guides/wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="../api-guides/index.html">API სახელმძღვანელოები</a> »</li>
+<li>უსაფრთხო ჩატვირთვა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/security/secure-boot.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="secure-boot">
+<h1>უსაფრთხო ჩატვირთვა<a class="headerlink" href="secure-boot.html#secure-boot" title="Permalink to this headline">¶</a></h1>
+<p>უსაფრთხო ჩატვირთვა არის ფუნქცია, რომელიც უზრუნველყოფს, რომ ჩიპზე მხოლოდ თქვენი კოდის გაშვება იყოს შესაძლებელი. ფლეშ მეხსიერება დან ჩატვირთული მონაცემები დამოწმებულია თითოეული გადატვირთვისას.</p>
+<p>უსაფრთხო ჩატვირთვა ცალკეა <a class="reference internal" href="flash-encryption.html"><span class="doc">ფლეშ დაშიფვრა</span></a> ფუნქცია და შეგიძლიათ გამოიყენოთ უსაფრთხო ჩატვირთვა ფლეშ მეხსიერება შინაარსის დაშიფვრის გარეშე. თუმცა, უსაფრთხო გარემოსთვის ორივე ერთდროულად უნდა გამოიყენოთ. იხილეთ <a class="reference internal" href="secure-boot.html#secure-boot-and-flash-encr"><span class="std std-ref">უსაფრთხო ჩატვირთვა და ფლეშ დაშიფვრა</span></a> დამატებითი დეტალებისთვის.</p>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">უსაფრთხო ჩატვირთვის ჩართვა ზღუდავს თქვენი ESP32-ის შემდგომი განახლებების ვარიანტებს. აუცილებლად წაიკითხეთ ეს დოკუმენტი ყურადღებით და გაიგეთ უსაფრთხო ჩატვირთვის ჩართვის შედეგები.</p>
+</div>
+<div class="section" id="background">
+<h2>ფონი<a class="headerlink" href="secure-boot.html#background" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>მონაცემთა უმეტესობა ფლეშ მეხსიერება ში ინახება. უსაფრთხო ჩატვირთვის ფუნქციონირებისთვის ფლეშ მეხსიერებაზე წვდომა ფიზიკური წვდომისგან დაცვას არ საჭიროებს, რადგან კრიტიკული მონაცემები (პროგრამულად მიუწვდომელი) ჩიპის შიდა Efuse-ებში ინახება.</li>
+<li>Efuse-ები გამოიყენება secure ჩამტვირთავი გასაღების შესანახად (efuse BLOCK2-ში), ასევე ერთი Efuse ბიტი (ABS_DONE_0) იწერება 1-ში, რათა ჩიპზე უსაფრთხო ჩატვირთვა სამუდამოდ იყოს ჩართული. efuse-ის შესახებ დამატებითი ინფორმაციისთვის იხილეთ ტექნიკური საცნობარო სახელმძღვანელოს მე-11 თავი „eFuse კონტროლერი“.</li>
+<li>უსაფრთხო ჩატვირთვის პროცესის გასაგებად, ჯერ გაეცანით სტანდარტს. <a class="reference internal" href="../api-guides/general-notes.html"><span class="doc">ESP-IDF ჩატვირთვის პროცესი</span></a>.</li>
+<li>ჩატვირთვის პროცესის ორივე ეტაპი (პროგრამული უზრუნველყოფის ჩამტვირთავი საწყისი ჩატვირთვა და შემდგომი დანაყოფისა და აპლიკაციის ჩატვირთვა) დამოწმებულია უსაფრთხო ჩატვირთვის პროცესით, „ნდობის ჯაჭვის“ ურთიერთობით.</li>
+</ul>
+</div>
+<div class="section" id="secure-boot-process-overview">
+<h2>უსაფრთხო ჩატვირთვის პროცესის მიმოხილვა<a class="headerlink" href="secure-boot.html#secure-boot-process-overview" title="Permalink to this headline">¶</a></h2>
+<p>ეს უსაფრთხო ჩატვირთვის პროცესის ზოგადი მიმოხილვაა. ეტაპობრივი ინსტრუქციები მოცემულია ქვემოთ. <a class="reference internal" href="secure-boot.html#secure-boot-howto"><span class="std std-ref">როგორ ჩართოთ უსაფრთხო ჩატვირთვა</span></a>დამატებითი დეტალები მოცემულია ქვემოთ <a class="reference internal" href="secure-boot.html#secure-boot-technical-details"><span class="std std-ref">ტექნიკური დეტალები</span></a>:</p>
+<ol class="arabic simple">
+<li>უსაფრთხო ჩატვირთვის ჩართვის ვარიანტები მოცემულია <a class="reference internal" href="../api-reference/kconfig.html#project-configuration-menu"><span class="std std-ref">პროექტის კონფიგურაციის მენიუ</span></a>, „უსაფრთხო ჩატვირთვის კონფიგურაციის“ ქვეშ.</li>
+<li>უსაფრთხო ჩატვირთვა ნაგულისხმევად იყენებს სურათებისა და დანაყოფების ცხრილი მონაცემების ხელმოწერას შექმნის პროცესში. „უსაფრთხო ჩატვირთვის კერძო ხელმოწერის გასაღების“ კონფიგურაციის ელემენტი არის PEM ფორმატის ფაილში ECDSA საჯარო/კერძო გასაღების წყვილისკენ მიმავალი ფაილის გზა.</li>
+<li>პროგრამული უზრუნველყოფის ჩამტვირთავი გამოსახულება აგებულია esp-idf-ის მიერ, უსაფრთხო ჩატვირთვის მხარდაჭერით და უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების კომპილაცია d-ში შემავალი საჯარო გასაღების (ხელმოწერის დადასტურების) ნაწილით. ეს პროგრამული უზრუნველყოფის ჩამტვირთავი გამოსახულება ფლეშ მეხსიერება არის რედაქტირებული 0x1000 ოფსეტით.</li>
+<li>პირველი ჩატვირთვისას, პროგრამული უზრუნველყოფა ჩამტვირთავი მიჰყვება შემდეგ პროცესს უსაფრთხო ჩატვირთვის ჩასართავად:<ul>
+<li>აპარატურული უსაფრთხო ჩატვირთვის მხარდაჭერა გენერირებას უკეთებს მოწყობილობის უსაფრთხო ჩამტვირთავი გასაღებს (გენერირდება აპარატურული RNG-ის მეშვეობით, შემდეგ ინახება წაკითხვის/ჩაწერის დაცვით efuse-ში) და უსაფრთხო დაიჯესტს. დაიჯესტი მიიღება გასაღებისგან, IV-ისგან და ჩამტვირთავი გამოსახულების შიგთავსისგან.</li>
+<li>უსაფრთხო დაიჯესტი ფლეშ მეხსიერება შია რედაქტირებული ფლეშ მეხსიერება ში 0x0 ოფსეტით.</li>
+<li>უსაფრთხო ჩატვირთვის კონფიგურაციიდან გამომდინარე, JTAG-ისა და ROM BASIC ინტერპრეტატორის გამოსართავად ხდება efuses-ის ჩაწერა (კატეგორიულად რეკომენდებულია ამ პარამეტრების ჩართვა).</li>
+<li>Bootloader მუდმივად ჩართავს უსაფრთხო ჩატვირთვას ABS_DONE_0 efuse-ის ჩაწერით. შემდეგ პროგრამული უზრუნველყოფა ჩამტვირთავი დაცული ხდება (ჩიპი მხოლოდ იმ შემთხვევაში ჩატვირთავს ჩამტვირთავი გამოსახულებას, თუ დაიჯესტი ემთხვევა).</li>
+</ul>
+</li>
+<li>შემდგომ ჩატვირთვებზე ROM ჩამტვირთავი ხედავს, რომ უსაფრთხო ჩატვირთვის შიშველი ველი იწერება, კითხულობს შენახულ დაიჯესტს 0x0-ზე და იყენებს აპარატურულ უსაფრთხო ჩატვირთვის მხარდაჭერას, რათა შეადაროს იგი ახლად გამოთვლილ დაიჯესტს. თუ დაიჯესტი არ ემთხვევა, ჩატვირთვა არ გაგრძელდება. დაიჯესტი და შედარება მთლიანად აპარატურით ხორციელდება და გამოთვლილი დაიჯესტი პროგრამული უზრუნველყოფის მიერ არ იკითხება. ტექნიკური დეტალებისთვის იხილეთ <a class="reference internal" href="secure-boot.html#secure-boot-hardware-support"><span class="std std-ref">უსაფრთხო ჩატვირთვის აპარატურის მხარდაჭერა</span></a>.</li>
+<li>უსაფრთხო ჩატვირთვის რეჟიმში მუშაობისას, პროგრამული უზრუნველყოფა ჩამტვირთავი იყენებს უსაფრთხო ჩატვირთვის ხელმოწერის გასაღებს (რომლის საჯარო გასაღებიც თავად ჩამტვირთავი შია ჩაშენებული და შესაბამისად, დამოწმებულია, როგორც ჩამტვირთავი ის ნაწილი), რათა გადაამოწმოს ყველა შემდგომ დანაყოფების ცხრილი სა და აპლიკაციის სურათზე დართული ხელმოწერა ჩატვირთვამდე.</li>
+</ol>
+</div>
+<div class="section" id="keys">
+<h2>კლავიშები<a class="headerlink" href="secure-boot.html#keys" title="Permalink to this headline">¶</a></h2>
+<p>უსაფრთხო ჩატვირთვის პროცესი იყენებს შემდეგ გასაღებებს:</p>
+<ul class="simple">
+<li>„უსაფრთხო ჩამტვირთავი გასაღები“ არის 256-ბიტიანი AES გასაღები, რომელიც ინახება Efuse ბლოკ 2-ში. ჩამტვირთავი შეუძლია ამ გასაღების გენერირება თავად შიდა აპარატურის შემთხვევითი რიცხვების გენერატორიდან, მომხმარებელს მისი მიწოდება არ სჭირდება (სურვილისამებრ შესაძლებელია ამ გასაღების მიწოდება, იხ. <a class="reference internal" href="secure-boot.html#secure-boot-reflashable"><span class="std std-ref">ხელახლა ფლეშირებადი პროგრამული ჩატვირთვის პროგრამა</span></a>). ამ გასაღების მფლობელ Efuse-ს უსაფრთხო ჩატვირთვის ჩართვამდე აქვს წაკითხვისა და ჩაწერის დაცვა (პროგრამულ უზრუნველყოფაზე წვდომის თავიდან აცილება).<ul>
+<li>ნაგულისხმევად, Efuse Block 2-ის კოდირების სქემა არის „None“ და ამ ბლოკში ინახება 256 ბიტიანი გასაღები. ზოგიერთ ESP32-ზე კოდირების სქემა დაყენებულია 3/4 კოდირებაზე (CODING_SCHEME efuse-ს აქვს მნიშვნელობა 1) და ამ ბლოკში უნდა იყოს შენახული 192 ბიტიანი გასაღები. იხილეთ ESP32 ტექნიკური საცნობარო სახელმძღვანელოს 20.3.1.3 ნაწილი. <em>სისტემის პარამეტრის კოდირების_სქემა</em> დამატებითი დეტალებისთვის. ალგორითმი ყველა შემთხვევაში 256 ბიტიან გასაღებზე მუშაობს, 192 ბიტიანი გასაღებები გაფართოვდება ზოგიერთი ბიტის გამეორებით (<a class="reference internal" href="secure-boot.html#secure-bootloader-digest-algorithm"><span class="std std-ref">დეტალები</span></a>).</li>
+</ul>
+</li>
+<li>„უსაფრთხო ჩატვირთვის ხელმოწერის გასაღები“ არის ECDSA-ს სტანდარტული საჯარო/კერძო გასაღების წყვილი (იხ. <a class="reference internal" href="secure-boot.html#secure-boot-image-signing-algorithm"><span class="std std-ref">სურათის ხელმოწერის ალგორითმი</span></a>) PEM ფორმატში.<ul>
+<li>ამ გასაღებების წყვილიდან საჯარო გასაღები (ხელმოწერის ვერიფიკაციისთვის, მაგრამ არა ხელმოწერის შესაქმნელად) კომპილაცია d-ით შედის პროგრამული უზრუნველყოფის ჩამტვირთავი ში და გამოიყენება ჩატვირთვის მეორე ეტაპის ( დანაყოფების ცხრილი , აპლიკაციის სურათი) დასადასტურებლად ჩატვირთვის გაგრძელებამდე. საჯარო გასაღების თავისუფლად გავრცელება შესაძლებელია, მისი საიდუმლოდ შენახვა საჭირო არ არის.</li>
+<li>ამ გასაღებების წყვილის პირადი გასაღები <em>უსაფრთხოდ უნდა იყოს დაცული კონფიდენციალურად</em>, რადგან ნებისმიერს, ვისაც აქვს ეს გასაღები, შეუძლია ავტორიზაცია მოახდინოს ნებისმიერ ჩამტვირთავი ში, რომელიც კონფიგურირებულია უსაფრთხო ჩატვირთვით და შესაბამისი საჯარო გასაღებით.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="bootloader-size">
+<span id="secure-boot-bootloader-size"></span><h2>ჩატვირთვის ზომა<a class="headerlink" href="secure-boot.html#bootloader-size" title="Permalink to this headline">¶</a></h2>
+<p>როდესაც უსაფრთხო ჩატვირთვა ჩართულია ჩამტვირთავი აპლიკაციის ორობითი ფაილი <code class="docutils literal notranslate"><span class="pre">bootloader.bin</span></code> შესაძლოა, გადააჭარბოს ჩამტვირთავი ზომის ნაგულისხმევ ლიმიტს. ეს განსაკუთრებით სავარაუდოა, თუ ფლეშ მეხსიერება დაშიფვრაც ჩართულია. ნაგულისხმევი ზომის ლიმიტია 0x7000 (28672) ბაიტი ( დანაყოფების ცხრილი offset 0x8000 - ჩამტვირთავი offset 0x1000).</p>
+<p>თუ ჩამტვირთავი ძალიან დიდი გახდება, ESP32 ვერ ჩაიტვირთება - შეცდომები დაფიქსირდება არასწორი დანაყოფების ცხრილი ან არასწორი ჩამტვირთავი ჩეკის ჯამის შესახებ.</p>
+<p>ამის გვერდის ავლით მუშაობის ვარიანტებია:</p>
+<ul class="simple">
+<li>შემცირება <a class="reference internal" href="../api-reference/kconfig.html#config-bootloader-log-level"><span class="std std-ref">ჩამტვირთავი ტერმინალის ჟურნალის დონე</span></a>ჟურნალის დონის Warning-ზე, Error-ზე ან None-ზე დაყენება მნიშვნელოვნად ამცირებს საბოლოო ბინარულ ზომას (მაგრამ შეიძლება გაართულოს გამართვა გამოყენება).</li>
+<li>კომპლექტი <a class="reference internal" href="../api-reference/kconfig.html#config-partition-table-offset"><span class="std std-ref">დანაყოფების ცხრილი ოფსეტი</span></a> 0x8000-ზე მაღალ მნიშვნელობამდე, რათა დანაყოფების ცხრილი განთავსდეს ფლეშ მეხსიერება ში უფრო გვიან. ეს ზრდის ჩამტვირთავი ისთვის ხელმისაწვდომ ადგილს. თუ <a class="reference internal" href="../api-guides/partition-tables.html"><span class="doc">დანაყოფების ცხრილი</span></a> CSV ფაილი შეიცავს დანაყოფის აშკარა ოფსეტებს, მათი შეცვლა იქნება საჭირო, რათა არცერთ დანაყოფის ოფსეტი არ იყოს უფრო დაბალი, ვიდრე <code class="docutils literal notranslate"><span class="pre">CONFIG_PARTITION_TABLE_OFFSET</span> <span class="pre">+</span> <span class="pre">0x1000</span></code>. (ეს მოიცავს ESP-IDF თან ერთად მოწოდებულ ნაგულისხმევ CSV დანაყოფის ფაილებს.)</li>
+</ul>
+</div>
+<div class="section" id="how-to-enable-secure-boot">
+<span id="secure-boot-howto"></span><h2>როგორ ჩართოთ უსაფრთხო ჩატვირთვა<a class="headerlink" href="secure-boot.html#how-to-enable-secure-boot" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>გახსენით <a class="reference internal" href="../api-reference/kconfig.html#project-configuration-menu"><span class="std std-ref">პროექტის კონფიგურაციის მენიუ</span></a>, გადადით „უსაფრთხო ჩატვირთვის კონფიგურაციაზე“ და აირჩიეთ ოფცია „ერთჯერადი ფლეშ-მოხსნა“. (ალტერნატიული ვარიანტის „Re ფლეშ მეხსიერება able“-ის გასაგებად იხილეთ <a class="reference internal" href="secure-boot.html#secure-boot-reflashable"><span class="std std-ref">ხელახლა ფლეშირებადი პროგრამული ჩატვირთვის პროგრამა</span></a>.)</li>
+<li>აირჩიეთ სახელი უსაფრთხო ჩატვირთვის ხელმოწერის გასაღებისთვის. ეს პარამეტრი გამოჩნდება უსაფრთხო ჩატვირთვის ჩართვის შემდეგ. ფაილი შეიძლება იყოს თქვენი სისტემის ნებისმიერ ადგილას. ფარდობითი გზა შეფასდება პროექტის დირექტორიიდან. ფაილის არსებობა ჯერ არ არის აუცილებელი.</li>
+<li>დააყენეთ menuconfig სხვა პარამეტრები (სურვილისამებრ). განსაკუთრებული ყურადღება მიაქციეთ „Bootloader Config“-ის პარამეტრებს, რადგან ფლეშ მეხსიერება ჩამტვირთავი გამოყენება მხოლოდ ერთხელ შეგიძლიათ. შემდეგ გამოდით menuconfig და შეინახეთ კონფიგურაცია.</li>
+<li>პირველად რომ გარბიხარ <code class="docutils literal notranslate"><span class="pre">make</span></code>, თუ ხელმოწერის გასაღები ვერ მოიძებნა, მაშინ დაიბეჭდება შეცდომის შეტყობინება ბრძანებით, რომელიც ხელმოწერის გასაღების გენერირებას უზრუნველყოფს. <code class="docutils literal notranslate"><span class="pre">espsecure.py</span> <span class="pre">generate_signing_key</span></code>.</li>
+</ol>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">ამ გზით გენერირებული ხელმოწერის გასაღები გამოიყენებს ოპერაციული სისტემისა და მისი Python ინსტალაციისთვის ხელმისაწვდომ საუკეთესო შემთხვევითი რიცხვების წყაროს (<cite>/dev/urandom</cite> OSX/Linux-ზე და <cite>CryptGenRandom()</cite> Windows-ზე). თუ ეს შემთხვევითი რიცხვების წყარო სუსტია, მაშინ კერძო გასაღებიც სუსტი იქნება.</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">საწარმოო გარემოსთვის, ჩვენ გირჩევთ, გასაღების წყვილი შექმნათ openssl-ის ან სხვა ინდუსტრიული სტანდარტის დაშიფვრის პროგრამის გამოყენებით. იხილეთ <a class="reference internal" href="secure-boot.html#secure-boot-generate-key"><span class="std std-ref">უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების გენერირება</span></a> დამატებითი დეტალებისთვის.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">bootloader</span></code> უსაფრთხო ჩატვირთვის შესაძლებლობის მქონე ჩამტვირთავი შესაქმნელად. აწყობის გამომავალი შეიცავს ფლეშ მეხსიერება ing ბრძანების მოთხოვნას, გამოყენებით <code class="docutils literal notranslate"><span class="pre">esptool.py</span> <span class="pre">write_flash</span></code>.</li>
+</ol>
+<ol class="arabic simple" id="secure-boot-resume-normal-flashing" start="6">
+<li>როდესაც მზად იქნებით ფლეშ მეხსიერება ჩამტვირთავი შესაყვანად, გაუშვით მითითებული ბრძანება (თქვენ თვითონ უნდა შეიყვანოთ, ამ ნაბიჯს make არ ასრულებს) და შემდეგ დაელოდეთ ფლეშ მეხსიერება ის შესრულების დასრულებას. <strong>გახსოვდეთ, რომ ეს ერთჯერადი ფლეშ მეხსიერება , ამის შემდეგ ჩამტვირთავი შეცვლას ვეღარ შეძლებთ!</strong>.</li>
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">flash</span></code> დანაყოფების ცხრილი ისა და ახლად აშენებული აპლიკაციის იმიჯის ასაგებად ფლეშ მეხსიერება . აპლიკაციის იმიჯი ხელმოწერილი იქნება მე-4 ეტაპზე გენერირებული ხელმოწერის გასაღების გამოყენებით.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">flash</span></code> თუ უსაფრთხო ჩატვირთვა ჩართულია, ფლეშ მეხსიერება ჩამტვირთავი ს არ ამუშავებს.</p>
+</div>
+<ol class="arabic simple" start="8">
+<li>გადატვირთეთ ESP32 და ის ჩატვირთავს თქვენს მიერ ფლეშ მეხსიერება პროგრამულ უზრუნველყოფას ჩამტვირთავი . პროგრამული უზრუნველყოფა ჩამტვირთავი ჩართავს უსაფრთხო ჩატვირთვას ჩიპზე, შემდეგ კი ამოწმებს აპლიკაციის გამოსახულების ხელმოწერას და ჩატვირთავს აპლიკაციას. თქვენ უნდა უყუროთ ESP32-დან სერიული კონსოლის გამომავალს, რათა დარწმუნდეთ, რომ უსაფრთხო ჩატვირთვა ჩართულია და აწყობის კონფიგურაციის გამო შეცდომები არ მომხდარა.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">უსაფრთხო ჩატვირთვა არ ჩაირთვება მანამ, სანამ ვალიდური დანაყოფების ცხრილი და აპლიკაციის გამოსახულება არ იქნება რედაქტირებული ფლეშ მეხსიერება ში. ეს კეთდება სისტემის სრულ კონფიგურაციამდე ავარიების თავიდან ასაცილებლად.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ ESP32 პირველი ჩატვირთვის დროს გადატვირთვა ან გამორთვა მოხდება, ის პროცესს ხელახლა დაიწყებს შემდეგი ჩატვირთვისას.</p>
+</div>
+<ol class="arabic simple" start="9">
+<li>შემდგომი ჩატვირთვისას, უსაფრთხო ჩატვირთვის აპარატურა დაადასტურებს, რომ პროგრამული უზრუნველყოფის ჩამტვირთავი არ შეცვლილა (secure ჩამტვირთავი გასაღების გამოყენებით) და შემდეგ პროგრამული უზრუნველყოფის ჩამტვირთავი დაადასტურებს ხელმოწერილ დანაყოფების ცხრილი და აპლიკაციის იმიჯს (უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების საჯარო გასაღების ნაწილის გამოყენებით).</li>
+</ol>
+</div>
+<div class="section" id="re-flashable-software-bootloader">
+<span id="secure-boot-reflashable"></span><h2>ხელახლა ფლეშირებადი პროგრამული ჩატვირთვის პროგრამა<a class="headerlink" href="secure-boot.html#re-flashable-software-bootloader" title="Permalink to this headline">¶</a></h2>
+<p>საწარმოო მოწყობილობებისთვის რეკომენდებული კონფიგურაციაა „უსაფრთხო ჩატვირთვა: ერთჯერადი ფლეშ-ჩატვირთვა“. ამ რეჟიმში, თითოეული მოწყობილობა იღებს უნიკალურ გასაღებს, რომელიც არასდროს ინახება მოწყობილობის გარეთ.</p>
+<p>თუმცა, ალტერნატიული რეჟიმი <a class="reference internal" href="../api-reference/kconfig.html#config-secure-bootloader-mode"><span class="std std-ref">უსაფრთხო ჩატვირთვა: Re ფლეშ მეხსიერება able</span></a> ასევე ხელმისაწვდომია. ეს რეჟიმი საშუალებას გაძლევთ მოგვაწოდოთ ორობითი გასაღების ფაილი, რომელიც გამოიყენება უსაფრთხო ჩამტვირთავი გასაღებისთვის. რადგან გასაღების ფაილი გაქვთ, შეგიძლიათ შექმნათ ახალი ჩამტვირთავი სურათები და უსაფრთხო ჩატვირთვის დაიჯესტები მათთვის.</p>
+<p>esp-idf-ის შექმნის პროცესში, ეს 256-ბიტიანი გასაღების ფაილი მიიღება მომხმარებლის მიერ გენერირებული ECDSA აპლიკაციის ხელმოწერის გასაღებიდან (იხ. <a class="reference internal" href="secure-boot.html#secure-boot-generate-key"><span class="std std-ref">უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების გენერირება</span></a> ნაბიჯი ქვემოთ). ამ კერძო გასაღების SHA-256 დაიჯესტი გამოიყენება როგორც უსაფრთხო ჩამტვირთავი გასაღები efuse-ში (როგორც არის კოდირების სქემა None-ისთვის, ან შემოკლებულია 192 ბაიტამდე 3/4 კოდირებისთვის). ეს მოხერხებულობისთვისაა, ამიტომ თქვენ მხოლოდ ერთი კერძო გასაღების გენერირება/დაცვა გჭირდებათ.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მიუხედავად იმისა, რომ ეს შესაძლებელია, ჩვენ მკაცრად გირჩევთ, რომ არ შექმნათ ერთი უსაფრთხო ჩატვირთვის გასაღები და ფლეშ მეხსიერება გადასცეთ ის ყველა მოწყობილობას საწარმოო გარემოში. საწარმოო გარემოსთვის რეკომენდებულია „ერთჯერადი ჩატვირთვის“ ვარიანტი.</p>
+</div>
+<p>ხელახლა მოქმედი ფლეშ მეხსიერება ჩამტვირთავი :</p>
+<ol class="arabic simple">
+<li>ში <a class="reference internal" href="../api-reference/kconfig.html#project-configuration-menu"><span class="std std-ref">პროექტის კონფიგურაციის მენიუ</span></a>, აირჩიეთ „Bootloader-ის კონფიგურაცია“ -&amp;gt; <a class="reference internal" href="../api-reference/kconfig.html#config-secure-boot-enabled"><span class="std std-ref">CONFIG_SECURE_BOOT_ENABLED</span></a> -&amp;gt;  <a class="reference internal" href="../api-reference/kconfig.html#config-secure-bootloader-mode"><span class="std std-ref">CONFIG_SECURE_BOOTLOADER_MODE</span></a> -&amp;gt; ფლეშ მეხსიერება 3-ის ხელახლა გამოყენება.</li>
+<li>საჭიროების შემთხვევაში, დააყენეთ <a class="reference internal" href="../api-reference/kconfig.html#config-secure-bootloader-key-encoding"><span class="std std-ref">CONFIG_SECURE_BOOTLOADER_KEY_ENCODING</span></a> მოწყობილობის მიერ გამოყენებული კოდირების სქემის მიხედვით. კოდირების სქემა ნაჩვენებია <code class="docutils literal notranslate"><span class="pre">Features</span></code> ხაზი, როდესაც <code class="docutils literal notranslate"><span class="pre">esptool.py</span></code> უკავშირდება ჩიპს, ან <code class="docutils literal notranslate"><span class="pre">espefuse.py</span> <span class="pre">summary</span></code> გამომავალი.</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>ხელმოწერის გასაღების ფაილის ასარჩევად და გასაღების ფაილის გენერირებისთვის, მიჰყევით ზემოთ მოცემულ ნაბიჯებს.</li>
+<li>სირბილი <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">bootloader</span></code>შეიქმნება ორობითი გასაღების ფაილი, რომელიც მიღებული იქნება ხელმოწერისთვის გამოყენებული კერძო გასაღებიდან. დაიბეჭდება ფლეშ მეხსიერება ის ნაბიჯების ორი ნაკრები - ნაბიჯების პირველი ნაკრები მოიცავს <code class="docutils literal notranslate"><span class="pre">espefuse.py</span> <span class="pre">burn_key</span></code> ბრძანება, რომელიც გამოიყენება ჩამტვირთავი გასაღების efuse-ში ჩასაწერად. (ამ გასაღების ციმციმირება მხოლოდ ერთჯერადი პროცესია.) ნაბიჯების მეორე ნაკრების გამოყენება შესაძლებელია ფლეშ მეხსიერება ის ხელახლა ჩასაწერად ჩამტვირთავი წინასწარ გამოთვლილი დაიჯესტის გამოყენებით (გენერირებული შექმნის პროცესში).</li>
+<li>რეზიუმე <a class="reference internal" href="secure-boot.html#secure-boot-resume-normal-flashing"><span class="std std-ref">ერთჯერადი ფლეშ მეხსიერება დასაქმების პროცესის მე-6 ეტაპი</span></a>, ფლეშ მეხსიერება ის ჩამტვირთავი ჩასართავად და უსაფრთხო ჩატვირთვის ჩასართავად. ყურადღებით დააკვირდით კონსოლის ჟურნალის გამომავალ მონაცემებს, რათა დარწმუნდეთ, რომ უსაფრთხო ჩატვირთვის კონფიგურაციაში შეცდომები არ არის.</li>
+</ol>
+</div>
+<div class="section" id="generating-secure-boot-signing-key">
+<span id="secure-boot-generate-key"></span><h2>უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების გენერირება<a class="headerlink" href="secure-boot.html#generating-secure-boot-signing-key" title="Permalink to this headline">¶</a></h2>
+<p>შექმნის სისტემა მოგთხოვთ ბრძანებას, შექმნათ ახალი ხელმოწერის გასაღები შემდეგი გზით: <code class="docutils literal notranslate"><span class="pre">espsecure.py</span> <span class="pre">generate_signing_key</span></code>ეს იყენებს python-ecdsa ბიბლიოთეკას, რომელიც თავის მხრივ იყენებს Python-ის os.urandom() ფუნქციას შემთხვევითი რიცხვების წყაროდ.</p>
+<p>ხელმოწერის გასაღების სიძლიერე პროპორციულია (ა) სისტემის შემთხვევითი რიცხვების წყაროსა და (ბ) გამოყენებული ალგორითმის სისწორისა. საწარმოო მოწყობილობებისთვის, ჩვენ გირჩევთ ხელმოწერის გასაღებების გენერირებას ხარისხიანი ენტროპიის წყაროს მქონე სისტემიდან და გამოიყენოთ საუკეთესო ხელმისაწვდომი EC გასაღებების გენერირების უტილიტები.</p>
+<p>მაგალითად, ხელმოწერის გასაღების გენერირებისთვის openssl ბრძანების ხაზის გამოყენებით:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">openssl</span> <span class="pre">ecparam</span> <span class="pre">-name</span> <span class="pre">prime256v1</span> <span class="pre">-genkey</span> <span class="pre">-noout</span> <span class="pre">-out</span> <span class="pre">my_secure_boot_signing_key.pem</span>
+<span class="pre">`</span></code></p>
+<p>გახსოვდეთ, რომ უსაფრთხო ჩატვირთვის სისტემის სიძლიერე დამოკიდებულია ხელმოწერის გასაღების კონფიდენციალურობის შენარჩუნებაზე.</p>
+</div>
+<div class="section" id="remote-signing-of-images">
+<span id="remote-sign-image"></span><h2>სურათების დისტანციური ხელმოწერა<a class="headerlink" href="secure-boot.html#remote-signing-of-images" title="Permalink to this headline">¶</a></h2>
+<p>საწარმოო აწყობისთვის, კარგი პრაქტიკაა დისტანციური ხელმოწერის სერვერის გამოყენება, ნაცვლად იმისა, რომ ხელმოწერის გასაღები აწყობის მანქანაზე გქონდეთ (რაც esp-idf-ის უსაფრთხო ჩატვირთვის ნაგულისხმევი კონფიგურაციაა). espsecure.py ბრძანების ხაზის პროგრამა შეიძლება გამოყენებულ იქნას აპლიკაციის სურათებისა და დანაყოფების ცხრილი მონაცემების დისტანციურ სისტემაზე უსაფრთხო ჩატვირთვისთვის ხელმოწერისთვის.</p>
+<p>დისტანციური ხელმოწერის გამოსაყენებლად, გამორთეთ ოფცია „ბინარული ფაილების ხელმოწერა აწყობის დროს“. კერძო ხელმოწერის გასაღების აწყობის სისტემაში არსებობა აუცილებელი არ არის. თუმცა, საჯარო (ხელმოწერის დადასტურების) გასაღები აუცილებელია, რადგან ის კომპილაცია d-შია ჩამტვირთავი ში (და შეიძლება გამოყენებულ იქნას გამოსახულების ხელმოწერების დასადასტურებლად OTA განახლებების დროს).</p>
+<p>საჯარო გასაღების კერძო გასაღებიდან ამოსაღებად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">espsecure</span><span class="o">.</span><span class="n">py</span> <span class="n">extract_public_key</span> <span class="o">--</span><span class="n">keyfile</span> <span class="n">PRIVATE_SIGNING_KEY</span> <span class="n">PUBLIC_VERIFICATION_KEY</span>
+</pre></div>
+</div>
+<p>უსაფრთხო ჩამტვირთავი შესაქმნელად4, საჯარო ხელმოწერის დადასტურების გასაღებისკენ მიმავალი გზა უნდა იყოს მითითებული menuconfig „უსაფრთხო ჩატვირთვის საჯარო ხელმოწერის დადასტურების გასაღების“ ქვეშ.</p>
+<p>აპლიკაციის იმიჯის და დანაყოფების ცხრილი შექმნის შემდეგ, შექმნის სისტემა espsecure.py-ის გამოყენებით დაბეჭდავს ხელმოწერის ნაბიჯებს:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">espsecure</span><span class="o">.</span><span class="n">py</span> <span class="n">sign_data</span> <span class="o">--</span><span class="n">keyfile</span> <span class="n">PRIVATE_SIGNING_KEY</span> <span class="n">BINARY_FILE</span>
+</pre></div>
+</div>
+<p>ზემოთ მოცემული ბრძანება არსებულ ბინარულ ფაილს ანიჭებს სურათის ხელმოწერას. შეგიძლიათ გამოიყენოთ <cite>–output</cite> არგუმენტი ხელმოწერილი ორობითი ფაილის ცალკე ფაილში ჩასაწერად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">espsecure</span><span class="o">.</span><span class="n">py</span> <span class="n">sign_data</span> <span class="o">--</span><span class="n">keyfile</span> <span class="n">PRIVATE_SIGNING_KEY</span> <span class="o">--</span><span class="n">output</span> <span class="n">SIGNED_BINARY_FILE</span> <span class="n">BINARY_FILE</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="secure-boot-best-practices">
+<h2>უსაფრთხო ჩატვირთვის საუკეთესო პრაქტიკები<a class="headerlink" href="secure-boot.html#secure-boot-best-practices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>ხელმოწერის გასაღების გენერირება სისტემაზე, რომელსაც აქვს ენტროპიის ხარისხიანი წყარო.</li>
+<li>ხელმოწერის გასაღები ყოველთვის კონფიდენციალურად შეინახეთ. ამ გასაღების გაჟონვა უსაფრთხო ჩატვირთვის სისტემას საფრთხეს შეუქმნის.</li>
+<li>არ მისცეთ მესამე მხარეს espsecure.py-ის გამოყენებით გასაღების გენერირების ან ხელმოწერის პროცესის რაიმე ასპექტის დაკვირვების უფლება. ორივე პროცესი დაუცველია დროის ან სხვა გვერდითი არხის შეტევების მიმართ.</li>
+<li>უსაფრთხო ჩატვირთვის კონფიგურაციაში ჩართეთ ყველა უსაფრთხო ჩატვირთვის ვარიანტი. ესენია ფლეშ მეხსიერება დაშიფვრა, JTAG-ის გამორთვა, BASIC ROM ინტერპრეტერის გამორთვა და UART ჩამტვირთავი დაშიფრული ფლეშ მეხსიერება წვდომის გამორთვა.</li>
+<li>უსაფრთხო ჩატვირთვის გამოყენება კომბინაციაში <a class="reference internal" href="flash-encryption.html"><span class="doc">ფლეშ მეხსიერება დაშიფვრა</span></a> ფლეშ მეხსიერება შინაარსის ლოკალური წაკითხვის თავიდან ასაცილებლად.</li>
+</ul>
+</div>
+<div class="section" id="technical-details">
+<span id="secure-boot-technical-details"></span><h2>ტექნიკური დეტალები<a class="headerlink" href="secure-boot.html#technical-details" title="Permalink to this headline">¶</a></h2>
+<p>შემდეგი სექციები შეიცავს სხვადასხვა უსაფრთხო ჩატვირთვის ელემენტების დაბალი დონის საცნობარო აღწერილობებს:</p>
+<div class="section" id="secure-boot-hardware-support">
+<span id="id1"></span><h3>უსაფრთხო ჩატვირთვის აპარატურის მხარდაჭერა<a class="headerlink" href="secure-boot.html#secure-boot-hardware-support" title="Permalink to this headline">¶</a></h3>
+<p>უსაფრთხო ჩატვირთვის შემოწმების პირველი ეტაპი (პროგრამული უზრუნველყოფის ჩამტვირთავი შემოწმება) ხორციელდება აპარატურის მეშვეობით. ESP32-ის უსაფრთხო ჩატვირთვის დამხმარე აპარატურას შეუძლია სამი ძირითადი ოპერაციის შესრულება:</p>
+<ol class="arabic simple">
+<li>აპარატურული შემთხვევითი რიცხვების გენერატორიდან ბაიტების შემთხვევითი თანმიმდევრობის გენერირება.</li>
+<li>მონაცემებიდან (როგორც წესი, ჩამტვირთავი სურათი ფლეშ მეხსიერება დან) გენერირება ხდება Efuse-ის მე-2 ბლოკში შენახული გასაღების გამოყენებით. Efuse-ში გასაღები შეიძლება (და უნდა) იყოს დაცული წაკითხვის/ჩაწერისგან, რაც ხელს უშლის პროგრამულ უზრუნველყოფაზე წვდომას. ამ ალგორითმის სრული დეტალებისთვის იხილეთ <a class="reference internal" href="secure-boot.html#id2">უსაფრთხო Bootloader-ის დაიჯესტის ალგორითმი</a>დაიჯესტის წაკითხვა პროგრამული უზრუნველყოფით მხოლოდ იმ შემთხვევაში იქნება შესაძლებელი, თუ Efuse ABS_DONE_0 არის. <em>არა</em> დამწვარი (ანუ ისევ 0).</li>
+<li>მონაცემებიდან (როგორც წესი, ჩამტვირთავი გამოსახულება ფლეშ მეხსიერება დან) შექმენით დაიჯესტი იმავე ალგორითმის გამოყენებით, როგორც მე-2 ეტაპზე და შეადარეთ ის ბუფერში მოწოდებულ წინასწარ გამოთვლილ დაიჯესტს (როგორც წესი, იკითხება ფლეშ მეხსიერება 0x0 ოფსეტიდან). აპარატურა აბრუნებს true/false შედარებას დაიჯესტის პროგრამული უზრუნველყოფისთვის ხელმისაწვდომობის გარეშე. ეს ფუნქცია ხელმისაწვდომია მაშინაც კი, როდესაც Efuse ABS_DONE_0 იწერება.</li>
+</ol>
+</div>
+<div class="section" id="secure-bootloader-digest-algorithm">
+<span id="id2"></span><h3>უსაფრთხო Bootloader-ის დაიჯესტის ალგორითმი<a class="headerlink" href="secure-boot.html#secure-bootloader-digest-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>ეს ალგორითმი, რომელიც იწყება ორობითი მონაცემების „გამოსახულებით“, როგორც შეყვანის შედეგად, გამოიმუშავებს დაიჯესტს. აპარატურულ დოკუმენტაციაში დაიჯესტს ზოგჯერ „რეზიუმეს“ უწოდებენ.</p>
+<p>ამ ალგორითმის Python-ის ვერსიისთვის იხილეთ <code class="docutils literal notranslate"><span class="pre">espsecure.py</span></code> ინსტრუმენტი კომპონენტი s/esptool_py დირექტორიაში (კერძოდ, <code class="docutils literal notranslate"><span class="pre">digest_secure_bootloader</span></code> ბრძანება).</p>
+<p>(^)-ით მონიშნული ელემენტები კრიპტოგრაფიული შეზღუდვებისგან განსხვავებით, აპარატურული შეზღუდვების დასაკმაყოფილებლადაა განკუთვნილი.</p>
+<ol class="arabic simple">
+<li>წაიკითხეთ AES გასაღები efuse ბლოკი 2-დან, ბაიტების შებრუნებული თანმიმდევრობით. თუ კოდირების სქემა დაყენებულია 3/4 კოდირებაზე, გააფართოვეთ 192 ბიტიანი გასაღები 256 ბიტამდე იმავე ალგორითმის გამოყენებით, რომელიც აღწერილია <a class="reference internal" href="flash-encryption.html#flash-encryption-algorithm"><span class="std std-ref">ფლეშ დაშიფვრის ალგორითმი</span></a>.</li>
+<li>სურათს დაურთეთ 128 ბაიტიანი, შემთხვევით გენერირებული IV ფაილი.</li>
+<li>თუ სურათის სიგრძე მოდული 128 არ არის, სურათი 128 ბაიტამდე 0xFF-ით შეავსეთ. (^)</li>
+<li>შეყვანის სურათის თითოეული 16 ბაიტიანი უბრალო ტექსტის ბლოკისთვის: - შეცვალეთ უბრალო ტექსტის შეყვანის ბლოკის ბაიტების თანმიმდევრობა (^) - გამოიყენეთ AES256 ECB რეჟიმში უბრალო ტექსტის ბლოკზე. - შეცვალეთ დაშიფრული ტექსტის გამომავალი ბლოკის ბაიტების თანმიმდევრობა. (^) - დაამატეთ დაშიფრული ტექსტის საერთო გამომავალს.</li>
+<li>დაშიფრული ტექსტის თითოეული 4 ბაიტიანი სიტყვის ბაიტების შეცვლა (^)</li>
+<li>გამოთვალეთ დაშიფრული ტექსტის SHA-512.</li>
+</ol>
+<p>გამომავალი დაიჯესტი 192 ბაიტი მონაცემებია: 128 ბაიტი IV, რასაც მოჰყვება 64 ბაიტი SHA-512 დაიჯესტი.</p>
+</div>
+<div class="section" id="image-signing-algorithm">
+<span id="secure-boot-image-signing-algorithm"></span><h3>სურათის ხელმოწერის ალგორითმი<a class="headerlink" href="secure-boot.html#image-signing-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>დეტერმინისტული ECDSA, როგორც მითითებულია <a class="reference external" href="https://tools.ietf.org/html/rfc6979">RFC 6979</a>.</p>
+<ul class="simple">
+<li>მრუდი არის NIST256p (openssl ამ მრუდს „prime256v1“-ს უწოდებს, ზოგჯერ მას secp256r1-საც უწოდებენ).</li>
+<li>ჰეშ ფუნქციაა SHA256.</li>
+<li>შენახვისთვის გამოყენებული ძირითადი ფორმატია PEM.<ul>
+<li>ჩამტვირთავი ში საჯარო გასაღები (ხელმოწერის ვერიფიკაციისთვის) ფლეშ მეხსიერება შია ჩაწერილი, როგორც 64 ნედლი ბაიტი.</li>
+</ul>
+</li>
+<li>სურათის ხელმოწერა 68 ბაიტია - 4 ბაიტიანი ვერსიის სიტყვა (ამჟამად ნული), რასაც მოჰყვება ხელმოწერის მონაცემების 64 ბაიტი. ეს 68 ბაიტი ემატება აპლიკაციის გამოსახულებას ან დანაყოფების ცხრილი მონაცემებს.</li>
+</ul>
+</div>
+<div class="section" id="manual-commands">
+<h3>ხელით შესრულებული ბრძანებები<a class="headerlink" href="secure-boot.html#manual-commands" title="Permalink to this headline">¶</a></h3>
+<p>უსაფრთხო ჩატვირთვა ინტეგრირებულია esp-idf აწყობის სისტემაში, ამიტომ <code class="docutils literal notranslate"><span class="pre">make</span></code> თუ უსაფრთხო ჩატვირთვა ჩართულია, აპლიკაციის იმიჯს ავტომატურად მოაწერს ხელს. <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">bootloader</span></code> თუ მისთვის კონფიგურირებულია menuconfig ჩამტვირთავი დაიჯესტს შექმნის.</p>
+<p>თუმცა, შესაძლებელია გამოიყენოთ <code class="docutils literal notranslate"><span class="pre">espsecure.py</span></code> ინსტრუმენტი დამოუკიდებელი ხელმოწერებისა და დაიჯესტების შესაქმნელად.</p>
+<p>ორობითი გამოსახულების ხელმოწერისთვის:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">espsecure</span><span class="o">.</span><span class="n">py</span> <span class="n">sign_data</span> <span class="o">--</span><span class="n">keyfile</span> <span class="o">./</span><span class="n">my_signing_key</span><span class="o">.</span><span class="n">pem</span> <span class="o">--</span><span class="n">output</span> <span class="o">./</span><span class="n">image_signed</span><span class="o">.</span><span class="n">bin</span> <span class="n">image</span><span class="o">-</span><span class="n">unsigned</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>Keyfile არის PEM ფაილი, რომელიც შეიცავს ECDSA-ს კერძო ხელმოწერის გასაღებს.</p>
+<p>ჩამტვირთავი დაიჯესტის გენერირებისთვის:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">espsecure</span><span class="o">.</span><span class="n">py</span> <span class="n">digest_secure_bootloader</span> <span class="o">--</span><span class="n">keyfile</span> <span class="o">./</span><span class="n">securebootkey</span><span class="o">.</span><span class="n">bin</span> <span class="o">--</span><span class="n">output</span> <span class="o">./</span><span class="n">bootloader</span><span class="o">-</span><span class="n">digest</span><span class="o">.</span><span class="n">bin</span> <span class="n">build</span><span class="o">/</span><span class="n">bootloader</span><span class="o">/</span><span class="n">bootloader</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>Keyfile არის მოწყობილობის 32 ბაიტიანი უსაფრთხო ჩატვირთვის გასაღები.</p>
+<p>გამომავალი <code class="docutils literal notranslate"><span class="pre">espsecure.py</span> <span class="pre">digest_secure_bootloader</span></code> ბრძანება არის ერთი ფაილი, რომელიც შეიცავს როგორც დაიჯესტს, ასევე მასზე დართულ ჩამტვირთავი . მოწყობილობაზე გაერთიანებული დაიჯესტისა და ჩამტვირთავი ფლეშ მეხსიერება :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="n">write_flash</span> <span class="mh">0x0</span> <span class="n">bootloader</span><span class="o">-</span><span class="n">digest</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="secure-boot-flash-encryption">
+<span id="secure-boot-and-flash-encr"></span><h2>უსაფრთხო ჩატვირთვა და ფლეშ დაშიფვრა<a class="headerlink" href="secure-boot.html#secure-boot-flash-encryption" title="Permalink to this headline">¶</a></h2>
+<p>თუ უსაფრთხო ჩატვირთვა გამოიყენება გარეშე <a class="reference internal" href="flash-encryption.html"><span class="doc">ფლეშ დაშიფვრა</span></a>შესაძლებელია „შემოწმების დროისა და გამოყენების დროის“ შეტევის გაშვება, სადაც ფლეშ მეხსიერება შინაარსი იცვლება სურათის დადასტურებისა და გაშვების შემდეგ. ამიტომ, რეკომენდებულია ორივე ფუნქციის ერთად გამოყენება.</p>
+</div>
+<div class="section" id="signed-app-verification-without-hardware-secure-boot">
+<span id="signed-app-verify"></span><h2>ხელმოწერილი აპლიკაციის ვერიფიკაცია აპარატურის უსაფრთხო ჩატვირთვის გარეშე<a class="headerlink" href="secure-boot.html#signed-app-verification-without-hardware-secure-boot" title="Permalink to this headline">¶</a></h2>
+<p>აპლიკაციების მთლიანობის შემოწმება შესაძლებელია აპარატურული უსაფრთხო ჩატვირთვის ოფციის ჩართვის გარეშეც. ეს ოფცია იყენებს იგივე აპლიკაციის ხელმოწერის სქემას, რასაც აპარატურული უსაფრთხო ჩატვირთვა, მაგრამ აპარატურული უსაფრთხო ჩატვირთვისგან განსხვავებით, ის ხელს არ უშლის ჩამტვირთავი ის ფიზიკურ განახლებას. ეს ნიშნავს, რომ მოწყობილობის დაცვა შესაძლებელია ქსელში დისტანციური წვდომისგან, მაგრამ არა ფიზიკური წვდომისგან. აპარატურული უსაფრთხო ჩატვირთვის გამოყენებასთან შედარებით, ეს ოფცია გაცილებით მარტივი განსახორციელებელია. იხილეთ <a class="reference internal" href="secure-boot.html#signed-app-verify-howto"><span class="std std-ref">როგორ ჩართოთ ხელმოწერილი აპლიკაციის ვერიფიკაცია</span></a> ეტაპობრივი ინსტრუქციებისთვის.</p>
+<p>აპლიკაციის დადასტურება შესაძლებელია განახლებისას და, სურვილისამებრ, ჩატვირთვისას.</p>
+<ul class="simple">
+<li>განახლებისას ვერიფიკაცია: ჩართვის შემთხვევაში, ხელმოწერა ავტომატურად მოწმდება ყოველთვის, როდესაც esp_ota_ops.h API გამოიყენება OTA განახლებებისთვის. თუ აპარატურული უსაფრთხო ჩატვირთვა ჩართულია, ეს პარამეტრი ყოველთვის ჩართულია და მისი გამორთვა შეუძლებელია. თუ აპარატურული უსაფრთხო ჩატვირთვა არ არის ჩართული, ეს პარამეტრი მაინც ზრდის ქსელური თავდამსხმელებისგან მნიშვნელოვან უსაფრთხოებას OTA განახლებების გაყალბების თავიდან აცილებით.</li>
+<li>ვერიფიკაცია ჩატვირთვისას: ჩართვის შემთხვევაში, ჩამტვირთავი იქნება კომპილაცია d კოდით, რომელიც დაადასტურებს, რომ აპლიკაცია ხელმოწერილია ჩატვირთვამდე. თუ აპარატურული უსაფრთხო ჩატვირთვა ჩართულია, ეს პარამეტრი ყოველთვის ჩართულია და მისი გამორთვა შეუძლებელია. თუ აპარატურული უსაფრთხო ჩატვირთვა არ არის ჩართული, ეს პარამეტრი თავისთავად მნიშვნელოვან უსაფრთხოებას არ ამატებს, ამიტომ მომხმარებელთა უმეტესობას მისი გამორთვა სურს.</li>
+</ul>
+<div class="section" id="how-to-enable-signed-app-verification">
+<span id="signed-app-verify-howto"></span><h3>როგორ ჩართოთ ხელმოწერილი აპლიკაციის ვერიფიკაცია<a class="headerlink" href="secure-boot.html#how-to-enable-signed-app-verification" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>გახსნა <a class="reference internal" href="../api-reference/kconfig.html#project-configuration-menu"><span class="std std-ref">პროექტის კონფიგურაციის მენიუ</span></a> -&amp;gt; უსაფრთხოების ფუნქციები -&amp;gt; ჩართვა <a class="reference internal" href="../api-reference/kconfig.html#config-secure-signed-apps-no-secure-boot"><span class="std std-ref">CONFIG_SECURE_SIGNED_APPS_NO_SECURE_BOOT</span></a></li>
+<li>შესაძლებელია ჩართოთ „Bootloader ამოწმებს აპლიკაციის ხელმოწერებს“, რომელიც ამოწმებს აპლიკაციას ჩატვირთვისას.</li>
+<li>ნაგულისხმევად, „ხელმოწერილი აპლიკაციის სურათების მოთხოვნა“ ოფციის არჩევისას ჩართული იქნება „ბინარული ფაილების ხელმოწერა შექმნის დროს“, რაც შექმნის პროცესის ნაწილად ბინარულ ფაილებს ხელს მოაწერს. სურათის ხელმოწერისთვის გამოყენებული იქნება „უსაფრთხო ჩატვირთვის კერძო ხელმოწერის გასაღები“-ში დასახელებული ფაილი.</li>
+<li>თუ გამორთავთ ოფციას „ბინარული ფაილების ხელმოწერა შექმნის დროს“, მაშინ „უსაფრთხო ჩატვირთვის საჯარო ხელმოწერის დადასტურების გასაღების“ განყოფილებაში უნდა შეიყვანოთ ხელმოწერილი სურათების დასადასტურებლად გამოყენებული საჯარო გასაღების ფაილის გზა. ამ შემთხვევაში, კერძო ხელმოწერის გასაღები უნდა გენერირდეს ინსტრუქციის შესაბამისად. <a class="reference internal" href="secure-boot.html#secure-boot-generate-key"><span class="std std-ref">უსაფრთხო ჩატვირთვის ხელმოწერის გასაღების გენერირება</span></a>; საჯარო ვერიფიკაციის გასაღები და ხელმოწერილი სურათი უნდა გენერირდეს ინსტრუქციების შესაბამისად <a class="reference internal" href="secure-boot.html#remote-sign-image"><span class="std std-ref">სურათების დისტანციური ხელმოწერა</span></a>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../api-guides/thread-local-storage.html" rel="next" title="Thread Local Storage">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../api-guides/romconsole.html" rel="prev" title="ESP32 ROM console"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ჩამოსატვირთი ინსტრუმენტები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="idf-docker-image.html" rel="next" title="IDF Docker Image"/>
+<link href="index.html" rel="prev" title="Tools"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/tools/idf-tools.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/tools/idf-tools"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/tools/idf-tools.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ხელსაწყოები</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="idf-tools.html#">IDF ინსტრუმენტები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#tools-metadata-file">ხელსაწყოების მეტამონაცემების ფაილი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#tools-installation-directory">ინსტრუმენტების ინსტალაციის დირექტორია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#idf-tools-py-script"><code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code> სცენარი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#install-scripts">სკრიპტების ინსტალაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#export-scripts">სკრიპტების ექსპორტი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#other-installation-methods">სხვა ინსტალაციის მეთოდები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#custom-installation">ინდივიდუალური ინსტალაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="idf-tools.html#list-of-idf-tools">IDF ინსტრუმენტების სია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="idf-monitor.html">IDF მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="idf-docker-image.html">IDF Docker-ის სურათი</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="index.html">ხელსაწყოები</a> »</li>
+<li>ჩამოსატვირთი ინსტრუმენტები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/tools/idf-tools.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="downloadable-tools">
+<h1>ჩამოსატვირთი ინსტრუმენტები<a class="headerlink" href="idf-tools.html#downloadable-tools" title="Permalink to this headline">¶</a></h1>
+<p>ESP-IDF აწყობის პროცესი ეყრდნობა რიგ ინსტრუმენტებს: cross- კომპილაცია r, ინსტრუმენტების ნაკრები , CMake აწყობის სისტემას და სხვა.</p>
+<p>ხელსაწყოების ინსტალაცია ოპერაციული სისტემისთვის სპეციფიკური პაკეტების მენეჯერის (მაგალითად, apt, yum, brew და ა.შ.) გამოყენებით სასურველი მეთოდია, როდესაც ხელსაწყოს საჭირო ვერსია ხელმისაწვდომია. ეს რეკომენდაცია ასახულია „დაწყების სახელმძღვანელოში“. მაგალითად, Linux-სა და macOS-ზე რეკომენდებულია CMake-ის ინსტალაცია ოპერაციული სისტემის პაკეტების მენეჯერის გამოყენებით.</p>
+<p>თუმცა, ზოგიერთი ინსტრუმენტი IDF-სპეციფიკურია და არ არის ხელმისაწვდომი ოპერაციული სისტემის პაკეტების საცავებში. გარდა ამისა, ESP-IDF ის სხვადასხვა ვერსიას სწორად მუშაობისთვის ინსტრუმენტების სხვადასხვა ვერსია სჭირდება. ამ ორი პრობლემის გადასაჭრელად, ESP-IDF გთავაზობთ სკრიპტების ნაკრებს ინსტრუმენტების სწორი ვერსიების ჩამოსატვირთად და ინსტალაციისთვის, ასევე მათი გარემოში გამოსავლენად.</p>
+<p>დოკუმენტის დანარჩენ ნაწილში ეს ჩამოსატვირთი ინსტრუმენტები უბრალოდ „ინსტრუმენტებად“ არის მოხსენიებული. ESP-IDF ში გამოყენებული სხვა სახის ინსტრუმენტებია:</p>
+<ul class="simple">
+<li>ESP-IDF თან ერთად შეფუთული Python სკრიპტები (მაგალითად, <code class="docutils literal notranslate"><span class="pre">idf.py</span></code>)</li>
+<li>PyPI-დან დაინსტალირებული Python-ის პაკეტები.</li>
+</ul>
+<p>შემდეგ ნაწილებში ახსნილია ინსტალაციის მეთოდი და მოცემულია თითოეულ პლატფორმაზე დაინსტალირებული ინსტრუმენტების სია.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>ეს დოკუმენტი განკუთვნილია მოწინავე მომხმარებლებისთვის, რომლებსაც სჭირდებათ ინსტალაციის პერსონალიზება, მომხმარებლებისთვის, რომელთაც სურთ ინსტალაციის პროცესის გაგება და ESP-IDF დეველოპერებისთვის.</p>
+<p class="last">თუ ხელსაწყოების დაყენების ინსტრუქციებს ეძებთ, იხილეთ <a class="reference internal" href="../../get-started/index.html"><span class="doc">დაწყების სახელმძღვანელო</span></a>.</p>
+</div>
+<div class="section" id="tools-metadata-file">
+<h2>ხელსაწყოების მეტამონაცემების ფაილი<a class="headerlink" href="idf-tools.html#tools-metadata-file" title="Permalink to this headline">¶</a></h2>
+<p>თითოეული პლატფორმისთვის საჭირო ხელსაწყოებისა და ვერსიების სია მოცემულია შემდეგ ბმულზე: <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/tools/tools.json">ინსტრუმენტები/ინსტრუმენტები.json</a>ამ ფაილის სქემა განისაზღვრება შემდეგით: <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/tools/tools_schema.json">ინსტრუმენტები/tools_schema.json</a>.</p>
+<p>ეს ფაილი გამოიყენება <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/tools/idf_tools.py">ინსტრუმენტები/idf_tools.py</a> სკრიპტი ინსტრუმენტების ინსტალაციის ან გარემოს ცვლადების დაყენებისას.</p>
+</div>
+<div class="section" id="tools-installation-directory">
+<span id="idf-tools-path"></span><h2>ინსტრუმენტების ინსტალაციის დირექტორია<a class="headerlink" href="idf-tools.html#tools-installation-directory" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code> გარემოს ცვლადი განსაზღვრავს ადგილმდებარეობას, სადაც ინსტრუმენტები უნდა ჩამოიტვირთოს და დაინსტალირდეს. თუ არ არის დაყენებული, <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code> ნაგულისხმევად <code class="docutils literal notranslate"><span class="pre">HOME/.espressif</span></code> Linux-სა და macOS-ზე, და <code class="docutils literal notranslate"><span class="pre">%USER_PROFILE%\.espressif</span></code> Windows-ზე.</p>
+<p>შიგნით <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code>, ინსტრუმენტების ინსტალაციის შემსრულებელი სკრიპტები ქმნიან შემდეგ დირექტორიებს:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">dist</span></code> — სადაც ინსტრუმენტების არქივები იტვირთება.</li>
+<li><code class="docutils literal notranslate"><span class="pre">tools</span></code> — სადაც ინსტრუმენტები ამოღებულია. ინსტრუმენტები ამოღებულია ქვედირექტორიებში: <code class="docutils literal notranslate"><span class="pre">tools/TOOL_NAME/VERSION/</span></code>ეს განლაგება საშუალებას იძლევა, რომ ხელსაწყოების სხვადასხვა ვერსია გვერდიგვერდ დამონტაჟდეს.</li>
+</ul>
+</div>
+<div class="section" id="idf-tools-py-script">
+<h2><code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code> სცენარი<a class="headerlink" href="idf-tools.html#idf-tools-py-script" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/tools/idf_tools.py">ინსტრუმენტები/idf_tools.py</a> ESP-IDF თან ერთად შეფუთული სკრიპტი ასრულებს რამდენიმე ფუნქციას:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">install</span></code>: ჩამოტვირთეთ ინსტრუმენტი <code class="docutils literal notranslate"><span class="pre">${IDF_TOOLS_PATH}/dist</span></code> დირექტორიაში, ამოიღეთ იგი <code class="docutils literal notranslate"><span class="pre">${IDF_TOOLS_PATH}/tools/TOOL_NAME/VERSION</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">install</span></code> ბრძანება იღებს ინსტალაციისთვის საჭირო ინსტრუმენტების სიას, <code class="docutils literal notranslate"><span class="pre">TOOL_NAME</span></code> ან <code class="docutils literal notranslate"><span class="pre">TOOL_NAME@VERSION</span></code> ფორმატი. თუ <code class="docutils literal notranslate"><span class="pre">all</span></code> მოცემულია, ყველა ინსტრუმენტი (სავალდებულო და არასავალდებულო) დაინსტალირებულია. თუ არგუმენტი ან <code class="docutils literal notranslate"><span class="pre">required</span></code> მოცემულია, დამონტაჟებულია მხოლოდ საჭირო ხელსაწყოები.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">download</span></code>: მსგავსი <code class="docutils literal notranslate"><span class="pre">install</span></code> მაგრამ არ იღებს ხელსაწყოებს. სურვილისამებრ <code class="docutils literal notranslate"><span class="pre">--platform</span></code> არგუმენტი შეიძლება გამოყენებულ იქნას კონკრეტული პლატფორმისთვის ინსტრუმენტების ჩამოსატვირთად.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">export</span></code>: ჩამოთვლის გარემოს ცვლადებს, რომელთა დაყენებაც საჭიროა დაინსტალირებული ხელსაწყოების გამოსაყენებლად. ხელსაწყოების უმეტესობისთვის, დაყენება <code class="docutils literal notranslate"><span class="pre">PATH</span></code> გარემოს ცვლადი საკმარისია, მაგრამ ზოგიერთ ინსტრუმენტს დამატებითი გარემოს ცვლადები სჭირდება.</p>
+<p>გარემოს ცვლადები შეიძლება ჩამოთვლილი იყოს შემდეგიდან რომელიმეში: <code class="docutils literal notranslate"><span class="pre">shell</span></code> ან <code class="docutils literal notranslate"><span class="pre">key-value</span></code> ფორმატები, დადგენილი <code class="docutils literal notranslate"><span class="pre">--format</span></code> პარამეტრი:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">shell</span></code> აწარმოებს შელიში შეფასებისთვის შესაფერის შედეგს. მაგალითად,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">"/home/user/.espressif/tools/tool/v1.0.0/bin:$PATH"</span>
+</pre></div>
+</div>
+<p>Linux-სა და macOS-ზე, და</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="s2">"PATH=C:\Users\user\.espressif</span><span class="se">\t</span><span class="s2">ools</span><span class="se">\v</span><span class="s2">1.0.0</span><span class="se">\b</span><span class="s2">in;%PATH%"</span>
+</pre></div>
+</div>
+<p>Windows-ზე.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გარემოს ცვლადების Powershell ფორმატში ექსპორტი ამჟამად არ არის მხარდაჭერილი. <code class="docutils literal notranslate"><span class="pre">key-value</span></code> ფორმატის გამოყენება შესაძლებელია მის ნაცვლად.</p>
+</div>
+<p>ამ ბრძანების გამომავალი შეიძლება გამოყენებულ იქნას გარემოს ცვლადების განახლებისთვის, თუ shell მხარს უჭერს ამას. მაგალითად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>eval $($IDF_PATH/tools/idf_tools.py export)
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">key-value</span></code> აწარმოებს გამომავალს <cite>VARIABLE=VALUE</cite> ფორმატი, შესაფერისი სხვა სკრიპტებით დამუშავებისთვის:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PATH=/home/user/.espressif/tools/tool/v1.0.0:$PATH
+</pre></div>
+</div>
+<p>გაითვალისწინეთ, რომ ამ გამომავალს მომხმარი სკრიპტი უნდა ასრულებდეს გაფართოებას <code class="docutils literal notranslate"><span class="pre">$VAR</span></code> ან <code class="docutils literal notranslate"><span class="pre">%VAR%</span></code> გამომავალში ნაპოვნი ნიმუშები.</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">list</span></code>: აჩვენებს ინსტრუმენტების ცნობილ ვერსიებს და მიუთითებს, რომელია დაინსტალირებული.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">check</span></code>თითოეული ხელსაწყოსთვის ამოწმებს, ხელმისაწვდომია თუ არა ინსტრუმენტი სისტემის გზაზე და <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="install-scripts">
+<span id="idf-tools-install"></span><h2>სკრიპტების ინსტალაცია<a class="headerlink" href="idf-tools.html#install-scripts" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF რეპოზიტორიის root-ში მოცემულია shell-სპეციფიკური მომხმარებლისთვის განკუთვნილი სკრიპტები, რაც ხელსაწყოების ინსტალაციას უწყობს ხელს. ესენია:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">install.bat</span></code> Windows-ის ბრძანების ხაზისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">install.ps1</span></code> Powershell-ისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">install.sh</span></code> Bash-ისთვის</li>
+</ul>
+<p>ინსტრუმენტების ჩამოტვირთვისა და ინსტალაციის გარდა, <code class="docutils literal notranslate"><span class="pre">IDF_TOOLS_PATH</span></code>, ეს სკრიპტები ამზადებენ Python-ის ვირტუალურ გარემოს და აინსტალირებენ საჭირო პაკეტებს ამ გარემოში.</p>
+</div>
+<div class="section" id="export-scripts">
+<span id="idf-tools-export"></span><h2>სკრიპტების ექსპორტი<a class="headerlink" href="idf-tools.html#export-scripts" title="Permalink to this headline">¶</a></h2>
+<p>რადგან დაინსტალირებული ინსტრუმენტები მუდმივად არ არის დამატებული მომხმარებელში ან სისტემაში <code class="docutils literal notranslate"><span class="pre">PATH</span></code> გარემოს ცვლადის გამოყენებისას, ბრძანების ხაზში მათი გამოსაყენებლად დამატებითი ნაბიჯია საჭირო. შემდეგი სკრიპტები ცვლის მიმდინარე გარსის გარემოს ცვლადებს, რათა ხელმისაწვდომი იყოს ინსტრუმენტების სწორი ვერსიები:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">export.bat</span></code> Windows-ის ბრძანების ხაზისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">export.ps1</span></code> Powershell-ისთვის</li>
+<li><code class="docutils literal notranslate"><span class="pre">export.sh</span></code> Bash-ისთვის</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>Bash-ში shell გარემოს შესაცვლელად, <code class="docutils literal notranslate"><span class="pre">export.sh</span></code> უნდა იყოს „წყაროებით მოძიებული“: <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">./export.sh</span></code> (ყურადღება მიაქციეთ წამყვან წერტილს და ინტერვალს).</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">export.sh</span></code> შეიძლება გამოყენებულ იქნას Bash-ის გარდა სხვა shell-ებთან ერთად (მაგალითად, zsh). თუმცა, ამ შემთხვევაში <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> სკრიპტის გაშვებამდე უნდა დაყენდეს გარემოს ცვლადი. Bash-ში გამოყენებისას, სკრიპტი გამოიცნობს <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> ღირებულება საკუთარი მდებარეობიდან.</p>
+</div>
+<p>დარეკვის გარდა <code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code>, ეს სკრიპტები ჩამოთვლის დირექტორიებს, რომლებიც დაემატა <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<div class="section" id="other-installation-methods">
+<h2>სხვა ინსტალაციის მეთოდები<a class="headerlink" href="idf-tools.html#other-installation-methods" title="Permalink to this headline">¶</a></h2>
+<p>გარემოდან გამომდინარე, უფრო მოსახერხებელი შესაფუთი საშუალებები <code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code> მოწოდებულია:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../get-started/windows-setup.html#get-started-windows-tools-installer"><span class="std std-ref">IDF Tools-ის ინსტალერი Windows-ისთვის</span></a> შეუძლია ინსტრუმენტების ჩამოტვირთვა და ინსტალაცია. ინსტალერი შიდა რეჟიმში იყენებს <code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code>.</li>
+<li><a class="reference internal" href="../../get-started/eclipse-setup.html"><span class="doc">Eclipse-ის მოდული ESP-IDF სთვის</span></a> მოიცავს მენიუს ელემენტს ხელსაწყოების დასაყენებლად. შიდა რეჟიმში, დანამატი იძახებს <code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code>.</li>
+<li>Visual Studio-ს კოდის გაფართოება ESP-IDF ისთვის მოიცავს ინტეგრაციის ნაკადს. ეს ნაკადი ხელს უწყობს ინსტრუმენტების დაყენებას. თუმცა გაფართოება არ არის დამოკიდებული <code class="docutils literal notranslate"><span class="pre">idf_tools.py</span></code>, იგივე ინსტალაციის მეთოდი გამოიყენება.</li>
+</ul>
+</div>
+<div class="section" id="custom-installation">
+<h2>ინდივიდუალური ინსტალაცია<a class="headerlink" href="idf-tools.html#custom-installation" title="Permalink to this headline">¶</a></h2>
+<p>მიუხედავად იმისა, რომ ზემოთ ჩამოთვლილი მეთოდები რეკომენდებულია ESP-IDF მომხმარებლებისთვის, ისინი არ არის აუცილებელი ESP-IDF აპლიკაციების შესაქმნელად. ESP-IDF შექმნის სისტემა ელის, რომ ყველა საჭირო ინსტრუმენტი სადმე იქნება დაინსტალირებული და ხელმისაწვდომი იქნება... <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<div class="section" id="list-of-idf-tools">
+<span id="idf-tools-list"></span><h2>IDF ინსტრუმენტების სია<a class="headerlink" href="idf-tools.html#list-of-idf-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="xtensa-esp32-elf">
+<span id="tool-xtensa-esp32-elf"></span><h3>xtensa-esp32-elf<a class="headerlink" href="idf-tools.html#xtensa-esp32-elf" title="Permalink to this headline">¶</a></h3>
+<p>Xtensa-ს (ESP32) ინსტრუმენტების ჯაჭვი GCC-ზე დაყრდნობით</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-3.0-with-GCC-exception">GPL-3.0-GCC-გამონაკლისით</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/crosstool-NG">https://github.com/espressif/crosstool-NG</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-amd64.tar.gz">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-amd64.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: e6d47c1dbd8c8cbfe37271e5e2aac53ee88c9e347ae937e22bf0c73f530efbdf</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ლინუქს-არმელი</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-armel.tar.gz">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-armel.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 54a199c28f591da2466b21741911bc2ba77ddf82d3d2b66c6ce03c1a0c6835f0</p>
+</td>
+</tr>
+<tr class="row-even"><td>ლინუქს-i686</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-i686.tar.gz">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-linux-i686.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 36a9648c414dbd1c518c687ce5587d9f8eaa94324f45d92e9ec31a1433a04df8</p>
+</td>
+</tr>
+<tr class="row-odd"><td>მაკოს</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-macos.tar.gz">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-macos.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: dc62be8dd16c6d9d28d64e2b3f831fa208f3548c2ca73cdbcbdf68f474d59521</p>
+</td>
+</tr>
+<tr class="row-even"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip</a></p>
+<p class="tool-sha256 last">SHA256: c9d5776a22516f0825a7c68d835ffacc2392f913136893b7646e1288937cc65e</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip</a></p>
+<p class="tool-sha256 last">SHA256: c9d5776a22516f0825a7c68d835ffacc2392f913136893b7646e1288937cc65e</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="xtensa-esp32s2-elf">
+<span id="tool-xtensa-esp32s2-elf"></span><h3>xtensa-esp32s2-elf<a class="headerlink" href="idf-tools.html#xtensa-esp32s2-elf" title="Permalink to this headline">¶</a></h3>
+<p>Xtensa-ს (ESP32-S2) ხელსაწყოთა ჯაჭვი GCC-ზე დაყრდნობით</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-3.0-with-GCC-exception">GPL-3.0-GCC-გამონაკლისით</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/crosstool-NG">https://github.com/espressif/crosstool-NG</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-amd64.tar.gz">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-amd64.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 59c6951e39937b9dfa53cca6d7707984ee39572071e56d11069f032d079477f5</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ლინუქს-არმელი</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-armel.tar.gz">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-armel.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 92d80cf640db34913b91c1d8dae1632a7f5a740b5dcf39a3bea750b5dba05caa</p>
+</td>
+</tr>
+<tr class="row-even"><td>ლინუქს-i686</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-i686.tar.gz">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-linux-i686.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: d31c39dce8e6faa36807152a8afa8fe79d491bc551ad27dff1fed2f31dd6a39e</p>
+</td>
+</tr>
+<tr class="row-odd"><td>მაკოს</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-macos.tar.gz">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-macos.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 01f6d9b6d25a550975a16d2634a577a0c0f3c3c24db10edd1b714f9c192f490d</p>
+</td>
+</tr>
+<tr class="row-even"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-win32.zip">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-win32.zip</a></p>
+<p class="tool-sha256 last">SHA256: f9b69732bd4e90d4558547f6a2d33f78433971e9e4f04968515cf460ea6de79a</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-win32.zip">https://dl.espressif.com/dl/xtensa-esp32s2-elf-gcc8_2_0-esp-2019r2-win32.zip</a></p>
+<p class="tool-sha256 last">SHA256: f9b69732bd4e90d4558547f6a2d33f78433971e9e4f04968515cf460ea6de79a</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="esp32ulp-elf">
+<span id="tool-esp32ulp-elf"></span><h3>esp32ulp-elf<a class="headerlink" href="idf-tools.html#esp32ulp-elf" title="Permalink to this headline">¶</a></h3>
+<p>ESP32 ULP კოპროცესორის ინსტრუმენტთა ჯაჭვი</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-2.0-or-later">GPL-2.0-ან უფრო გვიანდელი ვერსია</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/binutils-esp32ulp">https://github.com/espressif/binutils-esp32ulp</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-linux-amd64-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-linux-amd64-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 3016c4fc551181175bd9979869bc1d1f28fa8efa25a0e29ad7f833fca4bc03d7</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ლინუქს-არმელი</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-linux-armel-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-linux-armel-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 88967c086a6e71834282d9ae05841ee74dae1815f27807b25cdd3f7775a47101</p>
+</td>
+</tr>
+<tr class="row-even"><td>მაკოს</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-macos-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-macos-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: a35d9e7a0445247c7fc9dccd3fbc35682f0fafc28beeb10c94b59466317190c4</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-win32-2.28.51-esp-20191205.zip">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-win32-2.28.51-esp-20191205.zip</a></p>
+<p class="tool-sha256 last">SHA256: bade309353a9f0a4e5cc03bfe84845e33205f05502c4b199195e871ded271ab5</p>
+</td>
+</tr>
+<tr class="row-even"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-win32-2.28.51-esp-20191205.zip">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32ulp-win32-2.28.51-esp-20191205.zip</a></p>
+<p class="tool-sha256 last">SHA256: bade309353a9f0a4e5cc03bfe84845e33205f05502c4b199195e871ded271ab5</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="esp32s2ulp-elf">
+<span id="tool-esp32s2ulp-elf"></span><h3>esp32s2ulp-elf<a class="headerlink" href="idf-tools.html#esp32s2ulp-elf" title="Permalink to this headline">¶</a></h3>
+<p>ESP32-S2 ULP კოპროცესორის ინსტრუმენტთა ჯაჭვი</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-2.0-or-later">GPL-2.0-ან უფრო გვიანდელი ვერსია</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/binutils-esp32ulp">https://github.com/espressif/binutils-esp32ulp</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-linux-amd64-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-linux-amd64-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: df7b2ff6c7c718a7cbe3b4b6dbcd68180d835d164d1913bc4698fd3781b9a466</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ლინუქს-არმელი</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-linux-armel-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-linux-armel-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 893b213c8f716d455a6efb2b08b6cf1bc34d08b78ee19c31e82ac44b1b45417e</p>
+</td>
+</tr>
+<tr class="row-even"><td>მაკოს</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-macos-2.28.51-esp-20191205.tar.gz">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-macos-2.28.51-esp-20191205.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 5a9bb678a5246638cbda303f523d9bb8121a9a24dc01ecb22c21c46c41184155</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-win32-2.28.51-esp-20191205.zip">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-win32-2.28.51-esp-20191205.zip</a></p>
+<p class="tool-sha256 last">SHA256: 587de59fbb469a39f96168ae3eaa9f06b2601e6e0543c87eaf1bd97f23e5c4ca</p>
+</td>
+</tr>
+<tr class="row-even"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-win32-2.28.51-esp-20191205.zip">https://github.com/espressif/binutils-esp32ulp/releases/download/v2.28.51-esp-20191205/binutils-esp32s2ulp-win32-2.28.51-esp-20191205.zip</a></p>
+<p class="tool-sha256 last">SHA256: 587de59fbb469a39f96168ae3eaa9f06b2601e6e0543c87eaf1bd97f23e5c4ca</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmake">
+<span id="tool-cmake"></span><h3>სმეიქი<a class="headerlink" href="idf-tools.html#cmake" title="Permalink to this headline">¶</a></h3>
+<p>CMake-ის აწყობის სისტემა</p>
+<p>Linux-სა და macOS-ზე რეკომენდებულია CMake-ის ინსტალაცია ოპერაციული სისტემისთვის სპეციფიკური პაკეტების მენეჯერის გამოყენებით (მაგალითად, apt, yum, brew და ა.შ.). თუმცა, მოხერხებულობისთვის შესაძლებელია CMake-ის ინსტალაცია idf_tools.py-ის გამოყენებით სხვა ინსტრუმენტებთან ერთად.</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/BSD-3-Clause">BSD-3-პუნქტი</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/Kitware/CMake">https://github.com/Kitware/CMake</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>სურვილისამებრ</td>
+<td><p class="first"><a class="reference external" href="https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-Linux-x86_64.tar.gz">https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-Linux-x86_64.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 563a39e0a7c7368f81bfa1c3aff8b590a0617cdfe51177ddc808f66cc0866c76</p>
+</td>
+</tr>
+<tr class="row-odd"><td>მაკოს</td>
+<td>სურვილისამებრ</td>
+<td><p class="first"><a class="reference external" href="https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-Darwin-x86_64.tar.gz">https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-Darwin-x86_64.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: fef537614d73fda848f6168273b6c7ba45f850484533361e7bc50ac1d315f780</p>
+</td>
+</tr>
+<tr class="row-even"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win32-x86.zip">https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win32-x86.zip</a></p>
+<p class="tool-sha256 last">SHA256: 28daf772f55d817a13ef14e25af2a5569f8326dac66a6aa3cc5208cf1f8e943f</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win64-x64.zip">https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4-win64-x64.zip</a></p>
+<p class="tool-sha256 last">SHA256: bcd477d49e4a9400b41213d53450b474beaedb264631693c958ef9affa8e5623</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="openocd-esp32">
+<span id="tool-openocd-esp32"></span><h3>openocd-esp32<a class="headerlink" href="idf-tools.html#openocd-esp32" title="Permalink to this headline">¶</a></h3>
+<p>OpenOCD ESP32-ისთვის</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-2.0-only">მხოლოდ GPL-2.0</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/openocd-esp32">https://github.com/espressif/openocd-esp32</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-linux64-0.10.0-esp32-20191114.tar.gz">https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-linux64-0.10.0-esp32-20191114.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 978213e8345dd19762c79d4bda309331bb78db3d2a7f7193641dfcc978f6e5e5</p>
+</td>
+</tr>
+<tr class="row-odd"><td>ლინუქს-არმელი</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-armel-0.10.0-esp32-20191114.tar.gz">https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-armel-0.10.0-esp32-20191114.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 3b41d889e54c03d26ebf4423084a1c25a9b0a8c5d93359a3eece1754377dbd81</p>
+</td>
+</tr>
+<tr class="row-even"><td>მაკოს</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-macos-0.10.0-esp32-20191114.tar.gz">https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-macos-0.10.0-esp32-20191114.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 75ca2e235c35157d6dad2106cc62210ccb99b736da6940179aa1644fe1ae8c2b</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-win32-0.10.0-esp32-20191114.zip">https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-win32-0.10.0-esp32-20191114.zip</a></p>
+<p class="tool-sha256 last">SHA256: 698bfa5903c99e2ee0a1898379b3a40451fcecbc1fd4fde4f2f1494e5725e7ab</p>
+</td>
+</tr>
+<tr class="row-even"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-win32-0.10.0-esp32-20191114.zip">https://github.com/espressif/openocd-esp32/releases/download/v0.10.0-esp32-20191114/openocd-esp32-win32-0.10.0-esp32-20191114.zip</a></p>
+<p class="tool-sha256 last">SHA256: 698bfa5903c99e2ee0a1898379b3a40451fcecbc1fd4fde4f2f1494e5725e7ab</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ninja">
+<span id="tool-ninja"></span><h3>ნინძა<a class="headerlink" href="idf-tools.html#ninja" title="Permalink to this headline">¶</a></h3>
+<p>ნინძას აწყობის სისტემა</p>
+<p>Linux-სა და macOS-ზე რეკომენდებულია Ninja-ს ინსტალაცია ოპერაციული სისტემისთვის სპეციფიკური პაკეტების მენეჯერის გამოყენებით (მაგალითად, apt, yum, brew და ა.შ.). თუმცა, მოხერხებულობისთვის შესაძლებელია Ninja-ს ინსტალაცია idf_tools.py-ის გამოყენებით სხვა ინსტრუმენტებთან ერთად.</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/Apache-2.0">Apache-2.0</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/ninja-build/ninja">https://github.com/ninja-build/ninja</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ლინუქს-amd64</td>
+<td>სურვილისამებრ</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/ninja-1.9.0-linux64.tar.gz">https://dl.espressif.com/dl/ninja-1.9.0-linux64.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 978fd9e26c2db8d33392c6daef50e9edac0a3db6680710a9f9ad47e01f3e49b7</p>
+</td>
+</tr>
+<tr class="row-odd"><td>მაკოს</td>
+<td>სურვილისამებრ</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/ninja-1.9.0-osx.tar.gz">https://dl.espressif.com/dl/ninja-1.9.0-osx.tar.gz</a></p>
+<p class="tool-sha256 last">SHA256: 9504cd1783ef3c242d06330a50d54dc8f838b605f5fc3e892c47254929f7350c</p>
+</td>
+</tr>
+<tr class="row-even"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/ninja-1.9.0-win64.zip">https://dl.espressif.com/dl/ninja-1.9.0-win64.zip</a></p>
+<p class="tool-sha256 last">SHA256: 2d70010633ddaacc3af4ffbd21e22fae90d158674a09e132e06424ba3ab036e9</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tool-idf-exe">
+<span id="idf-exe"></span><h3>idf-exe<a class="headerlink" href="idf-tools.html#tool-idf-exe" title="Permalink to this headline">¶</a></h3>
+<p>IDF შეფუთვის ინსტრუმენტი Windows-ისთვის</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/Apache-2.0">Apache-2.0</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/tools/windows/idf_exe">ინსტრუმენტები/windows/idf_exe</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>win32</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/idf-exe-v1.0.1.zip">https://dl.espressif.com/dl/idf-exe-v1.0.1.zip</a></p>
+<p class="tool-sha256 last">SHA256: 53eb6aaaf034cc7ed1a97d5c577afa0f99815b7793905e9408e74012d357d04a</p>
+</td>
+</tr>
+<tr class="row-odd"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/idf-exe-v1.0.1.zip">https://dl.espressif.com/dl/idf-exe-v1.0.1.zip</a></p>
+<p class="tool-sha256 last">SHA256: 53eb6aaaf034cc7ed1a97d5c577afa0f99815b7793905e9408e74012d357d04a</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ccache">
+<span id="tool-ccache"></span><h3>კაკაში<a class="headerlink" href="idf-tools.html#ccache" title="Permalink to this headline">¶</a></h3>
+<p>Ccache ( კომპილაცია r ქეში)</p>
+<p>ლიცენზია: <a class="reference external" href="https://spdx.org/licenses/GPL-3.0-or-later">GPL-3.0-ან უფრო გვიანდელი ვერსია</a></p>
+<p>დამატებითი ინფორმაცია: <a class="reference external" href="https://github.com/ccache/ccache">https://github.com/ccache/ccache</a></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%"/>
+<col width="10%"/>
+<col width="80%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პლატფორმა</th>
+<th class="head">სავალდებულო</th>
+<th class="head">ჩამოტვირთვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>win64</td>
+<td>საჭირო</td>
+<td><p class="first"><a class="reference external" href="https://dl.espressif.com/dl/ccache-3.7-w64.zip">https://dl.espressif.com/dl/ccache-3.7-w64.zip</a></p>
+<p class="tool-sha256 last">SHA256: 37e833f3f354f1145503533e776c1bd44ec2e77ff8a2476a1d2039b0b10c78d6</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="idf-docker-image.html" rel="next" title="IDF Docker Image">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Tools"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

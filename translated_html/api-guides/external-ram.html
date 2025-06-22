@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>გარე ოპერატიული მეხსიერების მხარდაჭერა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="fatal-errors.html" rel="next" title="Fatal Errors"/>
+<link href="event-handling.html" rel="prev" title="Event Handling"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/external-ram.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/external-ram"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/external-ram.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="external-ram.html#">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="external-ram.html#introduction">შესავალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="external-ram.html#hardware">აპარატურა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="external-ram.html#configuring-external-ram">გარე ოპერატიული მეხსიერების კონფიგურაცია</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#integrate-ram-into-the-esp32-memory-map">ოპერატიული მეხსიერების ინტეგრირება ESP32 მეხსიერების რუკაში</a></li>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#add-external-ram-to-the-capability-allocator">დაამატეთ გარე ოპერატიული მეხსიერება შესაძლებლობების განაწილებას</a></li>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#provide-external-ram-via-malloc">გარე ოპერატიული მეხსიერების მიწოდება malloc()-ის საშუალებით</a></li>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#allow-bss-segment-placed-in-external-memory">გარე მეხსიერებაში .bss სეგმენტის განთავსების დაშვება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="external-ram.html#restrictions">შეზღუდვები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="external-ram.html#chip-revisions">ჩიპის გადახედვები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#esp32-rev-v0">ESP32 ვერსია v0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="external-ram.html#esp32-rev-v1">ESP32 ვერსია v1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>გარე ოპერატიული მეხსიერების მხარდაჭერა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/external-ram.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="support-for-external-ram">
+<h1>გარე ოპერატიული მეხსიერების მხარდაჭერა<a class="headerlink" href="external-ram.html#support-for-external-ram" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/external-ram.html">[中文]</a></p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="external-ram.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ს აქვს რამდენიმე ასეული კილობაიტი შიდა ოპერატიული მეხსიერება, რომელიც იმავე ჩიპზეა განთავსებული, როგორც კომპონენტი დანარჩენი ნაწილი. ზოგიერთი მიზნისთვის ეს შეიძლება არასაკმარისი იყოს, ამიტომ ESP32-ს ასევე შეუძლია გამოიყენოს 4 მბ-მდე გარე SPI ოპერატიული მეხსიერება. გარე მეხსიერება ინტეგრირებულია მეხსიერების რუკაში და, გარკვეული შეზღუდვებით, გამოიყენება ისევე, როგორც შიდა მონაცემთა ოპერატიული მეხსიერება.</p>
+</div>
+<div class="section" id="hardware">
+<h2>აპარატურა<a class="headerlink" href="external-ram.html#hardware" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 მხარს უჭერს SPI ფლეშ მეხსიერება ჩიპთან პარალელურად დაკავშირებულ SPI PSRAM-ს. მიუხედავად იმისა, რომ ESP32-ს შეუძლია რამდენიმე ტიპის RAM ჩიპის მხარდაჭერა, ESP32 SDK ამ ეტაპზე მხოლოდ ESP-PSRAM32 ჩიპს უჭერს მხარს.</p>
+<p>ESP-PSRAM32 ჩიპი არის 1.8 ვოლტიანი მოწყობილობა, რომლის გამოყენებაც მხოლოდ 1.8 ვოლტიან ფლეშ მეხსიერება კომპონენტი პარალელურად არის შესაძლებელი. ჩატვირთვისას დარწმუნდით, რომ MTDI პინი მაღალ სიგნალის დონეზეა დაყენებული, ან ESP32 eFuses დაპროგრამებულია ისე, რომ ყოველთვის გამოიყენოს 1.8 ვოლტიანი VDD_SIO დონე. ამის შეუსრულებლობამ შეიძლება დააზიანოს PSRAM და/ან ფლეშ მეხსიერება ჩიპი.</p>
+<p>ESP-PSRAM32 ჩიპის ESP32D0W*-თან დასაკავშირებლად, შეაერთეთ შემდეგი სიგნალები:</p>
+<blockquote>
+<div><ul class="simple">
+<li>PSRAM /CE (პინ 1) &amp;gt; ESP32 GPIO 16</li>
+<li>PSRAM SO (პინ 2) &amp;gt; ფლეშ მეხსიერება DO</li>
+<li>PSRAM SIO[2] (პინ 3) &amp;gt; ფლეშ მეხსიერება WP</li>
+<li>PSRAM SI (პინ 5) &amp;gt; ფლეშ მეხსიერება DI</li>
+<li>PSRAM SCLK (პინ 6) &amp;gt; ESP32 GPIO 17</li>
+<li>PSRAM SIO[3] (პინ 7) &amp;gt; ფლეშ მეხსიერება HOLD</li>
+<li>PSRAM Vcc (პინ 8) &amp;gt; ESP32 VCC_SDIO</li>
+</ul>
+</div></blockquote>
+<p>ESP32D2W* ჩიპების შეერთებები დასაზუსტებელია.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">Espressif აწარმოებს ESP32-WROVER მოდულების ხაზს, რომელიც შეიცავს ESP32-ს, 1.8 ვოლტიან ფლეშ მეხსიერება და ESP-PSRAM32-ს. ეს მოდულები მზადაა საბოლოო პროდუქტის PCB-ზე დასამონტაჟებლად.</p>
+</div>
+</div>
+<div class="section" id="configuring-external-ram">
+<span id="external-ram-config"></span><h2>გარე ოპერატიული მეხსიერების კონფიგურაცია<a class="headerlink" href="external-ram.html#configuring-external-ram" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF სრულად უჭერს მხარს გარე მეხსიერების გამოყენებას აპლიკაციებში. მას შემდეგ, რაც გარე ოპერატიული მეხსიერება ინიციალიზებული იქნება გაშვებისას, ESP-IDF კონფიგურაცია შესაძლებელია მის დასამუშავებლად რამდენიმე გზით:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="external-ram.html#external-ram-config-memory-map"><span class="std std-ref">ოპერატიული მეხსიერების ინტეგრირება ESP32 მეხსიერების რუკაში</span></a></li>
+<li><a class="reference internal" href="external-ram.html#external-ram-config-capability-allocator"><span class="std std-ref">დაამატეთ გარე ოპერატიული მეხსიერება შესაძლებლობების განაწილებას</span></a></li>
+<li><a class="reference internal" href="external-ram.html#external-ram-config-malloc"><span class="std std-ref">გარე ოპერატიული მეხსიერების მიწოდება malloc()-ის საშუალებით</span></a> (ნაგულისხმევი)</li>
+<li><a class="reference internal" href="external-ram.html#external-ram-config-bss"><span class="std std-ref">გარე მეხსიერებაში .bss სეგმენტის განთავსების დაშვება</span></a></li>
+</ul>
+</div></blockquote>
+<div class="section" id="integrate-ram-into-the-esp32-memory-map">
+<span id="external-ram-config-memory-map"></span><h3>ოპერატიული მეხსიერების ინტეგრირება ESP32 მეხსიერების რუკაში<a class="headerlink" href="external-ram.html#integrate-ram-into-the-esp32-memory-map" title="Permalink to this headline">¶</a></h3>
+<p>აირჩიეთ ეს ვარიანტი „RAM-ის ინტეგრირება ESP32 მეხსიერების რუკაში“ არჩევით <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-use"><span class="std std-ref">CONFIG_SPIRAM_USE</span></a>.</p>
+<p>ეს გარე SPI RAM ინტეგრაციის ყველაზე ძირითადი ვარიანტია. სავარაუდოდ, დაგჭირდებათ სხვა, უფრო მოწინავე ვარიანტი.</p>
+<p>ESP-IDF გაშვებისას, გარე ოპერატიული მეხსიერება მონაცემთა მისამართების სივრცეში გადადის, დაწყებული მისამართიდან 0x3F800000 (ბაიტებისთვის ხელმისაწვდომი). ამ რეგიონის სიგრძე იგივეა, რაც SPI ოპერატიული მეხსიერების ზომა (4 მბ-მდე).</p>
+<p>აპლიკაციებს შეუძლიათ მონაცემების ხელით განთავსება გარე მეხსიერებაში ამ რეგიონის მითითებების შექმნით. ამგვარად, თუ აპლიკაცია იყენებს გარე მეხსიერებას, ის პასუხისმგებელია გარე SPI ოპერატიული მეხსიერების მართვაზე: ბუფერის გამოყენების კოორდინაციაზე, დაზიანების თავიდან აცილებაზე და ა.შ.</p>
+</div>
+<div class="section" id="add-external-ram-to-the-capability-allocator">
+<span id="external-ram-config-capability-allocator"></span><h3>დაამატეთ გარე ოპერატიული მეხსიერება შესაძლებლობების განაწილებას<a class="headerlink" href="external-ram.html#add-external-ram-to-the-capability-allocator" title="Permalink to this headline">¶</a></h3>
+<p>აირჩიეთ ეს ვარიანტი „Make RAM allocateable using heap_caps_malloc(…, MALLOC_CAP_SPIRAM)“-ის არჩევით <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-use"><span class="std std-ref">CONFIG_SPIRAM_USE</span></a>.</p>
+<p>ჩართვის შემთხვევაში, მეხსიერება მიმაგრებულია 0x3F800000 მისამართზე და ასევე ემატება <a class="reference internal" href="../api-reference/system/mem_alloc.html"><span class="doc">შესაძლებლობებზე დაფუძნებული გროვის მეხსიერების გამანაწილებელი</span></a> გამოყენებით <code class="docutils literal notranslate"><span class="pre">MALLOC_CAP_SPIRAM</span></code>.</p>
+<p>გარე ოპერატიული მეხსიერებიდან მეხსიერების გამოსაყოფად, პროგრამამ უნდა გამოიძახოს <code class="docutils literal notranslate"><span class="pre">heap_caps_malloc(size,</span> <span class="pre">MALLOC_CAP_SPIRAM)</span></code>გამოყენების შემდეგ, ამ მეხსიერების გათავისუფლება შესაძლებელია ნორმალურ რეჟიმში დარეკვით. <code class="docutils literal notranslate"><span class="pre">free()</span></code> ფუნქცია.</p>
+</div>
+<div class="section" id="provide-external-ram-via-malloc">
+<span id="external-ram-config-malloc"></span><h3>გარე ოპერატიული მეხსიერების მიწოდება malloc()-ის საშუალებით<a class="headerlink" href="external-ram.html#provide-external-ram-via-malloc" title="Permalink to this headline">¶</a></h3>
+<p>აირჩიეთ ეს ვარიანტი „Make RAM alloc()-ის გამოყენებითაც“-ის არჩევით <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-use"><span class="std std-ref">CONFIG_SPIRAM_USE</span></a>ეს არის ნაგულისხმევი ვარიანტი.</p>
+<p>ამ შემთხვევაში, მეხსიერება ემატება შესაძლებლობების განაწილებას, როგორც ეს წინა ვარიანტისთვის იყო აღწერილი. თუმცა, ის ასევე ემატება სტანდარტული ოპერატიული მეხსიერების პულს. <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> ფუნქცია.</p>
+<p>ეს საშუალებას აძლევს ნებისმიერ აპლიკაციას გამოიყენოს გარე ოპერატიული მეხსიერება კოდის გადაწერის გარეშე. <code class="docutils literal notranslate"><span class="pre">heap_caps_malloc(...,</span> <span class="pre">MALLOC_CAP_SPIRAM)</span></code>.</p>
+<p>დამატებითი კონფიგურაციის ელემენტი, <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-malloc-alwaysinternal"><span class="std std-ref">CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL</span></a>, შეიძლება გამოყენებულ იქნას ზომის ზღურბლის დასაყენებლად, როდესაც ერთი გამოყოფა უპირატესობას ანიჭებს გარე მეხსიერებას:</p>
+<ul class="simple">
+<li>ზღურბლზე ნაკლები ზომის გამოყოფისას, გამანაწილებელი ჯერ შიდა მეხსიერებას ცდის.</li>
+<li>ზღურბლის ტოლი ან მასზე დიდი ზომის გამოყოფისას, გამანაწილებელი ჯერ გარე მეხსიერებას ცდის.</li>
+</ul>
+<p>თუ სასურველი შიდა/გარე მეხსიერების შესაფერისი ბლოკი არ არის ხელმისაწვდომი, განაწილების სისტემა ცდის მეხსიერების სხვა ტიპს.</p>
+<p>რადგან ზოგიერთი ბუფერის გამოყოფა მხოლოდ შიდა მეხსიერებაშია შესაძლებელი, მეორე კონფიგურაციის ელემენტი <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-malloc-reserve-internal"><span class="std std-ref">CONFIG_SPIRAM_MALLOC_RESERVE_INTERNAL</span></a> განსაზღვრავს შიდა მეხსიერების პულს, რომელიც დაჯავშნილია <em>მხოლოდ</em> აშკარად შიდა განაწილება (მაგალითად, მეხსიერება DMA-ს გამოყენებისთვის). რეგულარული <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> ამ ფონდიდან არ გამოყოფს. <a class="reference internal" href="../api-reference/system/mem_alloc.html#dma-capable-memory"><span class="std std-ref">MALLOC_CAP_DMA</span></a> და <code class="docutils literal notranslate"><span class="pre">MALLOC_CAP_INTERNAL</span></code> დროშების გამოყენება შესაძლებელია ამ პულიდან მეხსიერების გამოსაყოფად.</p>
+</div>
+<div class="section" id="allow-bss-segment-placed-in-external-memory">
+<span id="external-ram-config-bss"></span><h3>გარე მეხსიერებაში .bss სეგმენტის განთავსების დაშვება<a class="headerlink" href="external-ram.html#allow-bss-segment-placed-in-external-memory" title="Permalink to this headline">¶</a></h3>
+<p>ჩართეთ ეს ვარიანტი მონიშვნით <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-allow-bss-seg-external-memory"><span class="std std-ref">CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY</span></a>ეს კონფიგურაციის პარამეტრი დამოუკიდებელია დანარჩენი სამისგან.</p>
+<p>თუ ჩართულია, 0x3F800000-დან დაწყებული მისამართის სივრცის რეგიონი გამოყენებული იქნება lwIP, net80211, libpp და bluedroid ESP-IDF ბიბლიოთეკებიდან ნულოვანი ინიციალიზაციის მონაცემების (BSS სეგმენტის) შესანახად.</p>
+<p>დამატებითი მონაცემების შიდა BSS სეგმენტიდან გარე ოპერატიულ მეხსიერებაში გადატანა შესაძლებელია მაკროს გამოყენებით. <code class="docutils literal notranslate"><span class="pre">EXT_RAM_ATTR</span></code> ნებისმიერ სტატიკურ დეკლარაციაზე (რომელიც არ არის ინიციალიზებული არანულოვანი მნიშვნელობით).</p>
+<p>ეს პარამეტრი ამცირებს BSS სეგმენტის მიერ გამოყენებულ შიდა სტატიკურ მეხსიერებას.</p>
+<p>დარჩენილი გარე ოპერატიული მეხსიერება ასევე შეიძლება დაემატოს შესაძლებლობების გროვის განაწილებას ზემოთ ნაჩვენები მეთოდის გამოყენებით.</p>
+</div>
+</div>
+<div class="section" id="restrictions">
+<h2>შეზღუდვები<a class="headerlink" href="external-ram.html#restrictions" title="Permalink to this headline">¶</a></h2>
+<p>გარე ოპერატიული მეხსიერების გამოყენებას შემდეგი შეზღუდვები აქვს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>როდესაც ფლეშ მეხსიერება ქეში გამორთულია (მაგალითად, თუ ფლეშ მეხსიერება ში იწერება), გარე ოპერატიული მეხსიერებაც მიუწვდომელი ხდება; მისგან ნებისმიერი წაკითხვა ან ჩაწერა გამოიწვევს ქეშზე წვდომის არალეგალურ გამონაკლისს. ეს ასევე არის მიზეზი, რის გამოც ESP-IDF ნაგულისხმევად არ ანაწილებს დავალებების დასტებს გარე ოპერატიულ მეხსიერებაში (იხილეთ ქვემოთ).</li>
+<li>გარე ოპერატიული მეხსიერება არ შეიძლება გამოყენებულ იქნას DMA ტრანზაქციის აღმწერების შესანახად ან DMA გადაცემის წასაკითხად ან ჩასაწერად ბუფერად. ნებისმიერი ბუფერი, რომელიც გამოყენებული იქნება DMA-სთან კომბინაციაში, უნდა გამოიყოს გამოყენებით. <code class="docutils literal notranslate"><span class="pre">heap_caps_malloc(size,</span> <span class="pre">MALLOC_CAP_DMA)</span></code> და მისი გათავისუფლება შესაძლებელია სტანდარტის გამოყენებით <code class="docutils literal notranslate"><span class="pre">free()</span></code> ზარი.</li>
+<li>გარე ოპერატიული მეხსიერება იყენებს იგივე ქეშის რეგიონს, რასაც გარე ფლეშ მეხსიერება . ეს ნიშნავს, რომ გარე ოპერატიულ მეხსიერებაში ხშირად გამოყენებული ცვლადების წაკითხვა და შეცვლა თითქმის ისევე სწრაფად შეიძლება, როგორც შიდა მეხსიერებაში. თუმცა, მონაცემთა დიდ ნაწილებზე (&amp;gt;32 კბ) წვდომისას, ქეში შეიძლება არასაკმარისი იყოს და სიჩქარე დაუბრუნდეს გარე ოპერატიული მეხსიერების წვდომის სიჩქარეს. გარდა ამისა, მონაცემთა დიდ ნაწილებზე წვდომამ შეიძლება „გამოიტანოს“ ქეშირებული ფლეშ მეხსიერება , რამაც შესაძლოა შემდგომში კოდის შესრულება შეანელოს.</li>
+<li>გარე ოპერატიული მეხსიერება არ შეიძლება გამოყენებულ იქნას დავალებების დასტის მეხსიერებად. ამის გამო, <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv411xTaskCreate14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC12TaskHandle_t" title="xTaskCreate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreate()</span></code></a> და მსგავსი ფუნქციები ყოველთვის გამოყოფენ შიდა მეხსიერებას დასტის და დავალებების TCB-ებისთვის და ისეთი ფუნქციები, როგორიცაა <a class="reference internal" href="../api-reference/system/freertos.html#_CPPv417xTaskCreateStatic14TaskFunction_tPCKcK8uint32_tPCv11UBaseType_tPC11StackType_tPC12StaticTask_t" title="xTaskCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xTaskCreateStatic()</span></code></a> შეამოწმებს, გადაცემული ბუფერები შიდაა თუ არა. თუმცა, იმ ამოცანებისთვის, რომლებიც არანაირად არ იძახებენ ROM-ში არსებულ კოდს, პირდაპირ თუ ირიბად, menuconfig ოფცია <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-allow-stack-external-memory"><span class="std std-ref">CONFIG_SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY</span></a> xTaskCreateStatic-ში შემოწმებას გამორიცხავს, რაც დავალების სტეკის გარე ოპერატიულ მეხსიერებაში მოთავსების საშუალებას მისცემს. თუმცა, მისი გამოყენება რეკომენდებული არ არის.</li>
+<li>ნაგულისხმევად, გარე ოპერატიული მეხსიერების ინიციალიზაციის შეუძლებლობა ESP-IDF გაშვების შეწყვეტას გამოიწვევს. ამის გამორთვა შესაძლებელია კონფიგურაციის ელემენტის ჩართვით. <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-ignore-notfound"><span class="std std-ref">CONFIG_SPIRAM_IGNORE_NOTFOUND</span></a>თუ <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-allow-bss-seg-external-memory"><span class="std std-ref">CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY</span></a> თუ ჩართულია, შეცდომის იგნორირების ოფცია მიუწვდომელია, რადგან ლინკერს დაკავშირების დროს გარე მეხსიერების მისამართებზე სიმბოლოები ექნება მინიჭებული.</li>
+<li>80 MHz საათის სიხშირით გამოყენებისას, გარე ოპერატიული მეხსიერება ასევე უნდა იკავებდეს HSPI ან VSPI ავტობუსს. აირჩიეთ, რომელ SPI ჰოსტს გამოიყენებს <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-occupy-spi-host"><span class="std std-ref">CONFIG_SPIRAM_OCCUPY_SPI_HOST</span></a>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="chip-revisions">
+<h2>ჩიპის გადახედვები<a class="headerlink" href="external-ram.html#chip-revisions" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის გარკვეულ ვერსიებთან დაკავშირებით არსებობს გარკვეული პრობლემები, რომლებიც გავლენას ახდენს გარე ოპერატიული მეხსიერების გამოყენებაზე. პრობლემები დოკუმენტირებულია ESP32-ში. <a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/eco_and_workarounds_for_bugs_in_esp32_en.pdf">ეკო</a> დოკუმენტი. კერძოდ, ESP-IDF აგვარებს ნახსენებ შეცდომებს შემდეგი გზებით:</p>
+<div class="section" id="esp32-rev-v0">
+<h3>ESP32 ვერსია v0<a class="headerlink" href="external-ram.html#esp32-rev-v0" title="Permalink to this headline">¶</a></h3>
+<p>ESP-IDF არ აქვს Silicon-ის ამ ვერსიის შეცდომების გამოსწორების არანაირი გზა და მისი გამოყენება შეუძლებელია გარე PSRAM-ის ESP32-ის მთავარ მეხსიერების რუკაში გადასატანად.</p>
+</div>
+<div class="section" id="esp32-rev-v1">
+<h3>ESP32 ვერსია v1<a class="headerlink" href="external-ram.html#esp32-rev-v1" title="Permalink to this headline">¶</a></h3>
+<p>Silicon-ის ამ ვერსიაში არსებული შეცდომები პრობლემებს იწვევს, თუ მანქანური ინსტრუქციების გარკვეული თანმიმდევრობები გარე მეხსიერებაზე მუშაობს. (ESP32 ECO 3.2). გვერდის ავლით, GCC კომპილაცია r-მა მიიღო ფლაგმა. <code class="docutils literal notranslate"><span class="pre">-mfix-esp32-psram-cache-issue</span></code> ამ თანმიმდევრობების გასაფილტრად და მხოლოდ იმ კოდის გამოსატანად, რომლის უსაფრთხოდ შესრულებაც შესაძლებელია. ჩართეთ ეს დროშა მონიშვნით <a class="reference internal" href="../api-reference/kconfig.html#config-spiram-cache-workaround"><span class="std std-ref">CONFIG_SPIRAM_CACHE_WORKAROUND</span></a>.</p>
+<p>Newlib-ის re კომპილაცია d ვერსიასთან დამატებითი დროშით დაკავშირების გარდა, ESP-IDF ასევე ასრულებს შემდეგს:</p>
+<ul class="simple">
+<li>თავს არიდებს ROM-ის ზოგიერთი ფუნქციის გამოყენებას</li>
+<li>WiFi დასტისთვის სტატიკურ მეხსიერებას გამოყოფს</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="fatal-errors.html" rel="next" title="Fatal Errors">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="event-handling.html" rel="prev" title="Event Handling"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

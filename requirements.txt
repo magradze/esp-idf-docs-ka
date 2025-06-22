@@ -1,0 +1,9 @@
+# Required libraries for the translation script
+beautifulsoup4==4.12.3
+tqdm==4.66.2
+
+# google-cloud-translate is the official library for the Google Translate API
+google-cloud-translate
+
+# requests is needed for the monitoring script to download web pages
+requests

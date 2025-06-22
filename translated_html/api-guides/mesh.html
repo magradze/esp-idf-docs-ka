@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-MESH — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="core_dump.html" rel="next" title="ESP32 Core Dump"/>
+<link href="esp-ble-mesh/ble-mesh-terminology.html" rel="prev" title="ESP-BLE-MESH Terminology"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/mesh.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/mesh"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/mesh.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="mesh.html#">ESP-MESH ( Wi-Fi )</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#introduction">შესავალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#esp-mesh-concepts">ESP-MESH კონცეფციები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#terminology">ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#tree-topology">ხის ტოპოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#node-types">კვანძის ტიპები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#beacon-frames-rssi-thresholding">შუქურის ჩარჩოები და RSSI ზღურბლი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#preferred-parent-node">სასურველი მშობელი კვანძი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#routing-tables">მარშრუტიზაციის ცხრილები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#building-a-network">ქსელის შექმნა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#general-process">ზოგადი პროცესი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#automatic-root-node-selection">ავტომატური ძირეული კვანძის შერჩევა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#user-designated-root-node">მომხმარებლის მიერ დანიშნული ძირეული კვანძი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#parent-node-selection">მშობელი კვანძის შერჩევა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#asynchronous-power-on-reset">ასინქრონული ჩართვის გადატვირთვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#loop-back-avoidance-detection-and-handling">უკუქცევის თავიდან აცილება, აღმოჩენა და მართვა</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#managing-a-network">ქსელის მართვა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#root-node-failure">ძირეული კვანძის უკმარისობა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#intermediate-parent-node-failure">შუალედური მშობელი კვანძის შეცდომა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#root-node-switching">ძირეული კვანძის გადართვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#parent-node-switching">მშობელი კვანძის გადართვა</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#data-transmission">მონაცემთა გადაცემა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#esp-mesh-packet">ESP-MESH პაკეტი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#group-control-multicasting">ჯგუფური კონტროლი და მულტიქასთინგი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#broadcasting">მაუწყებლობა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#upstream-flow-control">ზემო დინების კონტროლი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#bi-directional-data-stream">ორმხრივი მონაცემთა ნაკადი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#channel-switching">არხის გადართვა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#background">ფონი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#esp-mesh-network-channel-switching">ESP-MESH ქსელის არხის გადართვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#impact-of-network-channel-switching">ქსელური არხის გადართვის გავლენა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh.html#channel-and-router-switching-configuration">არხისა და როუტერის გადართვის კონფიგურაცია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#performance">შესრულება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mesh.html#further-notes">დამატებითი შენიშვნები</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ESP-MESH</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/mesh.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-mesh">
+<h1>ESP-MESH<a class="headerlink" href="mesh.html#esp-mesh" title="Permalink to this headline">¶</a></h1>
+<p>ეს სახელმძღვანელო გთავაზობთ ინფორმაციას ESP-MESH პროტოკოლის შესახებ. გთხოვთ, იხილოთ
+<a class="reference internal" href="../api-reference/network/esp_mesh.html"><span class="doc">MESH API მითითება</span></a> API გამოყენების შესახებ დამატებითი ინფორმაციისთვის.</p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="mesh.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-MESH არის ქსელური პროტოკოლი, რომელიც აგებულია Wi-Fi პროტოკოლის საფუძველზე. ESP-MESH საშუალებას აძლევს მრავალ მოწყობილობას (შემდგომში კვანძებს), რომლებიც განლაგებულია დიდ ფიზიკურ ფართობზე (როგორც შენობაში, ასევე გარეთ), ერთმანეთთან დაუკავშირდეს ერთი WLAN-ის (უკაბელო ლოკალური ქსელი) ფარგლებში. ESP-MESH არის თვითორგანიზებადი და თვითაღდგენილი, რაც ნიშნავს, რომ ქსელის აშენება და შენარჩუნება შესაძლებელია ავტონომიურად.</p>
+<p>ESP-MESH სახელმძღვანელო დაყოფილია შემდეგ სექციებად:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="mesh.html#mesh-introduction"><span class="std std-ref">შესავალი</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-concepts"><span class="std std-ref">ESP-MESH კონცეფციები</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-building-a-network"><span class="std std-ref">ქსელის შექმნა</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-managing-a-network"><span class="std std-ref">ქსელის მართვა</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-data-transmission"><span class="std std-ref">მონაცემთა გადაცემა</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-channel-switching"><span class="std std-ref">არხის გადართვა</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-network-performance"><span class="std std-ref">შესრულება</span></a></li>
+<li><a class="reference internal" href="mesh.html#mesh-further-notes"><span class="std std-ref">დამატებითი შენიშვნები</span></a></li>
+</ol>
+</div>
+<div class="section" id="introduction">
+<span id="mesh-introduction"></span><h2>შესავალი<a class="headerlink" href="mesh.html#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="align-center figure" id="id1">
+<img alt="Diagram of Traditional Network Architectures" src="../_images/mesh-traditional-network-architecture.png"/>
+<p class="caption"><span class="caption-text">ტრადიციული Wi-Fi ქსელური არქიტექტურა</span></p>
+</div>
+<p>ტრადიციული ინფრასტრუქტურული Wi-Fi ქსელი არის წერტილიდან მრავალწერტილამდე დამაკავშირებელი ქსელი, სადაც ერთი ცენტრალური კვანძი, რომელიც ცნობილია როგორც წვდომის წერტილი (AP), პირდაპირ არის დაკავშირებული ყველა სხვა კვანძთან, რომლებიც ცნობილია როგორც სადგურები. AP პასუხისმგებელია სადგურებს შორის გადაცემის არბიტრაჟსა და გადამისამართებაზე. ზოგიერთი AP ასევე ახდენს გადაცემის გადაცემას გარე IP ქსელიდან/რეიტერიდან როუტერის საშუალებით. ტრადიციული ინფრასტრუქტურული Wi-Fi ქსელები განიცდიან შეზღუდული დაფარვის არეალის ნაკლოვანებას, რადგან ყველა სადგური უნდა იყოს დიაპაზონში AP-თან პირდაპირი დასაკავშირებლად. გარდა ამისა, ტრადიციული Wi-Fi ქსელები მგრძნობიარეა გადატვირთვის მიმართ, რადგან ქსელში დაშვებული სადგურების მაქსიმალური რაოდენობა შეზღუდულია AP-ის სიმძლავრით.</p>
+<div class="align-center figure" id="id2">
+<img alt="Diagram of ESP-MESH Network Architecture" src="../_images/mesh-esp-mesh-network-architecture.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH ქსელის არქიტექტურა</span></p>
+</div>
+<p>ESP-MESH ტრადიციული ინფრასტრუქტურული ქსელებისგან Wi-Fi ) იმით განსხვავდება, რომ კვანძებს ცენტრალურ კვანძთან დაკავშირება არ მოეთხოვებათ. ამის ნაცვლად, კვანძებს უფლება აქვთ, მეზობელ კვანძებთან დაკავშირდნენ. კვანძები ურთიერთპასუხისმგებელნი არიან ერთმანეთის გადაცემის გადაცემაზე. ეს საშუალებას აძლევს ESP-MESH ქსელს ჰქონდეს გაცილებით დიდი დაფარვის არეალი, რადგან კვანძებს კვლავ შეუძლიათ ურთიერთდაკავშირების მიღწევა ცენტრალური კვანძის დიაპაზონში ყოფნის გარეშე. ანალოგიურად, ESP-MESH ასევე ნაკლებად მგრძნობიარეა გადატვირთვის მიმართ, რადგან ქსელში დაშვებული კვანძების რაოდენობა აღარ არის შეზღუდული ერთი ცენტრალური კვანძით.</p>
+</div>
+<div class="section" id="esp-mesh-concepts">
+<span id="mesh-concepts"></span><h2>ESP-MESH კონცეფციები<a class="headerlink" href="mesh.html#esp-mesh-concepts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="terminology">
+<h3>ტერმინოლოგია<a class="headerlink" href="mesh.html#terminology" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%"/>
+<col width="71%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>კვანძი</td>
+<td>ნებისმიერი მოწყობილობა, რომელიც <strong>არის</strong> ან <strong>შეიძლება იყოს</strong> ESP-MESH ქსელის ნაწილი</td>
+</tr>
+<tr class="row-odd"><td>ძირეული კვანძი</td>
+<td>ქსელის ყველაზე მაღალი კვანძი</td>
+</tr>
+<tr class="row-even"><td>შვილობილი კვანძი</td>
+<td>კვანძი X შვილობილი კვანძია, როდესაც ის დაკავშირებულია სხვა კვანძ Y-თან, სადაც კავშირი კვანძ X-ს უფრო დაშორებულს ხდის ძირეული კვანძიდან, ვიდრე კვანძი Y (კავშირების რაოდენობის თვალსაზრისით).</td>
+</tr>
+<tr class="row-odd"><td>მშობელი კვანძი</td>
+<td>შვილობილი კვანძის საპირისპირო ცნება</td>
+</tr>
+<tr class="row-even"><td>ქვე-შვილობილი კვანძი</td>
+<td>ნებისმიერი კვანძი, რომლის მიღწევაც შესაძლებელია მშობლიდან შვილზე განმეორებითი გადასვლით</td>
+</tr>
+<tr class="row-odd"><td>და-ძმის კვანძები</td>
+<td>კვანძები, რომლებიც იზიარებენ ერთსა და იმავე მშობელ კვანძს</td>
+</tr>
+<tr class="row-even"><td>კავშირი</td>
+<td>ტრადიციული Wi-Fi ასოციაცია წვდომის წერტილსა და სადგურს შორის. ESP-MESH-ში კვანძი გამოიყენებს თავის სადგურის ინტერფეისს სხვა კვანძის softAP ინტერფეისთან ასოცირებისთვის, რითაც შექმნის კავშირს. დაკავშირების პროცესი მოიცავს Wi-Fi ში ავტორიზაციისა და ასოციაციის პროცესებს.</td>
+</tr>
+<tr class="row-odd"><td>ზემოთ კავშირი</td>
+<td>კავშირი კვანძიდან მის მშობელ კვანძთან</td>
+</tr>
+<tr class="row-even"><td>ქვედა დინების კავშირი</td>
+<td>კავშირი კვანძიდან მის ერთ-ერთ შვილობილ კვანძთან</td>
+</tr>
+<tr class="row-odd"><td>უსადენო ჰოპი</td>
+<td>წყაროსა და დანიშნულების კვანძებს შორის გზის ის ნაწილი, რომელიც შეესაბამება ერთ უკაბელო კავშირს. მონაცემთა პაკეტი, რომელიც ერთ კავშირს გადის, ცნობილია, როგორც
+<strong>ერთი ნახტომი</strong> მაშინ როდესაც მრავალი კავშირის გავლა ცნობილია, როგორც <strong>მრავალხტომიანი</strong>.</td>
+</tr>
+<tr class="row-even"><td>ქვექსელი</td>
+<td>ქვექსელი არის ESP-MESH ქსელის ქვედანაყოფი, რომელიც შედგება კვანძისა და მისი ყველა შთამომავალი კვანძისგან. შესაბამისად, ძირეული კვანძის ქვექსელი შედგება ESP-MESH ქსელის ყველა კვანძისგან.</td>
+</tr>
+<tr class="row-odd"><td>MAC მისამართი</td>
+<td>მედიაზე წვდომის კონტროლის მისამართი, რომელიც გამოიყენება ESP-MESH ქსელში თითოეული კვანძის ან როუტერის უნიკალურად იდენტიფიცირებისთვის.</td>
+</tr>
+<tr class="row-even"><td>DS</td>
+<td>განაწილების სისტემა (გარე IP ქსელი)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tree-topology">
+<h3>ხის ტოპოლოგია<a class="headerlink" href="mesh.html#tree-topology" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH აგებულია ინფრასტრუქტურის Wi-Fi პროტოკოლის საფუძველზე და შეიძლება განვიხილოთ, როგორც ქსელური პროტოკოლი, რომელიც აერთიანებს მრავალ ინდივიდუალურ Wi-Fi ქსელს ერთ WLAN-ში. Wi-Fi ში სადგურები შემოიფარგლებიან ერთი კავშირით წვდომის წერტილთან (ზემოთა კავშირი) ნებისმიერ დროს, მაშინ როდესაც წვდომის წერტილს შეუძლია ერთდროულად დაუკავშირდეს რამდენიმე სადგურს (ქვემოთა კავშირი). თუმცა, ESP-MESH საშუალებას აძლევს კვანძებს ერთდროულად იმოქმედონ როგორც სადგურმა, ასევე წვდომის წერტილმა. ამიტომ, ESP-MESH-ში კვანძს შეიძლება ჰქონდეს <strong>მრავალი ქვედა დონის კავშირი მისი softAP ინტერფეისის გამოყენებით</strong>, ამავდროულად, <strong>ერთი ზემოთ ნაკადის კავშირი მისი სადგურის ინტერფეისის გამოყენებით</strong>ეს ბუნებრივად იწვევს ხისებრი ქსელის ტოპოლოგიას მშობელი-შვილის იერარქიით, რომელიც შედგება მრავალი ფენისგან.</p>
+<div class="align-center figure" id="id3">
+<img alt="Diagram of ESP-MESH Tree Topology" src="../_images/mesh-tree-topology.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH ხის ტოპოლოგია</span></p>
+</div>
+<p>ESP-MESH არის მრავალჰოპიანი (მრავალჰოპიანი) ქსელი, რაც იმას ნიშნავს, რომ კვანძებს შეუძლიათ პაკეტების გადაცემა ქსელის სხვა კვანძებისთვის ერთი ან მეტი უკაბელო ჰოპის მეშვეობით. ამიტომ, ESP-MESH-ის კვანძები არა მხოლოდ გადასცემენ საკუთარ პაკეტებს, არამედ ერთდროულად სხვა კვანძების რელეებადაც მოქმედებენ. იმ პირობით, რომ ფიზიკურ დონეზე ნებისმიერ ორ კვანძს შორის არსებობს გზა (ერთი ან მეტი უკაბელო ჰოპის მეშვეობით), ESP-MESH ქსელში კვანძების ნებისმიერ წყვილს შეუძლია კომუნიკაცია.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-MESH ქსელში ზომა (კვანძების საერთო რაოდენობა) დამოკიდებულია ქსელში დაშვებული ფენების მაქსიმალურ რაოდენობაზე და თითოეული კვანძისთვის დასაშვები ქვედა დინების კავშირების მაქსიმალურ რაოდენობაზე. ორივე ეს ცვლადი შეიძლება კონფიგურირებული იყოს ქსელის ზომის შესაზღუდად.</p>
+</div>
+</div>
+<div class="section" id="node-types">
+<h3>კვანძის ტიპები<a class="headerlink" href="mesh.html#node-types" title="Permalink to this headline">¶</a></h3>
+<div class="align-center figure" id="id4">
+<img alt="Diagram of ESP-MESH Node Types" src="../_images/mesh-node-types.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH კვანძის ტიპები</span></p>
+</div>
+<p><strong>ძირეული კვანძი:</strong> ძირეული კვანძი ქსელის ზედა კვანძია და ESP-MESH ქსელსა და გარე IP ქსელს შორის ერთადერთ ინტერფეისს წარმოადგენს. ძირეული კვანძი დაკავშირებულია ჩვეულებრივ Wi-Fi როუტერთან და პაკეტებს გარე IP ქსელიდან ESP-MESH ქსელის კვანძებს გადასცემს. <strong>ESP-MESH ქსელში შეიძლება იყოს მხოლოდ ერთი ძირეული კვანძი</strong> და root კვანძის ზემოთ კავშირი შეიძლება მხოლოდ როუტერთან იყოს. ზემოთ მოცემული დიაგრამის მიხედვით, კვანძი A არის ქსელის root კვანძი.</p>
+<p><strong>ფოთლის კვანძები:</strong> ფოთლოვანი კვანძი არის კვანძი, რომელსაც არ აქვს უფლება ჰქონდეს შვილობილი კვანძები (არ აქვს ქვემოდინების კავშირები). ამიტომ, ფოთლოვან კვანძს შეუძლია მხოლოდ საკუთარი პაკეტების გადაცემა ან მიღება, მაგრამ არ შეუძლია სხვა კვანძების პაკეტების გადამისამართება. თუ კვანძი მდებარეობს ქსელის მაქსიმალურ დაშვებულ ფენაზე, ის მიენიჭება ფოთლოვან კვანძს. ეს ხელს უშლის კვანძს ქვემოდინების კავშირების ჩამოყალიბებაში, რითაც უზრუნველყოფს, რომ ქსელი არ დაამატებს დამატებით ფენას. ზოგიერთი კვანძი softAP ინტერფეისის გარეშე (მხოლოდ სადგური) ასევე მიენიჭება ფოთლოვან კვანძებს, რადგან ნებისმიერი ქვემოდინების კავშირისთვის softAP ინტერფეისის მოთხოვნაა. ზემოთ მოცემული დიაგრამის მიხედვით, L/M/N კვანძები განლაგებულია ქსელის მაქსიმალურ დაშვებულ ფენაზე, ამიტომ მიენიჭათ ფოთლოვან კვანძებს.</p>
+<p><strong>შუალედური მშობელი კვანძები:</strong> დაკავშირებული კვანძები, რომლებიც არც ძირეული კვანძია და არც ფოთლოვანი კვანძი, შუალედური მშობელი კვანძებია. შუალედურ მშობელ კვანძს უნდა ჰქონდეს ერთი ზემოთ მიმართული კავშირი (ერთი მშობელი კვანძი), მაგრამ შეიძლება ჰქონდეს ნულიდან მრავალჯერადი ქვემოთ მიმართული კავშირი (ნულიდან მრავალჯერად შვილობილ კვანძამდე). ამიტომ, შუალედურ მშობელ კვანძს შეუძლია პაკეტების გადაცემა და მიღება, ასევე მისი ზემოთ და ქვემოთ მიმართული კავშირებიდან გაგზავნილი პაკეტების გადამისამართება. ზემოთ მოცემული დიაგრამის მიხედვით, B-დან J-მდე კვანძები შუალედური მშობელი კვანძებია. <strong>შუალედური მშობელი კვანძები ქვედა დინების კავშირების გარეშე, როგორიცაა კვანძები E/F/G/I/J, არ არის ფოთლოვანი კვანძების ეკვივალენტური.</strong> რადგან მათ მომავალში კვლავ აქვთ უფლება შექმნან ქვედა დინების კავშირები.</p>
+<p><strong>უმოქმედო კვანძები:</strong> ქსელში ჯერ არ მიერთებულ კვანძებს ენიჭებათ უმოქმედო კვანძები. უმოქმედო კვანძები შეეცდებიან შექმნან ზედა ნაკადის კავშირი შუალედურ მშობელ კვანძთან ან შეეცდებიან გახდნენ ძირეული კვანძი შესაბამის გარემოებებში (იხ. <a class="reference internal" href="mesh.html#automatic-root-node-selection">ავტომატური ძირეული კვანძის შერჩევა</a>ზემოთ მოცემული დიაგრამის მიხედვით, K და O კვანძები უმოქმედო კვანძებია.</p>
+</div>
+<div class="section" id="beacon-frames-rssi-thresholding">
+<h3>შუქურის ჩარჩოები და RSSI ზღურბლი<a class="headerlink" href="mesh.html#beacon-frames-rssi-thresholding" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH-ის ყველა კვანძი, რომელსაც შეუძლია ქვედა დინების კავშირების დამყარება (ანუ აქვს softAP ინტერფეისი), პერიოდულად გადასცემს Wi-Fi შუქურის ჩარჩოებს. კვანძი იყენებს შუქურის ჩარჩოებს, რათა სხვა კვანძებმა შეძლონ მისი არსებობის აღმოჩენა და მისი სტატუსის შესახებ ინფორმაციის მიღება. უმოქმედო კვანძები მოუსმენენ შუქურის ჩარჩოებს პოტენციური მშობელი კვანძების სიის გენერირებისთვის, რომელთაგან ერთ-ერთთანაც უმოქმედო კვანძი დაამყარებს ზედა დინების კავშირს. ESP-MESH იყენებს მომწოდებლის ინფორმაციის ელემენტს ისეთი მეტამონაცემების შესანახად, როგორიცაა:</p>
+<ul class="simple">
+<li>კვანძის ტიპი (ძირეული, შუალედური მშობელი, ფოთოლი, უმოქმედო)</li>
+<li>კვანძის მიმდინარე ფენა</li>
+<li>ქსელში დაშვებული ფენების მაქსიმალური რაოდენობა</li>
+<li>შვილობილი კვანძების მიმდინარე რაოდენობა</li>
+<li>მისაღები ქვემოდინების კავშირების მაქსიმალური რაოდენობა</li>
+</ul>
+<p>პოტენციური ზემოთ კავშირის სიგნალის სიძლიერე წარმოდგენილია პოტენციური მშობელი კვანძის შუქურის ჩარჩოების RSSI-ით (მიღებული სიგნალის სიძლიერის ინდიკაცია). სუსტი ზემოთ კავშირის ჩამოყალიბების თავიდან ასაცილებლად, ESP-MESH ახორციელებს RSSI ზღურბლის მექანიზმს შუქურის ჩარჩოებისთვის. თუ კვანძი აღმოაჩენს შუქურის ჩარჩოს, რომლის RSSI წინასწარ კონფიგურირებულ ზღურბლზე დაბალია, გადამცემი კვანძი იგნორირებული იქნება ზემოთ კავშირის ფორმირებისას.</p>
+<div class="align-center figure" id="id5">
+<img alt="Diagram of the Effects of RSSI Thresholding" src="../_images/mesh-beacon-frame-rssi.png"/>
+<p class="caption"><span class="caption-text">RSSI ზღურბლის ეფექტები</span></p>
+</div>
+<p><strong>პანელი A</strong> ზემოთ მოცემული ილუსტრაციის სურათი აჩვენებს, თუ როგორ მოქმედებს RSSI ბარიერი მშობელი კვანძის კანდიდატების რაოდენობაზე უმოქმედო კვანძში.</p>
+<p><strong>პანელი B</strong> ზემოთ მოცემული ილუსტრაციის სურათი აჩვენებს, თუ როგორ შეუძლია RF დამცავ ობიექტს პოტენციური მშობელი კვანძის RSSI-ის შემცირება. RF დამცავი ობიექტის გამო, მნიშვნელოვნად მცირდება ის არე, რომელშიც X კვანძის RSSI ზღურბლს აჭარბებს. ეს იწვევს იმას, რომ უმოქმედო კვანძი უგულებელყოფს X კვანძს, მიუხედავად იმისა, რომ X კვანძი ფიზიკურად მიმდებარეა. უმოქმედო კვანძი, უფრო ძლიერი RSSI-ის გამო, შექმნის ზემოთ კავშირს ფიზიკურად დაშორებულ Y კვანძთან.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ტექნიკურად, კვანძები კვლავ იღებენ MAC დონის ყველა შუქურის ჩარჩოს. RSSI ზღურბლი არის ESP-MESH ფუნქცია, რომელიც უბრალოდ ფილტრავს ყველა მიღებულ შუქურის ჩარჩოს, რომელიც წინასწარ კონფიგურირებულ ზღურბლზე დაბალია.</p>
+</div>
+</div>
+<div class="section" id="preferred-parent-node">
+<h3>სასურველი მშობელი კვანძი<a class="headerlink" href="mesh.html#preferred-parent-node" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც უმოქმედო კვანძს ჰყავს მრავალი მშობელი კვანძის კანდიდატი (პოტენციური მშობელი კვანძი), უმოქმედო კვანძი შექმნის ზემოთ კავშირს <strong>სასურველი მშობელი კვანძი</strong>სასურველი მშობელი კვანძი განისაზღვრება შემდეგი კრიტერიუმების საფუძველზე:</p>
+<ul class="simple">
+<li>რომელ ფენაზე მდებარეობს მშობელი კვანძის კანდიდატი</li>
+<li>მშობელი კვანძის კანდიდატის მიერ ამჟამად არსებული ქვედა დინამიური კავშირების (შვილობილი კვანძების) რაოდენობა</li>
+</ul>
+<p>სასურველი მშობელი კვანძის შერჩევა ყოველთვის პრიორიტეტს მიანიჭებს ქსელის ყველაზე ზედაპირულ ფენაზე (ძირეული კვანძის ჩათვლით) მდებარე მშობელი კვანძის კანდიდატს. ეს ხელს უწყობს ESP-MESH ქსელში ფენების საერთო რაოდენობის მინიმუმამდე დაყვანას, როდესაც ზედა ნაკადის კავშირები იქმნება. მაგალითად, მეორე ფენის კვანძის და მესამე ფენის კვანძის გათვალისწინებით, მეორე ფენის კვანძი ყოველთვის უპირატესობას მიიღებს.</p>
+<p>თუ ერთსა და იმავე ფენაში რამდენიმე მშობელი კვანძის კანდიდატია, უპირატესობა მიენიჭება მშობელ კვანძის კანდიდატს, რომელსაც ყველაზე ნაკლები შვილობილი კვანძი აქვს. ეს კრიტერიუმი ერთი და იმავე ფენის კვანძებს შორის ქვედა დინების კავშირების რაოდენობის დაბალანსებას ახდენს.</p>
+<div class="align-center figure" id="id6">
+<img alt="Diagram of Preferred Parent Node Selection" src="../_images/mesh-preferred-parent-node.png"/>
+<p class="caption"><span class="caption-text">სასურველი მშობელი კვანძის შერჩევა</span></p>
+</div>
+<p><strong>პანელი A</strong> ზემოთ მოცემული ილუსტრაციის სურათი აჩვენებს მაგალითს, თუ როგორ ირჩევს უმოქმედო კვანძი G სასურველ მშობელ კვანძს ხუთი მშობელი კვანძის კანდიდატის, B/C/D/E/F, გათვალისწინებით. ყველაზე ზედაპირული ფენის კვანძებს ენიჭება უპირატესობა, შესაბამისად, B/C კვანძებს ენიჭებათ პრიორიტეტი, რადგან ისინი მეორე ფენის კვანძებია, ხოლო D/E/F კვანძები მესამე ფენაზეა. კვანძი C შერჩეულია სასურველ მშობელ კვანძად, რადგან მას B კვანძთან შედარებით ნაკლები ქვედა დინების კავშირი (ნაკლები შვილობილი კვანძი) აქვს.</p>
+<p><strong>პანელი B</strong> ზემოთ მოცემული ილუსტრაციის სურათი ასახავს შემთხვევას, როდესაც ძირეული კვანძი უმოქმედო კვანძის G დიაპაზონშია. სხვა სიტყვებით რომ ვთქვათ, ძირეული კვანძის შუქურის ჩარჩოები RSSI ზღურბლს აღემატება, როდესაც კვანძი G იღებს. ძირეული კვანძი ყოველთვის ყველაზე ზედაპირული კვანძია ESP-MESH ქსელში, შესაბამისად, ის ყოველთვის სასურველი მშობელი კვანძია მრავალი მშობელი კვანძის კანდიდატის შემთხვევაში.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მომხმარებლებს ასევე შეუძლიათ განსაზღვრონ საკუთარი ალგორითმი სასურველი მშობელი კვანძის შესარჩევად, ან აიძულონ კვანძი, დაუკავშირდეს მხოლოდ კონკრეტულ მშობელ კვანძს (იხ. <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/mesh/manual_networking">Mesh-ის ხელით დაყენების მაგალითი</a>).</p>
+</div>
+</div>
+<div class="section" id="routing-tables">
+<h3>მარშრუტიზაციის ცხრილები<a class="headerlink" href="mesh.html#routing-tables" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ქსელის თითოეული კვანძი შეინარჩუნებს საკუთარ ინდივიდუალურ მარშრუტიზაციის ცხრილს, რომელიც გამოიყენება ESP-MESH პაკეტების სწორად მარშრუტიზაციისთვის (იხ. <a class="reference internal" href="mesh.html#esp-mesh-packet">ESP-MESH პაკეტი</a>) სწორ დანიშნულების კვანძამდე. კონკრეტული კვანძის მარშრუტიზაციის ცხრილი <strong>შედგება კონკრეტული კვანძის ქვექსელის ფარგლებში არსებული ყველა კვანძის MAC მისამართებისგან.</strong> (მათ შორის, კონკრეტული კვანძის MAC მისამართი). თითოეული მარშრუტიზაციის ცხრილი შინაგანად იყოფა რამდენიმე ქვეცხრილად, სადაც თითოეული ქვეცხრილი შეესაბამება თითოეული შვილობილი კვანძის ქვექსელს.</p>
+<div class="align-center figure" id="id7">
+<img alt="Diagram of ESP-MESH Routing Tables Example" src="../_images/mesh-routing-tables-example.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH მარშრუტიზაციის ცხრილების მაგალითი</span></p>
+</div>
+<p>ზემოთ მოცემული დიაგრამის მაგალითის გამოყენებით, B კვანძის მარშრუტიზაციის ცხრილი შედგება B-დან I კვანძების MAC მისამართებისგან (ანუ B კვანძის ქვექსელის ექვივალენტურია). B კვანძის მარშრუტიზაციის ცხრილი შინაგანად იყოფა ორ ქვეცხრილად, რომლებიც შეიცავს C-დან F კვანძებს და G-დან I კვანძებს (ანუ შესაბამისად C და G კვანძების ქვექსელების ექვივალენტურია).</p>
+<p><strong>ESP-MESH იყენებს მარშრუტიზაციის ცხრილებს იმის დასადგენად, უნდა გადამისამართდეს თუ არა ESP-MESH პაკეტი ზემოთ თუ ქვემოთ შემდეგი წესების საფუძველზე.</strong></p>
+<p><strong>1.</strong> თუ პაკეტის დანიშნულების MAC მისამართი მიმდინარე კვანძის მარშრუტიზაციის ცხრილშია და არ არის მიმდინარე კვანძი, აირჩიეთ ქვეცხრილი, რომელიც შეიცავს დანიშნულების MAC მისამართს და გადააგზავნეთ მონაცემთა პაკეტი ქვემოთ, ქვეცხრილის შესაბამის შვილობილ კვანძზე.</p>
+<p><strong>2.</strong> თუ დანიშნულების MAC მისამართი არ არის მიმდინარე კვანძის მარშრუტიზაციის ცხრილში, გადაამისამართეთ მონაცემთა პაკეტი მიმდინარე კვანძის მშობელ კვანძთან. განმეორებითი მოქმედების შემთხვევაში, პაკეტი მოხვდება ძირეულ კვანძში, სადაც მარშრუტიზაციის ცხრილი უნდა შეიცავდეს ქსელში არსებულ ყველა კვანძს.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>მომხმარებლებს შეუძლიათ დარეკონ <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv426esp_mesh_get_routing_tableP11mesh_addr_tiPi" title="esp_mesh_get_routing_table"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_get_routing_table()</span></code></a> კვანძის მარშრუტიზაციის ცხრილის მისაღებად, ან <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv431esp_mesh_get_routing_table_sizev" title="esp_mesh_get_routing_table_size"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_get_routing_table_size()</span></code></a> კვანძის მარშრუტიზაციის ცხრილის ზომის მისაღებად.</p>
+<p class="last"><a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv430esp_mesh_get_subnet_nodes_listPK11mesh_addr_tP11mesh_addr_ti" title="esp_mesh_get_subnet_nodes_list"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_get_subnet_nodes_list()</span></code></a> შეიძლება გამოყენებულ იქნას კონკრეტული შვილობილი კვანძის შესაბამისი ქვეცხრილის მისაღებად. ანალოგიურად <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv429esp_mesh_get_subnet_nodes_numPK11mesh_addr_tPi" title="esp_mesh_get_subnet_nodes_num"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_get_subnet_nodes_num()</span></code></a> შეიძლება გამოყენებულ იქნას ქვეცხრილის ზომის მისაღებად.</p>
+</div>
+</div>
+</div>
+<div class="section" id="building-a-network">
+<span id="mesh-building-a-network"></span><h2>ქსელის შექმნა<a class="headerlink" href="mesh.html#building-a-network" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-process">
+<h3>ზოგადი პროცესი<a class="headerlink" href="mesh.html#general-process" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ESP-MESH ქსელის აგების პროცესის დაწყებამდე, კონფიგურაციის გარკვეული ნაწილები ქსელის თითოეულ კვანძზე ერთგვაროვანი უნდა იყოს (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv410mesh_cfg_t" title="mesh_cfg_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_cfg_t</span></code></a>). თითოეული კვანძი უნდა იყოს კონფიგურირებული <strong>იგივე Mesh ქსელის ID, როუტერის კონფიგურაცია და softAP კონფიგურაცია</strong>.</p>
+</div>
+<p>ESP-MESH ქსელის აგების პროცესი მოიცავს ძირეული კვანძის შერჩევას, შემდეგ კი ქვედა დინების კავშირების ფენა-ფენა ფორმირებას მანამ, სანამ ყველა კვანძი არ შეუერთდება ქსელს. ქსელის ზუსტი განლაგება შეიძლება დამოკიდებული იყოს ისეთ ფაქტორებზე, როგორიცაა ძირეული კვანძის შერჩევა, მშობელი კვანძის შერჩევა და ასინქრონული ჩართვის გადატვირთვა. თუმცა, ESP-MESH ქსელის აგების პროცესი შეიძლება განზოგადდეს შემდეგ ეტაპებად:</p>
+<div class="align-center figure" id="id8">
+<img alt="Diagram of ESP-MESH Network Building Process" src="../_images/mesh-network-building.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH ქსელის აგების პროცესი</span></p>
+</div>
+<div class="section" id="root-node-selection">
+<h4>1. ძირეული კვანძის შერჩევა<a class="headerlink" href="mesh.html#root-node-selection" title="Permalink to this headline">¶</a></h4>
+<p>ძირეული კვანძის მონიშვნა შესაძლებელია კონფიგურაციის დროს (იხილეთ განყოფილება <a class="reference internal" href="mesh.html#user-designated-root-node">მომხმარებლის მიერ დანიშნული ძირეული კვანძი</a>), ან დინამიურად არჩეულია თითოეულ კვანძსა და როუტერს შორის სიგნალის სიძლიერის მიხედვით (იხ. <a class="reference internal" href="mesh.html#automatic-root-node-selection">ავტომატური ძირეული კვანძის შერჩევა</a>). არჩევის შემდეგ, root კვანძი დაუკავშირდება როუტერს და დაიწყებს ქვედა დინების კავშირების ჩამოყალიბებას. ზემოთ მოცემული ფიგურის მიხედვით, კვანძი A შერჩეულია, როგორც root კვანძი, შესაბამისად, კვანძი A ქმნის ზედა დინების კავშირს როუტერთან.</p>
+</div>
+<div class="section" id="second-layer-formation">
+<h4>2. მეორე ფენის ფორმირება<a class="headerlink" href="mesh.html#second-layer-formation" title="Permalink to this headline">¶</a></h4>
+<p>როგორც კი root კვანძი როუტერს დაუკავშირდება, root კვანძის დიაპაზონში მყოფი უმოქმედო კვანძები დაიწყებენ root კვანძთან დაკავშირებას, რითაც ქმნიან ქსელის მეორე ფენას. დაკავშირების შემდეგ, მეორე ფენის კვანძები შუალედურ მშობელ კვანძებად იქცევიან (დაშვებული ფენების მაქსიმალური რაოდენობის &amp;gt; 2-ის გათვალისწინებით), შესაბამისად, წარმოიქმნება შემდეგი ფენა. ზემოთ მოცემული ფიგურის მიხედვით, B-დან D-მდე კვანძები root კვანძის დიაპაზონშია. შესაბამისად, B-დან D-მდე კვანძები ამყარებენ ზემოთ კავშირებს root კვანძთან და ხდებიან შუალედური მშობელი კვანძები.</p>
+</div>
+<div class="section" id="formation-of-remaining-layers">
+<h4>3. დარჩენილი ფენების ფორმირება<a class="headerlink" href="mesh.html#formation-of-remaining-layers" title="Permalink to this headline">¶</a></h4>
+<p>დარჩენილი უმოქმედო კვანძები დაუკავშირდებიან შუალედურ მშობელ კვანძებს დიაპაზონში, რითაც ქსელში ახალ ფენას ჩამოაყალიბებენ. დაკავშირების შემდეგ, უმოქმედო კვანძები გადაიქცევიან შუალედურ მშობელ კვანძებად ან ფოთლოვან კვანძებად, ქსელის მაქსიმალური დაშვებული ფენების მიხედვით. ეს ნაბიჯი მეორდება მანამ, სანამ ქსელში აღარ იქნება უმოქმედო კვანძები ან სანამ ქსელის მაქსიმალური დაშვებული ფენა არ იქნება მიღწეული. ზემოთ მოცემული ფიგურის მიხედვით, კვანძები E/F/G შესაბამისად უკავშირდება კვანძებს B/C/D და თავად ხდება შუალედური მშობელი კვანძები.</p>
+</div>
+<div class="section" id="limiting-tree-depth">
+<h4>4. ხის სიღრმის შეზღუდვა<a class="headerlink" href="mesh.html#limiting-tree-depth" title="Permalink to this headline">¶</a></h4>
+<p>ქსელის მიერ ფენების მაქსიმალური დასაშვები რაოდენობის გადაჭარბების თავიდან ასაცილებლად, მაქსიმალურ ფენაზე არსებული კვანძები ავტომატურად გადაიქცევიან ფოთლოვან კვანძებად დაკავშირების შემდეგ. ეს ხელს უშლის ნებისმიერი სხვა უმოქმედო კვანძის დაკავშირებას ფოთლოვან კვანძთან და რითაც ხელს უშლის ახალი ფენის ფორმირებას. თუმცა, თუ უმოქმედო კვანძს არ ჰყავს სხვა პოტენციური მშობელი კვანძი, ის განუსაზღვრელი ვადით უმოქმედო დარჩება. ზემოთ მოცემული ფიგურის მიხედვით, ქსელის მაქსიმალური დასაშვები ფენები დაყენებულია ოთხზე. ამიტომ, როდესაც კვანძი H უკავშირდება, ის ხდება ფოთლოვან კვანძი, რათა თავიდან აიცილოს ნებისმიერი ქვედა დინების კავშირების ფორმირება.</p>
+</div>
+</div>
+<div class="section" id="automatic-root-node-selection">
+<h3>ავტომატური ძირეული კვანძის შერჩევა<a class="headerlink" href="mesh.html#automatic-root-node-selection" title="Permalink to this headline">¶</a></h3>
+<p>ძირეული კვანძის ავტომატური შერჩევა გულისხმობს ყველა უმოქმედო კვანძს შორის არჩევნების პროცესს, როუტერთან მათი სიგნალის სიძლიერის მიხედვით. თითოეული უმოქმედო კვანძი გადასცემს თავის MAC მისამართებს და როუტერის RSSI მნიშვნელობებს Wi-Fi შუქურის ჩარჩოების მეშვეობით. <strong>MAC მისამართი გამოიყენება ქსელში თითოეული კვანძის უნიკალურად იდენტიფიცირებისთვის.</strong> მაშინ როდესაც <strong>როუტერი RSSI</strong> გამოიყენება კვანძის სიგნალის სიძლიერის მითითებისთვის როუტერთან მიმართებით.</p>
+<p>შემდეგ თითოეული კვანძი ერთდროულად დაასკანირებს სხვა უმოქმედო კვანძებიდან მომდინარე შუქურის ჩარჩოებს. თუ კვანძი აღმოაჩენს შუქურის ჩარჩოს უფრო ძლიერი როუტერის RSSI-ით, კვანძი დაიწყებს ამ შუქურის ჩარჩოს შინაარსის გადაცემას (ანუ ხმას მისცემს კვანძს უფრო ძლიერი როუტერის RSSI-ით). გადაცემისა და სკანირების პროცესი განმეორდება წინასწარ კონფიგურირებული მინიმალური რაოდენობის იტერაციებით (ნაგულისხმევად 10 იტერაცია) და შედეგად, ყველაზე ძლიერი როუტერის RSSI-ით შუქურის ჩარჩო გავრცელდება მთელ ქსელში.</p>
+<p>ყველა გამეორების შემდეგ, თითოეული კვანძი ინდივიდუალურად შეამოწმებს თავის <strong>ხმების პროცენტული მაჩვენებელი</strong> (<code class="docutils literal notranslate"><span class="pre">number</span> <span class="pre">of</span> <span class="pre">votes/number</span> <span class="pre">of</span> <span class="pre">nodes</span> <span class="pre">participating</span> <span class="pre">in</span> <span class="pre">election</span></code>) იმის დასადგენად, უნდა გახდეს თუ არა ის ძირეული კვანძი. <strong>თუ კვანძის ხმის მიცემის პროცენტული მაჩვენებელი წინასწარ კონფიგურირებულ ზღურბლზე (ნაგულისხმევად 90%) მეტია, კვანძი ძირეული კვანძი გახდება.</strong>.</p>
+<p>შემდეგი დიაგრამა აჩვენებს, თუ როგორ იქმნება ESP-MESH ქსელი, როდესაც root კვანძი ავტომატურად არის შერჩეული.</p>
+<div class="align-center figure" id="id9">
+<img alt="Diagram of Root Node Election Process Example" src="../_images/mesh-root-node-election-example.png"/>
+<p class="caption"><span class="caption-text">ძირეული კვანძის არჩევის მაგალითი</span></p>
+</div>
+<p><strong>1.</strong> ჩართვისას გადატვირთვისას, თითოეული კვანძი იწყებს შუქურის ჩარჩოების გადაცემას, რომლებიც შედგება საკუთარი MAC მისამართებისა და როუტერის RSSI-ებისგან.</p>
+<p><strong>2.</strong> გადაცემისა და სკანირების მრავალი იტერაციის შემდეგ, ყველაზე ძლიერი როუტერის RSSI-ის მქონე შუქურის ჩარჩო მთელ ქსელში ვრცელდება. C კვანძს აქვს ყველაზე ძლიერი როუტერის RSSI (-10db), ამიტომ მისი შუქურის ჩარჩო მთელ ქსელში ვრცელდება. არჩევნებში მონაწილე ყველა კვანძი ხმას აძლევს C კვანძს, რაც კვანძ C-ს 100%-იან ხმის მიცემის პროცენტს აძლევს. შესაბამისად, C კვანძი ხდება root კვანძი და უკავშირდება როუტერს.</p>
+<p><strong>3.</strong> როგორც კი კვანძი C როუტერს დაუკავშირდება, კვანძები A/B/D/E უკავშირდება კვანძ C-ს, რადგან ის არის სასურველი მშობელი კვანძი (ანუ ყველაზე ზედაპირული კვანძი). კვანძები A/B/D/E ქმნიან ქსელის მეორე ფენას.</p>
+<p><strong>4.</strong> კვანძები F და G, შესაბამისად, უკავშირდება კვანძებს D და E და ქსელის აგების პროცესი დასრულებულია.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">არჩევნების პროცესისთვის იტერაციების მინიმალური რაოდენობის კონფიგურაცია შესაძლებელია გამოყენებით <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_set_attempts()</span></code>მომხმარებლებმა იტერაციების რაოდენობა ქსელში არსებული კვანძების რაოდენობის მიხედვით უნდა დაარეგულირონ (ანუ რაც უფრო დიდია ქსელი, მით უფრო მეტი სკანირების იტერაციაა საჭირო).</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last"><strong>ხმების პროცენტული ზღვარი</strong> ასევე შესაძლებელია კონფიგურაცია გამოყენებით <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv428esp_mesh_set_vote_percentagef" title="esp_mesh_set_vote_percentage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_set_vote_percentage()</span></code></a>დაბალი პროცენტული ზღურბლის დაწესება <strong>შეიძლება გამოიწვიოს ორი ან მეტი კვანძის root კვანძად გადაქცევა</strong> იმავე ESP-MESH ქსელში, რაც იწვევს მრავალი ქსელის შექმნას. თუ ასეა, ESP-MESH-ს აქვს შიდა მექანიზმები ავტონომიურად გადასაჭრელად. <strong>root კვანძის კონფლიქტი</strong>მრავალი ძირეული კვანძის ქსელები გაერთიანდება ერთ ქსელში ერთი ძირეული კვანძით. თუმცა, ძირეული კვანძის კონფლიქტი წარმოიქმნება იმ შემთხვევაში, თუ ორ ან მეტ ძირეულ კვანძს აქვს ერთი და იგივე როუტერის SSID, მაგრამ განსხვავებული როუტერის BSSID არ დამუშავდება.</p>
+</div>
+</div>
+<div class="section" id="user-designated-root-node">
+<h3>მომხმარებლის მიერ დანიშნული ძირეული კვანძი<a class="headerlink" href="mesh.html#user-designated-root-node" title="Permalink to this headline">¶</a></h3>
+<p>ძირეული კვანძის დანიშვნა ასევე შესაძლებელია მომხმარებლის მიერ, რაც გულისხმობს დანიშნული ძირეული კვანძის პირდაპირ დაკავშირებას როუტერთან და არჩევნების პროცესისგან თავის შეკავებას. როდესაც ძირეული კვანძი დანიშნულია, ქსელში არსებული ყველა სხვა კვანძი ასევე უნდა უარი თქვას არჩევნების პროცესზე, რათა თავიდან იქნას აცილებული ძირეული კვანძის კონფლიქტი. შემდეგი დიაგრამა აჩვენებს, თუ როგორ იქმნება ESP-MESH ქსელი, როდესაც ძირეული კვანძი დანიშნულია მომხმარებლის მიერ.</p>
+<div class="align-center figure" id="id10">
+<img alt="Diagram of Root Node Designation Process Example" src="../_images/mesh-root-node-designated-example.png"/>
+<p class="caption"><span class="caption-text">ძირეული კვანძის აღნიშვნის მაგალითი (ძირეული კვანძი = A, მაქსიმალური შრეები = 4)</span></p>
+</div>
+<p><strong>1.</strong> კვანძი A მომხმარებლის მიერ არის განსაზღვრული, როგორც root კვანძი, შესაბამისად, პირდაპირ უკავშირდება როუტერს. ყველა სხვა კვანძი გამოტოვებს არჩევის პროცესს.</p>
+<p><strong>2.</strong> C/D კვანძები A კვანძს უკავშირდებიან, როგორც მათ სასურველ მშობელ კვანძს. ორივე კვანძი ქსელის მეორე ფენას ქმნის.</p>
+<p><strong>3.</strong> ანალოგიურად, B/E კვანძები უკავშირდება C კვანძს, ხოლო F კვანძი უკავშირდება D კვანძს. B/E/F კვანძები ქსელის მესამე ფენას ქმნიან.</p>
+<p><strong>4.</strong> კვანძი G უკავშირდება კვანძ E-ს, რაც ქსელის მეოთხე ფენას ქმნის. თუმცა, ამ ქსელში ფენების მაქსიმალური დასაშვები რაოდენობა ოთხია, ამიტომ კვანძი G ფოთლოვან კვანძად იქცევა, რათა ახალი ფენების წარმოქმნა თავიდან აიცილოს.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ძირეული კვანძის დანიშვნისას, ძირეულმა კვანძმა უნდა გამოიძახოს <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv419esp_mesh_set_parentPK13wifi_config_tPK11mesh_addr_t11mesh_type_ti" title="esp_mesh_set_parent"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_set_parent()</span></code></a> როუტერთან პირდაპირ დასაკავშირებლად. ანალოგიურად, ყველა სხვა კვანძმა უნდა გამოიძახოს <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv417esp_mesh_fix_rootb" title="esp_mesh_fix_root"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_fix_root()</span></code></a> არჩევნების პროცესის თავიდან აცილება.</p>
+</div>
+</div>
+<div class="section" id="parent-node-selection">
+<h3>მშობელი კვანძის შერჩევა<a class="headerlink" href="mesh.html#parent-node-selection" title="Permalink to this headline">¶</a></h3>
+<p>ნაგულისხმევად, ESP-MESH თვითორგანიზებადი პროცესია, რაც იმას ნიშნავს, რომ თითოეული კვანძი ავტონომიურად შეარჩევს, თუ რომელ პოტენციურ მშობელ კვანძთან დაამყაროს ზემოთ კავშირი. ავტონომიურად შერჩეული მშობელი კვანძი ცნობილია, როგორც სასურველი მშობელი კვანძი. სასურველი მშობელი კვანძის შერჩევისთვის გამოყენებული კრიტერიუმები შექმნილია ESP-MESH ქსელში ფენების რაოდენობის შესამცირებლად და პოტენციურ მშობელ კვანძებს შორის ქვემოთ კავშირების რაოდენობის დასაბალანსებლად (იხილეთ განყოფილება <a class="reference internal" href="mesh.html#preferred-parent-node">სასურველი მშობელი კვანძი</a>).</p>
+<p>თუმცა, ESP-MESH ასევე საშუალებას აძლევს მომხმარებლებს გამორთონ თვითორგანიზებადი ქცევა, რაც საშუალებას მისცემს მომხმარებლებს განსაზღვრონ საკუთარი კრიტერიუმები მშობელი კვანძის შერჩევისთვის, ან დააკონფიგურირონ კვანძები ისე, რომ ჰქონდეთ დანიშნული მშობელი კვანძები (იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/mesh/manual_networking">Mesh-ის ხელით დაყენების მაგალითი</a>).</p>
+</div>
+<div class="section" id="asynchronous-power-on-reset">
+<h3>ასინქრონული ჩართვის გადატვირთვა<a class="headerlink" href="mesh.html#asynchronous-power-on-reset" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ქსელის აგებაზე შეიძლება გავლენა იქონიოს კვანძების ჩართვის თანმიმდევრობამ. თუ ქსელის გარკვეული კვანძები ასინქრონულად (ანუ რამდენიმე წუთიანი ინტერვალით) ჩაირთვება, <strong>ქსელის საბოლოო სტრუქტურა შეიძლება განსხვავდებოდეს იდეალური შემთხვევისგან, სადაც ყველა კვანძი სინქრონულად არის ჩართული.</strong>კვანძები, რომელთა ჩართვაც დაგვიანებულია, დაემორჩილებიან შემდეგ წესებს:</p>
+<p><strong>წესი 1:</strong> თუ ქსელში უკვე არსებობს root კვანძი, დაგვიანებული კვანძი არ შეეცდება ახალი root კვანძის არჩევას, მაშინაც კი, თუ მას როუტერთან უფრო ძლიერი RSSI აქვს. დაგვიანებული კვანძი ქსელს შეუერთდება ნებისმიერი სხვა უმოქმედო კვანძის მსგავსად, სასურველ მშობელ კვანძთან დაკავშირებით. თუ დაგვიანებული კვანძი არის დანიშნული root კვანძი, ქსელში ყველა სხვა კვანძი უმოქმედო დარჩება დაგვიანებული კვანძის ჩართვამდე.</p>
+<p><strong>წესი 2:</strong> თუ დაგვიანებული კვანძი შექმნის ზემოთ კავშირს და გახდება შუალედური მშობელი კვანძი, ის ასევე შეიძლება გახდეს სხვა კვანძების ახალი სასურველი მშობელი (ანუ იყოს უფრო ზედაპირული კვანძი). ეს აიძულებს სხვა კვანძებს შეცვალონ თავიანთი ზემოთ კავშირები დაგვიანებულ კვანძთან დასაკავშირებლად (იხ. <a class="reference internal" href="mesh.html#parent-node-switching">მშობელი კვანძის გადართვა</a>).</p>
+<p><strong>წესი 3:</strong> თუ უმოქმედო კვანძს აქვს დანიშნული მშობელი კვანძი, რომლის ჩართვა დაგვიანებულია, უმოქმედო კვანძი არ შეეცდება რაიმე სახის კავშირების დამყარებას დანიშნული მშობელი კვანძის არარსებობის შემთხვევაში. უმოქმედო კვანძი განუსაზღვრელი ვადით უმოქმედო დარჩება მანამ, სანამ მისი დანიშნული მშობელი კვანძი არ ჩაირთვება.</p>
+<p>შემდეგი მაგალითი აჩვენებს ასინქრონული ჩართვის გავლენას ქსელის მშენებლობაზე.</p>
+<div class="align-center figure" id="id11">
+<img alt="Diagram of Asynchronous Power On Example" src="../_images/mesh-asynchronous-power-on-example.png"/>
+<p class="caption"><span class="caption-text">ქსელის აგების მაგალითი ასინქრონული კვების ჩართვის გამოყენებით</span></p>
+</div>
+<p><strong>1.</strong> კვანძები A/C/D/F/G/H სინქრონულად ირთვება და იწყებს root კვანძის არჩევის პროცესს მათი MAC მისამართებისა და როუტერის RSSI-ების გადაცემით. კვანძი A ირჩევა root კვანძად, რადგან მას აქვს ყველაზე ძლიერი RSSI.</p>
+<p><strong>2.</strong> როგორც კი კვანძი A ძირეულ კვანძად იქცევა, დარჩენილი კვანძები ფენა-ფენა იწყებენ ზემოთ კავშირების ფორმირებას მათთვის სასურველ მშობელ კვანძებთან. შედეგად მიიღება ხუთი ფენის მქონე ქსელი.</p>
+<p><strong>3.</strong> კვანძ B/E ჩართვა დაგვიანებულია, მაგრამ არცერთი არ ცდილობს გახდეს root კვანძი, მიუხედავად იმისა, რომ მათ აქვთ უფრო ძლიერი როუტერის RSSI (-20db და -10db) კვანძ A-სთან შედარებით. ამის ნაცვლად, ორივე დაგვიანებული კვანძი ქმნის ზემოთ კავშირებს შესაბამისად მათ სასურველ მშობელ კვანძებთან A და C. ორივე კვანძი B/E ხდება შუალედური მშობელი კვანძი დაკავშირების შემდეგ.</p>
+<p><strong>4.</strong> D/G კვანძები ცვლიან თავიანთ ზემოთ მიმართულ კავშირებს, რადგან B კვანძი ხდება ახალი სასურველი მშობელი კვანძი, რადგან ის უფრო ზედაპირულ ფენაზეა (მეორე ფენის კვანძი). გადართვის გამო, შედეგად მიღებულ ქსელს სამი ფენა აქვს თავდაპირველი ხუთი ფენის ნაცვლად.</p>
+<p><strong>სინქრონული ჩართვა:</strong> ყველა კვანძის სინქრონულად ჩართვის შემთხვევაში, კვანძი E გახდებოდა root კვანძი, რადგან მას აქვს ყველაზე ძლიერი როუტერის RSSI (-10db). ეს გამოიწვევს ქსელის განლაგების მნიშვნელოვნად განსხვავებულ ფორმირებას ასინქრონული ჩართვის პირობებში ჩამოყალიბებულ ქსელთან შედარებით. <strong>თუმცა, სინქრონული ჩართვის ქსელის განლაგების მიღწევა მაინც შესაძლებელია, თუ მომხმარებელი ხელით გადართავს root კვანძს.</strong> (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv419esp_mesh_waive_rootPK11mesh_vote_ti" title="esp_mesh_waive_root"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_waive_root()</span></code></a>).</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ასინქრონული ჩართვით გამოწვეული მშობელი კვანძის შერჩევის განსხვავებები გარკვეულწილად ავტონომიურად კორექტირდება ESP-MESH-ში (იხ. <a class="reference internal" href="mesh.html#parent-node-switching">მშობელი კვანძის გადართვა</a>)</p>
+</div>
+</div>
+<div class="section" id="loop-back-avoidance-detection-and-handling">
+<h3>უკუქცევის თავიდან აცილება, აღმოჩენა და მართვა<a class="headerlink" href="mesh.html#loop-back-avoidance-detection-and-handling" title="Permalink to this headline">¶</a></h3>
+<p>უკუკავშირი არის სიტუაცია, როდესაც კონკრეტული კვანძი ქმნის ზემოთ კავშირს მის ერთ-ერთ შთამომავალ კვანძთან (კვანძი კონკრეტული კვანძის ქვექსელში). ეს იწვევს წრიულ კავშირის გზას, რითაც არღვევს ხის ტოპოლოგიას. ESP-MESH ხელს უშლის უკუკავშირს მშობლის შერჩევის დროს, შერჩევის კვანძის მარშრუტიზაციის ცხრილში უკვე არსებული კვანძების გამორიცხვით (იხ. <a class="reference internal" href="mesh.html#routing-tables">მარშრუტიზაციის ცხრილები</a>) ამგვარად, ხელს უშლის კონკრეტულ კვანძს, შეეცდება დაუკავშირდეს მის ქვექსელში არსებულ ნებისმიერ კვანძს.</p>
+<p>უკუკავშირის შემთხვევაში, ESP-MESH იყენებს გზის დადასტურების მექანიზმს და ენერგიის გადაცემის მექანიზმს უკუკავშირის აღმოსაჩენად. უკუკავშირის გამომწვევი ზემოდან მიმართული კავშირის მშობელი კვანძი შემდეგ აცნობებს უკუკავშირის შესახებ შვილობილ კვანძს და დაიწყებს გათიშვას.</p>
+</div>
+</div>
+<div class="section" id="managing-a-network">
+<span id="mesh-managing-a-network"></span><h2>ქსელის მართვა<a class="headerlink" href="mesh.html#managing-a-network" title="Permalink to this headline">¶</a></h2>
+<p><strong>ESP-MESH არის თვითაღდგენითი ქსელი, რაც იმას ნიშნავს, რომ მას შეუძლია ქსელის მარშრუტიზაციისას ხარვეზების აღმოჩენა და გამოსწორება.</strong>წარუმატებლობა ხდება მაშინ, როდესაც ერთი ან მეტი შვილობილი კვანძის მქონე მშობელი კვანძი წყდება, ან როდესაც მშობელ კვანძსა და მის შვილობილ კვანძებს შორის კავშირი არასტაბილური ხდება. ESP-MESH-ის შვილობილი კვანძები ავტომატურად შეარჩევენ ახალ მშობელ კვანძს და შექმნიან მასთან ზემოთ კავშირს ქსელის ურთიერთდაკავშირების შესანარჩუნებლად. ESP-MESH-ს შეუძლია როგორც ძირეული კვანძის, ასევე შუალედური მშობელი კვანძის წარუმატებლობის დამუშავება.</p>
+<div class="section" id="root-node-failure">
+<h3>ძირეული კვანძის უკმარისობა<a class="headerlink" href="mesh.html#root-node-failure" title="Permalink to this headline">¶</a></h3>
+<p>თუ ძირეული კვანძი გაფუჭდება, მასთან დაკავშირებული კვანძები (მეორე ფენის კვანძები) დაუყოვნებლივ აღმოაჩენენ ძირეული კვანძის გაუმართაობას. მეორე ფენის კვანძები თავდაპირველად შეეცდებიან ძირეულ კვანძთან ხელახლა დაკავშირებას. თუმცა, მრავალი წარუმატებელი მცდელობის შემდეგ, მეორე ფენის კვანძები ინიციალიზაციას გაუკეთებენ ძირეული კვანძის არჩევის ახალ რაუნდს. <strong>მეორე ფენის კვანძი, რომელსაც აქვს ყველაზე ძლიერი RSSI როუტერი, აირჩევა ახალ root კვანძად.</strong> ხოლო დარჩენილი მეორე ფენის კვანძები შექმნის ზემოთ კავშირს ახალ ძირეულ კვანძთან (ან მეზობელ მშობელ კვანძთან, თუ ისინი დიაპაზონში არ არიან).</p>
+<p>თუ ძირეული კვანძი და რამდენიმე ქვედა დინების ფენა ერთდროულად გაფუჭდება (მაგ., ძირეული კვანძი, მეორე ფენა და მესამე ფენა), ყველაზე ზედაპირული ფენა, რომელიც კვლავ ფუნქციონირებს, ინიციალიზაციას გაუკეთებს ძირეული კვანძის არჩევას. შემდეგი მაგალითი ასახავს ძირეული კვანძის დაშლის შემდეგ თვითგანკურნების მაგალითს.</p>
+<div class="align-center figure" id="id12">
+<img alt="Diagram of Self Healing From Root Node Failure" src="../_images/mesh-root-node-failure.png"/>
+<p class="caption"><span class="caption-text">თვითგანკურნება ძირეული კვანძის უკმარისობისგან</span></p>
+</div>
+<p><strong>1.</strong> კვანძი C ქსელის ძირეული კვანძია. კვანძები A/B/D/E მეორე დონის კვანძებია, რომლებიც დაკავშირებულია კვანძ C-სთან.</p>
+<p><strong>2.</strong> C კვანძი მწყობრიდან გამოდის. ხელახლა დაკავშირების რამდენიმე წარუმატებელი მცდელობის შემდეგ, მეორე დონის კვანძები იწყებენ არჩევნების პროცესს მათი როუტერის RSSI-ების გადაცემით. B კვანძს აქვს ყველაზე ძლიერი როუტერის RSSI.</p>
+<p><strong>3.</strong> კვანძი B არჩეულია როგორც ძირითადი კვანძი და იწყებს ქვედა დინების კავშირების მიღებას. დარჩენილი მეორე დონის კვანძები A/D/E ქმნიან ზედა დინების კავშირებს კვანძ B-სთან, რითაც ქსელი აღდგება და შეუძლია ნორმალურად გააგრძელოს ფუნქციონირება.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ განსაზღვრული ძირეული კვანძი გაფუჭდება, დარჩენილი კვანძები <strong>ავტონომიურად არ შეეცდება ახალი ძირეული კვანძის არჩევას</strong> რადგან არჩევნების პროცესი არასდროს შესრულდება, როდესაც გამოყენებული იქნება დანიშნული ძირეული კვანძი.</p>
+</div>
+</div>
+<div class="section" id="intermediate-parent-node-failure">
+<h3>შუალედური მშობელი კვანძის შეცდომა<a class="headerlink" href="mesh.html#intermediate-parent-node-failure" title="Permalink to this headline">¶</a></h3>
+<p>თუ შუალედური მშობელი კვანძი გაფუჭდება, გათიშული შვილობილი კვანძები თავდაპირველად შეეცდებიან მშობელ კვანძთან ხელახლა დაკავშირებას. ხელახლა დაკავშირების რამდენიმე წარუმატებელი მცდელობის შემდეგ, თითოეული შვილობილი კვანძი დაიწყებს პოტენციური მშობელი კვანძების სკანირებას (იხ. <a class="reference internal" href="mesh.html#beacon-frames-rssi-thresholding">შუქურის ჩარჩოები და RSSI ზღურბლი</a>).</p>
+<p>თუ სხვა პოტენციური მშობელი კვანძები ხელმისაწვდომია, თითოეული შვილობილი კვანძი ინდივიდუალურად შეარჩევს ახალ სასურველ მშობელ კვანძს (იხ. <a class="reference internal" href="mesh.html#preferred-parent-node">სასურველი მშობელი კვანძი</a>) და მასთან ზედა ნაკადის კავშირის შექმნა. თუ კონკრეტული შვილობილი კვანძისთვის სხვა პოტენციური მშობელი კვანძები არ არსებობს, ის განუსაზღვრელი ვადით უმოქმედო დარჩება.</p>
+<p>შემდეგი დიაგრამა ასახავს შუალედური მშობელი კვანძის დაშლის შედეგად თვითგანკურნების მაგალითს.</p>
+<div class="align-center figure" id="id13">
+<img alt="Diagram of Self Healing From Intermediate Parent Node Failure" src="../_images/mesh-parent-node-failure.png"/>
+<p class="caption"><span class="caption-text">თვითგანკურნება შუალედური მშობელი კვანძის უკმარისობისგან</span></p>
+</div>
+<p><strong>1.</strong> ქსელის შემდეგი განშტოება შედგება A-დან G-მდე კვანძებისგან.</p>
+<p><strong>2.</strong> C კვანძი მწყობრიდან გამოდის. F/G კვანძები აფიქსირებენ მწყობრიდან გამოსვლას და ცდილობენ C კვანძთან ხელახლა დაკავშირებას. კავშირის რამდენიმე წარუმატებელი მცდელობის შემდეგ, F/G კვანძები იწყებენ ახალი სასურველი მშობელი კვანძის არჩევას.</p>
+<p><strong>3.</strong> კვანძი G სხვა მშობელი კვანძისგან შორს არის, ამიტომ ამ ეტაპზე უმოქმედოა. კვანძი F B/E კვანძების დიაპაზონშია, თუმცა, B კვანძი შერჩეულია, რადგან ის უფრო ზედაპირულია. B კვანძთან დაკავშირების შემდეგ, F კვანძი შუალედური მშობელი კვანძი ხდება, ამიტომ G კვანძს შეუძლია F კვანძთან დაკავშირება. ქსელი გამოსწორებულია, თუმცა ქსელის მარშრუტიზაცია დაზარალდა და დაემატა დამატებითი ფენა.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ შვილობილ კვანძს აქვს მშობელი კვანძი, რომელიც გაფუჭდება, შვილობილი კვანძი არ შეეცდება ახალ მშობელ კვანძთან დაკავშირებას. შვილობილი კვანძი განუსაზღვრელი ვადით უმოქმედო დარჩება.</p>
+</div>
+</div>
+<div class="section" id="root-node-switching">
+<h3>ძირეული კვანძის გადართვა<a class="headerlink" href="mesh.html#root-node-switching" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ავტომატურად არ რთავს root კვანძს, თუ root კვანძი არ გაფუჭდება. მაშინაც კი, თუ root კვანძის როუტერის RSSI გათიშვის წერტილამდე დაეცემა, root კვანძი უცვლელი დარჩება. Root კვანძის გადართვა არის ახალი არჩევანის დაწყების აქტი ისე, რომ უფრო ძლიერი როუტერის RSSI მქონე კვანძი აირჩევა ახალ root კვანძად. ეს შეიძლება იყოს სასარგებლო მეთოდი root კვანძის გაუარესებული მუშაობის ადაპტაციისთვის.</p>
+<p>root კვანძის გადართვის გასააქტიურებლად, მიმდინარე root კვანძმა უნდა გამოიძახოს <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv419esp_mesh_waive_rootPK11mesh_vote_ti" title="esp_mesh_waive_root"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_waive_root()</span></code></a> ახალი არჩევნების გასააქტიურებლად. მიმდინარე ძირეული კვანძი ქსელში არსებულ ყველა კვანძს მისცემს სიგნალს, რომ დაიწყონ შუქურის ჩარჩოების გადაცემა და სკანირება (იხ. <a class="reference internal" href="mesh.html#automatic-root-node-selection">ავტომატური ძირეული კვანძის შერჩევა</a>) <strong>ქსელთან დაკავშირებისას (ანუ უმოქმედო მდგომარეობაში არ ყოფნისას)</strong>თუ სხვა კვანძი მიმდინარე ძირეულ კვანძზე მეტ ხმას მიიღებს, დაიწყება ძირეული კვანძის გადართვა. <strong>წინააღმდეგ შემთხვევაში, ძირეული კვანძი უცვლელი დარჩება</strong>.</p>
+<p>ახლად არჩეული ძირეული კვანძი აგზავნის <strong>გადართვის მოთხოვნა</strong> მიმდინარე root კვანძს, რომელიც თავის მხრივ, დადასტურებით უპასუხებს, რაც იმაზე მიუთითებს, რომ ორივე კვანძი მზადაა გადართვისთვის. დადასტურების მიღების შემდეგ, ახლად არჩეული root კვანძი გაითიშება მშობელი კვანძიდან და დაუყოვნებლივ დაამყარებს ზემოთ კავშირს როუტერთან, რითაც ხდება ქსელის ახალი root კვანძი. წინა root კვანძი გაითიშება როუტერიდან. <strong>ყველა მისი ქვედა დინების კავშირის შენარჩუნებით</strong> და გადავა უმოქმედო მდგომარეობაში. შემდეგ წინა ძირეული კვანძი დაიწყებს პოტენციური მშობელი კვანძების სკანირებას და სასურველი მშობლის შერჩევას.</p>
+<p>შემდეგი დიაგრამა ასახავს root კვანძის გადამრთველის მაგალითს.</p>
+<div class="align-center figure" id="id14">
+<img alt="Diagram of Root Node Switch Example" src="../_images/mesh-root-node-switch-example.png"/>
+<p class="caption"><span class="caption-text">Root Node Switch-ის მაგალითი</span></p>
+</div>
+<p><strong>1.</strong> კვანძი C მიმდინარე root კვანძია, მაგრამ როუტერთან სიგნალის სიძლიერე დაქვეითებულია (-85db). კვანძი C ააქტიურებს ახალ არჩევანს და ყველა კვანძი იწყებს გადაცემას და შუქურის ჩარჩოების სკანირებას. <strong>სანამ ჯერ კიდევ დაკავშირებულია</strong>.</p>
+<p><strong>2.</strong> გადაცემისა და სკანირების რამდენიმე რაუნდის შემდეგ, კვანძი B აირჩევა ახალ ძირეულ კვანძად. კვანძი B აგზავნის კვანძ C-ს a-ს. <strong>გადართვის მოთხოვნა</strong> და კვანძი C პასუხობს დადასტურებით.</p>
+<p><strong>3.</strong> კვანძი B წყდება მშობელ კვანძთან და უკავშირდება როუტერს, ხდება ქსელის ახალი root კვანძი. კვანძი C წყდება როუტერთან, გადადის უმოქმედო მდგომარეობაში და იწყებს ახალი სასურველი მშობელი კვანძის სკანირებას და შერჩევას. <strong>კვანძი C ინარჩუნებს ყველა მის ქვედა დინების კავშირს ამ პროცესის განმავლობაში.</strong>.</p>
+<p><strong>4.</strong> კვანძი C ირჩევს კვანძ B-ს თავის სასურველ მშობელ კვანძად, ქმნის ზედა ნაკადის კავშირს და ხდება მეორე დონის კვანძი. ქსელის განლაგება მსგავსია კომუტატორის შემდეგაც, რადგან კვანძი C კვლავ ინარჩუნებს იმავე ქვექსელს. თუმცა, კომუტატორის შედეგად, კვანძ C-ს ქვექსელის თითოეული კვანძი ერთი ფენით უფრო ღრმად არის განთავსებული. <a class="reference internal" href="mesh.html#parent-node-switching">მშობელი კვანძის გადართვა</a> შესაძლოა შემდგომში ქსელის განლაგება შეცვალოს, თუ რომელიმე კვანძს root კვანძის გადართვის შედეგად ახალი სასურველი მშობელი კვანძი ექნება.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ძირეული კვანძის გადართვა უნდა მოითხოვდეს არჩევანს, ამიტომ ის მხარდაჭერილია მხოლოდ თვითორგანიზებული ESP-MESH ქსელის გამოყენებისას. სხვა სიტყვებით რომ ვთქვათ, ძირეული კვანძის გადართვა ვერ განხორციელდება, თუ გამოიყენება დანიშნული ძირეული კვანძი.</p>
+</div>
+</div>
+<div class="section" id="parent-node-switching">
+<h3>მშობელი კვანძის გადართვა<a class="headerlink" href="mesh.html#parent-node-switching" title="Permalink to this headline">¶</a></h3>
+<p>მშობელი კვანძის გადართვა გულისხმობს, რომ შვილობილი კვანძი თავის ზემოთ კავშირს უფრო არაღრმა ფენის სხვა მშობელ კვანძზე გადართავს. <strong>მშობელი კვანძის გადართვა ავტონომიურად ხდება</strong> რაც იმას ნიშნავს, რომ შვილობილი კვანძი ავტომატურად შეცვლის თავის ზემოთ კავშირს, თუ უფრო ზედაპირული ფენის პოტენციური მშობელი კვანძი ხელმისაწვდომი გახდება (ანუ იმის გამო, რომ <a class="reference internal" href="mesh.html#asynchronous-power-on-reset">ასინქრონული ჩართვის გადატვირთვა</a>).</p>
+<p>ყველა პოტენციური მშობელი კვანძი პერიოდულად გადასცემს შუქურის ჩარჩოებს (იხ. <a class="reference internal" href="mesh.html#beacon-frames-rssi-thresholding">შუქურის ჩარჩოები და RSSI ზღურბლი</a>) რაც საშუალებას აძლევს შვილობილ კვანძს, სკანირება გაუკეთოს უფრო ზედაპირული მშობელი კვანძის ხელმისაწვდომობას. მშობელი კვანძის გადართვის გამო, თვითორგანიზებულ ESP-MESH ქსელს შეუძლია დინამიურად შეცვალოს თავისი ქსელის განლაგება იმის უზრუნველსაყოფად, რომ თითოეულ კავშირს ჰქონდეს კარგი RSSI და ქსელში ფენების რაოდენობა მინიმუმამდე იყოს დაყვანილი.</p>
+</div>
+</div>
+<div class="section" id="data-transmission">
+<span id="mesh-data-transmission"></span><h2>მონაცემთა გადაცემა<a class="headerlink" href="mesh.html#data-transmission" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="esp-mesh-packet">
+<h3>ESP-MESH პაკეტი<a class="headerlink" href="mesh.html#esp-mesh-packet" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ქსელის მონაცემთა გადაცემა იყენებს ESP-MESH პაკეტებს. ESP-MESH პაკეტები <strong>მთლიანად მოთავსებულია Wi-Fi მონაცემთა ჩარჩოს ჩარჩოს სხეულში</strong>ESP-MESH ქსელში მრავალჰოპიანი მონაცემთა გადაცემა გულისხმობს ერთი ESP-MESH პაკეტის გადაცემას თითოეულ უკაბელო ჰოპზე სხვადასხვა Wi-Fi მონაცემთა ჩარჩოთი.</p>
+<p>შემდეგი დიაგრამა გვიჩვენებს ESP-MESH პაკეტის სტრუქტურას და მის დამოკიდებულებას Wi-Fi მონაცემთა ჩარჩოსთან.</p>
+<div class="align-center figure" id="id15">
+<img alt="Diagram of ESP-MESH Packet" src="../_images/mesh-packet.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH პაკეტი</span></p>
+</div>
+<p><strong>სათაური</strong> ESP-MESH პაკეტის კოდი შეიცავს წყაროს და დანიშნულების კვანძების MAC მისამართებს. პარამეტრების ველი შეიცავს ინფორმაციას ESP-MESH პაკეტების სპეციალური ტიპების შესახებ, როგორიცაა ჯგუფური გადაცემა ან გარე IP ქსელიდან წარმოშობილი პაკეტი (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#c.MESH_OPT_SEND_GROUP" title="MESH_OPT_SEND_GROUP"><code class="xref c c-macro docutils literal notranslate"><span class="pre">MESH_OPT_SEND_GROUP</span></code></a> და <a class="reference internal" href="../api-reference/network/esp_mesh.html#c.MESH_OPT_RECV_DS_ADDR" title="MESH_OPT_RECV_DS_ADDR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">MESH_OPT_RECV_DS_ADDR</span></code></a>).</p>
+<p><strong>ტვირთი</strong> ESP-MESH პაკეტი შეიცავს აპლიკაციის ფაქტობრივ მონაცემებს. ეს მონაცემები შეიძლება იყოს ნედლი ორობითი მონაცემები ან კოდირებული იყოს აპლიკაციის დონის პროტოკოლით, როგორიცაა HTTP, MQTT და JSON (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv412mesh_proto_t" title="mesh_proto_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_proto_t</span></code></a>).</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-MESH პაკეტის გარე IP ქსელში გაგზავნისას, სათაურის დანიშნულების მისამართის ველი შეიცავს სამიზნე სერვერის IP მისამართს და პორტს კვანძის MAC მისამართის ნაცვლად (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv411mesh_addr_t" title="mesh_addr_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_addr_t</span></code></a>გარდა ამისა, root კვანძი გამავალი TCP/IP პაკეტის ფორმირებას განახორციელებს.</p>
+</div>
+</div>
+<div class="section" id="group-control-multicasting">
+<h3>ჯგუფური კონტროლი და მულტიქასთინგი<a class="headerlink" href="mesh.html#group-control-multicasting" title="Permalink to this headline">¶</a></h3>
+<p>მულტიკასტინგი არის ფუნქცია, რომელიც საშუალებას იძლევა ერთი ESP-MESH პაკეტი ერთდროულად გადაეცეს ქსელის რამდენიმე კვანძს. ESP-MESH-ში მულტიკასტინგი შეიძლება მიღწეული იქნას სამიზნე კვანძების სიის მითითებით ან კვანძების წინასწარ კონფიგურირებული ჯგუფის მითითებით. მულტიკასტინგის ორივე მეთოდი გამოიძახება შემდეგი გზით: <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv413esp_mesh_sendPK11mesh_addr_tPK11mesh_data_tiA_K10mesh_opt_ti" title="esp_mesh_send"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_send()</span></code></a>.</p>
+<p>სამიზნე კვანძების სიის მითითებით მულტიკასტირებისთვის, მომხმარებლებმა ჯერ ESP-MESH პაკეტის დანიშნულების მისამართად უნდა დააყენონ <strong>მულტიკასტის ჯგუფის მისამართი</strong> (<code class="docutils literal notranslate"><span class="pre">01:00:5E:xx:xx:xx</span></code>). ეს ნიშნავს, რომ ESP-MESH პაკეტი არის მულტიქასთ პაკეტი მისამართების ჯგუფით და რომ მისამართი უნდა იქნას მიღებული სათაურის პარამეტრებიდან. შემდეგ მომხმარებლებმა უნდა ჩამოთვალონ სამიზნე კვანძების MAC მისამართები, როგორც პარამეტრები (იხ. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv410mesh_opt_t" title="mesh_opt_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_opt_t</span></code></a> და <a class="reference internal" href="../api-reference/network/esp_mesh.html#c.MESH_OPT_SEND_GROUP" title="MESH_OPT_SEND_GROUP"><code class="xref c c-macro docutils literal notranslate"><span class="pre">MESH_OPT_SEND_GROUP</span></code></a>). მულტიკასტინგის ეს მეთოდი არ საჭიროებს წინასწარ დაყენებას, მაგრამ შეიძლება გამოიწვიოს დიდი რაოდენობით მონაცემების გადატვირთვა, რადგან თითოეული სამიზნე კვანძის MAC მისამართი უნდა იყოს მითითებული სათაურის პარამეტრების ველში.</p>
+<p>ჯგუფურად მულტიკასტინგი საშუალებას იძლევა ESP-MESH პაკეტი გადაეცეს კვანძების წინასწარ კონფიგურირებულ ჯგუფს. თითოეული დაჯგუფება იდენტიფიცირებულია უნიკალური ID-ით და კვანძის ჯგუფში განთავსება შესაძლებელია შემდეგი გზით: <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv421esp_mesh_set_group_idPK11mesh_addr_ti" title="esp_mesh_set_group_id"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_set_group_id()</span></code></a>ჯგუფში მულტიკასტინგისთვის საჭიროა ESP-MESH პაკეტის დანიშნულების მისამართის სამიზნე ჯგუფის ID-ად დაყენება. გარდა ამისა, <a class="reference internal" href="../api-reference/network/esp_mesh.html#c.MESH_DATA_GROUP" title="MESH_DATA_GROUP"><code class="xref c c-macro docutils literal notranslate"><span class="pre">MESH_DATA_GROUP</span></code></a> დროშა უნდა დაყენდეს. ჯგუფების გამოყენება მულტიტრანსლაციისთვის ნაკლებ ხარჯებს იწვევს, თუმცა საჭიროა კვანძების წინასწარ დამატება ჯგუფებში.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მულტიკასტინგის დროს, ქსელის ყველა კვანძი კვლავ იღებს ESP-MESH პაკეტს MAC დონეზე. თუმცა, კვანძები, რომლებიც არ შედიან MAC მისამართების სიაში ან სამიზნე ჯგუფში, უბრალოდ გაფილტრავენ პაკეტს.</p>
+</div>
+</div>
+<div class="section" id="broadcasting">
+<h3>მაუწყებლობა<a class="headerlink" href="mesh.html#broadcasting" title="Permalink to this headline">¶</a></h3>
+<p>მაუწყებლობა არის ფუნქცია, რომელიც საშუალებას იძლევა ერთი ESP-MESH პაკეტი ერთდროულად გადაეცეს ქსელის ყველა კვანძს. თითოეული კვანძი არსებითად გადასცემს მაუწყებლობის პაკეტს მის ყველა ზემოთ და ქვემოთ კავშირს ისე, რომ პაკეტი რაც შეიძლება სწრაფად გავრცელდეს მთელ ქსელში. თუმცა, ESP-MESH იყენებს შემდეგ მეთოდებს, რათა თავიდან აიცილოს გამტარუნარიანობის ფლანგვა მაუწყებლობის დროს.</p>
+<p><strong>1.</strong> როდესაც შუალედური მშობელი კვანძი მშობლისგან იღებს სამაუწყებლო პაკეტს, ის გადააგზავნის პაკეტს თავის თითოეულ შვილობილ კვანძზე, ამავდროულად ინახავს პაკეტის ასლს თავისთვის.</p>
+<p><strong>2.</strong> როდესაც შუალედური მშობელი კვანძი არის მაუწყებლობის წყარო კვანძი, ის გადასცემს მაუწყებლობის პაკეტს ზემოთ მშობელ კვანძს და ქვემოთ მის თითოეულ შვილობილ კვანძს.</p>
+<p><strong>3.</strong> როდესაც შუალედური მშობელი კვანძი იღებს სამაუწყებლო პაკეტს მისი ერთ-ერთი შვილობილი კვანძიდან, ის გადააგზავნის პაკეტს მშობელ კვანძთან და თითოეულ დარჩენილ შვილობილ კვანძთან, ამავდროულად ინახავს პაკეტის ასლს თავისთვის.</p>
+<p><strong>4.</strong> როდესაც ფოთლოვანი კვანძი მაუწყებლობის წყარო კვანძია, ის პაკეტს პირდაპირ გადასცემს მის მშობელ კვანძს.</p>
+<p><strong>5.</strong> როდესაც ძირეული კვანძი არის მაუწყებლობის წყარო კვანძი, ძირეული კვანძი გადასცემს პაკეტს მის ყველა შვილობილ კვანძს.</p>
+<p><strong>6.</strong> როდესაც root კვანძი იღებს სამაუწყებლო პაკეტს მისი ერთ-ერთი შვილობილი კვანძიდან, ის გადააგზავნის პაკეტს თავის თითოეულ დარჩენილ შვილობილ კვანძზე, ამავდროულად ინახავს პაკეტის ასლს თავისთვის.</p>
+<p><strong>7.</strong> როდესაც კვანძი იღებს სამაუწყებლო პაკეტს, რომლის წყაროს მისამართი ემთხვევა მის საკუთარ MAC მისამართს, კვანძი უარყოფს სამაუწყებლო პაკეტს.</p>
+<p><strong>8.</strong> როდესაც შუალედური მშობელი კვანძი მშობელი კვანძიდან იღებს სამაუწყებლო პაკეტს, რომელიც თავდაპირველად მისი ერთ-ერთი შვილობილი კვანძიდან იყო გადაცემული, ის უარყოფს სამაუწყებლო პაკეტს.</p>
+</div>
+<div class="section" id="upstream-flow-control">
+<h3>ზემო დინების კონტროლი<a class="headerlink" href="mesh.html#upstream-flow-control" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ეყრდნობა მშობელ კვანძებს მათი უშუალო შვილობილი კვანძების მონაცემთა ნაკადის გასაკონტროლებლად. მშობელი კვანძის შეტყობინებების ბუფერის გადავსების თავიდან ასაცილებლად, რომელიც გამოწვეულია ზემოდან გადაცემების გადატვირთვის გამო, მშობელი კვანძი გამოყოფს კვოტას ზემოდან გადაცემებისთვის, რომელიც ცნობილია როგორც <strong>მიმღები ფანჯარა</strong> მისი თითოეული შვილობილი კვანძისთვის. <strong>თითოეულმა შვილობილმა კვანძმა უნდა მიმართოს მიმღებ ფანჯარას, სანამ მას ზემოთ გადაცემის ნებართვა მიეცემა.</strong>მიმღები ფანჯრის ზომის დინამიურად რეგულირება შესაძლებელია. შვილობილი კვანძიდან მშობელ კვანძზე ზემოთ გადაცემა შემდეგი ნაბიჯებისგან შედგება:</p>
+<p><strong>1.</strong> თითოეული გადაცემის წინ, შვილობილი კვანძი მშობელ კვანძს უგზავნის ფანჯრის მოთხოვნას. ფანჯრის მოთხოვნა შედგება თანმიმდევრობის ნომრისგან, რომელიც შეესაბამება შვილობილი კვანძის მონაცემთა პაკეტს, რომლის გადაცემაც ელოდება.</p>
+<p><strong>2.</strong> მშობელი კვანძი იღებს ფანჯრის მოთხოვნას და ადარებს მას შვილობილი კვანძის მიერ გაგზავნილი წინა პაკეტის თანმიმდევრულ ნომერს. შედარება გამოიყენება მიმღები ფანჯრის ზომის გამოსათვლელად, რომელიც უკან, შვილობილ კვანძზე გადაეცემა.</p>
+<p><strong>3.</strong> შვილობილი კვანძი მონაცემთა პაკეტს გადასცემს მშობელი კვანძის მიერ მითითებული ფანჯრის ზომის შესაბამისად. თუ შვილობილი კვანძი ამოწურავს მიმღებ ფანჯარას, მან უნდა მიიღოს კიდევ ერთი მიმღები ფანჯარა მოთხოვნის გაგზავნით, სანამ მას გადაცემის გაგრძელების ნებართვა მიეცემა.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-MESH არ უჭერს მხარს დინების ნაკადის კონტროლს.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">გამო <a class="reference internal" href="mesh.html#parent-node-switching">მშობელი კვანძის გადართვა</a>, პაკეტის დაკარგვა შეიძლება მოხდეს ზემოთ გადაცემის დროს.</p>
+</div>
+<p>იმის გამო, რომ root კვანძი გარე IP ქსელთან ერთადერთ ინტერფეისს წარმოადგენს, კრიტიკულად მნიშვნელოვანია, რომ ქვედა დინების კვანძებმა იცოდნენ root კვანძის გარე IP ქსელთან კავშირის სტატუსის შესახებ. ამის შეუსრულებლობამ შეიძლება გამოიწვიოს კვანძების მცდელობა, გადასცენ მონაცემები root კვანძს IP ქსელიდან გათიშვის დროს. ეს იწვევს არასაჭირო გადაცემას და პაკეტების დაკარგვას. ESP-MESH ამ პრობლემას აგვარებს მექანიზმის შექმნით, რომელიც სტაბილიზაციას უკეთებს გამავალი მონაცემების გამტარუნარიანობას root კვანძსა და გარე IP ქსელს შორის კავშირის სტატუსის საფუძველზე. root კვანძს შეუძლია თავისი გარე IP ქსელის კავშირის სტატუსის გადაცემა ყველა სხვა კვანძზე გამოძახებით. <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv424esp_mesh_post_toDS_stateb" title="esp_mesh_post_toDS_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_post_toDS_state()</span></code></a>.</p>
+</div>
+<div class="section" id="bi-directional-data-stream">
+<h3>ორმხრივი მონაცემთა ნაკადი<a class="headerlink" href="mesh.html#bi-directional-data-stream" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი დიაგრამა ასახავს ESP-MESH ორმხრივი მონაცემთა ნაკადში ჩართულ სხვადასხვა ქსელის ფენას.</p>
+<div class="align-center figure" id="id16">
+<img alt="Diagram of ESP-MESH Bidirectional Data Stream" src="../_images/mesh-bidirectional-data-stream.png"/>
+<p class="caption"><span class="caption-text">ESP-MESH ორმხრივი მონაცემთა ნაკადი</span></p>
+</div>
+<p>გამოყენების გამო <a class="reference internal" href="mesh.html#routing-tables">მარშრუტიზაციის ცხრილები</a>, <strong>ESP-MESH-ს შეუძლია პაკეტის გადამისამართების მთლიანად ბადისებრ ფენაზე დამუშავება.</strong>TCP/IP ფენა საჭიროა მხოლოდ root კვანძზე, როდესაც ის პაკეტს გადასცემს/იღებს გარე IP ქსელიდან/ქსელიდან.</p>
+</div>
+</div>
+<div class="section" id="channel-switching">
+<span id="mesh-channel-switching"></span><h2>არხის გადართვა<a class="headerlink" href="mesh.html#channel-switching" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="background">
+<h3>ფონი<a class="headerlink" href="mesh.html#background" title="Permalink to this headline">¶</a></h3>
+<p>ტრადიციულ Wi-Fi ქსელებში, <strong>არხები</strong> წინასწარ განსაზღვრული სიხშირის დიაპაზონებია. ინფრასტრუქტურის ძირითადი მომსახურების ნაკრებში (BSS), მომსახურე წვდომის წერტილი და მასთან დაკავშირებული სადგურები უნდა იმყოფებოდნენ იმავე ოპერაციულ არხებზე (1-დან 14-მდე), რომლებშიც გადაიცემა შუქურები. ფიზიკურად მიმდებარე BSS-მა (ძირითადი მომსახურების ნაკრებები) ერთ არხზე მუშაობამ შეიძლება გამოიწვიოს ჩარევა და გაუარესებული მუშაობა.</p>
+<p>იმისათვის, რომ BSS-მა შეძლოს ფიზიკური ფენის ცვალებად პირობებთან ადაპტაცია და მუშაობის შენარჩუნება, Wi-Fi შეიცავს მექანიზმებს <strong>ქსელის არხის გადართვა</strong>ქსელური არხის გადართვა არის BSS-ის ახალ ოპერაციულ არხზე გადატანის მცდელობა, ამ პროცესის დროს BSS-ისთვის შეფერხების მინიმიზაციის გზით. თუმცა, უნდა აღინიშნოს, რომ არხის გადართვამ შესაძლოა წარუმატებლად გააგრძელოს ყველა სადგურის ახალ ოპერაციულ არხზე გადატანა.</p>
+<p>ინფრასტრუქტურის Wi-Fi ქსელში, ქსელური არხის გადართვა ხდება წვდომის წერტილის მიერ იმ მიზნით, რომ წვდომის წერტილი და ყველა დაკავშირებული სადგური სინქრონულად გადაერთონ ახალ არხზე. ქსელური არხის გადართვა ხორციელდება ჩაშენებული <strong>არხის გადართვის შესახებ განცხადება (CSA)</strong> ელემენტი წვდომის წერტილის პერიოდულად გადაცემულ შუქურის ჩარჩოებში. CSA ელემენტი გამოიყენება ყველა დაკავშირებულ სადგურში ქსელის არხის გადართვის შესახებ რეკლამირებისთვის და ჩართული იქნება რამდენიმე შუქურის ჩარჩოში გადართვის განხორციელებამდე.</p>
+<p>CSA ელემენტი შეიცავს ინფორმაციას იმის შესახებ, თუ <strong>ახალი არხის ნომერი</strong> და ა <strong>არხის გადართვის რაოდენობა</strong> რაც მიუთითებს ქსელის არხის გადართვამდე დარჩენილი შუქურის კადრების ინტერვალების (TBTT) რაოდენობაზე. შესაბამისად, არხის გადართვის რაოდენობა მცირდება ყოველი შუქურის კადრის მიხედვით და საშუალებას აძლევს დაკავშირებულ სადგურებს, სინქრონიზირება გაუკეთონ არხის გადართვას წვდომის წერტილთან.</p>
+</div>
+<div class="section" id="esp-mesh-network-channel-switching">
+<h3>ESP-MESH ქსელის არხის გადართვა<a class="headerlink" href="mesh.html#esp-mesh-network-channel-switching" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH ქსელური არხის გადართვა ასევე იყენებს შუქურ ჩარჩოებს, რომლებიც შეიცავს CSA ელემენტს. თუმცა, მრავალჰოპიანი ქსელის არსებობა ESP-MESH-ში გადართვის პროცესს უფრო ართულებს იმის გამო, რომ შუქურ ჩარჩოს შეიძლება არ შეეძლოს ქსელის ყველა კვანძამდე მიღწევა (ანუ ერთი ჰოპით). ამიტომ, ESP-MESH ქსელი კვანძებს ეყრდნობა CSA ელემენტის გადასამისამართებლად ისე, რომ ის მთელ ქსელში გავრცელდეს.</p>
+<p>როდესაც შუალედური მშობელი კვანძი ერთი ან მეტი შვილობილი კვანძით იღებს CSA-ს შემცველ შუქურის ჩარჩოს, კვანძი გადააგზავნის CSA ელემენტს ელემენტის შემდეგ გადაცემულ შუქურის ჩარჩოში ჩართვით (ანუ იგივე <strong>ახალი არხის ნომერი</strong> და <strong>არხის გადართვის რაოდენობა</strong>). იმის გათვალისწინებით, რომ ESP-MESH ქსელის ყველა კვანძი იღებს ერთსა და იმავე CSA-ს, კვანძებს შეუძლიათ არხის გადამრთველების სინქრონიზაცია Channel Switch Count-ის გამოყენებით, თუმცა CSA ელემენტების გადამისამართების გამო მცირე დაგვიანებით.</p>
+<p>ESP-MESH ქსელური არხის გადამრთველის გააქტიურება შესაძლებელია როუტერის ან root კვანძის მიერ.</p>
+<div class="section" id="root-node-triggered">
+<h4>ძირეული კვანძი გააქტიურდა<a class="headerlink" href="mesh.html#root-node-triggered" title="Permalink to this headline">¶</a></h4>
+<p><strong>root კვანძის მიერ გააქტიურებული არხის გადართვა შეიძლება მოხდეს მხოლოდ მაშინ, როდესაც ESP-MESH ქსელი არ არის დაკავშირებული როუტერთან.</strong>დარეკვით <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv423esp_mesh_switch_channelPK7uint8_tii" title="esp_mesh_switch_channel"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_mesh_switch_channel()</span></code></a>, ძირეული კვანძი დააყენებს საწყისი Channel Switch Count მნიშვნელობას და დაიწყებს CSA ელემენტის ჩართვას თავის შუქურ ჩარჩოებში. შემდეგ თითოეულ CSA ელემენტს იღებენ მეორე დონის კვანძები და გადამისამართებენ ქვემოთ საკუთარ შუქურ ჩარჩოებში.</p>
+</div>
+<div class="section" id="router-triggered">
+<h4>როუტერი გააქტიურდა<a class="headerlink" href="mesh.html#router-triggered" title="Permalink to this headline">¶</a></h4>
+<p>როდესაც ESP-MESH ქსელი როუტერთან არის დაკავშირებული, მთელმა ქსელმა უნდა გამოიყენოს იგივე არხი, რასაც როუტერი. ამიტომ, <strong>root კვანძს არ ექნება არხის გადართვის გააქტიურების უფლება, როდესაც ის როუტერთან იქნება დაკავშირებული.</strong>.</p>
+<p>როდესაც root კვანძი როუტერიდან იღებს CSA ელემენტის შემცველ beacon ჩარჩოს, <strong>ძირეული კვანძი CSA ელემენტში Channel Switch Count-ის მნიშვნელობას მორგებულ მნიშვნელობაზე დააყენებს, სანამ მას შუქურის ჩარჩოებით ქვემოთ გადაამისამართებს.</strong>ასევე, ის შეამცირებს შემდგომი CSA ელემენტების არხის გადართვის რაოდენობას მორგებულ მნიშვნელობასთან შედარებით. ეს მორგებული მნიშვნელობა შეიძლება ეფუძნებოდეს ისეთ ფაქტორებს, როგორიცაა ქსელის ფენების რაოდენობა, კვანძების მიმდინარე რაოდენობა და ა.შ.</p>
+<p>Channel Switch Count-ის მნიშვნელობის მორგებულ მნიშვნელობაზე დაყენება განპირობებულია იმით, რომ ESP-MESH ქსელს და მის როუტერს შეიძლება ჰქონდეთ განსხვავებული და ცვალებადი შუქურის ინტერვალები. შესაბამისად, როუტერის მიერ მოწოდებული Channel Switch Count-ის მნიშვნელობა არარელევანტურია ESP-MESH ქსელისთვის. მორგებული მნიშვნელობის გამოყენებით, ESP-MESH ქსელში არსებულ კვანძებს შეუძლიათ არხების სინქრონულად გადართვა ESP-MESH ქსელის შუქურის ინტერვალთან მიმართებაში. თუმცა, ეს ასევე გამოიწვევს ESP-MESH ქსელის არხის გადართვის არასინქრონიზაციას როუტერის და მასთან დაკავშირებული სადგურების არხის გადართვასთან.</p>
+</div>
+</div>
+<div class="section" id="impact-of-network-channel-switching">
+<h3>ქსელური არხის გადართვის გავლენა<a class="headerlink" href="mesh.html#impact-of-network-channel-switching" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Due to the ESP-MESH network channel switch being unsynchronized with the router’s channel switch, there will be a <strong>დროებითი არხის შეუსაბამობა</strong> between the ESP-MESH network and the router.</dt>
+<dd><ul class="first last">
+<li>ESP-MESH ქსელის არხის გადართვის დრო დამოკიდებულია ESP-MESH ქსელის შუქურის ინტერვალზე და ძირეული კვანძის მორგებულ არხის გადართვის რაოდენობის მნიშვნელობაზე.</li>
+<li>არხის შეუსაბამობა ხელს უშლის მონაცემთა გაცვლას root კვანძსა და როუტერს შორის ESP-MESH ქსელის გადართვის დროს.</li>
+<li>ESP-MESH ქსელში, ძირეული კვანძი და შუალედური მშობელი კვანძები მოითხოვენ მათთან დაკავშირებულ შვილ კვანძებს გადაცემის შეჩერებას მანამ, სანამ არ მოხდება არხის გადართვა შემდეგი პარამეტრის დაყენებით: <strong>არხის გადართვის რეჟიმი</strong> CSA ელემენტში ველი 1-მდე.</li>
+<li>როუტერის მიერ ხშირმა გააქტიურებულმა ქსელური არხის გადართვამ შეიძლება გააუარესოს ESP-MESH ქსელის მუშაობა. გაითვალისწინეთ, რომ ეს შეიძლება გამოწვეული იყოს თავად ESP-MESH ქსელით (მაგ., ESP-MESH ქსელთან უკაბელო საშუალების დავის გამო). ამ შემთხვევაში, მომხმარებლებმა უნდა გამორთონ როუტერზე არხის ავტომატური გადართვა და მის ნაცვლად გამოიყენონ მითითებული არხი.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>When there is a <strong>დროებითი არხის შეუსაბამობა</strong>, the root node remains technically connected to the router.</dt>
+<dd><ul class="first last">
+<li>გათიშვა ხდება მას შემდეგ, რაც ძირეული კვანძი ვერ შეძლებს როუტერისგან რაიმე შუქურის ჩარჩოს ან ზონდის პასუხების მიღებას როუტერის შუქურის ფიქსირებული ინტერვალების განმავლობაში.</li>
+<li>გათიშვის შემდეგ, root კვანძი ავტომატურად ხელახლა სკანირებას გაუკეთებს ყველა არხს როუტერის არსებობისთვის.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If the root node is unable to receive any of the router’s CSA beacon frames (e.g. due to short switch time given by the router), the router will switch channels without the ESP-MESH network’s knowledge.</dt>
+<dd><ul class="first last">
+<li>როუტერის არხების გადართვის შემდეგ, root კვანძი ვეღარ შეძლებს როუტერის შუქურის ჩარჩოებისა და ზონდის პასუხების მიღებას, რაც შუქურის ფიქსირებული ინტერვალების შემდეგ გათიშვას გამოიწვევს.</li>
+<li>გათიშვის შემდეგ, ძირეული კვანძი ხელახლა დაასკანირებს როუტერის ყველა არხს.</li>
+<li>ძირეული კვანძი შეინარჩუნებს ქვედა დინების კავშირებს მთელი ამ პროცესის განმავლობაში.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">მიუხედავად იმისა, რომ ESP-MESH ქსელის არხის გადართვის მიზანია ქსელში არსებული ყველა კვანძის ახალ ოპერაციულ არხზე გადატანა, უნდა აღინიშნოს, რომ არხის გადართვამ შესაძლოა წარმატებით ვერ გადაიტანოს ყველა კვანძი (მაგალითად, ისეთი მიზეზების გამო, როგორიცაა კვანძის გაუმართაობა).</p>
+</div>
+</div>
+<div class="section" id="channel-and-router-switching-configuration">
+<h3>არხისა და როუტერის გადართვის კონფიგურაცია<a class="headerlink" href="mesh.html#channel-and-router-switching-configuration" title="Permalink to this headline">¶</a></h3>
+<p>ESP-MESH საშუალებას იძლევა, კონფიგურაციის საშუალებით ჩართოთ/გამორთოთ ავტონომიური არხის გადართვა. ანალოგიურად, კონფიგურაციის საშუალებით შესაძლებელია ავტონომიური როუტერის გადართვის (ანუ, როდესაც root კვანძი ავტონომიურად უკავშირდება სხვა როუტერს) ჩართვა/გამორთვა. ავტონომიური არხის გადართვა და როუტერის გადართვა დამოკიდებულია შემდეგ კონფიგურაციის პარამეტრებსა და გაშვების დროის პირობებზე.</p>
+<p><strong>არხის გადართვის დაშვება:</strong> ეს პარამეტრი დაყენებულია მეშვეობით <code class="docutils literal notranslate"><span class="pre">allow_channel_switch</span></code> სფერო <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv410mesh_cfg_t" title="mesh_cfg_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_cfg_t</span></code></a> სტრუქტურა და საშუალებას აძლევს ESP-MESH ქსელს დინამიურად გადართოს არხები, როდესაც დაყენებულია.</p>
+<p><strong>წინასწარ დაყენებული არხი:</strong> ESP-MESH ქსელს შეიძლება ჰქონდეს წინასწარ განსაზღვრული არხი, თუ დააყენებთ <code class="docutils literal notranslate"><span class="pre">channel</span></code> სფერო <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv410mesh_cfg_t" title="mesh_cfg_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_cfg_t</span></code></a> სტრუქტურა სასურველი არხის ნომრის მიხედვით. თუ ეს ველი არ არის დაყენებული, <code class="docutils literal notranslate"><span class="pre">allow_channel_switch</span></code> პარამეტრი გადაფარებულია ისე, რომ არხის გადართვა ყოველთვის დაშვებულია.</p>
+<p><strong>როუტერის გადართვის დაშვება:</strong> ეს პარამეტრი დაყენებულია მეშვეობით <code class="docutils literal notranslate"><span class="pre">allow_router_switch</span></code> სფერო <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv413mesh_router_t" title="mesh_router_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_router_t</span></code></a> და დაყენების შემთხვევაში, ESP-MESH-ს საშუალებას აძლევს დინამიურად გადაერთოს სხვა როუტერზე.</p>
+<p><strong>როუტერის წინასწარ დაყენებული BSSID:</strong> ESP-MESH ქსელს შეიძლება ჰქონდეს წინასწარ დაყენებული როუტერი შემდეგი პარამეტრების დაყენებით: <code class="docutils literal notranslate"><span class="pre">bssid</span></code> სფერო <a class="reference internal" href="../api-reference/network/esp_mesh.html#_CPPv413mesh_router_t" title="mesh_router_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mesh_router_t</span></code></a> სტრუქტურა სასურველი როუტერის BSSID-ისთვის. თუ ეს ველი არ არის დაყენებული, <code class="docutils literal notranslate"><span class="pre">allow_router_switch</span></code> პარამეტრი გადაფარებულია ისე, რომ როუტერის გადამრთველები ყოველთვის დაშვებულია.</p>
+<p><strong>ძირეული კვანძი წარმოდგენილია:</strong> ძირეული კვანძის არსებობამ ასევე შეიძლება გავლენა მოახდინოს არხის ან როუტერის გადამრთველის დაშვებაზე.</p>
+<p>ქვემოთ მოცემულ ცხრილში ნაჩვენებია, თუ როგორ მოქმედებს პარამეტრების/პირობების სხვადასხვა კომბინაცია არხის და/ან როუტერის გადართვის დაშვებაზე. გაითვალისწინეთ, რომ <cite>X</cite> წარმოადგენს პარამეტრის მიმართ „არ მაინტერესებს“-ს.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%"/>
+<col width="18%"/>
+<col width="18%"/>
+<col width="18%"/>
+<col width="16%"/>
+<col width="17%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="5">კონფიგურაცია და პირობები</th>
+<th class="head">შედეგი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>წინასწარ დაყენებული არხი</td>
+<td>არხის გადართვის დაშვება</td>
+<td>წინასწარ დაყენებული როუტერის BSSID</td>
+<td>როუტერის გადართვის დაშვება</td>
+<td>ძირეული კვანძი წარმოდგენილია</td>
+<td>დაშვებული გადამრთველები</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">ჩრ</td>
+<td rowspan="3">X</td>
+<td>ჩრ</td>
+<td>X</td>
+<td rowspan="3">X</td>
+<td>არხი და როუტერი</td>
+</tr>
+<tr class="row-even"><td>Y</td>
+<td>ჩრ</td>
+<td>მხოლოდ არხი</td>
+</tr>
+<tr class="row-odd"><td>Y</td>
+<td>Y</td>
+<td>არხი და როუტერი</td>
+</tr>
+<tr class="row-even"><td rowspan="9">Y</td>
+<td>Y</td>
+<td rowspan="3">ჩრ</td>
+<td rowspan="3">X</td>
+<td>X</td>
+<td>არხი და როუტერი</td>
+</tr>
+<tr class="row-odd"><td>ჩრ</td>
+<td>ჩრ</td>
+<td>მხოლოდ როუტერი</td>
+</tr>
+<tr class="row-even"><td>ჩრ</td>
+<td>Y</td>
+<td>არხი და როუტერი</td>
+</tr>
+<tr class="row-odd"><td>Y</td>
+<td rowspan="6">Y</td>
+<td rowspan="3">ჩრ</td>
+<td>X</td>
+<td>მხოლოდ არხი</td>
+</tr>
+<tr class="row-even"><td>ჩრ</td>
+<td>ჩრ</td>
+<td>არცერთი</td>
+</tr>
+<tr class="row-odd"><td>ჩრ</td>
+<td>Y</td>
+<td>მხოლოდ არხი</td>
+</tr>
+<tr class="row-even"><td>Y</td>
+<td rowspan="3">Y</td>
+<td>X</td>
+<td>არხი და როუტერი</td>
+</tr>
+<tr class="row-odd"><td>ჩრ</td>
+<td>ჩრ</td>
+<td>მხოლოდ როუტერი</td>
+</tr>
+<tr class="row-even"><td>ჩრ</td>
+<td>Y</td>
+<td>არხი და როუტერი</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="performance">
+<span id="mesh-network-performance"></span><h2>შესრულება<a class="headerlink" href="mesh.html#performance" title="Permalink to this headline">¶</a></h2>
+<p>ESP-MESH ქსელის მუშაობის შეფასება შესაძლებელია მრავალი მეტრიკის საფუძველზე, როგორიცაა შემდეგი:</p>
+<p><strong>ქსელის აგების დრო:</strong> ESP-MESH ქსელის ნულიდან ასაშენებლად საჭირო დრო.</p>
+<p><strong>განკურნების დრო:</strong> დრო, რომელიც ქსელს სჭირდება კვანძის გაუმართაობის აღმოსაჩენად და ქსელის აღსადგენად შესაბამისი ქმედებების განსახორციელებლად (მაგალითად, ახალი root კვანძის გენერირების ან ახალი კავშირების ჩამოყალიბებისთვის).</p>
+<p><strong>ლატენტობა თითო ჰოპზე:</strong> მონაცემთა გადაცემის შეყოვნება ერთ უკაბელო ჰოპზე. სხვა სიტყვებით რომ ვთქვათ, დრო, რომელიც საჭიროა მონაცემთა პაკეტის მშობელი კვანძიდან შვილობილ კვანძზე გადასაცემად ან პირიქით.</p>
+<p><strong>ქსელის კვანძის ტევადობა:</strong> ESP-MESH ქსელის მიერ ერთდროულად მხარდაჭერილი კვანძების საერთო რაოდენობა. ეს რიცხვი განისაზღვრება კვანძის მიერ მისაღები ქვედა დინების კავშირების მაქსიმალური რაოდენობით და ქსელში დასაშვები ფენების მაქსიმალური რაოდენობით.</p>
+<p>ქვემოთ მოცემულ ცხრილში მოცემულია ESP-MESH ქსელის საერთო მუშაობის მაჩვენებლები. თუმცა, მომხმარებლებმა უნდა გაითვალისწინონ, რომ მუშაობის მაჩვენებლები შეიძლება მნიშვნელოვნად განსხვავდებოდეს სხვადასხვა ინსტალაციებში ქსელის კონფიგურაციისა და ოპერაციული გარემოს მიხედვით.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%"/>
+<col width="59%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ფუნქცია</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ქსელის შექმნის დრო</td>
+<td>&amp;lt; 60 წამი</td>
+</tr>
+<tr class="row-odd"><td>განკურნების დრო</td>
+<td><p class="first">ძირეული კვანძის დაშლა: &amp;lt; 10 წამი</p>
+<p class="last">შვილობილი კვანძის დაშლა: &amp;lt; 5 წამი</p>
+</td>
+</tr>
+<tr class="row-even"><td>თითო ჰოპზე ლატენტობა</td>
+<td>10-დან 30 მილიწამამდე</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>ზემოთ მოცემული შესრულების მაჩვენებლების გენერირებისთვის გამოყენებული იქნა შემდეგი ტესტის პირობები.</p>
+<ul class="last simple">
+<li>სატესტო მოწყობილობების რაოდენობა: <strong>100</strong></li>
+<li>მაქსიმალური დასაშვები კავშირები: <strong>6</strong></li>
+<li>მაქსიმალური დასაშვები ფენები: <strong>6</strong></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გამტარუნარიანობა დამოკიდებულია პაკეტების შეცდომების სიხშირეზე და ჰოპების რაოდენობაზე.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გარე IP ქსელზე root კვანძის წვდომის გამტარუნარიანობაზე პირდაპირ გავლენას ახდენს ESP-MESH ქსელში კვანძების რაოდენობა და როუტერის გამტარუნარიანობა.</p>
+</div>
+</div>
+<div class="section" id="further-notes">
+<span id="mesh-further-notes"></span><h2>დამატებითი შენიშვნები<a class="headerlink" href="mesh.html#further-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>მონაცემთა გადაცემა იყენებს Wi-Fi WPA2-PSK დაშიფვრას</li>
+<li>IE mesh ქსელი იყენებს AES დაშიფვრას</li>
+</ul>
+<p>როუტერის და ინტერნეტის ხატულა შექმნილია <a class="reference external" href="https://smashicons.com">სმეშიკონსი</a> -დან <a class="reference external" href="https://smashicons.com">www.flaticon.com</a></p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="core_dump.html" rel="next" title="ESP32 Core Dump">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp-ble-mesh/ble-mesh-terminology.html" rel="prev" title="ESP-BLE-MESH Terminology"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

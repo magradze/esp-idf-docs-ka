@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LED მართვა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="mcpwm.html" rel="next" title="MCPWM"/>
+<link href="i2s.html" rel="prev" title="I2S"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/ledc.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/ledc"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/ledc.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="ledc.html#">LED კონტროლი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#functionality-overview">ფუნქციონალურობის მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#ledc-high-and-low-speed-mode">LEDC მაღალი და დაბალი სიჩქარის რეჟიმი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#supported-range-of-frequency-and-duty-resolutions">სიხშირისა და სამუშაო რეზოლუციების მხარდაჭერილი დიაპაზონი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ledc.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>LED კონტროლი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/ledc.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="led-control">
+<h1>LED კონტროლი<a class="headerlink" href="ledc.html#led-control" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/peripherals/ledc.html">[中文]</a></p>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="ledc.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>LED მართვის (LEDC) პერიფერიული მოწყობილობა ძირითადად LED-ების ინტენსივობის სამართავადაა შექმნილი, თუმცა მისი გამოყენება სხვა მიზნებისთვისაც შესაძლებელია PWM სიგნალების გენერირებისთვის. მას აქვს 16 არხი, რომლებსაც შეუძლიათ დამოუკიდებელი ტალღური ფორმების გენერირება, რომელთა გამოყენებაც, მაგალითად, RGB LED მოწყობილობების მართვისთვისაა შესაძლებელი.</p>
+<p>LEDC-ის არხების ნახევარი მაღალი სიჩქარის რეჟიმში მუშაობს. ეს რეჟიმი აპარატურაშია დანერგილი და PWM სამუშაო ციკლის ავტომატურ და ხარვეზების გარეშე შეცვლას გვთავაზობს. არხების მეორე ნახევარი დაბალი სიჩქარის რეჟიმში მუშაობს, სადაც ცვლილების მომენტი დამოკიდებულია აპლიკაციის პროგრამულ უზრუნველყოფაზე. არხების თითოეულ ჯგუფს ასევე შეუძლია სხვადასხვა საათის წყაროების გამოყენება.</p>
+<p>PWM კონტროლერს შეუძლია ავტომატურად გაზარდოს ან შეამციროს სამუშაო ციკლი თანდათანობით, რაც საშუალებას იძლევა შეიცვალოს დრო პროცესორის ჩარევის გარეშე.</p>
+</div>
+<div class="section" id="functionality-overview">
+<h2>ფუნქციონალურობის მიმოხილვა<a class="headerlink" href="ledc.html#functionality-overview" title="Permalink to this headline">¶</a></h2>
+<p>LEDC-ის კონკრეტულ არხზე მუშაობის უზრუნველყოფა შემდეგში: <a class="reference internal" href="ledc.html#ledc-api-high-low-speed-mode"><span class="std std-ref">მაღალი ან დაბალი სიჩქარის რეჟიმი</span></a> კეთდება სამ ეტაპად:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="ledc.html#ledc-api-configure-timer"><span class="std std-ref">ტაიმერის კონფიგურაცია</span></a> PWM სიგნალის სიხშირისა და სამუშაო ციკლის გარჩევადობის მითითებით.</li>
+<li><a class="reference internal" href="ledc.html#ledc-api-configure-channel"><span class="std std-ref">არხის კონფიგურაცია</span></a> PWM სიგნალის გამოსატანად მისი ტაიმერთან და GPIO თან ასოცირებით.</li>
+<li><a class="reference internal" href="ledc.html#ledc-api-change-pwm-signal"><span class="std std-ref">PWM სიგნალის შეცვლა</span></a> რომელიც LED-ის ინტენსივობის შესაცვლელად გამომავალ სიგნალს მართავს. ეს შეიძლება გაკეთდეს პროგრამული უზრუნველყოფის სრული კონტროლის ქვეშ ან აპარატურული ფადინგი ფუნქციებით.</li>
+</ol>
+<p>არასავალდებულო ნაბიჯის სახით, ასევე შესაძლებელია ფადის ბოლოს შეწყვეტის დაყენება.</p>
+<div class="align-center figure" id="id1">
+<img alt="Key Settings of LED PWM Controller's API" src="../../_images/ledc-api-settings.jpg"/>
+<p class="caption"><span class="caption-text">LED PWM კონტროლერის API ის ძირითადი პარამეტრები</span></p>
+</div>
+<div class="section" id="configure-timer">
+<span id="ledc-api-configure-timer"></span><h3>ტაიმერის კონფიგურაცია<a class="headerlink" href="ledc.html#configure-timer" title="Permalink to this headline">¶</a></h3>
+<p>ტაიმერის დაყენება ხდება ფუნქციის გამოძახებით <a class="reference internal" href="ledc.html#_CPPv417ledc_timer_configPK19ledc_timer_config_t" title="ledc_timer_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_config()</span></code></a> და მასზე მონაცემთა სტრუქტურის გადაცემა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_timer_config_t</span></code> რომელიც შეიცავს შემდეგ კონფიგურაციის პარამეტრებს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ტაიმერის ნომერი <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_timer_t</span></code></li>
+<li>სიჩქარის რეჟიმი <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_mode_t</span></code></li>
+<li>PWM სიგნალის სიხშირე</li>
+<li>PWM მოვალეობის გადაწყვეტა</li>
+</ul>
+</div></blockquote>
+<p>სიხშირე და სამუშაო გარჩევადობა ურთიერთდამოკიდებულია. რაც უფრო მაღალია PWM სიხშირე, მით უფრო დაბალი სამუშაო გარჩევადობაა ხელმისაწვდომი და პირიქით. ეს დამოკიდებულება შეიძლება მნიშვნელოვანი იყოს, თუ ამ API გამოყენებას LED-ების ინტენსივობის შეცვლის გარდა სხვა მიზნებისთვისაც გეგმავთ. დამატებითი ინფორმაციისთვის იხილეთ ნაწილი <a class="reference internal" href="ledc.html#ledc-api-supported-range-frequency-duty-resolution"><span class="std std-ref">სიხშირისა და სამუშაო რეზოლუციების მხარდაჭერილი დიაპაზონი</span></a>.</p>
+</div>
+<div class="section" id="configure-channel">
+<span id="ledc-api-configure-channel"></span><h3>არხის კონფიგურაცია<a class="headerlink" href="ledc.html#configure-channel" title="Permalink to this headline">¶</a></h3>
+<p>ტაიმერის დაყენების შემდეგ, დააკონფიგურირეთ არჩეული არხი (ერთ-ერთი <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_channel_t</span></code>ეს კეთდება ფუნქციის გამოძახებით <a class="reference internal" href="ledc.html#_CPPv419ledc_channel_configPK21ledc_channel_config_t" title="ledc_channel_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_channel_config()</span></code></a>.</p>
+<p>ტაიმერის კონფიგურაციის მსგავსად, არხის დაყენების ფუნქციას უნდა გადაეცეს სტრუქტურა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_channel_config_t</span></code> რომელიც შეიცავს არხის კონფიგურაციის პარამეტრებს.</p>
+<p>ამ ეტაპზე, არხმა უნდა დაიწყოს მუშაობა და PWM სიგნალის გენერირება არჩეულ GPIO , როგორც ეს კონფიგურირებულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_channel_config_t</span></code>, ტაიმერის პარამეტრებში მითითებული სიხშირით და მოცემული სამუშაო ციკლით. არხის მუშაობის (სიგნალის გენერირების) შეჩერება შესაძლებელია ნებისმიერ დროს ფუნქციის გამოძახებით <a class="reference internal" href="ledc.html#_CPPv49ledc_stop11ledc_mode_t14ledc_channel_t8uint32_t" title="ledc_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_stop()</span></code></a>.</p>
+</div>
+<div class="section" id="change-pwm-signal">
+<span id="ledc-api-change-pwm-signal"></span><h3>PWM სიგნალის შეცვლა<a class="headerlink" href="ledc.html#change-pwm-signal" title="Permalink to this headline">¶</a></h3>
+<p>როგორც კი არხი დაიწყებს მუშაობას და PWM სიგნალის გენერირებას მუდმივი სამუშაო ციკლითა და სიხშირით, ამ სიგნალის შეცვლის რამდენიმე გზა არსებობს. LED-ების ჩართვისას, ძირითადად, სამუშაო ციკლი იცვლება სინათლის ინტენსივობის შესაცვლელად.</p>
+<p>შემდეგ ორ ნაწილში აღწერილია, თუ როგორ უნდა შეცვალოთ სამუშაო ციკლი პროგრამული და აპარატურული ფადინგით. საჭიროების შემთხვევაში, სიგნალის სიხშირეც შეიძლება შეიცვალოს; ეს განხილულია ნაწილში <a class="reference internal" href="ledc.html#ledc-api-change-pwm-frequency"><span class="std std-ref">PWM სიხშირის შეცვლა</span></a>.</p>
+<div class="section" id="change-pwm-duty-cycle-using-software">
+<h4>PWM სამუშაო ციკლის შეცვლა პროგრამული უზრუნველყოფის გამოყენებით<a class="headerlink" href="ledc.html#change-pwm-duty-cycle-using-software" title="Permalink to this headline">¶</a></h4>
+<p>სამუშაო ციკლის დასაყენებლად გამოიყენეთ სპეციალური ფუნქცია <a class="reference internal" href="ledc.html#_CPPv413ledc_set_duty11ledc_mode_t14ledc_channel_t8uint32_t" title="ledc_set_duty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_set_duty()</span></code></a>. ამის შემდეგ, დარეკეთ <a class="reference internal" href="ledc.html#_CPPv416ledc_update_duty11ledc_mode_t14ledc_channel_t" title="ledc_update_duty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_update_duty()</span></code></a> ცვლილებების გასააქტიურებლად. ამჟამად დაყენებული მნიშვნელობის შესამოწმებლად გამოიყენეთ შესაბამისი <code class="docutils literal notranslate"><span class="pre">_get_</span></code> ფუნქცია <a class="reference internal" href="ledc.html#_CPPv413ledc_get_duty11ledc_mode_t14ledc_channel_t" title="ledc_get_duty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_get_duty()</span></code></a>.</p>
+<p>სამუშაო ციკლის, ასევე არხის სხვა პარამეტრების დაყენების კიდევ ერთი გზაა გამოძახება <a class="reference internal" href="ledc.html#_CPPv419ledc_channel_configPK21ledc_channel_config_t" title="ledc_channel_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_channel_config()</span></code></a> განხილულია განყოფილებაში <a class="reference internal" href="ledc.html#ledc-api-configure-channel"><span class="std std-ref">არხის კონფიგურაცია</span></a>.</p>
+<p>ფუნქციებზე გადაცემული სამუშაო ციკლის მნიშვნელობების დიაპაზონი დამოკიდებულია არჩეულზე <code class="docutils literal notranslate"><span class="pre">duty_resolution</span></code> და უნდა იყოს <code class="docutils literal notranslate"><span class="pre">0</span></code> რომ <code class="docutils literal notranslate"><span class="pre">(2</span> <span class="pre">**</span> <span class="pre">duty_resolution)</span> <span class="pre">-</span> <span class="pre">1</span></code>მაგალითად, თუ არჩეული სამუშაოს გარჩევადობაა 10, მაშინ სამუშაო ციკლის მნიშვნელობები შეიძლება იყოს 0-დან 1023-მდე. ეს უზრუნველყოფს ~0.1%-იან გარჩევადობას.</p>
+</div>
+<div class="section" id="change-pwm-duty-cycle-using-hardware">
+<h4>შეცვალეთ PWM სამუშაო ციკლი აპარატურის გამოყენებით<a class="headerlink" href="ledc.html#change-pwm-duty-cycle-using-hardware" title="Permalink to this headline">¶</a></h4>
+<p>LEDC აპარატურა უზრუნველყოფს ერთი სამუშაო ციკლის მნიშვნელობიდან მეორეზე თანდათანობით გადასვლის საშუალებას. ამ ფუნქციონალის გამოსაყენებლად, ჩართეთ ფადინგი <a class="reference internal" href="ledc.html#_CPPv422ledc_fade_func_installi" title="ledc_fade_func_install"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_fade_func_install()</span></code></a> და შემდეგ დააკონფიგურირეთ იგი ერთ-ერთი ხელმისაწვდომი ფადინგი ფუნქციის გამოძახებით:</p>
+<ul class="simple">
+<li><a class="reference internal" href="ledc.html#_CPPv423ledc_set_fade_with_time11ledc_mode_t14ledc_channel_t8uint32_ti" title="ledc_set_fade_with_time"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_set_fade_with_time()</span></code></a></li>
+<li><a class="reference internal" href="ledc.html#_CPPv423ledc_set_fade_with_step11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t" title="ledc_set_fade_with_step"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_set_fade_with_step()</span></code></a></li>
+<li><a class="reference internal" href="ledc.html#_CPPv413ledc_set_fade11ledc_mode_t14ledc_channel_t8uint32_t21ledc_duty_direction_t8uint32_t8uint32_t8uint32_t" title="ledc_set_fade"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_set_fade()</span></code></a></li>
+</ul>
+<p>საბოლოოდ დაიწყეთ გაქრობა <a class="reference internal" href="ledc.html#_CPPv415ledc_fade_start11ledc_mode_t14ledc_channel_t16ledc_fade_mode_t" title="ledc_fade_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_fade_start()</span></code></a>.</p>
+<p>თუ აღარ არის საჭირო, ფადინგი და მასთან დაკავშირებული შეფერხება შეიძლება გამორთოთ <a class="reference internal" href="ledc.html#_CPPv424ledc_fade_func_uninstallv" title="ledc_fade_func_uninstall"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_fade_func_uninstall()</span></code></a>.</p>
+</div>
+<div class="section" id="change-pwm-frequency">
+<span id="ledc-api-change-pwm-frequency"></span><h4>PWM სიხშირის შეცვლა<a class="headerlink" href="ledc.html#change-pwm-frequency" title="Permalink to this headline">¶</a></h4>
+<p>LEDC API გვთავაზობს PWM სიხშირის „მყისიერად“ შეცვლის რამდენიმე გზას:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სიხშირის დაყენება დარეკვით <a class="reference internal" href="ledc.html#_CPPv413ledc_set_freq11ledc_mode_t12ledc_timer_t8uint32_t" title="ledc_set_freq"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_set_freq()</span></code></a>არსებობს შესაბამისი ფუნქცია <a class="reference internal" href="ledc.html#_CPPv413ledc_get_freq11ledc_mode_t12ledc_timer_t" title="ledc_get_freq"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_get_freq()</span></code></a> მიმდინარე სიხშირის შესამოწმებლად.</li>
+<li>შეცვალეთ სიხშირე და სამუშაოს დადგენილება დარეკვით <a class="reference internal" href="ledc.html#_CPPv423ledc_bind_channel_timer11ledc_mode_t14ledc_channel_t12ledc_timer_t" title="ledc_bind_channel_timer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_bind_channel_timer()</span></code></a> სხვა ტაიმერის არხზე დასაკავშირებლად.</li>
+<li>არხის ტაიმერის შეცვლა დარეკვით <a class="reference internal" href="ledc.html#_CPPv419ledc_channel_configPK21ledc_channel_config_t" title="ledc_channel_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_channel_config()</span></code></a>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="more-control-over-pwm">
+<h4>მეტი კონტროლი PWM-ზე<a class="headerlink" href="ledc.html#more-control-over-pwm" title="Permalink to this headline">¶</a></h4>
+<p>არსებობს რამდენიმე ქვედა დონის ტაიმერის სპეციფიკური ფუნქცია, რომელთა გამოყენება შესაძლებელია PWM პარამეტრების შესაცვლელად:</p>
+<ul class="simple">
+<li><a class="reference internal" href="ledc.html#_CPPv414ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t" title="ledc_timer_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_set()</span></code></a></li>
+<li><a class="reference internal" href="ledc.html#_CPPv414ledc_timer_rst11ledc_mode_t12ledc_timer_t" title="ledc_timer_rst"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_rst()</span></code></a></li>
+<li><a class="reference internal" href="ledc.html#_CPPv416ledc_timer_pause11ledc_mode_t12ledc_timer_t" title="ledc_timer_pause"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_pause()</span></code></a></li>
+<li><a class="reference internal" href="ledc.html#_CPPv417ledc_timer_resume11ledc_mode_t12ledc_timer_t" title="ledc_timer_resume"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_resume()</span></code></a></li>
+</ul>
+<p>პირველ ორ ფუნქციას „კულისებს მიღმა“ ეწოდება. <a class="reference internal" href="ledc.html#_CPPv419ledc_channel_configPK21ledc_channel_config_t" title="ledc_channel_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_channel_config()</span></code></a> ტაიმერის გაშვების უზრუნველსაყოფად მისი კონფიგურაციის შემდეგ.</p>
+</div>
+</div>
+<div class="section" id="use-interrupts">
+<h3>შეფერხებების გამოყენება<a class="headerlink" href="ledc.html#use-interrupts" title="Permalink to this headline">¶</a></h3>
+<p>LEDC არხის კონფიგურაციისას, ერთ-ერთი პარამეტრი, რომელიც შერჩეულია <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_channel_config_t</span></code> არის <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_intr_type_t</span></code> რაც იწვევს შეწყვეტას ფეიდის დასრულებისას.</p>
+<p>ამ შეფერხების მოსაგვარებლად დამმუშავებლის რეგისტრაციისთვის, დარეკეთ <a class="reference internal" href="ledc.html#_CPPv417ledc_isr_registerPFvPvEPviP17ledc_isr_handle_t" title="ledc_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_isr_register()</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="ledc-high-and-low-speed-mode">
+<span id="ledc-api-high-low-speed-mode"></span><h2>LEDC მაღალი და დაბალი სიჩქარის რეჟიმი<a class="headerlink" href="ledc.html#ledc-high-and-low-speed-mode" title="Permalink to this headline">¶</a></h2>
+<p>LED PWM კონტროლერში არსებული სულ 8 ტაიმერიდან და 16 არხიდან, მათი ნახევარი განკუთვნილია მაღალი სიჩქარის რეჟიმში მუშაობისთვის, ხოლო მეორე ნახევარი - დაბალი სიჩქარის რეჟიმში. დაბალი ან მაღალი სიჩქარის ტაიმერის ან არხის შერჩევა ხდება პარამეტრის გამოყენებით. <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_mode_t</span></code> რომელთა პოვნა შესაძლებელია შესაბამის ფუნქციურ გამოძახებებში.</p>
+<p>მაღალი სიჩქარის რეჟიმის უპირატესობა ტაიმერის პარამეტრების შეუფერხებელი შეცვლაა. ეს ნიშნავს, რომ თუ ტაიმერის პარამეტრები შეიცვლება, ცვლილებები ავტომატურად ამოქმედდება ტაიმერის შემდეგ გადავსების შეწყვეტაზე. ამის საპირისპიროდ, დაბალი სიჩქარის ტაიმერის განახლებისას, პარამეტრების შეცვლა აშკარად უნდა იყოს გააქტიურებული პროგრამული უზრუნველყოფის მიერ. LEDC დრაივერი ამას ფონურ რეჟიმში ამუშავებს, მაგ., როდესაც <a class="reference internal" href="ledc.html#_CPPv417ledc_timer_configPK19ledc_timer_config_t" title="ledc_timer_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_config()</span></code></a> ან <a class="reference internal" href="ledc.html#_CPPv414ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t" title="ledc_timer_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ledc_timer_set()</span></code></a> ეწოდება.</p>
+<p>სიჩქარის რეჟიმების შესახებ დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a> (PDF). გთხოვთ გაითვალისწინოთ, რომ მხარდაჭერა <code class="docutils literal notranslate"><span class="pre">SLOW_CLOCK</span></code> ამ სახელმძღვანელოში ნახსენები ჯერ არ არის მხარდაჭერილი LEDC დრაივერში.</p>
+</div>
+<div class="section" id="supported-range-of-frequency-and-duty-resolutions">
+<span id="ledc-api-supported-range-frequency-duty-resolution"></span><h2>სიხშირისა და სამუშაო რეზოლუციების მხარდაჭერილი დიაპაზონი<a class="headerlink" href="ledc.html#supported-range-of-frequency-and-duty-resolutions" title="Permalink to this headline">¶</a></h2>
+<p>LED PWM კონტროლერი ძირითადად LED-ების სამართავად არის შექმნილი. ის PWM სამუშაო ციკლის პარამეტრებისთვის ფართო გარჩევადობას უზრუნველყოფს. მაგალითად, 5 kHz PWM სიხშირეს მაქსიმალური სამუშაო გარჩევადობა 13 ბიტი შეიძლება ჰქონდეს. ეს ნიშნავს, რომ სამუშაო რეჟიმის დაყენება შესაძლებელია 0-დან 100%-მდე დიაპაზონში, ~0.012% გარჩევადობით (2 ** 13 = LED ინტენსივობის 8192 დისკრეტული დონე).</p>
+<p>LEDC-ის გამოყენება შესაძლებელია გაცილებით მაღალი სიხშირეების სიგნალების გენერირებისთვის, რომლებიც საკმარისია სხვა მოწყობილობების, მაგალითად, ციფრული კამერის მოდულის, დასაჭერად. ამ შემთხვევაში, მაქსიმალური ხელმისაწვდომი სიხშირეა 40 MHz, 1 ბიტიანი სამუშაო გარჩევადობით. ეს ნიშნავს, რომ სამუშაო ციკლი ფიქსირებულია 50%-ზე და მისი რეგულირება შეუძლებელია.</p>
+<p>LEDC API შექმნილია იმისთვის, რომ შეცდომის შესახებ შეტყობინება გამოაგზავნოს, როდესაც ცდილობთ დააყენოთ სიხშირე და სამუშაო გარჩევადობა, რომელიც აღემატება LEDC-ის აპარატურის დიაპაზონს. მაგალითად, სიხშირის 20 MHz-ზე და სამუშაო გარჩევადობის 3 ბიტზე დაყენების მცდელობა გამოიწვევს შემდეგ შეცდომას სერიულ მონიტორზე:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>E (196) ledc: requested frequency and duty resolution cannot be achieved, try reducing freq_hz or duty_resolution. div_param=128
+</pre></div>
+</div>
+<p>ასეთ სიტუაციაში, ან სამუშაო დატვირთვის გარჩევადობა, ან სიხშირე უნდა შემცირდეს. მაგალითად, სამუშაო დატვირთვის გარჩევადობის 2-ზე დაყენება მოაგვარებს ამ პრობლემას და შესაძლებელს გახდის სამუშაო ციკლის 25%-იან საფეხურებზე დაყენებას, ანუ 25%-იან, 50%-იან ან 75%-იან საფეხურებზე.</p>
+<p>LEDC დრაივერი ასევე აღრიცხავს და შეატყობინებს სიხშირის / სამუშაო მოდულის გარჩევადობის კომბინაციების კონფიგურაციის მცდელობებს, რომლებიც მხარდაჭერილ მინიმუმზე დაბალია, მაგ.:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>E (196) ledc: requested frequency and duty resolution cannot be achieved, try increasing freq_hz or duty_resolution. div_param=128000000
+</pre></div>
+</div>
+<p>მოვალეობის რეზოლუცია ჩვეულებრივ დაყენებულია გამოყენებით <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">ledc_timer_bit_t</span></code>ეს ჩამოთვლა მოიცავს 10-დან 15 ბიტამდე დიაპაზონს. თუ საჭიროა უფრო მცირე დატვირთვის გარჩევადობა (10-დან 1-მდე), პირდაპირ შეიყვანეთ ეკვივალენტური რიცხვითი მნიშვნელობები.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="ledc.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>LEDC ცვლილების სამუშაო ციკლისა და ფადინგი კონტროლის მაგალითი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/ledc">პერიფერიული მოწყობილობები/LED კომპიუტერები</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="ledc.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="ledc.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/ledc.h">დრაივერი/ინკლუზია/დრაივერი/ledc.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="ledc.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419ledc_channel_configPK21ledc_channel_config_t">
+<span id="_CPPv319ledc_channel_configPK21ledc_channel_config_t"></span><span id="_CPPv219ledc_channel_configPK21ledc_channel_config_t"></span><span id="ledc_channel_config__ledc_channel_config_tCP"></span><span class="target" id="ledc_8h_1a1f64acaab8033c9de1dde3f4c111fb6d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_channel_config</code><span class="sig-paren">(</span><em class="property">კონსტ</em> ledc_channel_config_t *<em>ledc_conf</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv419ledc_channel_configPK21ledc_channel_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC არხის კონფიგურაცია. კონფიგურირება გაუკეთეთ LEDC არხს მოცემული არხით/გამომავალი gpio_num/interrupt/წყაროს ტაიმერი/სიხშირე(Hz)/LEDC სამუშაო გარჩევადობით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ledc_conf</span></code>LEDC არხის კონფიგურაციის სტრუქტურის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417ledc_timer_configPK19ledc_timer_config_t">
+<span id="_CPPv317ledc_timer_configPK19ledc_timer_config_t"></span><span id="_CPPv217ledc_timer_configPK19ledc_timer_config_t"></span><span id="ledc_timer_config__ledc_timer_config_tCP"></span><span class="target" id="ledc_8h_1ac03b21c3f48674c5017d09808a7eaf7b"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_timer_config</code><span class="sig-paren">(</span><em class="property">კონსტ</em> ledc_timer_config_t *<em>ტაიმერის_კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv417ledc_timer_configPK19ledc_timer_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ტაიმერის კონფიგურაცია. დააკონფიგურირეთ LEDC ტაიმერი მოცემული წყაროს ტაიმერით/სიხშირით (Hz)/duty_resolution-ით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL მოცემული სიხშირისა და მიმდინარე duty_resolution-ის საფუძველზე შესაბამისი წინასწარი გამყოფის რიცხვის პოვნა შეუძლებელია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">timer_conf</span></code>LEDC ტაიმერის კონფიგურაციის სტრუქტურის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416ledc_update_duty11ledc_mode_t14ledc_channel_t">
+<span id="_CPPv316ledc_update_duty11ledc_mode_t14ledc_channel_t"></span><span id="_CPPv216ledc_update_duty11ledc_mode_t14ledc_channel_t"></span><span id="ledc_update_duty__ledc_mode_t.ledc_channel_t"></span><span class="target" id="ledc_8h_1a919a48a0b2456c07be9cac72fc6c8b4a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_update_duty</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv416ledc_update_duty11ledc_mode_t14ledc_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC განახლების არხის პარამეტრები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call this function to activate the LEDC updated parameters. After ledc_set_duty, we need to call this function to update the settings. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ledc_set_duty, ledc_set_duty_with_hpoint and ledc_update_duty are not thread-safe, do not call these functions to control one LEDC channel in different tasks at the same time. A thread-safe version of API is ledc_set_duty_and_update </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი, </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv49ledc_stop11ledc_mode_t14ledc_channel_t8uint32_t">
+<span id="_CPPv39ledc_stop11ledc_mode_t14ledc_channel_t8uint32_t"></span><span id="_CPPv29ledc_stop11ledc_mode_t14ledc_channel_t8uint32_t"></span><span id="ledc_stop__ledc_mode_t.ledc_channel_t.uint32_t"></span><span class="target" id="ledc_8h_1a02fb746e2bf7d82f6f898c5c994905bb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_stop</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>უმოქმედო_დონე</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv49ledc_stop11ledc_mode_t14ledc_channel_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC გაჩერება. გამორთეთ LEDC გამომავალი და დააყენეთ უმოქმედობის დონე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">idle_level</span></code>: LEDC-ის გაჩერების შემდეგ გამომავალი სიმძლავრის უმოქმედო დონის დაყენება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413ledc_set_freq11ledc_mode_t12ledc_timer_t8uint32_t">
+<span id="_CPPv313ledc_set_freq11ledc_mode_t12ledc_timer_t8uint32_t"></span><span id="_CPPv213ledc_set_freq11ledc_mode_t12ledc_timer_t8uint32_t"></span><span id="ledc_set_freq__ledc_mode_t.ledc_timer_t.uint32_t"></span><span class="target" id="ledc_8h_1a7bdc64f3f9050c0b2e6f5f4775688185"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_freq</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_ნომერი</em>, uint32_t <em>freq_hz</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv413ledc_set_freq11ledc_mode_t12ledc_timer_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC-ის არხის სიხშირე (Hz) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_FAIL მოცემული სიხშირისა და მიმდინარე duty_resolution-ის საფუძველზე შესაბამისი წინასწარი გამყოფის რიცხვის პოვნა შეუძლებელია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">freq_hz</span></code>: LEDC სიხშირის დაყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413ledc_get_freq11ledc_mode_t12ledc_timer_t">
+<span id="_CPPv313ledc_get_freq11ledc_mode_t12ledc_timer_t"></span><span id="_CPPv213ledc_get_freq11ledc_mode_t12ledc_timer_t"></span><span id="ledc_get_freq__ledc_mode_t.ledc_timer_t"></span><span class="target" id="ledc_8h_1a6f7858d4dc181b403cc53925510c2885"></span>uint32_t <code class="descname">ledc_get_freq</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv413ledc_get_freq11ledc_mode_t12ledc_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC მიღების არხის სიხშირე (Hz) </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>0 შეცდომა</li>
+<li>სხვა მიმდინარე LEDC სიხშირე </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425ledc_set_duty_with_hpoint11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t">
+<span id="_CPPv325ledc_set_duty_with_hpoint11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t"></span><span id="_CPPv225ledc_set_duty_with_hpoint11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t"></span><span id="ledc_set_duty_with_hpoint__ledc_mode_t.ledc_channel_t.uint32_t.uint32_t"></span><span class="target" id="ledc_8h_1a35eec67317e9705769124947de72c55a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_duty_with_hpoint</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>მოვალეობა</em>, uint32_t <em>წერტილი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv425ledc_set_duty_with_hpoint11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ადგენს duty-ს და hpoint-ის მნიშვნელობას. duty განახლდება მხოლოდ ledc_update_duty-ს გამოძახების შემდეგ. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ledc_set_duty, ledc_set_duty_with_hpoint and ledc_update_duty are not thread-safe, do not call these functions to control one LEDC channel in different tasks at the same time. A thread-safe version of API is ledc_set_duty_and_update </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty</span></code>: დააყენეთ LEDC დატვირთვის რეჟიმი, დაყენების დიაპაზონი არის [0, (2**დატვირთვის_რეზოლუცია)] </li>
+<li><code class="docutils literal notranslate"><span class="pre">hpoint</span></code>: LEDC hpoint მნიშვნელობის დაყენება (მაქს: 0xfffff)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415ledc_get_hpoint11ledc_mode_t14ledc_channel_t">
+<span id="_CPPv315ledc_get_hpoint11ledc_mode_t14ledc_channel_t"></span><span id="_CPPv215ledc_get_hpoint11ledc_mode_t14ledc_channel_t"></span><span id="ledc_get_hpoint__ledc_mode_t.ledc_channel_t"></span><span class="target" id="ledc_8h_1a5e1a594ff94b73a0490e7f473cd70e15"></span>int <code class="descname">ledc_get_hpoint</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv415ledc_get_hpoint11ledc_mode_t14ledc_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC იღებს hpoint მნიშვნელობას, მრიცხველის მნიშვნელობას, როდესაც გამომავალი დაყენებულია მაღალ დონეზე. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>LEDC_ERR_VAL თუ პარამეტრის შეცდომაა</li>
+<li>LEDC არხის სხვა მიმდინარე h წერტილის მნიშვნელობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413ledc_set_duty11ledc_mode_t14ledc_channel_t8uint32_t">
+<span id="_CPPv313ledc_set_duty11ledc_mode_t14ledc_channel_t8uint32_t"></span><span id="_CPPv213ledc_set_duty11ledc_mode_t14ledc_channel_t8uint32_t"></span><span id="ledc_set_duty__ledc_mode_t.ledc_channel_t.uint32_t"></span><span class="target" id="ledc_8h_1a1a4d1fbfae9233199a2d463c58551235"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_duty</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>მოვალეობა</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv413ledc_set_duty11ledc_mode_t14ledc_channel_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC-ის მიერ დაყენებული დავალება. ეს ფუნქცია არ ცვლის ამ არხის hpoint მნიშვნელობას. საჭიროების შემთხვევაში, გთხოვთ, გამოიძახოთ ledc_set_duty_with_hpoint. მხოლოდ ledc_update_duty-ის გამოძახების შემდეგ განახლდება დავალება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ledc_set_duty, ledc_set_duty_with_hpoint and ledc_update_duty are not thread-safe, do not call these functions to control one LEDC channel in different tasks at the same time. A thread-safe version of API is ledc_set_duty_and_update. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty</span></code>: დააყენეთ LEDC დატვირთვის რეჟიმი, დაყენების დიაპაზონი არის [0, (2**დატვირთვის_რეზოლუცია)]</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413ledc_get_duty11ledc_mode_t14ledc_channel_t">
+<span id="_CPPv313ledc_get_duty11ledc_mode_t14ledc_channel_t"></span><span id="_CPPv213ledc_get_duty11ledc_mode_t14ledc_channel_t"></span><span id="ledc_get_duty__ledc_mode_t.ledc_channel_t"></span><span class="target" id="ledc_8h_1a8d4c556bf272b09dd0be1e23612dabb1"></span>uint32_t <code class="descname">ledc_get_duty</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv413ledc_get_duty11ledc_mode_t14ledc_channel_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC მოვალეობას ასრულებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>LEDC_ERR_DUTY თუ პარამეტრი შეცდომაა</li>
+<li>სხვა მიმდინარე LEDC მოვალეობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413ledc_set_fade11ledc_mode_t14ledc_channel_t8uint32_t21ledc_duty_direction_t8uint32_t8uint32_t8uint32_t">
+<span id="_CPPv313ledc_set_fade11ledc_mode_t14ledc_channel_t8uint32_t21ledc_duty_direction_t8uint32_t8uint32_t8uint32_t"></span><span id="_CPPv213ledc_set_fade11ledc_mode_t14ledc_channel_t8uint32_t21ledc_duty_direction_t8uint32_t8uint32_t8uint32_t"></span><span id="ledc_set_fade__ledc_mode_t.ledc_channel_t.uint32_t.ledc_duty_direction_t.uint32_t.uint32_t.uint32_t"></span><span class="target" id="ledc_8h_1ae005698dd5817f51ca6a52e290c2c534"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_fade</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>მოვალეობა</em>, ledc_duty_direction_t <em>fade_direction</em>, uint32_t <em>ნაბიჯის_ნომერი</em>, uint32_t <em>სამუშაო ციკლის ნომერი</em>, uint32_t <em>მოვალეობის_მასშტაბი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv413ledc_set_fade11ledc_mode_t14ledc_channel_t8uint32_t21ledc_duty_direction_t8uint32_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC გრადიენტის დაყენება LEDC გრადიენტის დაყენება, ფუნქციის მიერ ledc_update_duty ფუნქციის გამოძახების შემდეგ, ფუნქცია შეიძლება ამოქმედდეს. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty</span></code>გრადიენტის დატვირთვის დაწყების დაყენება, დატვირთვის დიაპაზონი არის [0, (2**დატვირთვის_რეზოლუცია)] </li>
+<li><code class="docutils literal notranslate"><span class="pre">fade_direction</span></code>: გრადიენტის მიმართულების დაყენება </li>
+<li><code class="docutils literal notranslate"><span class="pre">step_num</span></code>: გრადიენტის რაოდენობის დაყენება </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty_cycle_num</span></code>: დააყენეთ LEDC-ის რაოდენობა ყოველ ჯერზე, როდესაც გრადიენტი გრძელდება </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty_scale</span></code>: გრადიენტის ცვლილების ამპლიტუდის დაყენება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417ledc_isr_registerPFvPvEPviP17ledc_isr_handle_t">
+<span id="_CPPv317ledc_isr_registerPFvPvEPviP17ledc_isr_handle_t"></span><span id="_CPPv217ledc_isr_registerPFvPvEPviP17ledc_isr_handle_t"></span><span class="target" id="ledc_8h_1a7e4351ccddf31bdc2746fc765a7aa093"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_isr_register</code><span class="sig-paren">(</span>void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="ledc.html#_CPPv417ledc_isr_handle_t" title="ledc_isr_handle_t">ledc_isr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv417ledc_isr_registerPFvPvEPviP17ledc_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეგისტრის LEDC შეწყვეტის დამმუშავებელი, დამმუშავებელი არის ISR. დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG ფუნქციის მაჩვენებლის შეცდომა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>მომხმარებლის მიერ მოწოდებული არგუმენტი, რომელიც გადაეცა დამმუშავებლის ფუნქციას. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: დაბრუნების სახელურის მაჩვენებელი. თუ არ არის NULL, შეწყვეტის სახელური აქ დაბრუნდება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t">
+<span id="_CPPv314ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t"></span><span id="_CPPv214ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t"></span><span id="ledc_timer_set__ledc_mode_t.ledc_timer_t.uint32_t.uint32_t.ledc_clk_src_t"></span><span class="target" id="ledc_8h_1a8da9975541b73aadd73e1f1393bf7506"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_timer_set</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_შერჩევა</em>, uint32_t <em>საათის_გამყოფი</em>, uint32_t <em>მოვალეობის_რეზოლუცია</em>, ledc_clk_src_t <em>clk_src</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv414ledc_timer_set11ledc_mode_t12ledc_timer_t8uint32_t8uint32_t14ledc_clk_src_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC პარამეტრების კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>(-1) პარამეტრის შეცდომა</li>
+<li>სხვა მიმდინარე LEDC მოვალეობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_sel</span></code>ტაიმერის ინდექსი (0-3), LEDC მოდულში 4 ტაიმერია </li>
+<li><code class="docutils literal notranslate"><span class="pre">clock_divider</span></code>ტაიმერის საათის გაყოფის მნიშვნელობა, ტაიმერის საათი იყოფა არჩეული საათის წყაროდან </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty_resolution</span></code>: მოვალეობის პარამეტრის გარჩევადობა ბიტების რაოდენობაში. მოვალეობის მნიშვნელობების დიაპაზონია [0, (2**ვალეობის_გარჩევადობა)] </li>
+<li><code class="docutils literal notranslate"><span class="pre">clk_src</span></code>: აირჩიეთ LEDC წყაროს საათი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414ledc_timer_rst11ledc_mode_t12ledc_timer_t">
+<span id="_CPPv314ledc_timer_rst11ledc_mode_t12ledc_timer_t"></span><span id="_CPPv214ledc_timer_rst11ledc_mode_t12ledc_timer_t"></span><span id="ledc_timer_rst__ledc_mode_t.ledc_timer_t"></span><span class="target" id="ledc_8h_1ada330d71de367792482d25613c066a50"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_timer_rst</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_შერჩევა</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv414ledc_timer_rst11ledc_mode_t12ledc_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ტაიმერის გადატვირთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_sel</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416ledc_timer_pause11ledc_mode_t12ledc_timer_t">
+<span id="_CPPv316ledc_timer_pause11ledc_mode_t12ledc_timer_t"></span><span id="_CPPv216ledc_timer_pause11ledc_mode_t12ledc_timer_t"></span><span id="ledc_timer_pause__ledc_mode_t.ledc_timer_t"></span><span class="target" id="ledc_8h_1aa7b15d41a522a1ee128c07fa2b23abb0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_timer_pause</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_შერჩევა</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv416ledc_timer_pause11ledc_mode_t12ledc_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ტაიმერის მრიცხველის პაუზა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_sel</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417ledc_timer_resume11ledc_mode_t12ledc_timer_t">
+<span id="_CPPv317ledc_timer_resume11ledc_mode_t12ledc_timer_t"></span><span id="_CPPv217ledc_timer_resume11ledc_mode_t12ledc_timer_t"></span><span id="ledc_timer_resume__ledc_mode_t.ledc_timer_t"></span><span class="target" id="ledc_8h_1a29a74fca7ec05bb12211f486d8108639"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_timer_resume</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_timer_t <em>ტაიმერის_შერჩევა</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv417ledc_timer_resume11ledc_mode_t12ledc_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ტაიმერის ჩართვა განახლდება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_sel</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423ledc_bind_channel_timer11ledc_mode_t14ledc_channel_t12ledc_timer_t">
+<span id="_CPPv323ledc_bind_channel_timer11ledc_mode_t14ledc_channel_t12ledc_timer_t"></span><span id="_CPPv223ledc_bind_channel_timer11ledc_mode_t14ledc_channel_t12ledc_timer_t"></span><span id="ledc_bind_channel_timer__ledc_mode_t.ledc_channel_t.ledc_timer_t"></span><span class="target" id="ledc_8h_1a07e567e69b9c5c77823f30fa53852e71"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_bind_channel_timer</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, ledc_timer_t <em>ტაიმერის_შერჩევა</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv423ledc_bind_channel_timer11ledc_mode_t14ledc_channel_t12ledc_timer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC არხის შერჩეულ ტაიმერთან დაკავშირება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ინდექსი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_sel</span></code>: LEDC ტაიმერის ინდექსი (0-3), აირჩიეთ ledc_timer_t-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423ledc_set_fade_with_step11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t">
+<span id="_CPPv323ledc_set_fade_with_step11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t"></span><span id="_CPPv223ledc_set_fade_with_step11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t"></span><span id="ledc_set_fade_with_step__ledc_mode_t.ledc_channel_t.uint32_t.uint32_t.uint32_t"></span><span class="target" id="ledc_8h_1a370a1718af5ee9893c5f501813a3d4fc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_fade_with_step</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>სამიზნე_მოვალეობა</em>, uint32_t <em>მასშტაბი</em>, uint32_t <em>ციკლის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv423ledc_set_fade_with_step11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ჩაქრობის ფუნქციის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call ledc_fade_func_install() once before calling this function. Call ledc_fade_start() after this to start fading. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ledc_set_fade_with_step, ledc_set_fade_with_time and ledc_fade_start are not thread-safe, do not call these functions to control one LEDC channel in different tasks at the same time. A thread-safe version of API is ledc_set_fade_step_and_start </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია არ არის დაინსტალირებული.</li>
+<li>ESP_FAIL Fade ფუნქციის ინიციალიზაციის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი, </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ინდექსი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">target_duty</span></code>: დაღმავალი მიზნობრივი დავალება [0, (2**duty_resolution) - 1] </li>
+<li><code class="docutils literal notranslate"><span class="pre">scale</span></code>: აკონტროლებს საფეხურის გაზრდის ან შემცირების მასშტაბს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cycle_num</span></code>: მოვალეობის გაზრდა ან შემცირება ყოველ cycle_num ციკლებში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423ledc_set_fade_with_time11ledc_mode_t14ledc_channel_t8uint32_ti">
+<span id="_CPPv323ledc_set_fade_with_time11ledc_mode_t14ledc_channel_t8uint32_ti"></span><span id="_CPPv223ledc_set_fade_with_time11ledc_mode_t14ledc_channel_t8uint32_ti"></span><span id="ledc_set_fade_with_time__ledc_mode_t.ledc_channel_t.uint32_t.i"></span><span class="target" id="ledc_8h_1af35385dd4fa465758f1b4a17798c627d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_fade_with_time</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>სამიზნე_მოვალეობა</em>, int <em>max_fade_time_ms</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv423ledc_set_fade_with_time11ledc_mode_t14ledc_channel_t8uint32_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ LEDC გაქრობის ფუნქცია, შეზღუდული დროით. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call ledc_fade_func_install() once before calling this function. Call ledc_fade_start() after this to start fading. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>ledc_set_fade_with_step, ledc_set_fade_with_time and ledc_fade_start are not thread-safe, do not call these functions to control one LEDC channel in different tasks at the same time. A thread-safe version of API is ledc_set_fade_step_and_start </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია არ არის დაინსტალირებული.</li>
+<li>ESP_FAIL Fade ფუნქციის ინიციალიზაციის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი, </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ინდექსი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">target_duty</span></code>: დაღლილობის სამიზნე მოვალეობა.( 0 - (2 ** მოვალეობის_გადაწყვეტილება - 1))) </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_fade_time_ms</span></code>გაქრობის მაქსიმალური დრო (ms).</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422ledc_fade_func_installi">
+<span id="_CPPv322ledc_fade_func_installi"></span><span id="_CPPv222ledc_fade_func_installi"></span><span id="ledc_fade_func_install__i"></span><span class="target" id="ledc_8h_1ae96eee7a81d019cfc0f2c3d74c047004"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_fade_func_install</code><span class="sig-paren">(</span>int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv422ledc_fade_func_installi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC fade ფუნქციის ინსტალაცია. ეს ფუნქცია LEDC მოდულის შეწყვეტას დაიკავებს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია უკვე დაინსტალირებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424ledc_fade_func_uninstallv">
+<span id="_CPPv324ledc_fade_func_uninstallv"></span><span id="_CPPv224ledc_fade_func_uninstallv"></span><span id="ledc_fade_func_uninstall__void"></span><span class="target" id="ledc_8h_1ae9f8062a6f0c065d855925021722f1f9"></span>void <code class="descname">ledc_fade_func_uninstall</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv424ledc_fade_func_uninstallv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC გაქრობის ფუნქციის დეინსტალაცია. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415ledc_fade_start11ledc_mode_t14ledc_channel_t16ledc_fade_mode_t">
+<span id="_CPPv315ledc_fade_start11ledc_mode_t14ledc_channel_t16ledc_fade_mode_t"></span><span id="_CPPv215ledc_fade_start11ledc_mode_t14ledc_channel_t16ledc_fade_mode_t"></span><span id="ledc_fade_start__ledc_mode_t.ledc_channel_t.ledc_fade_mode_t"></span><span class="target" id="ledc_8h_1ab08f273c6d9047c84d6cfd7f1efcab10"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_fade_start</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, ledc_fade_mode_t <em>fade_mode</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv415ledc_fade_start11ledc_mode_t14ledc_channel_t16ledc_fade_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ LEDC-ის გაქრობა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call ledc_fade_func_install() once before calling this function. Call this API right after ledc_set_fade_with_time or ledc_set_fade_with_step before to start fading. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია არ არის დაინსტალირებული.</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">fade_mode</span></code>: დაიბლოკოს თუ არა გაქრობამდე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424ledc_set_duty_and_update11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t">
+<span id="_CPPv324ledc_set_duty_and_update11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t"></span><span id="_CPPv224ledc_set_duty_and_update11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t"></span><span id="ledc_set_duty_and_update__ledc_mode_t.ledc_channel_t.uint32_t.uint32_t"></span><span class="target" id="ledc_8h_1a0d71d0d94ad3949e248dfbfd27637aba"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_duty_and_update</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>მოვალეობა</em>, uint32_t <em>წერტილი</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv424ledc_set_duty_and_update11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძაფისთვის უსაფრთხო API LEDC არხისთვის მოვალეობის დასაყენებლად და დავალების განახლებისას დასაბრუნებლად. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">duty</span></code>: დააყენეთ LEDC დატვირთვის რეჟიმი, დაყენების დიაპაზონი არის [0, (2**დატვირთვის_რეზოლუცია)] </li>
+<li><code class="docutils literal notranslate"><span class="pre">hpoint</span></code>: LEDC hpoint მნიშვნელობის დაყენება (მაქს: 0xfffff) </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428ledc_set_fade_time_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t16ledc_fade_mode_t">
+<span id="_CPPv328ledc_set_fade_time_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t16ledc_fade_mode_t"></span><span id="_CPPv228ledc_set_fade_time_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t16ledc_fade_mode_t"></span><span id="ledc_set_fade_time_and_start__ledc_mode_t.ledc_channel_t.uint32_t.uint32_t.ledc_fade_mode_t"></span><span class="target" id="ledc_8h_1a3bf3eb1190b453e32f9c73b0b424a623"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_fade_time_and_start</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>სამიზნე_მოვალეობა</em>, uint32_t <em>max_fade_time_ms</em>, ledc_fade_mode_t <em>fade_mode</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv428ledc_set_fade_time_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t16ledc_fade_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>LEDC ფად ფუნქციის დასაყენებლად და დასაწყებად, ძაფებისთვის უსაფრთხო API , შეზღუდული დროით. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call ledc_fade_func_install() once, before calling this function. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია არ არის დაინსტალირებული.</li>
+<li>ESP_FAIL Fade ფუნქციის ინიციალიზაციის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი, </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ინდექსი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">target_duty</span></code>: დაღლილობის სამიზნე მოვალეობა.( 0 - (2 ** მოვალეობის_გადაწყვეტილება - 1))) </li>
+<li><code class="docutils literal notranslate"><span class="pre">max_fade_time_ms</span></code>გაქრობის მაქსიმალური დრო (ms). </li>
+<li><code class="docutils literal notranslate"><span class="pre">fade_mode</span></code>: აირჩიეთ დაბლოკვის ან არადაბლოკვის რეჟიმი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428ledc_set_fade_step_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t16ledc_fade_mode_t">
+<span id="_CPPv328ledc_set_fade_step_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t16ledc_fade_mode_t"></span><span id="_CPPv228ledc_set_fade_step_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t16ledc_fade_mode_t"></span><span id="ledc_set_fade_step_and_start__ledc_mode_t.ledc_channel_t.uint32_t.uint32_t.uint32_t.ledc_fade_mode_t"></span><span class="target" id="ledc_8h_1aeca8471c458c5ad11ee60e32b1fb427e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">ledc_set_fade_step_and_start</code><span class="sig-paren">(</span>ledc_mode_t <em>სიჩქარის რეჟიმი</em>, ledc_channel_t <em>არხი</em>, uint32_t <em>სამიზნე_მოვალეობა</em>, uint32_t <em>მასშტაბი</em>, uint32_t <em>ციკლის_ნომერი</em>, ledc_fade_mode_t <em>fade_mode</em><span class="sig-paren">)</span><a class="headerlink" href="ledc.html#_CPPv428ledc_set_fade_step_and_start11ledc_mode_t14ledc_channel_t8uint32_t8uint32_t8uint32_t16ledc_fade_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძაფებისთვის უსაფრთხო API LEDC ფადირების ფუნქციის დასაყენებლად და დასაწყებად. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call ledc_fade_func_install() once before calling this function. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a fade operation is running in progress on that channel, the driver would not allow it to be stopped. Other duty operations will have to wait until the fade operation has finished. </dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა</li>
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_STATE Fade ფუნქცია არ არის დაინსტალირებული.</li>
+<li>ESP_FAIL Fade ფუნქციის ინიციალიზაციის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">speed_mode</span></code>აირჩიეთ LEDC speed_mode, მაღალი სიჩქარის რეჟიმი და დაბალი სიჩქარის რეჟიმი, </li>
+<li><code class="docutils literal notranslate"><span class="pre">channel</span></code>: LEDC არხის ინდექსი (0-7), აირჩიეთ ledc_channel_t-დან </li>
+<li><code class="docutils literal notranslate"><span class="pre">target_duty</span></code>: დაღმავალი მიზნობრივი დავალება [0, (2**duty_resolution) - 1] </li>
+<li><code class="docutils literal notranslate"><span class="pre">scale</span></code>: აკონტროლებს საფეხურის გაზრდის ან შემცირების მასშტაბს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cycle_num</span></code>: მოვალეობის გაზრდა ან შემცირება ყოველ cycle_num ციკლებში </li>
+<li><code class="docutils literal notranslate"><span class="pre">fade_mode</span></code>: აირჩიეთ დაბლოკვის ან არადაბლოკვის რეჟიმი </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="ledc.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.LEDC_APB_CLK_HZ">
+<span class="target" id="ledc_8h_1a40e090c9594bdb281f7372d1b441ee0f"></span><code class="descname">LEDC_APB_CLK_HZ</code><a class="headerlink" href="ledc.html#c.LEDC_APB_CLK_HZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.LEDC_REF_CLK_HZ">
+<span class="target" id="ledc_8h_1aeee81c19262c9085f3669d585cd1c3b9"></span><code class="descname">LEDC_REF_CLK_HZ</code><a class="headerlink" href="ledc.html#c.LEDC_REF_CLK_HZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.LEDC_ERR_DUTY">
+<span class="target" id="ledc_8h_1a0a073158866a1fc3fcdb00d1862158d1"></span><code class="descname">LEDC_ERR_DUTY</code><a class="headerlink" href="ledc.html#c.LEDC_ERR_DUTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.LEDC_ERR_VAL">
+<span class="target" id="ledc_8h_1ad47031cecad4fa6c50de710ac7c6a017"></span><code class="descname">LEDC_ERR_VAL</code><a class="headerlink" href="ledc.html#c.LEDC_ERR_VAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="ledc.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417ledc_isr_handle_t">
+<span id="_CPPv317ledc_isr_handle_t"></span><span id="_CPPv217ledc_isr_handle_t"></span><span id="ledc_isr_handle_t"></span><span class="target" id="ledc_8h_1a33b61cea1dc6d110eb4f2a879a8ba362"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">ledc_isr_handle_t</code><a class="headerlink" href="ledc.html#_CPPv417ledc_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="mcpwm.html" rel="next" title="MCPWM">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="i2s.html" rel="prev" title="I2S"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

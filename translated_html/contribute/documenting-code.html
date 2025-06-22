@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>კოდის დოკუმენტირება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="add-ons-reference.html" rel="next" title="Documentation Add-ons and Extensions Reference"/>
+<link href="style-guide.html" rel="prev" title="Espressif IoT Development Framework Style Guide"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/contribute/documenting-code.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "contribute/documenting-code"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/contribute/documenting-code.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">წვლილი შეიტანეთ</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-to-contribute">როგორ შევიტანოთ წვლილი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#before-contributing">წვლილის შეტანამდე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pull-request-process">მოთხოვნის გატანის პროცესი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#legal-part">იურიდიული ნაწილი</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="style-guide.html">Espressif IoT-ის შემუშავების ჩარჩოს სტილის სახელმძღვანელო</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="documenting-code.html#">კოდის დოკუმენტირება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#why-we-need-it">რატომ გვჭირდება ის?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#go-for-it">წადი!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#go-one-extra-mile">კიდევ ერთი დამატებითი მილი გაიარეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#linking-examples">დაკავშირების მაგალითები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#linking-language-versions">ენის ვერსიების დაკავშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#add-illustrations">ილუსტრაციების დამატება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#add-notes">შენიშვნების დამატება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#put-it-all-together">ყველაფერი ერთად შეკრიბეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#ok-but-i-am-new-to-sphinx">კარგი, მაგრამ სფინქსის ახალი წევრი ვარ!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#setup-for-building-documentation-locally">შენობის დოკუმენტაციის ადგილობრივად დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#wrap-up">შეფუთეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="documenting-code.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="add-ons-reference.html">დოკუმენტაცია, დამატებები და გაფართოებები, მითითება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-examples.html">მაგალითების შექმნა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-reference/template.html">API დოკუმენტაციის შაბლონი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributor-agreement.html">კონტრიბუტორის შეთანხმება</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">წვლილის სახელმძღვანელო</a> »</li>
+<li>კოდის დოკუმენტირება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/contribute/documenting-code.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="documenting-code">
+<h1>კოდის დოკუმენტირება<a class="headerlink" href="documenting-code.html#documenting-code" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/contribute/documenting-code.html">[中文]</a></p>
+<p>ამ აღწერილობის მიზანია, მოკლედ შეჯამდეს გამოყენებული დოკუმენტაციის სტილი. <a class="reference external" href="https://github.com/espressif/esp-idf/">ესპრესიფიკაცია/ესპ-იდფ</a> საცავი და როგორ დავამატოთ ახალი დოკუმენტაცია.</p>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="documenting-code.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ამ რეპოზიტორიის კოდის დოკუმენტირებისას, გთხოვთ, დაიცვათ <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/manual/docblocks.html#specialblock">დოქსიგენის სტილი</a>თქვენ ამას აკეთებთ, მაგალითად, სპეციალური ბრძანებების ჩასმით <code class="docutils literal notranslate"><span class="pre">@param</span></code>, სტანდარტულ კომენტარების ბლოკებში, მაგალითად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">ratio</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">oxygen</span> <span class="n">to</span> <span class="n">air</span> <span class="n">ratio</span>
+ <span class="o">*/</span>
+</pre></div>
+</div>
+<p>Doxygen წერს კოდს, იღებს ბრძანებებს შემდგომ ტექსტთან ერთად და მისგან ამზადებს დოკუმენტაციას.</p>
+<p>ფუნქციის დოკუმენტაციის შემცველი ტიპიური კომენტარის ბლოკი ქვემოთ გამოიყურება.</p>
+<img alt="Sample inline code documentation" class="align-center" src="../_images/doc-code-documentation-inline.png"/>
+<p>Doxygen მხარს უჭერს რამდენიმე ფორმატირების სტილს. ის ასევე გაძლევთ დიდ მოქნილობას დოკუმენტაციაში ჩასართავად დეტალების დონეზე. ხელმისაწვდომი ფუნქციების გასაცნობად, გთხოვთ, შეამოწმოთ მონაცემებით მდიდარი და ძალიან კარგად ორგანიზებული. <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/manual/index.html">დოქსიგენის სახელმძღვანელო</a>.</p>
+</div>
+<div class="section" id="why-we-need-it">
+<h2>რატომ გვჭირდება ის?<a class="headerlink" href="documenting-code.html#why-we-need-it" title="Permalink to this headline">¶</a></h2>
+<p>საბოლოო მიზანია იმის უზრუნველყოფა, რომ ყველა კოდი თანმიმდევრულად იყოს დოკუმენტირებული, რათა შევძლოთ ისეთი ინსტრუმენტების გამოყენება, როგორიცაა <a class="reference external" href="http://www.sphinx-doc.org/">სფინქსი</a> და <a class="reference external" href="https://breathe.readthedocs.io/">სუნთქვა</a> კოდის შეცვლისას, API დოკუმენტაციის მომზადებისა და ავტომატური განახლებების დასახმარებლად.</p>
+<p>ამ ხელსაწყოებით ზემოთ მოცემული კოდის ნაწილი შემდეგნაირად გამოიყურება:</p>
+<img alt="Sample inline code after rendering" class="align-center" src="../_images/doc-code-documentation-rendered.png"/>
+</div>
+<div class="section" id="go-for-it">
+<h2>წადი!<a class="headerlink" href="documenting-code.html#go-for-it" title="Permalink to this headline">¶</a></h2>
+<p>ამ რეპოზიტორისთვის კოდის წერისას, გთხოვთ, დაიცვათ ქვემოთ მოცემული ინსტრუქციები.</p>
+<ol class="arabic">
+<li><p class="first">კოდის ყველა საშენი ბლოკის დოკუმენტირება მოახდინეთ: ფუნქციები, სტრუქტურები, typedefs, enums, მაკროები და ა.შ. მოგვაწოდეთ საკმარისი ინფორმაცია დოკუმენტირებული ელემენტების დანიშნულების, ფუნქციონალურობისა და შეზღუდვების შესახებ, რადგან გსურთ, რომ ისინი დოკუმენტირებული იყოს სხვების მიერ კოდის წაკითხვისას.</p>
+</li>
+<li><p class="first">ფუნქციის დოკუმენტაცია უნდა აღწერდეს, თუ რას აკეთებს ეს ფუნქცია. თუ ის იღებს შეყვანის პარამეტრებს და აბრუნებს გარკვეულ მნიშვნელობას, ყველა მათგანი უნდა იყოს ახსნილი.</p>
+</li>
+<li><p class="first">პარამეტრის წინ ან ინტერვალების გარდა სხვა სიმბოლოების დამატება მონაცემთა ტიპის გარეშე არ შეიძლება. ყველა ინტერვალი და ხაზის გადასვლები ერთ ინტერვალად არის შეკუმშული. თუ ხაზის გაწყვეტა გსურთ, ორჯერ გაჭერით.</p>
+<blockquote>
+<div><img alt="Sample function documented inline and after rendering" class="align-center" src="../_images/doc-code-function.png"/>
+</div></blockquote>
+</li>
+<li><p class="first">თუ ფუნქციას აქვს void შეყვანა ან არ აბრუნებს რაიმე მნიშვნელობას, მაშინ გამოტოვეთ <code class="docutils literal notranslate"><span class="pre">@param</span></code> ან <code class="docutils literal notranslate"><span class="pre">@return</span></code></p>
+<blockquote>
+<div><img alt="Sample void function documented inline and after rendering" class="align-center" src="../_images/doc-code-void-function.png"/>
+</div></blockquote>
+</li>
+<li><p class="first">დოკუმენტირებისას, <code class="docutils literal notranslate"><span class="pre">define</span></code> ასევე წევრები <code class="docutils literal notranslate"><span class="pre">struct</span></code> ან <code class="docutils literal notranslate"><span class="pre">enum</span></code>, თითოეული წევრის შემდეგ განათავსეთ კონკრეტული კომენტარი, როგორც ქვემოთ მოცემულია.</p>
+<blockquote>
+<div><img alt="Sample of member documentation inline and after rendering" class="align-center" src="../_images/doc-code-member.png"/>
+</div></blockquote>
+</li>
+<li><p class="first">კარგად ფორმატირებული სიების შესაქმნელად, ბრძანების შემდეგ ხაზი გაწყვიტეთ (მაგალითად <code class="docutils literal notranslate"><span class="pre">@return</span></code> ქვემოთ მოცემულ მაგალითში).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>
+<span class="o">*</span> <span class="nd">@return</span>
+<span class="o">*</span>    <span class="o">-</span> <span class="n">ESP_OK</span> <span class="k">if</span> <span class="n">erase</span> <span class="n">operation</span> <span class="n">was</span> <span class="n">successful</span>
+<span class="o">*</span>    <span class="o">-</span> <span class="n">ESP_ERR_NVS_INVALID_HANDLE</span> <span class="k">if</span> <span class="n">handle</span> <span class="n">has</span> <span class="n">been</span> <span class="n">closed</span> <span class="ow">or</span> <span class="ow">is</span> <span class="n">NULL</span>
+<span class="o">*</span>    <span class="o">-</span> <span class="n">ESP_ERR_NVS_READ_ONLY</span> <span class="k">if</span> <span class="n">handle</span> <span class="n">was</span> <span class="n">opened</span> <span class="k">as</span> <span class="n">read</span> <span class="n">only</span>
+<span class="o">*</span>    <span class="o">-</span> <span class="n">ESP_ERR_NVS_NOT_FOUND</span> <span class="k">if</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">key</span> <span class="n">doesn</span><span class="s1">'t exist</span>
+<span class="o">*</span>    <span class="o">-</span> <span class="n">other</span> <span class="n">error</span> <span class="n">codes</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">underlying</span> <span class="n">storage</span> <span class="n">driver</span>
+<span class="o">*</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">დოკუმენტირებული სათაურის ფაილის ან ბიბლიოთეკის შემადგენელი ფაილების ჯგუფის ფუნქციონალურობის მიმოხილვა უნდა განთავსდეს იმავე დირექტორიაში, ცალკეულ დირექტორიაში. <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> ფაილი. თუ დირექტორია შეიცავს სხვადასხვა API ის სათაურის ფაილებს, მაშინ ფაილის სახელი უნდა იყოს <code class="docutils literal notranslate"><span class="pre">apiname-readme.rst</span></code>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="go-one-extra-mile">
+<h2>კიდევ ერთი დამატებითი მილი გაიარეთ<a class="headerlink" href="documenting-code.html#go-one-extra-mile" title="Permalink to this headline">¶</a></h2>
+<p>არსებობს რამდენიმე რჩევა, თუ როგორ შეგიძლიათ თქვენი დოკუმენტაცია კიდევ უფრო უკეთესი და მკითხველისთვის უფრო სასარგებლო გახადოთ.</p>
+<ol class="arabic">
+<li><p class="first">დაამატეთ კოდის ფრაგმენტები იმპლემენტაციის საილუსტრაციოდ. ამისათვის, ჩასვით ფრაგმენტი <code class="docutils literal notranslate"><span class="pre">@code{c}</span></code> და <code class="docutils literal notranslate"><span class="pre">@endcode</span></code> ბრძანებები.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>
+<span class="o">*</span> <span class="nd">@code</span><span class="p">{</span><span class="n">c</span><span class="p">}</span>
+<span class="o">*</span> <span class="o">//</span> <span class="n">Example</span> <span class="n">of</span> <span class="n">using</span> <span class="n">nvs_get_i32</span><span class="p">:</span>
+<span class="o">*</span> <span class="n">int32_t</span> <span class="n">max_buffer_size</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">;</span> <span class="o">//</span> <span class="n">default</span> <span class="n">value</span>
+<span class="o">*</span> <span class="n">esp_err_t</span> <span class="n">err</span> <span class="o">=</span> <span class="n">nvs_get_i32</span><span class="p">(</span><span class="n">my_handle</span><span class="p">,</span> <span class="s2">"max_buffer_size"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">max_buffer_size</span><span class="p">);</span>
+<span class="o">*</span> <span class="k">assert</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">ESP_OK</span> <span class="o">||</span> <span class="n">err</span> <span class="o">==</span> <span class="n">ESP_ERR_NVS_NOT_FOUND</span><span class="p">);</span>
+<span class="o">*</span> <span class="o">//</span> <span class="k">if</span> <span class="n">ESP_ERR_NVS_NOT_FOUND</span> <span class="n">was</span> <span class="n">returned</span><span class="p">,</span> <span class="n">max_buffer_size</span> <span class="n">will</span> <span class="n">still</span>
+<span class="o">*</span> <span class="o">//</span> <span class="n">have</span> <span class="n">its</span> <span class="n">default</span> <span class="n">value</span><span class="o">.</span>
+<span class="o">*</span> <span class="nd">@endcode</span>
+<span class="o">*</span>
+</pre></div>
+</div>
+<p>კოდის ფრაგმენტი უნდა იყოს ჩასმული იმ ფუნქციის კომენტარის ბლოკში, რომელსაც ის ასახავს.</p>
+</li>
+<li><p class="first">მნიშვნელოვანი ინფორმაციის ხაზგასასმელად გამოიყენეთ ბრძანება <code class="docutils literal notranslate"><span class="pre">@attention</span></code> ან <code class="docutils literal notranslate"><span class="pre">@note</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>
+<span class="o">*</span> <span class="nd">@attention</span>
+<span class="o">*</span>     <span class="mf">1.</span> <span class="n">This</span> <span class="n">API</span> <span class="n">only</span> <span class="n">impact</span> <span class="n">WIFI_MODE_STA</span> <span class="ow">or</span> <span class="n">WIFI_MODE_APSTA</span> <span class="n">mode</span>
+<span class="o">*</span>     <span class="mf">2.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">ESP32</span> <span class="ow">is</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">an</span> <span class="n">AP</span><span class="p">,</span> <span class="n">call</span> <span class="n">esp_wifi_disconnect</span> <span class="n">to</span> <span class="n">disconnect</span><span class="o">.</span>
+<span class="o">*</span>
+</pre></div>
+</div>
+<p>ზემოთ მოცემული მაგალითი ასევე გვიჩვენებს, თუ როგორ გამოვიყენოთ დანომრილი სია.</p>
+</li>
+<li><p class="first">მსგავსი ფუნქციების ჯგუფის საერთო აღწერილობის მისაწოდებლად, ისინი ჩასვით შემდეგი გამოყენებით: <code class="docutils literal notranslate"><span class="pre">/**@{*/</span></code> და <code class="docutils literal notranslate"><span class="pre">/**@}*/</span></code> მარკირების ბრძანებები:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**@</span><span class="p">{</span><span class="o">*/</span>
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">common</span> <span class="n">description</span> <span class="n">of</span> <span class="n">similar</span> <span class="n">functions</span>
+ <span class="o">*</span>
+ <span class="o">*/</span>
+<span class="n">void</span>  <span class="n">first_similar_function</span> <span class="p">(</span><span class="n">void</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">second_similar_function</span> <span class="p">(</span><span class="n">void</span><span class="p">);</span>
+<span class="o">/**@</span><span class="p">}</span><span class="o">*/</span>
+</pre></div>
+</div>
+<p>პრაქტიკული მაგალითისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/nvs_flash/include/nvs.h">nvs_ ფლეშ მეხსიერება /include/nvs.h</a>.</p>
+</li>
+<li><p class="first">შეიძლება კიდევ უფრო შორს წასვლა და ზოგიერთი კოდის გამოტოვება მოგინდეთ, მაგალითად, განმეორებადი განსაზღვრებები ან ჩამოთვლები. ასეთ შემთხვევაში, კოდი ჩასვით შიგნით. <code class="docutils literal notranslate"><span class="pre">/**</span> <span class="pre">@cond</span> <span class="pre">*/</span></code> და <code class="docutils literal notranslate"><span class="pre">/**</span> <span class="pre">@endcond</span> <span class="pre">*/</span></code> ბრძანებები. ასეთი განხორციელების მაგალითი მოცემულია <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/gpio.h">დრაივერი/ინკლუზია/დრაივერი/gpio.h</a>.</p>
+</li>
+<li><p class="first">გამოიყენეთ markdown, რათა თქვენი დოკუმენტაცია კიდევ უფრო იკითხებოდეს. თქვენ დაამატებთ სათაურებს, ბმულებს, ცხრილებს და სხვა.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>
+<span class="o">*</span> <span class="p">[</span><span class="n">ESP32</span> <span class="n">Technical</span> <span class="n">Reference</span> <span class="n">Manual</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">espressif</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sites</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">documentation</span><span class="o">/</span><span class="n">esp32_technical_reference_manual_en</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
+<span class="o">*</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">კოდის ფრაგმენტები, შენიშვნები, ბმულები და ა.შ. დოკუმენტაციაში არ მოხვდება, თუ ისინი არ არის ჩასმული დოკუმენტირებული ობიექტებიდან ერთ-ერთთან დაკავშირებულ კომენტარების ბლოკში.</p>
+</div>
+<ol class="arabic simple" start="6">
+<li>მოამზადეთ ერთი ან მეტი სრული კოდის მაგალითი აღწერასთან ერთად. მოათავსეთ აღწერა ცალკე ფაილში. <code class="docutils literal notranslate"><span class="pre">README.md</span></code> კონკრეტულ საქაღალდეში, <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples">მაგალითები</a> დირექტორია.</li>
+</ol>
+</div>
+<div class="section" id="linking-examples">
+<span id="link-custom-roles"></span><h2>დაკავშირების მაგალითები<a class="headerlink" href="documenting-code.html#linking-examples" title="Permalink to this headline">¶</a></h2>
+<p>GitHub-ზე მაგალითებზე ბმულების დადებისას არ გამოიყენოთ აბსოლუტური/მყარად კოდირებული URL-ები. ამის ნაცვლად, გამოიყენეთ docutils-ის მორგებული როლები, რომლებიც თქვენთვის ბმულებს გენერირებენ. ეს ავტომატურად გენერირებული ბმულები მიუთითებს რეპოზიტორის git commit ID-ის (ან თეგის) ხეზე ან blob-ზე. ეს საჭიროა იმისათვის, რომ ბმულები არ გაფუჭდეს მასტერ განშტოებაში ფაილების გადაადგილების ან წაშლისას.</p>
+<p>შემდეგი როლებია გათვალისწინებული:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">:idf:`path`</span></code> - მიუთითებს ESP-IDF შიგნით არსებულ დირექტორიაზე</li>
+<li><code class="docutils literal notranslate"><span class="pre">:idf_file:`path`</span></code> - ESP-IDF შიგნით შესატანი წერტილები</li>
+<li><code class="docutils literal notranslate"><span class="pre">:idf_raw:`path`</span></code> - მიუთითებს ფაილის ნედლ ხედზე ESP-IDF ში</li>
+<li><code class="docutils literal notranslate"><span class="pre">:component:`path`</span></code> - მიუთითებს დირექტორიაზე ESP-IDF კომპონენტი s dir-ში</li>
+<li><code class="docutils literal notranslate"><span class="pre">:component_file:`path`</span></code> - ESP-IDF კომპონენტი s dir-ში ფაილის ჩასაწერად წერტილები</li>
+<li><code class="docutils literal notranslate"><span class="pre">:component_raw:`path`</span></code> - მიუთითებს ფაილის ნედლ ხედზე ESP-IDF კომპონენტი s dir-ში</li>
+<li><code class="docutils literal notranslate"><span class="pre">:example:`path`</span></code> - მიუთითებს ESP-IDF examples dir-ის შიგნით არსებულ დირექტორიაზე</li>
+<li><code class="docutils literal notranslate"><span class="pre">:example_file:`path`</span></code> - ESP-IDF examples dir-ში ფაილის შესატანი წერტილები</li>
+<li><code class="docutils literal notranslate"><span class="pre">:example_raw:`path`</span></code> - მიუთითებს ფაილის ნედლ ხედზე ESP-IDF examples dir-ში</li>
+</ul>
+<p>განხორციელების მაგალითი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>* :example:`get-started/hello_world`
+* :example:`Hello World! &lt;get-started/hello_world&gt;`
+</pre></div>
+</div>
+<p>როგორ გამოისახება:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/get-started/hello_world">დაწყება/გამარჯობა_მსოფლიო</a></li>
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/get-started/hello_world">გამარჯობა მსოფლიო! </a></li>
+</ul>
+<p>CI აწყობის სკრიპტს ემატება შემოწმება, რომელიც RST ფაილებს ეძებს მყარი კოდირებული ბმულების არსებობას (რომლებიც იდენტიფიცირებულია URL-ის ხე/მასტერი, blob/მასტერი ან raw/master ნაწილით). ეს შემოწმება შეიძლება შესრულდეს ხელით: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span></code> და შემდეგ <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">gh-linkcheck</span></code>.</p>
+</div>
+<div class="section" id="linking-language-versions">
+<span id="link-language-versions"></span><h2>ენის ვერსიების დაკავშირება<a class="headerlink" href="documenting-code.html#linking-language-versions" title="Permalink to this headline">¶</a></h2>
+<p>სხვადასხვა ენაზე დოკუმენტაციას შორის გადართვა შესაძლებელია გამოყენებით <code class="docutils literal notranslate"><span class="pre">:link_to_translation:</span></code> მორგებული როლი. დოკუმენტაციის გვერდზე განთავსებული როლი პარამეტრად მითითებულ ენაზე იმავე გვერდზე ბმულს იძლევა. ქვემოთ მოცემული მაგალითები გვიჩვენებს, თუ როგორ შეიყვანოთ ბმულები დოკუმენტაციის ჩინურ და ინგლისურ ვერსიებზე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:link_to_translation:`zh_CN:中文版`
+:link_to_translation:`en:English`
+</pre></div>
+</div>
+<p>ენა მითითებულია სტანდარტული აბრევიატურების გამოყენებით, როგორიცაა <code class="docutils literal notranslate"><span class="pre">en</span></code> ან <code class="docutils literal notranslate"><span class="pre">zh_CN</span></code>ბოლო წერტილ-მძიმის შემდეგ ტექსტი არ არის სტანდარტიზებული და შეიძლება შეიყვანოთ იმ კონტექსტიდან გამომდინარე, სადაც ბმული არის განთავსებული, მაგ.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:link_to_translation:`en:see description in English`
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-illustrations">
+<span id="id1"></span><h2>ილუსტრაციების დამატება<a class="headerlink" href="documenting-code.html#add-illustrations" title="Permalink to this headline">¶</a></h2>
+<p>განიხილეთ დიაგრამებისა და სურათების დამატება აღწერილი ცნებების საილუსტრაციოდ.</p>
+<p>ზოგჯერ უკეთესია ილუსტრაციის დამატება, ვიდრე გრძელი აბზაცის დაწერა რთული იდეის, მონაცემთა სტრუქტურის ან ალგორითმის აღსაწერად. ეს საცავი იყენებს <a class="reference external" href="http://blockdiag.com/en/index.html">ბლოკდიაგნოსტიკა</a> ინსტრუმენტების ნაკრები მარტივი ტექსტური ფაილებიდან დიაგრამების გენერირებისთვის.</p>
+<p>მხარდაჭერილია შემდეგი ტიპის დიაგრამები:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://blockdiag.com/en/blockdiag/index.html">ბლოკ-დიაგრამა</a></li>
+<li><a class="reference external" href="http://blockdiag.com/en/seqdiag/index.html">თანმიმდევრობის დიაგრამა</a></li>
+<li><a class="reference external" href="http://blockdiag.com/en/actdiag/index.html">აქტივობის დიაგრამა</a></li>
+<li><a class="reference external" href="http://blockdiag.com/en/nwdiag/index.html">ლოგიკური ქსელის დიაგრამა</a></li>
+</ul>
+<p>ამ ინსტრუმენტების ნაკრებით შესაძლებელია მარტივი ტექსტის ფორმატიდან (graphviz-ის DOT ფორმატის მსგავსი) ლამაზი დიაგრამის სურათების გენერირება. დიაგრამის ელემენტები ავტომატურად განლაგდება. შემდეგ დიაგრამის კოდი გარდაიქმნება „.png“ გრაფიკად და ინტეგრირდება „კულისებში“ <strong>სფინქსი</strong> დოკუმენტები.</p>
+<p>დიაგრამის შესაქმნელად შეგიძლიათ გამოიყენოთ ონლაინ <a class="reference external" href="http://interactive.blockdiag.com/?compression=deflate&amp;src=eJxlUMFOwzAMvecrrO3aITYQQirlAIIzEseJQ5q4TUSIq8TVGIh_J2m7jbKc7Ge_5_dSO1Lv2soWvoVYgieNoMh7VGzJR9FJtugZ7lYQ0UcKEbYNOY36rRQHZHUPT68vV5tceGLbWCUzPfeaFFMoBZzecVc56vWwJFnWMmJ59CCZg617xpOFbTSyw0pmvT_HJ7hxtFNGBr6wvuu5SCkchcrZ1vAeXZomznh5YgTqfcpR02cBO6vZVDeXBRjMjKEcFRbLh8f18-Z2UUBDnqP9wmp9ncRmSSfND2ldGo2h_zse407g0Mxc1q7HzJ3-4jzYYTJjtQH3iSV-fgFzx50J">ინტერაქტიული გარსი</a> რომელიც მყისიერად აჩვენებს რენდერირებულ სურათს.</p>
+<p>ქვემოთ მოცემულია დიაგრამის რამდენიმე მაგალითი:</p>
+<ul class="simple">
+<li>მარტივი <strong>ბლოკ-დიაგრამა</strong> / <code class="docutils literal notranslate"><span class="pre">blockdiag</span></code> - <a class="reference external" href="http://interactive.blockdiag.com/?compression=deflate&amp;src=eJylUk1rwkAQvfsrBntpIUKiRQqSgK0VSj0EtCi0EjbJxCyuuyG7QW3pf-9m06hJeyg0t33zmHkfCZmItjElGwiLJME8IEwjRFHBA3WAj04H9HcFGyZCwoAoldOwUCgNzkWMwZ7GKgUXnKE9gjOcIt2kSuN39sigMiP8jDqX6GmF_Y3GmJCCqUCmJEM9yEXBY4xDcWjOE8GVpO9oztdaGQmRSRAJlMZysjOCKsVj358Fi_H8GV4Nze2Os4zRyvEbB0XktrseQWVktn_ym-wS-UFb0ilt0pa0N6Vn3i_KUEY5zcqrbXWTx_nDaZHjwYvEHGKiSNeC2q_r3FpQZekObAtMTi4XCi2IBBO5e0Rd5L7ppLG574GvO__PUuO7sXTgweTIyY5GcD1XOtToBhYruDf_VvuUad3tD-0_Xq1TLPPSI84xKvNrF9vzLnrTj1M7rYhrXv24cCPVkZUaOK47n1-lOvbk">Wi-Fi ბუფერის კონფიგურაცია</a></li>
+<li>ოდნავ უფრო რთული <strong>ბლოკ-დიაგრამა</strong> - <a class="reference external" href="http://interactive.blockdiag.com/?compression=deflate&amp;src=eJyFk09P40AMxe98CqscIVILq72UIFX8kSoQWy0RHABFTuImFtOZaGYKuyC-O840bagaRI7Pfs7Pz0mmTP5cMJbwynNOa2tKi4sF6zJdmIIUvO_tgTz7UCqToQL03nK29OSCrqUpfeXCVxDD6Gg47tSKuKy8yL9b1dWov1E3E4atWtAcl8qnrsKapGDNUhdUZObfdr2UQp3mRhkrXdpoGq-BGwhQmJFaoSZns_Q2mZxdwUNQ44Eojxqcx_x5cAhzo73jN4pHv55WL7m4u0nSZHLbOeiFtBePR9dvmcxm19sWrGvFOXo2utd4CGH5eHQ8bGfcTy-n6fnfO9jMuOfoksV9bvmFbO-Lr27-JPAQ4oqbGJ62c8iN1pQ3EA4O-lOJTncXDvvupCGdu3vmqFQmSQqm3CIYBx0EWou6pADjQJbw3Bj-h3I4onxpsHrCQLnmoD0yVKgLJXuP1x3GsowPmUpfbay3yH5T7khPoi7NnpU-1nisPdkFyY_gV4x9XB3Y0pHdpfoJ60toURQOtqbYuvpJ1B6zDXYym0qmTVpNnh-fpWcbRA">Wi-Fi პროგრამირების მოდელი</a></li>
+<li><strong>თანმიმდევრობის დიაგრამა</strong> / <code class="docutils literal notranslate"><span class="pre">seqdiag</span></code> - <a class="reference external" href="http://interactive.blockdiag.com/seqdiag/?compression=deflate&amp;src=eJyVkU1PwzAMhu_7FdburUgQXMomTaPcKIdOIIRQlDVuG1EloUknPsR_J2s2rRsT2nKJ9drvY8ex-C4kr8AWXLFSt8waLBg38D0Cf3jh5Io7qRVMQGmFSS-jqJA1qCpXe51cXwTZGg-pUVa1W8tXQRVY8q5xzNbcoNdb3SmBYqk_9vOlVs7Kr3UJoQmMwgDGMMftWwK4QuU28ZOM7uQm3q_zYTQd5OGl4UtsJmMSE5jCXKtSVl2LUPgpXPvpb4Hj1-RUCPWQ3O_K-wKpX84WMLAcB9B-igCouVLYADnDTA_N9GRzHMdnNMoOG2Vb8-4b4CY6Zr4MT3zOF-k9Sx_TbMHy-Sxjtw9Z-mfRHjEA7hD0X8TPLxU91AQ">ყველა არხში კონკრეტული წვდომის წერტილის სკანირება</a></li>
+<li><strong>პაკეტის დიაგრამა</strong> / <code class="docutils literal notranslate"><span class="pre">packetdiag</span></code> - <a class="reference external" href="http://interactive.blockdiag.com/packetdiag/?compression=deflate&amp;src=eJxFkMFOwzAQRO_9ij2mh63idRKaSj1V_ACIE6DIxG4StTgh3oCg6r_j2JTs8c3szNqDqk-GdacasJ-uGlRjKsfjVPM0GriswE_dn786zS3sQRJAYLbXprpRkS-sNV3TcrAGqM1RTWeujr1l1_2Y2U6rIKUod_DIis2LTbJ1YBneeWY-Nj5ts-AtkudPdnJGQ0JppLRFKXZweDhIWrySsPDB95bHb3BzPLx1_K4GSCSt_-4vMizzmykNSuBlgWKuioJYBOHLROnbEBGe_ZfEh-7pNcolIdF_raA8rl5_AaqqWyE">NVS გვერდის სტრუქტურა</a></li>
+</ul>
+<p>სცადეთ ისინი საწყისი კოდის შეცვლით და იხილეთ ქვემოთ მოცემული დიაგრამა მყისიერად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">შესაძლოა, გამოყენებული შრიფტის რენდერში მცირედი განსხვავებები იყოს. <a class="reference external" href="http://interactive.blockdiag.com/?compression=deflate&amp;src=eJxlUMFOwzAMvecrrO3aITYQQirlAIIzEseJQ5q4TUSIq8TVGIh_J2m7jbKc7Ge_5_dSO1Lv2soWvoVYgieNoMh7VGzJR9FJtugZ7lYQ0UcKEbYNOY36rRQHZHUPT68vV5tceGLbWCUzPfeaFFMoBZzecVc56vWwJFnWMmJ59CCZg617xpOFbTSyw0pmvT_HJ7hxtFNGBr6wvuu5SCkchcrZ1vAeXZomznh5YgTqfcpR02cBO6vZVDeXBRjMjKEcFRbLh8f18-Z2UUBDnqP9wmp9ncRmSSfND2ldGo2h_zse407g0Mxc1q7HzJ3-4jzYYTJjtQH3iSV-fgFzx50J">ინტერაქტიული გარსი</a> esp-idf დოკუმენტაციაში გამოყენებულ შრიფტთან შედარებით.</p>
+</div>
+</div>
+<div class="section" id="add-notes">
+<h2>შენიშვნების დამატება<a class="headerlink" href="documenting-code.html#add-notes" title="Permalink to this headline">¶</a></h2>
+<p>დოკუმენტზე მუშაობისას შეიძლება დაგჭირდეთ:</p>
+<ul class="simple">
+<li>გააკეთეთ რამდენიმე წინადადება, თუ რა უნდა დაემატოს ან შეიცვალოს მომავალში.</li>
+<li>დატოვეთ შეხსენება საკუთარი თავისთვის ან სხვისთვის, რომ გააგრძელოთ.</li>
+</ul>
+<p>ამ შემთხვევაში, დაამატეთ todo შენიშვნა თქვენს reST ფაილს დირექტივის გამოყენებით <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">todo::</span></code>მაგალითად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.. todo::
+
+   Add a package diagram.
+</pre></div>
+</div>
+<p>თუ დაამატებთ <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">todolist::</span></code> reST ფაილში დირექტივა შეიცვლება მთელი დოკუმენტაციიდან ყველა შესასრულებელი შენიშვნის სიით.</p>
+<p>ნაგულისხმევად, დირექტივები <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">todo::</span></code> და <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">todolist::</span></code> დოკუმენტაციის შემქმნელები უგულებელყოფენ მათ. თუ გსურთ, რომ შენიშვნები და შენიშვნების სია ხილული იყოს თქვენს ლოკალურად შექმნილ დოკუმენტაციაში, გააკეთეთ შემდეგი:</p>
+<ol class="arabic simple">
+<li>გახსენით თქვენი ადგილობრივი <code class="docutils literal notranslate"><span class="pre">conf_common.py</span></code> ფაილი.</li>
+<li>პარამეტრის პოვნა <code class="docutils literal notranslate"><span class="pre">todo_include_todos</span></code>.</li>
+<li>შეცვალეთ მისი მნიშვნელობა <code class="docutils literal notranslate"><span class="pre">False</span></code> რომ <code class="docutils literal notranslate"><span class="pre">True</span></code>.</li>
+</ol>
+<p>ცვლილებების საწყის ველში გადატანამდე, გთხოვთ, დააყენოთ მნიშვნელობა <code class="docutils literal notranslate"><span class="pre">todo_include_todos</span></code> უკან <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>გაფართოების შესახებ დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#directive-todolist">სფინქსი.ექსტ.ტოდო</a> დოკუმენტაცია.</p>
+</div>
+<div class="section" id="put-it-all-together">
+<h2>ყველაფერი ერთად შეკრიბეთ<a class="headerlink" href="documenting-code.html#put-it-all-together" title="Permalink to this headline">¶</a></h2>
+<p>დოკუმენტაციის მომზადების შემდეგ, მიჰყევით ინსტრუქციას <a class="reference internal" href="../api-reference/template.html"><span class="doc">API დოკუმენტაციის შაბლონი</span></a> და შექმენით ერთი ფაილი, რომელიც გააერთიანებს მომზადებული დოკუმენტაციის ყველა ცალკეულ ნაწილს. და ბოლოს, დაამატეთ ბმული ამ ფაილზე შესაბამის <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">toctree::</span></code> ში <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> ფაილი, რომელიც მდებარეობს <code class="docutils literal notranslate"><span class="pre">/docs</span></code> საქაღალდე ან ქვესაქაღალდეები.</p>
+</div>
+<div class="section" id="ok-but-i-am-new-to-sphinx">
+<h2>კარგი, მაგრამ სფინქსის ახალი წევრი ვარ!<a class="headerlink" href="documenting-code.html#ok-but-i-am-new-to-sphinx" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">არ ინერვიულოთ. ყველა საჭირო პროგრამული უზრუნველყოფა კარგად არის დოკუმენტირებული. ის ასევე ღია კოდისა და უფასოა. დაიწყეთ შემოწმებით <a class="reference external" href="http://www.sphinx-doc.org/">სფინქსი</a> დოკუმენტაცია. თუ არ იცით, როგორ დაწეროთ პირველი მარკირების ენის გამოყენებით, იხილეთ <a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html">გადასტრუქტურირებული ტექსტის პრაიმერი</a>ასევე შეგიძლიათ გამოიყენოთ markdown (.md) ფაილები და მეტი გაიგოთ ჩვენს მიერ გამოყენებული markdown სინტაქსის შესახებ Recommonmark parser-ის დოკუმენტაციის გვერდზე.<a class="reference external" href="https://recommonmark.readthedocs.io/en/latest/">https://recommonmark.readthedocs.io/en/latest/</a>&amp;gt;`_.</p>
+</li>
+<li><p class="first">შეამოწმეთ ამ დოკუმენტაციის საწყისი ფაილები, რათა გაიგოთ, რა იმალება ეკრანზე ახლა ნაჩვენები ინფორმაციის უკან. წყაროები ინახება GitHub-ზე <a class="reference external" href="https://github.com/espressif/esp-idf/">ესპრესიფიკაცია/ესპ-იდფ</a> საცავი <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/docs">დოკუმენტები</a> საქაღალდე. თქვენ შეგიძლიათ პირდაპირ გადახვიდეთ ამ გვერდის საწყის ფაილზე ზედა მარჯვენა კუთხეში ბმულზე გადახვევით. GitHub-ზე ყოფნისას, ნახეთ, რა არის სინამდვილეში შიგნით, გახსენით საწყის ფაილებს დაწკაპუნებით <code class="docutils literal notranslate"><span class="pre">Raw</span></code> ღილაკი.</p>
+</li>
+<li><p class="first">GitHub-ზე გამოქვეყნებამდე, სავარაუდოდ, მოგინდებათ ნახოთ, თუ როგორ იქმნება და გამოიყურება დოკუმენტაცია. ამის გაკეთების ორი ვარიანტი არსებობს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ინსტალაცია <a class="reference external" href="http://www.sphinx-doc.org/">სფინქსი</a>, <a class="reference external" href="https://breathe.readthedocs.io/">სუნთქვა</a>, <a class="reference external" href="http://blockdiag.com/en/index.html">ბლოკდიაგნოსტიკა</a> და <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/">დოქსიგენი</a> ლოკალურად ასაშენებლად იხილეთ ქვემოთ მოცემული თავი.</li>
+<li>ანგარიშის შექმნა <a class="reference external" href="https://readthedocs.org/">წაიკითხეთ დოკუმენტები</a> და შექმენით დოკუმენტაცია ღრუბელში. Read the Docs გთავაზობთ დოკუმენტების შექმნას და ჰოსტინგს უფასოდ და მათი სერვისი ძალიან სწრაფად და შესანიშნავად მუშაობს.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">დოკუმენტაციის შესაქმნელად, შექმნამდე, გამოიყენეთ <a class="reference external" href="https://www.sublimetext.com/">ამაღლებული ტექსტი</a> რედაქტორთან ერთად <a class="reference external" href="https://github.com/timonwong/OmniMarkupPreviewer">OmniMarkup-ის წინასწარი გადახედვა</a> დანამატი.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="setup-for-building-documentation-locally">
+<span id="setup-for-building-documentation"></span><h2>შენობის დოკუმენტაციის ადგილობრივად დაყენება<a class="headerlink" href="documenting-code.html#setup-for-building-documentation-locally" title="Permalink to this headline">¶</a></h2>
+<p>თქვენ შეგიძლიათ დააყენოთ გარემო დოკუმენტაციის ლოკალურად შესაქმნელად თქვენს კომპიუტერზე შემდეგი ინსტალაციით:</p>
+<ol class="arabic simple">
+<li>დოქსიგენი - <a class="reference external" href="https://www.stack.nl/~dimitri/doxygen/">https://www.stack.nl/~dimitri/doxygen/</a></li>
+<li>სფინქსი - <a class="reference external" href="https://github.com/sphinx-doc/sphinx/#readme-for-sphinx">https://github.com/sphinx-doc/sphinx/#readme-for-sphinx</a></li>
+<li>სუნთქვა - <a class="reference external" href="https://github.com/michaeljones/breathe#breathe">https://github.com/michaeljones/breathe#breathe</a></li>
+<li>დოკუმენტის თემა „sphinx_rtd_theme“ - <a class="reference external" href="https://github.com/rtfd/sphinx_rtd_theme">https://github.com/rtfd/sphinx_rtd_theme</a></li>
+<li>მორგებული 404 გვერდი „sphinx-notfound-page“ - <a class="reference external" href="https://github.com/rtfd/sphinx-notfound-page">https://github.com/rtfd/sphinx-notfound-page</a></li>
+<li>ბლოკდიაგნოსტიკა - <a class="reference external" href="http://blockdiag.com/en/index.html">http://blockdiag.com/en/index.html</a></li>
+<li>რეკომონმარკი - <a class="reference external" href="https://github.com/rtfd/recommonmark">https://github.com/rtfd/recommonmark</a></li>
+</ol>
+<p>პაკეტი „sphinx_rtd_theme“ დამატებულია იგივე „იდეისა და შეგრძნების“ მისაღებად. <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/index.html">ESP32 პროგრამირების სახელმძღვანელო</a> დოკუმენტაცია, როგორიცაა „Read the Docs“-ის ჰოსტინგის საიტზე.</p>
+<p>ნუ ინერვიულებთ, თუ რამდენიმე პაკეტის ინსტალაცია მოგიწევთ. Doxygen-ის გარდა, ყველა დარჩენილი პაკეტი Python-შია დაწერილი. ამიტომ, ყველა მათგანის ინსტალაცია ერთ მარტივ ნაბიჯად არის გაერთიანებული.</p>
+<p>Doxygen-ის ინსტალაცია დამოკიდებულია ოპერაციულ სისტემაზე:</p>
+<p><strong>Linux</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">doxygen</span>
+</pre></div>
+</div>
+<p><strong>Windows</strong> - ინსტალაცია MSYS2 კონსოლში</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">doxygen</span>
+</pre></div>
+</div>
+<p><strong>MacOS</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">doxygen</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>თუ ინსტალაციას Windows სისტემაზე ახორციელებთ (Linux-ის და MacOS-ის მომხმარებლებმა ეს შენიშვნა უნდა გამოტოვონ), <strong>ადრე</strong> შემდგომი ნაბიჯების შესასრულებლად, შეასრულეთ ქვემოთ მოცემული ორი დამატებითი ნაბიჯი. ეს ნაბიჯები საჭიროა „blockdiag“-ის დამოკიდებულებების დასაინსტალირებლად, რომლებიც განხილულია ქვემოთ. <a class="reference internal" href="documenting-code.html#add-illustrations"><span class="std std-ref">ილუსტრაციების დამატება</span></a>.</p>
+<ol class="arabic">
+<li><p class="first">განაახლეთ ყველა სისტემის პაკეტი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pacman -Syu
+</pre></div>
+</div>
+<p>ეს პროცესი, სავარაუდოდ, მოითხოვს MSYS2 MINGW32 კონსოლის გადატვირთვას და ზემოთ მოცემული ბრძანებების გამეორებას განახლების დასრულებამდე.</p>
+</li>
+<li><p class="first">ინსტალაცია <em>ბალიში</em>, ეს ერთ-ერთი დამოკიდებულებაა <em>ბლოკდიაგნოსტიკა</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pacman -S mingw32/mingw-w64-i686-python2-pillow
+</pre></div>
+</div>
+<p>შეამოწმეთ ეკრანზე არსებული ჟურნალი, რომელიც <code class="docutils literal notranslate"><span class="pre">mingw-w64-i686-python2-pillow-4.3.0-1</span></code> დაინსტალირებულია. წინა ვერსიები <em>ბალიში</em> არ იმუშავებს.</p>
+</li>
+</ol>
+<p class="last">Windows-ის ინსტალაციის ნაკლი ის არის, რომ შრიფტები <cite>blockdiag pictures &lt;add-illustrations&gt;</cite> თუ სწორად არ გამოისახება, მის ნაცვლად შემთხვევით სიმბოლოებს დაინახავთ. სანამ ეს პრობლემა არ მოგვარდება, შეგიძლიათ გამოიყენოთ <a class="reference external" href="http://interactive.blockdiag.com/?compression=deflate&amp;src=eJxlUMFOwzAMvecrrO3aITYQQirlAIIzEseJQ5q4TUSIq8TVGIh_J2m7jbKc7Ge_5_dSO1Lv2soWvoVYgieNoMh7VGzJR9FJtugZ7lYQ0UcKEbYNOY36rRQHZHUPT68vV5tceGLbWCUzPfeaFFMoBZzecVc56vWwJFnWMmJ59CCZg617xpOFbTSyw0pmvT_HJ7hxtFNGBr6wvuu5SCkchcrZ1vAeXZomznh5YgTqfcpR02cBO6vZVDeXBRjMjKEcFRbLh8f18-Z2UUBDnqP9wmp9ncRmSSfND2ldGo2h_zse407g0Mxc1q7HzJ3-4jzYYTJjtQH3iSV-fgFzx50J">ინტერაქტიული გარსი</a> რომ ნახოთ, როგორ გამოიყურება სრული სურათი.</p>
+</div>
+<p>ყველა დარჩენილი აპლიკაციაა <a class="reference external" href="https://www.python.org/">პითონი</a> პაკეტები და შეგიძლიათ დააინსტალიროთ ისინი ერთი ნაბიჯით შემდეგნაირად:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">esp</span><span class="o">/</span><span class="n">esp</span><span class="o">-</span><span class="n">idf</span><span class="o">/</span><span class="n">docs</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ინსტალაციის ნაბიჯები ვარაუდობენ, რომ ESP-IDF მოთავსებულია <code class="docutils literal notranslate"><span class="pre">~/esp/esp-idf</span></code> დირექტორია, რომელიც დოკუმენტაციაში გამოყენებული ESP-IDF ის ნაგულისხმევი მდებარეობაა.</p>
+</div>
+<p>კონკრეტული ენის ფაილების მქონე დირექტორიაში გადასვლა:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">en</span>
+</pre></div>
+</div>
+<p>ახლა თქვენ მზად უნდა იყოთ დოკუმენტაციის შესაქმნელად შემდეგი ბრძანების გამოძახებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>ამას შეიძლება რამდენიმე წუთი დასჭირდეს. დასრულების შემდეგ, დოკუმენტაცია განთავსდება <code class="docutils literal notranslate"><span class="pre">~/esp/esp-idf/docs/en/_build/html</span></code> საქაღალდე. მის სანახავად გახსენით <code class="docutils literal notranslate"><span class="pre">index.html</span></code> ვებ ბრაუზერში.</p>
+</div>
+<div class="section" id="wrap-up">
+<h2>შეფუთეთ<a class="headerlink" href="documenting-code.html#wrap-up" title="Permalink to this headline">¶</a></h2>
+<p>ჩვენ გვიყვარს კარგი კოდი, რომელიც მაგარ რაღაცეებს აკეთებს. კიდევ უფრო მეტად გვიყვარს, თუ ის კარგად არის დოკუმენტირებული, რათა სწრაფად გავუშვათ და ასევე გავაკეთოთ მაგარი რაღაცეები.</p>
+<p>განაგრძეთ, თქვენი კოდი და დოკუმენტაცია შეიტანეთ!</p>
+</div>
+<div class="section" id="related-documents">
+<h2>დაკავშირებული დოკუმენტები<a class="headerlink" href="documenting-code.html#related-documents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../api-reference/template.html"><span class="doc">API დოკუმენტაციის შაბლონი</span></a></li>
+<li><a class="reference internal" href="add-ons-reference.html"><span class="doc">დოკუმენტაცია, დამატებები და გაფართოებები, მითითება</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="add-ons-reference.html" rel="next" title="Documentation Add-ons and Extensions Reference">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="style-guide.html" rel="prev" title="Espressif IoT Development Framework Style Guide"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

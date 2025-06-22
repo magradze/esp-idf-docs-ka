@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP HTTPS OTA — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_pthread.html" rel="next" title="ESP-pthread"/>
+<link href="esp_err.html" rel="prev" title="Error Codes and Helper Functions"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/esp_https_ota.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/esp_https_ota"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/esp_https_ota.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="esp_https_ota.html#">ESP HTTPS OTA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="esp_https_ota.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_https_ota.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_https_ota.html#signature-verification">ხელმოწერის დადასტურება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_https_ota.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>ESP HTTPS OTA</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/esp_https_ota.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-https-ota">
+<h1>ESP HTTPS OTA<a class="headerlink" href="esp_https_ota.html#esp-https-ota" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_https_ota.html#overview" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">esp_https_ota</span></code> გთავაზობთ გამარტივებულ API ინსტრუმენტებს პროგრამული უზრუნველყოფა HTTPS-ის საშუალებით განახლებების შესასრულებლად. ეს არის აბსტრაქციის ფენა არსებულ OTA API ინსტრუმენტებზე.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_https_ota.html#application-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">esp_err_t</span> <span class="nf">do_firmware_upgrade</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">esp_http_client_config_t</span> <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">CONFIG_FIRMWARE_UPGRADE_URL</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">cert_pem</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">server_cert_pem_start</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="n">esp_err_t</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">esp_https_ota</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="n">ESP_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">esp_restart</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ESP_FAIL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ESP_OK</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="signature-verification">
+<h2>ხელმოწერის დადასტურება<a class="headerlink" href="esp_https_ota.html#signature-verification" title="Permalink to this headline">¶</a></h2>
+<p>დამატებითი უსაფრთხოებისთვის, OTA პროგრამული უზრუნველყოფა სურათების ხელმოწერის დადასტურება შესაძლებელია. ამისათვის იხილეთ <a class="reference internal" href="ota.html#secure-ota-updates"><span class="std std-ref">უსაფრთხო OTA განახლებები უსაფრთხო ჩატვირთვის გარეშე</span></a></p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_https_ota.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_https_ota.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_https_ota/include/esp_https_ota.h">esp_https_ota/include/esp_https_ota.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_https_ota.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv413esp_https_otaPK24esp_http_client_config_t">
+<span id="_CPPv313esp_https_otaPK24esp_http_client_config_t"></span><span id="_CPPv213esp_https_otaPK24esp_http_client_config_t"></span><span id="esp_https_ota__esp_http_client_config_tCP"></span><span class="target" id="esp__https__ota_8h_1a8ecac05768ae4695c86880671f84cd3b"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_https_ota</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../protocols/esp_http_client.html#_CPPv424esp_http_client_config_t" title="esp_http_client_config_t">esp_http_client_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv413esp_https_otaPK24esp_http_client_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPS OTA პროგრამული უზრუნველყოფის განახლება. </p>
+<p>ეს ფუნქცია გამოყოფს HTTPS OTA Firmware განახლების კონტექსტს, ამყარებს HTTPS კავშირს, კითხულობს გამოსახულების მონაცემებს HTTP ნაკადიდან და წერს მათ OTA დანაყოფზე და ასრულებს HTTPS OTA Firmware განახლების ოპერაციას. ეს API მხარს უჭერს URL გადამისამართებას, მაგრამ თუ URL-ების CA სერტიფიკატი განსხვავდება, მაშინ ის უნდა დაემატოს <code class="docutils literal notranslate"><span class="pre">cert_pem</span></code> წევრი <code class="docutils literal notranslate"><span class="pre">config</span></code>.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API handles the entire OTA operation, so if this API is being used then no other APIs from <code class="docutils literal notranslate"><span class="pre">esp_https_ota</span></code> component should be called. If more information and control is needed during the HTTPS OTA process, then one can use <code class="docutils literal notranslate"><span class="pre">esp_https_ota_begin</span></code> and subsequent APIs. If this API returns successfully, esp_restart() must be called to boot from the new firmware image.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: OTA მონაცემები განახლდა, შემდეგი გადატვირთვა გამოიყენებს მითითებულ დანაყოფს.</li>
+<li>ESP_FAIL: ზოგადი შეცდომისთვის.</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: აპლიკაციის სურათი არასწორია</li>
+<li>ESP_ERR_NO_MEM: OTA ოპერაციისთვის მეხსიერების გამოყოფა შეუძლებელია.</li>
+<li>ESP_ERR_FLASH_OP_TIMEOUT ან ESP_ERR_FLASH_OP_FAIL: ფლეშ ჩაწერა ვერ მოხერხდა.</li>
+<li>სხვა დაბრუნების კოდებისთვის იხილეთ OTA დოკუმენტაცია esp-idf-ის app_update კომპონენტი ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>: მითითება <a class="reference internal" href="../protocols/esp_http_client.html#structesp__http__client__config__t"><span class="std std-ref">esp_http_client_config_t</span></a> სტრუქტურა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_https_ota_beginP22esp_https_ota_config_tP22esp_https_ota_handle_t">
+<span id="_CPPv319esp_https_ota_beginP22esp_https_ota_config_tP22esp_https_ota_handle_t"></span><span id="_CPPv219esp_https_ota_beginP22esp_https_ota_config_tP22esp_https_ota_handle_t"></span><span id="esp_https_ota_begin__esp_https_ota_config_tP.esp_https_ota_handle_tP"></span><span class="target" id="esp__https__ota_8h_1ac48c261d035091e7dae320650b45437d"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_https_ota_begin</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_config_t" title="esp_https_ota_config_t">esp_https_ota_config_t</a> *<em>ოტა_კონფიგურაცია</em>, <a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> *<em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv419esp_https_ota_beginP22esp_https_ota_config_tP22esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ HTTPS OTA პროგრამული უზრუნველყოფის განახლება. </p>
+<p>ეს ფუნქცია ახდენს ESP HTTPS OTA კონტექსტის ინიციალიზაციას და HTTPS კავშირის დამყარებას. ჯერ ეს ფუნქცია უნდა გამოიძახოს. თუ ეს ფუნქცია წარმატებით დააბრუნებს, მაშინ <code class="docutils literal notranslate"><span class="pre">esp_https_ota_perform</span></code> უნდა გამოიძახონ OTA პროცესის გასაგრძელებლად და უნდა მოხდეს ზარი <code class="docutils literal notranslate"><span class="pre">esp_https_ota_finish</span></code> OTA ოპერაციის დასრულების ან შემდგომი ოპერაციების წარუმატებლობის შემთხვევაში. ეს API მხარს უჭერს URL-ის გადამისამართებას, მაგრამ თუ URL-ების CA სერტიფიკატები განსხვავდება, მაშინ ის უნდა დაემატოს <code class="docutils literal notranslate"><span class="pre">cert_pem</span></code> წევრი <code class="docutils literal notranslate"><span class="pre">http_config</span></code>, რომელიც ნაწილია <code class="docutils literal notranslate"><span class="pre">ota_config</span></code>შეცდომის შემთხვევაში, ეს API აშკარად ადგენს <code class="docutils literal notranslate"><span class="pre">handle</span></code> NULL-მდე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API is blocking, so setting <code class="docutils literal notranslate"><span class="pre">is_async</span></code> member of <code class="docutils literal notranslate"><span class="pre">http_config</span></code> structure will result in an error.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: HTTPS OTA Firmware-ის განახლების კონტექსტი ინიციალიზებულია და HTTPS კავშირი დამყარებულია</li>
+<li>ESP_FAIL: ზოგადი შეცდომისთვის.</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი არგუმენტი (დაკარგული/არასწორი კონფიგურაცია, სერტიფიკატი და ა.შ.)</li>
+<li>სხვა დაბრუნების კოდებისთვის იხილეთ დოკუმენტაცია esp-idf-ში app_update კომპონენტი და esp_http_client კომპონენტი . </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ota_config</span></code>: მითითება <a class="reference internal" href="esp_https_ota.html#structesp__https__ota__config__t"><span class="std std-ref">esp_https_ota_config_t</span></a> სტრუქტურა </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: მითითება ტიპის გამოყოფილ მონაცემებზე <code class="docutils literal notranslate"><span class="pre">esp_https_ota_handle_t</span></code> რომელიც ინიციალიზებული იქნება ამ ფუნქციაში</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_https_ota_perform22esp_https_ota_handle_t">
+<span id="_CPPv321esp_https_ota_perform22esp_https_ota_handle_t"></span><span id="_CPPv221esp_https_ota_perform22esp_https_ota_handle_t"></span><span id="esp_https_ota_perform__esp_https_ota_handle_t"></span><span class="target" id="esp__https__ota_8h_1a4918c83bae2b48b2a5b4c76d935032d9"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_https_ota_perform</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> <em>https_ota_handle</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv421esp_https_ota_perform22esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP ნაკადიდან სურათის მონაცემების წაკითხვა და OTA დანაყოფზე ჩაწერა. </p>
+<p>ეს ფუნქცია კითხულობს სურათის მონაცემებს HTTP ნაკადიდან და წერს მათ OTA დანაყოფში. ეს ფუნქცია უნდა გამოიძახოს მხოლოდ იმ შემთხვევაში, თუ esp_https_ota_begin() წარმატებით დაბრუნდება. ეს ფუნქცია უნდა გამოიძახოს ციკლში, რადგან ის ბრუნდება HTTP წაკითხვის ყოველი ოპერაციის შემდეგ, რაც გაძლევთ მოქნილობას, შეაჩეროთ OTA ოპერაცია შუაში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_HTTPS_OTA_IN_PROGRESS: OTA განახლება მიმდინარეობს, გასაგრძელებლად კვლავ გამოიძახეთ ეს API .</li>
+<li>ESP_OK: OTA განახლება წარმატებით შესრულდა</li>
+<li>ESP_FAIL: OTA განახლება ვერ მოხერხდა</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: აპლიკაციის სურათი არასწორია</li>
+<li>ESP_ERR_NO_MEM: OTA ოპერაციისთვის მეხსიერების გამოყოფა შეუძლებელია.</li>
+<li>ESP_ERR_FLASH_OP_TIMEOUT ან ESP_ERR_FLASH_OP_FAIL: ფლეშ ჩაწერა ვერ მოხერხდა.</li>
+<li>სხვა დაბრუნების კოდებისთვის იხილეთ OTA დოკუმენტაცია esp-idf-ის app_update კომპონენტი ში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">https_ota_handle</span></code>: esp_https_ota_handle_t სტრუქტურის მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv439esp_https_ota_is_complete_data_received22esp_https_ota_handle_t">
+<span id="_CPPv339esp_https_ota_is_complete_data_received22esp_https_ota_handle_t"></span><span id="_CPPv239esp_https_ota_is_complete_data_received22esp_https_ota_handle_t"></span><span id="esp_https_ota_is_complete_data_received__esp_https_ota_handle_t"></span><span class="target" id="esp__https__ota_8h_1ac61902c89799531bb9bcb015f7985a4a"></span>bool <code class="descname">esp_https_ota_is_complete_data_received</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> <em>https_ota_handle</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv439esp_https_ota_is_complete_data_received22esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოწმებს, მიღებულია თუ არა სრული მონაცემები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be called just before esp_https_ota_finish() to validate if the complete image was indeed received.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ცრუ</li>
+<li>მართალია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">https_ota_handle</span></code>: esp_https_ota_handle_t სტრუქტურის მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_https_ota_finish22esp_https_ota_handle_t">
+<span id="_CPPv320esp_https_ota_finish22esp_https_ota_handle_t"></span><span id="_CPPv220esp_https_ota_finish22esp_https_ota_handle_t"></span><span id="esp_https_ota_finish__esp_https_ota_handle_t"></span><span class="target" id="esp__https__ota_8h_1a9b7340a4701dc24262f4ecc027c5f210"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_https_ota_finish</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> <em>https_ota_handle</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv420esp_https_ota_finish22esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTPS OTA Firmware-ის განახლების გასუფთავება და HTTPS კავშირის დახურვა. </p>
+<p>ეს ფუნქცია ხურავს HTTP კავშირს და ათავისუფლებს ESP HTTPS OTA კონტექსტს. ეს ფუნქცია გადართავს ჩატვირთვის დანაყოფს OTA დანაყოფზე, რომელიც შეიცავს ახალ პროგრამული უზრუნველყოფა სურათს.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If this API returns successfully, esp_restart() must be called to boot from the new firmware image</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: გასუფთავება წარმატებით დასრულდა</li>
+<li>ESP_ERR_INVALID_STATE</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი არგუმენტი</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: აპლიკაციის სურათი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">https_ota_handle</span></code>: esp_https_ota_handle_t სტრუქტურის მითითება</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_https_ota_get_img_desc22esp_https_ota_handle_tP14esp_app_desc_t">
+<span id="_CPPv326esp_https_ota_get_img_desc22esp_https_ota_handle_tP14esp_app_desc_t"></span><span id="_CPPv226esp_https_ota_get_img_desc22esp_https_ota_handle_tP14esp_app_desc_t"></span><span id="esp_https_ota_get_img_desc__esp_https_ota_handle_t.esp_app_desc_tP"></span><span class="target" id="esp__https__ota_8h_1a73384ac51bdbc13caa32d82e7e0734f8"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_https_ota_get_img_desc</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> <em>https_ota_handle</em>, <a class="reference internal" href="app_image_format.html#_CPPv414esp_app_desc_t" title="esp_app_desc_t">esp_app_desc_t</a> *<em>new_app_info</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv426esp_https_ota_get_img_desc22esp_https_ota_handle_tP14esp_app_desc_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კითხულობს აპლიკაციის აღწერას სურათის სათაურიდან. აპლიკაციის აღწერა იძლევა ინფორმაციას, როგორიცაა სურათის „ფირმვერის ვერსია“. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This API can be called only after esp_https_ota_begin() and before esp_https_ota_perform(). Calling this API is not mandatory.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG: არასწორი არგუმენტები</li>
+<li>ESP_FAIL: სურათის აღმწერის წაკითხვა ვერ მოხერხდა</li>
+<li>ESP_OK: სურათის აღმწერი წარმატებით წაიკითხა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">https_ota_handle</span></code>: esp_https_ota_handle_t სტრუქტურის მითითება </li>
+<li><code class="docutils literal notranslate"><span class="pre">new_app_info</span></code>: გამოყოფილი ობიექტის მაჩვენებელი <a class="reference internal" href="app_image_format.html#structesp__app__desc__t"><span class="std std-ref">esp_app_desc_t</span></a> სტრუქტურა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_https_ota_get_image_len_read22esp_https_ota_handle_t">
+<span id="_CPPv332esp_https_ota_get_image_len_read22esp_https_ota_handle_t"></span><span id="_CPPv232esp_https_ota_get_image_len_read22esp_https_ota_handle_t"></span><span id="esp_https_ota_get_image_len_read__esp_https_ota_handle_t"></span><span class="target" id="esp__https__ota_8h_1af099c5e6a7d3017defeeeb8508ffa8aa"></span>int <code class="descname">esp_https_ota_get_image_len_read</code><span class="sig-paren">(</span><a class="reference internal" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="esp_https_ota_handle_t">esp_https_ota_handle_t</a> <em>https_ota_handle</em><span class="sig-paren">)</span><a class="headerlink" href="esp_https_ota.html#_CPPv432esp_https_ota_get_image_len_read22esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_https_ota.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv422esp_https_ota_config_t">
+<span id="_CPPv322esp_https_ota_config_t"></span><span id="_CPPv222esp_https_ota_config_t"></span><span id="esp_https_ota_config_t"></span><span class="target" id="structesp__https__ota__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_https_ota_config_t</code><a class="headerlink" href="esp_https_ota.html#_CPPv422esp_https_ota_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP HTTPS OTA კონფიგურაცია. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N22esp_https_ota_config_t11http_configE">
+<span id="_CPPv3N22esp_https_ota_config_t11http_configE"></span><span id="_CPPv2N22esp_https_ota_config_t11http_configE"></span><span id="esp_https_ota_config_t::http_config__esp_http_client_config_tCP"></span><span class="target" id="structesp__https__ota__config__t_1a90401d24e37b4a691c4eba05577f7a99"></span><em class="property">კონსტ</em> <a class="reference internal" href="../protocols/esp_http_client.html#_CPPv424esp_http_client_config_t" title="esp_http_client_config_t">esp_http_client_config_t</a> *<code class="descname">http_config</code><a class="headerlink" href="esp_https_ota.html#_CPPv4N22esp_https_ota_config_t11http_configE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP HTTP კლიენტის კონფიგურაცია </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_https_ota.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPS_OTA_BASE">
+<span class="target" id="esp__https__ota_8h_1a01fd923457f18428c256ed1c9d3b890d"></span><code class="descname">ESP_ERR_HTTPS_OTA_BASE</code><a class="headerlink" href="esp_https_ota.html#c.ESP_ERR_HTTPS_OTA_BASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_HTTPS_OTA_IN_PROGRESS">
+<span class="target" id="esp__https__ota_8h_1affb6f146b88b0fc844ad3e00d83a88ec"></span><code class="descname">ESP_ERR_HTTPS_OTA_IN_PROGRESS</code><a class="headerlink" href="esp_https_ota.html#c.ESP_ERR_HTTPS_OTA_IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_https_ota.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv422esp_https_ota_handle_t">
+<span id="_CPPv322esp_https_ota_handle_t"></span><span id="_CPPv222esp_https_ota_handle_t"></span><span id="esp_https_ota_handle_t"></span><span class="target" id="esp__https__ota_8h_1a0b4099cc4ff2c5befa0db723ad01237c"></span><em class="property">typedef </em>void *<code class="descname">esp_https_ota_handle_t</code><a class="headerlink" href="esp_https_ota.html#_CPPv422esp_https_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_pthread.html" rel="next" title="ESP-pthread">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_err.html" rel="prev" title="Error Codes and Helper Functions"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

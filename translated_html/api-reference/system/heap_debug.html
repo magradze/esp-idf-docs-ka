@@ -1,0 +1,742 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>გროვის მეხსიერების გამართვა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_timer.html" rel="next" title="High Resolution Timer"/>
+<link href="mem_alloc.html" rel="prev" title="Heap Memory Allocation"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/heap_debug.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/heap_debug"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/heap_debug.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="heap_debug.html#">გროვის მეხსიერების გამართვა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="heap_debug.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="heap_debug.html#heap-information">გროვის ინფორმაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="heap_debug.html#heap-corruption-detection">გროვის დაზიანების აღმოჩენა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="heap_debug.html#heap-tracing">გროვის ტრასირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="heap_debug.html#api-reference-heap-tracing">API მითითება - გროვის ტრასირება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>გროვის მეხსიერების გამართვა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/heap_debug.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="heap-memory-debugging">
+<h1>გროვის მეხსიერების გამართვა<a class="headerlink" href="heap_debug.html#heap-memory-debugging" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="heap_debug.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF აერთიანებს მოთხოვნის ინსტრუმენტებს <a class="reference internal" href="heap_debug.html#heap-information"><span class="std std-ref">გროვის ინფორმაცია</span></a>, <a class="reference internal" href="heap_debug.html#heap-corruption"><span class="std std-ref">გროვის დაზიანების აღმოჩენა</span></a>და <a class="reference internal" href="heap_debug.html#heap-tracing"><span class="std std-ref">მეხსიერების გაჟონვის თვალყურის დევნება</span></a>ეს დაგეხმარებათ მეხსიერებასთან დაკავშირებული შეცდომების აღმოჩენაში.</p>
+<p>გროვის მეხსიერების განაწილების შესახებ ზოგადი ინფორმაციისთვის იხილეთ <a class="reference internal" href="mem_alloc.html"><span class="doc">გროვის მეხსიერების განაწილება</span></a> გვერდი.</p>
+</div>
+<div class="section" id="heap-information">
+<span id="id1"></span><h2>გროვის ინფორმაცია<a class="headerlink" href="heap_debug.html#heap-information" title="Permalink to this headline">¶</a></h2>
+<p>გროვის მდგომარეობის შესახებ ინფორმაციის მისაღებად:</p>
+<ul class="simple">
+<li><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xPortGetFreeHeapSize()</span></code> არის Free RTOS ფუნქცია, რომელიც აბრუნებს თავისუფალი ბაიტების რაოდენობას (მონაცემთა მეხსიერებაში) გროვაში. ეს ექვივალენტურია გამოძახებისა <code class="docutils literal notranslate"><span class="pre">heap_caps_get_free_size(MALLOC_CAP_8BIT)</span></code>.</li>
+<li><a class="reference internal" href="mem_alloc.html#_CPPv423heap_caps_get_free_size8uint32_t" title="heap_caps_get_free_size"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_free_size()</span></code></a> ასევე შეიძლება გამოყენებულ იქნას სხვადასხვა მეხსიერების შესაძლებლობებისთვის მიმდინარე თავისუფალი მეხსიერების დასაბრუნებლად.</li>
+<li><a class="reference internal" href="mem_alloc.html#_CPPv432heap_caps_get_largest_free_block8uint32_t" title="heap_caps_get_largest_free_block"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_largest_free_block()</span></code></a> შეიძლება გამოყენებულ იქნას გროვაში ყველაზე დიდი თავისუფალი ბლოკის დასაბრუნებლად. ეს არის ყველაზე დიდი ერთჯერადი განაწილება, რომელიც ამჟამად შესაძლებელია. ამ მნიშვნელობის თვალყურის დევნება და მთლიან თავისუფალ გროვასთან შედარება საშუალებას გაძლევთ აღმოაჩინოთ გროვაში ფრაგმენტაცია.</li>
+<li><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xPortGetMinimumEverFreeHeapSize()</span></code> და მასთან დაკავშირებული <a class="reference internal" href="mem_alloc.html#_CPPv431heap_caps_get_minimum_free_size8uint32_t" title="heap_caps_get_minimum_free_size"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_minimum_free_size()</span></code></a> შეიძლება გამოყენებულ იქნას ჩატვირთვის შემდეგ გროვის „დაბალი წყლის ნიშნის“ თვალყურის დევნებისთვის.</li>
+<li><a class="reference internal" href="mem_alloc.html#_CPPv418heap_caps_get_infoP17multi_heap_info_t8uint32_t" title="heap_caps_get_info"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_info()</span></code></a> აბრუნებს <a class="reference internal" href="mem_alloc.html#_CPPv417multi_heap_info_t" title="multi_heap_info_t"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">multi_heap_info_t</span></code></a> სტრუქტურა, რომელიც შეიცავს ზემოთ ჩამოთვლილი ფუნქციებიდან მიღებულ ინფორმაციას, პლუს რამდენიმე დამატებით, გროვის სპეციფიკურ მონაცემს (განაწილების რაოდენობა და ა.შ.).</li>
+<li><a class="reference internal" href="mem_alloc.html#_CPPv425heap_caps_print_heap_info8uint32_t" title="heap_caps_print_heap_info"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_print_heap_info()</span></code></a> ბეჭდავს stdout-ში დაბრუნებული ინფორმაციის შეჯამებას <a class="reference internal" href="mem_alloc.html#_CPPv418heap_caps_get_infoP17multi_heap_info_t8uint32_t" title="heap_caps_get_info"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_info()</span></code></a>.</li>
+<li><a class="reference internal" href="mem_alloc.html#_CPPv414heap_caps_dump8uint32_t" title="heap_caps_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_dump()</span></code></a> და <a class="reference internal" href="mem_alloc.html#_CPPv418heap_caps_dump_allv" title="heap_caps_dump_all"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_dump_all()</span></code></a> გროვაში თითოეული ბლოკის სტრუქტურის შესახებ დეტალურ ინფორმაციას გამოიტანს. გაითვალისწინეთ, რომ ეს შეიძლება დიდი რაოდენობით გამომავალი იყოს.</li>
+</ul>
+</div>
+<div class="section" id="heap-corruption-detection">
+<span id="heap-corruption"></span><h2>გროვის დაზიანების აღმოჩენა<a class="headerlink" href="heap_debug.html#heap-corruption-detection" title="Permalink to this headline">¶</a></h2>
+<p>გროვის დაზიანების აღმოჩენა საშუალებას გაძლევთ აღმოაჩინოთ სხვადასხვა ტიპის გროვის მეხსიერების შეცდომები:</p>
+<ul class="simple">
+<li>საზღვრებს მიღმა ჩაწერა და ბუფერის გადავსება.</li>
+<li>წერს განთავისუფლებულ მეხსიერებაში.</li>
+<li>კითხულობს გათავისუფლებული ან არაინიციალიზებული მეხსიერებიდან,</li>
+</ul>
+<div class="section" id="assertions">
+<h3>მტკიცებები<a class="headerlink" href="heap_debug.html#assertions" title="Permalink to this headline">¶</a></h3>
+<p>გროვის იმპლემენტაცია (<code class="docutils literal notranslate"><span class="pre">multi_heap.c</span></code>და ა.შ.) მოიცავს უამრავ მტკიცებას, რომლებიც ვერ ხერხდება, თუ გროვის მეხსიერება დაზიანებულია. გროვის დაზიანების ყველაზე ეფექტურად გამოსავლენად, დარწმუნდით, რომ მტკიცებები ჩართულია პროექტის კონფიგურაცია მენიუში, ქვემოთ. <code class="docutils literal notranslate"><span class="pre">Compiler</span> <span class="pre">options</span></code> -&amp;gt; <a class="reference internal" href="../kconfig.html#config-compiler-optimization-assertion-level"><span class="std std-ref">CONFIG_COMPILER_OPTIMIZATION_ASSERTION_LEVEL</span></a>.</p>
+<p>თუ გროვის მთლიანობის დადასტურება ვერ მოხერხდა, დაიბეჭდება შემდეგი სახის ხაზი: <code class="docutils literal notranslate"><span class="pre">CORRUPT</span> <span class="pre">HEAP:</span> <span class="pre">multi_heap.c:225</span> <span class="pre">detected</span> <span class="pre">at</span> <span class="pre">0x3ffbb71c</span></code>მეხსიერების მისამართი, რომელიც იბეჭდება, არის დაზიანებული შიგთავსის მქონე გროვის სტრუქტურის მისამართი.</p>
+<p>ასევე შესაძლებელია გროვის მთლიანობის ხელით შემოწმება გამოძახებით <a class="reference internal" href="mem_alloc.html#_CPPv429heap_caps_check_integrity_allb" title="heap_caps_check_integrity_all"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity_all()</span></code></a> ან მასთან დაკავშირებული ფუნქციები. ეს ფუნქცია ამოწმებს მოთხოვნილი გროვის მეხსიერების მთლიანობას და მისი გამოყენება შესაძლებელია მაშინაც კი, თუ დადასტურებები გამორთულია. თუ მთლიანობის შემოწმება შეცდომას დაბეჭდავს, ის ასევე შეიცავს დაზიანებული გროვის სტრუქტურების მისამართს(ებს).</p>
+</div>
+<div class="section" id="finding-heap-corruption">
+<h3>გროვის კორუფციის პოვნა<a class="headerlink" href="heap_debug.html#finding-heap-corruption" title="Permalink to this headline">¶</a></h3>
+<p>მეხსიერების დაზიანება შეიძლება იყოს ერთ-ერთი ყველაზე რთულად საპოვნელი და გამოსასწორებელი შეცდომების კატეგორია, რადგან მეხსიერების ერთი არე შეიძლება დაზიანდეს სრულიად სხვა ადგილიდან. რამდენიმე რჩევა:</p>
+<ul class="simple">
+<li>ავარია <code class="docutils literal notranslate"><span class="pre">CORRUPT</span> <span class="pre">HEAP:</span></code> შეტყობინება, როგორც წესი, შეიცავს სტეკის კვალის ნიშანს, თუმცა ეს კვალი იშვიათად არის სასარგებლო. მეხსიერების დაზიანების სიმპტომია ავარია, როდესაც სისტემა აცნობიერებს, რომ ჰეპი დაზიანებულია, თუმცა, როგორც წესი, დაზიანება სხვაგან და უფრო ადრეულ დროში მოხდა.</li>
+<li>Heap მეხსიერების გამართვა გაზრდა11 ging <a class="reference internal" href="heap_debug.html#configuration">კონფიგურაცია</a> დონის „მსუბუქი ზემოქმედება“ ან „ყოვლისმომცველი“ შეცვლამ შეიძლება უფრო ზუსტი შეტყობინება მოგცეთ პირველი დაზიანებული მეხსიერების მისამართით.</li>
+<li>რეგულარული ზარების დამატება <a class="reference internal" href="mem_alloc.html#_CPPv429heap_caps_check_integrity_allb" title="heap_caps_check_integrity_all"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity_all()</span></code></a> ან <a class="reference internal" href="mem_alloc.html#_CPPv430heap_caps_check_integrity_addr8intptr_tb" title="heap_caps_check_integrity_addr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity_addr()</span></code></a> თქვენს კოდში არსებული ინფორმაცია დაგეხმარებათ დაზიანების ზუსტი დროის დადგენაში. შეგიძლიათ გადაიტანოთ ეს შემოწმებები კოდის იმ მონაკვეთის „აღსადგენად“, რომელმაც გროვა დააზიანა.</li>
+<li>დაზიანებული მეხსიერების მისამართის მიხედვით, შეგიძლიათ გამოიყენოთ <a class="reference internal" href="../../api-guides/jtag-debugging/index.html#jtag-debugging-introduction"><span class="std std-ref">JTAG გამართვა ging</span></a> ამ მისამართზე საკონტროლო წერტილის დასაყენებლად და CPU-ს ჩაწერისას გაჩერებისთვის.</li>
+<li>თუ JTAG არ გაქვთ, მაგრამ დაახლოებით იცით, როდის ხდება დაზიანება, მაშინ შეგიძლიათ წინასწარ დააყენოთ საკონტროლო წერტილი პროგრამულ უზრუნველყოფაში. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_set_watchpoint()</span></code>საბედისწერო გამონაკლისი მოხდება, როდესაც სათვალთვალო წერტილი გააქტიურდება. მაგალითად <code class="docutils literal notranslate"><span class="pre">esp_set_watchpoint(0,</span> <span class="pre">(void</span> <span class="pre">*)addr,</span> <span class="pre">4,</span> <span class="pre">ESP_WATCHPOINT_STORE</span></code>გაითვალისწინეთ, რომ საკონტროლო წერტილები თითოეული პროცესორისთვისაა და დაყენებულია მხოლოდ მიმდინარე პროცესორზე, ამიტომ თუ არ იცით, რომელი პროცესორი აზიანებს მეხსიერებას, მაშინ ეს ფუნქცია ორივე პროცესორზე უნდა გამოიძახოთ.</li>
+<li>ბუფერული გადავსებისთვის, <a class="reference internal" href="heap_debug.html#id2">გროვის ტრასირება</a> ში <code class="docutils literal notranslate"><span class="pre">HEAP_TRACE_ALL</span></code> რეჟიმი საშუალებას გაძლევთ ნახოთ, რომელი აბონენტები რომელ მისამართებს გამოყოფენ გროვიდან. იხილეთ <a class="reference internal" href="heap_debug.html#heap-tracing-to-find-heap-corruption">გროვის ტრასირება გროვის დაზიანების აღმოსაჩენად</a> დამატებითი დეტალებისთვის. თუ თქვენ შეგიძლიათ იპოვოთ ფუნქცია, რომელიც მეხსიერებას გამოყოფს მისამართით, რომელიც უშუალოდ დაზიანებული მისამართის წინ მდებარეობს, ეს სავარაუდოდ ის ფუნქცია იქნება, რომელიც ბუფერს გადავსებს.</li>
+<li>ზარი <a class="reference internal" href="mem_alloc.html#_CPPv414heap_caps_dump8uint32_t" title="heap_caps_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_dump()</span></code></a> ან <a class="reference internal" href="mem_alloc.html#_CPPv418heap_caps_dump_allv" title="heap_caps_dump_all"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_dump_all()</span></code></a> შეიძლება მიუთითებდეს, თუ რომელი გროვის ბლოკები აკრავს გარს დაზიანებულ რეგიონს და შესაძლოა, რომ ისინი გადავსებული/დაბალი ნაკადის მქონე იყოს/და ა.შ.</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h3>კონფიგურაცია<a class="headerlink" href="heap_debug.html#configuration" title="Permalink to this headline">¶</a></h3>
+<p>გროვის კორუფციის გამოვლენის დონის დროებით გაზრდამ შეიძლება უფრო დეტალური ინფორმაცია მოგაწოდოთ გროვის კორუფციის შეცდომების შესახებ.</p>
+<p>პროექტის კონფიგურაცია მენიუში, ქვემოთ <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">config</span></code> არის მენიუ <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">memory</span> <span class="pre">debugging</span></code>გარემო <a class="reference internal" href="../kconfig.html#config-heap-corruption-detection"><span class="std std-ref">CONFIG_HEAP_CORRUPTION_DETECTION</span></a> შეიძლება დაყენდეს სამი დონიდან ერთ-ერთზე:</p>
+<div class="section" id="basic-no-poisoning">
+<h4>ძირითადი (მოწამვლის გარეშე)<a class="headerlink" href="heap_debug.html#basic-no-poisoning" title="Permalink to this headline">¶</a></h4>
+<p>ეს არის ნაგულისხმევი დონე. გროვის დაზიანების სპეციალური ფუნქციები ჩართული არ არის, მაგრამ იმ პირობით, რომ დადასტურებები ჩართულია (ნაგულისხმევი კონფიგურაცია), გროვის დაზიანების შეცდომა დაიბეჭდება, თუ გროვის რომელიმე შიდა მონაცემთა სტრუქტურა გადაწერილი ან დაზიანებული ჩანს. ეს, როგორც წესი, მიუთითებს ბუფერის გადატვირთვაზე ან საზღვრებს მიღმა ჩაწერაზე.</p>
+<p>თუ დადასტურებები ჩართულია, დადასტურება ასევე გააქტიურდება ორმაგი გათავისუფლების შემთხვევაში (იგივე მეხსიერება ორჯერ თავისუფლდება).</p>
+<p>ზარი <a class="reference internal" href="mem_alloc.html#_CPPv425heap_caps_check_integrity8uint32_tb" title="heap_caps_check_integrity"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity()</span></code></a> ძირითად რეჟიმში შეამოწმებს ყველა გროვის სტრუქტურის მთლიანობას და დაბეჭდვის შეცდომებს, თუ რომელიმე მათგანი დაზიანებულია.</p>
+</div>
+<div class="section" id="light-impact">
+<h4>სინათლის ზემოქმედება<a class="headerlink" href="heap_debug.html#light-impact" title="Permalink to this headline">¶</a></h4>
+<p>ამ დონეზე, გროვის მეხსიერება დამატებით „მოწამლულია“ თითოეული გამოყოფილი ბლოკის წინ და შემდეგ „თავისა“ და „კანარის ბაიტებით“. თუ აპლიკაცია გამოყოფილი ბუფერების საზღვრებს გარეთ ჩაწერს, კანარის ბაიტები დაზიანდება და მთლიანობის შემოწმება ვერ განხორციელდება.</p>
+<p>მთავარი კანარის სიტყვაა 0xABBA1234 (ბაიტური თანმიმდევრობით 3412BAAB), ხოლო კუდის კანარის სიტყვაა 0xBAAD5678 (ბაიტური თანმიმდევრობით 7856ADBA).</p>
+<p>„ძირითადი“ გროვის დაზიანების შემოწმებით ასევე შესაძლებელია საზღვრებს მიღმა ჩაწერების უმეტესობის აღმოჩენა, თუმცა ეს პარამეტრი უფრო ზუსტია, რადგან შესაძლებელია ერთი ბაიტის გადატვირთვის აღმოჩენაც კი. ძირითადი გროვის შემოწმების შემთხვევაში, შეცდომის აღმოჩენამდე გადატვირთვის ბაიტების რაოდენობა დამოკიდებული იქნება გროვის თვისებებზე.</p>
+<p>„მსუბუქი ზემოქმედების“ შემოწმების ჩართვა ზრდის მეხსიერების გამოყენებას, თითოეული ინდივიდუალური გამოყოფა გამოიყენებს მეხსიერების დამატებით 9-დან 12 ბაიტამდე (განლაგების მიხედვით).</p>
+<p>ყოველ ჯერზე <code class="docutils literal notranslate"><span class="pre">free()</span></code> სინათლის ზემოქმედების რეჟიმში გამოძახებისას, გათავისუფლებული ბუფერის თავისა და კუდის კანარის ბაიტები მოწმდება მოსალოდნელ მნიშვნელობებთან შედარებით.</p>
+<p>როდესაც <a class="reference internal" href="mem_alloc.html#_CPPv425heap_caps_check_integrity8uint32_tb" title="heap_caps_check_integrity"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity()</span></code></a> როდესაც ხდება გამოძახება, ჰუპის მეხსიერების ყველა გამოყოფილი ბლოკის კანარის ბაიტები შემოწმებულია მოსალოდნელ მნიშვნელობებთან შედარებით.</p>
+<p>ორივე შემთხვევაში, შემოწმება იმაში მდგომარეობს, რომ გამოყოფილი ბლოკის პირველი 4 ბაიტი (ბუფერის მომხმარებლისთვის დაბრუნებამდე) უნდა იყოს სიტყვა 0xABBA1234. შემდეგ გამოყოფილი ბლოკის ბოლო 4 ბაიტი (ბუფერის მომხმარებლისთვის დაბრუნების შემდეგ) უნდა იყოს სიტყვა 0xBAAD5678.</p>
+<p>სხვადასხვა მნიშვნელობები, როგორც წესი, შესაბამისად, ბუფერის არასაკმარის ან გადაჭარბებულ დატვირთვაზე მიუთითებს.</p>
+</div>
+<div class="section" id="comprehensive">
+<h4>ყოვლისმომცველი<a class="headerlink" href="heap_debug.html#comprehensive" title="Permalink to this headline">¶</a></h4>
+<p>ეს დონე მოიცავს „სინათლის დარტყმის“ აღმოჩენის ფუნქციებს, პლუს დამატებით შემოწმებას არაინიციალიზებული წვდომისა და გამოყენების შემდეგ გათავისუფლების შეცდომების აღმოსაჩენად. ამ რეჟიმში, ყველა ახლად გამოყოფილი მეხსიერება ივსება 0xCE ნიმუშით, ხოლო ყველა გათავისუფლებული მეხსიერება ივსება 0xFE ნიმუშით.</p>
+<p>„ყოვლისმომცველი“ აღმოჩენის ჩართვას მნიშვნელოვანი გავლენა აქვს გაშვების დროს მუშაობაზე (რადგან ყველა მეხსიერება უნდა იყოს დაყენებული განაწილების შაბლონებზე ყოველ ჯერზე, როდესაც malloc/free სრულდება და მეხსიერება ასევე უნდა შემოწმდეს ყოველ ჯერზე). თუმცა, ეს საშუალებას იძლევა უფრო ადვილად აღმოაჩინოთ მეხსიერების დაზიანების შეცდომები, რომელთა აღმოჩენა სხვა შემთხვევაში გაცილებით შეუმჩნეველია. რეკომენდებულია ამ რეჟიმის ჩართვა მხოლოდ გამართვა ging-ის დროს და არა წარმოების დროს.</p>
+<div class="section" id="crashes-in-comprehensive-mode">
+<h5>ყოვლისმომცველი რეჟიმის ავარიები<a class="headerlink" href="heap_debug.html#crashes-in-comprehensive-mode" title="Permalink to this headline">¶</a></h5>
+<p>თუ აპლიკაცია 0xCECECECE-თან დაკავშირებული მისამართის წაკითხვის/ჩაწერის დროს ყოვლისმომცველ რეჟიმში ვერ ხერხდება, ეს მიუთითებს, რომ მან წაიკითხა არაინიციალიზებული მეხსიერება. აპლიკაცია უნდა შეიცვალოს calloc() ფუნქციის გამოსაყენებლად (რომელიც მეხსიერებას ნულებს), ან მეხსიერების ინიციალიზაცია მოახდინოს მის გამოყენებამდე. 0xCECECECE მნიშვნელობა ასევე შეიძლება ნახოთ დასტის მიერ გამოყოფილ ავტომატურ ცვლადებში, რადგან IDF-ში დავალებების დასტების უმეტესობა თავდაპირველად გროვიდან გამოიყოფა, ხოლო C დასტის მეხსიერება ნაგულისხმევად არაინიციალიზებულია.</p>
+<p>თუ აპლიკაცია გაითიშება და გამონაკლისის რეგისტრის დემპი მიუთითებს, რომ ზოგიერთი მისამართი ან მნიშვნელობა იყო 0xFEFEFEFE, ეს მიუთითებს, რომ ის კითხულობს გროვის მეხსიერებას მისი გათავისუფლების შემდეგ („გამოყენების შეცდომა გათავისუფლების შემდეგ“). აპლიკაცია უნდა შეიცვალოს ისე, რომ გათავისუფლების შემდეგ არ ჰქონდეს წვდომა გროვის მეხსიერებაზე.</p>
+<p>თუ malloc()-ის ან realloc()-ის გამოძახება იწვევს ავარიას, რადგან ის ელოდა 0xFEFEFEFE შაბლონის პოვნას თავისუფალ მეხსიერებაში და სხვა შაბლონი იქნა ნაპოვნი, ეს მიუთითებს, რომ აპლიკაციას აქვს use-after-free შეცდომა, სადაც ის წერს მეხსიერებაში, რომელიც უკვე გათავისუფლებულია.</p>
+</div>
+<div class="section" id="manual-heap-checks-in-comprehensive-mode">
+<h5>ხელით შემოწმებული გროვის სისტემა ყოვლისმომცველ რეჟიმში<a class="headerlink" href="heap_debug.html#manual-heap-checks-in-comprehensive-mode" title="Permalink to this headline">¶</a></h5>
+<p>ზარები <a class="reference internal" href="mem_alloc.html#_CPPv425heap_caps_check_integrity8uint32_tb" title="heap_caps_check_integrity"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_check_integrity()</span></code></a> შესაძლოა, 0xFEFEFEFE, 0xABBA1234 ან 0xBAAD5678-თან დაკავშირებული შეცდომები დაბეჭდოს. თითოეულ შემთხვევაში, შემმოწმებელი ელის მოცემული ნიმუშის პოვნას და შეცდომას დაუშვებს, თუ ის ვერ მოიძებნება:</p>
+<ul class="simple">
+<li>თავისუფალი გროვის ბლოკებისთვის, შემოწმების სისტემა ელის, რომ იპოვის ყველა ბაიტს, რომელიც დაყენებულია 0xFE-ზე. ნებისმიერი სხვა მნიშვნელობა მიუთითებს გამოყენების შემდეგ შეცდომაზე, სადაც თავისუფალი მეხსიერება არასწორად არის გადაწერილი.</li>
+<li>გამოყოფილი გროვის ბლოკებისთვის, ქცევა იგივეა, რაც <cite>Light Impact</cite> რეჟიმი. თითოეული გამოყოფილი ბუფერის თავში და ბოლოში მოწმდება კანარის ბაიტები 0xABBA1234 და 0xBAAD5678 და ნებისმიერი ვარიაცია მიუთითებს ბუფერის გადატვირთვაზე/დაბალ გადატვირთვაზე.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="heap-tracing">
+<span id="id2"></span><h2>გროვის ტრასირება<a class="headerlink" href="heap_debug.html#heap-tracing" title="Permalink to this headline">¶</a></h2>
+<p>გროვის ტრასირება საშუალებას იძლევა კოდის ტრასირების, რომელიც მეხსიერებას გამოყოფს/ათავისუფლებს. მხარდაჭერილია ტრასირების ორი რეჟიმი:</p>
+<ul class="simple">
+<li>დამოუკიდებელი. ამ რეჟიმში კვალის მონაცემები ინახება დაფაზე, ამიტომ შეგროვებული ინფორმაციის ზომა შეზღუდულია ამ მიზნებისთვის გამოყოფილი ბუფერით. ანალიზი ხორციელდება დაფაზე არსებული კოდით. შეგროვებული ინფორმაციის წვდომისა და მისი გადასატანად ხელმისაწვდომია რამდენიმე API .</li>
+<li>ჰოსტზე დაფუძნებული. ამ რეჟიმს არ აქვს დამოუკიდებელი რეჟიმის შეზღუდვა, რადგან კვალის მონაცემები ჰოსტს იგზავნება JTAG კავშირის საშუალებით app_trace ბიბლიოთეკის გამოყენებით. მოგვიანებით, მათი ანალიზი შესაძლებელია სპეციალური ხელსაწყოების გამოყენებით.</li>
+</ul>
+<p>გროვის ტრასირებას შეუძლია ორი ფუნქციის შესრულება:</p>
+<ul class="simple">
+<li>გაჟონვის შემოწმება: იპოვეთ მეხსიერება, რომელიც გამოყოფილია და არასდროს თავისუფლდება.</li>
+<li>გროვის გამოყენების ანალიზი: აჩვენებს ყველა ფუნქციას, რომელიც გამოყოფს/ათავისუფლებს მეხსიერებას კვალის გაშვებისას.</li>
+</ul>
+<div class="section" id="how-to-diagnose-memory-leaks">
+<h3>როგორ ამოვიცნოთ მეხსიერების გაჟონვა<a class="headerlink" href="heap_debug.html#how-to-diagnose-memory-leaks" title="Permalink to this headline">¶</a></h3>
+<p>თუ მეხსიერების გაჟონვაზე ეჭვი გეპარებათ, პირველი ნაბიჯი არის იმის გარკვევა, თუ პროგრამის რომელი ნაწილი აზიანებს მეხსიერებას. გამოიყენეთ <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xPortGetFreeHeapSize()</span></code>, <a class="reference internal" href="mem_alloc.html#_CPPv423heap_caps_get_free_size8uint32_t" title="heap_caps_get_free_size"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_caps_get_free_size()</span></code></a>, ან <a class="reference internal" href="heap_debug.html#heap-information"><span class="std std-ref">დაკავშირებული ფუნქციები</span></a> აპლიკაციის მთელი სიცოცხლის განმავლობაში მეხსიერების გამოყენების თვალყურის დევნებისთვის. შეეცადეთ, გაჟონვა ერთ ფუნქციამდე ან ფუნქციების თანმიმდევრობამდე შეამციროთ, სადაც თავისუფალი მეხსიერება ყოველთვის მცირდება და არასდროს აღდგება.</p>
+<div class="section" id="standalone-mode">
+<h4>დამოუკიდებელი რეჟიმი<a class="headerlink" href="heap_debug.html#standalone-mode" title="Permalink to this headline">¶</a></h4>
+<p>როგორც კი დაადგენთ კოდს, რომელიც, თქვენი აზრით, გაჟონავს:</p>
+<ul class="simple">
+<li>პროექტის კონფიგურაცია მენიუში გადადით შემდეგზე: <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">settings</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">Memory</span> <span class="pre">Debugging</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">tracing</span></code> და აირჩიეთ <code class="docutils literal notranslate"><span class="pre">Standalone</span></code> ვარიანტი (იხ. <a class="reference internal" href="../kconfig.html#config-heap-tracing-dest"><span class="std std-ref">CONFIG_HEAP_TRACING_DEST</span></a>).</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv426heap_trace_init_standaloneP19heap_trace_record_t6size_t" title="heap_trace_init_standalone"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_init_standalone()</span></code></a> პროგრამის ადრეულ ეტაპზე, ბუფერის რეგისტრაციისთვის, რომლის გამოყენებაც შესაძლებელია მეხსიერების კვალის ჩასაწერად.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv416heap_trace_start17heap_trace_mode_t" title="heap_trace_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_start()</span></code></a> სისტემაში ყველა mallock-ის/free-ის ჩაწერის დასაწყებად. გამოიძახეთ ეს დაუყოვნებლივ კოდის იმ ნაწილის წინ, რომელიც, თქვენი აზრით, მეხსიერების გაჟონვას იწვევს.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a> რათა შეწყდეს კვალი, როგორც კი საეჭვო კოდის ნაწილი შეასრულებს.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_dumpv" title="heap_trace_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_dump()</span></code></a> გროვის კვალის შედეგების დასაშიფრად.</li>
+</ul>
+<p>მაგალითი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include "esp_heap_trace.h"</span>
+
+<span class="c1">#define NUM_RECORDS 100</span>
+<span class="n">static</span> <span class="n">heap_trace_record_t</span> <span class="n">trace_record</span><span class="p">[</span><span class="n">NUM_RECORDS</span><span class="p">];</span> <span class="o">//</span> <span class="n">This</span> <span class="n">buffer</span> <span class="n">must</span> <span class="n">be</span> <span class="ow">in</span> <span class="n">internal</span> <span class="n">RAM</span>
+
+<span class="o">...</span>
+
+<span class="n">void</span> <span class="n">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="o">...</span>
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_init_standalone</span><span class="p">(</span><span class="n">trace_record</span><span class="p">,</span> <span class="n">NUM_RECORDS</span><span class="p">)</span> <span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_start</span><span class="p">(</span><span class="n">HEAP_TRACE_LEAKS</span><span class="p">)</span> <span class="p">);</span>
+
+    <span class="n">do_something_you_suspect_is_leaking</span><span class="p">();</span>
+
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_stop</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">heap_trace_dump</span><span class="p">();</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>გროვის ტრასიდან მიღებული შედეგი დაახლოებით ასე გამოიყურება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="n">allocations</span> <span class="n">trace</span> <span class="p">(</span><span class="mi">100</span> <span class="n">entry</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="mi">32</span> <span class="nb">bytes</span> <span class="p">(</span><span class="o">@</span> <span class="mh">0x3ffaf214</span><span class="p">)</span> <span class="n">allocated</span> <span class="n">CPU</span> <span class="mi">0</span> <span class="n">ccount</span> <span class="mh">0x2e9b7384</span> <span class="n">caller</span> <span class="mh">0x400d276d</span><span class="p">:</span><span class="mh">0x400d27c1</span>
+<span class="mh">0x400d276d</span><span class="p">:</span> <span class="n">leak_some_memory</span> <span class="n">at</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">idf</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">started</span><span class="o">/</span><span class="n">blink</span><span class="o">/</span><span class="n">main</span><span class="o">/./</span><span class="n">blink</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">27</span>
+
+<span class="mh">0x400d27c1</span><span class="p">:</span> <span class="n">blink_task</span> <span class="n">at</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">idf</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">started</span><span class="o">/</span><span class="n">blink</span><span class="o">/</span><span class="n">main</span><span class="o">/./</span><span class="n">blink</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">52</span>
+
+<span class="mi">8</span> <span class="nb">bytes</span> <span class="p">(</span><span class="o">@</span> <span class="mh">0x3ffaf804</span><span class="p">)</span> <span class="n">allocated</span> <span class="n">CPU</span> <span class="mi">0</span> <span class="n">ccount</span> <span class="mh">0x2e9b79c0</span> <span class="n">caller</span> <span class="mh">0x400d2776</span><span class="p">:</span><span class="mh">0x400d27c1</span>
+<span class="mh">0x400d2776</span><span class="p">:</span> <span class="n">leak_some_memory</span> <span class="n">at</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">idf</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">started</span><span class="o">/</span><span class="n">blink</span><span class="o">/</span><span class="n">main</span><span class="o">/./</span><span class="n">blink</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">29</span>
+
+<span class="mh">0x400d27c1</span><span class="p">:</span> <span class="n">blink_task</span> <span class="n">at</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">idf</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">started</span><span class="o">/</span><span class="n">blink</span><span class="o">/</span><span class="n">main</span><span class="o">/./</span><span class="n">blink</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">52</span>
+
+<span class="mi">40</span> <span class="nb">bytes</span> <span class="s1">'leaked'</span> <span class="ow">in</span> <span class="n">trace</span> <span class="p">(</span><span class="mi">2</span> <span class="n">allocations</span><span class="p">)</span>
+<span class="n">total</span> <span class="n">allocations</span> <span class="mi">2</span> <span class="n">total</span> <span class="n">frees</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>(ზემოთ მოცემული მაგალითის გამომავალი იყენებს <a class="reference internal" href="../../api-guides/tools/idf-monitor.html"><span class="doc">IDF მონიტორი</span></a> კომპიუტერის მისამართების ავტომატურად გაშიფვრისთვის მათ წყაროს ფაილებად და ხაზის ნომრებად.)</p>
+<p>პირველი ხაზი მიუთითებს, თუ რამდენი განაწილების ჩანაწერია ბუფერში, მის მთლიან ზომასთან შედარებით.</p>
+<p>შიგნით <code class="docutils literal notranslate"><span class="pre">HEAP_TRACE_LEAKS</span></code> რეჟიმში, თითოეული თვალყურის დევნებული მეხსიერების გამოყოფისთვის, რომელიც ჯერ არ არის გათავისუფლებული, იბეჭდება ხაზი შემდეგი წარწერით:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">XX</span> <span class="pre">bytes</span></code> არის გამოყოფილი ბაიტების რაოდენობა</li>
+<li><code class="docutils literal notranslate"><span class="pre">@</span> <span class="pre">0x...</span></code> არის malloc/calloc-დან დაბრუნებული გროვის მისამართი.</li>
+<li><code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">x</span></code> განაწილების დროს მუშაობდა თუ არა CPU (0 თუ 1).</li>
+<li><code class="docutils literal notranslate"><span class="pre">ccount</span> <span class="pre">0x...</span></code> არის CCOUNT (CPU ციკლის რაოდენობა) რეგისტრის მნიშვნელობა, როდესაც განაწილება რეჟიმი იყო. განსხვავდება CPU 0-ისა და CPU 1-ის შემთხვევაში.</li>
+<li><code class="docutils literal notranslate"><span class="pre">caller</span> <span class="pre">0x...</span></code> malloc()/free()-ზე გამოძახების დასტას იძლევა, კომპიუტერის მისამართების სიის სახით. ზემოთ ნაჩვენების მსგავსად, მათი გაშიფვრა შესაძლებელია წყაროს ფაილებად და ხაზის ნომრებად.</li>
+</ul>
+<p>თითოეული კვალის ჩანაწერისთვის ჩაწერილი ზარების დასტის სიღრმის კონფიგურაცია შესაძლებელია პროექტის კონფიგურაცია მენიუში, ქვემოთ. <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">Memory</span> <span class="pre">Debugging</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">heap</span> <span class="pre">tracing</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">tracing</span> <span class="pre">stack</span> <span class="pre">depth</span></code>თითოეული განაწილებისთვის შესაძლებელია 10-მდე დასტის ფრეიმის ჩაწერა (ნაგულისხმევია 2). თითოეული დამატებითი დასტის ფრეიმი ზრდის თითოეულის მეხსიერების გამოყენებას. <code class="docutils literal notranslate"><span class="pre">heap_trace_record_t</span></code> ჩანაწერი რვა ბაიტით.</p>
+<p>და ბოლოს, იბეჭდება „გაჟონილი“ ბაიტების (კვალის გაშვებისას გამოყოფილი, მაგრამ არაგათავისუფლებული ბაიტები) საერთო რაოდენობა და ეს წარმოადგენს გამოყოფის საერთო რაოდენობას.</p>
+<p>გაფრთხილება დაიბეჭდება, თუ კვალის ბუფერი საკმარისად დიდი არ იყო ყველა განხორციელებული გამოყოფის შესანახად. თუ ამ გაფრთხილებას ხედავთ, განიხილეთ კვალის ძიების პერიოდის შემცირება ან კვალის ბუფერში ჩანაწერების რაოდენობის გაზრდა.</p>
+</div>
+<div class="section" id="host-based-mode">
+<h4>მასპინძელზე დაფუძნებული რეჟიმი<a class="headerlink" href="heap_debug.html#host-based-mode" title="Permalink to this headline">¶</a></h4>
+<p>როგორც კი დაადგენთ კოდს, რომელიც, თქვენი აზრით, გაჟონავს:</p>
+<ul class="simple">
+<li>პროექტის კონფიგურაცია მენიუში გადადით შემდეგზე: <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">settings</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Heap</span> <span class="pre">Memory</span> <span class="pre">Debugging</span></code> -&amp;gt; <a class="reference internal" href="../kconfig.html#config-heap-tracing-dest"><span class="std std-ref">CONFIG_HEAP_TRACING_DEST</span></a> და აირჩიეთ <code class="docutils literal notranslate"><span class="pre">Host-Based</span></code>.</li>
+<li>პროექტის კონფიგურაცია მენიუში გადადით შემდეგზე: <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">settings</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Level</span> <span class="pre">Tracing</span></code> -&amp;gt; <a class="reference internal" href="../kconfig.html#config-apptrace-destination"><span class="std std-ref">CONFIG_APPTRACE_DESTINATION</span></a> და აირჩიეთ <code class="docutils literal notranslate"><span class="pre">Trace</span> <span class="pre">memory</span></code>.</li>
+<li>პროექტის კონფიგურაცია მენიუში გადადით შემდეგზე: <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">settings</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Level</span> <span class="pre">Tracing</span></code> -&amp;gt; <code class="docutils literal notranslate"><span class="pre">FreeRTOS</span> <span class="pre">SystemView</span> <span class="pre">Tracing</span></code> და ჩართეთ <a class="reference internal" href="../kconfig.html#config-sysview-enable"><span class="std std-ref">CONFIG_SYSVIEW_ENABLE</span></a>.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv422heap_trace_init_tohostv" title="heap_trace_init_tohost"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_init_tohost()</span></code></a> პროგრამის დასაწყისში, JTAG გროვის ტრასირების მოდულის ინიციალიზაციისთვის.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv416heap_trace_start17heap_trace_mode_t" title="heap_trace_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_start()</span></code></a> სისტემაში ყველა mallock/free-ის ჩაწერის დასაწყებად. გამოიძახეთ ეს კოდის იმ ნაწილის წინ, რომელიც, თქვენი ვარაუდით, მეხსიერების გაჟონვას იწვევს. მასპინძელზე დაფუძნებულ რეჟიმში ამ ფუნქციის არგუმენტი იგნორირებულია და heap tracing მოდული ასე იქცევა <code class="docutils literal notranslate"><span class="pre">HEAP_TRACE_ALL</span></code> გადაეცა: ყველა განაწილება და დეალოქცია იგზავნება მასპინძელთან.</li>
+<li>ფუნქციის გამოძახება <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a> რათა შეწყდეს კვალი, როგორც კი საეჭვო კოდის ნაწილი შეასრულებს.</li>
+</ul>
+<p>მაგალითი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include "esp_heap_trace.h"</span>
+
+<span class="o">...</span>
+
+<span class="n">void</span> <span class="n">app_main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="o">...</span>
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_init_tohost</span><span class="p">()</span> <span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_start</span><span class="p">(</span><span class="n">HEAP_TRACE_LEAKS</span><span class="p">)</span> <span class="p">);</span>
+
+    <span class="n">do_something_you_suspect_is_leaking</span><span class="p">();</span>
+
+    <span class="n">ESP_ERROR_CHECK</span><span class="p">(</span> <span class="n">heap_trace_stop</span><span class="p">()</span> <span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>გროვის კვალის შესაგროვებლად და გასაანალიზებლად, ჰოსტზე გააკეთეთ შემდეგი:</p>
+<ol class="arabic simple">
+<li>შექმენით პროგრამა და გადმოწერეთ იგი სამიზნეზე, როგორც ეს აღწერილია <a class="reference internal" href="../../get-started/index.html#get-started-build"><span class="std std-ref">დაწყების სახელმძღვანელო</span></a>.</li>
+<li>გაუშვით OpenOCD (იხ. <a class="reference internal" href="../../api-guides/jtag-debugging/index.html"><span class="doc">JTAG-ის გამართვა</span></a>).</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამ ფუნქციის გამოსაყენებლად, თქვენ გჭირდებათ OpenOCD-ის ვერსია. <cite>v0.10.0-esp32-20181105</cite> ან მოგვიანებით.</p>
+</div>
+<ol class="arabic" start="3">
+<li><p class="first">შეგიძლიათ გამოიყენოთ GDB ტრასირების ავტომატურად დასაწყებად და/ან შესაჩერებლად. ამისათვის საჭიროა სპეციალური ინფორმაციის მომზადება <code class="docutils literal notranslate"><span class="pre">gdbinit</span></code> ფაილი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="n">remote</span> <span class="p">:</span><span class="mi">3333</span>
+
+<span class="n">mon</span> <span class="n">reset</span> <span class="n">halt</span>
+<span class="n">flushregs</span>
+
+<span class="n">tb</span> <span class="n">heap_trace_start</span>
+<span class="n">commands</span>
+<span class="n">mon</span> <span class="n">esp32</span> <span class="n">sysview</span> <span class="n">start</span> <span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">tmp</span><span class="o">/</span><span class="n">heap</span><span class="o">.</span><span class="n">svdat</span>
+<span class="n">c</span>
+<span class="n">end</span>
+
+<span class="n">tb</span> <span class="n">heap_trace_stop</span>
+<span class="n">commands</span>
+<span class="n">mon</span> <span class="n">esp32</span> <span class="n">sysview</span> <span class="n">stop</span>
+<span class="n">end</span>
+
+<span class="n">c</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>ამ ფაილის გამოყენებით, GDB დაუკავშირდება სამიზნეს, გადატვირთავს მას და დაიწყებს ტრასირებას, როდესაც პროგრამა მიაღწევს გაწყვეტის წერტილს. <a class="reference internal" href="heap_debug.html#_CPPv416heap_trace_start17heap_trace_mode_t" title="heap_trace_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_start()</span></code></a>კვალის მონაცემები შეინახება <code class="docutils literal notranslate"><span class="pre">/tmp/heap_log.svdat</span></code>ტრასირება შეწყდება, როდესაც პროგრამა მიაღწევს შეწყვეტის წერტილს <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a>.</p>
+<ol class="arabic simple" start="4">
+<li>გაუშვით GDB შემდეგი ბრძანების გამოყენებით <code class="docutils literal notranslate"><span class="pre">xtensa-esp32-elf-gdb</span> <span class="pre">-x</span> <span class="pre">gdbinit</span> <span class="pre">&lt;/path/to/program/elf&gt;</span></code></li>
+<li>GDB-დან გასვლა, როდესაც პროგრამა ჩერდება <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a>კვალის მონაცემები ინახება <code class="docutils literal notranslate"><span class="pre">/tmp/heap.svdat</span></code></li>
+<li>დამუშავების სკრიპტის გაშვება <code class="docutils literal notranslate"><span class="pre">$IDF_PATH/tools/esp_app_trace/sysviewtrace_proc.py</span> <span class="pre">-p</span> <span class="pre">-b</span> <span class="pre">&lt;/path/to/program/elf&gt;</span> <span class="pre">/tmp/heap_log.svdat</span></code></li>
+</ol>
+<p>გროვის ტრასიდან მიღებული შედეგი დაახლოებით ასე გამოიყურება:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Parse trace from '/tmp/heap.svdat'...
+Stop parsing trace. (Timeout 0.000000 sec while reading 1 bytes!)
+Process events from '['/tmp/heap.svdat']'...
+[0.002244575] HEAP: Allocated 1 bytes @ 0x3ffaffd8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.002258425] HEAP: Allocated 2 bytes @ 0x3ffaffe0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:48
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.002563725] HEAP: Freed bytes @ 0x3ffaffe0 from task "free" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:31 (discriminator 9)
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.002782950] HEAP: Freed bytes @ 0x3ffb40b8 from task "main" on core 0 by:
+/home/user/projects/esp/esp-idf/components/freertos/tasks.c:4590
+/home/user/projects/esp/esp-idf/components/freertos/tasks.c:4590
+
+[0.002798700] HEAP: Freed bytes @ 0x3ffb50bc from task "main" on core 0 by:
+/home/user/projects/esp/esp-idf/components/freertos/tasks.c:4590
+/home/user/projects/esp/esp-idf/components/freertos/tasks.c:4590
+
+[0.102436025] HEAP: Allocated 2 bytes @ 0x3ffaffe0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.102449800] HEAP: Allocated 4 bytes @ 0x3ffaffe8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:48
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.102666150] HEAP: Freed bytes @ 0x3ffaffe8 from task "free" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:31 (discriminator 9)
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.202436200] HEAP: Allocated 3 bytes @ 0x3ffaffe8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.202451725] HEAP: Allocated 6 bytes @ 0x3ffafff0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:48
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.202667075] HEAP: Freed bytes @ 0x3ffafff0 from task "free" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:31 (discriminator 9)
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.302436000] HEAP: Allocated 4 bytes @ 0x3ffafff0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.302451475] HEAP: Allocated 8 bytes @ 0x3ffb40b8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:48
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.302667500] HEAP: Freed bytes @ 0x3ffb40b8 from task "free" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:31 (discriminator 9)
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+Processing completed.
+Processed 1019 events
+=============== HEAP TRACE REPORT ===============
+Processed 14 heap events.
+[0.002244575] HEAP: Allocated 1 bytes @ 0x3ffaffd8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.102436025] HEAP: Allocated 2 bytes @ 0x3ffaffe0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.202436200] HEAP: Allocated 3 bytes @ 0x3ffaffe8 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+[0.302436000] HEAP: Allocated 4 bytes @ 0x3ffafff0 from task "alloc" on core 0 by:
+/home/user/projects/esp/esp-idf/examples/system/sysview_tracing_heap_log/main/sysview_heap_log.c:47
+/home/user/projects/esp/esp-idf/components/freertos/port.c:355 (discriminator 1)
+
+Found 10 leaked bytes in 4 blocks.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="heap-tracing-to-find-heap-corruption">
+<h3>გროვის ტრასირება გროვის დაზიანების აღმოსაჩენად<a class="headerlink" href="heap_debug.html#heap-tracing-to-find-heap-corruption" title="Permalink to this headline">¶</a></h3>
+<p>გროვის ტრასირება ასევე შეიძლება გამოყენებულ იქნას გროვის დაზიანების აღმოსაჩენად. როდესაც გროვის რომელიმე რეგიონი დაზიანებულია, ის შეიძლება პროგრამის სხვა ნაწილიდან იყოს, რომელმაც მეხსიერება გამოყო ახლომდებარე მისამართზე.</p>
+<p>თუ გაქვთ რაიმე წარმოდგენა, თუ რა დროს მოხდა დაზიანება, გროვის ტრასირების ჩართვა <code class="docutils literal notranslate"><span class="pre">HEAP_TRACE_ALL</span></code> რეჟიმი საშუალებას გაძლევთ ჩაწეროთ ყველა ფუნქცია, რომელმაც გამოყო მეხსიერება და გამოყოფის მისამართები.</p>
+<p>ამ გზით გროვის ტრასირების გამოყენება ძალიან ჰგავს ზემოთ აღწერილ მეხსიერების გაჟონვის აღმოჩენას. გამოყოფილი და გაუთავისუფლებელი მეხსიერებისთვის გამომავალი იგივეა. თუმცა, ჩანაწერები ასევე გამოჩნდება გათავისუფლებული მეხსიერებისთვის.</p>
+</div>
+<div class="section" id="performance-impact">
+<h3>შესრულებაზე ზეგავლენა<a class="headerlink" href="heap_debug.html#performance-impact" title="Permalink to this headline">¶</a></h3>
+<p>menuconfig ში გროვის ტრასირების ჩართვა ზრდის თქვენი პროგრამის კოდის ზომას და ძალიან მცირე უარყოფით გავლენას ახდენს გროვის განაწილების/თავისუფალი ოპერაციების მუშაობაზე, მაშინაც კი, როდესაც გროვის ტრასირება არ არის გაშვებული.</p>
+<p>როდესაც გროვის ტრასირება მიმდინარეობს, გროვის განაწილების/გათავისუფლების ოპერაციები მნიშვნელოვნად ნელია, ვიდრე გროვის ტრასირების შეჩერებისას. თითოეული განაწილებისთვის ჩაწერილი დასტის ჩარჩოების სიღრმის გაზრდა (იხილეთ ზემოთ) ასევე გაზრდის ამ გავლენას მუშაობაზე.</p>
+</div>
+<div class="section" id="false-positive-memory-leaks">
+<h3>ცრუ-დადებითი მეხსიერების გაჟონვა<a class="headerlink" href="heap_debug.html#false-positive-memory-leaks" title="Permalink to this headline">¶</a></h3>
+<p>ყველაფერი არ არის დაბეჭდილი <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_dumpv" title="heap_trace_dump"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_dump()</span></code></a> აუცილებლად მეხსიერების გაჟონვაა. აქ შეიძლება გამოჩნდეს, მაგრამ მეხსიერების გაჟონვა არ არის:</p>
+<ul class="simple">
+<li>ნებისმიერი მეხსიერება, რომელიც გამოყოფილია შემდეგ <a class="reference internal" href="heap_debug.html#_CPPv416heap_trace_start17heap_trace_mode_t" title="heap_trace_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_start()</span></code></a> მაგრამ შემდეგ გაათავისუფლეს <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a> გაჟონვის ნაგავსაყრელში გამოჩნდება.</li>
+<li>გამოყოფა შეიძლება განხორციელდეს სისტემაში არსებული სხვა დავალებების მიერ. ამ დავალებების დროის მიხედვით, სავსებით შესაძლებელია, რომ ეს მეხსიერება გათავისუფლდეს შემდეგ. <a class="reference internal" href="heap_debug.html#_CPPv415heap_trace_stopv" title="heap_trace_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">heap_trace_stop()</span></code></a> ეწოდება.</li>
+<li>პირველად, როდესაც დავალება იყენებს stdio-ს - მაგალითად, როდესაც ის იძახებს <code class="docutils literal notranslate"><span class="pre">printf()</span></code> - libc-ის მიერ გამოყოფილია საკეტი ( RTOS mutex სემაფორი). ეს გამოყოფა გრძელდება დავალების წაშლამდე.</li>
+<li>გარკვეული გამოყენება <code class="docutils literal notranslate"><span class="pre">printf()</span></code>, როგორიცაა მცურავი მნიშვნელობის რიცხვების ბეჭდვა, მოთხოვნისამებრ გამოყოფს მეხსიერების გარკვეულ ნაწილს გროვიდან. ეს გამოყოფები გრძელდება დავალების წაშლამდე.</li>
+<li>Bluetooth , WiFi და TCP/IP ბიბლიოთეკები გამოყოფენ გროვის მეხსიერების ბუფერებს შემომავალი ან გამავალი მონაცემების დასამუშავებლად. ეს მეხსიერების ბუფერები, როგორც წესი, ხანმოკლეა, მაგრამ ზოგიერთი მათგანი შეიძლება გამოჩნდეს გროვის გაჟონვის კვალში, თუ მონაცემები მიღებული/გადაცემული იყო ქსელის ქვედა დონეების მიერ გაჟონვის კვალის მუშაობის დროს.</li>
+<li>TCP კავშირები დახურვის შემდეგაც გააგრძელებენ მეხსიერების გარკვეულ გამოყენებას, რადგან <code class="docutils literal notranslate"><span class="pre">TIME_WAIT</span></code> შტატი. მას შემდეგ, რაც <code class="docutils literal notranslate"><span class="pre">TIME_WAIT</span></code> პერიოდის დასრულების შემდეგ, ეს მეხსიერება გათავისუფლდება.</li>
+</ul>
+<p>„რეალური“ და „ცრუ დადებითი“ მეხსიერების გაჟონვის დიფერენცირების ერთ-ერთი გზაა საეჭვო კოდის რამდენჯერმე გამოძახება ტრეკინგის გაშვებისას და გროვის ტრეკის გამომავალში ნიმუშების (მრავალი შესატყვისი განაწილების) ძიება.</p>
+</div>
+</div>
+<div class="section" id="api-reference-heap-tracing">
+<h2>API მითითება - გროვის ტრასირება<a class="headerlink" href="heap_debug.html#api-reference-heap-tracing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="heap_debug.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/heap/include/esp_heap_trace.h">heap/include/esp_heap_trace.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="heap_debug.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv426heap_trace_init_standaloneP19heap_trace_record_t6size_t">
+<span id="_CPPv326heap_trace_init_standaloneP19heap_trace_record_t6size_t"></span><span id="_CPPv226heap_trace_init_standaloneP19heap_trace_record_t6size_t"></span><span id="heap_trace_init_standalone__heap_trace_record_tP.s"></span><span class="target" id="esp__heap__trace_8h_1a8884934797d03cc7114b64f1849420e2"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_init_standalone</code><span class="sig-paren">(</span><a class="reference internal" href="heap_debug.html#_CPPv419heap_trace_record_t" title="heap_trace_record_t">heap_trace_record_t</a> *<em>ჩანაწერის_ბუფერი</em>, size_t <em>ჩანაწერების რაოდენობა</em><span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv426heap_trace_init_standaloneP19heap_trace_record_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გროვის ტრასირების ინიციალიზაცია დამოუკიდებელ რეჟიმში. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს სხვა გროვის ტრასირების ფუნქციებამდე.</p>
+<p>გროვის ტრასირების გამოსართავად და ბუფერის გასათავისუფლებლად, შეწყვიტეთ ტრასირება და შემდეგ გამოიძახეთ heap_trace_init_standalone(NULL, 0); ბრძანება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED პროექტი იყო კომპილაცია d, menuconfig ში გროვის ტრასირების ჩართვის გარეშე.</li>
+<li>ESP_ERR_INVALID_STATE ამჟამად მიმდინარეობს გროვის ტრასირება.</li>
+<li>ESP_OK გროვის ტრასირება წარმატებით ინიციალიზებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">record_buffer</span></code>: მოგვაწოდეთ ბუფერი გროვის ტრასირების მონაცემებისთვის. უნდა დარჩეს ძალაში ნებისმიერ დროს, როდესაც გროვის ტრასირება ჩართულია, რაც ნიშნავს, რომ ის უნდა იყოს გამოყოფილი შიდა მეხსიერებიდან და არა PSRAM-დან. </li>
+<li><code class="docutils literal notranslate"><span class="pre">num_records</span></code>: გროვის კვალის ბუფერის ზომა, ჩანაწერების სტრუქტურების რაოდენობით. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422heap_trace_init_tohostv">
+<span id="_CPPv322heap_trace_init_tohostv"></span><span id="_CPPv222heap_trace_init_tohostv"></span><span id="heap_trace_init_tohost__void"></span><span class="target" id="esp__heap__trace_8h_1a01c97e0002efcd2a3402a412640b02fd"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_init_tohost</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv422heap_trace_init_tohostv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გროვის ტრასირების ინიციალიზაცია მასპინძელზე დაფუძნებულ რეჟიმში. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს სხვა გროვის ტრასირების ფუნქციებამდე.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_STATE ამჟამად მიმდინარეობს გროვის ტრასირება.</li>
+<li>ESP_OK გროვის ტრასირება წარმატებით ინიციალიზებულია. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416heap_trace_start17heap_trace_mode_t">
+<span id="_CPPv316heap_trace_start17heap_trace_mode_t"></span><span id="_CPPv216heap_trace_start17heap_trace_mode_t"></span><span id="heap_trace_start__heap_trace_mode_t"></span><span class="target" id="esp__heap__trace_8h_1ac324e6c910f4a2a71e0e364130c069b6"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_start</code><span class="sig-paren">(</span><a class="reference internal" href="heap_debug.html#_CPPv417heap_trace_mode_t" title="heap_trace_mode_t">heap_trace_mode_t</a> <em>რეჟიმი</em><span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv416heap_trace_start17heap_trace_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ გროვის ტრასირება. ყველა გროვის გამოყოფა და გათავისუფლება ტრასირდება heap_trace_stop()-ის გამოძახებამდე. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>heap_trace_init_standalone() must be called to provide a valid buffer, before this function is called.</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calling this function while heap tracing is running will reset the heap trace state and continue tracing.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED პროექტი იყო კომპილაცია d, menuconfig ში გროვის ტრასირების ჩართვის გარეშე.</li>
+<li>ESP_ERR_INVALID_STATE heap_trace_init_standalone() ფუნქციის მეშვეობით არ არის დაყენებული ნულოვანი სიგრძის ბუფერი.</li>
+<li>ESP_OK ტრასირება დაწყებულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span></code>: ტრასირების რეჟიმი.<ul>
+<li>HEAP_TRACE_ALL ნიშნავს, რომ ყველა გროვის განაწილება და თავისუფალი ფრაიდი თვალყურს ადევნებთ.</li>
+<li>HEAP_TRACE_LEAKS ნიშნავს, რომ მხოლოდ სავარაუდო მეხსიერების გაჟონვის კვალი ფიქსირდება. (როდესაც მეხსიერება თავისუფლდება, ჩანაწერი იშლება კვალის ბუფერიდან.) </li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415heap_trace_stopv">
+<span id="_CPPv315heap_trace_stopv"></span><span id="_CPPv215heap_trace_stopv"></span><span id="heap_trace_stop__void"></span><span class="target" id="esp__heap__trace_8h_1aa2a9740da05f6833efbc39c0520681de"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_stop</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv415heap_trace_stopv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეწყვიტე გროვის ტრასირება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED პროექტი იყო კომპილაცია d, menuconfig ში გროვის ტრასირების ჩართვის გარეშე.</li>
+<li>ESP_ERR_INVALID_STATE გროვის ტრასირება არ მიმდინარეობდა.</li>
+<li>ESP_OK გროვის ტრასირება შეჩერდა.. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417heap_trace_resumev">
+<span id="_CPPv317heap_trace_resumev"></span><span id="_CPPv217heap_trace_resumev"></span><span id="heap_trace_resume__void"></span><span class="target" id="esp__heap__trace_8h_1a62cef359ef92ecb1b0760b3e1e5e1203"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_resume</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv417heap_trace_resumev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>განაახლეთ გროვის ტრასირება, რომელიც ადრე შეჩერებული იყო. </p>
+<p>heap_trace_start()-ისგან განსხვავებით, ეს ფუნქცია არ ასუფთავებს ბუფერს არსებული კვალის ჩანაწერებისგან.</p>
+<p>heap trace რეჟიმი იგივეა, რაც heap_trace_start() ფუნქციის ბოლოს გამოძახებისას (ან HEAP_TRACE_ALL, თუ heap_trace_start() ფუნქცია არასდროს გამოძახებულა).</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED პროექტი იყო კომპილაცია d, menuconfig ში გროვის ტრასირების ჩართვის გარეშე.</li>
+<li>ESP_ERR_INVALID_STATE გროვის ტრასირება უკვე დაწყებულია.</li>
+<li>ESP_OK გროვის ტრასირება განახლდა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420heap_trace_get_countv">
+<span id="_CPPv320heap_trace_get_countv"></span><span id="_CPPv220heap_trace_get_countv"></span><span id="heap_trace_get_count__void"></span><span class="target" id="esp__heap__trace_8h_1a9ac798a6e570fd665d6e5c715c1a3d1b"></span>size_t <code class="descname">heap_trace_get_count</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv420heap_trace_get_countv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს ჩანაწერების რაოდენობას გროვის კვალის ბუფერში. </p>
+<p>ამ ფუნქციის გამოძახება უსაფრთხოა, სანამ გროვის ტრასირება მიმდინარეობს. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414heap_trace_get6size_tP19heap_trace_record_t">
+<span id="_CPPv314heap_trace_get6size_tP19heap_trace_record_t"></span><span id="_CPPv214heap_trace_get6size_tP19heap_trace_record_t"></span><span id="heap_trace_get__s.heap_trace_record_tP"></span><span class="target" id="esp__heap__trace_8h_1a007b0b85daa123d2a7a7d74e6383f42c"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">heap_trace_get</code><span class="sig-paren">(</span>size_t <em>ინდექსი</em>, <a class="reference internal" href="heap_debug.html#_CPPv419heap_trace_record_t" title="heap_trace_record_t">heap_trace_record_t</a> *<em>ჩანაწერი</em><span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv414heap_trace_get6size_tP19heap_trace_record_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააბრუნეთ ნედლი ჩანაწერი გროვის კვალის ბუფერიდან. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>It is safe to call this function while heap tracing is running, however in HEAP_TRACE_LEAK mode record indexing may skip entries unless heap tracing is stopped first.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED პროექტი იყო კომპილაცია d, menuconfig ში გროვის ტრასირების ჩართვის გარეშე.</li>
+<li>ESP_ERR_INVALID_STATE გროვის ტრასირება არ იყო ინიციალიზებული.</li>
+<li>ESP_ERR_INVALID_ARG ინდექსი მიმდინარე გროვის ტრასირების ჩანაწერების რაოდენობის ფარგლებს სცილდება.</li>
+<li>ESP_OK ჩანაწერი წარმატებით დაბრუნდა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">index</span></code>დასაბრუნებელი ჩანაწერის ინდექსი (ნულზე დაფუძნებული). </li>
+<li><code class="docutils literal notranslate"><span class="pre">record</span></code>: ჩაწერეთ, სად დაკოპირდება გროვის ტრასირების ჩანაწერი. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415heap_trace_dumpv">
+<span id="_CPPv315heap_trace_dumpv"></span><span id="_CPPv215heap_trace_dumpv"></span><span id="heap_trace_dump__void"></span><span class="target" id="esp__heap__trace_8h_1a9e80331ce5188a84bb60fdf0bd1ab828"></span>void <code class="descname">heap_trace_dump</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="heap_debug.html#_CPPv415heap_trace_dumpv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გროვის ტრასირების ჩანაწერის მონაცემების stdout-ში გადატანა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>It is safe to call this function while heap tracing is running, however in HEAP_TRACE_LEAK mode the dump may skip entries unless heap tracing is stopped first. </dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="heap_debug.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv419heap_trace_record_t">
+<span id="_CPPv319heap_trace_record_t"></span><span id="_CPPv219heap_trace_record_t"></span><span id="heap_trace_record_t"></span><span class="target" id="structheap__trace__record__t"></span><em class="property">სტრუქტურა </em><code class="descname">heap_trace_record_t</code><a class="headerlink" href="heap_debug.html#_CPPv419heap_trace_record_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კვალის ჩანაწერის მონაცემთა ტიპი. ინახავს ინფორმაციას მეხსიერების გამოყოფილი რეგიონის შესახებ. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N19heap_trace_record_t6ccountE">
+<span id="_CPPv3N19heap_trace_record_t6ccountE"></span><span id="_CPPv2N19heap_trace_record_t6ccountE"></span><span id="heap_trace_record_t::ccount__uint32_t"></span><span class="target" id="structheap__trace__record__t_1a3a5a11507218cbab8b0f1ec08f8f5c40"></span>uint32_t <code class="descname">ccount</code><a class="headerlink" href="heap_debug.html#_CPPv4N19heap_trace_record_t6ccountE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CPU-ს CCOUNT, როდესაც განაწილება განხორციელდა. LSB (ბიტის მნიშვნელობა 1) არის CPU-ს ნომერი (0 ან 1). </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19heap_trace_record_t7addressE">
+<span id="_CPPv3N19heap_trace_record_t7addressE"></span><span id="_CPPv2N19heap_trace_record_t7addressE"></span><span id="heap_trace_record_t::address__voidP"></span><span class="target" id="structheap__trace__record__t_1a948933cb24b2aa572f45b806e82ae818"></span>void *<code class="descname">address</code><a class="headerlink" href="heap_debug.html#_CPPv4N19heap_trace_record_t7addressE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მისამართი, რომელიც გამოყოფილი იყო. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19heap_trace_record_t4sizeE">
+<span id="_CPPv3N19heap_trace_record_t4sizeE"></span><span id="_CPPv2N19heap_trace_record_t4sizeE"></span><span id="heap_trace_record_t::size__s"></span><span class="target" id="structheap__trace__record__t_1a1a13eb467724bf28ccacb694627b6f3d"></span>size_t <code class="descname">size</code><a class="headerlink" href="heap_debug.html#_CPPv4N19heap_trace_record_t4sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოყოფის ზომა. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19heap_trace_record_t10alloced_byE">
+<span id="_CPPv3N19heap_trace_record_t10alloced_byE"></span><span id="_CPPv2N19heap_trace_record_t10alloced_byE"></span><span id="heap_trace_record_t::alloced_by__voidPA"></span><span class="target" id="structheap__trace__record__t_1aa3ed0367bc373515a3d4961a7269fdf2"></span>void *<code class="descname">alloced_by</code>[<code class="descname">CONFIG_HEAP_TRACING_STACK_DEPTH</code>]<a class="headerlink" href="heap_debug.html#_CPPv4N19heap_trace_record_t10alloced_byE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბონენტის ზარების დასტა, რომელმაც მეხსიერება გამოყო. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N19heap_trace_record_t8freed_byE">
+<span id="_CPPv3N19heap_trace_record_t8freed_byE"></span><span id="_CPPv2N19heap_trace_record_t8freed_byE"></span><span id="heap_trace_record_t::freed_by__voidPA"></span><span class="target" id="structheap__trace__record__t_1a3ad6d8c9eb49b5285a508e1ec230cea1"></span>void *<code class="descname">freed_by</code>[<code class="descname">CONFIG_HEAP_TRACING_STACK_DEPTH</code>]<a class="headerlink" href="heap_debug.html#_CPPv4N19heap_trace_record_t8freed_byE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბონენტის გამოძახების დასტა, რომელმაც გაათავისუფლა მეხსიერება (თუ არ გაათავისუფლა, ყველა ნული). </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="heap_debug.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.CONFIG_HEAP_TRACING_STACK_DEPTH">
+<span class="target" id="esp__heap__trace_8h_1a962faaf6cd044ada51170a779dd716ff"></span><code class="descname">CONFIG_HEAP_TRACING_STACK_DEPTH</code><a class="headerlink" href="heap_debug.html#c.CONFIG_HEAP_TRACING_STACK_DEPTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="heap_debug.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv417heap_trace_mode_t">
+<span id="_CPPv317heap_trace_mode_t"></span><span id="_CPPv217heap_trace_mode_t"></span><span id="heap_trace_mode_t"></span><span class="target" id="esp__heap__trace_8h_1a405bc5c6c3a6e07f82086254c944563d"></span><em class="property">ჩამოთვლა </em><code class="descname">heap_trace_mode_t</code><a class="headerlink" href="heap_debug.html#_CPPv417heap_trace_mode_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414HEAP_TRACE_ALL">
+<span id="_CPPv314HEAP_TRACE_ALL"></span><span id="_CPPv214HEAP_TRACE_ALL"></span><span class="target" id="esp__heap__trace_8h_1a405bc5c6c3a6e07f82086254c944563da852d11079e290f8415591926a5465d0e"></span><code class="descname">HEAP_TRACE_ALL</code><a class="headerlink" href="heap_debug.html#_CPPv414HEAP_TRACE_ALL" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416HEAP_TRACE_LEAKS">
+<span id="_CPPv316HEAP_TRACE_LEAKS"></span><span id="_CPPv216HEAP_TRACE_LEAKS"></span><span class="target" id="esp__heap__trace_8h_1a405bc5c6c3a6e07f82086254c944563da8b871cc1175288956caf38a820f56930"></span><code class="descname">HEAP_TRACE_LEAKS</code><a class="headerlink" href="heap_debug.html#_CPPv416HEAP_TRACE_LEAKS" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_timer.html" rel="next" title="High Resolution Timer">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="mem_alloc.html" rel="prev" title="Heap Memory Allocation"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

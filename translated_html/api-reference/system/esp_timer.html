@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>მაღალი გარჩევადობის ტაიმერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="himem.html" rel="next" title="The himem allocation API"/>
+<link href="heap_debug.html" rel="prev" title="Heap Memory Debugging"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/esp_timer.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/esp_timer"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/esp_timer.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="esp_timer.html#">მაღალი გარჩევადობის ტაიმერი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="esp_timer.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_timer.html#using-esp-timer-apis">გამოყენება <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> API სთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_timer.html#obtaining-current-time">მიმდინარე დროის მიღება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_timer.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_timer.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>მაღალი გარჩევადობის ტაიმერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/esp_timer.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="high-resolution-timer">
+<h1>მაღალი გარჩევადობის ტაიმერი<a class="headerlink" href="esp_timer.html#high-resolution-timer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_timer.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>მიუხედავად იმისა, რომ Free RTOS გთავაზობთ პროგრამულ ტაიმერებს, ამ ტაიმერებს აქვთ რამდენიმე შეზღუდვა:</p>
+<ul class="simple">
+<li>მაქსიმალური გარჩევადობა უდრის RTOS ტიკის პერიოდს</li>
+<li>ტაიმერის უკუკავშირი იგზავნება დაბალი პრიორიტეტის დავალებიდან</li>
+</ul>
+<p>აპარატურული ტაიმერები ორივე შეზღუდვისგან თავისუფალია, მაგრამ ხშირად მათი გამოყენება ნაკლებად მოსახერხებელია. მაგალითად, აპლიკაციის კომპონენტი -ს შეიძლება დასჭირდეს ტაიმერის მოვლენები მომავალში გარკვეულ დროს გასააქტიურებლად, მაგრამ აპარატურული ტაიმერი შეიცავს მხოლოდ ერთ „შედარების“ მნიშვნელობას, რომელიც გამოიყენება შეფერხების გენერირებისთვის. ეს ნიშნავს, რომ აპარატურული ტაიმერის თავზე უნდა აშენდეს რაიმე ობიექტი, რომელიც მართავს მომლოდინე მოვლენების სიას და შეძლებს ამ მოვლენებისთვის უკუკავშირის გაგზავნას შესაბამისი აპარატურული შეფერხებების დროს.</p>
+<p><code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> API s-ის ნაკრები უზრუნველყოფს ერთჯერადი და პერიოდული ტაიმერებს, მიკროწამიან დროის გარჩევადობას და 64-ბიტიან დიაპაზონს.</p>
+<p>შინაგანად, <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> იყენებს 64-ბიტიან აპარატურულ ტაიმერს <a class="reference internal" href="../kconfig.html#config-esp-timer-impl"><span class="std std-ref">CONFIG_ESP_TIMER_IMPL</span></a>:</p>
+<ul class="simple">
+<li>LAC ტაიმერი (ESP32)</li>
+<li>(მემკვიდრეობითი) FRC2 ტაიმერი (ESP32)</li>
+<li>SYSTIMER (ESP32-S2)-ისთვის</li>
+</ul>
+<p>ტაიმერის უკუკავშირი იგზავნება მაღალი პრიორიტეტიდან <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> დავალება. რადგან ყველა უკუკავშირი ერთი და იგივე დავალებიდან იგზავნება, რეკომენდებულია უკუკავშირიდან მხოლოდ მინიმალური სამუშაოს შესრულება, მოვლენის რიგის გამოყენებით დაბალი პრიორიტეტის მქონე დავალებაზე განთავსებით.</p>
+<p>თუ სხვა ამოცანები უფრო მაღალი პრიორიტეტით ხასიათდება, ვიდრე <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> მიმდინარეობს, უკუკავშირის გაგზავნა გადაიდება <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> დავალებას აქვს გაშვების შანსი. მაგალითად, ეს მოხდება, თუ მიმდინარეობს SPI Flash ოპერაცია.</p>
+<p>ტაიმერის შექმნას და გაშვებას, ასევე უკუკავშირის გაგზავნას გარკვეული დრო სჭირდება. ამიტომ, ერთჯერადი გასროლის დროის ამოწურვის მნიშვნელობას უფრო დაბალი ზღვარი აქვს. <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code>თუ <a class="reference internal" href="esp_timer.html#_CPPv420esp_timer_start_once18esp_timer_handle_t8uint64_t" title="esp_timer_start_once"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_start_once()</span></code></a> თუ გამოძახების დრო 20us-ზე ნაკლებია, უკუკავშირი გაიგზავნება მხოლოდ დაახლოებით 20us-ის შემდეგ.</p>
+<p>პერიოდული <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> ასევე მინიმალურ ტაიმერზე 50 მიკროსქემის შეზღუდვას აწესებს. 50 მიკროსქემაზე ნაკლები პერიოდის მქონე პერიოდული პროგრამული ტაიმერები პრაქტიკული არ არის, რადგან ისინი პროცესორის დროის უმეტეს ნაწილს მოიხმარენ. თუ მცირე პერიოდის მქონე ტაიმერი გჭირდებათ, განიხილეთ სპეციალური აპარატურული პერიფერიული მოწყობილობების ან DMA ფუნქციების გამოყენება.</p>
+</div>
+<div class="section" id="using-esp-timer-apis">
+<h2>გამოყენება <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> API სთ<a class="headerlink" href="esp_timer.html#using-esp-timer-apis" title="Permalink to this headline">¶</a></h2>
+<p>ერთი ტაიმერი წარმოდგენილია შემდეგნაირად <a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_timer_handle_t</span></code></a> ტიპი. ტაიმერს აქვს უკუკავშირის ფუნქცია, რომელიც დაკავშირებულია მასთან. ეს უკუკავშირის ფუნქცია გამოიძახება შემდეგი სქემიდან: <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> დავალება ყოველ ჯერზე, როდესაც ტაიმერი ამოიწურება.</p>
+<ul class="simple">
+<li>ტაიმერის შესაქმნელად, დარეკეთ <a class="reference internal" href="esp_timer.html#_CPPv416esp_timer_createPK23esp_timer_create_args_tP18esp_timer_handle_t" title="esp_timer_create"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_create()</span></code></a>.</li>
+<li>ტაიმერის წასაშლელად, როდესაც ის აღარ დაგჭირდებათ, დარეკეთ <a class="reference internal" href="esp_timer.html#_CPPv416esp_timer_delete18esp_timer_handle_t" title="esp_timer_delete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_delete()</span></code></a>.</li>
+</ul>
+<p>ტაიმერის ჩართვა შესაძლებელია ერთჯერადი ან პერიოდული რეჟიმით.</p>
+<ul class="simple">
+<li>ტაიმერის ერთჯერადი რეჟიმში დასაწყებად, დარეკეთ <a class="reference internal" href="esp_timer.html#_CPPv420esp_timer_start_once18esp_timer_handle_t8uint64_t" title="esp_timer_start_once"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_start_once()</span></code></a>, დროის ინტერვალის გავლის შემდეგ, რომლის შემდეგაც უნდა მოხდეს უკუკავშირის გამოძახება. როდესაც უკუკავშირი გამოიძახება, ტაიმერი გაჩერებულად ითვლება.</li>
+<li>ტაიმერის პერიოდულ რეჟიმში დასაწყებად, დარეკეთ <a class="reference internal" href="esp_timer.html#_CPPv424esp_timer_start_periodic18esp_timer_handle_t8uint64_t" title="esp_timer_start_periodic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_start_periodic()</span></code></a>, რომელიც გადის იმ პერიოდს, რომლითაც უნდა მოხდეს უკუკავშირის გამოძახება. ტაიმერი განაგრძობს მუშაობას მანამ, სანამ <a class="reference internal" href="esp_timer.html#_CPPv414esp_timer_stop18esp_timer_handle_t" title="esp_timer_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_stop()</span></code></a> ეწოდება.</li>
+</ul>
+<p>გაითვალისწინეთ, რომ ტაიმერი არ უნდა იყოს ჩართული, როდესაც <a class="reference internal" href="esp_timer.html#_CPPv420esp_timer_start_once18esp_timer_handle_t8uint64_t" title="esp_timer_start_once"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_start_once()</span></code></a> ან <a class="reference internal" href="esp_timer.html#_CPPv424esp_timer_start_periodic18esp_timer_handle_t8uint64_t" title="esp_timer_start_periodic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_start_periodic()</span></code></a> გამოძახებულია. ტაიმერის გადასატვირთად, დარეკეთ <a class="reference internal" href="esp_timer.html#_CPPv414esp_timer_stop18esp_timer_handle_t" title="esp_timer_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_stop()</span></code></a> ჯერ, შემდეგ კი გამოიძახეთ ერთ-ერთი დაწყების ფუნქცია.</p>
+</div>
+<div class="section" id="obtaining-current-time">
+<h2>მიმდინარე დროის მიღება<a class="headerlink" href="esp_timer.html#obtaining-current-time" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> ასევე უზრუნველყოფს მოხერხებულ ფუნქციას, რომელიც მიკროწამების სიზუსტით იძლევა ჩართვის შემდეგ გასული დროის გაზომვის საშუალებას: <a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_get_timev" title="esp_timer_get_time"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_get_time()</span></code></a>ეს ფუნქცია აბრუნებს მიკროწამების რაოდენობას მას შემდეგ, რაც <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> ინიციალიზაცია მოხდა, რაც, როგორც წესი, ცოტა ხნით ადრე ხდება <code class="docutils literal notranslate"><span class="pre">app_main</span></code> ფუნქციას უწოდებენ.</p>
+<p>განსხვავებით <cite>gettimeofday</cite> ფუნქცია, მნიშვნელობები, რომლებიც დაბრუნებულია <a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_get_timev" title="esp_timer_get_time"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_timer_get_time()</span></code></a>:</p>
+<ul class="simple">
+<li>ნულიდან დაწყება ჩიპის ღრმა ძილიდან გაღვიძების შემდეგ</li>
+<li>დროის სარტყლის ან DST-ის კორექტირება არ არის გამოყენებული</li>
+</ul>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_timer.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>შემდეგი მაგალითი ასახავს -ის გამოყენებას <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> API : <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/esp_timer">სისტემა/esp_timer</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_timer.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_timer.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_timer/include/esp_timer.h">esp_timer/include/esp_timer.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_timer.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv414esp_timer_initv">
+<span id="_CPPv314esp_timer_initv"></span><span id="_CPPv214esp_timer_initv"></span><span id="esp_timer_init__void"></span><span class="target" id="esp__timer_8h_1a42969ce85c4da7a83e6be1da1c4ce12e"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv414esp_timer_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_timer ბიბლიოთეკის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function is called from startup code. Applications do not need to call this function before using other esp_timer APIs.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NO_MEM, თუ გამოყოფა ვერ მოხერხდა</li>
+<li>ESP_ERR_INVALID_STATE თუ უკვე ინიციალიზებულია</li>
+<li>სხვა შეცდომები შეწყვეტის განაწილებისგან </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_timer_deinitv">
+<span id="_CPPv316esp_timer_deinitv"></span><span id="_CPPv216esp_timer_deinitv"></span><span id="esp_timer_deinit__void"></span><span class="target" id="esp__timer_8h_1a00d3d28d6efe5337c863bcc957cadcce"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_deinit</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv416esp_timer_deinitv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_timer ბიბლიოთეკის დეინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Normally this function should not be called from applications</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE, თუ ჯერ არ არის ინიციალიზებული </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_timer_createPK23esp_timer_create_args_tP18esp_timer_handle_t">
+<span id="_CPPv316esp_timer_createPK23esp_timer_create_args_tP18esp_timer_handle_t"></span><span id="_CPPv216esp_timer_createPK23esp_timer_create_args_tP18esp_timer_handle_t"></span><span id="esp_timer_create__esp_timer_create_args_tCP.esp_timer_handle_tP"></span><span class="target" id="esp__timer_8h_1a74e9327734f0b5a209863df5a21d43a1"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_create</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="esp_timer.html#_CPPv423esp_timer_create_args_t" title="esp_timer_create_args_t">esp_timer_create_args_t</a> *<em>create_args</em>, <a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t">esp_timer_handle_t</a> *<em>გაუმკლავებელი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv416esp_timer_createPK23esp_timer_create_args_tP18esp_timer_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით esp_timer ეგზემპლარი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>When done using the timer, delete it with esp_timer_delete function.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG, თუ create_args-ის ზოგიერთი ფუნქცია არასწორია.</li>
+<li>ESP_ERR_INVALID_STATE თუ esp_timer ბიბლიოთეკა ჯერ არ არის ინიციალიზებული</li>
+<li>ESP_ERR_NO_MEM, თუ მეხსიერების გამოყოფა ვერ მოხერხდა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">create_args</span></code>: მაჩვენებელი ტაიმერის შექმნის არგუმენტებით სტრუქტურაზე. არ ინახება ბიბლიოთეკის მიერ, შეიძლება გამოყოფილი იყოს სტეკზე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_handle</span></code>გამომავალი, მაჩვენებელი esp_timer_handle_t ცვლადზე, რომელიც შეინახავს შექმნილ ტაიმერის სახელურს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420esp_timer_start_once18esp_timer_handle_t8uint64_t">
+<span id="_CPPv320esp_timer_start_once18esp_timer_handle_t8uint64_t"></span><span id="_CPPv220esp_timer_start_once18esp_timer_handle_t8uint64_t"></span><span id="esp_timer_start_once__esp_timer_handle_t.uint64_t"></span><span class="target" id="esp__timer_8h_1a9b7c15d78638b13ad515d9471aa4c68f"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_start_once</code><span class="sig-paren">(</span><a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t">esp_timer_handle_t</a> <em>ტაიმერი</em>, uint64_t <em>ტაიმ-აუტი_us</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv420esp_timer_start_once18esp_timer_handle_t8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ერთჯერადი ტაიმერის ჩართვა. </p>
+<p>ამ ფუნქციის გამოძახებისას ტაიმერი არ უნდა იყოს ჩართული.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ სახელური არასწორია</li>
+<li>ESP_ERR_INVALID_STATE, თუ ტაიმერი უკვე მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">timer</span></code>: ტაიმერის სახელური შექმნილია esp_timer_create-ის გამოყენებით </li>
+<li><code class="docutils literal notranslate"><span class="pre">timeout_us</span></code>: ტაიმერის დროის ამოწურვა, მიკროწამებში მიმდინარე მომენტთან მიმართებაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_timer_start_periodic18esp_timer_handle_t8uint64_t">
+<span id="_CPPv324esp_timer_start_periodic18esp_timer_handle_t8uint64_t"></span><span id="_CPPv224esp_timer_start_periodic18esp_timer_handle_t8uint64_t"></span><span id="esp_timer_start_periodic__esp_timer_handle_t.uint64_t"></span><span class="target" id="esp__timer_8h_1a9a7b439c818e9bda87b0101b92439686"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_start_periodic</code><span class="sig-paren">(</span><a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t">esp_timer_handle_t</a> <em>ტაიმერი</em>, uint64_t <em>პერიოდი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv424esp_timer_start_periodic18esp_timer_handle_t8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პერიოდული ტაიმერის ჩართვა. </p>
+<p>ტაიმერი არ უნდა იყოს ჩართული ამ ფუნქციის გამოძახებისას. ეს ფუნქცია გაუშვებს ტაიმერს, რომელიც ყოველ „პერიოდულ“ მიკროწამს გაააქტიურებს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ სახელური არასწორია</li>
+<li>ESP_ERR_INVALID_STATE, თუ ტაიმერი უკვე მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">timer</span></code>: ტაიმერის სახელური შექმნილია esp_timer_create-ის გამოყენებით </li>
+<li><code class="docutils literal notranslate"><span class="pre">period</span></code>: ტაიმერის პერიოდი, მიკროწამებში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_timer_stop18esp_timer_handle_t">
+<span id="_CPPv314esp_timer_stop18esp_timer_handle_t"></span><span id="_CPPv214esp_timer_stop18esp_timer_handle_t"></span><span id="esp_timer_stop__esp_timer_handle_t"></span><span class="target" id="esp__timer_8h_1ac590077ed12c097ce62cd75dec10fa46"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_stop</code><span class="sig-paren">(</span><a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t">esp_timer_handle_t</a> <em>ტაიმერი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv414esp_timer_stop18esp_timer_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის გაჩერება. </p>
+<p>ეს ფუნქცია აჩერებს ტაიმერს, რომელიც ადრე დაიწყო esp_timer_start_once ან esp_timer_start_periodic-ის გამოყენებით.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ ტაიმერი არ მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">timer</span></code>: ტაიმერის სახელური შექმნილია esp_timer_create-ის გამოყენებით </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_timer_delete18esp_timer_handle_t">
+<span id="_CPPv316esp_timer_delete18esp_timer_handle_t"></span><span id="_CPPv216esp_timer_delete18esp_timer_handle_t"></span><span id="esp_timer_delete__esp_timer_handle_t"></span><span class="target" id="esp__timer_8h_1a2f8afce187cdaf5f91f1b713ec12617f"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_delete</code><span class="sig-paren">(</span><a class="reference internal" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="esp_timer_handle_t">esp_timer_handle_t</a> <em>ტაიმერი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv416esp_timer_delete18esp_timer_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp_timer ეგზემპლარის წაშლა. </p>
+<p>წაშლამდე ტაიმერი უნდა გაჩერდეს. ერთჯერადი ტაიმერის, რომლის ვადაც ამოიწურა, გაჩერება საჭირო არ არის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_STATE თუ ტაიმერი არ მუშაობს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">timer</span></code>: ტაიმერის სახელური გამოყოფილია esp_timer_create-ის გამოყენებით </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_timer_get_timev">
+<span id="_CPPv318esp_timer_get_timev"></span><span id="_CPPv218esp_timer_get_timev"></span><span id="esp_timer_get_time__void"></span><span class="target" id="esp__timer_8h_1ab38881d22858adab666843cee4ba6589"></span>int64_t <code class="descname">esp_timer_get_time</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv418esp_timer_get_timev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩატვირთვის მომენტიდან დროის მიკროწამებში მიღება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>number of microseconds since esp_timer_init was called (this normally happens early during application startup). </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424esp_timer_get_next_alarmv">
+<span id="_CPPv324esp_timer_get_next_alarmv"></span><span id="_CPPv224esp_timer_get_next_alarmv"></span><span id="esp_timer_get_next_alarm__void"></span><span class="target" id="esp__timer_8h_1a7d841bf7010449014062cb46b71731e7"></span>int64_t <code class="descname">esp_timer_get_next_alarm</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv424esp_timer_get_next_alarmv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ დროის ნიშნული, როდესაც შემდეგი ტაიმ-აუტი არის მოსალოდნელი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Timestamp of the nearest timer event, in microseconds. The timebase is the same as for the values returned by esp_timer_get_time. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414esp_timer_dumpP4FILE">
+<span id="_CPPv314esp_timer_dumpP4FILE"></span><span id="_CPPv214esp_timer_dumpP4FILE"></span><span id="esp_timer_dump__FILEP"></span><span class="target" id="esp__timer_8h_1a697a7a2c879cf180ddf2d90d4b842ddc"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_timer_dump</code><span class="sig-paren">(</span>FILE *<em>ნაკადი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv414esp_timer_dumpP4FILE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერების სიის ნაკადში გადატანა. </p>
+<p>თუ CONFIG_ESP_TIMER_PROFILING ოფცია ჩართულია, ის ბეჭდავს ყველა არსებული ტაიმერის სიას. სხვა შემთხვევაში, იბეჭდება მხოლოდ აქტიური ტაიმერების სია.</p>
+<p>ფორმატია:</p>
+<p>სახელი პერიოდი განგაში times_arm times_triggered total_callback_run_time</p>
+<p>სადაც:</p>
+<p>სახელი — ტაიმერის სახელი (თუ განსაზღვრულია CONFIG_ESP_TIMER_PROFILING), ან ტაიმერის მაჩვენებლის პერიოდი — ტაიმერის პერიოდი, მიკროწამებში, ან 0 ერთჯერადი ტაიმერის განგაშისთვის - შემდეგი განგაშის დრო, მიკროწამებში ჩატვირთვის შემდეგ, ან 0, თუ ტაიმერი არ არის ჩართული</p>
+<p>შემდეგი ველები იბეჭდება, თუ განსაზღვრულია CONFIG_ESP_TIMER_PROFILING:</p>
+<p>times_armed — ტაიმერის გააქტიურების რაოდენობა esp_timer_start_X-ის მეშვეობით times_triggered - უკუკავშირის გამოძახების რაოდენობა total_callback_run_time - უკუკავშირის შესრულებისთვის საჭირო საერთო დრო, ყველა ზარისთვის</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NO_MEM თუ გამომავალისთვის დროებითი ბუფერის გამოყოფა შეუძლებელია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">stream</span></code>: ნაკადი (მაგალითად, stdout) ინფორმაციის გადასაცემად </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_timer.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv423esp_timer_create_args_t">
+<span id="_CPPv323esp_timer_create_args_t"></span><span id="_CPPv223esp_timer_create_args_t"></span><span id="esp_timer_create_args_t"></span><span class="target" id="structesp__timer__create__args__t"></span><em class="property">სტრუქტურა </em><code class="descname">esp_timer_create_args_t</code><a class="headerlink" href="esp_timer.html#_CPPv423esp_timer_create_args_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის კონფიგურაცია გადაეცა esp_timer_create-ს. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N23esp_timer_create_args_t8callbackE">
+<span id="_CPPv3N23esp_timer_create_args_t8callbackE"></span><span id="_CPPv2N23esp_timer_create_args_t8callbackE"></span><span id="esp_timer_create_args_t::callback__esp_timer_cb_t"></span><span class="target" id="structesp__timer__create__args__t_1ad3310759baf90dd68e74475d341cb496"></span><a class="reference internal" href="esp_timer.html#_CPPv414esp_timer_cb_t" title="esp_timer_cb_t">esp_timer_cb_t</a> <code class="descname">callback</code><a class="headerlink" href="esp_timer.html#_CPPv4N23esp_timer_create_args_t8callbackE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფუნქცია, რომელიც გამოიძახება ტაიმერის ვადის გასვლისას. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23esp_timer_create_args_t3argE">
+<span id="_CPPv3N23esp_timer_create_args_t3argE"></span><span id="_CPPv2N23esp_timer_create_args_t3argE"></span><span id="esp_timer_create_args_t::arg__voidP"></span><span class="target" id="structesp__timer__create__args__t_1af71d6a46c7b77a019ab96fb17ec5fdd3"></span>void *<code class="descname">arg</code><a class="headerlink" href="esp_timer.html#_CPPv4N23esp_timer_create_args_t3argE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არგუმენტი უკუკავშირზე გადასაცემად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23esp_timer_create_args_t15dispatch_methodE">
+<span id="_CPPv3N23esp_timer_create_args_t15dispatch_methodE"></span><span id="_CPPv2N23esp_timer_create_args_t15dispatch_methodE"></span><span id="esp_timer_create_args_t::dispatch_method__esp_timer_dispatch_t"></span><span class="target" id="structesp__timer__create__args__t_1a65b38dd3f911631d5682b5c07affc654"></span><a class="reference internal" href="esp_timer.html#_CPPv420esp_timer_dispatch_t" title="esp_timer_dispatch_t">esp_timer_dispatch_t</a> <code class="descname">dispatch_method</code><a class="headerlink" href="esp_timer.html#_CPPv4N23esp_timer_create_args_t15dispatch_methodE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირის გამოძახება დავალებიდან ან ISR-დან. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23esp_timer_create_args_t4nameE">
+<span id="_CPPv3N23esp_timer_create_args_t4nameE"></span><span id="_CPPv2N23esp_timer_create_args_t4nameE"></span><span id="esp_timer_create_args_t::name__cCP"></span><span class="target" id="structesp__timer__create__args__t_1a02146c48bb4a0cb37a3879fdec1c96b1"></span><em class="property">კონსტ</em> char *<code class="descname">name</code><a class="headerlink" href="esp_timer.html#_CPPv4N23esp_timer_create_args_t4nameE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის სახელი, რომელიც გამოიყენება esp_timer_dump ფუნქციაში. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_timer.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv418esp_timer_handle_t">
+<span id="_CPPv318esp_timer_handle_t"></span><span id="_CPPv218esp_timer_handle_t"></span><span id="esp_timer_handle_t"></span><span class="target" id="esp__timer_8h_1a946e475d8cd1667fccdaab52c94c45bb"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> esp_timer *<code class="descname">esp_timer_handle_t</code><a class="headerlink" href="esp_timer.html#_CPPv418esp_timer_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაუმჭვირვალე ტიპი, რომელიც წარმოადგენს ერთ esp_timer-ს. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414esp_timer_cb_t">
+<span id="_CPPv314esp_timer_cb_t"></span><span id="_CPPv214esp_timer_cb_t"></span><span id="esp_timer_cb_t"></span><span class="target" id="esp__timer_8h_1a5482b9e4b1838dfc76cfe076c390fcaa"></span><em class="property">typedef </em>void (*<code class="descname">esp_timer_cb_t</code>)<span class="sig-paren">(</span>void *arg<span class="sig-paren">)</span><a class="headerlink" href="esp_timer.html#_CPPv414esp_timer_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის უკუკავშირის ფუნქციის ტიპი. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: მომხმარებლისთვის სპეციფიკური მონაცემების გაუმჭვირვალე მითითება </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="esp_timer.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv420esp_timer_dispatch_t">
+<span id="_CPPv320esp_timer_dispatch_t"></span><span id="_CPPv220esp_timer_dispatch_t"></span><span id="esp_timer_dispatch_t"></span><span class="target" id="esp__timer_8h_1adfa3461062412704963cbb0274b5117c"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_timer_dispatch_t</code><a class="headerlink" href="esp_timer.html#_CPPv420esp_timer_dispatch_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის უკუკავშირის გაგზავნის მეთოდი. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_TIMER_TASK">
+<span id="_CPPv314ESP_TIMER_TASK"></span><span id="_CPPv214ESP_TIMER_TASK"></span><span class="target" id="esp__timer_8h_1adfa3461062412704963cbb0274b5117ca2a1b9bba35bac0d0bfe57ae4e2851aa6"></span><code class="descname">ESP_TIMER_TASK</code><a class="headerlink" href="esp_timer.html#_CPPv414ESP_TIMER_TASK" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირის გამოძახება ხდება ტაიმერის დავალებიდან. </p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="himem.html" rel="next" title="The himem allocation API">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="heap_debug.html" rel="prev" title="Heap Memory Debugging"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

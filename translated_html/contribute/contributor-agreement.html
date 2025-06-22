@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>კონტრიბუტორის შეთანხმება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../versions.html" rel="next" title="ESP-IDF Versions"/>
+<link href="../api-reference/template.html" rel="prev" title="API Documentation Template"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/contribute/contributor-agreement.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "contribute/contributor-agreement"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/contribute/contributor-agreement.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">წვლილი შეიტანეთ</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-to-contribute">როგორ შევიტანოთ წვლილი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#before-contributing">წვლილის შეტანამდე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pull-request-process">მოთხოვნის გატანის პროცესი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#legal-part">იურიდიული ნაწილი</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="style-guide.html">Espressif IoT-ის შემუშავების ჩარჩოს სტილის სახელმძღვანელო</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documenting-code.html">კოდის დოკუმენტირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="add-ons-reference.html">დოკუმენტაცია, დამატებები და გაფართოებები, მითითება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-examples.html">მაგალითების შექმნა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-reference/template.html">API დოკუმენტაციის შაბლონი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="contributor-agreement.html#">კონტრიბუტორის შეთანხმება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contributor-agreement.html#individual-contributor-non-exclusive-license-agreement">ინდივიდუალური კონტრიბუტორის არაექსკლუზიური ლიცენზიის ხელშეკრულება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="contributor-agreement.html#including-the-traditional-patent-license-option">ტრადიციული პატენტის ლიცენზიის ოფციის ჩათვლით</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">წვლილის სახელმძღვანელო</a> »</li>
+<li>კონტრიბუტორის შეთანხმება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/contribute/contributor-agreement.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="contributor-agreement">
+<h1>კონტრიბუტორის შეთანხმება<a class="headerlink" href="contributor-agreement.html#contributor-agreement" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="individual-contributor-non-exclusive-license-agreement">
+<h2>ინდივიდუალური კონტრიბუტორის არაექსკლუზიური ლიცენზიის ხელშეკრულება<a class="headerlink" href="contributor-agreement.html#individual-contributor-non-exclusive-license-agreement" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="including-the-traditional-patent-license-option">
+<h2>ტრადიციული პატენტის ლიცენზიის ოფციის ჩათვლით<a class="headerlink" href="contributor-agreement.html#including-the-traditional-patent-license-option" title="Permalink to this headline">¶</a></h2>
+<p>გმადლობთ, რომ დაინტერესდით Espressif IoT Development Framework-ში (esp-idf) („ჩვენ“ ან „ჩვენ“) წვლილის შეტანით.</p>
+<p>ამ კონტრიბუტორის ხელშეკრულების („ხელშეკრულება“) მიზანია კონტრიბუტორების მიერ ჩვენთვის მინიჭებული უფლებების განმარტება და დოკუმენტირება. ამ დოკუმენტის ძალაში შესასვლელად, გთხოვთ, მიჰყვეთ ინსტრუქციებს.
+<a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/CONTRIBUTING.rst">კონტრიბუცია.rst</a></p>
+<div class="section" id="definitions">
+<h3>1. განმარტებები<a class="headerlink" href="contributor-agreement.html#definitions" title="Permalink to this headline">¶</a></h3>
+<p><strong>„შენ“</strong> ნიშნავს საავტორო უფლებების ინდივიდუალურ მფლობელს, რომელიც ჩვენთვის წვლილს წარადგენს. თუ თქვენ ხართ თანამშრომელი და წვლილს თქვენი დასაქმების ფარგლებში წარადგენთ, თქვენი დამსაქმებლისგან მიღებული უნდა იყოს ამ შეთანხმების დამტკიცება ან ამ დოკუმენტის იურიდიული პირის ვერსიის ხელმოწერა.</p>
+<p><strong>„წვლილი“</strong> ნიშნავს ნებისმიერ ორიგინალურ საავტორო ნაშრომს (პროგრამულ უზრუნველყოფას და/ან დოკუმენტაციას), მათ შორის არსებულ ნაშრომში ნებისმიერ ცვლილებას ან დამატებას, რომელიც წარმოდგენილია თქვენს მიერ ჩვენთვის და რომელზეც საავტორო უფლება თქვენ გეკუთვნით. თუ თქვენ არ გეკუთვნით საავტორო უფლება მთელ საავტორო ნაშრომზე, გთხოვთ, დაგვიკავშირდეთ შემდეგ მისამართზე: <a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/cdn-cgi/l/email-protection#bcddd2dbc9cf9a9f8f8b879a9f898e879a9f888487d9cfccced9cfcfd5da9a9f888a87dfd3d1">ანგუსი<span>@</span>ესპრესო<span>.</span>კომ</a>.</p>
+<p><strong>„საავტორო უფლება“</strong> ნიშნავს ყველა უფლებას, რომელიც იცავს თქვენს საკუთრებაში არსებულ ან თქვენს მიერ კონტროლირებად საავტორო ნაშრომებს, მათ შორის საავტორო, მორალურ და მომიჯნავე უფლებებს, შესაბამის შემთხვევაში, მათი არსებობის სრული ვადის განმავლობაში, თქვენს მიერ ნებისმიერი გაგრძელების ჩათვლით.</p>
+<p><strong>„მასალა“</strong> ნიშნავს ჩვენს მიერ მესამე მხარეებისთვის ხელმისაწვდომ პროგრამულ უზრუნველყოფას ან დოკუმენტაციას. როდესაც ეს შეთანხმება მოიცავს ერთზე მეტ პროგრამულ პროექტს, მასალა ნიშნავს პროგრამულ უზრუნველყოფას ან დოკუმენტაციას, რომელზეც წარდგენილი იყო წვლილი. წვლილის წარდგენის შემდეგ, ის შეიძლება შედიოდეს მასალაში.</p>
+<p><strong>„გაგზავნა“</strong> ნიშნავს ჩვენთვის გაგზავნილ ნებისმიერ ფიზიკურ, ელექტრონულ ან წერილობით კომუნიკაციას, მათ შორის, მაგრამ არა მხოლოდ, ელექტრონული საფოსტო სიებით, კოდის კონტროლის სისტემებით და პრობლემების თვალყურის დევნების სისტემებით, რომლებსაც ჩვენ ვმართავთ ან ჩვენ სახელით, გარდა იმ კომუნიკაციისა, რომელიც თქვენს მიერ თვალსაჩინოდ არის მონიშნული ან სხვაგვარად წერილობით არის მონიშნული, როგორც „არ არის წვლილი“.</p>
+<p><strong>„წარდგენის თარიღი“</strong> ნიშნავს თარიღს, როდესაც თქვენ ჩვენთვის წვლილის წარდგენას ახორციელებთ.</p>
+<p><strong>„დოკუმენტაცია“</strong> ნიშნავს წვლილის ნებისმიერ არაპროგრამულ ნაწილს.</p>
+</div>
+<div class="section" id="license-grant">
+<h3>2. ლიცენზიის გაცემა<a class="headerlink" href="contributor-agreement.html#license-grant" title="Permalink to this headline">¶</a></h3>
+<p>2.1 საავტორო უფლებების ლიცენზია ჩვენთვის</p>
+<p>წინამდებარე შეთანხმების პირობებისა და წესების დაცვით, თქვენ ამით გვაძლევთ მსოფლიო მასშტაბით გავრცელებულ, ჰონორარის გარეშე, არაექსკლუზიურ, მუდმივ და შეუქცევად ლიცენზიას, უფლებით გადავცეთ შეუზღუდავი რაოდენობის არაექსკლუზიური ლიცენზიები ან მიანიჭოთ ქველიცენზიები მესამე მხარეებს, წვლილის დაფარვის საავტორო უფლებების ფარგლებში, წვლილის ყველა საშუალებით გამოსაყენებლად, მათ შორის, მაგრამ არა მხოლოდ:</p>
+<ul class="simple">
+<li>წვლილის გამოსაქვეყნებლად,</li>
+<li>წვლილის შეცვლა, წვლილის საფუძველზე ან მისი შემცველი წარმოებული ნაშრომების მომზადება და წვლილის სხვა პროგრამულ კოდთან გაერთიანება,</li>
+<li>წვლილის ორიგინალი ან შეცვლილი სახით რეპროდუცირება,</li>
+<li>წვლილის გავრცელება, საზოგადოებისთვის ხელმისაწვდომობა, წვლილის ჩვენება და საჯაროდ შესრულება ორიგინალი ან შეცვლილი ფორმით.</li>
+</ul>
+<p>2.2 მორალური უფლებები უცვლელი რჩება იმდენად, რამდენადაც ისინი აღიარებულია და არ ექვემდებარება უარყოფას მოქმედი კანონმდებლობით. ამის მიუხედავად, თქვენ შეგიძლიათ დაამატოთ თქვენი სახელი თქვენი წვლილის საწყისი კოდის ფაილების სათაურში და ჩვენ პატივს ვცემთ ამ ატრიბუციას თქვენი წვლილის გამოყენებისას.</p>
+</div>
+<div class="section" id="patents">
+<h3>3. პატენტები<a class="headerlink" href="contributor-agreement.html#patents" title="Permalink to this headline">¶</a></h3>
+<p>3.1 პატენტის ლიცენზია</p>
+<p>ამ შეთანხმების პირობებისა და პირობების გათვალისწინებით, თქვენ ამით გვანიჭებთ მსოფლიო მასშტაბით, ჰონორარის გარეშე, არაექსკლუზიურ, მუდმივ და შეუქცევად (გარდა 3.2 პუნქტში მითითებული შემთხვევებისა) პატენტის ლიცენზიას, უფლებით გადავცეთ შეუზღუდავი რაოდენობის არაექსკლუზიური ლიცენზიები ან მიანიჭოთ ქველიცენზიები მესამე მხარეებს, შევქმნათ, შევქმნათ, გამოვიყენოთ, გავყიდოთ, შევთავაზოთ გასაყიდად, შემოვიტანოთ და სხვაგვარად გადავცეთ წვლილი და წვლილი მასალასთან (და ასეთი კომბინაციის ნაწილებთან) კომბინაციაში. ეს ლიცენზია ვრცელდება თქვენს საკუთრებაში არსებულ ან თქვენს მიერ კონტროლირებად ყველა პატენტზე, იქნება ეს უკვე შეძენილი თუ შემდგომში შეძენილი, რომელთა უფლებები დაირღვება თქვენი წვლილის (წვლილების) ცალკე ან თქვენი წვლილის (წვლილების) მასალასთან კომბინაციით შექმნით, შექმნით, გამოყენებით, გაყიდვით, გასაყიდად შეთავაზებით, იმპორტით ან სხვაგვარად გადაცემით.</p>
+<p>3.2 პატენტის ლიცენზიის გაუქმება</p>
+<p>თქვენ იტოვებთ უფლებას გააუქმოთ 3.1 პუნქტში მითითებული პატენტის ლიცენზია, თუ ჩვენ წარვადგენთ რაიმე სახის დარღვევის სარჩელს, რომელიც მიმართულია თქვენი წვლილის წინააღმდეგ და არ არის წარდგენილი თავდაცვითი მიზნით. პატენტების მოთხოვნების წარდგენა განიხილება „თავდაცვითი მიზნით“, თუ მოთხოვნები წარდგენილია იმ პირის წინააღმდეგ, რომელმაც შეიტანა, შეინარჩუნა, დაემუქრა ან ნებაყოფლობით მიიღო მონაწილეობა პატენტის დარღვევის სარჩელში ჩვენს ან ჩვენი რომელიმე ლიცენზიატის წინააღმდეგ.</p>
+</div>
+<div class="section" id="disclaimer">
+<h3>4. პასუხისმგებლობის შეზღუდვა<a class="headerlink" href="contributor-agreement.html#disclaimer" title="Permalink to this headline">¶</a></h3>
+<p>წვლილი მოწოდებულია „როგორც არის“. კერძოდ, ყველა გამოხატული ან ნაგულისხმევი გარანტია, მათ შორის, შეზღუდვის გარეშე, ნებისმიერი ნაგულისხმევი გარანტია სავაჭრო ვარგისიანობის, კონკრეტული მიზნისთვის ვარგისიანობის და უფლებების დარღვევის არარსებობის შესახებ, თქვენ მიერ ჩვენ მიერ და თქვენ მიერ თქვენთვის უარყოფილია. იმ შემთხვევაში, თუ ასეთი გარანტიების უარყოფა შეუძლებელია, ასეთი გარანტიის ხანგრძლივობა შეზღუდულია კანონით დაშვებული მინიმალური ვადით.</p>
+</div>
+<div class="section" id="consequential-damage-waiver">
+<h3>5. თანმდევი ზიანის ანაზღაურების უარი<a class="headerlink" href="contributor-agreement.html#consequential-damage-waiver" title="Permalink to this headline">¶</a></h3>
+<p>მოქმედი კანონმდებლობით დაშვებული მაქსიმალური ზომით, არანაირ შემთხვევაში თქვენ ან ჩვენ არ ვიქნებით პასუხისმგებელი მოგების დაკარგვაზე, მოსალოდნელი დანაზოგის დაკარგვაზე, მონაცემთა დაკარგვაზე, არაპირდაპირ, განსაკუთრებულ, შემთხვევით, თანმდევ და სამაგალითო ზიანზე, რომელიც წარმოიშობა ამ შეთანხმებიდან, მიუხედავად იმ სამართლებრივი ან სამართლიანი თეორიისა (ხელშეკრულება, დელიქტი ან სხვა), რომელზეც დაფუძნებულია პრეტენზია.</p>
+</div>
+<div class="section" id="approximation-of-disclaimer-and-damage-waiver">
+<h3>6. პასუხისმგებლობის უარყოფისა და ზიანის ანაზღაურების შესახებ პასუხისმგებლობის უარყოფის მიახლოებითი შეთანხმება<a class="headerlink" href="contributor-agreement.html#approximation-of-disclaimer-and-damage-waiver" title="Permalink to this headline">¶</a></h3>
+<p>თუ მე-4 და მე-5 მუხლებში მითითებულ უარყოფას და ზიანის ანაზღაურებისგან გათავისუფლებას არ შეიძლება მიეცეს იურიდიული ძალა მოქმედი ადგილობრივი კანონმდებლობის შესაბამისად, განმხილველი სასამართლოები გამოიყენებენ ადგილობრივ კანონმდებლობას, რომელიც ყველაზე მეტად უახლოვდება შენატანთან დაკავშირებული ყველა სახის სამოქალაქო პასუხისმგებლობისგან აბსოლუტურ გათავისუფლებას.</p>
+</div>
+<div class="section" id="term">
+<h3>7. ვადა<a class="headerlink" href="contributor-agreement.html#term" title="Permalink to this headline">¶</a></h3>
+<p>7.1 ეს შეთანხმება ძალაში შევა თქვენი მიერ პირობების მიღებისთანავე.</p>
+<p>7.2 ამ შეთანხმების შეწყვეტის შემთხვევაში, მე-4, მე-5, მე-6, მე-7 და მე-8 მუხლები ძალაში დარჩება ასეთი შეწყვეტის შემდეგ და სრულად ძალაში დარჩება შემდგომში. ეჭვის თავიდან ასაცილებლად, შენატანი, რომელიც შეწყვეტის თარიღისთვის უკვე ლიცენზირებულია თავისუფალი და ღია კოდის ლიცენზიით, სრულად ძალაში დარჩება ამ შეთანხმების შეწყვეტის შემდეგაც.</p>
+</div>
+<div class="section" id="miscellaneous">
+<h3>8. სხვადასხვა<a class="headerlink" href="contributor-agreement.html#miscellaneous" title="Permalink to this headline">¶</a></h3>
+<p>8.1 ეს შეთანხმება და ყველა დავა, პრეტენზია, სარჩელი, სარჩელი ან სხვა სამართალწარმოება, რომელიც წარმოიშობა ამ შეთანხმებიდან ან რაიმე ფორმით დაკავშირებულია მასთან, რეგულირდება ჩინეთის სახალხო რესპუბლიკის კანონმდებლობით, გარდა მისი საერთაშორისო კერძო სამართლის დებულებებისა.</p>
+<p>8.2 ეს შეთანხმება განსაზღვრავს თქვენსა და ჩვენს შორის დადებულ სრულ შეთანხმებას თქვენი ჩვენში შეტანილი წვლილის შესახებ და უპირატესია ყველა სხვა შეთანხმებისა თუ ურთიერთგაგების მიმართ.</p>
+<p>8.3 თუ ამ შეთანხმების რომელიმე დებულება ბათილად და აღუსრულებლად ჩაითვლება, ასეთი დებულება, შესაძლებლობის ფარგლებში, შეიცვლება ისეთი დებულებით, რომელიც ყველაზე ახლოს იქნება თავდაპირველი დებულების მნიშვნელობასთან და რომელიც აღსასრულებელი იქნება. ამ შეთანხმებაში მოცემული პირობები და წესები გამოიყენება ამ შეთანხმების არსებითი მიზნის შეუსრულებლობის ან კანონით გათვალისწინებული მაქსიმალური ზომით ნებისმიერი შეზღუდული სამართლებრივი დაცვის საშუალების მიუხედავად.</p>
+<p>8.4 თქვენ თანახმა ხართ, გვაცნობოთ ნებისმიერი ფაქტის ან გარემოების შესახებ, რომლის შესახებაც შეიტყობთ და რომელიც ამ შეთანხმებას რაიმე თვალსაზრისით არაზუსტს გახდის.</p>
+<p class="rubric" id="you">შენ</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="75%"/>
+<col width="25%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>თარიღი:</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>სახელი:</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td>სათაური:</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>მისამართი:</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric" id="us">ჩვენ</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="75%"/>
+<col width="25%"/>
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>თარიღი:</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>სახელი:</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td>სათაური:</td>
+<td> </td>
+</tr>
+<tr class="row-even"><td>მისამართი:</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../versions.html" rel="next" title="ESP-IDF Versions">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../api-reference/template.html" rel="prev" title="API Documentation Template"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script data-cfasync="false" src="../../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

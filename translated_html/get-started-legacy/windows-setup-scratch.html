@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Windows Toolchain-ის ნულიდან დაყენება (Legacy GNU Make) — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="linux-setup.html" rel="next" title="Standard Setup of Toolchain for Linux (Legacy GNU Make)"/>
+<link href="windows-setup.html" rel="prev" title="Standard Setup of Toolchain for Windows (Legacy GNU Make)"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/get-started-legacy/windows-setup-scratch.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "get-started-legacy/windows-setup-scratch"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/get-started-legacy/windows-setup-scratch.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../get-started/index.html">დაწყება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#introduction">შესავალი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-1-install-prerequisites">ნაბიჯი 1. წინაპირობების ინსტალაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-3-set-up-the-tools">ნაბიჯი 3. ხელსაწყოების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-4-set-up-the-environment-variables">ნაბიჯი 4. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-8-build-the-project">ნაბიჯი 8. პროექტის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-9-flash-onto-the-device">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-10-monitor">ნაბიჯი 10. მონიტორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../get-started/index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../get-started/establish-serial-connection.html">სერიული კავშირის დამყარება ESP32-თან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../get-started/eclipse-setup.html">Eclipse IDE-ს გამოყენებით აწყობა და ფლეშ-პროგრამირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-guides/tools/idf-monitor.html">IDF მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../get-started/toolchain-setup-scratch.html">Toolchain-ის მორგებული დაყენება</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">დაწყება (Legacy GNU Make)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="index.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-1-set-up-the-toolchain">ნაბიჯი 1. ინსტრუმენტების ჯაჭვის დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-3-set-environment-variables">ნაბიჯი 3. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-4-install-the-required-python-packages">ნაბიჯი 4. დააინსტალირეთ საჭირო Python პაკეტები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-8-build-and-flash">ნაბიჯი 8. აწყობა და ფლეშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-9-monitor">ნაბიჯი 9. მონიტორი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#environment-variables">გარემოს ცვლადები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="../get-started/index.html">დაწყება</a> »</li>
+<li><a href="index.html">დაწყება (Legacy GNU Make)</a> »</li>
+<li><a href="windows-setup.html">Windows-ისთვის Toolchain-ის სტანდარტული დაყენება (Legacy GNU Make)</a> »</li>
+<li>Windows Toolchain-ის ნულიდან დაყენება (Legacy GNU Make)</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/get-started-legacy/windows-setup-scratch.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="setup-windows-toolchain-from-scratch-legacy-gnu-make">
+<h1>Windows Toolchain-ის ნულიდან დაყენება (Legacy GNU Make)<a class="headerlink" href="windows-setup-scratch.html#setup-windows-toolchain-from-scratch-legacy-gnu-make" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-IDF V4.0-დან დაწყებული, ნაგულისხმევი აწყობის სისტემა დაფუძნებულია CMake-ზე. ეს დოკუმენტაცია განკუთვნილია GNU Make-ზე დაფუძნებული მემკვიდრეობითი აწყობის სისტემისთვის. ამ აწყობის სისტემის მხარდაჭერა შესაძლოა მომავალ ძირითად ვერსიებში გაუქმდეს.</p>
+</div>
+<p>გარემოს დაყენება გაძლევთ მეტ კონტროლს პროცესზე და ასევე უზრუნველყოფს ინფორმაციას მოწინავე მომხმარებლებისთვის ინსტალაციის პერსონალიზაციისთვის. <a class="reference internal" href="windows-setup.html"><span class="doc">წინასწარ შექმნილი გარემო</span></a>, რომელიც ნაკლებად გამოცდილი მომხმარებლებისთვისაა განკუთვნილი, მომზადებულია ამ ნაბიჯების დაცვით.</p>
+<p>სტანდარტული გზით, წინასწარ აგებული გარემოს გამოყენებით, ინსტრუმენტების ნაკრები სწრაფად დასაყენებლად, გადადით განყოფილებაზე <a class="reference internal" href="windows-setup.html"><span class="doc">Windows-ისთვის Toolchain-ის სტანდარტული დაყენება (Legacy GNU Make)</span></a>.</p>
+<div class="section" id="configure-toolchain-environment-from-scratch">
+<span id="configure-windows-toolchain-from-scratch-legacy"></span><h2>ნულიდან ინსტრუმენტთა ჯაჭვისა და გარემოს კონფიგურაცია<a class="headerlink" href="windows-setup-scratch.html#configure-toolchain-environment-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>ეს პროცესი მოიცავს ინსტალაციას <a class="reference external" href="https://msys2.github.io/">MSYS2</a>, შემდეგ კი ინსტალირდება <a class="reference external" href="https://msys2.github.io/">MSYS2</a> და Python-ის პაკეტები, რომლებსაც ESP-IDF იყენებს და ბოლოს, Xtensa ინსტრუმენტების ნაკრები ჩამოტვირთვა და ინსტალაცია.</p>
+<ul>
+<li><p class="first">ნავიგაცია შემდეგზე <a class="reference external" href="https://msys2.github.io/">MSYS2</a> ინსტალერის გვერდი და ჩამოტვირთეთ <code class="docutils literal notranslate"><span class="pre">msys2-i686-xxxxxxx.exe</span></code> ინსტალერის შესრულებადი ფაილი (ჩვენ მხოლოდ 32-ბიტიან MSYS გარემოს ვუჭერთ მხარს, ის მუშაობს როგორც 32-ბიტიან, ასევე 64-ბიტიან Windows-ზე.) წერის მომენტისთვის, ინსტალერის უახლესი ვერსიაა <code class="docutils literal notranslate"><span class="pre">msys2-i686-20161025.exe</span></code>.</p>
+</li>
+<li><p class="first">გაიარეთ ინსტალატორის ნაბიჯები. <strong>ბოლოში მოხსენით მონიშვნა „Run MSYS2 32-bit now“-ს ველიდან.</strong></p>
+</li>
+<li><p class="first">ინსტალატორის გამოსვლის შემდეგ, გახსენით „დაწყების“ მენიუ და იპოვეთ „MSYS2 MinGW 32-bit“ ტერმინალის გასაშვებად.</p>
+<p><em>(რატომ უნდა გავუშვათ ეს განსხვავებული ტერმინალი? MSYS2-ს აქვს სხვადასხვა სახის გარემოს კონცეფცია. ნაგულისხმევი „MSYS“ გარემო Cygwin-ის მსგავსია და იყენებს თარგმანის ფენას Windows API ყველა გამოძახებისთვის. ჩვენ გვჭირდება „MinGW“ გარემო, რათა გვქონდეს მშობლიური Python, რომელიც მხარს უჭერს COM პორტებს.)</em></p>
+</li>
+<li><p class="first">github-ზე ESP-IDF საცავი შეიცავს სკრიპტს tools დირექტორიაში სახელწოდებით <code class="docutils literal notranslate"><span class="pre">windows_install_prerequisites.sh</span></code>თუ ჯერ არ გაქვთ ESP-IDF ის ლოკალური ასლი, არა უშავს - შეგიძლიათ უბრალოდ ჩამოტვირთოთ ეს ერთი ფაილი Raw ფორმატში აქედან: <a class="reference external" href="https://github.com/espressif/esp-idf/raw/f91080637/tools/windows/windows_install_prerequisites.sh">tools/windows/windows_install_prerequisites.sh</a>შეინახეთ ის თქვენს კომპიუტერში სადმე.</p>
+</li>
+<li><p class="first">MSYS2 ტერმინალის ფანჯარაში შეიყვანეთ shell სკრიპტის გზა. შეგიძლიათ აკრიფოთ ის ჩვეულებრივი Windows-ის გზად, მაგრამ უკუ-სლეშის ნაცვლად გამოიყენეთ წინ მიმართული სლეშები. მაგ.: <code class="docutils literal notranslate"><span class="pre">C:/Users/myuser/Downloads/windows_install_prerequisites.sh</span></code>შეგიძლიათ წინასწარ წაიკითხოთ სკრიპტი, რათა ნახოთ, რას აკეთებს ის.</p>
+</li>
+<li><p class="first">ის <code class="docutils literal notranslate"><span class="pre">windows_install_prerequisites.sh</span></code> სკრიპტი ჩამოტვირთავს და დააინსტალირებს პაკეტებს ESP-IDF მხარდაჭერისთვის და ESP32 ინსტრუმენტების ნაკრები .</p>
+</li>
+</ul>
+<div class="section" id="troubleshooting">
+<h3>პრობლემების მოგვარება<a class="headerlink" href="windows-setup-scratch.html#troubleshooting" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ინსტალაციის სკრიპტის გაშვებისას, MSYS-მა შეიძლება განაახლოს თავისი თავი ისეთ მდგომარეობაში, რომ ვეღარ იმუშავებს. შეიძლება შეგხვდეთ შემდეგი შეცდომები:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***</span> <span class="n">fatal</span> <span class="n">error</span> <span class="o">-</span> <span class="n">cygheap</span> <span class="n">base</span> <span class="n">mismatch</span> <span class="n">detected</span> <span class="o">-</span> <span class="mh">0x612E5408</span><span class="o">/</span><span class="mh">0x612E4408</span><span class="o">.</span> <span class="n">This</span> <span class="n">problem</span> <span class="ow">is</span> <span class="n">probably</span> <span class="n">due</span> <span class="n">to</span> <span class="n">using</span> <span class="n">incompatible</span> <span class="n">versions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cygwin</span> <span class="n">DLL</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>თუ მსგავს შეცდომებს შეამჩნევთ, მთლიანად დახურეთ ტერმინალის ფანჯარა (იქ მიმდინარე პროცესების შეწყვეტით) და შემდეგ ხელახლა გახსენით ახალი ტერმინალი. ხელახლა გაუშვით. <code class="docutils literal notranslate"><span class="pre">windows_install_prerequisites.sh</span></code> (რჩევა: ბოლო გაშვების ბრძანების სანახავად გამოიყენეთ ზემოთ მიმართული ისრის ღილაკი). განახლების პროცესი ამ ნაბიჯის შემდეგ განახლდება.</p>
+</li>
+<li><p class="first">MSYS2 არის „მოძრავი“ დისტრიბუცია, ამიტომ ინსტალატორის სკრიპტის გაშვებამ შეიძლება დააინსტალიროს უფრო ახალი პაკეტები, ვიდრე ის, რაც გამოიყენება წინასწარ აგებულ გარემოში. თუ შეამჩნევთ რაიმე შეცდომას, რომელიც, როგორც ჩანს, დაკავშირებულია MSYS2 პაკეტების ინსტალაციასთან, გთხოვთ, შეამოწმოთ <a class="reference external" href="https://github.com/Alexpux/MSYS2-packages/issues/">MSYS2-პაკეტების პრობლემების სია</a> ცნობილი პრობლემებისთვის. თუ ვერ ხედავთ რაიმე შესაბამის პრობლემას, გთხოვთ, <a class="reference external" href="https://github.com/espressif/esp-idf/issues/new">IDF-ის საკითხის წამოწევა</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="msys2-mirrors-in-china">
+<h3>MSYS2 სარკეები ჩინეთში<a class="headerlink" href="windows-setup-scratch.html#msys2-mirrors-in-china" title="Permalink to this headline">¶</a></h3>
+<p>ჩინეთში არსებობს რამდენიმე (არაოფიციალური) MSYS2 სარკე, რაც მნიშვნელოვნად აუმჯობესებს ჩამოტვირთვის სიჩქარეს ჩინეთში.</p>
+<p>ამ სარკეების დასამატებლად, დაყენების სკრიპტის გაშვებამდე შეცვალეთ შემდეგი ორი MSYS2 სარკეების სიის ფაილი. სარკეების სიის ფაილები შეგიძლიათ იხილოთ შემდეგში: <code class="docutils literal notranslate"><span class="pre">/etc/pacman.d</span></code> დირექტორია (მაგ. <code class="docutils literal notranslate"><span class="pre">c:\msys2\etc\pacman.d</span></code>).</p>
+<p>დაამატეთ ეს ხაზები ზედა ნაწილში <code class="docutils literal notranslate"><span class="pre">mirrorlist.mingw32</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Server</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">ustc</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">msys2</span><span class="o">/</span><span class="n">mingw</span><span class="o">/</span><span class="n">i686</span><span class="o">/</span>
+<span class="n">Server</span> <span class="o">=</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirror</span><span class="o">.</span><span class="n">bit</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">msys2</span><span class="o">/</span><span class="n">REPOS</span><span class="o">/</span><span class="n">MINGW</span><span class="o">/</span><span class="n">i686</span>
+</pre></div>
+</div>
+<p>დაამატეთ ეს ხაზები ზედა ნაწილში <code class="docutils literal notranslate"><span class="pre">mirrorlist.msys</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Server = http://mirrors.ustc.edu.cn/msys2/msys/$arch
+Server = http://mirror.bit.edu.cn/msys2/REPOS/MSYS2/$arch
+</pre></div>
+</div>
+</div>
+<div class="section" id="http-proxy">
+<h3>HTTP პროქსი<a class="headerlink" href="windows-setup-scratch.html#http-proxy" title="Permalink to this headline">¶</a></h3>
+<p>MSYS და PIP ჩამოტვირთვებისთვის HTTP პროქსის ჩართვა შეგიძლიათ შემდეგი პარამეტრის დაყენებით: <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> ცვლადი ტერმინალში დაყენების სკრიპტის გაშვებამდე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">http_proxy</span><span class="o">=</span><span class="s1">'http://http.proxy.server:PORT'</span>
+</pre></div>
+</div>
+<p>ან რწმუნებათა სიგელებით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">http_proxy</span><span class="o">=</span><span class="s1">'http://user:<a class="__cf_email__" data-cfemail="a0d0c1d3d3d7cfd2c4e0c8d4d4d08ed0d2cfd8d98ed3c5d2d6c5d2" href="https://espressif-docs.readthedocs-hosted.com/cdn-cgi/l/email-protection">[email protected]</a>:PORT'</span>
+</pre></div>
+</div>
+<p>დაამატეთ ეს ხაზი <code class="docutils literal notranslate"><span class="pre">/etc/profile</span></code> MSYS დირექტორიაში, რათა MSYS-ის გამოყენებისას პროქსი სამუდამოდ ჩაირთოს.</p>
+</div>
+</div>
+<div class="section" id="alternative-setup-just-download-a-toolchain">
+<h2>ალტერნატიული დაყენება: უბრალოდ ჩამოტვირთეთ ინსტრუმენტების ნაკრები<a class="headerlink" href="windows-setup-scratch.html#alternative-setup-just-download-a-toolchain" title="Permalink to this headline">¶</a></h2>
+<p>თუ უკვე გაქვთ MSYS2 ინსტალაცია ან გსურთ სხვაგვარად გააკეთოთ საქმეები, შეგიძლიათ ჩამოტვირთოთ მხოლოდ ინსტრუმენტების ნაკრები აქ:</p>
+<p><a class="reference external" href="https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip">https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2019r2-win32.zip</a></p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ ინსტრუქციებს მიჰყევით <a class="reference internal" href="windows-setup-scratch.html#configure-windows-toolchain-from-scratch-legacy"><span class="std std-ref">ნულიდან ინსტრუმენტთა ჯაჭვისა და გარემოს კონფიგურაცია</span></a>, თქვენ უკვე გაქვთ ინსტრუმენტების ნაკრები და ეს ჩამოტვირთვა არ დაგჭირდებათ.</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">მნიშვნელოვანი</p>
+<p class="last">უბრალოდ ამ ინსტრუმენტების ნაკრები ქონა არის <em>არ არის საკმარისი</em> Windows-ზე ESP-IDF გამოსაყენებლად. თქვენ დაგჭირდებათ მინიმუმ GNU make, bash და sed. ზემოთ მოცემული გარემოები უზრუნველყოფს ამ ყველაფერს, პლუს კომპილაცია r ჰოსტს (საჭიროა menuconfig მხარდაჭერისთვის).</p>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>შემდეგი ნაბიჯები<a class="headerlink" href="windows-setup-scratch.html#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>განვითარების გარემოს დაყენების გასაგრძელებლად, გადადით განყოფილებაში <a class="reference internal" href="index.html#get-started-get-esp-idf-legacy"><span class="std std-ref">ნაბიჯი 2. მიიღეთ ESP-IDF</span></a>.</p>
+</div>
+<div class="section" id="updating-the-environment">
+<span id="updating-existing-windows-environment-legacy"></span><h2>გარემოს განახლება<a class="headerlink" href="windows-setup-scratch.html#updating-the-environment" title="Permalink to this headline">¶</a></h2>
+<p>IDF-ის განახლებისას, ზოგჯერ საჭიროა ახალი ინსტრუმენტების ნაკრები ები ან Windows MSYS2 გარემოს ემატება ახალი სისტემური მოთხოვნები.</p>
+<p>ახალი გარემოს შექმნის ნაცვლად, შეგიძლიათ განაახლოთ არსებული Windows გარემო და ინსტრუმენტების ნაკრები :</p>
+<ul class="simple">
+<li>განაახლეთ IDF იმ ახალ ვერსიამდე, რომლის გამოყენებაც გსურთ.</li>
+<li>გაუშვით <code class="docutils literal notranslate"><span class="pre">tools/windows/windows_install_prerequisites.sh</span></code> სკრიპტი IDF-ში. ეს დააინსტალირებს ნებისმიერ ახალ პროგრამულ პაკეტს, რომელიც ადრე არ იყო დაინსტალირებული და ჩამოტვირთავს და ჩაანაცვლებს ინსტრუმენტების ნაკრები უახლესი ვერსიით.</li>
+</ul>
+<p>MSYS2-ის განახლების სკრიპტი შეიძლება ასევე ვერ მოხერხდეს იმავე შეცდომებით, რომლებიც მითითებულია ქვემოთ. <a class="reference internal" href="windows-setup-scratch.html#troubleshooting">პრობლემების მოგვარება</a>.</p>
+<p>თუ ერთდროულად რამდენიმე IDF ვერსიის მხარდაჭერა გჭირდებათ, შეგიძლიათ სხვადასხვა დირექტორიაში გქონდეთ სხვადასხვა დამოუკიდებელი MSYS2 გარემო. ალტერნატიულად, შეგიძლიათ ჩამოტვირთოთ რამდენიმე ინსტრუმენტების ნაკრები ფაილი და გახსნათ ისინი სხვადასხვა დირექტორიაში, შემდეგ კი PATH გარემოს ცვლადის გამოყენებით დააყენოთ რომელი იქნება ნაგულისხმევი.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="linux-setup.html" rel="next" title="Standard Setup of Toolchain for Linux (Legacy GNU Make)">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="windows-setup.html" rel="prev" title="Standard Setup of Toolchain for Windows (Legacy GNU Make)"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script data-cfasync="false" src="../../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

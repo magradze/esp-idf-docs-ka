@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-TLS — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="esp_http_client.html" rel="next" title="ESP HTTP Client"/>
+<link href="mqtt.html" rel="prev" title="ESP-MQTT"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/protocols/esp_tls.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/protocols/esp_tls"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/protocols/esp_tls.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პროტოკოლები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="asio.html">ASIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mqtt.html">ESP-MQTT</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="esp_tls.html#">ESP-TLS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#tree-structure-for-esp-tls-component">ESP-TLS კომპონენტი ის ხის სტრუქტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#underlying-ssl-tls-library-options">SSL/TLS ბიბლიოთეკის ძირითადი პარამეტრები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#how-to-use-wolfssl-with-esp-idf">როგორ გამოვიყენოთ wolfssl ESP-IDF თან ერთად</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#comparison-between-mbedtls-and-wolfssl">mbedtls-სა და wolfssl-ს შორის შედარება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_tls.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_client.html">HTTP კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_server.html">HTTP სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_server.html">HTTPS სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="icmp_echo.html">ICMP Echo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_local_ctrl.html">ადგილობრივი კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mdns.html">mDNS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modbus.html">მოდბუსი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_websocket_client.html">Websocket კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_serial_slave_link.html">ESP სერიული მონა ბმული</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">აპლიკაციის პროტოკოლები</a> »</li>
+<li>ESP-TLS</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/protocols/esp_tls.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-tls">
+<h1>ESP-TLS<a class="headerlink" href="esp_tls.html#esp-tls" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_tls.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-TLS კომპონენტი უზრუნველყოფს გამარტივებულ API ინტერფეისს ხშირად გამოყენებულ TLS ფუნქციონალზე წვდომისთვის. ის მხარს უჭერს ისეთ ხშირად გამოყენებულ სცენარებს, როგორიცაა CA სერტიფიცირების ვალიდაცია, SNI, ALPN მოლაპარაკება, არაბლოკირებადი კავშირი და სხვა. ყველა კონფიგურაციის მითითება შესაძლებელია... <code class="docutils literal notranslate"><span class="pre">esp_tls_cfg_t</span></code> მონაცემთა სტრუქტურა. დასრულების შემდეგ, TLS კომუნიკაცია შეიძლება განხორციელდეს შემდეგი API გამოყენებით:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="esp_tls.html#_CPPv416esp_tls_conn_newPKciiPK13esp_tls_cfg_t" title="esp_tls_conn_new"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_tls_conn_new()</span></code></a>: ახალი TLS კავშირის გასახსნელად.</li>
+<li><a class="reference internal" href="esp_tls.html#_CPPv417esp_tls_conn_readP9esp_tls_tPv6size_t" title="esp_tls_conn_read"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_tls_conn_read()</span></code></a>: კავშირიდან წასაკითხად.</li>
+<li><a class="reference internal" href="esp_tls.html#_CPPv418esp_tls_conn_writeP9esp_tls_tPKv6size_t" title="esp_tls_conn_write"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_tls_conn_write()</span></code></a>: კავშირში ჩასაწერად.</li>
+<li><a class="reference internal" href="esp_tls.html#_CPPv419esp_tls_conn_deleteP9esp_tls_t" title="esp_tls_conn_delete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_tls_conn_delete()</span></code></a>: კავშირის გასათავისუფლებლად.</li>
+</ul>
+</div></blockquote>
+<p>ნებისმიერი აპლიკაციის დონის პროტოკოლი, როგორიცაა HTTP1, HTTP2 და ა.შ., შეიძლება შესრულდეს ამ დონის თავზე.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_tls.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>მარტივი HTTPS მაგალითი, რომელიც იყენებს ESP-TLS-ს უსაფრთხო სოკეტის კავშირის დასამყარებლად: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/https_request">პროტოკოლები/https_მოთხოვნა</a>.</p>
+</div>
+<div class="section" id="tree-structure-for-esp-tls-component">
+<h2>ESP-TLS კომპონენტი ის ხის სტრუქტურა<a class="headerlink" href="esp_tls.html#tree-structure-for-esp-tls-component" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── esp_tls.c
+├── esp_tls.h
+├── esp_tls_mbedtls.c
+├── esp_tls_wolfssl.c
+└── private_include
+    ├── esp_tls_mbedtls.h
+    └── esp_tls_wolfssl.h
+</pre></div>
+</div>
+</div></blockquote>
+<p>ESP-TLS კომპონენტი აქვს ფაილი <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp-tls/esp_tls.h">esp-tls/esp_tls.h</a> რომლებიც შეიცავს კომპონენტი საჯარო API სათაურებს. შინაგანად ESP-TLS კომპონენტი თავისი ფუნქციონირებისთვის იყენებს mbedtls-სა და wolfssl-ს შორის არსებულ ორ SSL/TLS ბიბლიოთეკას შორის ერთ-ერთს. mbedtls-ისთვის სპეციფიკური API წარმოდგენილია <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp-tls/private_include/esp_tls_mbedtls.h">esp-tls/private_include/esp_tls_mbedtls.h</a> და wolfssl-ისთვის დამახასიათებელი API წარმოდგენილია <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp-tls/private_include/esp_tls_wolfssl.h">esp-tls/private_include/esp_tls_wolfssl.h</a>.</p>
+</div>
+<div class="section" id="underlying-ssl-tls-library-options">
+<h2>SSL/TLS ბიბლიოთეკის ძირითადი პარამეტრები<a class="headerlink" href="esp_tls.html#underlying-ssl-tls-library-options" title="Permalink to this headline">¶</a></h2>
+<p>ESP-TLS კომპონენტი აქვს mbedtls-ის ან wolfssl-ის გამოყენების ვარიანტი, როგორც მათი ძირითადი SSL/TLS ბიბლიოთეკა. ნაგულისხმევად მხოლოდ mbedtls არის ხელმისაწვდომი და გამოიყენება, wolfssl SSL/TLS ბიბლიოთეკა საჯაროდ ხელმისაწვდომია შემდეგ მისამართზე: <a class="reference external" href="https://github.com/espressif/esp-wolfssl">https://github.com/espressif/esp-wolfssl</a>საცავი გთავაზობთ wolfssl კომპონენტი ორობით ფორმატში, ასევე გთავაზობთ რამდენიმე მაგალითს, რომლებიც სასარგებლოა API გასაგებად. ლიცენზირებისა და სხვა ვარიანტების შესახებ ინფორმაციისთვის იხილეთ README.md საცავი. გთხოვთ, იხილოთ ქვემოთ მოცემული ვარიანტი თქვენს პროექტში wolfssl-ის გამოყენებისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last"><cite>As the library options are internal to ESP-TLS, switching the libries will not change ESP-TLS specific code for a project.</cite></p>
+</div>
+</div>
+<div class="section" id="how-to-use-wolfssl-with-esp-idf">
+<h2>როგორ გამოვიყენოთ wolfssl ESP-IDF თან ერთად<a class="headerlink" href="esp_tls.html#how-to-use-wolfssl-with-esp-idf" title="Permalink to this headline">¶</a></h2>
+<p>თქვენს პროექტში wolfssl-ის გამოყენების ორი გზა არსებობს</p>
+<ol class="arabic">
+<li><p class="first">თქვენს პროექტში პირდაპირ დაამატეთ wolfssl როგორც კომპონენტი შემდეგი სამი ბრძანების გამოყენებით:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(First change directory (cd) to your project directory)
+mkdir components
+cd components
+git clone https://github.com/espressif/esp-wolfssl.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">დაამატეთ wolfssl, როგორც დამატებითი კომპონენტი თქვენს პროექტში.</p>
+</li>
+</ol>
+<ul>
+<li><p class="first">ჩამოტვირთეთ wolfssl შემდეგი ინსტრუქციით:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/espressif/esp-wolfssl.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">ჩართეთ esp-wolfssl ESP-IDF ში თქვენი პროექტის CMakeLists.txt/Makefile-ში EXTRA_COMPONENT_DIRS-ის დაყენებით, როგორც შესრულებულია. <a class="reference external" href="https://github.com/espressif/esp-wolfssl/tree/master/examples">wolfssl/მაგალითები</a>. მითითებისთვის იხილეთ პროექტის არჩევითი ცვლადები <a class="reference internal" href="../../api-guides/build-system.html"><span class="doc">აშენების სისტემა.</span></a></p>
+</li>
+</ul>
+<p>ზემოთ აღნიშნული ნაბიჯების შემდეგ, თქვენი პროექტის კონფიგურაციის მენიუში გექნებათ შესაძლებლობა აირჩიოთ wolfssl, როგორც ძირითადი SSL/TLS ბიბლიოთეკა, შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>idf.py/make menuconfig -&gt; ESP-TLS -&gt; choose SSL/TLS Library -&gt; mbedtls/wolfssl
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparison-between-mbedtls-and-wolfssl">
+<h2>mbedtls-სა და wolfssl-ს შორის შედარება<a class="headerlink" href="esp_tls.html#comparison-between-mbedtls-and-wolfssl" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ ცხრილში მოცემულია wolfssl-სა და mbedtls-ს შორის ტიპური შედარება, როდესაც <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/protocols/https_request">პროტოკოლები/https_მოთხოვნა</a> მაგალითი <cite>(which has server authentication)</cite> გაშვებული იყო როგორც SSL/TLS ბიბლიოთეკებით და ყველა შესაბამისი კონფიგურაციით ნაგულისხმევ პარამეტრებზე დაყენებული.
+<cite>(mbedtls IN_CONTENT length and OUT_CONTENT length were set to 16384 bytes and 4096 bytes respectively)</cite></p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="48%"/>
+<col width="27%"/>
+<col width="25%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ქონება</th>
+<th class="head">ვოლფსლი</th>
+<th class="head">მბედტლსი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>სულ მოხმარებული გროვა</td>
+<td>~19 კბ</td>
+<td>~37 კბ</td>
+</tr>
+<tr class="row-odd"><td>გამოყენებული დავალებების დასტა</td>
+<td>~2.2 კბ</td>
+<td>~3.6 კბ</td>
+</tr>
+<tr class="row-even"><td>ურნის ზომა</td>
+<td>~858 კბ</td>
+<td>~736 კბ</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last"><cite>These values are subject to change with change in configuration options and version of respective libraries</cite>.</p>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_tls.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_tls.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp-tls/esp_tls.h">esp-tls/esp_tls.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_tls.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv412esp_tls_initv">
+<span id="_CPPv312esp_tls_initv"></span><span id="_CPPv212esp_tls_initv"></span><span id="esp_tls_init__void"></span><span class="target" id="esp__tls_8h_1a5c914ad9086f91ce9e6f1ce8d479dfc4"></span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<code class="descname">esp_tls_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv412esp_tls_initv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>TLS კავშირის შექმნა. </p>
+<p>ეს ფუნქცია გამოყოფს და ინიციალიზაციას უკეთებს esp-tls სტრუქტურის სახელურს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>tls Pointer to esp-tls as esp-tls handle if successfully initialized, NULL if allocation error </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416esp_tls_conn_newPKciiPK13esp_tls_cfg_t">
+<span id="_CPPv316esp_tls_conn_newPKciiPK13esp_tls_cfg_t"></span><span id="_CPPv216esp_tls_conn_newPKciiPK13esp_tls_cfg_t"></span><span id="esp_tls_conn_new__cCP.i.i.esp_tls_cfg_tCP"></span><span class="target" id="esp__tls_8h_1a75b1a921b89add7f1e27ed7eb1ccfcc0"></span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<code class="descname">esp_tls_conn_new</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ჰოსტის სახელი</em>, int <em>ჰოსტლენი</em>, int <em>პორტი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="esp_tls_cfg_t">esp_tls_cfg_t</a> *<em>cfg</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv416esp_tls_conn_newPKciiPK13esp_tls_cfg_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ახალი დაბლოკვის TLS/SSL კავშირი. </p>
+<p>ეს ფუნქცია ბლოკირების მეთოდით ამყარებს TLS/SSL კავშირს მითითებულ ჰოსტთან.</p>
+<p>შენიშვნა: ეს API არსებობს უკუთავსებადობის მიზნით. იგივე ფუნქციონალურობით ალტერნატიული ფუნქციაა <code class="docutils literal notranslate"><span class="pre">esp_tls_conn_new_sync</span></code> (და მისი ასინქრონული ვერსია <code class="docutils literal notranslate"><span class="pre">esp_tls_conn_new_async</span></code>)</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>pointer to esp_tls_t, or NULL if connection couldn’t be opened. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hostname</span></code>: მასპინძლის ჰოსტის სახელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hostlen</span></code>: ჰოსტის სახელის სიგრძე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">port</span></code>: მასპინძლის პორტის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>: TLS კონფიგურაცია, როგორც esp_tls_cfg_t. თუ გსურთ არა-TLS კავშირის გახსნა, დატოვეთ ეს NULL. TLS კავშირისთვის, esp_tls_cfg_t-ზე გადასვლის მაჩვენებელი. მინიმუმ, ეს სტრუქტურა უნდა იყოს ნულოვანი ინიციალიზებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_tls_conn_new_syncPKciiPK13esp_tls_cfg_tP9esp_tls_t">
+<span id="_CPPv321esp_tls_conn_new_syncPKciiPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="_CPPv221esp_tls_conn_new_syncPKciiPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="esp_tls_conn_new_sync__cCP.i.i.esp_tls_cfg_tCP.esp_tls_tP"></span><span class="target" id="esp__tls_8h_1a6f572d3c019993073f7c2a7457a2590d"></span>int <code class="descname">esp_tls_conn_new_sync</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ჰოსტის სახელი</em>, int <em>ჰოსტლენი</em>, int <em>პორტი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="esp_tls_cfg_t">esp_tls_cfg_t</a> *<em>cfg</em>, <a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv421esp_tls_conn_new_syncPKciiPK13esp_tls_cfg_tP9esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ახალი დაბლოკვის TLS/SSL კავშირი. </p>
+<p>ეს ფუნქცია ბლოკირების მეთოდით ამყარებს TLS/SSL კავშირს მითითებულ ჰოსტთან.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>-1 თუ კავშირის დამყარება ვერ მოხერხდა.</li>
+<li>1 თუ კავშირი წარმატებით დამყარდა.</li>
+<li>0 თუ კავშირის მდგომარეობა მიმდინარეობს. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hostname</span></code>: მასპინძლის ჰოსტის სახელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hostlen</span></code>: ჰოსტის სახელის სიგრძე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">port</span></code>: მასპინძლის პორტის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>: TLS კონფიგურაცია, როგორც esp_tls_cfg_t. თუ გსურთ არა-TLS კავშირის გახსნა, დატოვეთ ეს NULL. TLS კავშირისთვის, esp_tls_cfg_t-ზე გადასვლის მაჩვენებელი. მინიმუმ, ეს სტრუქტურა უნდა იყოს ნულოვანი ინიციალიზებული. </li>
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>esp-tls-ის მიმთითებელი, როგორც esp-tls-ის სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421esp_tls_conn_http_newPKcPK13esp_tls_cfg_t">
+<span id="_CPPv321esp_tls_conn_http_newPKcPK13esp_tls_cfg_t"></span><span id="_CPPv221esp_tls_conn_http_newPKcPK13esp_tls_cfg_t"></span><span id="esp_tls_conn_http_new__cCP.esp_tls_cfg_tCP"></span><span class="target" id="esp__tls_8h_1aaf9461e0e69e84b1757d3f80b9f3f9ac"></span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<code class="descname">esp_tls_conn_http_new</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>URL</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="esp_tls_cfg_t">esp_tls_cfg_t</a> *<em>cfg</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv421esp_tls_conn_http_newPKcPK13esp_tls_cfg_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ახალი ბლოკირებადი TLS/SSL კავშირი მოცემული „HTTP“ URL-ით. </p>
+<p>ქცევა იგივეა, რაც esp_tls_conn_new() API . თუმცა, ეს API იღებს ჰოსტის URL-ს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>pointer to esp_tls_t, or NULL if connection couldn’t be opened. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">url</span></code>: ჰოსტის URL. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>: TLS კონფიგურაცია, როგორც esp_tls_cfg_t. თუ გსურთ არა-TLS კავშირის გახსნა, დატოვეთ ეს NULL. TLS კავშირისთვის, &amp;#39;esp_tls_cfg_t&amp;#39;-ზე გადასვლის მაჩვენებელი. სულ მცირე, ეს სტრუქტურა უნდა იყოს ნულოვანი ინიციალიზებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422esp_tls_conn_new_asyncPKciiPK13esp_tls_cfg_tP9esp_tls_t">
+<span id="_CPPv322esp_tls_conn_new_asyncPKciiPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="_CPPv222esp_tls_conn_new_asyncPKciiPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="esp_tls_conn_new_async__cCP.i.i.esp_tls_cfg_tCP.esp_tls_tP"></span><span class="target" id="esp__tls_8h_1ab7df4e47259a5b2ce647e5068057584b"></span>int <code class="descname">esp_tls_conn_new_async</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>ჰოსტის სახელი</em>, int <em>ჰოსტლენი</em>, int <em>პორტი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="esp_tls_cfg_t">esp_tls_cfg_t</a> *<em>cfg</em>, <a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv422esp_tls_conn_new_asyncPKciiPK13esp_tls_cfg_tP9esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ახალი არაბლოკირებადი TLS/SSL კავშირი. </p>
+<p>ეს ფუნქცია იწყებს არაბლოკირებად TLS/SSL კავშირს მითითებულ ჰოსტთან, მაგრამ მისი არაბლოკირებადი ბუნების გამო, ის არ ელოდება კავშირის დამყარებას.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>-1 თუ კავშირის დამყარება ვერ მოხერხდა.</li>
+<li>0 თუ კავშირის დამყარება მიმდინარეობს.</li>
+<li>1 თუ კავშირი წარმატებით დამყარდა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">hostname</span></code>: მასპინძლის ჰოსტის სახელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">hostlen</span></code>: ჰოსტის სახელის სიგრძე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">port</span></code>: მასპინძლის პორტის ნომერი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>TLS კონფიგურაცია, როგორც esp_tls_cfg_t. <code class="docutils literal notranslate"><span class="pre">non_block</span></code> ამ სტრუქტურის წევრი უნდა იყოს დაყენებული true-ზე. </li>
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_tls_conn_http_new_asyncPKcPK13esp_tls_cfg_tP9esp_tls_t">
+<span id="_CPPv327esp_tls_conn_http_new_asyncPKcPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="_CPPv227esp_tls_conn_http_new_asyncPKcPK13esp_tls_cfg_tP9esp_tls_t"></span><span id="esp_tls_conn_http_new_async__cCP.esp_tls_cfg_tCP.esp_tls_tP"></span><span class="target" id="esp__tls_8h_1a90737cb7324a6cbc05dce7cc4e791f85"></span>int <code class="descname">esp_tls_conn_http_new_async</code><span class="sig-paren">(</span><em class="property">კონსტ</em> char *<em>URL</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="esp_tls_cfg_t">esp_tls_cfg_t</a> *<em>cfg</em>, <a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv427esp_tls_conn_http_new_asyncPKcPK13esp_tls_cfg_tP9esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით ახალი, არადამბლოკავი TLS/SSL კავშირი მოცემული „HTTP“ URL-ით. </p>
+<p>ქცევა იგივეა, რაც esp_tls_conn_new() API . თუმცა, ეს API იღებს ჰოსტის URL-ს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>-1 თუ კავშირის დამყარება ვერ მოხერხდა.</li>
+<li>0 თუ კავშირის დამყარება მიმდინარეობს.</li>
+<li>1 თუ კავშირი წარმატებით დამყარდა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">url</span></code>: ჰოსტის URL. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cfg</span></code>TLS კონფიგურაცია, როგორც esp_tls_cfg_t. </li>
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418esp_tls_conn_writeP9esp_tls_tPKv6size_t">
+<span id="_CPPv318esp_tls_conn_writeP9esp_tls_tPKv6size_t"></span><span id="_CPPv218esp_tls_conn_writeP9esp_tls_tPKv6size_t"></span><span id="esp_tls_conn_write__esp_tls_tP.voidCP.s"></span><span class="target" id="esp__tls_8h_1a67a3aadca6aa86c49e42141350b77eee"></span><em class="property">სტატიკური</em> ssize_t <code class="descname">esp_tls_conn_write</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em>, <em class="property">კონსტ</em> void *<em>მონაცემები</em>, size_t <em>დატალენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv418esp_tls_conn_writeP9esp_tls_tPKv6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩაწერეთ ბუფერული „მონაცემებიდან“ მითითებულ tls კავშირში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>&amp;gt;0 თუ ჩაწერის ოპერაცია წარმატებული იყო, დაბრუნებული მნიშვნელობა არის TLS/SSL კავშირზე რეალურად ჩაწერილი ბაიტების რაოდენობა.</li>
+<li>0, თუ ჩაწერის ოპერაცია წარუმატებელი იყო. ძირითადი კავშირი დაიხურა.</li>
+<li>&amp;lt;0 თუ ჩაწერის ოპერაცია წარუმატებელი იყო, რადგან ან შეცდომა მოხდა, ან გამომძახებელმა პროცესმა უნდა განახორციელოს რაიმე ქმედება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური. </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>ბუფერი, საიდანაც მონაცემები ჩაიწერება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">datalen</span></code>მონაცემთა ბუფერის სიგრძე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417esp_tls_conn_readP9esp_tls_tPv6size_t">
+<span id="_CPPv317esp_tls_conn_readP9esp_tls_tPv6size_t"></span><span id="_CPPv217esp_tls_conn_readP9esp_tls_tPv6size_t"></span><span id="esp_tls_conn_read__esp_tls_tP.voidP.s"></span><span class="target" id="esp__tls_8h_1a0b503ae8f0650c2fac929138bbbc53de"></span><em class="property">სტატიკური</em> ssize_t <code class="descname">esp_tls_conn_read</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em>, void *<em>მონაცემები</em>, size_t <em>დატალენი</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv417esp_tls_conn_readP9esp_tls_tPv6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული tls კავშირიდან ბუფერში „მონაცემები“ წაკითხვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>&amp;gt;0 თუ წაკითხვის ოპერაცია წარმატებული იყო, დაბრუნებული მნიშვნელობა არის TLS/SSL კავშირიდან რეალურად წაკითხული ბაიტების რაოდენობა.</li>
+<li>0, თუ წაკითხვის ოპერაცია წარუმატებელი იყო. ძირითადი კავშირი დაიხურა.</li>
+<li>&amp;lt;0 თუ წაკითხვის ოპერაცია წარუმატებელი იყო, რადგან ან შეცდომა მოხდა, ან გამომძახებელმა პროცესმა უნდა განახორციელოს რაიმე ქმედება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური. </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: ბუფერი წაკითხული მონაცემების შესანახად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">datalen</span></code>მონაცემთა ბუფერის სიგრძე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419esp_tls_conn_deleteP9esp_tls_t">
+<span id="_CPPv319esp_tls_conn_deleteP9esp_tls_t"></span><span id="_CPPv219esp_tls_conn_deleteP9esp_tls_t"></span><span id="esp_tls_conn_delete__esp_tls_tP"></span><span class="target" id="esp__tls_8h_1a4a05072088b8e839f9a171c858659d83"></span>void <code class="descname">esp_tls_conn_delete</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv419esp_tls_conn_deleteP9esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დახურეთ TLS/SSL კავშირი და გაათავისუფლეთ ყველა გამოყოფილი რესურსი. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს esp_tls_conn_new() ან esp_tls_conn_http_new() API s-ით გახსნილი თითოეული tls კავშირის დასახურად.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_tls_get_bytes_availP9esp_tls_t">
+<span id="_CPPv323esp_tls_get_bytes_availP9esp_tls_t"></span><span id="_CPPv223esp_tls_get_bytes_availP9esp_tls_t"></span><span id="esp_tls_get_bytes_avail__esp_tls_tP"></span><span class="target" id="esp__tls_8h_1a65725a487d3799015ece1ddf1e9b409d"></span>ssize_t <code class="descname">esp_tls_get_bytes_avail</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv423esp_tls_get_bytes_availP9esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააბრუნეთ მიმდინარე ჩანაწერიდან წასაკითხად დარჩენილი აპლიკაციის მონაცემთა ბაიტების რაოდენობა. </p>
+<p>ეს API არის mbedtls-ის mbedtls_ssl_get_bytes_avail() API შეფუთვის ფუნქცია.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>-1 არასწორი არგუმენტის შემთხვევაში</li>
+<li>აპლიკაციის მონაცემთა ჩანაწერის წაკითხვის ბუფერში ხელმისაწვდომი ბაიტები </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: esp-tls-ის მაჩვენებელი, როგორც esp-tls-ის სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423esp_tls_get_conn_sockfdP9esp_tls_tPi">
+<span id="_CPPv323esp_tls_get_conn_sockfdP9esp_tls_tPi"></span><span id="_CPPv223esp_tls_get_conn_sockfdP9esp_tls_tPi"></span><span id="esp_tls_get_conn_sockfd__esp_tls_tP.iP"></span><span class="target" id="esp__tls_8h_1a5114105e95634af316335787d53c95c4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_tls_get_conn_sockfd</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv49esp_tls_t" title="esp_tls_t">esp_tls_t</a> *<em>ტლს</em>, int *<em>sockfd</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv423esp_tls_get_conn_sockfdP9esp_tls_tPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს კავშირის სოკეტის ფაილის აღმწერს <a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> სესია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>- ESP_OK on success and value of sockfd will be updated with socket file descriptor for connection<ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ (tls == NULL || sockfd == NULL) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">tls</span></code>: სახელური <a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> კონტექსტი</li>
+<li><code class="docutils literal notranslate"><span class="pre">sockfd</span></code>: int მაჩვენებელი sockfd მნიშვნელობისკენ.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_tls_init_global_ca_storev">
+<span id="_CPPv328esp_tls_init_global_ca_storev"></span><span id="_CPPv228esp_tls_init_global_ca_storev"></span><span id="esp_tls_init_global_ca_store__void"></span><span class="target" id="esp__tls_8h_1ac5db9baa6b001f66773e8cf22a494387"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_tls_init_global_ca_store</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv428esp_tls_init_global_ca_storev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით გლობალური CA მაღაზია, თავდაპირველად ცარიელი. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს, თუ აპლიკაციას სურს ერთი და იგივე CA საცავის გამოყენება მრავალი კავშირისთვის. ეს ფუნქცია ინიციალიზაციას უკეთებს გლობალურ CA საცავის, რომლის დაყენებაც შემდეგ შესაძლებელია esp_tls_set_global_ca_store() ფუნქციის გამოძახებით. ეფექტურობისთვის, ეს ფუნქცია უნდა გამოიძახოს esp_tls_set_global_ca_store() ფუნქციის გამოძახებამდე.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK, თუ გლობალური CA მაღაზიის შექმნა წარმატებული იყო.</li>
+<li>ESP_ERR_NO_MEM, თუ mbedTLS რესურსების გამოყოფისას შეცდომა მოხდა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_tls_set_global_ca_storePKhKj">
+<span id="_CPPv327esp_tls_set_global_ca_storePKhKj"></span><span id="_CPPv227esp_tls_set_global_ca_storePKhKj"></span><span id="esp_tls_set_global_ca_store__unsigned-cCP.unsigned-iC"></span><span class="target" id="esp__tls_8h_1aaa42ae691a6278b74f6208d608263062"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_tls_set_global_ca_store</code><span class="sig-paren">(</span><em class="property">კონსტ</em> unsigned char *<em>cacert_pem_buf</em>, <em class="property">კონსტ</em> unsigned int <em>cacert_pem_bytes</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv427esp_tls_set_global_ca_storePKhKj" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ გლობალური CA საცავი pem ფორმატში მოწოდებული ბუფერით. </p>
+<p>ეს ფუნქცია უნდა გამოიძახოს, თუ აპლიკაციას სურს გლობალური CA საცავის დაყენება მრავალი კავშირისთვის, ანუ სერტიფიკატების ჯაჭვში მოწოდებული ბუფერიდან სერტიფიკატების დამატება. ეს ფუნქცია ირიბად იძახებს esp_tls_init_global_ca_store() ფუნქციას, თუ ის უკვე არ არის გამოძახებული. აპლიკაციამ ეს ფუნქცია უნდა გამოიძახოს esp_tls_conn_new() ფუნქციის გამოძახებამდე.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK, თუ სერტიფიკატების დამატება წარმატებული იყო.</li>
+<li>სხვა, თუ მოხდა შეცდომა ან გამომძახებელი პროცესის მიერ უნდა განხორციელდეს რაიმე ქმედება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cacert_pem_buf</span></code>ბუფერი, რომელიც შეიცავს pem ფორმატის სერთიფიკატებს. ეს ბუფერი გამოიყენება გლობალური CA საცავის შესაქმნელად, რომლის გამოყენებაც სხვა tls კავშირებს შეუძლიათ. </li>
+<li><code class="docutils literal notranslate"><span class="pre">cacert_pem_bytes</span></code>: ბუფერის სიგრძე.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428esp_tls_free_global_ca_storev">
+<span id="_CPPv328esp_tls_free_global_ca_storev"></span><span id="_CPPv228esp_tls_free_global_ca_storev"></span><span id="esp_tls_free_global_ca_store__void"></span><span class="target" id="esp__tls_8h_1a2b44d254c67397af8801f49219c8c1bc"></span>void <code class="descname">esp_tls_free_global_ca_store</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv428esp_tls_free_global_ca_storev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაათავისუფლეთ ამჟამად გამოყენებული გლობალური CA მაღაზია. </p>
+<p>გლობალური CA საცავის მიერ ყველა დამუშავებული სერტიფიკატის შესანახად გამოყენებული მეხსიერება თავისუფლდება. აპლიკაციას შეუძლია გამოიძახოს ეს API , თუ მას აღარ სჭირდება გლობალური CA საცავი. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv432esp_tls_get_and_clear_last_error22esp_tls_error_handle_tPiPi">
+<span id="_CPPv332esp_tls_get_and_clear_last_error22esp_tls_error_handle_tPiPi"></span><span id="_CPPv232esp_tls_get_and_clear_last_error22esp_tls_error_handle_tPiPi"></span><span id="esp_tls_get_and_clear_last_error__esp_tls_error_handle_t.iP.iP"></span><span class="target" id="esp__tls_8h_1ae666402313bbb8e4be4ee44de29a67e5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_tls_get_and_clear_last_error</code><span class="sig-paren">(</span><a class="reference internal" href="esp_tls.html#_CPPv422esp_tls_error_handle_t" title="esp_tls_error_handle_t">esp_tls_error_handle_t</a> <em>სთ</em>, int *<em>esp_tls_კოდი</em>, int *<em>esp_tls_flags</em><span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv432esp_tls_get_and_clear_last_error22esp_tls_error_handle_tPiPi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს ბოლო შეცდომას <a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> mbedtls-თან დაკავშირებული დეტალური შეცდომის კოდებით. შეცდომის ინფორმაცია შიდა წყაროდან იწმინდება დაბრუნებისას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_STATE თუ პარამეტრები არასწორია</li>
+<li>ESP_OK (0) თუ შეცდომა არ მოხდა</li>
+<li>კონკრეტული შეცდომის კოდი (ESP_ERR_ESP_TLS_BASE-ზე დაყრდნობით) წინააღმდეგ შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">h</span></code>: esp-tls შეცდომის სახელური. </li>
+<li><code class="docutils literal notranslate"><span class="pre">esp_tls_code</span></code>: mbedtls api-დან დაბრუნებული ბოლო შეცდომის კოდი (ნულზე დაყენებულია, თუ არ არსებობს) ეს მაჩვენებელი შეიძლება იყოს NULL, თუ გამომძახებელს არ აინტერესებს esp_tls_code </li>
+<li><code class="docutils literal notranslate"><span class="pre">esp_tls_flags</span></code>ბოლო სერტიფიკაციის ვერიფიკაციის ფლაგები (ნულზე დაყენებულია, თუ არცერთი არ არის) ეს მაჩვენებელი შეიძლება იყოს NULL, თუ აბონენტს არ აინტერესებს esp_tls_code</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_tls.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418esp_tls_last_error">
+<span id="_CPPv318esp_tls_last_error"></span><span id="_CPPv218esp_tls_last_error"></span><span id="esp_tls_last_error"></span><span class="target" id="structesp__tls__last__error"></span><em class="property">სტრუქტურა </em><code class="descname">esp_tls_last_error</code><a class="headerlink" href="esp_tls.html#_CPPv418esp_tls_last_error" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის სტრუქტურა, რომელიც შეიცავს შესაბამის შეცდომებს tls შეცდომის შემთხვევაში. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18esp_tls_last_error10last_errorE">
+<span id="_CPPv3N18esp_tls_last_error10last_errorE"></span><span id="_CPPv2N18esp_tls_last_error10last_errorE"></span><span id="esp_tls_last_error::last_error__esp_err_t"></span><span class="target" id="structesp__tls__last__error_1a2060c38dc640827bf61dad86a6ab7a63"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">last_error</code><a class="headerlink" href="esp_tls.html#_CPPv4N18esp_tls_last_error10last_errorE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბოლო წარმოშობილი შეცდომის შეცდომის კოდი (ESP_ERR_ESP_TLS_BASE-ზე დაყრდნობით) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_tls_last_error18esp_tls_error_codeE">
+<span id="_CPPv3N18esp_tls_last_error18esp_tls_error_codeE"></span><span id="_CPPv2N18esp_tls_last_error18esp_tls_error_codeE"></span><span id="esp_tls_last_error::esp_tls_error_code__i"></span><span class="target" id="structesp__tls__last__error_1a883589f8a9f5d8271541055ac39995b4"></span>int <code class="descname">esp_tls_error_code</code><a class="headerlink" href="esp_tls.html#_CPPv4N18esp_tls_last_error18esp_tls_error_codeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> შეცდომის კოდი ბოლოდან <a class="reference internal" href="esp_tls.html#structesp__tls"><span class="std std-ref">esp_tls</span></a> წარუმატებელი API </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18esp_tls_last_error13esp_tls_flagsE">
+<span id="_CPPv3N18esp_tls_last_error13esp_tls_flagsE"></span><span id="_CPPv2N18esp_tls_last_error13esp_tls_flagsE"></span><span id="esp_tls_last_error::esp_tls_flags__i"></span><span class="target" id="structesp__tls__last__error_1a1a1df7319bf0f50944dd4ee5fe3ebf45"></span>int <code class="descname">esp_tls_flags</code><a class="headerlink" href="esp_tls.html#_CPPv4N18esp_tls_last_error13esp_tls_flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბოლო სერტიფიცირების დადასტურების დროშები </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv412psk_key_hint">
+<span id="_CPPv312psk_key_hint"></span><span id="_CPPv212psk_key_hint"></span><span id="psk_key_hint"></span><span class="target" id="structpsk__key__hint"></span><em class="property">სტრუქტურა </em><code class="descname">psk_key_hint</code><a class="headerlink" href="esp_tls.html#_CPPv412psk_key_hint" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS წინასწარ გაზიარებული გასაღები და მინიშნებების სტრუქტურა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N12psk_key_hint3keyE">
+<span id="_CPPv3N12psk_key_hint3keyE"></span><span id="_CPPv2N12psk_key_hint3keyE"></span><span id="psk_key_hint::key__uint8_tCP"></span><span class="target" id="structpsk__key__hint_1ad4f2852253bf5e154e871c0fe4d5289e"></span><em class="property">კონსტ</em> uint8_t *<code class="descname">key</code><a class="headerlink" href="esp_tls.html#_CPPv4N12psk_key_hint3keyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PSK ავტორიზაციის რეჟიმში ორობითი ფორმატით შეყვანა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12psk_key_hint8key_sizeE">
+<span id="_CPPv3N12psk_key_hint8key_sizeE"></span><span id="_CPPv2N12psk_key_hint8key_sizeE"></span><span id="psk_key_hint::key_size__sC"></span><span class="target" id="structpsk__key__hint_1a46c8d28b9ffaa18333ad4fb90047a96e"></span><em class="property">კონსტ</em> size_t <code class="descname">key_size</code><a class="headerlink" href="esp_tls.html#_CPPv4N12psk_key_hint8key_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გასაღების სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N12psk_key_hint4hintE">
+<span id="_CPPv3N12psk_key_hint4hintE"></span><span id="_CPPv2N12psk_key_hint4hintE"></span><span id="psk_key_hint::hint__cCP"></span><span class="target" id="structpsk__key__hint_1aabfc26a2dfb83a6f23f192ae4b7cd46b"></span><em class="property">კონსტ</em> char *<code class="descname">hint</code><a class="headerlink" href="esp_tls.html#_CPPv4N12psk_key_hint4hintE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მინიშნება PSK ავტორიზაციის რეჟიმში სტრიქონის ფორმატში </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv411esp_tls_cfg">
+<span id="_CPPv311esp_tls_cfg"></span><span id="_CPPv211esp_tls_cfg"></span><span id="esp_tls_cfg"></span><span class="target" id="structesp__tls__cfg"></span><em class="property">სტრუქტურა </em><code class="descname">esp_tls_cfg</code><a class="headerlink" href="esp_tls.html#_CPPv411esp_tls_cfg" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS კონფიგურაციის პარამეტრები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Note about format of certificates:<ul class="simple">
+<li>ეს სტრუქტურა მოიცავს სერტიფიკატის ორგანოს, კლიენტის ან სერვერის სერტიფიკატებს, ასევე კერძო გასაღებებს, რომლებიც შეიძლება იყოს PEM ან DER ფორმატის. PEM ფორმატის შემთხვევაში, ბუფერი უნდა იყოს NULL-ით დასრულებული (სერტიფიკატის ზომაში NULL სიმბოლო უნდა იყოს ჩართული).</li>
+<li>სერტიფიკატის ორგანოს სერტიფიკატი შეიძლება იყოს სერტიფიკატების ჯაჭვი PEM ფორმატის შემთხვევაში, მაგრამ შეიძლება იყოს მხოლოდ ერთი სერტიფიკატი DER ფორმატის შემთხვევაში.</li>
+<li>სერტიფიკატების ცვლადების სახელები და კერძო გასაღების ბუფერები და ზომები განისაზღვრება, როგორც გაერთიანებები, რომლებიც უზრუნველყოფენ უკუთავსებადობას მემკვიდრეობით მიღებული *_pem_buf და *_pem_bytes სახელებისთვის, რაც იმაზე მიუთითებს, რომ მხოლოდ PEM ფორმატი იყო მხარდაჭერილი. რეკომენდებულია ისეთი ზოგადი სახელების გამოყენება, როგორიცაა cacert_buf და cacert_bytes. </li>
+</ul>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg11alpn_protosE">
+<span id="_CPPv3N11esp_tls_cfg11alpn_protosE"></span><span id="_CPPv2N11esp_tls_cfg11alpn_protosE"></span><span id="esp_tls_cfg::alpn_protos__cCPP"></span><span class="target" id="structesp__tls__cfg_1a368bf93f1f755c79b0dc9a5cb6abcc74"></span><em class="property">კონსტ</em> char **<code class="descname">alpn_protos</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg11alpn_protosE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>HTTP2-ისთვის საჭირო აპლიკაციის პროტოკოლები. თუ საჭიროა HTTP2/ALPN მხარდაჭერა, უნდა მოლაპარაკების პროცესში ჩართული პროტოკოლების სია. ფორმატი არის სიგრძე, შემდეგ პროტოკოლის სახელი. ყველაზე გავრცელებული შემთხვევებისთვის შემდეგი დასაშვებია: const char **alpn_protos = { “h2”, NULL };<ul class="simple">
+<li>სადაც &amp;#39;h2&amp;#39; არის პროტოკოლის სახელი </li>
+</ul>
+</p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg10cacert_bufE">
+<span id="_CPPv3N11esp_tls_cfg10cacert_bufE"></span><span id="_CPPv2N11esp_tls_cfg10cacert_bufE"></span><span id="esp_tls_cfg::cacert_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1a0b0ae5994fd8a0be592fad8ae6443419"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">cacert_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg10cacert_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერტიფიკატის ორგანოს სერტიფიკატი ბუფერშია. ფორმატი შეიძლება იყოს PEM ან DER, mbedtls-support-ის მიხედვით. ეს ბუფერი უნდა იყოს NULL PEM-ის შემთხვევაში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg14cacert_pem_bufE">
+<span id="_CPPv3N11esp_tls_cfg14cacert_pem_bufE"></span><span id="_CPPv2N11esp_tls_cfg14cacert_pem_bufE"></span><span id="esp_tls_cfg::cacert_pem_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1a4fa0508dadada110356986b3d08a73b2"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">cacert_pem_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg14cacert_pem_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>CA სერტიფიკატის ბუფერის მემკვიდრეობითი სახელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg12cacert_bytesE">
+<span id="_CPPv3N11esp_tls_cfg12cacert_bytesE"></span><span id="_CPPv2N11esp_tls_cfg12cacert_bytesE"></span><span id="esp_tls_cfg::cacert_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1ab08168639a5790407d12a3a62675551e"></span>unsigned int <code class="descname">cacert_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg12cacert_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>cacert_buf-ის მიერ მითითებული სერტიფიკატის ავტორიტეტის სერტიფიკატის ზომა (PEM ფორმატის შემთხვევაში NULL-ტერმინატორის ჩათვლით) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg16cacert_pem_bytesE">
+<span id="_CPPv3N11esp_tls_cfg16cacert_pem_bytesE"></span><span id="_CPPv2N11esp_tls_cfg16cacert_pem_bytesE"></span><span id="esp_tls_cfg::cacert_pem_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1a0b6069bf420883b8b2e06e39877126b5"></span>unsigned int <code class="descname">cacert_pem_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg16cacert_pem_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერტიფიკატის ორგანოს მემკვიდრეობითი სერტიფიკატის სახელის ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg14clientcert_bufE">
+<span id="_CPPv3N11esp_tls_cfg14clientcert_bufE"></span><span id="_CPPv2N11esp_tls_cfg14clientcert_bufE"></span><span id="esp_tls_cfg::clientcert_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1ac160e62de31e55f5062e5c194b763fb6"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">clientcert_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg14clientcert_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის სერტიფიკატი ბუფერში ფორმატში შეიძლება იყოს PEM ან DER, mbedtls-support-ის მიხედვით. ეს ბუფერი უნდა იყოს NULL PEM-ის შემთხვევაში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg18clientcert_pem_bufE">
+<span id="_CPPv3N11esp_tls_cfg18clientcert_pem_bufE"></span><span id="_CPPv2N11esp_tls_cfg18clientcert_pem_bufE"></span><span id="esp_tls_cfg::clientcert_pem_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1af501892289c022b3a611189d1df36fad"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">clientcert_pem_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg18clientcert_pem_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის სერტიფიკატის მემკვიდრეობითი სახელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg16clientcert_bytesE">
+<span id="_CPPv3N11esp_tls_cfg16clientcert_bytesE"></span><span id="_CPPv2N11esp_tls_cfg16clientcert_bytesE"></span><span id="esp_tls_cfg::clientcert_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1a233de4c096e63beef6f406ba95abb0d1"></span>unsigned int <code class="descname">clientcert_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg16clientcert_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>clientcert_pem_buf-ის მიერ მითითებული კლიენტის სერტიფიკატის ზომა (PEM ფორმატის შემთხვევაში NULL-ტერმინატორის ჩათვლით) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg20clientcert_pem_bytesE">
+<span id="_CPPv3N11esp_tls_cfg20clientcert_pem_bytesE"></span><span id="_CPPv2N11esp_tls_cfg20clientcert_pem_bytesE"></span><span id="esp_tls_cfg::clientcert_pem_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1a1a5eb866ceb8545b22f9df943e5d7fa4"></span>unsigned int <code class="descname">clientcert_pem_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg20clientcert_pem_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის სერტიფიკატის მემკვიდრეობითი სახელის ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg13clientkey_bufE">
+<span id="_CPPv3N11esp_tls_cfg13clientkey_bufE"></span><span id="_CPPv2N11esp_tls_cfg13clientkey_bufE"></span><span id="esp_tls_cfg::clientkey_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1af47d888f1069b0288d445f04af8740ca"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">clientkey_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg13clientkey_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გასაღები ბუფერში ფორმატი შეიძლება იყოს PEM ან DER, mbedtls-support-ის მიხედვით. ეს ბუფერი უნდა იყოს NULL-ით დასრულებული PEM-ის შემთხვევაში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg17clientkey_pem_bufE">
+<span id="_CPPv3N11esp_tls_cfg17clientkey_pem_bufE"></span><span id="_CPPv2N11esp_tls_cfg17clientkey_pem_bufE"></span><span id="esp_tls_cfg::clientkey_pem_buf__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1a0a4d2f63c91bfa9f3c1fe876f716d0ee"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">clientkey_pem_buf</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg17clientkey_pem_bufE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გასაღების მემკვიდრეობითი სახელი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg15clientkey_bytesE">
+<span id="_CPPv3N11esp_tls_cfg15clientkey_bytesE"></span><span id="_CPPv2N11esp_tls_cfg15clientkey_bytesE"></span><span id="esp_tls_cfg::clientkey_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1ae013e566fafcbec74b70d3b960f6584e"></span>unsigned int <code class="descname">clientkey_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg15clientkey_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>clientkey_pem_buf-ის მიერ მითითებული კლიენტის გასაღების ზომა (PEM ფორმატის შემთხვევაში NULL-ტერმინატორის ჩათვლით) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg19clientkey_pem_bytesE">
+<span id="_CPPv3N11esp_tls_cfg19clientkey_pem_bytesE"></span><span id="_CPPv2N11esp_tls_cfg19clientkey_pem_bytesE"></span><span id="esp_tls_cfg::clientkey_pem_bytes__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1ad89af0097b97fa4105080097ed0177d2"></span>unsigned int <code class="descname">clientkey_pem_bytes</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg19clientkey_pem_bytesE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გასაღების მემკვიდრეობითი სახელის ზომა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg18clientkey_passwordE">
+<span id="_CPPv3N11esp_tls_cfg18clientkey_passwordE"></span><span id="_CPPv2N11esp_tls_cfg18clientkey_passwordE"></span><span id="esp_tls_cfg::clientkey_password__unsigned-cCP"></span><span class="target" id="structesp__tls__cfg_1a55dea72dc80af9c7a8adebc80a70e377"></span><em class="property">კონსტ</em> unsigned char *<code class="descname">clientkey_password</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg18clientkey_passwordE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კლიენტის გასაღების გაშიფვრის პაროლის სტრიქონი </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg22clientkey_password_lenE">
+<span id="_CPPv3N11esp_tls_cfg22clientkey_password_lenE"></span><span id="_CPPv2N11esp_tls_cfg22clientkey_password_lenE"></span><span id="esp_tls_cfg::clientkey_password_len__unsigned-i"></span><span class="target" id="structesp__tls__cfg_1a00d18c06fa50c529819e986d12f6085a"></span>unsigned int <code class="descname">clientkey_password_len</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg22clientkey_password_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>clientkey_password-ის მიერ მითითებული პაროლის სტრიქონის სიგრძე </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg9non_blockE">
+<span id="_CPPv3N11esp_tls_cfg9non_blockE"></span><span id="_CPPv2N11esp_tls_cfg9non_blockE"></span><span id="esp_tls_cfg::non_block__b"></span><span class="target" id="structesp__tls__cfg_1ab8c43e7f17954ecdda7662b6c4251f16"></span>bool <code class="descname">non_block</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg9non_blockE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>არაბლოკირებადი რეჟიმის კონფიგურაცია. თუ დაყენებულია true-ზე, underlying socket კონფიგურირებული იქნება არაბლოკირებად რეჟიმში TLS სესიის დამყარების შემდეგ. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg10timeout_msE">
+<span id="_CPPv3N11esp_tls_cfg10timeout_msE"></span><span id="_CPPv2N11esp_tls_cfg10timeout_msE"></span><span id="esp_tls_cfg::timeout_ms__i"></span><span class="target" id="structesp__tls__cfg_1ade85facf1bb21d01dc435cdcb2623f69"></span>int <code class="descname">timeout_ms</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg10timeout_msE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ქსელის ტაიმ-აუტი მილიწამებში </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg19use_global_ca_storeE">
+<span id="_CPPv3N11esp_tls_cfg19use_global_ca_storeE"></span><span id="_CPPv2N11esp_tls_cfg19use_global_ca_storeE"></span><span id="esp_tls_cfg::use_global_ca_store__b"></span><span class="target" id="structesp__tls__cfg_1a230c094a18df0b86e42ea039ef698bab"></span>bool <code class="descname">use_global_ca_store</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg19use_global_ca_storeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამოიყენეთ გლობალური ca_store ყველა იმ კავშირისთვის, რომელშიც ეს bool დაყენებულია. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg11common_nameE">
+<span id="_CPPv3N11esp_tls_cfg11common_nameE"></span><span id="_CPPv2N11esp_tls_cfg11common_nameE"></span><span id="esp_tls_cfg::common_name__cCP"></span><span class="target" id="structesp__tls__cfg_1ad7be332ca570b700c0a74dda0926ef64"></span><em class="property">კონსტ</em> char *<code class="descname">common_name</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg11common_nameE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>თუ არ არის NULL, სერვერის სერტიფიკატის CN უნდა ემთხვეოდეს ამ სახელს. თუ NULL, სერვერის სერტიფიკატის CN უნდა ემთხვეოდეს ჰოსტის სახელს. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg16skip_common_nameE">
+<span id="_CPPv3N11esp_tls_cfg16skip_common_nameE"></span><span id="_CPPv2N11esp_tls_cfg16skip_common_nameE"></span><span id="esp_tls_cfg::skip_common_name__b"></span><span class="target" id="structesp__tls__cfg_1ad91ed027a942386e5459ecff44c4c26a"></span>bool <code class="descname">skip_common_name</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg16skip_common_nameE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სერვერის სერტიფიკატის CN ველის ნებისმიერი ვალიდაციის გამოტოვება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N11esp_tls_cfg12psk_hint_keyE">
+<span id="_CPPv3N11esp_tls_cfg12psk_hint_keyE"></span><span id="_CPPv2N11esp_tls_cfg12psk_hint_keyE"></span><span id="esp_tls_cfg::psk_hint_key__psk_hint_key_tCP"></span><span class="target" id="structesp__tls__cfg_1ae28afdbe4be88a977151adf2525fc764"></span><em class="property">კონსტ</em> <a class="reference internal" href="esp_tls.html#_CPPv414psk_hint_key_t" title="psk_hint_key_t">psk_hint_key_t</a> *<code class="descname">psk_hint_key</code><a class="headerlink" href="esp_tls.html#_CPPv4N11esp_tls_cfg12psk_hint_keyE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PSK მინიშნება და გასაღები. თუ არა NULL (და სერტიფიკატები NULL-ია), მაშინ PSK ავტორიზაცია ჩართულია კონფიგურირებული დაყენებით. მნიშვნელოვანი შენიშვნა: კავშირისთვის მაჩვენებელი უნდა იყოს ვალიდური. </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv47esp_tls">
+<span id="_CPPv37esp_tls"></span><span id="_CPPv27esp_tls"></span><span id="esp_tls"></span><span class="target" id="structesp__tls"></span><em class="property">სტრუქტურა </em><code class="descname">esp_tls</code><a class="headerlink" href="esp_tls.html#_CPPv47esp_tls" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS შეერთების სახელური. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls6sockfdE">
+<span id="_CPPv3N7esp_tls6sockfdE"></span><span id="_CPPv2N7esp_tls6sockfdE"></span><span id="esp_tls::sockfd__i"></span><span class="target" id="structesp__tls_1ab3d7a03f7ca09bd92b3a6a65a75dbe81"></span>int <code class="descname">sockfd</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls6sockfdE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ძირითადი სოკეტის ფაილის აღწერილობა. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls4readE">
+<span id="_CPPv3N7esp_tls4readE"></span><span id="_CPPv2N7esp_tls4readE"></span><span class="target" id="structesp__tls_1a98595318039dfc5e10ffadd8a4b64abe"></span>ssize_t (*<code class="descname">read</code>)<span class="sig-paren">(</span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv47esp_tls" title="esp_tls">esp_tls</a> *tls, char *data, size_t datalen<span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls4readE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირის ფუნქცია TLS/SSL კავშირიდან მონაცემების წასაკითხად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls5writeE">
+<span id="_CPPv3N7esp_tls5writeE"></span><span id="_CPPv2N7esp_tls5writeE"></span><span class="target" id="structesp__tls_1ab69458e39b01ab1136fbb22029ec3761"></span>ssize_t (*<code class="descname">write</code>)<span class="sig-paren">(</span><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv47esp_tls" title="esp_tls">esp_tls</a> *tls, <em class="property">კონსტ</em> char *data, size_t datalen<span class="sig-paren">)</span><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls5writeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირის ფუნქცია მონაცემების TLS/SSL კავშირზე ჩასაწერად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls10conn_stateE">
+<span id="_CPPv3N7esp_tls10conn_stateE"></span><span id="_CPPv2N7esp_tls10conn_stateE"></span><span id="esp_tls::conn_state__esp_tls_conn_state_t"></span><span class="target" id="structesp__tls_1a96f68579072a1ef822d0c067f324abcf"></span><a class="reference internal" href="esp_tls.html#_CPPv420esp_tls_conn_state_t" title="esp_tls_conn_state_t">esp_tls_conn_state_t</a> <code class="descname">conn_state</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls10conn_stateE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS კავშირის მდგომარეობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls4rsetE">
+<span id="_CPPv3N7esp_tls4rsetE"></span><span id="_CPPv2N7esp_tls4rsetE"></span><span id="esp_tls::rset__fd_set"></span><span class="target" id="structesp__tls_1aff6fee2e205a3e66ce0fd64b161efd01"></span>fd_set <code class="descname">rset</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls4rsetE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფაილის აღმწერების წაკითხვა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls4wsetE">
+<span id="_CPPv3N7esp_tls4wsetE"></span><span id="_CPPv2N7esp_tls4wsetE"></span><span id="esp_tls::wset__fd_set"></span><span class="target" id="structesp__tls_1a2bb70818459a22525c64e04daa296f49"></span>fd_set <code class="descname">wset</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls4wsetE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ფაილის აღმწერების დაწერა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls6is_tlsE">
+<span id="_CPPv3N7esp_tls6is_tlsE"></span><span id="_CPPv2N7esp_tls6is_tlsE"></span><span id="esp_tls::is_tls__b"></span><span class="target" id="structesp__tls_1a1d4ea32f2c842d99fbd036261cdf5580"></span>bool <code class="descname">is_tls</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls6is_tlsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიუთითებს კავშირის ტიპზე (TLS ან NON-TLS) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls4roleE">
+<span id="_CPPv3N7esp_tls4roleE"></span><span id="_CPPv2N7esp_tls4roleE"></span><span id="esp_tls::role__esp_tls_role_t"></span><span class="target" id="structesp__tls_1ad3f845a5fbaf24606289b36c85d782c2"></span><a class="reference internal" href="esp_tls.html#_CPPv414esp_tls_role_t" title="esp_tls_role_t">esp_tls_role_t</a> <code class="descname">role</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls4roleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>esp-tls როლი<ul class="simple">
+<li>ESP_TLS_CLIENT</li>
+<li>ESP_TLS_SERVER </li>
+</ul>
+</p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N7esp_tls12error_handleE">
+<span id="_CPPv3N7esp_tls12error_handleE"></span><span id="_CPPv2N7esp_tls12error_handleE"></span><span id="esp_tls::error_handle__esp_tls_error_handle_t"></span><span class="target" id="structesp__tls_1a35d5c50c568cec1882e61892e4043355"></span><a class="reference internal" href="esp_tls.html#_CPPv422esp_tls_error_handle_t" title="esp_tls_error_handle_t">esp_tls_error_handle_t</a> <code class="descname">error_handle</code><a class="headerlink" href="esp_tls.html#_CPPv4N7esp_tls12error_handleE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის აღმწერის სახელური </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_tls.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_BASE">
+<span class="target" id="esp__tls_8h_1a69fc5e2cf24da36d8077f78fd5486e7a"></span><code class="descname">ESP_ERR_ESP_TLS_BASE</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_BASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>ESP-TLS შეცდომის კოდების საწყისი ნომერი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME">
+<span class="target" id="esp__tls_8h_1acb1c1f734075843f58b75a294aea13b9"></span><code class="descname">ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_CANNOT_RESOLVE_HOSTNAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ ჰოსტის სახელის ამოხსნა ვერ მოხერხდა TLS კავშირისას </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET">
+<span class="target" id="esp__tls_8h_1a1175defede3af82924c85599d30ebd82"></span><code class="descname">ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_CANNOT_CREATE_SOCKET" title="Permalink to this definition">¶</a></dt>
+<dd><p>სოკეტის შექმნა ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY">
+<span class="target" id="esp__tls_8h_1ac5e2bb5455e1fe6e27827a66e00d401c"></span><code class="descname">ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_UNSUPPORTED_PROTOCOL_FAMILY" title="Permalink to this definition">¶</a></dt>
+<dd><p>მხარდაუჭერელი პროტოკოლის ოჯახი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST">
+<span class="target" id="esp__tls_8h_1a1e0e174e08c508de26cf488e980e77ae"></span><code class="descname">ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჰოსტთან დაკავშირება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED">
+<span class="target" id="esp__tls_8h_1a10cc8ff0543cad469422733e45bcfe16"></span><code class="descname">ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_SOCKET_SETOPT_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>სოკეტის ოფციის დაყენება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_CERT_PARTLY_OK">
+<span class="target" id="esp__tls_8h_1ade641646134031051bcefc4f0392ce01"></span><code class="descname">ESP_ERR_MBEDTLS_CERT_PARTLY_OK</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_CERT_PARTLY_OK" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls სერტიფიკატების დამუშავება ნაწილობრივ წარმატებით დასრულდა. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED">
+<span class="target" id="esp__tls_8h_1a9e559acd2e583b841b49b01c8d0ff854"></span><code class="descname">ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_CTR_DRBG_SEED_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED">
+<span class="target" id="esp__tls_8h_1a16611903930c734eb454e8d976ec769d"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_SET_HOSTNAME_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED">
+<span class="target" id="esp__tls_8h_1aeb70ff247fa872b779a365421eeeba7c"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONFIG_DEFAULTS_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED">
+<span class="target" id="esp__tls_8h_1a21e0d99297851f91bf44163e7ef53d96"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_ALPN_PROTOCOLS_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED">
+<span class="target" id="esp__tls_8h_1aaa19884f16c52376bcd62fd21312ac75"></span><code class="descname">ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_X509_CRT_PARSE_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED">
+<span class="target" id="esp__tls_8h_1a6a5a2b4aa2beda5a756105fa0741543d"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_OWN_CERT_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_SETUP_FAILED">
+<span class="target" id="esp__tls_8h_1a5836694136d23cb02a1cef129cb3a733"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_SETUP_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_SETUP_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_WRITE_FAILED">
+<span class="target" id="esp__tls_8h_1a13ee3a3c6c39ab514ce7228f0b3498d0"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_WRITE_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_WRITE_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-მ შეცდომა დააბრუნა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED">
+<span class="target" id="esp__tls_8h_1a1cdaf2b6311ed957f4359d497cb94dc6"></span><code class="descname">ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_PK_PARSE_KEY_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-ს დაბრუნება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED">
+<span class="target" id="esp__tls_8h_1a77b84872eabf1630c96c2c0146e077b6"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-ს დაბრუნება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED">
+<span class="target" id="esp__tls_8h_1ab705b3f0c28c68839a7f8a123723d9d4"></span><code class="descname">ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_MBEDTLS_SSL_CONF_PSK_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>mbedtls api-ს დაბრუნება ვერ მოხერხდა </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT">
+<span class="target" id="esp__tls_8h_1a68caa708352ed29e3fd02ad498f43491"></span><code class="descname">ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT</code><a class="headerlink" href="esp_tls.html#c.ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>ახალი კავშირის esp_tls_low_level_conn-ში კავშირის ვადა ამოიწურა </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_tls.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv422esp_tls_error_handle_t">
+<span id="_CPPv322esp_tls_error_handle_t"></span><span id="_CPPv222esp_tls_error_handle_t"></span><span id="esp_tls_error_handle_t"></span><span class="target" id="esp__tls_8h_1a47054525c297968926bd747751731931"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv418esp_tls_last_error" title="esp_tls_last_error">esp_tls_last_error</a> *<code class="descname">esp_tls_error_handle_t</code><a class="headerlink" href="esp_tls.html#_CPPv422esp_tls_error_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_tls_last_error_t">
+<span id="_CPPv320esp_tls_last_error_t"></span><span id="_CPPv220esp_tls_last_error_t"></span><span id="esp_tls_last_error_t"></span><span class="target" id="esp__tls_8h_1aeb4ff1d4121122f57d02790e4715229b"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv418esp_tls_last_error" title="esp_tls_last_error">esp_tls_last_error</a> <code class="descname">esp_tls_last_error_t</code><a class="headerlink" href="esp_tls.html#_CPPv420esp_tls_last_error_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეცდომის სტრუქტურა, რომელიც შეიცავს შესაბამის შეცდომებს tls შეცდომის შემთხვევაში. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv420esp_tls_conn_state_t">
+<span id="_CPPv320esp_tls_conn_state_t"></span><span id="_CPPv220esp_tls_conn_state_t"></span><span id="esp_tls_conn_state_t"></span><span class="target" id="esp__tls_8h_1a2b448f20960cfd67df7b736f8d816e1f"></span><em class="property">typedef </em><em class="property">ჩამოთვლა</em> <a class="reference internal" href="esp_tls.html#_CPPv418esp_tls_conn_state" title="esp_tls_conn_state">esp_tls_conn_state</a> <code class="descname">esp_tls_conn_state_t</code><a class="headerlink" href="esp_tls.html#_CPPv420esp_tls_conn_state_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS კავშირის მდგომარეობა. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv414esp_tls_role_t">
+<span id="_CPPv314esp_tls_role_t"></span><span id="_CPPv214esp_tls_role_t"></span><span id="esp_tls_role_t"></span><span class="target" id="esp__tls_8h_1a07c6a6a40ae86d762c76655be72b5a40"></span><em class="property">typedef </em><em class="property">ჩამოთვლა</em> <a class="reference internal" href="esp_tls.html#_CPPv412esp_tls_role" title="esp_tls_role">esp_tls_როლი</a> <code class="descname">esp_tls_role_t</code><a class="headerlink" href="esp_tls.html#_CPPv414esp_tls_role_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv414psk_hint_key_t">
+<span id="_CPPv314psk_hint_key_t"></span><span id="_CPPv214psk_hint_key_t"></span><span id="psk_hint_key_t"></span><span class="target" id="esp__tls_8h_1ac444407b48f3e4854d7942f6a503a283"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv412psk_key_hint" title="psk_key_hint">psk_key_hint</a> <code class="descname">psk_hint_key_t</code><a class="headerlink" href="esp_tls.html#_CPPv414psk_hint_key_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS წინასწარ გაზიარებული გასაღები და მინიშნებების სტრუქტურა. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv413esp_tls_cfg_t">
+<span id="_CPPv313esp_tls_cfg_t"></span><span id="_CPPv213esp_tls_cfg_t"></span><span id="esp_tls_cfg_t"></span><span class="target" id="esp__tls_8h_1a1b152bb103fe4d334cc38f07532cae24"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv411esp_tls_cfg" title="esp_tls_cfg">esp_tls_cfg</a> <code class="descname">esp_tls_cfg_t</code><a class="headerlink" href="esp_tls.html#_CPPv413esp_tls_cfg_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS კონფიგურაციის პარამეტრები. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Note about format of certificates:<ul class="simple">
+<li>ეს სტრუქტურა მოიცავს სერტიფიკატის ორგანოს, კლიენტის ან სერვერის სერტიფიკატებს, ასევე კერძო გასაღებებს, რომლებიც შეიძლება იყოს PEM ან DER ფორმატის. PEM ფორმატის შემთხვევაში, ბუფერი უნდა იყოს NULL-ით დასრულებული (სერტიფიკატის ზომაში NULL სიმბოლო უნდა იყოს ჩართული).</li>
+<li>სერტიფიკატის ორგანოს სერტიფიკატი შეიძლება იყოს სერტიფიკატების ჯაჭვი PEM ფორმატის შემთხვევაში, მაგრამ შეიძლება იყოს მხოლოდ ერთი სერტიფიკატი DER ფორმატის შემთხვევაში.</li>
+<li>სერტიფიკატების ცვლადების სახელები და კერძო გასაღების ბუფერები და ზომები განისაზღვრება, როგორც გაერთიანებები, რომლებიც უზრუნველყოფენ უკუთავსებადობას მემკვიდრეობით მიღებული *_pem_buf და *_pem_bytes სახელებისთვის, რაც იმაზე მიუთითებს, რომ მხოლოდ PEM ფორმატი იყო მხარდაჭერილი. რეკომენდებულია ისეთი ზოგადი სახელების გამოყენება, როგორიცაა cacert_buf და cacert_bytes. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv49esp_tls_t">
+<span id="_CPPv39esp_tls_t"></span><span id="_CPPv29esp_tls_t"></span><span id="esp_tls_t"></span><span class="target" id="esp__tls_8h_1a1a542c662c71f48c366e4525d7d3ddc4"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="esp_tls.html#_CPPv47esp_tls" title="esp_tls">esp_tls</a> <code class="descname">esp_tls_t</code><a class="headerlink" href="esp_tls.html#_CPPv49esp_tls_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS შეერთების სახელური. </p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="esp_tls.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv418esp_tls_conn_state">
+<span id="_CPPv318esp_tls_conn_state"></span><span id="_CPPv218esp_tls_conn_state"></span><span id="esp_tls_conn_state"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_tls_conn_state</code><a class="headerlink" href="esp_tls.html#_CPPv418esp_tls_conn_state" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP-TLS კავშირის მდგომარეობა. </p>
+<p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_TLS_INIT">
+<span id="_CPPv312ESP_TLS_INIT"></span><span id="_CPPv212ESP_TLS_INIT"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858a556eb1dc13380a21f93729b87e6f9a4a"></span><code class="descname">ESP_TLS_INIT</code> = 0<a class="headerlink" href="esp_tls.html#_CPPv412ESP_TLS_INIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv418ESP_TLS_CONNECTING">
+<span id="_CPPv318ESP_TLS_CONNECTING"></span><span id="_CPPv218ESP_TLS_CONNECTING"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858aee52f8de24e204d8aa843949fa451c66"></span><code class="descname">ESP_TLS_CONNECTING</code><a class="headerlink" href="esp_tls.html#_CPPv418ESP_TLS_CONNECTING" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv417ESP_TLS_HANDSHAKE">
+<span id="_CPPv317ESP_TLS_HANDSHAKE"></span><span id="_CPPv217ESP_TLS_HANDSHAKE"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858af9b6afac5072d1e74d3656c57926c758"></span><code class="descname">ESP_TLS_HANDSHAKE</code><a class="headerlink" href="esp_tls.html#_CPPv417ESP_TLS_HANDSHAKE" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_TLS_FAIL">
+<span id="_CPPv312ESP_TLS_FAIL"></span><span id="_CPPv212ESP_TLS_FAIL"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858a236d5153411a091ef7b5dfae6c5be8f4"></span><code class="descname">ESP_TLS_FAIL</code><a class="headerlink" href="esp_tls.html#_CPPv412ESP_TLS_FAIL" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv412ESP_TLS_DONE">
+<span id="_CPPv312ESP_TLS_DONE"></span><span id="_CPPv212ESP_TLS_DONE"></span><span class="target" id="esp__tls_8h_1a1982543604a18ff38d568448a6d88858af3686106686f599e2ba816b7c1f14913"></span><code class="descname">ESP_TLS_DONE</code><a class="headerlink" href="esp_tls.html#_CPPv412ESP_TLS_DONE" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv412esp_tls_role">
+<span id="_CPPv312esp_tls_role"></span><span id="_CPPv212esp_tls_role"></span><span id="esp_tls_role"></span><span class="target" id="esp__tls_8h_1a7da9f0100dd0b9d11bb85ef308837359"></span><em class="property">ჩამოთვლა </em><code class="descname">esp_tls_role</code><a class="headerlink" href="esp_tls.html#_CPPv412esp_tls_role" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_TLS_CLIENT">
+<span id="_CPPv314ESP_TLS_CLIENT"></span><span id="_CPPv214ESP_TLS_CLIENT"></span><span class="target" id="esp__tls_8h_1a7da9f0100dd0b9d11bb85ef308837359a8cf7be6505f7d0c6ba0e4c1c56f5f233"></span><code class="descname">ESP_TLS_CLIENT</code> = 0<a class="headerlink" href="esp_tls.html#_CPPv414ESP_TLS_CLIENT" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv414ESP_TLS_SERVER">
+<span id="_CPPv314ESP_TLS_SERVER"></span><span id="_CPPv214ESP_TLS_SERVER"></span><span class="target" id="esp__tls_8h_1a7da9f0100dd0b9d11bb85ef308837359ae0d55ed7cb41bd9b3f9503f136a114e2"></span><code class="descname">ESP_TLS_SERVER</code><a class="headerlink" href="esp_tls.html#_CPPv414ESP_TLS_SERVER" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="esp_http_client.html" rel="next" title="ESP HTTP Client">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="mqtt.html" rel="prev" title="ESP-MQTT"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

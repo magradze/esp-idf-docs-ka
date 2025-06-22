@@ -1,0 +1,659 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ლინკერის სკრიპტის გენერირება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="lwip.html" rel="next" title="lwIP"/>
+<link href="jtag-debugging/tips-and-quirks.html" rel="prev" title="Tips and Quirks"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/linker-script-generation.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/linker-script-generation"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/linker-script-generation.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="linker-script-generation.html#">ლინკერის სკრიპტის გენერირება</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="linker-script-generation.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="linker-script-generation.html#quick-start">სწრაფი დაწყება</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="linker-script-generation.html#creating-and-specifying-a-linker-fragment-file">ლინკერის ფრაგმენტის ფაილის შექმნა და მითითება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="linker-script-generation.html#specifying-placements">განთავსებების მითითება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="linker-script-generation.html#the-default-placements">„ნაგულისხმევი“ განლაგებები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="linker-script-generation.html#linker-script-generation-internals">ლინკერის სკრიპტის გენერირების შიდა ფუნქციები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="linker-script-generation.html#linker-fragment-files">ლინკერის ფრაგმენტის ფაილები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="linker-script-generation.html#linker-script-template">ლინკერის სკრიპტის შაბლონი</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="index.html">API სახელმძღვანელოები</a> »</li>
+<li>ლინკერის სკრიპტის გენერირება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/linker-script-generation.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="linker-script-generation">
+<h1>ლინკერის სკრიპტის გენერირება<a class="headerlink" href="linker-script-generation.html#linker-script-generation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/linker-script-generation.html">[中文]</a></p>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="linker-script-generation.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>არსებობს რამდენიმე <a class="reference internal" href="general-notes.html#memory-layout"><span class="std std-ref">მეხსიერების რეგიონები</span></a> სადაც შესაძლებელია კოდისა და მონაცემების განთავსება. კოდი და მხოლოდ წასაკითხი მონაცემები ნაგულისხმევად მოთავსებულია ფლეშ მეხსიერება ში, ჩასაწერი მონაცემები კი - ოპერატიულ მეხსიერებაში და ა.შ. თუმცა, ზოგჯერ აუცილებელია ამ ნაგულისხმევი განლაგების შეცვლა. მაგალითად, შეიძლება საჭირო გახდეს კრიტიკული კოდის RAM-ში განთავსება შესრულების მიზნით ან კოდის RTC მეხსიერებაში განთავსება Wake Stub-ში ან ULP კოპროცესორში გამოსაყენებლად.</p>
+<p>ლინკერის სკრიპტის გენერირების მექანიზმის გამოყენებით, შესაძლებელია ამ განლაგების მითითება კომპონენტი დონეზე ESP-IDF ფარგლებში. კომპონენტი წარმოადგენს ინფორმაციას იმის შესახებ, თუ როგორ სურს მისი სიმბოლოების, ობიექტების ან მთელი არქივის განთავსება. შექმნის დროს კომპონენტი ის მიერ წარმოდგენილი ინფორმაცია გროვდება, ანალიზდება და მუშავდება; ხოლო გენერირებული განლაგების წესები გამოიყენება აპლიკაციის დასაკავშირებლად.</p>
+</div>
+<div class="section" id="quick-start">
+<h2>სწრაფი დაწყება<a class="headerlink" href="linker-script-generation.html#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>ეს განყოფილება წარმოადგენს სახელმძღვანელოს კოდის/მონაცემების სწრაფად განთავსებისთვის RAM და RTC მეხსიერებაში - placements ESP-IDF გთავაზობთ მზა ვარიანტს.</p>
+<p>ამ სახელმძღვანელოსთვის, დავუშვათ, რომ გვაქვს შემდეგი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">components</span><span class="o">/</span>
+                <span class="o">-</span> <span class="n">my_component</span><span class="o">/</span>
+                                <span class="o">-</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>
+                                <span class="o">-</span> <span class="n">component</span><span class="o">.</span><span class="n">mk</span>
+                                <span class="o">-</span> <span class="n">Kconfig</span>
+                                <span class="o">-</span> <span class="n">src</span><span class="o">/</span>
+                                      <span class="o">-</span> <span class="n">my_src1</span><span class="o">.</span><span class="n">c</span>
+                                      <span class="o">-</span> <span class="n">my_src2</span><span class="o">.</span><span class="n">c</span>
+                                      <span class="o">-</span> <span class="n">my_src3</span><span class="o">.</span><span class="n">c</span>
+                                <span class="o">-</span> <span class="n">my_linker_fragment_file</span><span class="o">.</span><span class="n">lf</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>კომპონენტი დასახელდა <code class="docutils literal notranslate"><span class="pre">my_component</span></code> რომელიც არქივშია, როგორც ბიბლიოთეკა <code class="docutils literal notranslate"><span class="pre">libmy_component.a</span></code> აშენების დროს</li>
+<li>ბიბლიოთეკაში დაარქივებული სამი წყაროს ფაილი, <code class="docutils literal notranslate"><span class="pre">my_src1.c</span></code>, <code class="docutils literal notranslate"><span class="pre">my_src2.c</span></code> და <code class="docutils literal notranslate"><span class="pre">my_src3.c</span></code> რომლებიც კომპილაცია ვადისაა, როგორც <code class="docutils literal notranslate"><span class="pre">my_src1.o</span></code>, <code class="docutils literal notranslate"><span class="pre">my_src2.o</span></code> და <code class="docutils literal notranslate"><span class="pre">my_src3.o</span></code>, შესაბამისად</li>
+<li>ქვეშ <code class="docutils literal notranslate"><span class="pre">my_src1.o</span></code>, ფუნქცია <code class="docutils literal notranslate"><span class="pre">my_function1</span></code> განსაზღვრულია; ქვეშ <code class="docutils literal notranslate"><span class="pre">my_src2.o</span></code>, ფუნქცია <code class="docutils literal notranslate"><span class="pre">my_function2</span></code> განსაზღვრულია</li>
+<li>არსებობს bool ტიპის კონფიგურაცია <code class="docutils literal notranslate"><span class="pre">PERFORMANCE_MODE</span></code> (y/n) და int ტიპის კონფიგურაცია <code class="docutils literal notranslate"><span class="pre">PERFORMANCE_LEVEL</span></code> (0-3 დიაპაზონით) კომპონენტი ის Kconfig-ში</li>
+</ul>
+<div class="section" id="creating-and-specifying-a-linker-fragment-file">
+<h3>ლინკერის ფრაგმენტის ფაილის შექმნა და მითითება<a class="headerlink" href="linker-script-generation.html#creating-and-specifying-a-linker-fragment-file" title="Permalink to this headline">¶</a></h3>
+<p>უპირველეს ყოვლისა, საჭიროა ლინკერის ფრაგმენტის ფაილის შექმნა. ლინკერის ფრაგმენტის ფაილი უბრალოდ ტექსტური ფაილია, რომელსაც აქვს <code class="docutils literal notranslate"><span class="pre">.lf</span></code> გაფართოება, რომელზეც სასურველი განლაგებები ჩაიწერება. ფაილის შექმნის შემდეგ, აუცილებელია მისი წარდგენა build სისტემაში. ESP-IDF მიერ მხარდაჭერილი build სისტემების ინსტრუქციები შემდეგია:</p>
+<div class="section" id="make">
+<h4>მარკა<a class="headerlink" href="linker-script-generation.html#make" title="Permalink to this headline">¶</a></h4>
+<p>კომპონენტი სემესტრში <code class="docutils literal notranslate"><span class="pre">component.mk</span></code> ფაილი, დააყენეთ ცვლადი <code class="docutils literal notranslate"><span class="pre">COMPONENT_ADD_LDFRAGMENTS</span></code> შექმნილი ლინკერის ფრაგმენტის ფაილის გზაზე. გზა შეიძლება იყოს აბსოლუტური ან ფარდობითი გზა კომპონენტი დირექტორიიდან.</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">COMPONENT_ADD_LDFRAGMENTS</span> <span class="o">+=</span> <span class="s2">"my_linker_fragment_file.lf"</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cmake">
+<h4>CMake<a class="headerlink" href="linker-script-generation.html#cmake" title="Permalink to this headline">¶</a></h4>
+<p>კომპონენტი სემესტრში <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> ფაილი, მიუთითეთ არგუმენტი <code class="docutils literal notranslate"><span class="pre">LDFRAGMENTS</span></code> ში <code class="docutils literal notranslate"><span class="pre">idf_component_register</span></code> ზარი. ღირებულება <code class="docutils literal notranslate"><span class="pre">LDFRAGMENTS</span></code> შეიძლება იყოს აბსოლუტური ან ფარდობითი გზა კომპონენტი დირექტორიიდან შექმნილ ლინკერის ფრაგმენტის ფაილამდე.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># file paths relative to CMakeLists.txt</span>
+<span class="nb">idf_component_register</span><span class="p">(</span><span class="s">...</span>
+                       <span class="s">LDFRAGMENTS</span> <span class="s2">"path/to/linker_fragment_file.lf"</span> <span class="s2">"path/to/another_linker_fragment_file.lf"</span>
+                       <span class="s">...</span>
+                       <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="specifying-placements">
+<h3>განთავსებების მითითება<a class="headerlink" href="linker-script-generation.html#specifying-placements" title="Permalink to this headline">¶</a></h3>
+<p>შესაძლებელია განლაგების მითითება გრანულარობის შემდეგ დონეზე:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ობიექტის ფაილი (<code class="docutils literal notranslate"><span class="pre">.obj</span></code> ან <code class="docutils literal notranslate"><span class="pre">.o</span></code> ფაილები)</li>
+<li>სიმბოლო (ფუნქცია/ცვლადი)</li>
+<li>არქივი (<code class="docutils literal notranslate"><span class="pre">.a</span></code> ფაილები)</li>
+</ul>
+</div></blockquote>
+<div class="section" id="placing-object-files">
+<span id="ldgen-placing-object-files"></span><h4>ობიექტის ფაილების განთავსება<a class="headerlink" href="linker-script-generation.html#placing-object-files" title="Permalink to this headline">¶</a></h4>
+<p>დავუშვათ, რომ მთლიანობაში <code class="docutils literal notranslate"><span class="pre">my_src1.o</span></code> კრიტიკულია მისი მუშაობისთვის, ამიტომ სასურველია მისი ოპერატიულ მეხსიერებაში განთავსება. მეორეს მხრივ, მთლიანობაში <code class="docutils literal notranslate"><span class="pre">my_src2.o</span></code> შეიცავს ღრმა ძილის მდგომარეობიდან გამოსვლისთვის საჭირო სიმბოლოებს, ამიტომ ის RTC მეხსიერებაში უნდა მოთავსდეს. ლინკერის ფრაგმენტის ფაილში შეგვიძლია ჩავწეროთ:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    my_src1 (noflash)     # places all my_src1 code/read-only data under IRAM/DRAM
+    my_src2 (rtc)         # places all my_src2 code/ data and read-only data under RTC fast memory/RTC slow memory
+</pre></div>
+</div>
+<p>რა ხდება <code class="docutils literal notranslate"><span class="pre">my_src3.o</span></code>? რადგან ის არ არის მითითებული, ნაგულისხმევი განლაგებები გამოიყენება <code class="docutils literal notranslate"><span class="pre">my_src3.o</span></code>. მეტი ნაგულისხმევი განთავსებების შესახებ
+<a class="reference internal" href="linker-script-generation.html#ldgen-default-placements"><span class="std std-ref">აქ</span></a>.</p>
+</div>
+<div class="section" id="placing-symbols">
+<h4>სიმბოლოების განთავსება<a class="headerlink" href="linker-script-generation.html#placing-symbols" title="Permalink to this headline">¶</a></h4>
+<p>ჩვენი მაგალითის გაგრძელებით, ვივარაუდოთ, რომ ფუნქციებს შორის განსაზღვრულია <code class="docutils literal notranslate"><span class="pre">object1.o</span></code>, მხოლოდ <code class="docutils literal notranslate"><span class="pre">my_function1</span></code> კრიტიკულია შესრულებისთვის; და ქვეშ <code class="docutils literal notranslate"><span class="pre">object2.o</span></code>, მხოლოდ <code class="docutils literal notranslate"><span class="pre">my_function2</span></code> ჩიპის ღრმა ძილის მდგომარეობიდან გამოსვლის შემდეგ უნდა შესრულდეს. ამის მიღწევა შესაძლებელია შემდეგი ტექსტის ჩაწერით:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    my_src1:my_function1 (noflash)
+    my_src2:my_function2 (rtc)
+</pre></div>
+</div>
+<p>ნაგულისხმევი განლაგებები გამოიყენება დანარჩენი ფუნქციებისთვის <code class="docutils literal notranslate"><span class="pre">my_src1.o</span></code> და <code class="docutils literal notranslate"><span class="pre">my_src2.o</span></code> და მთელი <code class="docutils literal notranslate"><span class="pre">object3.o</span></code>მსგავსი რამის მიღწევა შესაძლებელია მონაცემების განთავსებისთვის ფუნქციის სახელის ნაცვლად ცვლადის სახელის ჩაწერით, ასე:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_src1</span><span class="p">:</span><span class="n">my_variable</span> <span class="p">(</span><span class="n">noflash</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">არსებობს <a class="reference internal" href="linker-script-generation.html#ldgen-symbol-granularity-placements"><span class="std std-ref">შეზღუდვები</span></a> კოდის/მონაცემების სიმბოლოების გრანულარიზაციის მიხედვით განთავსებაში. სათანადო განლაგების უზრუნველსაყოფად, ალტერნატივა იქნებოდა შესაბამისი კოდისა და მონაცემების წყაროს ფაილებში დაჯგუფება და <a class="reference internal" href="linker-script-generation.html#ldgen-placing-object-files"><span class="std std-ref">ობიექტის გრანულარობის განლაგების გამოყენება</span></a>.</p>
+</div>
+</div>
+<div class="section" id="placing-entire-archive">
+<h4>მთელი არქივის განთავსება<a class="headerlink" href="linker-script-generation.html#placing-entire-archive" title="Permalink to this headline">¶</a></h4>
+<p>ამ მაგალითში, დავუშვათ, რომ მთელი კომპონენტი არქივი ოპერატიულ მეხსიერებაში უნდა განთავსდეს. ეს შეიძლება დაიწეროს შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    * (noflash)
+</pre></div>
+</div>
+<p>ანალოგიურად, ეს მთელ კომპონენტი RTC მეხსიერებაში ათავსებს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    * (rtc)
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-dependent-placements">
+<h4>კონფიგურაციაზე დამოკიდებული განლაგებები<a class="headerlink" href="linker-script-generation.html#configuration-dependent-placements" title="Permalink to this headline">¶</a></h4>
+<p>დავუშვათ, რომ მთელ კომპონენტი ბიბლიოთეკას მხოლოდ მაშინ უნდა ჰქონდეს სპეციალური განთავსება, როდესაც გარკვეული პირობა მართალია; მაგალითად, როდესაც <code class="docutils literal notranslate"><span class="pre">CONFIG_PERFORMANCE_MODE</span> <span class="pre">==</span> <span class="pre">y</span></code>ეს შეიძლება დაიწეროს შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    if PERFORMANCE_MODE = y:
+        * (noflash)
+    else:
+        * (default)
+</pre></div>
+</div>
+<p>უფრო რთული კონფიგურაციაზე დამოკიდებული განთავსებისთვის, დავუშვათ შემდეგი მოთხოვნები: როდესაც <code class="docutils literal notranslate"><span class="pre">CONFIG_PERFORMANCE_LEVEL</span> <span class="pre">==</span> <span class="pre">1</span></code>, მხოლოდ <code class="docutils literal notranslate"><span class="pre">object1.o</span></code> მოთავსებულია ოპერატიულ მეხსიერებაში; როდესაც <code class="docutils literal notranslate"><span class="pre">CONFIG_PERFORMANCE_LEVEL</span> <span class="pre">==</span> <span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">object1.o</span></code> და <code class="docutils literal notranslate"><span class="pre">object2.o</span></code>; და როდესაც <code class="docutils literal notranslate"><span class="pre">CONFIG_PERFORMANCE_LEVEL</span> <span class="pre">==</span> <span class="pre">3</span></code> არქივში არსებული ყველა ობიექტის ფაილი უნდა მოთავსდეს ოპერატიულ მეხსიერებაში. თუმცა, როდესაც ეს სამი მნიშვნელობა არასწორია, მთელი ბიბლიოთეკა უნდა მოთავსდეს RTC მეხსიერებაში. ეს სცენარი ცოტა ხელოვნურია, მაგრამ მისი ჩაწერა შესაძლებელია შემდეგნაირად:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    if PERFORMANCE_LEVEL = 1:
+        my_src1 (noflash)
+    elif PERFORMANCE_LEVEL = 2:
+        my_src1 (noflash)
+        my_src2 (noflash)
+    elif PERFORMANCE_LEVEL = 3:
+        my_src1 (noflash)
+        my_src2 (noflash)
+        my_src3 (noflash)
+    else:
+        * (rtc)
+</pre></div>
+</div>
+<p>ასევე შესაძლებელია ჩადგმის პირობის შემოწმება. ქვემოთ მოცემული ფრაგმენტის ეკვივალენტურია:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:my_component]
+archive: libmy_component.a
+entries:
+    if PERFORMANCE_LEVEL &lt;= 3 &amp;&amp; PERFORMANCE_LEVEL &gt; 0:
+        if PERFORMANCE_LEVEL &gt;= 1:
+            object1 (noflash)
+            if PERFORMANCE_LEVEL &gt;= 2:
+                object2 (noflash)
+                if PERFORMANCE_LEVEL &gt;= 3:
+                    object2 (noflash)
+    else:
+        * (rtc)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-default-placements">
+<span id="ldgen-default-placements"></span><h3>„ნაგულისხმევი“ განლაგებები<a class="headerlink" href="linker-script-generation.html#the-default-placements" title="Permalink to this headline">¶</a></h3>
+<p>ამ მომენტამდე, ტერმინი „ნაგულისხმევი განთავსებები“ მოხსენიებული იყო, როგორც სარეზერვო განთავსებები იმ შემთხვევებისთვის, როდესაც განთავსების წესები მოქმედებს. <code class="docutils literal notranslate"><span class="pre">rtc</span></code> და <code class="docutils literal notranslate"><span class="pre">noflash</span></code> არ არის მითითებული. მნიშვნელოვანია აღინიშნოს, რომ ტოკენები <code class="docutils literal notranslate"><span class="pre">noflash</span></code> ან <code class="docutils literal notranslate"><span class="pre">rtc</span></code> არ არის მხოლოდ საკვანძო სიტყვები, არამედ სინამდვილეში არის ერთეულები, რომლებსაც ფრაგმენტები ეწოდებათ, კერძოდ <a class="reference internal" href="linker-script-generation.html#ldgen-scheme-fragment"><span class="std std-ref">სქემები</span></a>.</p>
+<p>ისევე, როგორც <code class="docutils literal notranslate"><span class="pre">rtc</span></code> და <code class="docutils literal notranslate"><span class="pre">noflash</span></code> არის სქემები, არსებობს <code class="docutils literal notranslate"><span class="pre">default</span></code> სქემა, რომელიც განსაზღვრავს, თუ რა უნდა იყოს განლაგების ნაგულისხმევი წესები. როგორც სახელიდან ჩანს, კოდი და მონაცემები, როგორც წესი, სწორედ აქ არის განთავსებული, ანუ კოდი/კონსტანტები ფლეშ მეხსიერება ში, ცვლადები - ოპერატიულ მეხსიერებაში და ა.შ. დამატებითი ინფორმაცია ნაგულისხმევი სქემის შესახებ <a class="reference internal" href="linker-script-generation.html#ldgen-default-scheme"><span class="std std-ref">აქ</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ლინკერის სკრიპტის გენერირების მექანიზმის გამოყენებით ESP-IDF კომპონენტი ის მაგალითისთვის იხილეთ <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/freertos/CMakeLists.txt">freertos/CMakeLists.txt</a>.
+<code class="docutils literal notranslate"><span class="pre">freertos</span></code> ამას იყენებს თავისი ობიექტის ფაილების ინსტრუქციის ოპერატიულ მეხსიერებაში განსათავსებლად, შესრულების მიზნით.</p>
+</div>
+<p>ეს სწრაფი დაწყების სახელმძღვანელოს დასასრულს აღნიშნავს. შემდეგი ტექსტი მექანიზმის შიდა მახასიათებლებს უფრო დეტალურად განიხილავს. შემდეგი სექციები სასარგებლო უნდა იყოს მორგებული განლაგების შესაქმნელად ან ნაგულისხმევი ქცევის შესაცვლელად.</p>
+</div>
+</div>
+<div class="section" id="linker-script-generation-internals">
+<h2>ლინკერის სკრიპტის გენერირების შიდა ფუნქციები<a class="headerlink" href="linker-script-generation.html#linker-script-generation-internals" title="Permalink to this headline">¶</a></h2>
+<p>დაკავშირება C/C++ საწყისი ფაილების შესასრულებელ ფაილად გადაქცევის პროცესის ბოლო ეტაპია. ის ხორციელდება ინსტრუმენტების ნაკრები ის ლინკერის მიერ და იღებს ლინკერის სკრიპტებს, რომლებიც სხვა საკითხებთან ერთად განსაზღვრავს კოდის/მონაცემების განლაგებას. ლინკერის სკრიპტის გენერირების მექანიზმით, ეს პროცესი არ განსხვავდება, გარდა იმისა, რომ ლინკერზე გადაცემული ლინკერის სკრიპტი დინამიურად გენერირდება: (1) შეგროვებული <a class="reference internal" href="linker-script-generation.html#ldgen-linker-fragment-files"><span class="std std-ref">ლინკერის ფრაგმენტის ფაილები</span></a> და (2) <a class="reference internal" href="linker-script-generation.html#ldgen-linker-script-template"><span class="std std-ref">ლინკერის სკრიპტის შაბლონი</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ინსტრუმენტი, რომელიც ახორციელებს ლინკერის სკრიპტის გენერირების მექანიზმს, მდებარეობს ქვემოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/tools/ldgen">ხელსაწყოები/სავარჯიშო</a>.</p>
+</div>
+<div class="section" id="linker-fragment-files">
+<span id="ldgen-linker-fragment-files"></span><h3>ლინკერის ფრაგმენტის ფაილები<a class="headerlink" href="linker-script-generation.html#linker-fragment-files" title="Permalink to this headline">¶</a></h3>
+<p>როგორც სწრაფი დაწყების სახელმძღვანელოშია აღნიშნული, ფრაგმენტული ფაილები მარტივი ტექსტური ფაილებია, რომლებსაც აქვთ <code class="docutils literal notranslate"><span class="pre">.lf</span></code> გაფართოება, რომელიც შეიცავს სასურველ განლაგებას. თუმცა, ეს არის ფრაგმენტების ფაილების შემცველობის გამარტივებული აღწერა. სინამდვილეში, ფრაგმენტების ფაილები შეიცავს „ფრაგმენტებს“. ფრაგმენტები არის ერთეულები, რომლებიც შეიცავს ინფორმაციის ნაწილებს, რომლებიც ერთად გაერთიანებისას ქმნიან განლაგების წესებს, რომლებიც მიუთითებენ, თუ სად განთავსდეს ობიექტის ფაილების სექციები გამომავალ ორობით ფაილში. არსებობს ფრაგმენტების სამი ტიპი: <a class="reference internal" href="linker-script-generation.html#ldgen-sections-fragment"><span class="std std-ref">სექციები</span></a>,
+<a class="reference internal" href="linker-script-generation.html#ldgen-scheme-fragment"><span class="std std-ref">სქემა</span></a> და <a class="reference internal" href="linker-script-generation.html#ldgen-mapping-fragment"><span class="std std-ref">რუკების შედგენა</span></a>.</p>
+<div class="section" id="grammar">
+<h4>გრამატიკა<a class="headerlink" href="linker-script-generation.html#grammar" title="Permalink to this headline">¶</a></h4>
+<p>სამი ტიპის ფრაგმენტს საერთო გრამატიკა აქვს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[type:name]
+key: value
+key:
+    value
+    value
+    value
+    ...
+</pre></div>
+</div>
+<ul class="simple">
+<li>ტიპი: შეესაბამება ფრაგმენტის ტიპს, შეიძლება იყოს <code class="docutils literal notranslate"><span class="pre">sections</span></code>, <code class="docutils literal notranslate"><span class="pre">scheme</span></code> ან <code class="docutils literal notranslate"><span class="pre">mapping</span></code>.</li>
+<li>სახელი: ფრაგმენტის სახელი უნდა იყოს უნიკალური მითითებული ფრაგმენტის ტიპისთვის.</li>
+<li>გასაღები, მნიშვნელობა: ფრაგმენტის შიგთავსი; ფრაგმენტის თითოეულ ტიპს შეიძლება ჰქონდეს სხვადასხვა გასაღებები და სხვადასხვა გრამატიკა გასაღების მნიშვნელობებისთვის.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">იმ შემთხვევებში, როდესაც ერთი და იგივე ტიპისა და სახელის რამდენიმე ფრაგმენტი გვხვდება, გამონაკლისი იქმნება.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ფრაგმენტების სახელებისა და გასაღებებისთვის ერთადერთი ვალიდური სიმბოლოებია ანბანური სიმბოლოები და ქვედახაზი.</p>
+</div>
+<p id="ldgen-condition-checking"><strong>მდგომარეობის შემოწმება</strong></p>
+<p>პირობის შემოწმება ბმულის სკრიპტის გენერირებას კონფიგურაციისადმი ინფორმირებულობის საშუალებას აძლევს. იმისდა მიხედვით, მართალია თუ არა კონფიგურაციის მნიშვნელობების შემცველი გამოსახულებები, შეიძლება გამოყენებულ იქნას გასაღებისთვის მნიშვნელობების კონკრეტული ნაკრები. შეფასება იყენებს <code class="docutils literal notranslate"><span class="pre">eval_string</span></code> -დან <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/tools/kconfig_new/kconfiglib.py">ინსტრუმენტები/kconfig_new/kconfiglib.py</a>
+და იცავს მის საჭირო სინტაქსსა და შეზღუდვებს. მხარდაჭერილი ოპერატორებია:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>comparison</dt>
+<dd><ul class="first last">
+<li>ნაკლები ვიდრე <code class="docutils literal notranslate"><span class="pre">&lt;</span></code></li>
+<li>ნაკლებია ან ტოლია <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></li>
+<li>მეტი ვიდრე <code class="docutils literal notranslate"><span class="pre">&gt;</span></code></li>
+<li>მეტი ან ტოლი <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></li>
+<li>თანაბარი <code class="docutils literal notranslate"><span class="pre">=</span></code></li>
+<li>არათანაბარი <code class="docutils literal notranslate"><span class="pre">!=</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>logical</dt>
+<dd><ul class="first last">
+<li>ან <code class="docutils literal notranslate"><span class="pre">||</span></code></li>
+<li>და <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></li>
+<li>უარყოფა <code class="docutils literal notranslate"><span class="pre">!</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>grouping</dt>
+<dd><ul class="first last">
+<li>ფრჩხილები <code class="docutils literal notranslate"><span class="pre">()</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>მდგომარეობის შემოწმება ისე მუშაობს, როგორც თქვენ მოელით <code class="docutils literal notranslate"><span class="pre">if...elseif/elif...else</span></code> ბლოკი სხვა ენებზე. პირობის შემოწმება შესაძლებელია როგორც გასაღების მნიშვნელობებისთვის, ასევე მთლიანი ფრაგმენტებისთვის. ქვემოთ მოცემული ორი ნიმუშის ფრაგმენტი ეკვივალენტურია:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Value for keys is dependent on config
+[type:name]
+key_1:
+    if CONDITION = y:
+        value_1
+    else:
+        value_2
+key_2:
+    if CONDITION = y:
+        value_a
+    else:
+        value_b
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Entire fragment definition is dependent on config
+if CONDITION = y:
+    [type:name]
+    key_1:
+        value_1
+    key_2:
+        value_b
+else:
+    [type:name]
+    key_1:
+        value_2
+    key_2:
+        value_b
+</pre></div>
+</div>
+<p><strong>კომენტარები</strong></p>
+<p>ლინკერის ფრაგმენტის ფაილებში კომენტარი იწყება ასოთი <code class="docutils literal notranslate"><span class="pre">#</span></code>სხვა ენების მსგავსად, კომენტარები გამოიყენება სასარგებლო აღწერილობებისა და დოკუმენტაციის უზრუნველსაყოფად და დამუშავების დროს იგნორირებულია.</p>
+</div>
+<div class="section" id="compatibility-with-esp-idf-v3-x-linker-script-fragment-files">
+<h4>თავსებადობა ESP-IDF v3.x ლინკერის სკრიპტის ფრაგმენტის ფაილებთან<a class="headerlink" href="linker-script-generation.html#compatibility-with-esp-idf-v3-x-linker-script-fragment-files" title="Permalink to this headline">¶</a></h4>
+<p>ESP-IDF v4.0 გარკვეულ ცვლილებებს შეიტანს ლინკერის სკრიპტის ფრაგმენტის ფაილის გრამატიკაში:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>indentation is enforced and improperly indented fragment files generate a parse exception; this was not enforced in the old version but previous documentation</dt>
+<dd>and examples demonstrates properly indented grammar</dd>
+</dl>
+</li>
+<li>გადაადგილება <code class="docutils literal notranslate"><span class="pre">if...elif...else</span></code> პირობითი ფრაზების სტრუქტურა, ჩეკების ჩადგმის და მთელი ფრაგმენტების პირობით ფრაგმენტებში განთავსების შესაძლებლობით.</li>
+<li>ფრაგმენტების რუკების შედგენას ახლა სხვა ფრაგმენტების ტიპების მსგავსად სახელი სჭირდება</li>
+</ul>
+<p>ლინკერის სკრიპტის გენერატორს უნდა შეეძლოს ESP-IDF v3.x ლინკერის ფრაგმენტის ფაილების გაანალიზება, რომლებიც სწორად არის ჩაღრმავებული (როგორც ეს ნაჩვენებია ამ დოკუმენტის ESP-IDF v3.x ვერსიაში). ასევე შენარჩუნებულია წინა შესაბამისობის ფრაგმენტის გრამატიკასთან (არასავალდებულო სახელი და ძველი გრამატიკა პირობითი ზმნებისთვის) უკუთავსებადობა, თუმცა მოძველების გაფრთხილებით. მომხმარებლებმა უნდა გადავიდნენ ამ დოკუმენტში განხილულ ახალ გრამატიკაზე, რადგან ძველი გრამატიკის მხარდაჭერის მოხსნა მომავალში იგეგმება.</p>
+<p>გაითვალისწინეთ, რომ ESP-IDF v3.x-ზე არ არის მხარდაჭერილი ლინკერის ფრაგმენტების ფაილები, რომლებიც ახალ ESP-IDF v4.0 გრამატიკას იყენებენ.</p>
+</div>
+<div class="section" id="types">
+<h4>ტიპები<a class="headerlink" href="linker-script-generation.html#types" title="Permalink to this headline">¶</a></h4>
+<p id="ldgen-sections-fragment"><strong>სექციები</strong></p>
+<p>სექციების ფრაგმენტები განსაზღვრავს ობიექტის ფაილის სექციების სიას, რომელსაც GCC კომპილაცია r გამოსცემს. ეს შეიძლება იყოს ნაგულისხმევი სექცია (მაგ. <code class="docutils literal notranslate"><span class="pre">.text</span></code>, <code class="docutils literal notranslate"><span class="pre">.data</span></code>) ან ეს შეიძლება იყოს მომხმარებლის მიერ განსაზღვრული სექცია <code class="docutils literal notranslate"><span class="pre">__attribute__</span></code> საკვანძო სიტყვა.</p>
+<p>„+“-ის გამოყენება არასავალდებულო ნიშნის შემთხვევაში მიუთითებს სიაში სექციის, ასევე მისით დაწყებული სექციების ჩართვაზე. ეს ორივეს ცალსახად ჩამოთვლასთან შედარებით სასურველი მეთოდია.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[sections:name]
+entries:
+    .section+
+    .section
+    ...
+</pre></div>
+</div>
+<p>მაგალითი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Non-preferred
+[sections:text]
+entries:
+    .text
+    .text.*
+    .literal
+    .literal.*
+
+# Preferred, equivalent to the one above
+[sections:text]
+entries:
+    .text+              # means .text and .text.*
+    .literal+           # means .literal and .literal.*
+</pre></div>
+</div>
+<p id="ldgen-scheme-fragment"><strong>სქემა</strong></p>
+<p>სქემის ფრაგმენტები განსაზღვრავს რა <code class="docutils literal notranslate"><span class="pre">target</span></code> სექციის ფრაგმენტი ენიჭება.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[scheme:name]
+entries:
+    sections -&gt; target
+    sections -&gt; target
+    ...
+</pre></div>
+</div>
+<p>მაგალითი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[scheme:noflash]
+entries:
+    text -&gt; iram0_text          # the entries under the sections fragment named text will go to iram0_text
+    rodata -&gt; dram0_data        # the entries under the sections fragment named rodata will go to dram0_data
+</pre></div>
+</div>
+<p id="ldgen-default-scheme">ის <code class="docutils literal notranslate"><span class="pre">default</span></code> სქემა</p>
+<p>არსებობს სპეციალური სქემა სახელწოდებით <code class="docutils literal notranslate"><span class="pre">default</span></code>ეს სქემა განსაკუთრებულია, რადგან მისი ჩანაწერებიდან გენერირდება განთავსების ყველა წესი. ეს ნიშნავს, რომ თუ მისი ერთ-ერთი ჩანაწერია <code class="docutils literal notranslate"><span class="pre">text</span> <span class="pre">-&gt;</span> <span class="pre">flash_text</span></code>, განთავსების წესი</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*(.literal .literal.* .text .text.*)
+</pre></div>
+</div>
+<p>სამიზნისთვის გენერირებული იქნება <code class="docutils literal notranslate"><span class="pre">flash_text</span></code>.</p>
+<p>ეს ყოვლისმომცველი წესები შემდეგ ეფექტურად ემსახურება როგორც სარეზერვო წესებს იმ წესებისთვის, რომელთა შესაბამისობები არ იყო მითითებული.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ის <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">scheme</span></code> განსაზღვრულია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/components/esp32/ld/esp32_fragments.lf">esp32/ld/esp32_fragments.lf</a>. ის <code class="docutils literal notranslate"><span class="pre">noflash</span></code> და <code class="docutils literal notranslate"><span class="pre">rtc</span></code> ამ ფაილში ასევე განსაზღვრულია სქემის ფრაგმენტები, რომლებიც წარმოადგენს ჩაშენებულ სქემებს, რომლებზეც მითითებულია სწრაფი დაწყების სახელმძღვანელო.</p>
+</div>
+<p id="ldgen-mapping-fragment"><strong>რუკების შედგენა</strong></p>
+<p>შესაბამისობის ფრაგმენტები განსაზღვრავს, თუ რომელი სქემის ფრაგმენტი უნდა იქნას გამოყენებული შესაბამისობის მქონე ერთეულებისთვის, მაგალითად, ობიექტის ფაილებისთვის, ფუნქციის სახელებისთვის, ცვლადის სახელებისთვის, არქივებისთვის.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:name]
+archive: archive                # output archive file name, as built (i.e. libxxx.a)
+entries:
+    object:symbol (scheme)      # symbol granularity
+    object (scheme)             # object granularity
+    * (scheme)                  # archive granularity
+</pre></div>
+</div>
+<p>განლაგების გრანულარობის სამი დონე არსებობს:</p>
+<blockquote>
+<div><ul class="simple">
+<li>სიმბოლო: მითითებულია ობიექტის ფაილის სახელი და სიმბოლოს სახელი. სიმბოლოს სახელი შეიძლება იყოს ფუნქციის სახელი ან ცვლადის სახელი.</li>
+<li>ობიექტი: მითითებულია მხოლოდ ობიექტის ფაილის სახელი.</li>
+<li>არქივი: <code class="docutils literal notranslate"><span class="pre">*</span></code> მითითებულია, რაც არქივში არსებული ყველა ობიექტის ფაილის შემოკლებული სახელია.</li>
+</ul>
+</div></blockquote>
+<p>ჩანაწერის მნიშვნელობის გასაგებად, მოდით გავაფართოვოთ ობიექტის გრანულარობის განლაგების ნიმუში:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>object (scheme)
+</pre></div>
+</div>
+<p>შემდეგ, სქემის ფრაგმენტის მისი ჩანაწერების განმარტებებიდან გაფართოებით, გვაქვს:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>object (sections -&gt; target,
+        sections -&gt; target,
+        ...)
+</pre></div>
+</div>
+<p>სექციების ფრაგმენტის გაფართოება მისი ჩანაწერების განმარტებით:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>object (.section,      # given this object file
+        .section,      # put its sections listed here at this
+        ... -&gt; target, # target
+
+        .section,
+        .section,      # same should be done for these sections
+        ... -&gt; target,
+
+        ...)           # and so on
+</pre></div>
+</div>
+<p>მაგალითი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[mapping:map]
+archive: libfreertos.a
+entries:
+    * (noflash)
+</pre></div>
+</div>
+</div>
+<div class="section" id="on-symbol-granularity-placements">
+<span id="ldgen-symbol-granularity-placements"></span><h4>სიმბოლოების გრანულარობის განლაგებაზე<a class="headerlink" href="linker-script-generation.html#on-symbol-granularity-placements" title="Permalink to this headline">¶</a></h4>
+<p>სიმბოლოების გრანულარიზაციის განლაგება შესაძლებელია კომპილაცია r ფლაგების წყალობით. <code class="docutils literal notranslate"><span class="pre">-ffunction-sections</span></code> და <code class="docutils literal notranslate"><span class="pre">-ffdata-sections</span></code>. ESP-IDF კომპილაცია s ამ დროშებით ნაგულისხმევად. თუ მომხმარებელი ამ დროშების მოხსნას გადაწყვეტს, მაშინ სიმბოლოების გრანულარობის განლაგება არ იმუშავებს. გარდა ამისა, ამ დროშების არსებობის შემთხვევაშიც კი, არსებობს სხვა შეზღუდვები, რომლებიც გასათვალისწინებელია კომპილაცია r-ის გამოსხივებული გამომავალი სექციების დამოკიდებულების გამო.</p>
+<p>მაგალითად, <code class="docutils literal notranslate"><span class="pre">-ffunction-sections</span></code>თითოეული ფუნქციისთვის გამოიცემა ცალკეული სექციები; სექციების სახელწოდებები პროგნოზირებადად არის აგებული, ე.ი. <code class="docutils literal notranslate"><span class="pre">.text.{func_name}</span></code>
+და <code class="docutils literal notranslate"><span class="pre">.literal.{func_name}</span></code>ეს არ ეხება ფუნქციაში არსებული სტრიქონის ლიტერალებს, რადგან ისინი გაერთიანებული ან გენერირებული სექციების სახელებზე გადადიან.</p>
+<p>თან <code class="docutils literal notranslate"><span class="pre">-fdata-sections</span></code>, გლობალური მასშტაბის მონაცემებისთვის, კომპილაცია r პროგნოზირებადად ასხივებს ან <code class="docutils literal notranslate"><span class="pre">.data.{var_name}</span></code>, <code class="docutils literal notranslate"><span class="pre">.rodata.{var_name}</span></code> ან <code class="docutils literal notranslate"><span class="pre">.bss.{var_name}</span></code>; და ასე შემდეგ <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">I</span></code> მათთვის შესაბამისობის ჩანაწერი მუშაობს. თუმცა, ეს არ ეხება ფუნქციის ფარგლებში გამოცხადებულ სტატიკურ მონაცემებს, რადგან გენერირებული სექციის სახელი ცვლადის სახელის სხვა ინფორმაციასთან შერწყმის შედეგია.</p>
+</div>
+</div>
+<div class="section" id="linker-script-template">
+<span id="ldgen-linker-script-template"></span><h3>ლინკერის სკრიპტის შაბლონი<a class="headerlink" href="linker-script-generation.html#linker-script-template" title="Permalink to this headline">¶</a></h3>
+<p>ლინკერის სკრიპტის შაბლონი არის ჩონჩხი, რომელშიც თავსდება გენერირებული განთავსების წესები. ეს არის ჩვეულებრივი ლინკერის სკრიპტი, კონკრეტული მარკერის სინტაქსით, რომელიც მიუთითებს, თუ სად არის განთავსებული გენერირებული განთავსების წესები.</p>
+<p>მოცემული დებულების მიხედვით შეგროვებული განთავსების წესების მითითება <code class="docutils literal notranslate"><span class="pre">target</span></code> ტოკენისთვის გამოიყენება შემდეგი სინტაქსი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mapping[target]
+</pre></div>
+</div>
+<p>მაგალითი:</p>
+<p>ქვემოთ მოცემული მაგალითი შესაძლო ლინკერის სკრიპტის შაბლონიდან ამონაწერია. ის განსაზღვრავს გამომავალი სექციას. <code class="docutils literal notranslate"><span class="pre">.iram0.text</span></code>და შიგნით არის მარკერი, რომელიც მიუთითებს სამიზნეზე <code class="docutils literal notranslate"><span class="pre">iram0_text</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.iram0.text :
+{
+    /* Code marked as runnning out of IRAM */
+    _iram_text_start = ABSOLUTE(.);
+
+    /* Marker referencing iram0_text */
+    mapping[iram0_text]
+
+    _iram_text_end = ABSOLUTE(.);
+} &gt; iram0_0_seg
+</pre></div>
+</div>
+<p>დავუშვათ, გენერატორმა შეაგროვა ქვემოთ მოცემული ფრაგმენტების განმარტებები:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[sections:text]
+    .text+
+    .literal+
+
+[sections:iram]
+    .iram1+
+
+[scheme:default]
+entries:
+    text -&gt; flash_text
+    iram -&gt; iram0_text
+
+[scheme:noflash]
+entries:
+    text -&gt; iram0_text
+
+[mapping:freertos]
+archive: libfreertos.a
+entries:
+    * (noflash)
+</pre></div>
+</div>
+<p>შემდეგ გენერირებული ლინკერის სკრიპტის შესაბამისი ამონარიდი შემდეგი იქნება:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="n">iram0</span><span class="p">.</span><span class="nl">text</span> <span class="p">:</span>
+<span class="p">{</span>
+    <span class="cm">/* Code marked as runnning out of IRAM */</span>
+    <span class="n">_iram_text_start</span> <span class="o">=</span> <span class="n">ABSOLUTE</span><span class="p">(.);</span>
+
+    <span class="cm">/* Placement rules generated from the processed fragments, placed where the marker was in the template */</span>
+    <span class="o">*</span><span class="p">(.</span><span class="n">iram1</span> <span class="p">.</span><span class="n">iram1</span><span class="p">.</span><span class="o">*</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">libfreertos</span><span class="p">.</span><span class="nl">a</span><span class="p">:(.</span><span class="n">literal</span> <span class="p">.</span><span class="n">text</span> <span class="p">.</span><span class="n">literal</span><span class="p">.</span><span class="o">*</span> <span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="o">*</span><span class="p">)</span>
+
+    <span class="n">_iram_text_end</span> <span class="o">=</span> <span class="n">ABSOLUTE</span><span class="p">(.);</span>
+<span class="p">}</span> <span class="o">&gt;</span> <span class="n">iram0_0_seg</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">*libfreertos.a:(.literal</span> <span class="pre">.text</span> <span class="pre">.literal.*</span> <span class="pre">.text.*)</span></code></p>
+<blockquote>
+<div>Rule generated from the entry <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">(noflash)</span></code> of the <code class="docutils literal notranslate"><span class="pre">freertos</span></code> mapping fragment. All <code class="docutils literal notranslate"><span class="pre">text</span></code> sections of all
+object files under the archive <code class="docutils literal notranslate"><span class="pre">libfreertos.a</span></code> will be collected under the target <code class="docutils literal notranslate"><span class="pre">iram0_text</span></code> (as per the <code class="docutils literal notranslate"><span class="pre">noflash</span></code> scheme)
+and placed wherever in the template <code class="docutils literal notranslate"><span class="pre">iram0_text</span></code> is referenced by a marker.</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">*(.iram1</span> <span class="pre">.iram1.*)</span></code></p>
+<blockquote>
+<div>Rule generated from the default scheme entry        <code class="docutils literal notranslate"><span class="pre">iram</span> <span class="pre">-&gt;</span> <span class="pre">iram0_text</span></code>. Since the default scheme specifies an <code class="docutils literal notranslate"><span class="pre">iram</span> <span class="pre">-&gt;</span> <span class="pre">iram0_text</span></code> entry,
+it too is placed wherever <code class="docutils literal notranslate"><span class="pre">iram0_text</span></code> is referenced by a marker. Since it is a rule generated from the default scheme, it comes first
+among all other rules collected under the same target name.</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ამჟამად გამოყენებული ლინკერის სკრიპტის შაბლონია <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/components/esp32/ld/esp32.project.ld.in">esp32/ld/esp32.project.ld.in</a>, მითითებულია <code class="docutils literal notranslate"><span class="pre">esp32</span></code> კომპონენტი ; გენერირებული გამომავალი სკრიპტი მოთავსებულია მისი შექმნის დირექტორიაში.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="lwip.html" rel="next" title="lwIP">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="jtag-debugging/tips-and-quirks.html" rel="prev" title="Tips and Quirks"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

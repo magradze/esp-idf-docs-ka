@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SPI Slave Driver — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="temp_sensor.html" rel="next" title="ESP32-S2 Temperature Sensor"/>
+<link href="spi_master.html" rel="prev" title="SPI Master Driver"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/spi_slave.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/spi_slave"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/spi_slave.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="spi_slave.html#">SPI მონა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#overview-of-esp32-s-spi-peripherals">ESP32-ის SPI პერიფერიული მოწყობილობების მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#terminology">ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#driver-features">დრაივერის მახასიათებლები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#spi-transactions">SPI ტრანზაქციები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#driver-usage">დრაივერის გამოყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#transaction-data-and-master-slave-length-mismatches">ტრანზაქციის მონაცემებისა და მთავარი/დაქვემდებარებული სერვერის სიგრძის შეუსაბამობები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#gpio-matrix-and-io-mux">GPIO მატრიცა და IO_MUX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#speed-and-timing-considerations">სიჩქარისა და დროის გასათვალისწინებელი საკითხები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#restrictions-and-known-issues">შეზღუდვები და ცნობილი პრობლემები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spi_slave.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>SPI მონა-დრაივერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/spi_slave.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="spi-slave-driver">
+<h1>SPI მონა-დრაივერი<a class="headerlink" href="spi_slave.html#spi-slave-driver" title="Permalink to this headline">¶</a></h1>
+<p>SPI Slave დრაივერი არის პროგრამა, რომელიც აკონტროლებს ESP32-ის SPI პერიფერიულ მოწყობილობებს, სანამ ისინი ფუნქციონირებენ როგორც Slave-ები.</p>
+<div class="section" id="overview-of-esp32-s-spi-peripherals">
+<h2>ESP32-ის SPI პერიფერიული მოწყობილობების მიმოხილვა<a class="headerlink" href="spi_slave.html#overview-of-esp32-s-spi-peripherals" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 აერთიანებს ორ ზოგადი დანიშნულების SPI კონტროლერს, რომელთა გამოყენება შესაძლებელია როგორც მონა კვანძები, რომლებსაც მართავენ ჩიპგარე SPI მასტერ-კონტროლერი.</p>
+<ul class="simple">
+<li>SPI2, ზოგჯერ მოიხსენიება როგორც HSPI</li>
+<li>SPI3, ზოგჯერ მოიხსენიება როგორც VSPI</li>
+</ul>
+<p>SPI2-ს და SPI3-ს აქვთ დამოუკიდებელი სიგნალის ავტობუსები ერთი და იგივე სახელებით.</p>
+</div>
+<div class="section" id="terminology">
+<h2>ტერმინოლოგია<a class="headerlink" href="spi_slave.html#terminology" title="Permalink to this headline">¶</a></h2>
+<p>SPI მონა დრაივერთან დაკავშირებით გამოყენებული ტერმინები მოცემულია ქვემოთ მოცემულ ცხრილში.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%"/>
+<col width="96%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ტერმინი</th>
+<th class="head">განმარტება</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>მასპინძელი</strong></td>
+<td>ESP32-ის გარე SPI კონტროლერი, რომელიც იწყებს SPI გადაცემებს ავტობუსის მეშვეობით და მოქმედებს როგორც SPI Master.</td>
+</tr>
+<tr class="row-odd"><td><strong>მოწყობილობა</strong></td>
+<td>SPI მონა მოწყობილობა, ამ შემთხვევაში SPI2 და SPI3 კონტროლერები. თითოეული მოწყობილობა იზიარებს MOSI, MISO და SCLK სიგნალებს, მაგრამ აქტიურია ავტობუსზე მხოლოდ მაშინ, როდესაც ჰოსტი ადასტურებს მოწყობილობის ინდივიდუალურ CS ხაზს.</td>
+</tr>
+<tr class="row-even"><td><strong>ავტობუსი</strong></td>
+<td>სიგნალის ავტობუსი, რომელიც საერთოა ერთ ჰოსტთან დაკავშირებული ყველა მოწყობილობისთვის. ზოგადად, ავტობუსი მოიცავს შემდეგ ხაზებს: MISO, MOSI, SCLK, ერთი ან მეტი CS ხაზი და, სურვილისამებრ, QUADWP და QUADHD. ამგვარად, მოწყობილობები დაკავშირებულია ერთსა და იმავე ხაზებთან, გარდა იმისა, რომ თითოეულ მოწყობილობას აქვს საკუთარი CS ხაზი. რამდენიმე მოწყობილობას ასევე შეუძლია ერთი CS ხაზის გაზიარება, თუ ის დაკავშირებულია ჩარტის მეთოდით.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><strong>მისო</strong></li>
+</ul>
+</td>
+<td>Master In, Slave Out, ასევე Q. მონაცემთა გადაცემა მოწყობილობიდან ჰოსტზე.</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><strong>მოსი</strong></li>
+</ul>
+</td>
+<td>Master In, Slave Out, ასევე D. მონაცემთა გადაცემა ჰოსტიდან მოწყობილობაზე.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><strong>SCLK</strong></li>
+</ul>
+</td>
+<td>სერიული საათი. ჰოსტის მიერ გენერირებული რხევითი სიგნალი, რომელიც მონაცემთა ბიტების გადაცემას სინქრონულად ინარჩუნებს.</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><strong>CS</strong></li>
+</ul>
+</td>
+<td>ჩიპის შერჩევა. საშუალებას აძლევს მასპინძელს აირჩიოს ავტობუსთან დაკავშირებული ინდივიდუალური მოწყობილობა(ები) მონაცემების გასაგზავნად ან მისაღებად.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><strong>QUADWP</strong></li>
+</ul>
+</td>
+<td>ჩაწერის დაცვის სიგნალი. გამოიყენება მხოლოდ 4-ბიტიანი (qio/qout) ტრანზაქციებისთვის.</td>
+</tr>
+<tr class="row-even"><td><ul class="first last simple">
+<li><strong>კვადროციკლი</strong></li>
+</ul>
+</td>
+<td>შეკავების სიგნალი. გამოიყენება მხოლოდ 4-ბიტიანი (qio/qout) ტრანზაქციებისთვის.</td>
+</tr>
+<tr class="row-odd"><td><ul class="first last simple">
+<li><strong>მტკიცება</strong></li>
+</ul>
+</td>
+<td>ხაზის გააქტიურების მოქმედება. საპირისპირო მოქმედება, ხაზის არააქტიურ მდგომარეობაში დაბრუნება (უკან უმოქმედო მდგომარეობაში), ეწოდება <em>დე-დარწმუნება</em>.</td>
+</tr>
+<tr class="row-even"><td><strong>ტრანზაქცია</strong></td>
+<td>ერთი შემთხვევა, როდესაც ჰოსტი ადასტურებს CS ხაზს, გადასცემს მონაცემებს მოწყობილობაზე და მოწყობილობადან და შემდეგ ხსნის CS ხაზს. ტრანზაქციები ატომურია, რაც ნიშნავს, რომ მათი შეწყვეტა სხვა ტრანზაქციით არასდროს შეიძლება.</td>
+</tr>
+<tr class="row-odd"><td><strong>გაშვების კიდე</strong></td>
+<td>საათის ის კიდე, რომელზეც წყაროს რეგისტრია <em>გაშვება</em> სიგნალი ხაზზე.</td>
+</tr>
+<tr class="row-even"><td><strong>საკეტის კიდე</strong></td>
+<td>საათის ის კიდე, რომელზეც დანიშნულების რეგისტრი ფიქსირდება <em>იკეტება</em> სიგნალი.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="driver-features">
+<h2>დრაივერის მახასიათებლები<a class="headerlink" href="spi_slave.html#driver-features" title="Permalink to this headline">¶</a></h2>
+<p>SPI მონა დრაივერი საშუალებას იძლევა SPI2 და/ან SPI3 პერიფერიული მოწყობილობების გამოყენების, როგორც სრული დუპლექსური მოწყობილობების. დრაივერს შეუძლია 64 ბაიტამდე სიგრძის ტრანზაქციების გაგზავნა/მიღება, ან DMA-ს გამოყენება უფრო გრძელი ტრანზაქციების გასაგზავნად/მისაღებად. თუმცა, არსებობს რამდენიმე <a class="reference internal" href="spi_slave.html#spi-dma-known-issues"><span class="std std-ref">ცნობილი პრობლემები</span></a> DMA-სთან დაკავშირებული.</p>
+</div>
+<div class="section" id="spi-transactions">
+<h2>SPI ტრანზაქციები<a class="headerlink" href="spi_slave.html#spi-transactions" title="Permalink to this headline">¶</a></h2>
+<p>სრული დუპლექსური SPI ტრანზაქცია იწყება მაშინ, როდესაც ჰოსტი ადასტურებს CS ხაზს და იწყებს საათის იმპულსების გაგზავნას SCLK ხაზზე. საათის ყოველი იმპულსის დროს, მონაცემთა ბიტი ერთდროულად გადადის ჰოსტიდან მოწყობილობაზე MOSI ხაზზე და უკან MISO ხაზზე. ტრანზაქციის დასასრულს, ჰოსტი ხსნის CS ხაზზე ადასტურებას.</p>
+<p>ტრანზაქციის ატრიბუტები განისაზღვრება SPI ჰოსტის კონფიგურაციის სტრუქტურით, რომელიც მოქმედებს როგორც მონა მოწყობილობა. <a class="reference internal" href="spi_slave.html#_CPPv428spi_slave_interface_config_t" title="spi_slave_interface_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">spi_slave_interface_config_t</span></code></a>და ტრანზაქციის კონფიგურაციის სტრუქტურა <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">spi_slave_transaction_t</span></code></a>.</p>
+<p>რადგან ყველა ტრანზაქცია არ მოითხოვს მონაცემების როგორც ჩაწერას, ასევე წაკითხვას, თქვენ გაქვთ არჩევანი, დააკონფიგურიროთ <a class="reference internal" href="spi_master.html#_CPPv417spi_transaction_t" title="spi_transaction_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">spi_transaction_t</span></code></a> სტრუქტურა მხოლოდ TX, მხოლოდ RX ან TX და RX ტრანზაქციებისთვის. თუ <a class="reference internal" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9rx_bufferE" title="spi_slave_transaction_t::rx_buffer"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">spi_slave_transaction_t::rx_buffer</span></code></a> დაყენებულია NULL-ზე, წაკითხვის ფაზა გამოტოვებული იქნება. თუ <a class="reference internal" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9tx_bufferE" title="spi_slave_transaction_t::tx_buffer"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">spi_slave_transaction_t::tx_buffer</span></code></a> თუ დაყენებულია NULL-ზე, ჩაწერის ფაზა გამოტოვებული იქნება.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ჰოსტმა არ უნდა დაიწყოს ტრანზაქცია მანამ, სანამ მისი მოწყობილობა მონაცემების მისაღებად მზად არ იქნება. მოწყობილობების სინქრონიზაციისთვის რეკომენდებულია კიდევ ერთი GPIO პინის გამოყენება ხელის შეხების სიგნალისთვის. დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="spi_slave.html#transaction-interval"><span class="std std-ref">ტრანზაქციის ინტერვალი</span></a>.</p>
+</div>
+</div>
+<div class="section" id="driver-usage">
+<h2>დრაივერის გამოყენება<a class="headerlink" href="spi_slave.html#driver-usage" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>SPI პერიფერიული მოწყობილობის მოწყობილობის სახით ინიციალიზაცია ხდება cpp:func ფუნქციის გამოძახებით:<cite>spi_slave_initialize</cite>დარწმუნდით, რომ სტრუქტურაში სწორი შემავალი/გამომავალი კონექტორებია დაყენებული. <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">bus_config</span></code>გამოუყენებელი სიგნალები დააყენეთ <code class="docutils literal notranslate"><span class="pre">-1</span></code>თუ ტრანზაქციები 32 ბაიტზე მეტი იქნება, პარამეტრის დაყენებით დაუშვით DMA არხი 1 ან 2. <code class="docutils literal notranslate"><span class="pre">dma_chan</span></code> რომ <code class="docutils literal notranslate"><span class="pre">1</span></code> ან <code class="docutils literal notranslate"><span class="pre">2</span></code> შესაბამისად. წინააღმდეგ შემთხვევაში, დააყენეთ <code class="docutils literal notranslate"><span class="pre">dma_chan</span></code> რომ <code class="docutils literal notranslate"><span class="pre">0</span></code>.</li>
+<li>ტრანზაქციების დაწყებამდე შეავსეთ ერთი ან მეტი <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">spi_slave_transaction_t</span></code></a> სტრუქტურები საჭირო ტრანზაქციის პარამეტრებით. ან ყველა ტრანზაქციის რიგში დაყენება ფუნქციის გამოძახებით <a class="reference internal" href="spi_slave.html#_CPPv421spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t" title="spi_slave_queue_trans"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_queue_trans()</span></code></a> და, მოგვიანებით, შედეგის მისაღებად მიმართეთ ფუნქციის გამოყენებით <a class="reference internal" href="spi_slave.html#_CPPv426spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t" title="spi_slave_get_trans_result"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_get_trans_result()</span></code></a>, ან ყველა მოთხოვნა ინდივიდუალურად დაამუშავეთ მათი შეყვანით <a class="reference internal" href="spi_slave.html#_CPPv418spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t" title="spi_slave_transmit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_transmit()</span></code></a>ბოლო ორი ფუნქცია დაბლოკილი იქნება მანამ, სანამ ჰოსტი არ დაიწყებს და დაასრულებს ტრანზაქციას, რაც გამოიწვევს რიგში მყოფი მონაცემების გაგზავნას და მიღებას.</li>
+<li>(არასავალდებულო) SPI-ის დაქვემდებარებული დრაივერის განტვირთვისთვის, გამოიძახეთ <a class="reference internal" href="spi_slave.html#_CPPv414spi_slave_free17spi_host_device_t" title="spi_slave_free"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_free()</span></code></a>.</li>
+</ul>
+</div>
+<div class="section" id="transaction-data-and-master-slave-length-mismatches">
+<h2>ტრანზაქციის მონაცემებისა და მთავარი/დაქვემდებარებული სერვერის სიგრძის შეუსაბამობები<a class="headerlink" href="spi_slave.html#transaction-data-and-master-slave-length-mismatches" title="Permalink to this headline">¶</a></h2>
+<p>ჩვეულებრივ, მოწყობილობაზე ან მოწყობილობადან გადასატანი მონაცემები იკითხება ან იწერება მეხსიერების იმ ნაწილში, რომელიც მითითებულია ...-ით. <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">rx_buffer</span></code> და <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">tx_buffer</span></code> წევრები <a class="reference internal" href="spi_master.html#_CPPv417spi_transaction_t" title="spi_transaction_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">spi_transaction_t</span></code></a> სტრუქტურა. SPI დრაივერის კონფიგურირება შესაძლებელია ისე, რომ გადარიცხვებისთვის DMA გამოიყენოს, ამ შემთხვევაში ეს ბუფერები უნდა გამოიყოს DMA-თავსებად მეხსიერებაში. <code class="docutils literal notranslate"><span class="pre">pvPortMallocCaps(size,</span> <span class="pre">MALLOC_CAP_DMA)</span></code>.</p>
+<p>მონაცემების რაოდენობა, რომლის წაკითხვა ან ჩაწერაც დრაივერს შეუძლია ბუფერებში, შეზღუდულია წევრით. <a class="reference internal" href="spi_master.html#_CPPv4N17spi_transaction_t6lengthE" title="spi_transaction_t::length"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">spi_transaction_t::length</span></code></a>თუმცა, ეს წევრი არ განსაზღვრავს SPI ტრანზაქციის ფაქტობრივ სიგრძეს. ტრანზაქციის სიგრძე განისაზღვრება ჰოსტით, რომელიც მართავს საათს და CS ხაზებს. გადაცემის ფაქტობრივი სიგრძის წაკითხვა შესაძლებელია მხოლოდ მას შემდეგ, რაც ტრანზაქცია დასრულდება წევრის მიერ. <a class="reference internal" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9trans_lenE" title="spi_slave_transaction_t::trans_len"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">spi_slave_transaction_t::trans_len</span></code></a>.</p>
+<p>თუ გადაცემის სიგრძე ბუფერის სიგრძეზე მეტია, მხოლოდ ბიტების საწყისი რაოდენობა, რომელიც მითითებულია <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">length</span></code> წევრი გაიგზავნება და მიიღება. ამ შემთხვევაში, <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">trans_len</span></code> დაყენებულია <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">length</span></code> ფაქტობრივი ტრანზაქციის სიგრძის ნაცვლად. ფაქტობრივი ტრანზაქციის სიგრძის მოთხოვნების დასაკმაყოფილებლად, დააყენეთ <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">length</span></code> მაქსიმალურ მნიშვნელობაზე მეტი მნიშვნელობით <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">trans_len</span></code> მოსალოდნელია. თუ გადაცემის სიგრძე ბუფერის სიგრძეზე ნაკლებია, გადაიცემა მხოლოდ ბუფერის სიგრძის ტოლი მონაცემები.</p>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ESP32 DMA აპარატურას აქვს შეზღუდვა ჰოსტის მიერ გაგზავნილი და მოწყობილობის მიერ მიღებული ბაიტების რაოდენობაზე. ტრანზაქციის სიგრძე უნდა იყოს 8 ბაიტზე მეტი და 4 ბაიტის ჯერადი; წინააღმდეგ შემთხვევაში, SPI აპარატურამ შეიძლება ვერ მიიღოს ბოლო 1-დან 7 ბაიტამდე.</p>
+</div>
+</div>
+<div class="section" id="gpio-matrix-and-io-mux">
+<h2>GPIO მატრიცა და IO_MUX<a class="headerlink" href="spi_slave.html#gpio-matrix-and-io-mux" title="Permalink to this headline">¶</a></h2>
+<p>ESP32-ის პერიფერიული სიგნალების უმეტესობა პირდაპირ კავშირშია მათ IO_MUX პინებთან. თუმცა, სიგნალების გადამისამართება ასევე შესაძლებელია ნებისმიერ სხვა ხელმისაწვდომ პინზე ნაკლებად პირდაპირი GPIO მატრიცის გამოყენებით.</p>
+<p>თუ ერთი სიგნალი მაინც გაივლის GPIO მატრიცას, მაშინ ყველა სიგნალი გაივლის მასში. GPIO მატრიცა იღებს ყველა სიგნალის ნიმუშს 80 MHz სიხშირეზე და გადასცემს მათ GPIO და პერიფერიულ მოწყობილობას შორის.</p>
+<p>თუ დრაივერი ისეა კონფიგურირებული, რომ ყველა SPI სიგნალი ან მიმართული იყოს მათთვის განკუთვნილ IO_MUX პინებზე, ან საერთოდ არ იყოს დაკავშირებული, GPIO მატრიცა გვერდის ავლით იქნება გადაფარული.</p>
+<p>GPIO მატრიცა მარშრუტიზაციის მოქნილობას გვთავაზობს, თუმცა ასევე ზრდის MISO სიგნალის შეყვანის დაყოვნებას, რაც MISO-ს დაყენების დროის დარღვევის ალბათობას ზრდის. თუ SPI-ს მაღალი სიჩქარით მუშაობა სჭირდება, გამოიყენეთ სპეციალური IO_MUX პინები.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">MISO შეყვანის შეფერხების მაქსიმალურ საათის სიხშირეზე გავლენის შესახებ დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="spi_master.html#timing-considerations"><span class="std std-ref">დროის საკითხები</span></a>.</p>
+</div>
+<p>SPI ავტობუსების IO_MUX პინები მოცემულია ქვემოთ.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%"/>
+<col width="27%"/>
+<col width="27%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">PIN-ის სახელი</th>
+<th class="head">SPI2</th>
+<th class="head">SPI3</th>
+</tr>
+<tr class="row-even"><th class="head" colspan="2">GPIO ნომერი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>CS0*</td>
+<td>15</td>
+<td>5</td>
+</tr>
+<tr class="row-even"><td>SCLK</td>
+<td>14</td>
+<td>18</td>
+</tr>
+<tr class="row-odd"><td>მისო</td>
+<td>12</td>
+<td>19</td>
+</tr>
+<tr class="row-even"><td>მოსი</td>
+<td>13</td>
+<td>23</td>
+</tr>
+<tr class="row-odd"><td>QUADWP</td>
+<td>2</td>
+<td>22</td>
+</tr>
+<tr class="row-even"><td>კვადროციკლი</td>
+<td>4</td>
+<td>21</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>მხოლოდ ავტობუსზე მიერთებულ პირველ მოწყობილობას შეუძლია CS0 პინის გამოყენება.</li>
+</ul>
+</div>
+<div class="section" id="speed-and-timing-considerations">
+<h2>სიჩქარისა და დროის გასათვალისწინებელი საკითხები<a class="headerlink" href="spi_slave.html#speed-and-timing-considerations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="transaction-interval">
+<span id="id1"></span><h3>ტრანზაქციის ინტერვალი<a class="headerlink" href="spi_slave.html#transaction-interval" title="Permalink to this headline">¶</a></h3>
+<p>ESP32 SPI დაქვემდებარებული პერიფერიული მოწყობილობები შექმნილია როგორც ზოგადი დანიშნულების მოწყობილობები, რომლებიც კონტროლდება CPU-ს მიერ. სპეციალური დაქვემდებარებული მოწყობილობებისგან განსხვავებით, CPU-ზე დაფუძნებულ SPI მოწყობილობებს აქვთ წინასწარ განსაზღვრული რეგისტრების შეზღუდული რაოდენობა. ყველა ტრანზაქცია უნდა დამუშავდეს CPU-ს მიერ, რაც ნიშნავს, რომ გადაცემები და პასუხები არ არის რეალურ დროში და შესაძლოა შესამჩნევი შეყოვნება იყოს.</p>
+<p>გამოსავლის სახით, მოწყობილობის რეაგირების სიჩქარე შეიძლება გაორმაგდეს ფუნქციების გამოყენებით <a class="reference internal" href="spi_slave.html#_CPPv421spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t" title="spi_slave_queue_trans"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_queue_trans()</span></code></a> და შემდეგ <a class="reference internal" href="spi_slave.html#_CPPv426spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t" title="spi_slave_get_trans_result"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_get_trans_result()</span></code></a> გამოყენების ნაცვლად <a class="reference internal" href="spi_slave.html#_CPPv418spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t" title="spi_slave_transmit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spi_slave_transmit()</span></code></a>.</p>
+<p>ასევე შეგიძლიათ დააკონფიგურიროთ GPIO პინი, რომლის მეშვეობითაც მოწყობილობა გაუგზავნის სიგნალს ჰოსტს, როდესაც ის მზად იქნება ახალი ტრანზაქციისთვის. ამის კოდის მაგალითი შეგიძლიათ იხილოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/spi_slave">პერიფერიული მოწყობილობები/spi_slave</a>.</p>
+</div>
+<div class="section" id="sclk-frequency-requirements">
+<h3>SCLK სიხშირის მოთხოვნები<a class="headerlink" href="spi_slave.html#sclk-frequency-requirements" title="Permalink to this headline">¶</a></h3>
+<p>SPI მონა-მონაცემები შექმნილია 10 MHz-მდე სიხშირით მუშაობისთვის. მონაცემების ამოცნობა ან სწორად მიღება შეუძლებელია, თუ ტაქტური რეჟიმი ძალიან სწრაფია ან არ აქვს 50%-იანი სამუშაო ციკლი.</p>
+<p>ამასთანავე, არსებობს დამატებითი მოთხოვნები, რათა მონაცემებმა დააკმაყოფილოს დროის შეზღუდვები:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Read (MOSI):</dt>
+<dd><p class="first last">მოწყობილობას მონაცემების სწორად წაკითხვა მხოლოდ იმ შემთხვევაში შეუძლია, თუ ისინი უკვე დაყენებულია გაშვების კიდეზე. თუმცა, როგორც წესი, ეს ასეა უმეტესი მასტერ-სისტემისთვის.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Write (MISO):</dt>
+<dd><p class="first">MISO სიგნალის გამომავალი დაყოვნება საათის ციკლის ნახევარზე ნაკლები უნდა იყოს, რათა MISO ხაზი სტაბილური იყოს შემდეგ ჩამკეტის კიდემდე. იმის გათვალისწინებით, რომ საათი დაბალანსებულია, ქვემოთ მოცემულია გამომავალი დაყოვნება და სიხშირის შეზღუდვები სხვადასხვა შემთხვევაში.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%"/>
+<col width="42%"/>
+<col width="38%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"> </th>
+<th class="head">MISO-ს გამომავალი დაყოვნება (ns)</th>
+<th class="head">სიხშირის ლიმიტი (MHz)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>IO_MUX</td>
+<td>43.75</td>
+<td>&amp;lt;11.4</td>
+</tr>
+<tr class="row-odd"><td>GPIO მატრიცა</td>
+<td>68.75</td>
+<td>&amp;lt;7.2</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Note:</dt>
+<dd><ol class="first last arabic simple">
+<li>თუ სიხშირე ტოლია შეზღუდვისა, ამან შეიძლება გამოიწვიოს შემთხვევითი შეცდომები.</li>
+<li>გათვალისწინებულია ჰოსტსა და მოწყობილობას შორის საათის გაურკვევლობა (12.5 ns).</li>
+<li>გამომავალი შეფერხება იზომება იდეალურ პირობებში (დატვირთვის გარეშე). თუ MISO პინი ძლიერ დატვირთულია, გამომავალი შეფერხება უფრო ხანგრძლივი იქნება და მაქსიმალური დაშვებული სიხშირე უფრო დაბალი.</li>
+</ol>
+</dd>
+</dl>
+<p class="last">გამონაკლისი: სიხშირის უფრო მაღალი ლიმიტი დაშვებულია, თუ მასტერ-მოწყობილობას MISO-ს დაყენების დროისთვის მოსალოდნელზე მეტი ტოლერანტობა აქვს, მაგალითად, შემდეგ კიდეზე მონაცემების ჩაკეტვის ან კონფიგურირებადი ჩაკეტვის დროის მიმართ.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="restrictions-and-known-issues">
+<span id="spi-dma-known-issues"></span><h2>შეზღუდვები და ცნობილი პრობლემები<a class="headerlink" href="spi_slave.html#restrictions-and-known-issues" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">თუ DMA ჩართულია, RX ბუფერი უნდა იყოს სიტყვებით გასწორებული (დაწყებული 32-ბიტიანი საზღვრიდან და 4 ბაიტის ჯერადი სიგრძით). წინააღმდეგ შემთხვევაში, DMA შეიძლება არასწორად ან საზღვრების გასწორების გარეშე ჩაიწეროს. თუ ეს პირობა არ დაკმაყოფილდება, დრაივერი შეცდომას იუწყება.</p>
+<p>ასევე, ჰოსტმა უნდა დაწეროს სიგრძეები, რომლებიც 4 ბაიტის ჯერადია. შეუსაბამო სიგრძის მონაცემები გაუქმდება.</p>
+</li>
+<li><p class="first">გარდა ამისა, DMA-სთვის საჭიროა SPI რეჟიმები 1 და 3. SPI რეჟიმებისთვის 0 და 2, MISO სიგნალი უნდა გაეშვას ნახევარი საათის ციკლით ადრე, რათა დაკმაყოფილდეს დროის მოთხოვნა. ახალი დრო შემდეგია:</p>
+</li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/spi_slave_miso_dma.png" src="../../_images/spi_slave_miso_dma.png"/>
+</div></blockquote>
+<p>თუ DMA ჩართულია, მოწყობილობის გაშვების ზღვარი SPI საათის ციკლის ნახევარით წინ არის ნორმალურ დროზე და გადადის მთავარი მოწყობილობის რეალურ ჩამკეტ ზღვარზე. ამ შემთხვევაში, თუ GPIO მატრიცა გვერდის ავლით არის გადაწეული, მონაცემთა შერჩევის შენარჩუნების დრო 68.75 ns-ია და აღარ არის SPI საათის ციკლის ნახევარი. თუ GPIO მატრიცა გამოიყენება, შენარჩუნების დრო გაიზრდება 93.75 ns-მდე. ჰოსტმა უნდა აიღოს მონაცემების ნიმუში დაუყოვნებლივ ჩამკეტის კიდეზე ან დაუკავშირდეს SPI 1 ან 3 რეჟიმებში. თუ თქვენს ჰოსტს არ შეუძლია ამ დროის მოთხოვნების დაკმაყოფილება, ინიციალიზაცია გაუკეთეთ თქვენს მოწყობილობას DMA-ს გარეშე.</p>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="spi_slave.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>მოწყობილობის/მასპინძლის კომუნიკაციის კოდის მაგალითი შეგიძლიათ იხილოთ შემდეგში: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/spi_slave">პერიფერიული მოწყობილობები/spi_slave</a> ESP-IDF მაგალითების დირექტორია.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="spi_slave.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="spi_slave.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/spi_slave.h">დრაივერი/ინკლუზია/დრაივერი/spi_slave.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="spi_slave.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv420spi_slave_initialize17spi_host_device_tPK16spi_bus_config_tPK28spi_slave_interface_config_ti">
+<span id="_CPPv320spi_slave_initialize17spi_host_device_tPK16spi_bus_config_tPK28spi_slave_interface_config_ti"></span><span id="_CPPv220spi_slave_initialize17spi_host_device_tPK16spi_bus_config_tPK28spi_slave_interface_config_ti"></span><span id="spi_slave_initialize__spi_host_device_t.spi_bus_config_tCP.spi_slave_interface_config_tCP.i"></span><span class="target" id="spi__slave_8h_1a48c9071ee637196229c02da212b981b6"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">spi_slave_initialize</code><span class="sig-paren">(</span><a class="reference internal" href="spi_master.html#_CPPv417spi_host_device_t" title="spi_host_device_t">spi_host_device_t</a> <em>მასპინძელი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="spi_master.html#_CPPv416spi_bus_config_t" title="spi_bus_config_t">spi_bus_config_t</a> *<em>ავტობუსის_კონფიგურაცია</em>, <em class="property">კონსტ</em> <a class="reference internal" href="spi_slave.html#_CPPv428spi_slave_interface_config_t" title="spi_slave_interface_config_t">spi_slave_interface_config_t</a> *<em>მონა_კონფიგურაცია</em>, int <em>dma_chan</em><span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv420spi_slave_initialize17spi_host_device_tPK16spi_bus_config_tPK28spi_slave_interface_config_ti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ავტობუსის ინიციალიზაცია, როგორც დაქვემდებარებული ინტერფეისი. </p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>For now, only supports HSPI and VSPI.</dd>
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>If a DMA channel is selected, any transmit and receive buffer used should be allocated in DMA-capable memory.</dd>
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>The ISR of SPI is always executed on the core which calls this function. Never starve the ISR on this core or the SPI transactions will not be handled.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ კონფიგურაცია არასწორია</li>
+<li>ESP_ERR_INVALID_STATE თუ ჰოსტი უკვე გამოიყენება</li>
+<li>ESP_ERR_NO_MEM, თუ მეხსიერება ამოწურულია</li>
+<li>ESP_OK წარმატების შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>SPI პერიფერიული მოწყობილობა, რომელიც გამოიყენება როგორც SPI მონა ინტერფეისი </li>
+<li><code class="docutils literal notranslate"><span class="pre">bus_config</span></code>: მაჩვენებელი a-ზე <a class="reference internal" href="spi_master.html#structspi__bus__config__t"><span class="std std-ref">spi_bus_config_t</span></a> სტრუქტურა, რომელიც განსაზღვრავს, თუ როგორ უნდა მოხდეს ჰოსტის ინიციალიზაცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">slave_config</span></code>: მაჩვენებელი a-ზე <a class="reference internal" href="spi_slave.html#structspi__slave__interface__config__t"><span class="std std-ref">spi_slave_interface_config_t</span></a> სტრუქტურა, რომელიც განსაზღვრავს მონა ინტერფეისის დეტალებს </li>
+<li><code class="docutils literal notranslate"><span class="pre">dma_chan</span></code>: ან 1 ან 2. ამ დრაივერის მიერ გამოყენებულ SPI ავტობუსს უნდა ჰქონდეს მასთან ასოცირებული DMA არხი. SPI აპარატურას აქვს ორი DMA არხი გასაზიარებლად. ეს პარამეტრი მიუთითებს, რომელი უნდა იქნას გამოყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414spi_slave_free17spi_host_device_t">
+<span id="_CPPv314spi_slave_free17spi_host_device_t"></span><span id="_CPPv214spi_slave_free17spi_host_device_t"></span><span id="spi_slave_free__spi_host_device_t"></span><span class="target" id="spi__slave_8h_1a83642a78837e2dc8adbe525e78812f99"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">spi_slave_free</code><span class="sig-paren">(</span><a class="reference internal" href="spi_master.html#_CPPv417spi_host_device_t" title="spi_host_device_t">spi_host_device_t</a> <em>მასპინძელი</em><span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv414spi_slave_free17spi_host_device_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაათავისუფლეთ SPI ავტობუსი, რომელიც მოთხოვნილია, როგორც SPI მონა ინტერფეისი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ პარამეტრი არასწორია</li>
+<li>ESP_ERR_INVALID_STATE, თუ ავტობუსში ყველა მოწყობილობა არ არის გათავისუფლებული</li>
+<li>ESP_OK წარმატების შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>: SPI პერიფერიული მოწყობილობა თავისუფალზე </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t">
+<span id="_CPPv321spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t"></span><span id="_CPPv221spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t"></span><span id="spi_slave_queue_trans__spi_host_device_t.spi_slave_transaction_tCP.TickType_t"></span><span class="target" id="spi__slave_8h_1a2b776de831aa3d06d6171df92a7aedd4"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">spi_slave_queue_trans</code><span class="sig-paren">(</span><a class="reference internal" href="spi_master.html#_CPPv417spi_host_device_t" title="spi_host_device_t">spi_host_device_t</a> <em>მასპინძელი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t">spi_slave_transaction_t</a> *<em>ტრანს_აღწერა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv421spi_slave_queue_trans17spi_host_device_tPK23spi_slave_transaction_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI ტრანზაქციის შესრულების რიგში დაყენება. </p>
+<p>რიგში აყენებს SPI ტრანზაქციას, რომელიც უნდა შესრულდეს ამ დაქვემდებარებული მოწყობილობის მიერ. (ტრანზაქციის რიგის ზომა მითითებული იყო დაქვემდებარებული მოწყობილობის spi_slave_initialize-ის მეშვეობით ინიციალიზაციისას.) ეს ფუნქცია შეიძლება დაიბლოკოს, თუ რიგი სავსეა (ticks_to_wait პარამეტრის მიხედვით). ამ ფუნქციით პირდაპირ არ იწყება SPI ოპერაცია, რიგში მყოფი შემდეგი ტრანზაქცია მოხდება მაშინ, როდესაც მთავარი დაიწყებს SPI ტრანზაქციას CS-ის ჩამოწევით და საათის სიგნალების გაგზავნით.</p>
+<p>ეს ფუნქცია გადასცემს ბუფერების საკუთრებას <code class="docutils literal notranslate"><span class="pre">trans_desc</span></code> SPI მონა დრაივერისთვის; აპლიკაციას არ აქვს ამ მეხსიერებაზე წვდომა მანამ, სანამ <code class="docutils literal notranslate"><span class="pre">spi_slave_queue_trans</span></code> გამოიძახება, რათა აპლიკაციას საკუთრება დაუბრუნოს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ პარამეტრი არასწორია</li>
+<li>ESP_OK წარმატების შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>SPI პერიფერიული მოწყობილობა, რომელიც მოქმედებს როგორც მონა </li>
+<li><code class="docutils literal notranslate"><span class="pre">trans_desc</span></code>: შესასრულებელი ტრანზაქციის აღწერა. არა const, რადგან შეიძლება გვინდოდეს სტატუსის ხელახლა ჩაწერა ტრანზაქციის აღწერაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: რიგში ადგილის გაჩენამდე ლოდინის ნიშნულები; დროის ამოწურვის გარეშე გამოიყენეთ portMAX_DELAY. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t">
+<span id="_CPPv326spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t"></span><span id="_CPPv226spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t"></span><span id="spi_slave_get_trans_result__spi_host_device_t.spi_slave_transaction_tPP.TickType_t"></span><span class="target" id="spi__slave_8h_1abd24252db5efe3d3a4747f1ed4014f8f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">spi_slave_get_trans_result</code><span class="sig-paren">(</span><a class="reference internal" href="spi_master.html#_CPPv417spi_host_device_t" title="spi_host_device_t">spi_host_device_t</a> <em>მასპინძელი</em>, <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t">spi_slave_transaction_t</a> **<em>ტრანს_აღწერა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv426spi_slave_get_trans_result17spi_host_device_tPP23spi_slave_transaction_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ადრე რიგში მდგომი SPI ტრანზაქციის შედეგი. </p>
+<p>ეს რუტინა დაელოდება მოცემულ მოწყობილობაზე ტრანზაქციის წარმატებით დასრულებას (რომელიც ადრე რიგში იყო spi_slave_queue_trans-ით). შემდეგ ის დააბრუნებს დასრულებული ტრანზაქციის აღწერას, რათა პროგრამულმა უზრუნველყოფამ შეძლოს შედეგის შემოწმება და, მაგალითად, მეხსიერების გათავისუფლება ან ბუფერების ხელახლა გამოყენება.</p>
+<p>სავალდებულოა ამ ფუნქციის საბოლოოდ გამოყენება რიგში მდგომი ნებისმიერი ტრანზაქციისთვის. <code class="docutils literal notranslate"><span class="pre">spi_slave_queue_trans</span></code>.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ პარამეტრი არასწორია</li>
+<li>ESP_OK წარმატების შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>SPI პერიფერიული ფუნქციაა, რომელიც მონას ფუნქციას ასრულებს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">trans_desc</span></code>ცვლადის მაჩვენებელი, რომელსაც შეუძლია შეიცავდეს შესრულების ტრანზაქციის აღწერილობის მაჩვენებელს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: მონიშვნები ნიშნავს დაბრუნებული ნივთის მოლოდინს; გამოიყენეთ portMAX_DELAY, რომ დრო არასდროს ამოიწუროს. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t">
+<span id="_CPPv318spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t"></span><span id="_CPPv218spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t"></span><span id="spi_slave_transmit__spi_host_device_t.spi_slave_transaction_tP.TickType_t"></span><span class="target" id="spi__slave_8h_1afb3e90a2fcec640f8b03b40baa913506"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">spi_slave_transmit</code><span class="sig-paren">(</span><a class="reference internal" href="spi_master.html#_CPPv417spi_host_device_t" title="spi_host_device_t">spi_host_device_t</a> <em>მასპინძელი</em>, <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t">spi_slave_transaction_t</a> *<em>ტრანს_აღწერა</em>, TickType_t <em>ლოდინის დრო</em><span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv418spi_slave_transmit17spi_host_device_tP23spi_slave_transaction_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეასრულეთ SPI ტრანზაქცია. </p>
+<p>არსებითად იგივეს აკეთებს, რასაც spi_slave_queue_trans და შემდეგ spi_slave_get_trans_result. არ გამოიყენოთ ეს ფუნქცია, როდესაც რიგში ჯერ კიდევ არის ტრანზაქცია, რომელიც spi_slave_get_trans_result-ის გამოყენებით არ არის დასრულებული.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_INVALID_ARG თუ პარამეტრი არასწორია</li>
+<li>ESP_OK წარმატების შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">host</span></code>SPI პერიფერიული ფუნქციაა, რომელიც მონას ფუნქციას ასრულებს. </li>
+<li><code class="docutils literal notranslate"><span class="pre">trans_desc</span></code>ცვლადის მაჩვენებელი, რომელსაც შეუძლია შეიცავდეს შესრულებული ტრანზაქციის აღწერილობის მაჩვენებელს. არა const, რადგან შეიძლება გვინდოდეს სტატუსის ჩაწერა ტრანზაქციის აღწერილობაში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ticks_to_wait</span></code>: მონიშვნები ნიშნავს დაბრუნებული ნივთის მოლოდინს; გამოიყენეთ portMAX_DELAY, რომ დრო არასდროს ამოიწუროს. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="spi_slave.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv428spi_slave_interface_config_t">
+<span id="_CPPv328spi_slave_interface_config_t"></span><span id="_CPPv228spi_slave_interface_config_t"></span><span id="spi_slave_interface_config_t"></span><span class="target" id="structspi__slave__interface__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">spi_slave_interface_config_t</code><a class="headerlink" href="spi_slave.html#_CPPv428spi_slave_interface_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს არის კონფიგურაცია SPI მასპინძლისთვის, რომელიც მოქმედებს როგორც მონა მოწყობილობა. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t12spics_io_numE">
+<span id="_CPPv3N28spi_slave_interface_config_t12spics_io_numE"></span><span id="_CPPv2N28spi_slave_interface_config_t12spics_io_numE"></span><span id="spi_slave_interface_config_t::spics_io_num__i"></span><span class="target" id="structspi__slave__interface__config__t_1ab709d1a2bcce4b15709c1e0f76001e6a"></span>int <code class="descname">spics_io_num</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t12spics_io_numE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ მოწყობილობის CS GPIO პინი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t5flagsE">
+<span id="_CPPv3N28spi_slave_interface_config_t5flagsE"></span><span id="_CPPv2N28spi_slave_interface_config_t5flagsE"></span><span id="spi_slave_interface_config_t::flags__uint32_t"></span><span class="target" id="structspi__slave__interface__config__t_1a84b77097256ced39469c53794b0e90a6"></span>uint32_t <code class="descname">flags</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t5flagsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI_SLAVE_* ფლაგების ბიტური OR. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t10queue_sizeE">
+<span id="_CPPv3N28spi_slave_interface_config_t10queue_sizeE"></span><span id="_CPPv2N28spi_slave_interface_config_t10queue_sizeE"></span><span id="spi_slave_interface_config_t::queue_size__i"></span><span class="target" id="structspi__slave__interface__config__t_1a550ff79e8d65a130b40d31baf8b20b95"></span>int <code class="descname">queue_size</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t10queue_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტრანზაქციის რიგის ზომა. ეს განსაზღვრავს, თუ რამდენი ტრანზაქცია შეიძლება იყოს „ჰაერში“ (რიგში spi_slave_queue_trans-ის გამოყენებით, მაგრამ ჯერ არ დასრულებულა spi_slave_get_trans_result-ის გამოყენებით) ერთდროულად. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t4modeE">
+<span id="_CPPv3N28spi_slave_interface_config_t4modeE"></span><span id="_CPPv2N28spi_slave_interface_config_t4modeE"></span><span id="spi_slave_interface_config_t::mode__uint8_t"></span><span class="target" id="structspi__slave__interface__config__t_1a7928262fff2f0a6ae59be41c30a60338"></span>uint8_t <code class="descname">mode</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t4modeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>SPI რეჟიმი (0-3) </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t13post_setup_cbE">
+<span id="_CPPv3N28spi_slave_interface_config_t13post_setup_cbE"></span><span id="_CPPv2N28spi_slave_interface_config_t13post_setup_cbE"></span><span id="spi_slave_interface_config_t::post_setup_cb__slave_transaction_cb_t"></span><span class="target" id="structspi__slave__interface__config__t_1ae67cd30e7fa6c946f0f8b09e152f674a"></span><a class="reference internal" href="spi_slave.html#_CPPv422slave_transaction_cb_t" title="slave_transaction_cb_t">slave_transaction_cb_t</a> <code class="descname">post_setup_cb</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t13post_setup_cbE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირი, რომელიც გამოიძახება SPI რეგისტრების ახალი მონაცემებით ჩატვირთვის შემდეგ.</p>
+<p>ეს უკუკავშირი, რომელიც გამოიძახება შეწყვეტის კონტექსტში, საუკეთესო შესრულებისთვის უნდა იყოს IRAM-ში, სრული დეტალებისთვის იხილეთ SPI Master დოკუმენტაციის „გადაცემის სიჩქარის“ განყოფილება. წინააღმდეგ შემთხვევაში, უკუკავშირი შეიძლება გაითიშოს ფლეშ მეხსიერება ოპერაციის დროს, როდესაც დრაივერი ინიციალიზებულია ESP_INTR_FLAG_IRAM-ით. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N28spi_slave_interface_config_t13post_trans_cbE">
+<span id="_CPPv3N28spi_slave_interface_config_t13post_trans_cbE"></span><span id="_CPPv2N28spi_slave_interface_config_t13post_trans_cbE"></span><span id="spi_slave_interface_config_t::post_trans_cb__slave_transaction_cb_t"></span><span class="target" id="structspi__slave__interface__config__t_1a338fae5ce1c7d7e3fa53547df93b3cc0"></span><a class="reference internal" href="spi_slave.html#_CPPv422slave_transaction_cb_t" title="slave_transaction_cb_t">slave_transaction_cb_t</a> <code class="descname">post_trans_cb</code><a class="headerlink" href="spi_slave.html#_CPPv4N28spi_slave_interface_config_t13post_trans_cbE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტრანზაქციის დასრულების შემდეგ ხდება უკუკავშირის გამოძახება.</p>
+<p>ეს უკუკავშირი, რომელიც გამოიძახება შეწყვეტის კონტექსტში, საუკეთესო შესრულებისთვის უნდა იყოს IRAM-ში, სრული დეტალებისთვის იხილეთ SPI Master დოკუმენტაციის „გადაცემის სიჩქარის“ განყოფილება. წინააღმდეგ შემთხვევაში, უკუკავშირი შეიძლება გაითიშოს ფლეშ მეხსიერება ოპერაციის დროს, როდესაც დრაივერი ინიციალიზებულია ESP_INTR_FLAG_IRAM-ით. </p>
+</dd></dl>
+</div>
+</dd></dl>
+<dl class="class">
+<dt id="_CPPv423spi_slave_transaction_t">
+<span id="_CPPv323spi_slave_transaction_t"></span><span id="_CPPv223spi_slave_transaction_t"></span><span id="spi_slave_transaction_t"></span><span class="target" id="structspi__slave__transaction__t"></span><em class="property">სტრუქტურა </em><code class="descname">spi_slave_transaction_t</code><a class="headerlink" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს სტრუქტურა აღწერს ერთ SPI ტრანზაქციას </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N23spi_slave_transaction_t6lengthE">
+<span id="_CPPv3N23spi_slave_transaction_t6lengthE"></span><span id="_CPPv2N23spi_slave_transaction_t6lengthE"></span><span id="spi_slave_transaction_t::length__s"></span><span class="target" id="structspi__slave__transaction__t_1a715e4953502fdae26f63c020048fcc90"></span>size_t <code class="descname">length</code><a class="headerlink" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t6lengthE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონაცემთა სრული სიგრძე, ბიტებში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23spi_slave_transaction_t9trans_lenE">
+<span id="_CPPv3N23spi_slave_transaction_t9trans_lenE"></span><span id="_CPPv2N23spi_slave_transaction_t9trans_lenE"></span><span id="spi_slave_transaction_t::trans_len__s"></span><span class="target" id="structspi__slave__transaction__t_1a8874e8c59a201f5cf65e2dc6d600b251"></span>size_t <code class="descname">trans_len</code><a class="headerlink" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9trans_lenE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტრანზაქციის მონაცემების სიგრძე, ბიტებში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23spi_slave_transaction_t9tx_bufferE">
+<span id="_CPPv3N23spi_slave_transaction_t9tx_bufferE"></span><span id="_CPPv2N23spi_slave_transaction_t9tx_bufferE"></span><span id="spi_slave_transaction_t::tx_buffer__voidCP"></span><span class="target" id="structspi__slave__transaction__t_1ae620a9b7a31f4e54bff3c023bf614308"></span><em class="property">კონსტ</em> void *<code class="descname">tx_buffer</code><a class="headerlink" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9tx_bufferE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბუფერის გადაცემის მაჩვენებელი, ან NULL MOSI ფაზის არარსებობის შემთხვევაში. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23spi_slave_transaction_t9rx_bufferE">
+<span id="_CPPv3N23spi_slave_transaction_t9rx_bufferE"></span><span id="_CPPv2N23spi_slave_transaction_t9rx_bufferE"></span><span id="spi_slave_transaction_t::rx_buffer__voidP"></span><span class="target" id="structspi__slave__transaction__t_1a994cbe0bb734be58e3fd32a396d30768"></span>void *<code class="descname">rx_buffer</code><a class="headerlink" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t9rx_bufferE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიმთითებელი ბუფერის მისაღებად, ან NULL MISO ფაზის არარსებობის შემთხვევაში. როდესაც DMA ჩართულია, უნდა დაიწყოს WORD-ის საზღვრიდან (<code class="docutils literal notranslate"><span class="pre">rx_buffer%4==0</span></code>), და მისი სიგრძე 4 ბაიტის ჯერადია. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N23spi_slave_transaction_t4userE">
+<span id="_CPPv3N23spi_slave_transaction_t4userE"></span><span id="_CPPv2N23spi_slave_transaction_t4userE"></span><span id="spi_slave_transaction_t::user__voidP"></span><span class="target" id="structspi__slave__transaction__t_1a1c55de2afe99bf03822795dcaae387ea"></span>void *<code class="descname">user</code><a class="headerlink" href="spi_slave.html#_CPPv4N23spi_slave_transaction_t4userE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მომხმარებლის მიერ განსაზღვრული ცვლადი. შეიძლება გამოყენებულ იქნას მაგ. ტრანზაქციის ID-ის შესანახად. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="spi_slave.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.SPI_SLAVE_TXBIT_LSBFIRST">
+<span class="target" id="spi__slave_8h_1a173e80f33704693543172def029ab17d"></span><code class="descname">SPI_SLAVE_TXBIT_LSBFIRST</code><a class="headerlink" href="spi_slave.html#c.SPI_SLAVE_TXBIT_LSBFIRST" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჯერ გადაეცით ბრძანება/მისამართი/მონაცემები LSB, ნაგულისხმევი MSB-ის ნაცვლად. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SPI_SLAVE_RXBIT_LSBFIRST">
+<span class="target" id="spi__slave_8h_1a7c5830db2ba684c95c9d952a36d4d8ff"></span><code class="descname">SPI_SLAVE_RXBIT_LSBFIRST</code><a class="headerlink" href="spi_slave.html#c.SPI_SLAVE_RXBIT_LSBFIRST" title="Permalink to this definition">¶</a></dt>
+<dd><p>ნაგულისხმევი MSB-ის ნაცვლად, ჯერ LSB მონაცემების მიღებაა საჭირო. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.SPI_SLAVE_BIT_LSBFIRST">
+<span class="target" id="spi__slave_8h_1aa284d8507967fb57446ae61780439d40"></span><code class="descname">SPI_SLAVE_BIT_LSBFIRST</code><a class="headerlink" href="spi_slave.html#c.SPI_SLAVE_BIT_LSBFIRST" title="Permalink to this definition">¶</a></dt>
+<dd><p>პირველ რიგში, გადაეცით და მიიღეთ LSB. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="spi_slave.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv423spi_slave_transaction_t">
+<span id="_CPPv323spi_slave_transaction_t"></span><span id="_CPPv223spi_slave_transaction_t"></span><span class="target" id="spi__slave_8h_1ab8c18f7ab9f1fa4be2755638ed6c95e5"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t">spi_slave_transaction_t</a> <code class="descname">spi_slave_transaction_t</code><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv422slave_transaction_cb_t">
+<span id="_CPPv322slave_transaction_cb_t"></span><span id="_CPPv222slave_transaction_cb_t"></span><span id="slave_transaction_cb_t"></span><span class="target" id="spi__slave_8h_1a46b2443ecc4aa748d87d7171ab801b9d"></span><em class="property">typedef </em>void (*<code class="descname">slave_transaction_cb_t</code>)<span class="sig-paren">(</span><a class="reference internal" href="spi_slave.html#_CPPv423spi_slave_transaction_t" title="spi_slave_transaction_t">spi_slave_transaction_t</a> *trans<span class="sig-paren">)</span><a class="headerlink" href="spi_slave.html#_CPPv422slave_transaction_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="temp_sensor.html" rel="next" title="ESP32-S2 Temperature Sensor">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="spi_master.html" rel="prev" title="SPI Master Driver"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

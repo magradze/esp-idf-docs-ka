@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>უსადენო განახლებები (OTA) — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="perfmon.html" rel="next" title="Performance Monitor"/>
+<link href="system.html" rel="prev" title="Miscellaneous System APIs"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/ota.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/ota"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/ota.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="ota.html#">უსადენო განახლებები (OTA)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#ota-process-overview">OTA პროცესის მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#ota-data-partition">OTA მონაცემთა დაყოფა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#app-rollback">აპლიკაციის გაუქმება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#anti-rollback">ანტი-rollback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#secure-ota-updates-without-secure-boot">უსაფრთხო OTA განახლებები უსაფრთხო ჩატვირთვის გარეშე</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#ota-tool-otatool-py">OTA ინსტრუმენტი (otatool.py)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#see-also">აგრეთვე იხილეთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ota.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>უსადენო განახლებები (OTA)</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/ota.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="over-the-air-updates-ota">
+<h1>უსადენო განახლებები (OTA)<a class="headerlink" href="ota.html#over-the-air-updates-ota" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ota-process-overview">
+<h2>OTA პროცესის მიმოხილვა<a class="headerlink" href="ota.html#ota-process-overview" title="Permalink to this headline">¶</a></h2>
+<p>OTA განახლების მექანიზმი საშუალებას აძლევს მოწყობილობას განაახლოს საკუთარი თავი პროგრამული უზრუნველყოფა ნორმალური მუშაობის დროს მიღებული მონაცემების საფუძველზე (მაგალითად, WiFi-ის ან Bluetooth საშუალებით).</p>
+<p>OTA-ს კონფიგურაცია სჭირდება <a class="reference internal" href="../../api-guides/partition-tables.html"><span class="doc">დაყოფის ცხრილი</span></a> მოწყობილობის მინიმუმ ორი „OTA აპლიკაციის სლოტის“ დანაყოფით (მაგ. <cite>ota_0</cite> და <cite>ota_1</cite>) და „OTA მონაცემთა დანაყოფი“.</p>
+<p>OTA ოპერაციული ფუნქციები წერს ახალ app პროგრამული უზრუნველყოფა სურათს იმ OTA აპლიკაციის სლოტში, რომელიც ამჟამად არ გამოიყენება ჩატვირთვისთვის. სურათის დადასტურების შემდეგ, OTA მონაცემთა დანაყოფი განახლდება იმის მითითებით, რომ ეს სურათი უნდა იქნას გამოყენებული შემდეგი ჩატვირთვისთვის.</p>
+</div>
+<div class="section" id="ota-data-partition">
+<span id="id1"></span><h2>OTA მონაცემთა დაყოფა<a class="headerlink" href="ota.html#ota-data-partition" title="Permalink to this headline">¶</a></h2>
+<p>OTA მონაცემთა დანაყოფი (ტიპი <code class="docutils literal notranslate"><span class="pre">data</span></code>, ქვეტიპი <code class="docutils literal notranslate"><span class="pre">ota</span></code>) უნდა იყოს შეტანილი <a class="reference internal" href="../../api-guides/partition-tables.html"><span class="doc">დაყოფის ცხრილი</span></a>
+ნებისმიერი პროექტისთვის, რომელიც იყენებს OTA ფუნქციებს.</p>
+<p>ქარხნული ჩატვირთვის პარამეტრებისთვის, OTA მონაცემთა დანაყოფი არ უნდა შეიცავდეს მონაცემებს (ყველა ბაიტი წაშლილია 0xFF-მდე). ამ შემთხვევაში, esp-idf პროგრამული უზრუნველყოფა ჩამტვირთავი ჩატვირთავს ქარხნულ აპლიკაციას, თუ ის დანაყოფების ცხრილი შია. თუ დანაყოფების ცხრილი ში არ არის ქარხნული აპლიკაცია, პირველი ხელმისაწვდომი OTA სლოტი (ჩვეულებრივ <code class="docutils literal notranslate"><span class="pre">ota_0</span></code>) ჩაიტვირთება.</p>
+<p>პირველი OTA განახლების შემდეგ, OTA მონაცემთა დანაყოფი განახლდება იმის დასადგენად, თუ რომელი OTA აპლიკაციის სლოტის დანაყოფი უნდა ჩაიტვირთოს შემდეგ.</p>
+<p>OTA მონაცემთა დანაყოფი ორი ფლეშ მეხსიერება სექტორისგან (0x2000 ბაიტი) შედგება, რათა თავიდან იქნას აცილებული პრობლემები ჩაწერის დროს ელექტროენერგიის გათიშვის შემთხვევაში. სექტორები დამოუკიდებლად იშლება და იწერება შესაბამისი მონაცემებით, ხოლო თუ ისინი არ ემთხვევა, გამოიყენება მრიცხველის ველი იმის დასადგენად, თუ რომელი სექტორი ჩაიწერა უფრო გვიან.</p>
+</div>
+<div class="section" id="app-rollback">
+<span id="id2"></span><h2>აპლიკაციის გაუქმება<a class="headerlink" href="ota.html#app-rollback" title="Permalink to this headline">¶</a></h2>
+<p>აპლიკაციის დაბრუნების მთავარი მიზანია მოწყობილობის მუშაობის შენარჩუნება განახლების შემდეგ. ეს ფუნქცია საშუალებას გაძლევთ დაუბრუნდეთ წინა, მოქმედ აპლიკაციას იმ შემთხვევაში, თუ ახალ აპლიკაციას კრიტიკული შეცდომები აქვს. როდესაც დაბრუნების პროცესი ჩართულია და OTA განახლება უზრუნველყოფს აპლიკაციის ახალ ვერსიას, შეიძლება მოხდეს სამი რამიდან ერთ-ერთი:</p>
+<ul class="simple">
+<li>აპლიკაცია კარგად მუშაობს, <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> აღნიშნავს გაშვებულ აპლიკაციას მდგომარეობის მიხედვით <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_VALID</span></code>ამ აპლიკაციის ჩატვირთვაზე შეზღუდვები არ არსებობს.</li>
+<li>აპლიკაციას აქვს კრიტიკული შეცდომები და შემდგომი მუშაობა შეუძლებელია, საჭიროა წინა აპლიკაციაზე დაბრუნება, <a class="reference internal" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="esp_ota_mark_app_invalid_rollback_and_reboot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_invalid_rollback_and_reboot()</span></code></a> აღნიშნავს გაშვებულ აპლიკაციას მდგომარეობის მიხედვით <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_INVALID</span></code> და გადატვირთვა. ეს აპლიკაცია არ იქნება არჩეული ჩამტვირთავი ის მიერ ჩატვირთვისთვის და ჩატვირთავს ადრე მომუშავე აპლიკაციას.</li>
+<li>თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია დაყენებულია და გადატვირთვა ხდება არცერთი ფუნქციის გამოძახების გარეშე, რის შემდეგაც აპლიკაცია უქმდება.</li>
+</ul>
+<p>შენიშვნა: მდგომარეობა არ იწერება აპლიკაციის ბინარულ გამოსახულებაში, რომელშიც ის იწერება. <code class="docutils literal notranslate"><span class="pre">otadata</span></code> დანაყოფი. დანაყოფი შეიცავს <code class="docutils literal notranslate"><span class="pre">ota_seq</span></code> მრიცხველი, რომელიც მიუთითებს იმ სლოტზე (ota_0, ota_1, …), საიდანაც აპლიკაცია შეირჩევა ჩატვირთვისთვის.</p>
+<div class="section" id="app-ota-state">
+<h3>აპლიკაციის OTA მდგომარეობა<a class="headerlink" href="ota.html#app-ota-state" title="Permalink to this headline">¶</a></h3>
+<p>შტატები აკონტროლებენ ჩატვირთვის აპლიკაციის შერჩევის პროცესს:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%"/>
+<col width="66%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">შტატები</th>
+<th class="head">ჩამტვირთავი 4-ში ჩატვირთვის აპლიკაციის არჩევის შეზღუდვა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ESP_OTA_IMG_VALID</td>
+<td>შეზღუდვა არ არის. შეირჩევა.</td>
+</tr>
+<tr class="row-odd"><td>ESP_OTA_IMG_UNDEFINED</td>
+<td>შეზღუდვა არ არის. შეირჩევა.</td>
+</tr>
+<tr class="row-even"><td>ESP_OTA_IMG_INVALID</td>
+<td>არ შეირჩევა.</td>
+</tr>
+<tr class="row-odd"><td>ESP_OTA_IMG_ABORTED</td>
+<td>არ შეირჩევა.</td>
+</tr>
+<tr class="row-even"><td>ESP_OTA_IMG_NEW</td>
+<td>თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია დაყენებულია, ის მხოლოდ ერთხელ აირჩევა. ჩამტვირთავი ში მდგომარეობა მაშინვე იცვლება
+<code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>ESP_OTA_IMG_PENDING_VERIFY</td>
+<td>თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> პარამეტრის დაყენების შემთხვევაში, ის არ აირჩევა და მდგომარეობა შეიცვლება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია არ არის ჩართული (ნაგულისხმევად), მაშინ შემდეგი ფუნქციების გამოყენება <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> და <a class="reference internal" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="esp_ota_mark_app_invalid_rollback_and_reboot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_invalid_rollback_and_reboot()</span></code></a> არჩევითია და <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_NEW</span></code> და <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> შტატები არ გამოიყენება.</p>
+<p>Kconfig-ის ოფცია <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> საშუალებას გაძლევთ თვალყური ადევნოთ ახალი აპლიკაციის პირველ ჩატვირთვას. ამ შემთხვევაში, აპლიკაციამ უნდა დაადასტუროს მისი ფუნქციონირება ზარით <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> ფუნქცია, წინააღმდეგ შემთხვევაში აპლიკაცია გადატვირთვისას უკან დაიხევს. ეს საშუალებას გაძლევთ აკონტროლოთ აპლიკაციის მუშაობა ჩატვირთვის ფაზაში. ამრიგად, ახალ აპლიკაციას მხოლოდ ერთი მცდელობა აქვს წარმატებით ჩატვირთვისთვის.</p>
+</div>
+<div class="section" id="rollback-process">
+<h3>უკან დაბრუნების პროცესი<a class="headerlink" href="ota.html#rollback-process" title="Permalink to this headline">¶</a></h3>
+<p>დაბრუნების პროცესის აღწერა, როდესაც <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ვარიანტი ჩართულია:</p>
+<ul class="simple">
+<li>ახალი აპლიკაცია წარმატებით გადმოწერილია და <a class="reference internal" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="esp_ota_set_boot_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_set_boot_partition()</span></code></a> ფუნქცია ამ დანაყოფს ჩატვირთვადს ხდის და ადგენს მდგომარეობას <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_NEW</span></code>ეს მდგომარეობა ნიშნავს, რომ აპლიკაცია ახალია და მისი პირველი ჩატვირთვისას მონიტორინგი უნდა მოხდეს.</li>
+<li>გადატვირთვა <a class="reference internal" href="system.html#_CPPv411esp_restartv" title="esp_restart"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_restart()</span></code></a>.</li>
+<li>ჩამტვირთავი ამოწმებს <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> თუ ის დაყენებულია, მაშინ ის ჩაიწერება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code>.</li>
+<li>ჩამტვირთავი ირჩევს ახალ აპლიკაციას ჩატვირთვისთვის ისე, რომ მდგომარეობა არ იყოს დაყენებული, როგორც <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_INVALID</span></code> ან <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code>.</li>
+<li>ჩამტვირთავი ამოწმებს შერჩეულ აპლიკაციას <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_NEW</span></code> თუ ის დაყენებულია, მაშინ ის ჩაიწერება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code>ეს მდგომარეობა ნიშნავს, რომ აპლიკაციას სჭირდება მისი მუშაობის დადასტურება, თუ ეს არ მოხდება და გადატვირთვა მოხდება, ეს მდგომარეობა გადაიწერება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code> (იხილეთ ზემოთ) და ეს აპლიკაცია ვეღარ შეძლებს გაშვებას, ანუ მოხდება წინა სამუშაო აპლიკაციაზე დაბრუნება.</li>
+<li>ახალი აპლიკაცია გაიხსნა და თვითტესტირება უნდა ჩაატაროს.</li>
+<li>თუ თვითტესტირება წარმატებით დასრულდა, მაშინ უნდა გამოიძახოთ ფუნქცია <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> რადგან აპლიკაცია ელოდება ოპერატიულობის დადასტურებას (<code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> სახელმწიფო).</li>
+<li>თუ თვითტესტირება ვერ მოხერხდა, დარეკეთ <a class="reference internal" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="esp_ota_mark_app_invalid_rollback_and_reboot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_invalid_rollback_and_reboot()</span></code></a> ფუნქცია წინა სამუშაო აპლიკაციაზე დასაბრუნებლად, როდესაც არასწორი აპლიკაცია დაყენებულია <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_INVALID</span></code> სახელმწიფო.</li>
+<li>თუ განაცხადი არ დადასტურდა, სახელმწიფო რჩება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code>და შემდეგი ჩატვირთვისას ის შეიცვლება <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code>ეს ხელს შეუშლის ამ აპლიკაციის გადატვირთვას. მოხდება წინა, მოქმედ აპლიკაციაზე დაბრუნება.</li>
+</ul>
+</div>
+<div class="section" id="unexpected-reset">
+<h3>მოულოდნელი გადატვირთვა<a class="headerlink" href="ota.html#unexpected-reset" title="Permalink to this headline">¶</a></h3>
+<p>თუ ახალი აპლიკაციის პირველი ჩატვირთვის დროს ელექტროენერგიის გათიშვა ან მოულოდნელი ავარია მოხდება, ის აპლიკაციას დაუბრუნებს სისტემას.</p>
+<p>რეკომენდაცია: რაც შეიძლება სწრაფად შეასრულეთ თვითტესტირების პროცედურა, რათა თავიდან აიცილოთ უკუსვლა ელექტროენერგიის გათიშვის გამო.</p>
+<p>მხოლოდ <code class="docutils literal notranslate"><span class="pre">OTA</span></code> დანაყოფების დაბრუნება შესაძლებელია. ქარხნული დანაყოფი უკან არ იხსნება.</p>
+</div>
+<div class="section" id="booting-invalid-aborted-apps">
+<h3>არასწორი/შეწყვეტილი აპლიკაციების ჩატვირთვა<a class="headerlink" href="ota.html#booting-invalid-aborted-apps" title="Permalink to this headline">¶</a></h3>
+<p>აპლიკაციის ჩატვირთვა, რომელიც ადრე იყო დაყენებული <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_INVALID</span></code> ან <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code> შესაძლებელია:</p>
+<ul class="simple">
+<li>მიიღეთ ბოლო არასწორი აპლიკაციის დანაყოფი <a class="reference internal" href="ota.html#_CPPv434esp_ota_get_last_invalid_partitionv" title="esp_ota_get_last_invalid_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_get_last_invalid_partition()</span></code></a>.</li>
+<li>მიღებული დანაყოფი გადაეცით <a class="reference internal" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="esp_ota_set_boot_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_set_boot_partition()</span></code></a>, ეს განაახლებს <code class="docutils literal notranslate"><span class="pre">otadata</span></code>.</li>
+<li>გადატვირთვა <a class="reference internal" href="system.html#_CPPv411esp_restartv" title="esp_restart"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_restart()</span></code></a>ჩამტვირთავი ჩატვირთავს მითითებულ აპლიკაციას.</li>
+</ul>
+<p>იმის დასადგენად, უნდა ჩატარდეს თუ არა თვითტესტირება აპლიკაციის გაშვების დროს, დარეკეთ <a class="reference internal" href="ota.html#_CPPv427esp_ota_get_state_partitionPK15esp_partition_tP20esp_ota_img_states_t" title="esp_ota_get_state_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_get_state_partition()</span></code></a> ფუნქცია. თუ შედეგი არის <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> შემდეგ საჭიროა თვითტესტირება და შემდგომი ოპერატიულობის დადასტურება.</p>
+</div>
+<div class="section" id="where-the-states-are-set">
+<h3>სად არის შტატები დაყენებული<a class="headerlink" href="ota.html#where-the-states-are-set" title="Permalink to this headline">¶</a></h3>
+<p>შტატების დაყენების ადგილის მოკლე აღწერა:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_VALID</span></code> მდგომარეობა დადგენილია <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> ფუნქცია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_UNDEFINED</span></code> მდგომარეობა დადგენილია <a class="reference internal" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="esp_ota_set_boot_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_set_boot_partition()</span></code></a> ფუნქცია, თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია არ არის ჩართული.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_NEW</span></code> მდგომარეობა დადგენილია <a class="reference internal" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="esp_ota_set_boot_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_set_boot_partition()</span></code></a> ფუნქცია, თუ
+<a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია ჩართულია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_INVALID</span></code> მდგომარეობა დადგენილია  <a class="reference internal" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="esp_ota_mark_app_invalid_rollback_and_reboot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_invalid_rollback_and_reboot()</span></code></a> ფუნქცია.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_ABORTED</span></code> მდგომარეობა დაყენებულია, თუ არ იყო აპლიკაციის ფუნქციონირების დადასტურება და ხდება გადატვირთვა (თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ვარიანტი ჩართულია).</li>
+<li><code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> მდგომარეობა მითითებულია ჩამტვირთავი თუ <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> ოფცია ჩართულია და არჩეულ აპლიკაციას აქვს <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_NEW</span></code> სახელმწიფო.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="anti-rollback">
+<span id="id3"></span><h2>ანტი-rollback<a class="headerlink" href="ota.html#anti-rollback" title="Permalink to this headline">¶</a></h2>
+<p>ანტი-როლფ-ფუნქცია ხელს უშლის ჩიპის eFuse-ში დაპროგრამებულზე დაბალი უსაფრთხოების ვერსიის მქონე აპლიკაციაზე დაბრუნებას.</p>
+<p>ეს ფუნქცია მუშაობს, თუ დაყენებულია <a class="reference internal" href="../kconfig.html#config-bootloader-app-anti-rollback"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK</span></a> ვარიანტი. ჩამტვირთავი ში, ჩატვირთვადი აპლიკაციის არჩევისას, ემატება დამატებითი უსაფრთხოების ვერსიის შემოწმება, რომელიც ჩიპსა და აპლიკაციის გამოსახულებაშია. ჩატვირთვადი პროგრამული უზრუნველყოფა ის ვერსია უნდა იყოს ჩიპში არსებული ვერსიის ტოლი ან მეტი.</p>
+<p><a class="reference internal" href="../kconfig.html#config-bootloader-app-anti-rollback"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK</span></a> და <a class="reference internal" href="../kconfig.html#config-bootloader-app-rollback-enable"><span class="std std-ref">CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE</span></a> პარამეტრები ერთად გამოიყენება. ამ შემთხვევაში, უკან დაბრუნება შესაძლებელია მხოლოდ იმ უსაფრთხოების ვერსიაზე, რომელიც ჩიპში არსებული ვერსიის ტოლი ან უფრო მაღალია.</p>
+<div class="section" id="a-typical-anti-rollback-scheme-is">
+<h3>ტიპური ანტი-როლბექ სქემაა<a class="headerlink" href="ota.html#a-typical-anti-rollback-scheme-is" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>გამოვიდა ახალი პროგრამული უზრუნველყოფა , უსაფრთხოების წინა ვერსიის დაუცველობების აღმოფხვრით.</li>
+<li>მას შემდეგ, რაც დეველოპერი დარწმუნდება, რომ პროგრამული უზრუნველყოფა მუშაობს. მას შეუძლია უსაფრთხოების ვერსიის გაზრდა და ახალი პროგრამული უზრუნველყოფა გამოშვება.</li>
+<li>ჩამოტვირთეთ ახალი აპლიკაცია.</li>
+<li>მისი ჩატვირთვისთვის, გაუშვით ფუნქცია <a class="reference internal" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="esp_ota_set_boot_partition"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_set_boot_partition()</span></code></a>თუ ახალი აპლიკაციის უსაფრთხოების ვერსია ჩიპში არსებულ ვერსიაზე ნაკლებია, ახალი აპლიკაცია წაიშლება. ახალ პროგრამული უზრუნველყოფა ზე განახლება შეუძლებელია.</li>
+<li>გადატვირთვა.</li>
+<li>ჩამტვირთავი ში შეირჩევა აპლიკაცია, რომლის უსაფრთხოების ვერსია ჩიპში არსებულ ვერსიაზე მეტი ან ტოლია. თუ otadata საწყის მდგომარეობაშია და ერთი პროგრამული უზრუნველყოფა ჩაიტვირთა სერიული არხით, რომლის უსაფრთხო ვერსია ჩიპზე მაღალია, მაშინ efuse-ის უსაფრთხო ვერსია დაუყოვნებლივ განახლდება ჩამტვირთავი ში.</li>
+<li>ახალი აპლიკაცია ჩაიტვირთა. შემდეგ აპლიკაციამ უნდა ჩაატაროს ოპერაციის დიაგნოსტიკა და თუ ის წარმატებით დასრულდა, უნდა დარეკოთ <a class="reference internal" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="esp_ota_mark_app_valid_cancel_rollback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_valid_cancel_rollback()</span></code></a> ფუნქცია, რომელიც მონიშნავს გაშვებულ აპლიკაციას ნიშნით <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_VALID</span></code> ჩიპზე უსაფრთხო ვერსიის სტატუსის დადგენა და განახლება. გაითვალისწინეთ, რომ თუ გამოიძახეს <a class="reference internal" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="esp_ota_mark_app_invalid_rollback_and_reboot"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ota_mark_app_invalid_rollback_and_reboot()</span></code></a> ფუნქცია, რომლის დროსაც უკან დაბრუნება შეიძლება არ მოხდეს, რადგან მოწყობილობას შეიძლება არ ჰქონდეს ჩატვირთვის აპლიკაციები, შემდეგ კი ის დაბრუნდება <code class="docutils literal notranslate"><span class="pre">ESP_ERR_OTA_ROLLBACK_FAILED</span></code> შეცდომა და დარჩენა <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_PENDING_VERIFY</span></code> სახელმწიფო.</li>
+<li>აპლიკაციის შემდეგი განახლება შესაძლებელია, თუ გაშვებული აპლიკაცია ჩართულია <code class="docutils literal notranslate"><span class="pre">ESP_OTA_IMG_VALID</span></code> სახელმწიფო.</li>
+</ul>
+<p>რეკომენდაცია:</p>
+<p>თუ გსურთ თავიდან აიცილოთ ჩამოტვირთვის/წაშლის დამატებითი ხარჯები იმ შემთხვევაში, თუ სერვერიდან აპლიკაციას აქვს გაშვებული აპლიკაციის უსაფრთხოების უფრო დაბალი ვერსია, უნდა მიიღოთ <code class="docutils literal notranslate"><span class="pre">new_app_info.secure_version</span></code> სურათის პირველი პაკეტიდან და შეადარეთ ის efuse-ის უსაფრთხო ვერსიას. გამოიყენეთ <code class="docutils literal notranslate"><span class="pre">esp_efuse_check_secure_version(new_app_info.secure_version)</span></code> ფუნქცია, თუ ის მართალია, მაშინ განაგრძეთ ჩამოტვირთვა, წინააღმდეგ შემთხვევაში შეწყვიტეთ.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">....</span>
+<span class="kt">bool</span> <span class="n">image_header_was_checked</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data_read</span> <span class="o">=</span> <span class="n">esp_http_client_read</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">ota_write_data</span><span class="p">,</span> <span class="n">BUFFSIZE</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">data_read</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">image_header_was_checked</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">esp_app_desc_t</span> <span class="n">new_app_info</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">data_read</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">esp_image_header_t</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">esp_image_segment_header_t</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">esp_app_desc_t</span><span class="p">))</span> <span class="p">{</span>
+                <span class="c1">// check current version with downloading</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">esp_efuse_check_secure_version</span><span class="p">(</span><span class="n">new_app_info</span><span class="p">.</span><span class="n">secure_version</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">"This a new app can not be downloaded due to a secure version is lower than stored in efuse."</span><span class="p">);</span>
+                    <span class="n">http_cleanup</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+                    <span class="n">task_fatal_error</span><span class="p">();</span>
+                <span class="p">}</span>
+
+                <span class="n">image_header_was_checked</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+                <span class="n">esp_ota_begin</span><span class="p">(</span><span class="n">update_partition</span><span class="p">,</span> <span class="n">OTA_SIZE_UNKNOWN</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">update_handle</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">esp_ota_write</span><span class="p">(</span> <span class="n">update_handle</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">ota_write_data</span><span class="p">,</span> <span class="n">data_read</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p>შეზღუდვები:</p>
+<ul class="simple">
+<li>ბიტების რაოდენობა -ში <code class="docutils literal notranslate"><span class="pre">secure_version</span></code> ველი შემოიფარგლება 32 ბიტით. ეს ნიშნავს, რომ მხოლოდ 32-ჯერ შეგიძლიათ გამოიყენოთ ანტი-როლბექ. ამ გაყალბების ველის სიგრძის შემცირება შეგიძლიათ. <a class="reference internal" href="../kconfig.html#config-bootloader-app-sec-ver-size-efuse-field"><span class="std std-ref">CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD</span></a> ვარიანტი.</li>
+<li>ანტი-rollback მხოლოდ იმ შემთხვევაში მუშაობს, თუ efuse-ის კოდირების სქემა დაყენებულია <code class="docutils literal notranslate"><span class="pre">NONE</span></code>.</li>
+<li>დანაყოფების ცხრილი არ უნდა ჰქონდეს ქარხნული დანაყოფი, მხოლოდ აპლიკაციის ორი.</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">security_version</span></code>:</p>
+<ul class="simple">
+<li>აპლიკაციის სურათში ის ინახება <code class="docutils literal notranslate"><span class="pre">esp_app_desc</span></code> სტრუქტურა. ნომერი დაყენებულია <a class="reference internal" href="../kconfig.html#config-bootloader-app-secure-version"><span class="std std-ref">CONFIG_BOOTLOADER_APP_SECURE_VERSION</span></a>.</li>
+<li>ESP32-ში ის ინახება efuse-ში. <code class="docutils literal notranslate"><span class="pre">EFUSE_BLK3_RDATA4_REG</span></code>. (როდესაც eFuse ბიტი დაპროგრამებულია 1-ზე, მისი 0-ზე დაბრუნება შეუძლებელია). ამ რეგისტრში დაყენებული ბიტების რაოდენობაა <code class="docutils literal notranslate"><span class="pre">security_version</span></code> აპლიკაციიდან.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="secure-ota-updates-without-secure-boot">
+<span id="secure-ota-updates"></span><h2>უსაფრთხო OTA განახლებები უსაფრთხო ჩატვირთვის გარეშე<a class="headerlink" href="ota.html#secure-ota-updates-without-secure-boot" title="Permalink to this headline">¶</a></h2>
+<p>ხელმოწერილი OTA განახლებების დადასტურება შესაძლებელია აპარატურული უსაფრთხო ჩატვირთვის ჩართვის გარეშეც. ამისათვის იხილეთ <a class="reference internal" href="../../security/secure-boot.html#signed-app-verify"><span class="std std-ref">ხელმოწერილი აპლიკაციის ვერიფიკაცია აპარატურის უსაფრთხო ჩატვირთვის გარეშე</span></a></p>
+</div>
+<div class="section" id="ota-tool-otatool-py">
+<h2>OTA ინსტრუმენტი (otatool.py)<a class="headerlink" href="ota.html#ota-tool-otatool-py" title="Permalink to this headline">¶</a></h2>
+<p>კომპონენტი <cite>app_update</cite> უზრუნველყოფს ინსტრუმენტს <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/app_update/otatool.py">otatool.py</a> სამიზნე მოწყობილობაზე OTA დანაყოფთან დაკავშირებული ოპერაციების შესასრულებლად. ინსტრუმენტის გამოყენებით შესაძლებელია შემდეგი ოპერაციების შესრულება:</p>
+<blockquote>
+<div><ul class="simple">
+<li>otadata დანაყოფის (read_otadata) შინაარსის წაკითხვა</li>
+<li>წაშალეთ otadata დანაყოფი, ეფექტურად აღადგინეთ მოწყობილობის პარამეტრები ქარხნულ პარამეტრებზე (erase_otadata)</li>
+<li>OTA დანაყოფების გადართვა (switch_ota_partition)</li>
+<li>OTA დანაყოფის წაშლა (erase_ota_partition)</li>
+<li>ჩაწერა OTA დანაყოფზე (write_ota_partition)</li>
+<li>OTA დანაყოფის (read_ota_partition) შინაარსის წაკითხვა</li>
+</ul>
+</div></blockquote>
+<p>ინსტრუმენტის იმპორტირება და გამოყენება შესაძლებელია სხვა Python სკრიპტიდან ან შელის სკრიპტიდან გამოძახება იმ მომხმარებლებისთვის, რომელთაც სურთ ოპერაციების პროგრამულად შესრულება. ამას ხელს უწყობს ინსტრუმენტის Python API და ბრძანების ხაზის ინტერფეისი, შესაბამისად.</p>
+<div class="section" id="python-api">
+<h3>Python API<a class="headerlink" href="ota.html#python-api" title="Permalink to this headline">¶</a></h3>
+<p>ყველაფერზე ადრე, დარწმუნდით, რომ <cite>otatool</cite> მოდული იმპორტირებულია.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">idf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"IDF_PATH"</span><span class="p">]</span>  <span class="c1"># get value of IDF_PATH from environment</span>
+<span class="n">otatool_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">idf_path</span><span class="p">,</span> <span class="s2">"components"</span><span class="p">,</span> <span class="s2">"app_update"</span><span class="p">)</span>  <span class="c1"># otatool.py lives in $IDF_PATH/components/app_update</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">otatool_dir</span><span class="p">)</span>  <span class="c1"># this enables Python to find otatool module</span>
+<span class="kn">from</span> <span class="nn">otatool</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># import all names inside otatool module</span>
+</pre></div>
+</div>
+<p>ინსტრუმენტის Python API გამოყენების საწყისი წერტილი არის შექმნა <cite>OtatoolTarget</cite> ობიექტი:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a partool.py target device connected on serial port /dev/ttyUSB1</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">OtatoolTarget</span><span class="p">(</span><span class="s2">"/dev/ttyUSB1"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>შექმნილი ობიექტის გამოყენება ახლა შესაძლებელია სამიზნე მოწყობილობაზე ოპერაციების შესასრულებლად:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Erase otadata, reseting the device to factory app</span>
+<span class="n">target</span><span class="o">.</span><span class="n">erase_otadata</span><span class="p">()</span>
+
+<span class="c1"># Erase contents of OTA app slot 0</span>
+<span class="n">target</span><span class="o">.</span><span class="n">erase_ota_partition</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Switch boot partition to that of app slot 1</span>
+<span class="n">target</span><span class="o">.</span><span class="n">switch_ota_partition</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Read OTA partition 'ota_3' and save contents to a file named 'ota_3.bin'</span>
+<span class="n">target</span><span class="o">.</span><span class="n">read_ota_partition</span><span class="p">(</span><span class="s2">"ota_3"</span><span class="p">,</span> <span class="s2">"ota_3.bin"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OTA დანაყოფი, რომელზეც მუშაობა განხორციელდება, მითითებულია აპლიკაციის სლოტის ნომრის ან დანაყოფის სახელის გამოყენებით.</p>
+<p>Python API შესახებ დამატებითი ინფორმაცია ხელმისაწვდომია ინსტრუმენტის docstrings-ში.</p>
+</div>
+<div class="section" id="command-line-interface">
+<h3>ბრძანების ხაზის ინტერფეისი<a class="headerlink" href="ota.html#command-line-interface" title="Permalink to this headline">¶</a></h3>
+<p>ბრძანების ხაზის ინტერფეისი <cite>otatool.py</cite> აქვს შემდეგი სტრუქტურა:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>otatool.py <span class="o">[</span>command-args<span class="o">]</span> <span class="o">[</span>subcommand<span class="o">]</span> <span class="o">[</span>subcommand-args<span class="o">]</span>
+
+- command-args - these are arguments that are needed <span class="k">for</span> executing the main <span class="nb">command</span> <span class="o">(</span>parttool.py<span class="o">)</span>, mostly pertaining to the target device
+- subcommand - this is the operation to be performed
+- subcommand-args - these are arguments that are specific to the chosen operation
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Erase otadata, resetting the device to factory app</span>
+otatool.py --port <span class="s2">"/dev/ttyUSB1"</span> erase_otadata
+
+<span class="c1"># Erase contents of OTA app slot 0</span>
+otatool.py --port <span class="s2">"/dev/ttyUSB1"</span> erase_ota_partition --slot <span class="m">0</span>
+
+<span class="c1"># Switch boot partition to that of app slot 1</span>
+otatool.py --port <span class="s2">"/dev/ttyUSB1"</span> switch_ota_partition --slot <span class="m">1</span>
+
+<span class="c1"># Read OTA partition 'ota_3' and save contents to a file named 'ota_3.bin'</span>
+otatool.py --port <span class="s2">"/dev/ttyUSB1"</span> read_ota_partition --name<span class="o">=</span>ota_3
+</pre></div>
+</div>
+<p>დამატებითი ინფორმაციის მიღება შესაძლებელია მითითებით <cite>–help</cite> როგორც არგუმენტი:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display possible subcommands and show main command argument descriptions</span>
+otatool.py --help
+
+<span class="c1"># Show descriptions for specific subcommand arguments</span>
+otatool.py <span class="o">[</span>subcommand<span class="o">]</span> --help
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>აგრეთვე იხილეთ<a class="headerlink" href="ota.html#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../api-guides/partition-tables.html"><span class="doc">დანაყოფების ცხრილის დოკუმენტაცია</span></a></li>
+<li><a class="reference internal" href="../storage/spi_flash.html"><span class="doc">ქვედა დონის SPI ფლეშ/გაყოფის API</span></a></li>
+<li><a class="reference internal" href="esp_https_ota.html"><span class="doc">ESP HTTPS OTA</span></a></li>
+</ul>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="ota.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>OTA პროგრამული უზრუნველყოფა განახლების სამუშაო პროცესის სრული მაგალითი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/system/ota">სისტემა/ოტა</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="ota.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="ota.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/app_update/include/esp_ota_ops.h">app_update/include/esp_ota_ops.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="ota.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv427esp_ota_get_app_descriptionv">
+<span id="_CPPv327esp_ota_get_app_descriptionv"></span><span id="_CPPv227esp_ota_get_app_descriptionv"></span><span id="esp_ota_get_app_description__void"></span><span class="target" id="esp__ota__ops_8h_1a2d44e734a782d7995098dbc12c6ab83e"></span><em class="property">კონსტ</em> <a class="reference internal" href="app_image_format.html#_CPPv414esp_app_desc_t" title="esp_app_desc_t">esp_app_desc_t</a> *<code class="descname">esp_ota_get_app_description</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv427esp_ota_get_app_descriptionv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააბრუნეთ esp_app_desc სტრუქტურა. ეს სტრუქტურა მოიცავს აპლიკაციის ვერსიას. </p>
+<p>გაშვებული აპლიკაციის აღწერილობის დაბრუნება. <dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Pointer to esp_app_desc structure. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_ota_get_app_elf_sha256Pc6size_t">
+<span id="_CPPv326esp_ota_get_app_elf_sha256Pc6size_t"></span><span id="_CPPv226esp_ota_get_app_elf_sha256Pc6size_t"></span><span id="esp_ota_get_app_elf_sha256__cP.s"></span><span class="target" id="esp__ota__ops_8h_1a8cc19b8e2a351da7eeaf1e6744f5aa71"></span>int <code class="descname">esp_ota_get_app_elf_sha256</code><span class="sig-paren">(</span>char *<em>თარიღი</em>, size_t <em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv426esp_ota_get_app_elf_sha256Pc6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მოწოდებული ბუფერი შეავსეთ ELF ფაილის SHA256-ით, თექვსმეტობითი ფორმატით, null-ტერმინატორით. თუ ბუფერის ზომა არ არის საკმარისი მთელი SHA256-ის თექვსმეტობით ფორმატში და null ტერმინატორის დასატევად, ჩაიწერება ბაიტების უდიდესი შესაძლო რაოდენობა, რასაც მოჰყვება null. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Number of bytes written to dst (including null terminator) </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">dst</span></code>დანიშნულების ბუფერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>ბუფერის ზომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_ota_beginPK15esp_partition_t6size_tP16esp_ota_handle_t">
+<span id="_CPPv313esp_ota_beginPK15esp_partition_t6size_tP16esp_ota_handle_t"></span><span id="_CPPv213esp_ota_beginPK15esp_partition_t6size_tP16esp_ota_handle_t"></span><span id="esp_ota_begin__esp_partition_tCP.s.esp_ota_handle_tP"></span><span class="target" id="esp__ota__ops_8h_1a9bc45e766f0a06a9aea5c3554451fbfd"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_begin</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<em>დანაყოფი</em>, size_t <em>სურათის ზომა</em>, <a class="reference internal" href="ota.html#_CPPv416esp_ota_handle_t" title="esp_ota_handle_t">esp_ota_handle_t</a> *<em>გაუმკლავებელი</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv413esp_ota_beginPK15esp_partition_t6size_tP16esp_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაიწყეთ OTA განახლების ჩაწერა მითითებულ დანაყოფზე. </p>
+<p>მითითებული დანაყოფი წაიშლება მითითებული გამოსახულების ზომამდე.</p>
+<p>თუ სურათის ზომა ჯერ არ არის ცნობილი, გამოიყენეთ OTA_SIZE_UNKNOWN ბრძანება, რაც გამოიწვევს მთელი დანაყოფის წაშლას.</p>
+<p>წარმატების შემთხვევაში, ეს ფუნქცია გამოყოფს მეხსიერებას, რომელიც გამოყენებაში რჩება მანამ, სანამ esp_ota_end() არ გამოიძახება დაბრუნებული სახელურით.</p>
+<p>შენიშვნა: თუ გაუქმების ოფცია ჩართულია და გაშვებულ აპლიკაციას აქვს ESP_OTA_IMG_PENDING_VERIFY მდგომარეობა, ეს გამოიწვევს ESP_ERR_OTA_ROLLBACK_INVALID_STATE შეცდომას. ახალი აპლიკაციის ჩამოტვირთვის დაწყებამდე დაადასტურეთ გაშვებულ აპლიკაციაში არსებული ინფორმაცია, გამოიყენეთ esp_ota_mark_app_valid_cancel_rollback() ფუნქცია (ეს უნდა გაკეთდეს რაც შეიძლება ადრე, ახალი აპლიკაციის პირველად ჩამოტვირთვისას).</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: OTA ოპერაცია წარმატებით დაიწყო.</li>
+<li>ESP_ERR_INVALID_ARG: დანაყოფის ან out_handle არგუმენტები იყო NULL, ან დანაყოფი არ მიუთითებს OTA აპლიკაციის დანაყოფიზე.</li>
+<li>ESP_ERR_NO_MEM: OTA ოპერაციისთვის მეხსიერების გამოყოფა შეუძლებელია.</li>
+<li>ESP_ERR_OTA_PARTITION_CONFLICT: დანაყოფი შეიცავს ამჟამად გაშვებულ პროგრამული უზრუნველყოფა , მისი განახლება შეუძლებელია.</li>
+<li>ESP_ERR_NOT_FOUND: დანაყოფის არგუმენტი ვერ მოიძებნა დანაყოფების ცხრილი ში.</li>
+<li>ESP_ERR_OTA_SELECT_INFO_INVALID: OTA მონაცემთა დანაყოფი შეიცავს არასწორ მონაცემებს.</li>
+<li>ESP_ERR_INVALID_SIZE: დანაყოფი არ ჯდება კონფიგურირებულ ფლეშ მეხსიერება ზომაში.</li>
+<li>ESP_ERR_FLASH_OP_TIMEOUT ან ESP_ERR_FLASH_OP_FAIL: ფლეშ ჩაწერა ვერ მოხერხდა.</li>
+<li>ESP_ERR_OTA_ROLLBACK_INVALID_STATE: თუ გაშვებულ აპლიკაციას არ აქვს დადასტურებული მდგომარეობა. განახლების შესრულებამდე, აპლიკაცია უნდა იყოს ვალიდური. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition</span></code>: მითითება იმ დანაყოფის ინფორმაციისკენ, რომელიც მიიღებს OTA განახლებას. აუცილებელია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">image_size</span></code>: ახალი OTA აპლიკაციის სურათის ზომა. ამ ზომის სურათის მისაღებად დანაყოფი წაიშლება. თუ 0 ან OTA_SIZE_UNKNOWN, მთელი დანაყოფი წაიშლება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_handle</span></code>წარმატების შემთხვევაში, აბრუნებს სახელურს, რომელიც უნდა იქნას გამოყენებული შემდგომი esp_ota_write() და esp_ota_end() გამოძახებებისთვის.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413esp_ota_write16esp_ota_handle_tPKv6size_t">
+<span id="_CPPv313esp_ota_write16esp_ota_handle_tPKv6size_t"></span><span id="_CPPv213esp_ota_write16esp_ota_handle_tPKv6size_t"></span><span id="esp_ota_write__esp_ota_handle_t.voidCP.s"></span><span class="target" id="esp__ota__ops_8h_1ad0c82589787238cceee85d384ff94963"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_write</code><span class="sig-paren">(</span><a class="reference internal" href="ota.html#_CPPv416esp_ota_handle_t" title="esp_ota_handle_t">esp_ota_handle_t</a> <em>სახელური</em>, <em class="property">კონსტ</em> void *<em>მონაცემები</em>, size_t <em>ზომა</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv413esp_ota_write16esp_ota_handle_tPKv6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>OTA განახლების მონაცემების ჩაწერა დანაყოფში. </p>
+<p>OTA ოპერაციის დროს მონაცემების მიღებისას, ეს ფუნქცია შეიძლება რამდენჯერმე გამოიძახოს. მონაცემები თანმიმდევრულად იწერება დანაყოფში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: მონაცემები წარმატებით ჩაიწერა ფლეშ მეხსიერება ში.</li>
+<li>ESP_ERR_INVALID_ARG: სახელური არასწორია.</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: სურათის პირველი ბაიტი შეიცავს აპლიკაციის სურათის არასწორ მაგიურ ბაიტს.</li>
+<li>ESP_ERR_FLASH_OP_TIMEOUT ან ESP_ERR_FLASH_OP_FAIL: ფლეშ ჩაწერა ვერ მოხერხდა.</li>
+<li>ESP_ERR_OTA_SELECT_INFO_INVALID: OTA მონაცემთა დანაყოფს არასწორი შიგთავსი აქვს </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: esp_ota_begin-დან მიღებული სახელური </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: ჩასაწერი მონაცემთა ბუფერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>მონაცემთა ბუფერის ზომა ბაიტებში.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411esp_ota_end16esp_ota_handle_t">
+<span id="_CPPv311esp_ota_end16esp_ota_handle_t"></span><span id="_CPPv211esp_ota_end16esp_ota_handle_t"></span><span id="esp_ota_end__esp_ota_handle_t"></span><span class="target" id="esp__ota__ops_8h_1a5431fefb9be82295bdf5f10cb94bd3ec"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_end</code><span class="sig-paren">(</span><a class="reference internal" href="ota.html#_CPPv416esp_ota_handle_t" title="esp_ota_handle_t">esp_ota_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv411esp_ota_end16esp_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაასრულეთ OTA განახლება და დაადასტურეთ ახლად დაწერილი აპლიკაციის სურათი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>After calling esp_ota_end(), the handle is no longer valid and any memory associated with it is freed (regardless of result).</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: ახლად დაწერილი OTA აპლიკაციის სურათი სწორია.</li>
+<li>ESP_ERR_NOT_FOUND: OTA სახელური ვერ მოიძებნა.</li>
+<li>ESP_ERR_INVALID_ARG: სახელურში არასდროს ჩაწერილა.</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: OTA სურათი არასწორია (ან არ არის აპლიკაციის სურათი სწორი, ან - თუ უსაფრთხო ჩატვირთვა ჩართულია - ხელმოწერა ვერ დადასტურდა.)</li>
+<li>ESP_ERR_INVALID_STATE: თუ ფლეშ მეხსიერება დაშიფვრა ჩართულია, ეს შედეგი მიუთითებს შიდა შეცდომაზე, რომელიც საბოლოო დაშიფრული ბაიტების ფლეშ მეხსიერება ში ჩაწერას გულისხმობს. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: esp_ota_begin()-დან მიღებული სახელური.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t">
+<span id="_CPPv326esp_ota_set_boot_partitionPK15esp_partition_t"></span><span id="_CPPv226esp_ota_set_boot_partitionPK15esp_partition_t"></span><span id="esp_ota_set_boot_partition__esp_partition_tCP"></span><span class="target" id="esp__ota__ops_8h_1ae3f26950d63f174fa47bbf885c189973"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_set_boot_partition</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<em>დანაყოფი</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv426esp_ota_set_boot_partitionPK15esp_partition_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ახალი ჩატვირთვის დანაყოფისთვის OTA მონაცემების კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If this function returns ESP_OK, calling esp_restart() will boot the newly configured app partition.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: OTA მონაცემები განახლდა, შემდეგი გადატვირთვა გამოიყენებს მითითებულ დანაყოფს.</li>
+<li>ESP_ERR_INVALID_ARG: დანაყოფის არგუმენტი იყო NULL ან არ მიუთითებდა „app“ ტიპის ვალიდურ OTA დანაყოფზე.</li>
+<li>ESP_ERR_OTA_VALIDATE_FAILED: დანაყოფი შეიცავდა აპლიკაციის არასწორ სურათს. ასევე დაბრუნდება, თუ უსაფრთხო ჩატვირთვა ჩართულია და ხელმოწერის ვალიდაცია ვერ მოხერხდა.</li>
+<li>ESP_ERR_NOT_FOUND: OTA მონაცემთა დანაყოფი ვერ მოიძებნა.</li>
+<li>ESP_ERR_FLASH_OP_TIMEOUT ან ESP_ERR_FLASH_OP_FAIL: ფლეშის წაშლა ან ჩაწერა ვერ მოხერხდა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition</span></code>: მითითება ჩასატვირთი აპლიკაციის სურათის შემცველი დანაყოფის ინფორმაციისკენ.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426esp_ota_get_boot_partitionv">
+<span id="_CPPv326esp_ota_get_boot_partitionv"></span><span id="_CPPv226esp_ota_get_boot_partitionv"></span><span id="esp_ota_get_boot_partition__void"></span><span class="target" id="esp__ota__ops_8h_1a3e57c41765c566b104695782c39b123c"></span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<code class="descname">esp_ota_get_boot_partition</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv426esp_ota_get_boot_partitionv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ამჟამად კონფიგურირებული ჩატვირთვის აპლიკაციის დანაყოფის ინფორმაცია. </p>
+<p>თუ esp_ota_set_boot_partition() გამოიძახეს, დაბრუნდება დანაყოფი, რომელიც ამ ფუნქციით იყო დაყენებული.</p>
+<p>თუ esp_ota_set_boot_partition() არ გამოიძახეს, შედეგი, როგორც წესი, იგივეა, რაც esp_ota_get_running_partition(). ორივე შედეგი არ არის ტოლი, თუ კონფიგურირებული ჩატვირთვის დანაყოფი არ შეიცავს ვალიდურ აპლიკაციას (რაც ნიშნავს, რომ გაშვებული დანაყოფი იქნება აპლიკაცია, რომელიც ჩამტვირთავი აირჩია სარეზერვო ასლის მეშვეობით).</p>
+<p>თუ OTA მონაცემთა დანაყოფი არ არის ან არასწორია, მაშინ შედეგი არის დანაყოფების ცხრილი ში ნაპოვნი პირველი აპლიკაციის დანაყოფი. პრიორიტეტულობის მიხედვით, ეს ნიშნავს: ქარხნულ აპლიკაციას, პირველ OTA აპლიკაციის სლოტს ან სატესტო აპლიკაციის დანაყოფი.</p>
+<p>გაითვალისწინეთ, რომ არ არსებობს გარანტია, რომ დაბრუნებული დანაყოფი სწორი აპლიკაციაა. გამოიყენეთ esp_image_verify(ESP_IMAGE_VERIFY, …) იმის გადასამოწმებლად, შეიცავს თუ არა დაბრუნებული დანაყოფი ჩატვირთვად სურათს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Pointer to info for partition structure, or NULL if partition table is invalid or a flash read operation failed. Any returned pointer is valid for the lifetime of the application. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429esp_ota_get_running_partitionv">
+<span id="_CPPv329esp_ota_get_running_partitionv"></span><span id="_CPPv229esp_ota_get_running_partitionv"></span><span id="esp_ota_get_running_partition__void"></span><span class="target" id="esp__ota__ops_8h_1a6c7acddf42c3ae03cf51f79d74145318"></span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<code class="descname">esp_ota_get_running_partition</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv429esp_ota_get_running_partitionv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ამჟამად გაშვებული აპლიკაციის დანაყოფის ინფორმაცია. </p>
+<p>ეს ფუნქცია განსხვავდება esp_ota_get_boot_partition() ფუნქციისგან იმით, რომ ის უგულებელყოფს არჩეული ჩატვირთვის დანაყოფის ნებისმიერ ცვლილებას, რომელიც გამოწვეულია esp_ota_set_boot_partition() ფუნქციის მიერ. დანაყოფის ინფორმაცია დაბრუნდება მხოლოდ იმ აპლიკაციისთვის, რომლის კოდიც ამჟამად მუშაობს.</p>
+<p>ამ ფუნქციით დაბრუნებული დანაყოფი შეიძლება ასევე განსხვავდებოდეს esp_ota_get_boot_partition() ფუნქციისგან, თუ კონფიგურირებული ჩატვირთვის დანაყოფი რატომღაც არასწორია და ჩამტვირთავი ჩატვირთვისას სხვა აპლიკაციის დანაყოფისკენ დაბრუნდა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Pointer to info for partition structure, or NULL if no partition is found or flash read operation failed. Returned pointer is valid for the lifetime of the application. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_ota_get_next_update_partitionPK15esp_partition_t">
+<span id="_CPPv333esp_ota_get_next_update_partitionPK15esp_partition_t"></span><span id="_CPPv233esp_ota_get_next_update_partitionPK15esp_partition_t"></span><span id="esp_ota_get_next_update_partition__esp_partition_tCP"></span><span class="target" id="esp__ota__ops_8h_1a4a618c8388b2a5b47f0998533f8fd493"></span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<code class="descname">esp_ota_get_next_update_partition</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<em>დაწყება_საწყისი</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv433esp_ota_get_next_update_partitionPK15esp_partition_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააბრუნეთ შემდეგი OTA აპლიკაციის დანაყოფი, რომელიც უნდა ჩაიწეროს ახალი პროგრამული უზრუნველყოფა ით. </p>
+<p>გამოიძახეთ ეს ფუნქცია, რათა იპოვოთ OTA აპლიკაციის დანაყოფი, რომლის გადაცემაც შესაძლებელია esp_ota_begin()-ში.</p>
+<p>პოულობს შემდეგ დანაყოფის რაუნდ-რობინს, დაწყებული მიმდინარე გაშვებული დანაყოფიდან.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Pointer to info for partition which should be updated next. NULL result indicates invalid OTA data partition, or that no eligible OTA app slot partition was found. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">start_from</span></code>: თუ დაყენებულია, ამ დანაყოფის ინფორმაცია განიხილება, როგორც მიმდინარე გაშვებული დანაყოფის აღწერა. შეიძლება იყოს NULL, ამ შემთხვევაში esp_ota_get_running_partition() გამოიყენება მიმდინარე გაშვებული დანაყოფის მოსაძებნად. ამ ფუნქციის შედეგი არასდროს არის იგივე, რაც ამ არგუმენტს.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_ota_get_partition_descriptionPK15esp_partition_tP14esp_app_desc_t">
+<span id="_CPPv333esp_ota_get_partition_descriptionPK15esp_partition_tP14esp_app_desc_t"></span><span id="_CPPv233esp_ota_get_partition_descriptionPK15esp_partition_tP14esp_app_desc_t"></span><span id="esp_ota_get_partition_description__esp_partition_tCP.esp_app_desc_tP"></span><span class="target" id="esp__ota__ops_8h_1a5e26b2c60248d30a8792d3379cd0dd2d"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_get_partition_description</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<em>დანაყოფი</em>, <a class="reference internal" href="app_image_format.html#_CPPv414esp_app_desc_t" title="esp_app_desc_t">esp_app_desc_t</a> *<em>აპლიკაციის აღწერა</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv433esp_ota_get_partition_descriptionPK15esp_partition_tP14esp_app_desc_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპლიკაციის დანაყოფისთვის აბრუნებს esp_app_desc სტრუქტურას. ეს სტრუქტურა მოიცავს აპლიკაციის ვერსიას. </p>
+<p>აბრუნებს მოთხოვნილი აპლიკაციის დანაყოფის აღწერას. <dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა.</li>
+<li>ESP_ERR_NOT_FOUND app_desc სტრუქტურა ვერ მოიძებნა. ჯადოსნური სიტყვა არასწორია.</li>
+<li>ESP_ERR_NOT_SUPPORTED დანაყოფი არ არის აპლიკაცია.</li>
+<li>ESP_ERR_INVALID_ARG არგუმენტები არის NULL ან თუ დანაყოფის ოფსეტი აღემატება დანაყოფის ზომას.</li>
+<li>ESP_ERR_INVALID_SIZE წაკითხვა დანაყოფის საზღვრებს გასცდებოდა.</li>
+<li>ან ქვედა დონის ფლეშ მეხსიერება დრაივერის შეცდომის კოდიდან ერთ-ერთი. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition</span></code>: აპლიკაციის დანაყოფის მითითება. (მხოლოდ აპლიკაციის დანაყოფი) </li>
+<li><code class="docutils literal notranslate"><span class="pre">app_desc</span></code>აპლიკაციის შესახებ ინფორმაციის სტრუქტურა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv438esp_ota_mark_app_valid_cancel_rollbackv">
+<span id="_CPPv338esp_ota_mark_app_valid_cancel_rollbackv"></span><span id="_CPPv238esp_ota_mark_app_valid_cancel_rollbackv"></span><span id="esp_ota_mark_app_valid_cancel_rollback__void"></span><span class="target" id="esp__ota__ops_8h_1a26dbc3704d172a86a4bb511c5379f726"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_mark_app_valid_cancel_rollback</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv438esp_ota_mark_app_valid_cancel_rollbackv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს ფუნქცია გამოიძახება იმის საჩვენებლად, რომ გაშვებული აპლიკაცია კარგად მუშაობს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv">
+<span id="_CPPv344esp_ota_mark_app_invalid_rollback_and_rebootv"></span><span id="_CPPv244esp_ota_mark_app_invalid_rollback_and_rebootv"></span><span id="esp_ota_mark_app_invalid_rollback_and_reboot__void"></span><span class="target" id="esp__ota__ops_8h_1a89eff13bd3b96f75e5739420a3853a0b"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_mark_app_invalid_rollback_and_reboot</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv444esp_ota_mark_app_invalid_rollback_and_rebootv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს ფუნქცია გამოიძახება აპლიკაციის წინა ფუნქციონირებაზე დასაბრუნებლად გადატვირთვის შემდეგ. </p>
+<p>თუ გაუქმება წარმატებით განხორციელდება, მოწყობილობა გადაიტვირთება, წინააღმდეგ შემთხვევაში API დააბრუნებს შეცდომის კოდს. ამოწმებს აპლიკაციებს ფლეშ მეხსიერება დისკზე, რომლის ჩატვირთვაც შესაძლებელია გაუქმების შემთხვევაში. თუ ფლეშ მეხსიერება არ აქვს ერთი აპლიკაცია მაინც (გარდა გაშვებული აპლიკაციისა), მაშინ გაუქმება შეუძლებელია. <dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_FAIL: თუ წარუმატებელია.</li>
+<li>ESP_ERR_OTA_ROLLBACK_FAILED: უკან დაბრუნება შეუძლებელია, რადგან ფლეშ მეხსიერება არ აქვს აპლიკაციები. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434esp_ota_get_last_invalid_partitionv">
+<span id="_CPPv334esp_ota_get_last_invalid_partitionv"></span><span id="_CPPv234esp_ota_get_last_invalid_partitionv"></span><span id="esp_ota_get_last_invalid_partition__void"></span><span class="target" id="esp__ota__ops_8h_1ad935b53b5a2a1b57a6348052edffe058"></span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<code class="descname">esp_ota_get_last_invalid_partition</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv434esp_ota_get_last_invalid_partitionv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს ბოლო დანაყოფს არასწორი მდგომარეობით (ESP_OTA_IMG_INVALID ან ESP_OTA_IMG_ABORTED). </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>partition. </dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427esp_ota_get_state_partitionPK15esp_partition_tP20esp_ota_img_states_t">
+<span id="_CPPv327esp_ota_get_state_partitionPK15esp_partition_tP20esp_ota_img_states_t"></span><span id="_CPPv227esp_ota_get_state_partitionPK15esp_partition_tP20esp_ota_img_states_t"></span><span id="esp_ota_get_state_partition__esp_partition_tCP.esp_ota_img_states_tP"></span><span class="target" id="esp__ota__ops_8h_1a7acd9fcddfe727052b8a8f82ae6d6157"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_get_state_partition</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="../storage/spi_flash.html#_CPPv415esp_partition_t" title="esp_partition_t">esp_partition_t</a> *<em>დანაყოფი</em>, esp_ota_img_states_t *<em>ოტა_სტატე</em><span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv427esp_ota_get_state_partitionPK15esp_partition_tP20esp_ota_img_states_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აბრუნებს მოცემული დანაყოფის მდგომარეობას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატებით დასრულდა.</li>
+<li>ESP_ERR_INVALID_ARG: დანაყოფის ან ota_state არგუმენტები იყო NULL.</li>
+<li>ESP_ERR_NOT_SUPPORTED: დანაყოფი არ არის OTA.</li>
+<li>ESP_ERR_NOT_FOUND: დანაყოფის ცხრილს არ აქვს otadata ან მოცემული დანაყოფისთვის მდგომარეობა ვერ მოიძებნა. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">partition</span></code>: დანაყოფის მაჩვენებელი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ota_state</span></code>: დანაყოფის მდგომარეობა (თუ ამ დანაყოფს აქვს ჩანაწერი otadata-ში). </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv437esp_ota_erase_last_boot_app_partitionv">
+<span id="_CPPv337esp_ota_erase_last_boot_app_partitionv"></span><span id="_CPPv237esp_ota_erase_last_boot_app_partitionv"></span><span id="esp_ota_erase_last_boot_app_partition__void"></span><span class="target" id="esp__ota__ops_8h_1a6884e3f6a31e1de34606254a2771f372"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_ota_erase_last_boot_app_partition</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv437esp_ota_erase_last_boot_app_partitionv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაშალეთ წინა ჩატვირთვის აპლიკაციის დანაყოფი და ამ დანაყოფისთვის შესაბამისი otadata select. </p>
+<p>როდესაც მიმდინარე აპლიკაცია მონიშნულია, როგორც ვალიდური, შეგიძლიათ წაშალოთ წინა აპლიკაციის დანაყოფი. <dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატებით დასრულდა, წინააღმდეგ შემთხვევაში ESP_ERR. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434esp_ota_check_rollback_is_possiblev">
+<span id="_CPPv334esp_ota_check_rollback_is_possiblev"></span><span id="_CPPv234esp_ota_check_rollback_is_possiblev"></span><span id="esp_ota_check_rollback_is_possible__void"></span><span class="target" id="esp__ota__ops_8h_1a1c68fbc471a55b4fc8d1b8d8b9ea1d8c"></span>bool <code class="descname">esp_ota_check_rollback_is_possible</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="ota.html#_CPPv434esp_ota_check_rollback_is_possiblev" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამოწმებს აპლიკაციებს იმ სლოტებზე, რომელთა ჩატვირთვა შესაძლებელია უკან დაბრუნების შემთხვევაში. </p>
+<p>ეს აპლიკაციები უნდა იყოს ვალიდური (otadata-ში მონიშნული, როგორც არა განუსაზღვრელი, არასწორად ან გაუქმებული და crc კარგია) და მათი ჩატვირთვა შესაძლებელი უნდა იყოს, ხოლო secure_version of app &amp;gt;= secure_version of efuse (თუ Anti-rollback ჩართულია).</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>True: აბრუნებს true-ს, თუ სლოტებს აქვთ მინიმუმ ერთი აპლიკაცია (გარდა გაშვებული აპლიკაციისა).</li>
+<li>მცდარია: უკან დაბრუნება შეუძლებელია. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="ota.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.OTA_SIZE_UNKNOWN">
+<span class="target" id="esp__ota__ops_8h_1a2b59e5257a669f4d42123b914659b13c"></span><code class="descname">OTA_SIZE_UNKNOWN</code><a class="headerlink" href="ota.html#c.OTA_SIZE_UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd><p>გამოიყენება esp_ota_begin()-ისთვის, თუ ახალი სურათის ზომა უცნობია. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_BASE">
+<span class="target" id="esp__ota__ops_8h_1a82107daeadfd3ec3f89b81a1c05adb3d"></span><code class="descname">ESP_ERR_OTA_BASE</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_BASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>ota_ops api-ს ძირითადი შეცდომის კოდი </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_PARTITION_CONFLICT">
+<span class="target" id="esp__ota__ops_8h_1a41f0ac37858fcd77ce7d016c0d21dba0"></span><code class="descname">ESP_ERR_OTA_PARTITION_CONFLICT</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_PARTITION_CONFLICT" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ მოთხოვნა მიმდინარე გაშვებული დანაყოფის ჩაწერას ან წაშლას ისახავდა მიზნად. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_SELECT_INFO_INVALID">
+<span class="target" id="esp__ota__ops_8h_1ade03c22c871db65a35ea0cb9b12d4bb2"></span><code class="descname">ESP_ERR_OTA_SELECT_INFO_INVALID</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_SELECT_INFO_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ OTA მონაცემთა დანაყოფი შეიცავს არასწორ კონტენტს </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_VALIDATE_FAILED">
+<span class="target" id="esp__ota__ops_8h_1ab1216d6e362b43c5aa6e8a801d4f267a"></span><code class="descname">ESP_ERR_OTA_VALIDATE_FAILED</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_VALIDATE_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ OTA აპლიკაციის სურათი არასწორია </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_SMALL_SEC_VER">
+<span class="target" id="esp__ota__ops_8h_1a9eada9dd4faf9e938a20b87b85a202de"></span><code class="descname">ESP_ERR_OTA_SMALL_SEC_VER</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_SMALL_SEC_VER" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომაა, თუ პროგრამული უზრუნველყოფა აქვს გაშვებულ პროგრამული უზრუნველყოფა ზე ნაკლები უსაფრთხო ვერსია. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_ROLLBACK_FAILED">
+<span class="target" id="esp__ota__ops_8h_1a3f85b64cef55b67234243221d0867a4c"></span><code class="descname">ESP_ERR_OTA_ROLLBACK_FAILED</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_ROLLBACK_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ ფლეშ მეხსიერება პასიურ დანაყოფში არ აქვს ვალიდური პროგრამული უზრუნველყოფა და შესაბამისად, უკან დაბრუნება შეუძლებელია. </p>
+</dd></dl>
+<dl class="macro">
+<dt id="c.ESP_ERR_OTA_ROLLBACK_INVALID_STATE">
+<span class="target" id="esp__ota__ops_8h_1a130be4d89c518e1fbe2edb203e22e6a3"></span><code class="descname">ESP_ERR_OTA_ROLLBACK_INVALID_STATE</code><a class="headerlink" href="ota.html#c.ESP_ERR_OTA_ROLLBACK_INVALID_STATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>შეცდომა, თუ მიმდინარე აქტიური პროგრამული უზრუნველყოფა კვლავ მონიშნულია მოლოდინის მდგომარეობაში (ESP_OTA_IMG_PENDING_VERIFY), არსებითად, პროგრამული უზრუნველყოფა სურათის პირველი ჩატვირთვა განახლების შემდეგ და შესაბამისად, პროგრამული უზრუნველყოფა განახლება შეუძლებელია. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="ota.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416esp_ota_handle_t">
+<span id="_CPPv316esp_ota_handle_t"></span><span id="_CPPv216esp_ota_handle_t"></span><span id="esp_ota_handle_t"></span><span class="target" id="esp__ota__ops_8h_1ab59b49499007fc1d23ff9da4e311f63f"></span><em class="property">typedef </em>uint32_t <code class="descname">esp_ota_handle_t</code><a class="headerlink" href="ota.html#_CPPv416esp_ota_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპლიკაციის OTA განახლების გაუმჭვირვალე სახელური. </p>
+<p>esp_ota_begin() აბრუნებს სახელურს, რომელიც შემდეგ გამოიყენება esp_ota_write() და esp_ota_end() ფუნქციებზე შემდგომი გამოძახებისთვის. </p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="perfmon.html" rel="next" title="Performance Monitor">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="system.html" rel="prev" title="Miscellaneous System APIs"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

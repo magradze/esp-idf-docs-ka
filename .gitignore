@@ -1,0 +1,25 @@
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Sensitive credential files
+# IMPORTANT: Add any other key files you might have here
+esp-idf-translation-api-key.json
+*-key.json
+*credentials*.json
+
+# Generated log, state, and data files
+errors.log
+page_hashes.json
+translation_state.json
+updated_pages.log
+
+# IDE configuration
+.vscode/

@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP სერიული მონა-ბმული — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../provisioning/index.html" rel="next" title="Provisioning API"/>
+<link href="esp_websocket_client.html" rel="prev" title="ESP WebSocket Client"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/protocols/esp_serial_slave_link.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/protocols/esp_serial_slave_link"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/protocols/esp_serial_slave_link.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პროტოკოლები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="asio.html">ASIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mqtt.html">ESP-MQTT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_tls.html">ESP-TLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_client.html">HTTP კლიენტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_http_server.html">HTTP სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_server.html">HTTPS სერვერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="icmp_echo.html">ICMP Echo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_local_ctrl.html">ადგილობრივი კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mdns.html">mDNS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modbus.html">მოდბუსი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_websocket_client.html">Websocket კლიენტი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="esp_serial_slave_link.html#">ESP სერიული მონა ბმული</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#terminology">ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#services-provided-by-esp-slave">ESP მონა-მონაწილის მიერ მოწოდებული სერვისები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#initialization-of-esp-sdio-slave-link">ESP SDIO Slave Link-ის ინიციალიზაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#apis">API სთ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="esp_serial_slave_link.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ip-network-layer">IP ქსელის ფენა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">აპლიკაციის პროტოკოლები</a> »</li>
+<li>ESP სერიული მონა ბმული</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/protocols/esp_serial_slave_link.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-serial-slave-link">
+<h1>ESP სერიული მონა ბმული<a class="headerlink" href="esp_serial_slave_link.html#esp-serial-slave-link" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="esp_serial_slave_link.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>Espressif-ი რამდენიმე ჩიპს გვთავაზობს, რომლებსაც შეუძლიათ „დამნაშავე“ ჩიპებად მუშაობა. ეს დამნაშავე მოწყობილობები რამდენიმე საერთო ავტობუსზეა დამოკიდებული და ამ ავტობუსებზე საკუთარი საკომუნიკაციო პროტოკოლები აქვთ. <cite>esp_serial_slave_link</cite> კომპონენტი შექმნილია იმისთვის, რომ მასტერ-ოპერატორმა დაუკავშირდეს ESP მონა მოწყობილობებს ამ პროტოკოლების მეშვეობით ავტობუსის მძღოლების მეშვეობით.</p>
+<p>შემდეგ <cite>esp_serial_slave_link</cite> მოწყობილობის სწორად ინიციალიზაციის შემდეგ, აპლიკაციას შეუძლია გამოიყენოს იგი ESP მონა მოწყობილობებთან მოსახერხებელი კომუნიკაციისთვის.</p>
+<p>ESP32 SDIO მონა პროტოკოლის შესახებ დამატებითი ინფორმაციისთვის იხილეთ დოკუმენტი. <a class="reference internal" href="../peripherals/esp_slave_protocol.html"><span class="doc">კომუნიკაცია ESP SDIO Slave-თან</span></a>.</p>
+</div>
+<div class="section" id="terminology">
+<h2>ტერმინოლოგია<a class="headerlink" href="esp_serial_slave_link.html#terminology" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">ESSL: ESP სერიული მონა-კავშირის აბრევიატურა, კომპონენტი რომელიც აღწერილია ამ დოკუმენტში.</p>
+</li>
+<li><p class="first">მასტერი: მოწყობილობა, რომელიც მუშაობს <cite>esp_serial_slave_link</cite> კომპონენტი .</p>
+</li>
+<li><p class="first">ESSL მოწყობილობა: ვირტუალური მოწყობილობა მთავარ მოწყობილობაზე, რომელიც დაკავშირებულია ESP დაქვემდებარებულ მოწყობილობასთან. მოწყობილობის კონტექსტი ფლობს ავტობუსზე ზემოთ მდებარე დაქვემდებარებული პროტოკოლის შესახებ ცოდნას და დაქვემდებარებულ მოწყობილობასთან კომუნიკაციისთვის ზოგიერთ ავტობუსის დრაივერს ეყრდნობა.</p>
+</li>
+<li><p class="first">ESSL მოწყობილობის სახელური: ESSL მოწყობილობის კონტექსტის სახელური, რომელიც შეიცავს ESSL კომპონენტი მოთხოვნილ კონფიგურაციას, სტატუსს და მონაცემებს.19 კონტექსტი ინახავს დრაივერის კონფიგურაციებს, კომუნიკაციის მდგომარეობას, მასტერ და მონად მოქმედი მოწყობილობების მიერ გაზიარებულ მონაცემებს და ა.შ.</p>
+<p>კონტექსტი გამოყენებამდე უნდა იყოს ინიციალიზებული, ხოლო თუ აღარ გამოიყენება, უნდა მოხდეს მისი დეინიციალიზაცია. მთავარი აპლიკაცია ESSL მოწყობილობაზე ამ სახელურის მეშვეობით მუშაობს.</p>
+</li>
+<li><p class="first">ESP მონა: მონა მოწყობილობა, რომელიც დაკავშირებულია ავტობუსთან, რომელთანაც ESSL კომპონენტი კომუნიკაციისთვისაა განკუთვნილი.</p>
+</li>
+<li><p class="first">ავტობუსი: ავტობუსი, რომლის მეშვეობითაც ოსტატი და მონა ერთმანეთთან ურთიერთობენ.</p>
+</li>
+<li><p class="first">მონა პროტოკოლი: Espressif HW/SW-ის მიერ ავტობუსის მეშვეობით განსაზღვრული სპეციალური საკომუნიკაციო პროტოკოლი.</p>
+</li>
+<li><p class="first">TX ბუფერის ნომერი: მრიცხველი, რომელიც განთავსებულია მონაზე და მისი წაკითხვა მასტერს შეუძლია, მიუთითებს დაგროვილ ბუფერულ რიცხვებზე, რომლებიც მონამ ჩატვირთა აპარატურაში მასტერისგან მონაცემების მისაღებად.</p>
+</li>
+<li><p class="first">RX მონაცემთა ზომა: მრიცხველი, რომელიც განთავსებულია მონა-მოწყობილობაზე და მისი წაკითხვა მასტერ-მოწყობილობას შეუძლია, მიუთითებს დაგროვილი მონაცემების ზომას, რომელიც მონამ ჩატვირთა აპარატურაში მასტერ-მოწყობილობისთვის გასაგზავნად.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="services-provided-by-esp-slave">
+<h2>ESP მონა-მონაწილის მიერ მოწოდებული სერვისები<a class="headerlink" href="esp_serial_slave_link.html#services-provided-by-esp-slave" title="Permalink to this headline">¶</a></h2>
+<p>Espressif-ის მონების მიერ შემოთავაზებული რამდენიმე საერთო სერვისი არსებობს:</p>
+<ol class="arabic">
+<li><p class="first">Tohost-ის შეფერხებები: მონა სერვერს შეუძლია აცნობოს მასტერს გარკვეული მოვლენების შესახებ შეფერხების ხაზის საშუალებით.</p>
+</li>
+<li><p class="first">Frhost-ის შეწყვეტა: მასტერს შეუძლია მონას აცნობოს გარკვეული მოვლენების შესახებ.</p>
+</li>
+<li><p class="first">Tx FIFO (master-დან slave-მდე): slave-ს შეუძლია მონაცემების ნაკადის სახით გაგზავნა მასტერისთვის. SDIO slave-ს ასევე შეუძლია მიუთითოს, რომ მას აქვს ახალი მონაცემები გასაგზავნი მასტერისთვის შეწყვეტის ხაზით.</p>
+<p>მონა ოპერატორი აახლებს TX ბუფერის ნომერს, რათა აცნობოს მასტერს, თუ რამდენი მონაცემის მიღება შეუძლია, შემდეგ კი მასტერი კითხულობს TX ბუფერის ნომერს და ამოიღებს გამოყენებული ბუფერის ნომერს, რათა გაიგოს, რამდენი ბუფერი დარჩა.</p>
+</li>
+<li><p class="first">Rx FIFO (slave to master): მონას შეუძლია მონაცემების მიღება მასტერისგან მიმღები ბუფერების ერთეულებში.</p>
+<p>მონა პორტი აახლებს RX მონაცემთა ზომას, რათა აცნობოს მასტერს, თუ რამდენი მონაცემი აქვს მომზადებული გასაგზავნად, შემდეგ კი მასტერი კითხულობს მონაცემთა ზომას და ამცირებს უკვე მიღებული მონაცემების სიგრძეს, რათა იცოდეს, რამდენი მონაცემია დარჩენილი.</p>
+</li>
+<li><p class="first">გაზიარებული რეგისტრები: მასტერს შეუძლია წაიკითხოს მონაზე არსებული რეგისტრების გარკვეული ნაწილი და ასევე ჩაწეროს ეს რეგისტრები ისე, რომ მონამ წაიკითხოს.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="initialization-of-esp-sdio-slave-link">
+<h2>ESP SDIO Slave Link-ის ინიციალიზაცია<a class="headerlink" href="esp_serial_slave_link.html#initialization-of-esp-sdio-slave-link" title="Permalink to this headline">¶</a></h2>
+<p>ESP SDIO მონათმფლობელური კავშირის (ESSL SDIO) მოწყობილობები ეყრდნობა sdmmc კომპონენტი . ESSL მოწყობილობის ინიციალიზაცია უნდა მოხდეს ქვემოთ მოცემული მეთოდით:</p>
+<ol class="arabic simple">
+<li>sdmmc ბარათის ინიციალიზაცია (იხილეთ :doc:` SDMMC დრაივერის დოკუმენტი&lt;/api-reference/storage/sdmmc&gt; `) სტრუქტურა.</li>
+<li>ზარი <a class="reference internal" href="../storage/sdmmc.html#_CPPv415sdmmc_card_initPK12sdmmc_host_tP12sdmmc_card_t" title="sdmmc_card_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">sdmmc_card_init()</span></code></a> ბარათის ინიციალიზაციისთვის.</li>
+<li>ESSL მოწყობილობის ინიციალიზაცია შემდეგი მეთოდით: <a class="reference internal" href="esp_serial_slave_link.html#_CPPv418essl_sdio_config_t" title="essl_sdio_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">essl_sdio_config_t</span></code></a>. ის <cite>card</cite> წევრი უნდა იყოს <a class="reference internal" href="../storage/sdmmc.html#_CPPv412sdmmc_card_t" title="sdmmc_card_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">sdmmc_card_t</span></code></a> მე-2 ეტაპზე გადავედი და <cite>recv_buffer_size</cite> წევრი სწორად უნდა შეივსოს წინასწარ შეთანხმებული ღირებულების მიხედვით.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv49essl_init13essl_handle_t8uint32_t" title="essl_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_init()</span></code></a> SDIO ნაწილის ინიციალიზაციისთვის.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv419essl_wait_for_ready13essl_handle_t8uint32_t" title="essl_wait_for_ready"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_wait_for_ready()</span></code></a> რომ მონის მზადყოფნას დალოდებოდნენ.</li>
+</ol>
+</div>
+<div class="section" id="apis">
+<h2>API სთ<a class="headerlink" href="esp_serial_slave_link.html#apis" title="Permalink to this headline">¶</a></h2>
+<p>ზემოთ აღწერილი ინიციალიზაციის პროცესის დასრულების შემდეგ, შეგიძლიათ გამოიძახოთ ქვემოთ მოცემული API , რათა ისარგებლოთ მონა-მომსახურე მოწყობილობის მიერ მოწოდებული სერვისებით:</p>
+<div class="section" id="interrupts">
+<h3>შეწყვეტები<a class="headerlink" href="esp_serial_slave_link.html#interrupts" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv417essl_get_intr_ena13essl_handle_tP8uint32_t8uint32_t" title="essl_get_intr_ena"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_get_intr_ena()</span></code></a> იმის ცოდნა, თუ რომელი მოვლენები გამოიწვევს მთავარ სისტემებში შეფერხებებს.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv417essl_set_intr_ena13essl_handle_t8uint32_t8uint32_t" title="essl_set_intr_ena"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_set_intr_ena()</span></code></a> იმ მოვლენების დასაყენებლად, რომლებიც მთავარ მოწყობილობაში შეწყვეტას გამოიწვევს.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_wait_int13essl_handle_t8uint32_t" title="essl_wait_int"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_wait_int()</span></code></a> დაელოდოთ მონის მიერ შეწყვეტას ან ტაიმაუტს.</li>
+<li>შეფერხების გააქტიურებისას, დარეკეთ <a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_get_intr13essl_handle_tP8uint32_tP8uint32_t8uint32_t" title="essl_get_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_get_intr()</span></code></a> რომ იცოდეთ, რომელი ღონისძიებებია აქტიური და დარეკეთ <a class="reference internal" href="esp_serial_slave_link.html#_CPPv415essl_clear_intr13essl_handle_t8uint32_t8uint32_t" title="essl_clear_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_clear_intr()</span></code></a> მათ გასასუფთავებლად.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv420essl_send_slave_intr13essl_handle_t8uint32_t8uint32_t" title="essl_send_slave_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_send_slave_intr()</span></code></a> მონა-მოთამაშის ზოგადი დანიშნულების შეწყვეტის გასააქტიურებლად.</li>
+</ol>
+</div>
+<div class="section" id="tx-fifo">
+<h3>ტეხასის FIFO<a class="headerlink" href="esp_serial_slave_link.html#tx-fifo" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv422essl_get_tx_buffer_num13essl_handle_tP8uint32_t8uint32_t" title="essl_get_tx_buffer_num"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_get_tx_buffer_num()</span></code></a> იმის გასაგებად, თუ რამდენი ბუფერი აქვს მომზადებული მონას მასტერისგან მონაცემების მისაღებად. ეს არასავალდებულოა. მასტერ გამოკითხვას გამართავს <cite>tx_buffer_num</cite> როდესაც ის ცდილობს პაკეტების გაგზავნას მონისთვის, სანამ მონს არ ექნება საკმარისი ბუფერი ან ტაიმ-აუტი.</li>
+<li>ზარი <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_send_paket()</span></code> მონაცემების მონასთვის გასაგზავნად.</li>
+</ol>
+</div>
+<div class="section" id="rx-fifo">
+<h3>RX FIFO<a class="headerlink" href="esp_serial_slave_link.html#rx-fifo" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv421essl_get_rx_data_size13essl_handle_tP8uint32_t8uint32_t" title="essl_get_rx_data_size"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_get_rx_data_size()</span></code></a> იმის გასაგებად, თუ რამდენი მონაცემი აქვს მომზადებული მონას მთავარ მოწყობილობას გასაგზავნად. ეს არასავალდებულოა. როდესაც მასტერი ცდილობს მონაცემების მიღებას მონადან, ის განაახლებს <cite>rx_data_size</cite> ერთხელ, თუ მიმდინარე <cite>rx_data_size</cite> უფრო მოკლეა, ვიდრე ბუფერის ზომა, რომლის მისაღებადაც მასტერი იყო მომზადებული. და შესაძლოა, გამოკითხვა ჩაატაროს <cite>rx_data_size</cite> თუ <cite>rx_dat_size</cite> ინარჩუნებს 0-ს, ტაიმაუტამდე.</li>
+<li>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv415essl_get_packet13essl_handle_tPv6size_tP6size_t8uint32_t" title="essl_get_packet"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_get_packet()</span></code></a> მონასგან მონაცემების მისაღებად.</li>
+</ol>
+</div>
+<div class="section" id="reset-counters-optional">
+<h3>მრიცხველების გადატვირთვა (არასავალდებულო)<a class="headerlink" href="esp_serial_slave_link.html#reset-counters-optional" title="Permalink to this headline">¶</a></h3>
+<p>ზარი <a class="reference internal" href="esp_serial_slave_link.html#_CPPv414essl_reset_cnt13essl_handle_t" title="essl_reset_cnt"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">essl_reset_cnt()</span></code></a> შიდა მრიცხველის გადასაყენებლად, თუ აღმოაჩენთ, რომ მონამ მრიცხველი გადაატვირთა.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="esp_serial_slave_link.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემული მაგალითი გვიჩვენებს, თუ როგორ ურთიერთობენ ერთმანეთთან ESP32 SDIO ჰოსტი და მონა. ჰოსტი იყენებს ESSL SDIO-ს.</p>
+<p><a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/sdio">პერიფერიული მოწყობილობები/სდიო</a>.</p>
+<p>დეტალებისთვის იხილეთ README.md ფაილის კონკრეტული მაგალითი.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="esp_serial_slave_link.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_serial_slave_link.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_serial_slave_link/include/esp_serial_slave_link/essl.h">esp_serial_slave_link/include/esp_serial_slave_link/essl.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="esp_serial_slave_link.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv49essl_init13essl_handle_t8uint32_t">
+<span id="_CPPv39essl_init13essl_handle_t8uint32_t"></span><span id="_CPPv29essl_init13essl_handle_t8uint32_t"></span><span id="essl_init__essl_handle_t.uint32_t"></span><span class="target" id="essl_8h_1a610a5ec3efcefa616436524518ff95bb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_init</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv49essl_init13essl_handle_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონა-მონაწილის ინიციალიზაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>ESP_OK if success, or other value returned from lower layer <code class="docutils literal notranslate"><span class="pre">init</span></code>. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419essl_wait_for_ready13essl_handle_t8uint32_t">
+<span id="_CPPv319essl_wait_for_ready13essl_handle_t8uint32_t"></span><span id="_CPPv219essl_wait_for_ready13essl_handle_t8uint32_t"></span><span id="essl_wait_for_ready__essl_handle_t.uint32_t"></span><span class="target" id="essl_8h_1ab4ca52e11e74bae1b28486f2007b98d8"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_wait_for_ready</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv419essl_wait_for_ready13essl_handle_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ ESP32 მონა მოწყობილობის შეწყვეტას.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422essl_get_tx_buffer_num13essl_handle_tP8uint32_t8uint32_t">
+<span id="_CPPv322essl_get_tx_buffer_num13essl_handle_tP8uint32_t8uint32_t"></span><span id="_CPPv222essl_get_tx_buffer_num13essl_handle_tP8uint32_t8uint32_t"></span><span id="essl_get_tx_buffer_num__essl_handle_t.uint32_tP.uint32_t"></span><span class="target" id="essl_8h_1a33a7422d257902be015b73d52fbbebcd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_get_tx_buffer_num</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t *<em>გამომავალი_ტქსების_რიცხვი</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv422essl_get_tx_buffer_num13essl_handle_tP8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ბუფერის ნომერი ჰოსტისთვის მონაცემების სლეისთვის გასაგზავნად. ბუფერების ზომაა <code class="docutils literal notranslate"><span class="pre">buffer_size</span></code>.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_tx_num</span></code>ბუფერის ნომრის გამომავალი, რომლითაც ჰოსტს შეუძლია მონაცემების გაგზავნა ESP32 მონისთვის. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421essl_get_rx_data_size13essl_handle_tP8uint32_t8uint32_t">
+<span id="_CPPv321essl_get_rx_data_size13essl_handle_tP8uint32_t8uint32_t"></span><span id="_CPPv221essl_get_rx_data_size13essl_handle_tP8uint32_t8uint32_t"></span><span id="essl_get_rx_data_size__essl_handle_t.uint32_tP.uint32_t"></span><span class="target" id="essl_8h_1addeebbd3ebf32acac562544c26b408fc"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_get_rx_data_size</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t *<em>ზომა_გადაცილებულია</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv421essl_get_rx_data_size13essl_handle_tP8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ მონაცემების რაოდენობა, რომლის გაგზავნასაც ESP32 მონა ჰოსტისთვის ემზადება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_rx_size</span></code>: მონა-მოთამაშიდან წასაკითხი მონაცემთა ზომის გამომავალი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414essl_reset_cnt13essl_handle_t">
+<span id="_CPPv314essl_reset_cnt13essl_handle_t"></span><span id="_CPPv214essl_reset_cnt13essl_handle_t"></span><span id="essl_reset_cnt__essl_handle_t"></span><span class="target" id="essl_8h_1ac9ccc21f14f25ef391996b70e397b148"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_reset_cnt</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv414essl_reset_cnt13essl_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ამ კომპონენტი მრიცხველების გადატვირთვა19. როგორც წესი, ამის გაკეთება არ გჭირდებათ, თუ არ იცით, რომ მონა გადატვირთულია.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416essl_send_packet13essl_handle_tPKv6size_t8uint32_t">
+<span id="_CPPv316essl_send_packet13essl_handle_tPKv6size_t8uint32_t"></span><span id="_CPPv216essl_send_packet13essl_handle_tPKv6size_t8uint32_t"></span><span id="essl_send_packet__essl_handle_t.voidCP.s.uint32_t"></span><span class="target" id="essl_8h_1a996ff5fcdc1e703bb9ef44ad4b6fa629"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_send_packet</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, <em class="property">კონსტ</em> void *<em>დაწყება</em>, size_t <em>სიგრძე</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv416essl_send_packet13essl_handle_tPKv6size_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პაკეტის გაგზავნა ESP32 მონასთან. მონა იღებს პაკეტს ბუფერებში, რომელთა ზომაა <code class="docutils literal notranslate"><span class="pre">buffer_size</span></code> (კონფიგურირებულია ინიციალიზაციის დროს).</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_TIMEOUT გამოსაყენებელი ბუფერი არ არის, ან შეცდომაა ftrom SDMMC მასპინძელი კონტროლერისთვის.</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">start</span></code>გასაგზავნი პაკეტის საწყისი მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">length</span></code>გასაგზავნი მონაცემების სიგრძე, თუ პაკეტი დიდია, ის დაიყოფა ბლოკებად და ავტომატურად შეინახება სხვადასხვა ბუფერში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415essl_get_packet13essl_handle_tPv6size_tP6size_t8uint32_t">
+<span id="_CPPv315essl_get_packet13essl_handle_tPv6size_tP6size_t8uint32_t"></span><span id="_CPPv215essl_get_packet13essl_handle_tPv6size_tP6size_t8uint32_t"></span><span id="essl_get_packet__essl_handle_t.voidP.s.sP.uint32_t"></span><span class="target" id="essl_8h_1aaf5186ec71f7960f600f4d19744b041a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_get_packet</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, void *<em>გამომავალი_მონაცემები</em>, size_t <em>ზომა</em>, size_t *<em>სიგრძე_გადაცილება</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv415essl_get_packet13essl_handle_tPv6size_tP6size_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ პაკეტი ESP32 მონიდან.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატებით დასრულდა, ყველა მონაცემი წაიკითხავს მონიდან.</li>
+<li>ESP_ERR_NOT_FINISHED წაკითხვა წარმატებით დასრულდა, დარჩენილია მონაცემები.</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_data</span></code>მონაცემთა გამომავალი მისამართი </li>
+<li><code class="docutils literal notranslate"><span class="pre">size</span></code>გამომავალი ბუფერის ზომა, თუ ბუფერი უფრო მცირეა, ვიდრე მონა-მოთამაშიდან მისაღები მონაცემების ზომა, დრაივერი აბრუნებს <code class="docutils literal notranslate"><span class="pre">ESP_ERR_NOT_FINISHED</span></code> </li>
+<li><code class="docutils literal notranslate"><span class="pre">out_length</span></code>: მონადან რეალურად მიღებული მონაცემების სიგრძის გამომავალი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv414essl_write_reg13essl_handle_t7uint8_t7uint8_tP7uint8_t8uint32_t">
+<span id="_CPPv314essl_write_reg13essl_handle_t7uint8_t7uint8_tP7uint8_t8uint32_t"></span><span id="_CPPv214essl_write_reg13essl_handle_t7uint8_t7uint8_tP7uint8_t8uint32_t"></span><span id="essl_write_reg__essl_handle_t.uint8_t.uint8_t.uint8_tP.uint32_t"></span><span class="target" id="essl_8h_1a5f9fdc6e4d587a806bce00a84e4f7e25"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_write_reg</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint8_t <em>მისამართი</em>, uint8_t <em>ღირებულება</em>, uint8_t *<em>value_o</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv414essl_write_reg13essl_handle_t7uint8_t7uint8_tP7uint8_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32 მონათესავე მოწყობილობის ზოგადი დანიშნულების R/W რეგისტრების (8-ბიტიანი) ჩაწერა.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>sdio 28-31 are reserved, the lower API helps to skip.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG მისამართი არასწორია.</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>: ჩასაწერი რეგისტრის მისამართი. მოქმედი მისამართი: 0-59. </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: რეესტრში ჩასაწერი მნიშვნელობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">value_o</span></code>: დაბრუნებული ჩაწერილი მნიშვნელობის გამომავალი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413essl_read_reg13essl_handle_t7uint8_tP7uint8_t8uint32_t">
+<span id="_CPPv313essl_read_reg13essl_handle_t7uint8_tP7uint8_t8uint32_t"></span><span id="_CPPv213essl_read_reg13essl_handle_t7uint8_tP7uint8_t8uint32_t"></span><span id="essl_read_reg__essl_handle_t.uint8_t.uint8_tP.uint32_t"></span><span class="target" id="essl_8h_1a6d7c71788b295c7ace744e91f6b02f03"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_read_reg</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint8_t <em>დამატება</em>, uint8_t *<em>value_o</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv413essl_read_reg13essl_handle_t7uint8_tP7uint8_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32 მონა-მონაწილე სისტემის ზოგადი დანიშნულების R/W რეგისტრების (8-ბიტიანი) წაკითხვა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG მისამართი არასწორია.</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">add</span></code>წასაკითხი რეგისტრის მისამართი. ვალიდური მისამართი: 0-27, 32-63 (28-31 დაჯავშნილია, წაკითხვისას შეწყვეტის ბიტები დაბრუნდება). </li>
+<li><code class="docutils literal notranslate"><span class="pre">value_o</span></code>: რეგისტრიდან წაკითხული გამომავალი მნიშვნელობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413essl_wait_int13essl_handle_t8uint32_t">
+<span id="_CPPv313essl_wait_int13essl_handle_t8uint32_t"></span><span id="_CPPv213essl_wait_int13essl_handle_t8uint32_t"></span><span id="essl_wait_int__essl_handle_t.uint32_t"></span><span class="target" id="essl_8h_1a433045a94649f2333921391041d14c8f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_wait_int</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv413essl_wait_int13essl_handle_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაელოდეთ მონას შეწყვეტას</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_ERR_NOT_SUPPORTED ამჟამად ჩვენი დრაივერი არ უჭერს მხარს SDIO-ს SPI ინტერფეისით.</li>
+<li>ESP_OK თუ შეფერხება გააქტიურებულია.</li>
+<li>ESP_ERR_TIMEOUT ტაიმაუტამდე შეფერხებები არ არის. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415essl_clear_intr13essl_handle_t8uint32_t8uint32_t">
+<span id="_CPPv315essl_clear_intr13essl_handle_t8uint32_t8uint32_t"></span><span id="_CPPv215essl_clear_intr13essl_handle_t8uint32_t8uint32_t"></span><span id="essl_clear_intr__essl_handle_t.uint32_t.uint32_t"></span><span class="target" id="essl_8h_1af94bc0899ae981eda663bf3cb2031141"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_clear_intr</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>ინტრ_ნიღაბი</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv415essl_clear_intr13essl_handle_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32 მონა-მონაწილის შეწყვეტის ბიტების გასუფთავება. ნიღაბში დაყენებული ყველა ბიტი გაიწმინდება, დანარჩენი ბიტები კი უცვლელი დარჩება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_mask</span></code>გასასუფთავებელი შეფერხების ბიტების ნიღაბი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv413essl_get_intr13essl_handle_tP8uint32_tP8uint32_t8uint32_t">
+<span id="_CPPv313essl_get_intr13essl_handle_tP8uint32_tP8uint32_t8uint32_t"></span><span id="_CPPv213essl_get_intr13essl_handle_tP8uint32_tP8uint32_t8uint32_t"></span><span id="essl_get_intr__essl_handle_t.uint32_tP.uint32_tP.uint32_t"></span><span class="target" id="essl_8h_1a3e5aa656463a4faa2e6ec32bd52c44e3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_get_intr</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t *<em>intr_raw</em>, uint32_t *<em>ინტრ_სტ</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv413essl_get_intr13essl_handle_tP8uint32_tP8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ESP32 მონა-მონაწილის შეწყვეტის ბიტები.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_INVALID_ARG თუ ორივე <code class="docutils literal notranslate"><span class="pre">intr_raw</span></code> და <code class="docutils literal notranslate"><span class="pre">intr_st</span></code> არიან NULL.</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_raw</span></code>: ნედლი შეწყვეტის ბიტების გამომავალი. დაყენებულია NULL-ზე, თუ მხოლოდ ნიღბიანი ბიტები იკითხება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_st</span></code>ნიღბიანი შეწყვეტის ბიტების გამომავალი. დაყენებულია NULL-ზე, თუ მხოლოდ ნედლი ბიტები იკითხება. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417essl_set_intr_ena13essl_handle_t8uint32_t8uint32_t">
+<span id="_CPPv317essl_set_intr_ena13essl_handle_t8uint32_t8uint32_t"></span><span id="_CPPv217essl_set_intr_ena13essl_handle_t8uint32_t8uint32_t"></span><span id="essl_set_intr_ena__essl_handle_t.uint32_t.uint32_t"></span><span class="target" id="essl_8h_1acf5af0026d816f13636a6a8271fb89e9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_set_intr_ena</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>ენა_ნიღაბი</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv417essl_set_intr_ena13essl_handle_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESP32 მონა-მონაწილის შეწყვეტის ჩართვის ბიტების დაყენება. მონა-მონაწილე მხოლოდ მაშინ აგზავნის შეწყვეტას ხაზზე, როდესაც დაყენებულია როგორც ნედლი სტატუსი, ასევე ჩართვის ბიტი.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ena_mask</span></code>ჩასართავი შეწყვეტის ბიტების ნიღაბი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417essl_get_intr_ena13essl_handle_tP8uint32_t8uint32_t">
+<span id="_CPPv317essl_get_intr_ena13essl_handle_tP8uint32_t8uint32_t"></span><span id="_CPPv217essl_get_intr_ena13essl_handle_tP8uint32_t8uint32_t"></span><span id="essl_get_intr_ena__essl_handle_t.uint32_tP.uint32_t"></span><span class="target" id="essl_8h_1a150aadff74bd1d7e9f3ec724f17bdf51"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_get_intr_ena</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t *<em>ენა_მასკი_ო</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv417essl_get_intr_ena13essl_handle_tP8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ESP32 მონა-მონაწილის შეწყვეტის ჩართვის ბიტები.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">ena_mask_o</span></code>შეწყვეტის ბიტის ჩართვის ნიღბის გამომავალი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420essl_send_slave_intr13essl_handle_t8uint32_t8uint32_t">
+<span id="_CPPv320essl_send_slave_intr13essl_handle_t8uint32_t8uint32_t"></span><span id="_CPPv220essl_send_slave_intr13essl_handle_t8uint32_t8uint32_t"></span><span id="essl_send_slave_intr__essl_handle_t.uint32_t.uint32_t"></span><span class="target" id="essl_8h_1a6dd26a3ccf0cd270b8c73178a40e540e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_send_slave_intr</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em>, uint32_t <em>ინტრ_ნიღაბი</em>, uint32_t <em>wait_ms</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv420essl_send_slave_intr13essl_handle_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეწყვეტების გაგზავნა slave-ზე. შეწყვეტის თითოეული ბიტი გააქტიურდება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>SDMMC მასპინძელი კონტროლერის ერთ-ერთი შეცდომის კოდი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: სახელური <code class="docutils literal notranslate"><span class="pre">essl</span></code> მოწყობილობა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_mask</span></code>: მონაზე გასაგზავნი შეწყვეტის ბიტების ნიღაბი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">wait_ms</span></code>: ტაიმაუტამდე ლოდინი მილიწამით ადრე, საერთოდ არ დაელოდება, თუ მნიშვნელობა 0-9-ზეა დაყენებული.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="esp_serial_slave_link.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.ESP_ERR_NOT_FINISHED">
+<span class="target" id="essl_8h_1a91d0e6ee4ccc7a2bc08cc9530a0cf896"></span><code class="descname">ESP_ERR_NOT_FINISHED</code><a class="headerlink" href="esp_serial_slave_link.html#c.ESP_ERR_NOT_FINISHED" title="Permalink to this definition">¶</a></dt>
+<dd><p>ჯერ კიდევ არის დარჩენილი მონაცემები. </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="esp_serial_slave_link.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv413essl_handle_t">
+<span id="_CPPv313essl_handle_t"></span><span id="_CPPv213essl_handle_t"></span><span id="essl_handle_t"></span><span class="target" id="essl_8h_1a45a5348a2c36bddc89a6097235b5e2d4"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> essl_dev_t *<code class="descname">essl_handle_t</code><a class="headerlink" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESSL მოწყობილობის სახელური. </p>
+</dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="esp_serial_slave_link.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_serial_slave_link/include/esp_serial_slave_link/essl_sdio.h">esp_serial_slave_link/include/esp_serial_slave_link/essl_sdio.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="esp_serial_slave_link.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv418essl_sdio_init_devP13essl_handle_tPK18essl_sdio_config_t">
+<span id="_CPPv318essl_sdio_init_devP13essl_handle_tPK18essl_sdio_config_t"></span><span id="_CPPv218essl_sdio_init_devP13essl_handle_tPK18essl_sdio_config_t"></span><span id="essl_sdio_init_dev__essl_handle_tP.essl_sdio_config_tCP"></span><span class="target" id="essl__sdio_8h_1a853cbaad6f230a6babe61a67544213c9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_sdio_init_dev</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> *<em>გაუმკლავებელი</em>, <em class="property">კონსტ</em> <a class="reference internal" href="esp_serial_slave_link.html#_CPPv418essl_sdio_config_t" title="essl_sdio_config_t">essl_sdio_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv418essl_sdio_init_devP13essl_handle_tPK18essl_sdio_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESSL SDIO მოწყობილობის ინიციალიზაცია და მისი სახელურის მიღება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_ERR_NO_MEM: მეხსიერება ამოწურულია. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">out_handle</span></code>: სახელურის გამომავალი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>ESSL SDIO მოწყობილობის კონფიგურაცია. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420essl_sdio_deinit_dev13essl_handle_t">
+<span id="_CPPv320essl_sdio_deinit_dev13essl_handle_t"></span><span id="_CPPv220essl_sdio_deinit_dev13essl_handle_t"></span><span id="essl_sdio_deinit_dev__essl_handle_t"></span><span class="target" id="essl__sdio_8h_1aa5c3a09fd82866258d973fabf3f4252c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">essl_sdio_deinit_dev</code><span class="sig-paren">(</span><a class="reference internal" href="esp_serial_slave_link.html#_CPPv413essl_handle_t" title="essl_handle_t">essl_handle_t</a> <em>სახელური</em><span class="sig-paren">)</span><a class="headerlink" href="esp_serial_slave_link.html#_CPPv420essl_sdio_deinit_dev13essl_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ESSL SDIO მოწყობილობის მიერ გამოყენებული სივრცის დეინიციალიზაცია და გათავისუფლება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG: არასწორი სახელური გადაეცა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: ESSL SDIO მოწყობილობის დეინიცირების სახელური. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="esp_serial_slave_link.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418essl_sdio_config_t">
+<span id="_CPPv318essl_sdio_config_t"></span><span id="_CPPv218essl_sdio_config_t"></span><span id="essl_sdio_config_t"></span><span class="target" id="structessl__sdio__config__t"></span><em class="property">სტრუქტურა </em><code class="descname">essl_sdio_config_t</code><a class="headerlink" href="esp_serial_slave_link.html#_CPPv418essl_sdio_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>essl SDIO მოწყობილობის კონფიგურაცია. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N18essl_sdio_config_t4cardE">
+<span id="_CPPv3N18essl_sdio_config_t4cardE"></span><span id="_CPPv2N18essl_sdio_config_t4cardE"></span><span id="essl_sdio_config_t::card__sdmmc_card_tP"></span><span class="target" id="structessl__sdio__config__t_1aeac32fdcaa6afcfe544783de01afe282"></span><a class="reference internal" href="../storage/sdmmc.html#_CPPv412sdmmc_card_t" title="sdmmc_card_t">sdmmc_card_t</a> *<code class="descname">card</code><a class="headerlink" href="esp_serial_slave_link.html#_CPPv4N18essl_sdio_config_t4cardE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მონა მოწყობილობის ინიციალიზებული sdmmc ბარათის მაჩვენებელი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N18essl_sdio_config_t16recv_buffer_sizeE">
+<span id="_CPPv3N18essl_sdio_config_t16recv_buffer_sizeE"></span><span id="_CPPv2N18essl_sdio_config_t16recv_buffer_sizeE"></span><span id="essl_sdio_config_t::recv_buffer_size__i"></span><span class="target" id="structessl__sdio__config__t_1a23182c72eb79bcc2b539757c1aaeb0d1"></span>int <code class="descname">recv_buffer_size</code><a class="headerlink" href="esp_serial_slave_link.html#_CPPv4N18essl_sdio_config_t16recv_buffer_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წინასწარ შეთანხმებული recv ბუფერის ზომა, რომელსაც იყენებენ როგორც მასპინძელი, ასევე მონა სერვერი. </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../provisioning/index.html" rel="next" title="Provisioning API">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="esp_websocket_client.html" rel="prev" title="ESP WebSocket Client"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

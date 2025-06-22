@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WROVER JTAG ინტერფეისის კონფიგურაცია — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="configure-other-jtag.html" rel="next" title="Configure Other JTAG Interface"/>
+<link href="index.html" rel="prev" title="JTAG Debugging"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/jtag-debugging/configure-wrover.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/jtag-debugging/configure-wrover"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/jtag-debugging/configure-wrover.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../esp-ble-mesh/ble-mesh-index.html">ESP-BLE-MESH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">JTAG-ის გამართვა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#introduction">შესავალი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#how-it-works">როგორ მუშაობს?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#selecting-jtag-adapter">JTAG ადაპტერის შერჩევა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#setup-of-openocd">OpenOCD-ის დაყენება</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#configuring-esp32-target">ESP32 Target-ის კონფიგურაცია</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html#configure-and-connect-jtag-interface">JTAG ინტერფეისის კონფიგურაცია და დაკავშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#run-openocd">OpenOCD-ის გაშვება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#upload-application-for-debugging">ატვირთეთ განაცხადი გამართვა კურსისთვის</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#launching-debugger">დებაგერის გაშვება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-examples">გამართვის მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#building-openocd-from-sources">OpenOCD-ის შექმნა წყაროებიდან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tips-and-quirks">რჩევები და უცნაურობები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="index.html">JTAG-ის გამართვა</a> »</li>
+<li>WROVER JTAG ინტერფეისის კონფიგურაცია</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/jtag-debugging/configure-wrover.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="configure-wrover-jtag-interface">
+<h1>WROVER JTAG ინტერფეისის კონფიგურაცია<a class="headerlink" href="configure-wrover.html#configure-wrover-jtag-interface" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-guides/jtag-debugging/configure-wrover.html">[中文]</a></p>
+<p>ESP-WROVER-KIT დაფების ყველა ვერსიას აქვს ჩაშენებული JTAG ფუნქციონალობა. მისი მუშაობისთვის საჭიროა JTAG ფუნქციონალობის ჩასართავად ჯუმპერების დაყენება, SPI ფლეშ მეხსიერება ძაბვის დაყენება და USB დრაივერების კონფიგურაცია. გთხოვთ, იხილოთ ქვემოთ მოცემული ეტაპობრივი ინსტრუქციები.</p>
+<div class="section" id="configure-hardware">
+<h2>აპარატურის კონფიგურაცია<a class="headerlink" href="configure-wrover.html#configure-hardware" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">ჩართეთ ჩაშენებული JTAG ფუნქციონალობა JP8-ის დაყენებით შესაბამისად <a class="reference internal" href="../../hw-reference/get-started-wrover-kit.html"><span class="doc">ESP-WROVER-KIT V4.1 დაწყების სახელმძღვანელო</span></a>, სექცია <a class="reference internal" href="../../hw-reference/get-started-wrover-kit.html#get-started-esp-wrover-kit-v4-1-setup-options"><span class="std std-ref">დაყენების პარამეტრები</span></a>.</p>
+</li>
+<li><p class="first">გადაამოწმეთ, JTAG კომუნიკაციისთვის გამოყენებული ESP32 პინები ხომ არ არის დაკავშირებული სხვა რაიმე კომპიუტერულ მოწყობილობასთან, რამაც შეიძლება ხელი შეუშალოს JTAG-ის მუშაობას:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%"/>
+<col width="48%"/>
+<col width="42%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"> </th>
+<th class="head">ESP32 პინი</th>
+<th class="head">JTAG სიგნალი</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>CHIP_PU</td>
+<td>TRST_N</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>MTDO / GPIO 15 ტერმინალი</td>
+<td>დაგეგმვა</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>MTDI / GPIO 12</td>
+<td>TDI</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>MTCK / GPIO 13</td>
+<td>TCK</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>MTMS / GPIO 14</td>
+<td>TMS</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+<div class="section" id="configure-usb-drivers">
+<h2>USB დრაივერების კონფიგურაცია<a class="headerlink" href="configure-wrover.html#configure-usb-drivers" title="Permalink to this headline">¶</a></h2>
+<p>დააინსტალირეთ და დააკონფიგურირეთ USB დრაივერები, რათა OpenOCD-მა შეძლოს კომუნიკაცია ESP-WROVER-KIT დაფაზე არსებულ JTAG ინტერფეისთან, ასევე ფლეშ მეხსიერება ისთვის ატვირთვა აპლიკაციისთვის გამოყენებულ UART ინტერფეისთან. მიჰყევით ქვემოთ მოცემულ ნაბიჯებს, რომლებიც სპეციფიკურია თქვენი ოპერაციული სისტემისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-WROVER-KIT იყენებს FT2232 ადაპტერს. შემდეგი ინსტრუქციების გამოყენება ასევე შესაძლებელია FT2232-ზე დაფუძნებული სხვა JTAG ადაპტერებისთვის.</p>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="configure-wrover.html#windows" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">სტანდარტული USB A / micro USB B კაბელის გამოყენებით, შეაერთეთ ESP-WROVER-KIT კომპიუტერთან. ჩართეთ WROVER KIT.</p>
+</li>
+<li><p class="first">დაელოდეთ სანამ Windows ამოიცნობს WROVER KIT-ის USB პორტებს და დისკებს დააინსტალირებს. თუ ისინი ავტომატურად არ დაინსტალირდება, მაშინ გადმოწერეთ ისინი <a class="reference external" href="http://www.ftdichip.com/Drivers/D2XX.htm">http://www.ftdichip.com/Drivers/D2XX.htm</a> და ხელით დააინსტალირეთ.</p>
+</li>
+<li><p class="first">ჩამოტვირთეთ Zadig ინსტრუმენტი (Zadig_X.X.exe) ბმულიდან <a class="reference external" href="http://zadig.akeo.ie/">http://zadig.akeo.ie/</a> და გაუშვით.</p>
+</li>
+<li><p class="first">Zadig ინსტრუმენტში გადადით „პარამეტრებში“ და მონიშნეთ „ყველა მოწყობილობის სია“.</p>
+</li>
+<li><p class="first">შეამოწმეთ იმ მოწყობილობების სია, რომლებიც უნდა შეიცავდეს WROVER-ისთვის დამახასიათებელ ორ USB ჩანაწერს: „Dual RS232-HS (ინტერფეისი 0)“ და „Dual RS232-HS (ინტერფეისი 1)“. დრაივერის სახელი იქნება „FTDIBUS (vxxxx)“ და USB ID: 0403 6010.</p>
+<div class="align-center figure" id="id1">
+<img alt="Configuration of JTAG USB driver in Zadig tool" src="../../_images/jtag-usb-configuration-zadig.jpg"/>
+<p class="caption"><span class="caption-text">JTAG USB დრაივერის კონფიგურაცია Zadig ინსტრუმენტში</span></p>
+</div>
+</li>
+<li><p class="first">პირველი მოწყობილობა (ორმაგი RS232-HS (ინტერფეისი 0)) დაკავშირებულია ESP32-ის JTAG პორტთან. ამ მოწყობილობის ორიგინალი „FTDIBUS (vxxxx)“ დრაივერი უნდა შეიცვალოს „WinUSB (v6xxxxx)“-ით. ამისათვის აირჩიეთ „ორმაგი RS232-HS (ინტერფეისი 0)“ და ხელახლა დააინსტალირეთ მიმაგრებული დრაივერი „WinUSB (v6xxxxx)“-ზე, იხილეთ ზემოთ მოცემული სურათი.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">არ შეცვალოთ მეორე მოწყობილობა „ორმაგი RS232-HS (ინტერფეისი 1)“. ის გადამისამართებულია ESP32-ის სერიული პორტი (UART), რომელიც გამოიყენება ESP32-ის ფლეშ მეხსიერება 3 აპლიკაციის ტერმინალისთვის ატვირთვა .</p>
+</div>
+<p>ახლა ESP-WROVER-KIT-ის JTAG ინტერფეისი ხელმისაწვდომი უნდა იყოს OpenOCD-სთვის. გამართვა ging გარემოს დაყენების გასაგრძელებლად, გადადით განყოფილებაში <a class="reference internal" href="index.html#jtag-debugging-run-openocd"><span class="std std-ref">OpenOCD-ის გაშვება</span></a>.</p>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="configure-wrover.html#linux" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>სტანდარტული USB A / micro USB B კაბელის გამოყენებით, შეაერთეთ ESP-WROVER-KIT დაფა კომპიუტერთან. ჩართეთ დაფა.</li>
+</ol>
+<ol class="arabic" start="2">
+<li><p class="first">გახსენით ტერმინალი, შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/dev/ttyUSB*</span></code> ბრძანება და შეამოწმეთ, ამოიცნობს თუ არა ოპერაციული სისტემა დაფის USB პორტებს. თქვენ მსგავს შედეგს ეძებთ:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>user-name@computer-name:~/esp$ ls -l /dev/ttyUSB*
+crw-rw---- 1 root dialout 188, 0 Jul 10 19:04 /dev/ttyUSB0
+crw-rw---- 1 root dialout 188, 1 Jul 10 19:04 /dev/ttyUSB1
+</pre></div>
+</div>
+</li>
+<li><p class="first">შემდეგ განყოფილებაში „ნებართვების დელეგირება“ <a class="reference external" href="https://sourceforge.net/p/openocd/code/ci/master/tree/README">OpenOCD-ის README</a>, დააყენეთ წვდომის ნებართვები ორივე USB პორტზე.</p>
+</li>
+<li><p class="first">გამოდით და შედით სისტემაში, შემდეგ ჩართეთ დენის წყარო დაფაზე ცვლილებების ძალაში შესასვლელად. ტერმინალში ხელახლა შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/dev/ttyUSB*</span></code> ბრძანება იმის დასადასტურებლად, თუ ჯგუფის მფლობელი შეიცვალა <code class="docutils literal notranslate"><span class="pre">dialout</span></code> რომ <code class="docutils literal notranslate"><span class="pre">plugdev</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>user-name@computer-name:~/esp$ ls -l /dev/ttyUSB*
+crw-rw-r-- 1 root plugdev 188, 0 Jul 10 19:07 /dev/ttyUSB0
+crw-rw-r-- 1 root plugdev 188, 1 Jul 10 19:07 /dev/ttyUSB1
+</pre></div>
+</div>
+<p>თუ მსგავს შედეგს ხედავთ და წევრი ხართ <code class="docutils literal notranslate"><span class="pre">plugdev</span></code> ჯგუფი, შემდეგ დაყენება დასრულებულია.</p>
+<p>ის <code class="docutils literal notranslate"><span class="pre">/dev/ttyUSBn</span></code> უფრო დაბალი ნომრის მქონე ინტერფეისი გამოიყენება JTAG კომუნიკაციისთვის. მეორე ინტერფეისი დაკავშირებულია ESP32-ის სერიული პორტი (UART), რომელიც გამოიყენება აპლიკაციის ატვირთვა და ESP32-ის ფლეშ მეხსიერება .</p>
+</li>
+</ol>
+<p>ახლა ESP-WROVER-KIT-ის JTAG ინტერფეისი ხელმისაწვდომი უნდა იყოს OpenOCD-სთვის. გამართვა ging გარემოს დაყენების გასაგრძელებლად, გადადით განყოფილებაში <a class="reference internal" href="index.html#jtag-debugging-run-openocd"><span class="std std-ref">OpenOCD-ის გაშვება</span></a>.</p>
+</div>
+<div class="section" id="macos">
+<h3>MacOS<a class="headerlink" href="configure-wrover.html#macos" title="Permalink to this headline">¶</a></h3>
+<p>macOS-ზე, JTAG-ისთვის და სერიული პორტი FT2232-ის ერთდროულად გამოყენებას დამატებითი ნაბიჯები სჭირდება. როდესაც ოპერაციული სისტემა FTDI სერიული პორტი დრაივერს იტვირთავს, ის ამას FT2232 ჩიპის ორივე არხისთვის აკეთებს. თუმცა, ამ არხებიდან მხოლოდ ერთი გამოიყენება როგორც სერიული პორტი , ხოლო მეორე გამოიყენება როგორც JTAG. თუ ოპერაციულმა სისტემამ JTAG-ისთვის გამოყენებული არხისთვის FTDI სერიული პორტი დრაივერი ჩატვირთა, OpenOCD ჩიპთან დაკავშირებას ვერ შეძლებს. ამის გვერდის ავლით ორი გზა არსებობს:</p>
+<ol class="arabic simple">
+<li>OpenOCD-ის გაშვებამდე ხელით გადმოტვირთეთ FTDI სერიული პორტი დრაივერი, გაუშვით OpenOCD და შემდეგ ჩატვირთეთ სერიული პორტი დრაივერი.</li>
+<li>შეცვალეთ FTDI დრაივერის კონფიგურაცია ისე, რომ ის არ ჩაიტვირთოს FT2232 ჩიპის B არხისთვის, რომელიც არის არხი, რომელიც გამოიყენება JTAG-ისთვის WROVER KIT-ზე.</li>
+</ol>
+<div class="section" id="manually-unloading-the-driver">
+<h4>მძღოლის ხელით გადმოტვირთვა<a class="headerlink" href="configure-wrover.html#manually-unloading-the-driver" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic">
+<li><p class="first">FTDI დრაივერის ინსტალაცია <a class="reference external" href="http://www.ftdichip.com/Drivers/VCP.htm">http://www.ftdichip.com/Drivers/VCP.htm</a></p>
+</li>
+<li><p class="first">შეაერთეთ USB კაბელი WROVER KIT-თან.</p>
+</li>
+<li><p class="first">გადმოწერეთ სერიული პორტი დრაივერი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo kextunload -b com.FTDI.driver.FTDIUSBSerialDriver
+</pre></div>
+</div>
+<p>ზოგიერთ შემთხვევაში, შეიძლება დაგჭირდეთ Apple-ის FTDI დრაივერის გადმოტვირთვაც:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo kextunload -b com.apple.driver.AppleUSBFTDI
+</pre></div>
+</div>
+</li>
+<li><p class="first">OpenOCD-ის გაშვება:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bin/openocd -f board/esp32-wrover-kit-3.3v.cfg
+</pre></div>
+</div>
+</li>
+<li><p class="first">სხვა ტერმინალის ფანჯარაში, ხელახლა ჩატვირთეთ FTDI სერიული პორტი დრაივერი:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo kextload -b com.FTDI.driver.FTDIUSBSerialDriver
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თუ OpenOCD-ის გადატვირთვა დაგჭირდებათ, FTDI დრაივერის ხელახლა ჩატვირთვა საჭირო არ არის — უბრალოდ გამორთეთ OpenOCD და ხელახლა ჩართეთ. დრაივერის ჩატვირთვა მხოლოდ მაშინ არის საჭირო, თუ WROVER KIT ხელახლა იყო შეერთებული ან დენი გამორთული.</p>
+</div>
+<p>სურვილის შემთხვევაში, ეს პროცედურა შეიძლება შელი სკრიპტში იყოს შეფუთული.</p>
+</div>
+<div class="section" id="modifying-ftdi-driver">
+<h4>FTDI დრაივერის მოდიფიკაცია<a class="headerlink" href="configure-wrover.html#modifying-ftdi-driver" title="Permalink to this headline">¶</a></h4>
+<p>მოკლედ რომ ვთქვათ, ეს მიდგომა მოითხოვს FTDI დრაივერის კონფიგურაციის ფაილის მოდიფიკაციას, რაც ხელს უშლის დრაივერის ჩატვირთვას FT2232H არხისთვის.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">სხვა დაფებმა შეიძლება გამოიყენონ A არხი JTAG-ისთვის, ამიტომ გამოიყენეთ ეს ვარიანტი სიფრთხილით.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">ამ მიდგომის გამორთვისთვის ასევე საჭიროა დრაივერების ხელმოწერის ვერიფიკაცია, ამიტომ შეიძლება ყველა მომხმარებლისთვის მისაღები არ იყოს.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">გახსენით FTDI დრაივერის კონფიგურაციის ფაილი ტექსტური რედაქტორის გამოყენებით (შენიშვნა <code class="docutils literal notranslate"><span class="pre">sudo</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo nano /Library/Extensions/FTDIUSBSerialDriver.kext/Contents/Info.plist
+</pre></div>
+</div>
+</li>
+<li><p class="first">იპოვეთ და წაშალეთ შემდეგი ხაზები:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;key&gt;FT2232H_B&lt;/key&gt;
+&lt;dict&gt;
+    &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+    &lt;string&gt;com.FTDI.driver.FTDIUSBSerialDriver&lt;/string&gt;
+    &lt;key&gt;IOClass&lt;/key&gt;
+    &lt;string&gt;FTDIUSBSerialDriver&lt;/string&gt;
+    &lt;key&gt;IOProviderClass&lt;/key&gt;
+    &lt;string&gt;IOUSBInterface&lt;/string&gt;
+    &lt;key&gt;bConfigurationValue&lt;/key&gt;
+    &lt;integer&gt;1&lt;/integer&gt;
+    &lt;key&gt;bInterfaceNumber&lt;/key&gt;
+    &lt;integer&gt;1&lt;/integer&gt;
+    &lt;key&gt;bcdDevice&lt;/key&gt;
+    &lt;integer&gt;1792&lt;/integer&gt;
+    &lt;key&gt;idProduct&lt;/key&gt;
+    &lt;integer&gt;24592&lt;/integer&gt;
+    &lt;key&gt;idVendor&lt;/key&gt;
+    &lt;integer&gt;1027&lt;/integer&gt;
+&lt;/dict&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">ფაილის შენახვა და დახურვა</p>
+</li>
+<li><p class="first">მძღოლის ხელმოწერის ვერიფიკაციის გამორთვა:</p>
+<ol class="arabic">
+<li><p class="first">გახსენით Apple-ის ლოგოს მენიუ, აირჩიეთ „გადატვირთვა…“</p>
+</li>
+<li><p class="first">გადატვირთვის შემდეგ ზარის გაგონებისას დაუყოვნებლივ დააჭირეთ CMD+R-ს.</p>
+</li>
+<li><p class="first">აღდგენის რეჟიმის დაწყების შემდეგ, გახსენით ტერმინალი</p>
+</li>
+<li><p class="first">გაუშვით ბრძანება:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>csrutil enable --without kext
+</pre></div>
+</div>
+</li>
+<li><p class="first">ხელახლა გადატვირთვა</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>ამ ნაბიჯების შემდეგ, სერიული პორტი და JTAG-ის ერთდროულად გამოყენება შესაძლებელია.</p>
+<p>გამართვა ging გარემოს დაყენების გასაგრძელებლად, გადადით განყოფილებაში <a class="reference internal" href="index.html#jtag-debugging-run-openocd"><span class="std std-ref">OpenOCD-ის გაშვება</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="configure-other-jtag.html" rel="next" title="Configure Other JTAG Interface">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="JTAG Debugging"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

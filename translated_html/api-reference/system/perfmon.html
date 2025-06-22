@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>შესრულების მონიტორი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="power_management.html" rel="next" title="Power Management"/>
+<link href="ota.html" rel="prev" title="Over The Air Updates (OTA)"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/perfmon.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/perfmon"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/perfmon.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos_additions.html">უფასო RTOS დამატებები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="perfmon.html#">შესრულების მონიტორი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="perfmon.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perfmon.html#high-level-api-reference">მაღალი დონის API მითითება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perfmon.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>შესრულების მონიტორი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/perfmon.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="performance-monitor">
+<h1>შესრულების მონიტორი<a class="headerlink" href="perfmon.html#performance-monitor" title="Permalink to this headline">¶</a></h1>
+<p>Performance Monitor კომპონენტი უზრუნველყოფს API ს ESP32 შიდა შესრულების მრიცხველების გამოყენებით ფუნქციებისა და აპლიკაციების პროფილირებისთვის.</p>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="perfmon.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>მაგალითი, რომელიც აერთიანებს შესრულების მონიტორს, მოცემულია შემდეგში: <code class="docutils literal notranslate"><span class="pre">examples/system/perfmon</span></code> დირექტორია. ეს მაგალითი ახდენს შესრულების მონიტორის სტრუქტურის ინიციალიზაციას და მათ სტატისტიკის დაბეჭდვით შესრულებას.</p>
+</div>
+<div class="section" id="high-level-api-reference">
+<h2>მაღალი დონის API მითითება<a class="headerlink" href="perfmon.html#high-level-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-files">
+<h3>სათაურის ფაილები<a class="headerlink" href="perfmon.html#header-files" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/perfmon/include/perfmon.h">perfmon/include/perfmon.h</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="perfmon.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="perfmon.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/perfmon/include/xtensa_perfmon_access.h">perfmon/include/xtensa_perfmon_access.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="perfmon.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419xtensa_perfmon_initi8uint16_t8uint16_tii">
+<span id="_CPPv319xtensa_perfmon_initi8uint16_t8uint16_tii"></span><span id="_CPPv219xtensa_perfmon_initi8uint16_t8uint16_tii"></span><span id="xtensa_perfmon_init__i.uint16_t.uint16_t.i.i"></span><span class="target" id="xtensa__perfmon__access_8h_1aa8a46810f43d47470972a36116d8df4d"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">xtensa_perfmon_init</code><span class="sig-paren">(</span>int <em>ID</em>, uint16_t <em>შერჩევა</em>, uint16_t <em>ნიღაბი</em>, int <em>kernelcnt</em>, int <em>კვალის დონე</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv419xtensa_perfmon_initi8uint16_t8uint16_tii" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>Init-ის შესრულების მონიტორი. </p>
+<p>შესრულების მონიტორის რეგისტრის ინიციალიზაცია განსაზღვრული მნიშვნელობებით</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG, თუ ერთ-ერთი არგუმენტი არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code>: შესრულების მრიცხველის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">select</span></code>: აირჩიეთ მნიშვნელობა PMCTRLx რეგისტრიდან </li>
+<li><code class="docutils literal notranslate"><span class="pre">mask</span></code>: ნიღბის მნიშვნელობა PMCTRLx რეგისტრიდან </li>
+<li><code class="docutils literal notranslate"><span class="pre">kernelcnt</span></code>: kernelcnt მნიშვნელობა PMCTRLx რეგისტრიდან </li>
+<li><code class="docutils literal notranslate"><span class="pre">tracelevel</span></code>: PMCTRLx რეგისტრიდან tracelevel მნიშვნელობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420xtensa_perfmon_reseti">
+<span id="_CPPv320xtensa_perfmon_reseti"></span><span id="_CPPv220xtensa_perfmon_reseti"></span><span id="xtensa_perfmon_reset__i"></span><span class="target" id="xtensa__perfmon__access_8h_1aa236be37a23f3d3cfbd1738bd7c11a58"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">xtensa_perfmon_reset</code><span class="sig-paren">(</span>int <em>ID</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv420xtensa_perfmon_reseti" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PM მრიცხველის გადატვირთვა. </p>
+<p>PM მრიცხველის გადატვირთვა. PMx რეგისტრში 0-ის ჩაწერა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატების შემთხვევაში</li>
+<li>ESP_ERR_INVALID_ARG თუ id დიაპაზონს სცილდება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code>: შესრულების მრიცხველის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420xtensa_perfmon_startv">
+<span id="_CPPv320xtensa_perfmon_startv"></span><span id="_CPPv220xtensa_perfmon_startv"></span><span id="xtensa_perfmon_start__void"></span><span class="target" id="xtensa__perfmon__access_8h_1abcf044fe2ecd96e9326ca3d038a784ae"></span>void <code class="descname">xtensa_perfmon_start</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv420xtensa_perfmon_startv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PM მრიცხველების დაწყება. </p>
+<p>ყველა PM მრიცხველის სინქრონულად გაშვება. PGM რეგისტრში 1-ის ჩაწერა </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419xtensa_perfmon_stopv">
+<span id="_CPPv319xtensa_perfmon_stopv"></span><span id="_CPPv219xtensa_perfmon_stopv"></span><span id="xtensa_perfmon_stop__void"></span><span class="target" id="xtensa__perfmon__access_8h_1ad3ddd78ed5862597e9214a905da60e9c"></span>void <code class="descname">xtensa_perfmon_stop</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv419xtensa_perfmon_stopv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეაჩერე PM მთვლელები. </p>
+<p>ყველა PM მრიცხველის სინქრონულად შეჩერება. PGM რეგისტრში 0-ის ჩაწერა. </p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420xtensa_perfmon_valuei">
+<span id="_CPPv320xtensa_perfmon_valuei"></span><span id="_CPPv220xtensa_perfmon_valuei"></span><span id="xtensa_perfmon_value__i"></span><span class="target" id="xtensa__perfmon__access_8h_1a48439603c95e94cd8bd8a0656c69b616"></span>uint32_t <code class="descname">xtensa_perfmon_value</code><span class="sig-paren">(</span>int <em>ID</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv420xtensa_perfmon_valuei" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ PM მრიცხველი. </p>
+<p>განსაზღვრული PM მრიცხველის მნიშვნელობის წაკითხვა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>შესრულების მრიცხველის მნიშვნელობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code>: შესრულების მრიცხველის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423xtensa_perfmon_overflowi">
+<span id="_CPPv323xtensa_perfmon_overflowi"></span><span id="_CPPv223xtensa_perfmon_overflowi"></span><span id="xtensa_perfmon_overflow__i"></span><span class="target" id="xtensa__perfmon__access_8h_1a8047ac99f92308d6a9deba0e7be71a13"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">xtensa_perfmon_overflow</code><span class="sig-paren">(</span>int <em>ID</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv423xtensa_perfmon_overflowi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ PM-ის გადავსების მდგომარეობა. </p>
+<p>განსაზღვრული PM მრიცხველის გადავსების მნიშვნელობის წაკითხვა.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ არ არის გადავსება (overflow = 0)</li>
+<li>ESP_FAIL თუ მოხდება გადავსება (overflow = 1) </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code>: შესრულების მრიცხველის ნომერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419xtensa_perfmon_dumpv">
+<span id="_CPPv319xtensa_perfmon_dumpv"></span><span id="_CPPv219xtensa_perfmon_dumpv"></span><span id="xtensa_perfmon_dump__void"></span><span class="target" id="xtensa__perfmon__access_8h_1a3079f1d48a185ca9bfd4b04c66a7c85a"></span>void <code class="descname">xtensa_perfmon_dump</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv419xtensa_perfmon_dumpv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PM მნიშვნელობების გადატანა. </p>
+<p>ყველა PM რეგისტრის გადატანა კონსოლში. </p>
+</dd></dl>
+</div>
+<div class="section" id="id1">
+<h3>სათაურის ფაილი<a class="headerlink" href="perfmon.html#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/perfmon/include/xtensa_perfmon_apis.h">perfmon/include/xtensa_perfmon_apis.h</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>ფუნქციები<a class="headerlink" href="perfmon.html#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv419xtensa_perfmon_execPK23xtensa_perfmon_config_t">
+<span id="_CPPv319xtensa_perfmon_execPK23xtensa_perfmon_config_t"></span><span id="_CPPv219xtensa_perfmon_execPK23xtensa_perfmon_config_t"></span><span id="xtensa_perfmon_exec__xtensa_perfmon_config_tCP"></span><span class="target" id="xtensa__perfmon__apis_8h_1a5463babb2cdb85a3f3d9381b0ad89722"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">xtensa_perfmon_exec</code><span class="sig-paren">(</span><em class="property">კონსტ</em> <a class="reference internal" href="perfmon.html#_CPPv423xtensa_perfmon_config_t" title="xtensa_perfmon_config_t">xtensa_perfmon_config_t</a> *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv419xtensa_perfmon_execPK23xtensa_perfmon_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PM-ის შესრულება. </p>
+<p>განსაზღვრული პარამეტრებით გამოყოფილი ფუნქციის შესრულების მრიცხველის შესრულება</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK თუ შეცდომები არ არის</li>
+<li>ESP_ERR_INVALID_ARG, თუ საჭირო პარამეტრებიდან ერთ-ერთი არ არის განსაზღვრული</li>
+<li>ESP_FAIL - მრიცხველის გადავსება </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>: კონფიგურაციის სტრუქტურის მაჩვენებელი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422xtensa_perfmon_view_cbPv8uint32_t8uint32_t8uint32_t">
+<span id="_CPPv322xtensa_perfmon_view_cbPv8uint32_t8uint32_t8uint32_t"></span><span id="_CPPv222xtensa_perfmon_view_cbPv8uint32_t8uint32_t8uint32_t"></span><span id="xtensa_perfmon_view_cb__voidP.uint32_t.uint32_t.uint32_t"></span><span class="target" id="xtensa__perfmon__apis_8h_1a7813287d608aeffb8184e088b9c69304"></span>void <code class="descname">xtensa_perfmon_view_cb</code><span class="sig-paren">(</span>void *<em>პარამეტრები</em>, uint32_t <em>შერჩევა</em>, uint32_t <em>ნიღაბი</em>, uint32_t <em>ღირებულება</em><span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv422xtensa_perfmon_view_cbPv8uint32_t8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>PM-ის შედეგების გადატანა. </p>
+<p>უკუკავშირი perfmon-ის შედეგის FILE* ნაკადში გადასატანად, რომელიც მითითებულია perfmon_config_t::callback_params-ში. თუ callback_params დაყენებულია NULL-ზე, დაიბეჭდება stdout-ში.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">params</span></code>: გამოყენებული პარამეტრები, რომლებიც გადაცემულია კონფიგურაციიდან (callback_params). ეს პარამეტრი მოსალოდნელი იყო, როგორც FILE* hanle, სადაც მონაცემები შეინახება. თუ ეს პარამეტრი NULL-ია, მაშინ მონაცემები შეინახება stdout-ში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">select</span></code>: აირჩიეთ მიმდინარე მრიცხველის მნიშვნელობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">mask</span></code>: დენის მრიცხველის ნიღბის მნიშვნელობა </li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span></code>: მიმდინარე მრიცხველის მრიცხველის მნიშვნელობა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="perfmon.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv421xtensa_perfmon_config">
+<span id="_CPPv321xtensa_perfmon_config"></span><span id="_CPPv221xtensa_perfmon_config"></span><span id="xtensa_perfmon_config"></span><span class="target" id="structxtensa__perfmon__config"></span><em class="property">სტრუქტურა </em><code class="descname">xtensa_perfmon_config</code><a class="headerlink" href="perfmon.html#_CPPv421xtensa_perfmon_config" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესრულების მონიტორის კონფიგურაციის სტრუქტურა. </p>
+<p>სტრუქტურა შესრულების მრიცხველის კონფიგურაციისთვის, რომელიც გაზომავს სპეციალურ ფუნქციას </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">საჯარო წევრები</p>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config12repeat_countE">
+<span id="_CPPv3N21xtensa_perfmon_config12repeat_countE"></span><span id="_CPPv2N21xtensa_perfmon_config12repeat_countE"></span><span id="xtensa_perfmon_config::repeat_count__i"></span><span class="target" id="structxtensa__perfmon__config_1a491f6a0d30f799f8fdea51a10b14ad51"></span>int <code class="descname">repeat_count</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config12repeat_countE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რამდენჯერ გამოიძახება ფუნქცია, სანამ calback გამეორდება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config13max_deviationE">
+<span id="_CPPv3N21xtensa_perfmon_config13max_deviationE"></span><span id="_CPPv2N21xtensa_perfmon_config13max_deviationE"></span><span id="xtensa_perfmon_config::max_deviation__float"></span><span class="target" id="structxtensa__perfmon__config_1a92ae54c44759cf738e20170af79cacdb"></span>float <code class="descname">max_deviation</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config13max_deviationE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მინიმალურ და მაქსიმალურ მრიცხველებს შორის სხვაობა 0..1, 0 - განსხვავება არ არის, 1 - არ გამოიყენება </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config11call_paramsE">
+<span id="_CPPv3N21xtensa_perfmon_config11call_paramsE"></span><span id="_CPPv2N21xtensa_perfmon_config11call_paramsE"></span><span id="xtensa_perfmon_config::call_params__voidP"></span><span class="target" id="structxtensa__perfmon__config_1a4d4599378ade4941a9eb1479f506a2de"></span>void *<code class="descname">call_params</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config11call_paramsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ეს მაჩვენებელი გადაეცემა call_function-ს პარამეტრის სახით. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config13call_functionE">
+<span id="_CPPv3N21xtensa_perfmon_config13call_functionE"></span><span id="_CPPv2N21xtensa_perfmon_config13call_functionE"></span><span class="target" id="structxtensa__perfmon__config_1a1394c9c505b7dd0617258dd92dda4051"></span>void (*<code class="descname">call_function</code>)<span class="sig-paren">(</span>void *params<span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config13call_functionE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაჩვენებელი იმ ფუნქციისკენ, რომლის გამოძახებაც აუცილებელია </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config8callbackE">
+<span id="_CPPv3N21xtensa_perfmon_config8callbackE"></span><span id="_CPPv2N21xtensa_perfmon_config8callbackE"></span><span class="target" id="structxtensa__perfmon__config_1a847e25523e5022287402d85549d951cb"></span>void (*<code class="descname">callback</code>)<span class="sig-paren">(</span>void *params, uint32_t select, uint32_t mask, uint32_t value<span class="sig-paren">)</span><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config8callbackE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მაჩვენებელი იმ ფუნქციისკენ, რომელიც გამოიძახება შედეგის პარამეტრებით </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config15callback_paramsE">
+<span id="_CPPv3N21xtensa_perfmon_config15callback_paramsE"></span><span id="_CPPv2N21xtensa_perfmon_config15callback_paramsE"></span><span id="xtensa_perfmon_config::callback_params__voidP"></span><span class="target" id="structxtensa__perfmon__config_1ad7257dbcd2b7421ce6d450adcd5b1cbe"></span>void *<code class="descname">callback_params</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config15callback_paramsE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>პარამეტრი, რომელიც გადაეცემა უკუკავშირს </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config10tracelevelE">
+<span id="_CPPv3N21xtensa_perfmon_config10tracelevelE"></span><span id="_CPPv2N21xtensa_perfmon_config10tracelevelE"></span><span id="xtensa_perfmon_config::tracelevel__i"></span><span class="target" id="structxtensa__perfmon__config_1a5d386bfc3ccd66877cd2bfa9518aba31"></span>int <code class="descname">tracelevel</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config10tracelevelE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ყველა მრიცხველის კვალის დონე. უარყოფითი მნიშვნელობის შემთხვევაში, ფილტრი იგნორირებული იქნება. თუ ის &amp;gt;=0-ია, მაშინ პერფმონი მხოლოდ მაშინ ჩაითვლება, როდესაც შეფერხების დონე &amp;gt; კვალის დონეა. სასარგებლოა შეფერხებების მონიტორინგი. </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config13counters_sizeE">
+<span id="_CPPv3N21xtensa_perfmon_config13counters_sizeE"></span><span id="_CPPv2N21xtensa_perfmon_config13counters_sizeE"></span><span id="xtensa_perfmon_config::counters_size__uint32_t"></span><span class="target" id="structxtensa__perfmon__config_1a627e88131cf34fa3caa18543d77ea529"></span>uint32_t <code class="descname">counters_size</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config13counters_sizeE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიაში მრიცხველის რაოდენობა </p>
+</dd></dl>
+<dl class="member">
+<dt id="_CPPv4N21xtensa_perfmon_config11select_maskE">
+<span id="_CPPv3N21xtensa_perfmon_config11select_maskE"></span><span id="_CPPv2N21xtensa_perfmon_config11select_maskE"></span><span id="xtensa_perfmon_config::select_mask__uint32_tCP"></span><span class="target" id="structxtensa__perfmon__config_1a0091a2f71c55a86157d4c4fb968820aa"></span><em class="property">კონსტ</em> uint32_t *<code class="descname">select_mask</code><a class="headerlink" href="perfmon.html#_CPPv4N21xtensa_perfmon_config11select_maskE" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შერჩევის/ნიღბის პარამეტრების სია </p>
+</dd></dl>
+</div>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="perfmon.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv423xtensa_perfmon_config_t">
+<span id="_CPPv323xtensa_perfmon_config_t"></span><span id="_CPPv223xtensa_perfmon_config_t"></span><span id="xtensa_perfmon_config_t"></span><span class="target" id="xtensa__perfmon__apis_8h_1a00a90c0c7e75ef9f064b9abd74741909"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="perfmon.html#_CPPv421xtensa_perfmon_config" title="xtensa_perfmon_config">xtensa_perfmon_config</a> <code class="descname">xtensa_perfmon_config_t</code><a class="headerlink" href="perfmon.html#_CPPv423xtensa_perfmon_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესრულების მონიტორის კონფიგურაციის სტრუქტურა. </p>
+<p>სტრუქტურა შესრულების მრიცხველის კონფიგურაციისთვის, რომელიც გაზომავს სპეციალურ ფუნქციას </p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="power_management.html" rel="next" title="Power Management">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="ota.html" rel="prev" title="Over The Air Updates (OTA)"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,997 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ტაიმერი — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="touch_pad.html" rel="next" title="Touch Sensor"/>
+<link href="temp_sensor.html" rel="prev" title="ESP32-S2 Temperature Sensor"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/timer.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/timer"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/timer.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up-ის მოთხოვნები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="timer.html#">ტაიმერი</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="timer.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="timer.html#functional-overview">ფუნქციური მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="timer.html#application-example">განაცხადის მაგალითი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="timer.html#api-reference">API მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>ტაიმერი</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/timer.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="timer">
+<h1>ტაიმერი<a class="headerlink" href="timer.html#timer" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/api-reference/peripherals/timer.html">[中文]</a></p>
+<div class="section" id="introduction">
+<h2>შესავალი<a class="headerlink" href="timer.html#introduction" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 ჩიპი შეიცავს აპარატურული ტაიმერების ორ ჯგუფს. თითოეულ ჯგუფს აქვს ორი ზოგადი დანიშნულების აპარატურული ტაიმერი. ისინი ყველა 64-ბიტიანი ზოგადი ტაიმერებია, რომლებიც დაფუძნებულია 16-ბიტიან წინასწარ სკალერებსა და 64-ბიტიან აღმავალი/დაღმავალი მრიცხველებზე, რომელთა ავტომატური გადატვირთვა შესაძლებელია.</p>
+</div>
+<div class="section" id="functional-overview">
+<h2>ფუნქციური მიმოხილვა<a class="headerlink" href="timer.html#functional-overview" title="Permalink to this headline">¶</a></h2>
+<p>ამ დოკუმენტის შემდეგი ნაწილები მოიცავს ტაიმერის კონფიგურაციისა და მუშაობის ტიპურ ნაბიჯებს:</p>
+<ul class="simple">
+<li><a class="reference internal" href="timer.html#timer-api-timer-initialization"><span class="std std-ref">ტაიმერის ინიციალიზაცია</span></a> - მოიცავს იმას, თუ რომელი პარამეტრების დაყენებაა საჭირო ტაიმერის მუშაობისთვის და ასევე, რა კონკრეტული ფუნქციონალია გათვალისწინებული ტაიმერის კონფიგურაციიდან გამომდინარე.</li>
+<li><a class="reference internal" href="timer.html#timer-api-timer-control"><span class="std std-ref">ტაიმერის კონტროლი</span></a> - აღწერს, თუ როგორ წაიკითხოთ ტაიმერის მნიშვნელობა, შეაჩეროთ ან ჩართოთ ტაიმერი და შეცვალოთ მისი მუშაობის წესი.</li>
+<li><a class="reference internal" href="timer.html#timer-api-alarms"><span class="std std-ref">სიგნალიზაცია</span></a> - გვიჩვენებს, თუ როგორ დააყენოთ და გამოიყენოთ სიგნალიზაცია.</li>
+<li><a class="reference internal" href="timer.html#timer-api-interrupts"><span class="std std-ref">შეწყვეტები</span></a>- განმარტავს, თუ როგორ უნდა ჩართოთ და გამოიყენოთ შეფერხებები.</li>
+</ul>
+<div class="section" id="timer-initialization">
+<span id="timer-api-timer-initialization"></span><h3>ტაიმერის ინიციალიზაცია<a class="headerlink" href="timer.html#timer-initialization" title="Permalink to this headline">¶</a></h3>
+<p>ESP32 ტაიმერის ორი ჯგუფი, თითოეულში ორი ტაიმერით, გამოსაყენებლად სულ ოთხ ინდივიდუალურ ტაიმერს იძლევა. ESP32 ტაიმერის ჯგუფი უნდა განისაზღვროს შემდეგი გამოყენებით: <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_group_t</span></code>ჯგუფში ინდივიდუალური ტაიმერი უნდა იყოს იდენტიფიცირებული <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_idx_t</span></code>.</p>
+<p>პირველ რიგში, ტაიმერი უნდა ინიციალიზებული იყოს ფუნქციის გამოძახებით <a class="reference internal" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="timer_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_init()</span></code></a> და სტრუქტურის გავლა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_config_t</span></code> მასში განსაზღვრულია, თუ როგორ უნდა იმუშაოს ტაიმერი. კერძოდ, შესაძლებელია შემდეგი ტაიმერის პარამეტრების დაყენება:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>გამყოფი</strong>: ადგენს, თუ რამდენად სწრაფად „წიკწიკებს“ ტაიმერის მრიცხველი. პარამეტრი <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">divider</span></code> გამოიყენება შემომავალი 80 MHz APB_CLK საათის გამყოფად.</li>
+<li><strong>რეჟიმი</strong>: ადგენს, უნდა იყოს თუ არა მრიცხველი მზარდი ან კლებადი. მისი განსაზღვრა შესაძლებელია გამოყენებით <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">counter_dir</span></code> ერთ-ერთი მნიშვნელობის არჩევით <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_count_dir_t</span></code>.</li>
+<li><strong>მრიცხველის ჩართვა</strong>თუ მრიცხველი ჩართულია, ის გამოძახებისთანავე დაიწყებს გაზრდას/კლებას <a class="reference internal" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="timer_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_init()</span></code></a>. თქვენ შეგიძლიათ შეცვალოთ ქცევა <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">counter_en</span></code> ერთ-ერთი მნიშვნელობის არჩევით <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_start_t</span></code>.</li>
+<li><strong>სიგნალიზაციის ჩართვა</strong>: შეიძლება დაყენდეს გამოყენებით <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">alarm_en</span></code>.</li>
+<li><strong>ავტომატური გადატვირთვა</strong>: ადგენს, თუ მრიცხველი უნდა <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">auto_reload</span></code> ტაიმერის სიგნალიზაციაზე საწყისი მრიცხველის მნიშვნელობა ან გააგრძელეთ გაზრდა ან კლება.</li>
+<li><strong>შეწყვეტის ტიპი</strong>: აირჩიეთ, ტაიმერის სიგნალიზაციაზე რომელი შეფერხების ტიპი უნდა გააქტიურდეს. დააყენეთ განსაზღვრული მნიშვნელობა <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">timer_intr_mode_t</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>ტაიმერის პარამეტრების მიმდინარე მნიშვნელობების მისაღებად გამოიყენეთ ფუნქცია <a class="reference internal" href="timer.html#_CPPv416timer_get_config13timer_group_t11timer_idx_tP14timer_config_t" title="timer_get_config"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_get_config()</span></code></a>.</p>
+</div>
+<div class="section" id="timer-control">
+<span id="timer-api-timer-control"></span><h3>ტაიმერის კონტროლი<a class="headerlink" href="timer.html#timer-control" title="Permalink to this headline">¶</a></h3>
+<p>ტაიმერის ჩართვის შემდეგ, მისი მრიცხველი დაიწყებს მუშაობას. ტაიმერის ჩასართავად გამოიძახეთ ფუნქცია <a class="reference internal" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="timer_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_init()</span></code></a> თან <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">counter_en</span></code> დაყენებულია <code class="docutils literal notranslate"><span class="pre">true</span></code>, ან დარეკეთ <a class="reference internal" href="timer.html#_CPPv411timer_start13timer_group_t11timer_idx_t" title="timer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_start()</span></code></a>ტაიმერის საწყისი მრიცხველის მნიშვნელობის მითითება შეგიძლიათ გამოძახებით <a class="reference internal" href="timer.html#_CPPv423timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t" title="timer_set_counter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_counter_value()</span></code></a>ტაიმერის მიმდინარე მნიშვნელობის შესამოწმებლად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv423timer_get_counter_value13timer_group_t11timer_idx_tP8uint64_t" title="timer_get_counter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_get_counter_value()</span></code></a> ან <a class="reference internal" href="timer.html#_CPPv426timer_get_counter_time_sec13timer_group_t11timer_idx_tPd" title="timer_get_counter_time_sec"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_get_counter_time_sec()</span></code></a>.</p>
+<p>ტაიმერის ნებისმიერ დროს შესაჩერებლად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv411timer_pause13timer_group_t11timer_idx_t" title="timer_pause"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_pause()</span></code></a>. განახლებისთვის, დარეკეთ <a class="reference internal" href="timer.html#_CPPv411timer_start13timer_group_t11timer_idx_t" title="timer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_start()</span></code></a>.</p>
+<p>ტაიმერის ხელახლა კონფიგურაციისთვის შეგიძლიათ დარეკოთ <a class="reference internal" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="timer_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_init()</span></code></a>ეს ფუნქცია აღწერილია ნაწილში <a class="reference internal" href="timer.html#timer-api-timer-initialization"><span class="std std-ref">ტაიმერის ინიციალიზაცია</span></a>.</p>
+<p>ასევე შეგიძლიათ ტაიმერის ხელახლა კონფიგურაცია ცალკეული ფუნქციების გამოყენებით ინდივიდუალური პარამეტრების შესაცვლელად:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%"/>
+<col width="13%"/>
+<col width="82%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">პარამეტრი</th>
+<th class="head">სპეციალური ფუნქცია</th>
+<th class="head">აღწერა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>გამყოფი</td>
+<td><a class="reference internal" href="timer.html#_CPPv417timer_set_divider13timer_group_t11timer_idx_t8uint32_t" title="timer_set_divider"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_divider()</span></code></a></td>
+<td>შეცვალეთ ტიკტიკის სიხშირე. არაპროგნოზირებადი შედეგების თავიდან ასაცილებლად, გამყოფის შეცვლისას ტაიმერი უნდა შეჩერდეს. თუ ტაიმერი მუშაობს, <a class="reference internal" href="timer.html#_CPPv417timer_set_divider13timer_group_t11timer_idx_t8uint32_t" title="timer_set_divider"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_divider()</span></code></a> აჩერებს მას, ცვლის პარამეტრებს და ხელახლა ჩართავს ტაიმერს.</td>
+</tr>
+<tr class="row-odd"><td>რეჟიმი</td>
+<td><a class="reference internal" href="timer.html#_CPPv422timer_set_counter_mode13timer_group_t11timer_idx_t17timer_count_dir_t" title="timer_set_counter_mode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_counter_mode()</span></code></a></td>
+<td>დააყენეთ, უნდა იყოს თუ არა მრიცხველი მზარდი ან კლებადი</td>
+</tr>
+<tr class="row-even"><td>ავტომატური გადატვირთვა</td>
+<td><a class="reference internal" href="timer.html#_CPPv421timer_set_auto_reload13timer_group_t11timer_idx_t18timer_autoreload_t" title="timer_set_auto_reload"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_auto_reload()</span></code></a></td>
+<td>დააყენეთ, უნდა ჩაიტვირთოს თუ არა საწყისი მრიცხველის მნიშვნელობა ტაიმერის სიგნალიზაციაზე</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="alarms">
+<span id="timer-api-alarms"></span><h3>სიგნალიზაცია<a class="headerlink" href="timer.html#alarms" title="Permalink to this headline">¶</a></h3>
+<p>მაღვიძარას დასაყენებლად გამოიძახეთ ფუნქცია <a class="reference internal" href="timer.html#_CPPv421timer_set_alarm_value13timer_group_t11timer_idx_t8uint64_t" title="timer_set_alarm_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_alarm_value()</span></code></a> და შემდეგ ჩართეთ სიგნალიზაცია <a class="reference internal" href="timer.html#_CPPv415timer_set_alarm13timer_group_t11timer_idx_t13timer_alarm_t" title="timer_set_alarm"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_alarm()</span></code></a>სიგნალიზაცია ასევე შეიძლება ჩაირთოს ტაიმერის ინიციალიზაციის ეტაპზე, როდესაც <a class="reference internal" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="timer_init"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_init()</span></code></a> ეწოდება.</p>
+<p>სიგნალიზაციის ჩართვისა და ტაიმერის მიერ სიგნალიზაციის მნიშვნელობაზე მიღწევის შემდეგ, კონფიგურაციიდან გამომდინარე, შესაძლებელია შემდეგი ორი მოქმედების შესრულება:</p>
+<blockquote>
+<div><ul class="simple">
+<li>შეფერხება გააქტიურდება, თუ ის წინასწარ არის კონფიგურირებული. იხილეთ განყოფილება <a class="reference internal" href="timer.html#timer-api-interrupts"><span class="std std-ref">შეწყვეტები</span></a> შეფერხებების კონფიგურაციის შესახებ.</li>
+<li>როდესაც <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">auto_reload</span></code> ჩართულია, ტაიმერის მრიცხველი ავტომატურად გადაიტვირთება, რათა თავიდან დაიწყოს დათვლა წინასწარ კონფიგურირებული მნიშვნელობიდან. ეს მნიშვნელობა წინასწარ უნდა იყოს დაყენებული <a class="reference internal" href="timer.html#_CPPv423timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t" title="timer_set_counter_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_set_counter_value()</span></code></a>.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<ul class="last simple">
+<li>თუ სიგნალიზაციის მნიშვნელობა დაყენებულია და ტაიმერმა უკვე მიაღწია ამ მნიშვნელობას, სიგნალიზაცია დაუყოვნებლივ ჩაირთვება.</li>
+<li>გააქტიურების შემდეგ, სიგნალიზაცია ავტომატურად გამორთულია და ხელახლა გასააქტიურებლად საჭიროა მისი ხელახლა ჩართვა.</li>
+</ul>
+</div>
+<p>მითითებული განგაშის მნიშვნელობის შესამოწმებლად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv421timer_get_alarm_value13timer_group_t11timer_idx_tP8uint64_t" title="timer_get_alarm_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_get_alarm_value()</span></code></a>.</p>
+</div>
+<div class="section" id="interrupts">
+<span id="timer-api-interrupts"></span><h3>შეწყვეტები<a class="headerlink" href="timer.html#interrupts" title="Permalink to this headline">¶</a></h3>
+<p>კონკრეტული ტაიმერის ან ტაიმერის ჯგუფის შეფერხების დამმუშავებლის რეგისტრაცია შესაძლებელია გამოძახებით. <a class="reference internal" href="timer.html#_CPPv418timer_isr_register13timer_group_t11timer_idx_tPFvPvEPviP18timer_isr_handle_t" title="timer_isr_register"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_isr_register()</span></code></a>.</p>
+<p>ტაიმერის ჯგუფისთვის შეფერხებების ჩასართავად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv423timer_group_intr_enable13timer_group_t12timer_intr_t" title="timer_group_intr_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_group_intr_enable()</span></code></a>, კონკრეტული ტაიმერის ზარისთვის <a class="reference internal" href="timer.html#_CPPv417timer_enable_intr13timer_group_t11timer_idx_t" title="timer_enable_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_enable_intr()</span></code></a>ტაიმერის ჯგუფისთვის შეფერხებების გამოსართავად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv424timer_group_intr_disable13timer_group_t12timer_intr_t" title="timer_group_intr_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_group_intr_disable()</span></code></a>, მითითებული ტაიმერის მისაღებად, დარეკეთ <a class="reference internal" href="timer.html#_CPPv418timer_disable_intr13timer_group_t11timer_idx_t" title="timer_disable_intr"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">timer_disable_intr()</span></code></a>.</p>
+<p>შეფერხების სერვისის რუტინის (ISR) ფარგლებში შეფერხების დამუშავებისას, შეფერხების სტატუსის ბიტი უნდა იყოს ცალსახად გასუფთავებული. ამისათვის დააყენეთ <code class="docutils literal notranslate"><span class="pre">TIMERGN.int_clr_timers.tM</span></code> სტრუქტურა, განსაზღვრული <a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/soc/esp32/include/soc/timer_group_struct.h">soc/esp32/include/soc/timer_group_struct.h</a>ამ სტრუქტურაში, <code class="docutils literal notranslate"><span class="pre">N</span></code> არის ტაიმერის ჯგუფის ნომერი [0, 1], <code class="docutils literal notranslate"><span class="pre">M</span></code> არის ტაიმერის ნომერი [0, 1]. მაგალითად, ტაიმერის ჯგუფ 0-ში ტაიმერის 1-ისთვის შეფერხების სტატუსის ბიტის გასასუფთავებლად, გამოიძახეთ შემდეგი:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TIMERG0</span><span class="o">.</span><span class="n">int_clr_timers</span><span class="o">.</span><span class="n">t1</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>შეფერხებების გამოყენების შესახებ დამატებითი ინფორმაციისთვის იხილეთ ქვემოთ მოცემული აპლიკაციის მაგალითი.</p>
+</div>
+</div>
+<div class="section" id="application-example">
+<h2>განაცხადის მაგალითი<a class="headerlink" href="timer.html#application-example" title="Permalink to this headline">¶</a></h2>
+<p>64-ბიტიანი აპარატურის ტაიმერის მაგალითი: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/peripherals/timer_group">პერიფერიული მოწყობილობები/ტაიმერის_ჯგუფი</a>.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API მითითება<a class="headerlink" href="timer.html#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="timer.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/driver/include/driver/timer.h">დრაივერი/ინკლუზია/დრაივერი/ტიმერი.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="timer.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv423timer_get_counter_value13timer_group_t11timer_idx_tP8uint64_t">
+<span id="_CPPv323timer_get_counter_value13timer_group_t11timer_idx_tP8uint64_t"></span><span id="_CPPv223timer_get_counter_value13timer_group_t11timer_idx_tP8uint64_t"></span><span id="timer_get_counter_value__timer_group_t.timer_idx_t.uint64_tP"></span><span class="target" id="timer_8h_1a17639994075ce29c813c3948551d738c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_get_counter_value</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint64_t *<em>ტაიმერის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv423timer_get_counter_value13timer_group_t11timer_idx_tP8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ აპარატურული ტაიმერის მრიცხველის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_val</span></code>: მაჩვენებელი ტაიმერის მრიცხველის მნიშვნელობის მისაღებად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv426timer_get_counter_time_sec13timer_group_t11timer_idx_tPd">
+<span id="_CPPv326timer_get_counter_time_sec13timer_group_t11timer_idx_tPd"></span><span id="_CPPv226timer_get_counter_time_sec13timer_group_t11timer_idx_tPd"></span><span id="timer_get_counter_time_sec__timer_group_t.timer_idx_t.doubleP"></span><span class="target" id="timer_8h_1acd22334771eac28ae04c2cdbc24890de"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_get_counter_time_sec</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, double *<em>დრო</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv426timer_get_counter_time_sec13timer_group_t11timer_idx_tPd" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>წაიკითხეთ აპარატურული ტაიმერის მრიცხველის მნიშვნელობა მოცემული მასშტაბის ერთეულებში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">time</span></code>: მაჩვენებელი, ორმაგი*-ის ტიპი, ტაიმერის მრიცხველის მნიშვნელობის მისაღებად, წამებში.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t">
+<span id="_CPPv323timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t"></span><span id="_CPPv223timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t"></span><span id="timer_set_counter_value__timer_group_t.timer_idx_t.uint64_t"></span><span class="target" id="timer_8h_1aae5747bf6074896f72ef87c0d77acdee"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_counter_value</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint64_t <em>ჩატვირთვის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv423timer_set_counter_value13timer_group_t11timer_idx_t8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მრიცხველის მნიშვნელობა აპარატურულ ტაიმერზე დააყენეთ. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">load_val</span></code>: აპარატურულ ტაიმერში ჩასაწერი მრიცხველის მნიშვნელობა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411timer_start13timer_group_t11timer_idx_t">
+<span id="_CPPv311timer_start13timer_group_t11timer_idx_t"></span><span id="_CPPv211timer_start13timer_group_t11timer_idx_t"></span><span id="timer_start__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a49c6d694d8f7ba13a584ac5217567ccb"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_start</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv411timer_start13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპარატურის ტაიმერის მრიცხველის ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv411timer_pause13timer_group_t11timer_idx_t">
+<span id="_CPPv311timer_pause13timer_group_t11timer_idx_t"></span><span id="_CPPv211timer_pause13timer_group_t11timer_idx_t"></span><span id="timer_pause__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a9862cf904d5b2ef85003ab59deb70a3f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_pause</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv411timer_pause13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპარატურის ტაიმერის მრიცხველის პაუზა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422timer_set_counter_mode13timer_group_t11timer_idx_t17timer_count_dir_t">
+<span id="_CPPv322timer_set_counter_mode13timer_group_t11timer_idx_t17timer_count_dir_t"></span><span id="_CPPv222timer_set_counter_mode13timer_group_t11timer_idx_t17timer_count_dir_t"></span><span id="timer_set_counter_mode__timer_group_t.timer_idx_t.timer_count_dir_t"></span><span class="target" id="timer_8h_1a3a64ee821808d92da43fd5f9aa0c2c8c"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_counter_mode</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, timer_count_dir_t <em>counter_dir</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv422timer_set_counter_mode13timer_group_t11timer_idx_t17timer_count_dir_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპარატურული ტაიმერისთვის დათვლის რეჟიმის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">counter_dir</span></code>ტაიმერის დათვლის მიმართულება, აღმავალი ან უკუმავალი დათვლა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421timer_set_auto_reload13timer_group_t11timer_idx_t18timer_autoreload_t">
+<span id="_CPPv321timer_set_auto_reload13timer_group_t11timer_idx_t18timer_autoreload_t"></span><span id="_CPPv221timer_set_auto_reload13timer_group_t11timer_idx_t18timer_autoreload_t"></span><span id="timer_set_auto_reload__timer_group_t.timer_idx_t.timer_autoreload_t"></span><span class="target" id="timer_8h_1a9caa707e3765d3c537107f416dbd36e7"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_auto_reload</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, timer_autoreload_t <em>გადატვირთვა</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv421timer_set_auto_reload13timer_group_t11timer_idx_t18timer_autoreload_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიგნალიზაციის მოვლენის დროს მრიცხველის გადატვირთვის ფუნქციის ჩართვა ან გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">reload</span></code>: მრიცხველის გადატვირთვის რეჟიმი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417timer_set_divider13timer_group_t11timer_idx_t8uint32_t">
+<span id="_CPPv317timer_set_divider13timer_group_t11timer_idx_t8uint32_t"></span><span id="_CPPv217timer_set_divider13timer_group_t11timer_idx_t8uint32_t"></span><span id="timer_set_divider__timer_group_t.timer_idx_t.uint32_t"></span><span class="target" id="timer_8h_1a72f6acd1b1104707cb765dbb4737d4f3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_divider</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint32_t <em>გამყოფი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv417timer_set_divider13timer_group_t11timer_idx_t8uint32_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>აპარატურული ტაიმერის წყაროს საათის გამყოფის დაყენება. ტაიმერის ჯგუფების საათი APB საათის გამყოფია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">divider</span></code>ტაიმერის საათის გამყოფის მნიშვნელობა. გამყოფის დიაპაზონი 2-დან 65536-მდეა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421timer_set_alarm_value13timer_group_t11timer_idx_t8uint64_t">
+<span id="_CPPv321timer_set_alarm_value13timer_group_t11timer_idx_t8uint64_t"></span><span id="_CPPv221timer_set_alarm_value13timer_group_t11timer_idx_t8uint64_t"></span><span id="timer_set_alarm_value__timer_group_t.timer_idx_t.uint64_t"></span><span class="target" id="timer_8h_1a71ea81c0fea42426fa41801dfaf8a556"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_alarm_value</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint64_t <em>განგაშის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv421timer_set_alarm_value13timer_group_t11timer_idx_t8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის სიგნალიზაციის მნიშვნელობის დაყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm_value</span></code>: 64-ბიტიანი მნიშვნელობა სიგნალიზაციის მნიშვნელობის დასაყენებლად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421timer_get_alarm_value13timer_group_t11timer_idx_tP8uint64_t">
+<span id="_CPPv321timer_get_alarm_value13timer_group_t11timer_idx_tP8uint64_t"></span><span id="_CPPv221timer_get_alarm_value13timer_group_t11timer_idx_tP8uint64_t"></span><span id="timer_get_alarm_value__timer_group_t.timer_idx_t.uint64_tP"></span><span class="target" id="timer_8h_1aa120811f51935a235dc4b4a2594c9f23"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_get_alarm_value</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint64_t *<em>განგაშის_მნიშვნელობა</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv421timer_get_alarm_value13timer_group_t11timer_idx_tP8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ტაიმერის განგაშის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm_value</span></code>: 64-ბიტიანი მნიშვნელობის მაჩვენებელი განგაშის მნიშვნელობის მისაღებად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415timer_set_alarm13timer_group_t11timer_idx_t13timer_alarm_t">
+<span id="_CPPv315timer_set_alarm13timer_group_t11timer_idx_t13timer_alarm_t"></span><span id="_CPPv215timer_set_alarm13timer_group_t11timer_idx_t13timer_alarm_t"></span><span id="timer_set_alarm__timer_group_t.timer_idx_t.timer_alarm_t"></span><span class="target" id="timer_8h_1a808da81f9bd82392c7818e7c3bff365e"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_set_alarm</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, timer_alarm_t <em>alarm_en</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv415timer_set_alarm13timer_group_t11timer_idx_t13timer_alarm_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის განგაშის მოვლენების გენერირების ჩართვა ან გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm_en</span></code>ტაიმერის მაღვიძარას ფუნქციის ჩასართავად ან გამორთვისთვის.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422timer_isr_callback_add13timer_group_t11timer_idx_t11timer_isr_tPvi">
+<span id="_CPPv322timer_isr_callback_add13timer_group_t11timer_idx_t11timer_isr_tPvi"></span><span id="_CPPv222timer_isr_callback_add13timer_group_t11timer_idx_t11timer_isr_tPvi"></span><span id="timer_isr_callback_add__timer_group_t.timer_idx_t.timer_isr_t.voidP.i"></span><span class="target" id="timer_8h_1acc3d45bcae8cfef16e8bfb07cd8c20b9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_isr_callback_add</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, <a class="reference internal" href="timer.html#_CPPv411timer_isr_t" title="timer_isr_t">timer_isr_t</a> <em>isr_handler</em>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv422timer_isr_callback_add13timer_group_t11timer_idx_t11timer_isr_tPvi" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაამატეთ ISR სახელურის უკუკავშირი შესაბამისი ტაიმერისთვის. </p>
+<p><p>თუ intr_alloc_flags-ის მნიშვნელობა ESP_INTR_FLAG_IRAM დაყენებულია, დამმუშავებელი ფუნქცია უნდა გამოცხადდეს IRAM_ATTR ატრიბუტით და მას მხოლოდ IRAM-ში ან ROM-ში არსებული ფუნქციების გამოძახება შეუძლია. მას არ შეუძლია სხვა ტაიმერის API 8-ის, გამოძახება.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This ISR handler will be called from an ISR. This ISR handler do not need to handle interrupt status, and should be kept short. If you want to realize some specific applications or write the whole ISR, you can call timer_isr_register(…) to register ISR.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ჯგუფის ტაიმერის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">isr_handler</span></code>შეწყვეტის დამმუშავებლის ფუნქცია, ეს არის უკუგამოძახების ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h.</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425timer_isr_callback_remove13timer_group_t11timer_idx_t">
+<span id="_CPPv325timer_isr_callback_remove13timer_group_t11timer_idx_t"></span><span id="_CPPv225timer_isr_callback_remove13timer_group_t11timer_idx_t"></span><span id="timer_isr_callback_remove__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a9ee22b61191984b06d3756e0e24f07b1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_isr_callback_remove</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv425timer_isr_callback_remove13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შესაბამისი ტაიმერის ISR სახელურის უკუკავშირის წაშლა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ჯგუფის ტაიმერის ინდექსი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418timer_isr_register13timer_group_t11timer_idx_tPFvPvEPviP18timer_isr_handle_t">
+<span id="_CPPv318timer_isr_register13timer_group_t11timer_idx_tPFvPvEPviP18timer_isr_handle_t"></span><span id="_CPPv218timer_isr_register13timer_group_t11timer_idx_tPFvPvEPviP18timer_isr_handle_t"></span><span class="target" id="timer_8h_1a73c02c4d92d6d3bc10284cc20b4f0dfd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_isr_register</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, void (*<em>ფნ</em>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span>, void *<em>არგუმენტი</em>, int <em>intr_alloc_flags</em>, <a class="reference internal" href="timer.html#_CPPv418timer_isr_handle_t" title="timer_isr_handle_t">timer_isr_handle_t</a> *<em>სახელური</em>, <span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv418timer_isr_register13timer_group_t11timer_idx_tPFvPvEPviP18timer_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეგისტრის ტაიმერის შეწყვეტის დამმუშავებელი, დამმუშავებელი არის ISR. დამმუშავებელი მიმაგრებული იქნება იმავე CPU ბირთვზე, რომელზეც ეს ფუნქცია მუშაობს. </p>
+<p><p>თუ intr_alloc_flags მნიშვნელობა ESP_INTR_FLAG_IRAM დაყენებულია, დამმუშავებლის ფუნქცია უნდა გამოცხადდეს IRAM_ATTR ატრიბუტით და მას მხოლოდ IRAM-ში ან ROM-ში არსებული ფუნქციების გამოძახება შეუძლია. მას არ შეუძლია სხვა ტაიმერის API 8 გამოძახება. ამ შემთხვევაში, ISR-ის შიგნიდან ტაიმერების კონფიგურაციისთვის გამოიყენეთ რეგისტრის პირდაპირი წვდომა.</p>
+<dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If use this function to reigster ISR, you need to write the whole ISR. In the interrupt handler, you need to call timer_spinlock_take(..) before your handling, and call timer_spinlock_give(…) after your handling.</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ჯგუფის ტაიმერის ინდექსი </li>
+<li><code class="docutils literal notranslate"><span class="pre">fn</span></code>შეფერხების დამმუშავებლის ფუნქცია. </li>
+<li><code class="docutils literal notranslate"><span class="pre">arg</span></code>: დამმუშავებლის ფუნქციის პარამეტრი </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_alloc_flags</span></code>: დროშები, რომლებიც გამოიყენება შეწყვეტის გამოსაყოფად. ერთი ან რამდენიმე (OR წითელი) ESP_INTR_FLAG_* მნიშვნელობა. დამატებითი ინფორმაციისთვის იხილეთ esp_intr_alloc.h. </li>
+<li><code class="docutils literal notranslate"><span class="pre">handle</span></code>: დაბრუნების სახელურის მაჩვენებელი. თუ არ არის NULL, შეწყვეტის სახელური აქ დაბრუნდება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t">
+<span id="_CPPv310timer_init13timer_group_t11timer_idx_tPK14timer_config_t"></span><span id="_CPPv210timer_init13timer_group_t11timer_idx_tPK14timer_config_t"></span><span id="timer_init__timer_group_t.timer_idx_t.timer_config_tCP"></span><span class="target" id="timer_8h_1a895264604076543631b605de5fe54011"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_init</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, <em class="property">კონსტ</em> timer_config_t *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv410timer_init13timer_group_t11timer_idx_tPK14timer_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის ინიციალიზაცია და კონფიგურაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>: ტაიმერის ინიციალიზაციის პარამეტრების მაჩვენებელი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv412timer_deinit13timer_group_t11timer_idx_t">
+<span id="_CPPv312timer_deinit13timer_group_t11timer_idx_t"></span><span id="_CPPv212timer_deinit13timer_group_t11timer_idx_t"></span><span id="timer_deinit__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a445553bfe41e198511c7c86aa4c772bf"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_deinit</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv412timer_deinit13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ახდენს ტაიმერის დეინიციალიზაციას. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv416timer_get_config13timer_group_t11timer_idx_tP14timer_config_t">
+<span id="_CPPv316timer_get_config13timer_group_t11timer_idx_tP14timer_config_t"></span><span id="_CPPv216timer_get_config13timer_group_t11timer_idx_tP14timer_config_t"></span><span id="timer_get_config__timer_group_t.timer_idx_t.timer_config_tP"></span><span class="target" id="timer_8h_1a506a2ba5af3cdd04b65051b796221309"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_get_config</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, timer_config_t *<em>კონფიგურაცია</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv416timer_get_config13timer_group_t11timer_idx_tP14timer_config_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ტაიმერის კონფიგურაციის მნიშვნელობა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი, 0 hw_timer[0]-სთვის და 1 hw_timer[1]-სთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">config</span></code>: სტრუქტურის მაჩვენებელი ტაიმერის პარამეტრების მისაღებად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423timer_group_intr_enable13timer_group_t12timer_intr_t">
+<span id="_CPPv323timer_group_intr_enable13timer_group_t12timer_intr_t"></span><span id="_CPPv223timer_group_intr_enable13timer_group_t12timer_intr_t"></span><span id="timer_group_intr_enable__timer_group_t.timer_intr_t"></span><span class="target" id="timer_8h_1ae1fef53d62b120c45a708d509080b0e5"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_group_intr_enable</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_intr_t <em>ინტრ_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv423timer_group_intr_enable13timer_group_t12timer_intr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის ჯგუფის შეწყვეტის ჩართვა ნიღბის ჩართვით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_mask</span></code>ტაიმერის შეწყვეტის ჩართვის ნიღაბი.<ul>
+<li>TIMER_INTR_T0: t0 შეწყვეტა</li>
+<li>TIMER_INTR_T1: t1 შეწყვეტა</li>
+<li>TIMER_INTR_WDT: მაკონტროლებელი ფუნქციის შეწყვეტა.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424timer_group_intr_disable13timer_group_t12timer_intr_t">
+<span id="_CPPv324timer_group_intr_disable13timer_group_t12timer_intr_t"></span><span id="_CPPv224timer_group_intr_disable13timer_group_t12timer_intr_t"></span><span id="timer_group_intr_disable__timer_group_t.timer_intr_t"></span><span class="target" id="timer_8h_1abb625661d58a580c44119df4affa6aa1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_group_intr_disable</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_intr_t <em>ინტრ_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv424timer_group_intr_disable13timer_group_t12timer_intr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის ჯგუფის შეფერხების გამორთვა ნიღბის გამორთვით. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_mask</span></code>ტაიმერის შეწყვეტის გამორთვის ნიღაბი.<ul>
+<li>TIMER_INTR_T0: t0 შეწყვეტა</li>
+<li>TIMER_INTR_T1: t1 შეწყვეტა</li>
+<li>TIMER_INTR_WDT: მაკონტროლებელი ფუნქციის შეწყვეტა.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417timer_enable_intr13timer_group_t11timer_idx_t">
+<span id="_CPPv317timer_enable_intr13timer_group_t11timer_idx_t"></span><span id="_CPPv217timer_enable_intr13timer_group_t11timer_idx_t"></span><span id="timer_enable_intr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1ac789af230c99df69103718a05fa14a9f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_enable_intr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv417timer_enable_intr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის შეფერხების ჩართვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418timer_disable_intr13timer_group_t11timer_idx_t">
+<span id="_CPPv318timer_disable_intr13timer_group_t11timer_idx_t"></span><span id="_CPPv218timer_disable_intr13timer_group_t11timer_idx_t"></span><span id="timer_disable_intr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a2eca7ef66f0a794384f6558a726b9862"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_disable_intr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv418timer_disable_intr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის შეფერხების გამორთვა. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427timer_group_intr_clr_in_isr13timer_group_t11timer_idx_t">
+<span id="_CPPv327timer_group_intr_clr_in_isr13timer_group_t11timer_idx_t"></span><span id="_CPPv227timer_group_intr_clr_in_isr13timer_group_t11timer_idx_t"></span><span id="timer_group_intr_clr_in_isr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1adb5b49e2ce40fb3c2d1419555a1b0c89"></span>void <code class="descname">timer_group_intr_clr_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv427timer_group_intr_clr_in_isr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის შეფერხების სტატუსის გასუფთავება, გამოყენებულია მხოლოდ ISR-ში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434timer_group_clr_intr_status_in_isr13timer_group_t11timer_idx_t">
+<span id="_CPPv334timer_group_clr_intr_status_in_isr13timer_group_t11timer_idx_t"></span><span id="_CPPv234timer_group_clr_intr_status_in_isr13timer_group_t11timer_idx_t"></span><span id="timer_group_clr_intr_status_in_isr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1a3665e44bd3417c30de647b8638831b42"></span>void <code class="descname">timer_group_clr_intr_status_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv434timer_group_clr_intr_status_in_isr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტაიმერის შეფერხების სტატუსის გასუფთავება, გამოყენებულია მხოლოდ ISR-ში. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431timer_group_enable_alarm_in_isr13timer_group_t11timer_idx_t">
+<span id="_CPPv331timer_group_enable_alarm_in_isr13timer_group_t11timer_idx_t"></span><span id="_CPPv231timer_group_enable_alarm_in_isr13timer_group_t11timer_idx_t"></span><span id="timer_group_enable_alarm_in_isr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1abe7384a77e675d77eb8ad268d919f5e2"></span>void <code class="descname">timer_group_enable_alarm_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv431timer_group_enable_alarm_in_isr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სიგნალიზაციის შეწყვეტის ჩართვა, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv436timer_group_get_counter_value_in_isr13timer_group_t11timer_idx_t">
+<span id="_CPPv336timer_group_get_counter_value_in_isr13timer_group_t11timer_idx_t"></span><span id="_CPPv236timer_group_get_counter_value_in_isr13timer_group_t11timer_idx_t"></span><span id="timer_group_get_counter_value_in_isr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1abe2a7a6c93f12f3e1b9eb5b096b7195e"></span>uint64_t <code class="descname">timer_group_get_counter_value_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv436timer_group_get_counter_value_in_isr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ მიმდინარე მრიცხველის მნიშვნელობა, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>მრიცხველის მნიშვნელობა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434timer_group_set_alarm_value_in_isr13timer_group_t11timer_idx_t8uint64_t">
+<span id="_CPPv334timer_group_set_alarm_value_in_isr13timer_group_t11timer_idx_t8uint64_t"></span><span id="_CPPv234timer_group_set_alarm_value_in_isr13timer_group_t11timer_idx_t8uint64_t"></span><span id="timer_group_set_alarm_value_in_isr__timer_group_t.timer_idx_t.uint64_t"></span><span class="target" id="timer_8h_1ae15fe9e1bd73f33f8d9e9ca240cf2aef"></span>void <code class="descname">timer_group_set_alarm_value_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, uint64_t <em>alarm_val</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv434timer_group_set_alarm_value_in_isr13timer_group_t11timer_idx_t8uint64_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დააყენეთ სიგნალიზაციის ზღვარი ტაიმერისთვის, რომელიც მხოლოდ ISR-შია გამოყენებული. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm_val</span></code>: სიგნალიზაციის ზღვარი.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv437timer_group_set_counter_enable_in_isr13timer_group_t11timer_idx_t13timer_start_t">
+<span id="_CPPv337timer_group_set_counter_enable_in_isr13timer_group_t11timer_idx_t13timer_start_t"></span><span id="_CPPv237timer_group_set_counter_enable_in_isr13timer_group_t11timer_idx_t13timer_start_t"></span><span id="timer_group_set_counter_enable_in_isr__timer_group_t.timer_idx_t.timer_start_t"></span><span class="target" id="timer_8h_1a2bc3e950798a4dc3d5f3e5600fa3727f"></span>void <code class="descname">timer_group_set_counter_enable_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em>, timer_start_t <em>კონტრ_ენ</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv437timer_group_set_counter_enable_in_isr13timer_group_t11timer_idx_t13timer_start_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მრიცხველის ჩართვა/გამორთვა, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>: ტაიმერის ინდექსი. </li>
+<li><code class="docutils literal notranslate"><span class="pre">counter_en</span></code>: ჩართვა/გამორთვა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv427timer_group_intr_get_in_isr13timer_group_t">
+<span id="_CPPv327timer_group_intr_get_in_isr13timer_group_t"></span><span id="_CPPv227timer_group_intr_get_in_isr13timer_group_t"></span><span id="timer_group_intr_get_in_isr__timer_group_t"></span><span class="target" id="timer_8h_1a5cca90c2b4291b82356a89477b5fa055"></span>timer_intr_t <code class="descname">timer_group_intr_get_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv427timer_group_intr_get_in_isr13timer_group_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ნიღბიანი შეწყვეტის სტატუსი, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>შეწყვეტის სტატუსი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434timer_group_get_intr_status_in_isr13timer_group_t">
+<span id="_CPPv334timer_group_get_intr_status_in_isr13timer_group_t"></span><span id="_CPPv234timer_group_get_intr_status_in_isr13timer_group_t"></span><span id="timer_group_get_intr_status_in_isr__timer_group_t"></span><span class="target" id="timer_8h_1adb0665f78de877c083ea99401da7504f"></span>uint32_t <code class="descname">timer_group_get_intr_status_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv434timer_group_get_intr_status_in_isr13timer_group_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ შეფერხების სტატუსი, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>შეწყვეტის სტატუსი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431timer_group_clr_intr_sta_in_isr13timer_group_t12timer_intr_t">
+<span id="_CPPv331timer_group_clr_intr_sta_in_isr13timer_group_t12timer_intr_t"></span><span id="_CPPv231timer_group_clr_intr_sta_in_isr13timer_group_t12timer_intr_t"></span><span id="timer_group_clr_intr_sta_in_isr__timer_group_t.timer_intr_t"></span><span class="target" id="timer_8h_1accf67463fcaee7da5b5c578412e57454"></span>void <code class="descname">timer_group_clr_intr_sta_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_intr_t <em>ინტრ_ნიღაბი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv431timer_group_clr_intr_sta_in_isr13timer_group_t12timer_intr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ნიღბიანი შეფერხების სტატუსის გასუფთავება, რომელიც მხოლოდ ISR-ში გამოიყენება. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>არცერთი </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">intr_mask</span></code>: ნიღბიანი შეწყვეტა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv434timer_group_get_auto_reload_in_isr13timer_group_t11timer_idx_t">
+<span id="_CPPv334timer_group_get_auto_reload_in_isr13timer_group_t11timer_idx_t"></span><span id="_CPPv234timer_group_get_auto_reload_in_isr13timer_group_t11timer_idx_t"></span><span id="timer_group_get_auto_reload_in_isr__timer_group_t.timer_idx_t"></span><span class="target" id="timer_8h_1ab6dc455596dafab00cd1ad0105775aad"></span>bool <code class="descname">timer_group_get_auto_reload_in_isr</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em>, timer_idx_t <em>ტაიმერის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv434timer_group_get_auto_reload_in_isr13timer_group_t11timer_idx_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ავტომატური გადატვირთვის ჩართვის სტატუსი, რომელიც მხოლოდ ISR-შია გამოყენებული. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>True Auto გადატვირთვა ჩართულია</li>
+<li>ცრუ ავტომატური გადატვირთვა გამორთულია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის </li>
+<li><code class="docutils literal notranslate"><span class="pre">timer_num</span></code>ტაიმერის ინდექსი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419timer_spinlock_take13timer_group_t">
+<span id="_CPPv319timer_spinlock_take13timer_group_t"></span><span id="_CPPv219timer_spinlock_take13timer_group_t"></span><span id="timer_spinlock_take__timer_group_t"></span><span class="target" id="timer_8h_1ac370e6479dd5518403e58d7e851efab3"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_spinlock_take</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv419timer_spinlock_take13timer_group_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კრიტიკული დაცვის შესასვლელად გამოიყენეთ ტაიმერის სპინლოკი. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv419timer_spinlock_give13timer_group_t">
+<span id="_CPPv319timer_spinlock_give13timer_group_t"></span><span id="_CPPv219timer_spinlock_give13timer_group_t"></span><span id="timer_spinlock_give__timer_group_t"></span><span class="target" id="timer_8h_1a9e1782f7b26cef32adc10dafa5737e72"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">timer_spinlock_give</code><span class="sig-paren">(</span>timer_group_t <em>ჯგუფის_ნომერი</em><span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv419timer_spinlock_give13timer_group_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>კრიტიკული დაცვიდან გასასვლელად მიანიჭეთ ტაიმერის სპინლოკს. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK წარმატება</li>
+<li>ESP_ERR_INVALID_ARG პარამეტრის შეცდომა </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">group_num</span></code>ტაიმერის ჯგუფის ნომერი, 0 TIMERG0-სთვის ან 1 TIMERG1-ისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="macros">
+<h3>მაკროები<a class="headerlink" href="timer.html#macros" title="Permalink to this headline">¶</a></h3>
+<dl class="macro">
+<dt id="c.TIMER_BASE_CLK">
+<span class="target" id="timer_8h_1afd3d7ef0475a0247df1cb04a33078036"></span><code class="descname">TIMER_BASE_CLK</code><a class="headerlink" href="timer.html#c.TIMER_BASE_CLK" title="Permalink to this definition">¶</a></dt>
+<dd><p>ტაიმერის ჯგუფების შეყვანაზე საათის სიხშირე </p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="timer.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv411timer_isr_t">
+<span id="_CPPv311timer_isr_t"></span><span id="_CPPv211timer_isr_t"></span><span id="timer_isr_t"></span><span class="target" id="timer_8h_1a4504180b55d74f6c87ac6a3b20283a3b"></span><em class="property">typedef </em>void (*<code class="descname">timer_isr_t</code>)<span class="sig-paren">(</span>void *<span class="sig-paren">)</span><a class="headerlink" href="timer.html#_CPPv411timer_isr_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv418timer_isr_handle_t">
+<span id="_CPPv318timer_isr_handle_t"></span><span id="_CPPv218timer_isr_handle_t"></span><span id="timer_isr_handle_t"></span><span class="target" id="timer_8h_1a1d6b76140d80f1b972aae3e3853c97b0"></span><em class="property">typedef </em><a class="reference internal" href="../system/intr_alloc.html#_CPPv413intr_handle_t" title="intr_handle_t">intr_handle_t</a> <code class="descname">timer_isr_handle_t</code><a class="headerlink" href="timer.html#_CPPv418timer_isr_handle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეწყვეტის სახელური, გამოიყენება გამოყენების შემდეგ isr-ის გასათავისუფლებლად. ჯერჯერობით int სახელურის ფსევდონიმები. </p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="touch_pad.html" rel="next" title="Touch Sensor">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="temp_sensor.html" rel="prev" title="ESP32-S2 Temperature Sensor"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

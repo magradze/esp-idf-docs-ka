@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eclipse IDE-ს (Legacy GNU Make) გამოყენებით აწყობა და ფლეშ-პროგრამირება — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="toolchain-setup-scratch.html" rel="next" title="Customized Setup of Toolchain (Legacy GNU Make)"/>
+<link href="make-project.html" rel="prev" title="Build and Flash with Make (Legacy GNU Make)"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/get-started-legacy/eclipse-setup.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "get-started-legacy/eclipse-setup"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/get-started-legacy/eclipse-setup.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../get-started/index.html">დაწყება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#introduction">შესავალი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-1-install-prerequisites">ნაბიჯი 1. წინაპირობების ინსტალაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-3-set-up-the-tools">ნაბიჯი 3. ხელსაწყოების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-4-set-up-the-environment-variables">ნაბიჯი 4. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-8-build-the-project">ნაბიჯი 8. პროექტის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-9-flash-onto-the-device">ნაბიჯი 9. ფლეშის განთავსება მოწყობილობაზე</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#step-10-monitor">ნაბიჯი 10. მონიტორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get-started/index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../get-started/index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../get-started/establish-serial-connection.html">სერიული კავშირის დამყარება ESP32-თან</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../get-started/eclipse-setup.html">Eclipse IDE-ს გამოყენებით აწყობა და ფლეშ-პროგრამირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-guides/tools/idf-monitor.html">IDF მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../get-started/toolchain-setup-scratch.html">Toolchain-ის მორგებული დაყენება</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">დაწყება (Legacy GNU Make)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="index.html#introduction">შესავალი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#what-you-need">რა გჭირდებათ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#development-board-overviews">განვითარების საბჭოს მიმოხილვები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#installation-step-by-step">ინსტალაცია ეტაპობრივად</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-1-set-up-the-toolchain">ნაბიჯი 1. ინსტრუმენტების ჯაჭვის დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-2-get-esp-idf">ნაბიჯი 2. მიიღეთ ESP-IDF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-3-set-environment-variables">ნაბიჯი 3. გარემოს ცვლადების დაყენება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-4-install-the-required-python-packages">ნაბიჯი 4. დააინსტალირეთ საჭირო Python პაკეტები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-5-start-a-project">ნაბიჯი 5. პროექტის დაწყება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-6-connect-your-device">ნაბიჯი 6. თქვენი მოწყობილობის დაკავშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-7-configure">ნაბიჯი 7. კონფიგურაცია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-8-build-and-flash">ნაბიჯი 8. აწყობა და ფლეშირება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#step-9-monitor">ნაბიჯი 9. მონიტორი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#environment-variables">გარემოს ცვლადები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#updating-esp-idf">ESP-IDF განახლება</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html#related-documents">დაკავშირებული დოკუმენტები</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">დოკუმენტები</a> »</li>
+<li><a href="../get-started/index.html">დაწყება</a> »</li>
+<li><a href="index.html">დაწყება (Legacy GNU Make)</a> »</li>
+<li>Eclipse IDE-ს (Legacy GNU Make) გამოყენებით აწყობა და ფლეშ-პროგრამირება</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/get-started-legacy/eclipse-setup.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="build-and-flash-with-eclipse-ide-legacy-gnu-make">
+<h1>Eclipse IDE-ს (Legacy GNU Make) გამოყენებით აწყობა და ფლეშ-პროგრამირება<a class="headerlink" href="eclipse-setup.html#build-and-flash-with-eclipse-ide-legacy-gnu-make" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/zh_CN/latest/get-started-legacy/eclipse-setup.html">[中文]</a></p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ESP-IDF V4.0-დან დაწყებული, ნაგულისხმევი აწყობის სისტემა დაფუძნებულია CMake-ზე. ეს დოკუმენტაცია განკუთვნილია GNU Make-ზე დაფუძნებული მემკვიდრეობითი აწყობის სისტემისთვის. ამ აწყობის სისტემის მხარდაჭერა შესაძლოა მომავალ ძირითად ვერსიებში გაუქმდეს.</p>
+</div>
+<div class="section" id="installing-eclipse-ide">
+<span id="eclipse-install-steps-legacy"></span><h2>Eclipse IDE-ს ინსტალაცია<a class="headerlink" href="eclipse-setup.html#installing-eclipse-ide" title="Permalink to this headline">¶</a></h2>
+<p>Eclipse IDE გთავაზობთ გრაფიკულად ინტეგრირებულ განვითარების გარემოს ESP-IDF პროექტების წერის, კომპილაციისა და გამართვა .</p>
+<ul class="simple">
+<li>დაიწყეთ თქვენი პლატფორმისთვის esp-idf ფაილის ინსტალაციით (იხილეთ ამ დირექტორიაში არსებული ფაილები Windows-ის, OS X-ის, Linux-ის ნაბიჯებით).</li>
+<li>გირჩევთ, პროექტი თავდაპირველად ბრძანების ხაზიდან შექმნათ, რათა გაიგოთ, თუ როგორ მუშაობს ეს პროცესი. ასევე, ბრძანების ხაზი უნდა გამოიყენოთ თქვენი esp-idf პროექტის კონფიგურაციისთვის (via <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code>), ეს ამჟამად Eclipse-ში მხარდაჭერილი არ არის.</li>
+<li>ჩამოტვირთეთ Eclipse-ის ინსტალერი თქვენი პლატფორმისთვის: <a class="reference external" href="https://www.eclipse.org/">eclipse.org</a>.</li>
+<li>Eclipse ინსტალატორის გაშვებისას აირჩიეთ „Eclipse for C/C++ Development“ (სხვა ადგილებში ამას CDT-ს უწოდებენ).</li>
+</ul>
+</div>
+<div class="section" id="setting-up-eclipse">
+<h2>Eclipse-ის დაყენება<a class="headerlink" href="eclipse-setup.html#setting-up-eclipse" title="Permalink to this headline">¶</a></h2>
+<p>როგორც კი თქვენი ახალი Eclipse ინსტალაცია დაიწყება, მიჰყევით ამ ნაბიჯებს:</p>
+<div class="section" id="import-new-project">
+<h3>ახალი პროექტის იმპორტი<a class="headerlink" href="eclipse-setup.html#import-new-project" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Eclipse იყენებს Makefile მხარდაჭერას ESP-IDF ში. ეს ნიშნავს, რომ თქვენ უნდა დაიწყოთ ESP-IDF პროექტის შექმნით. შეგიძლიათ გამოიყენოთ idf-template პროექტი github-დან ან გახსნათ ერთ-ერთი მაგალითი esp-idf examples ქვედირექტორიაში.</li>
+<li>Eclipse-ის გაშვების შემდეგ აირჩიეთ ფაილი -&amp;gt; იმპორტი…</li>
+<li>გამოსულ დიალოგურ ფანჯარაში აირჩიეთ „C/C++“ -&amp;gt; „არსებული კოდი, როგორც Makefile პროექტი“ და დააჭირეთ ღილაკს „შემდეგი“.</li>
+<li>შემდეგ გვერდზე, თქვენი IDF პროექტის დირექტორიად შეიყვანეთ „არსებული კოდის ადგილმდებარეობა“. არ მიუთითოთ ESP-IDF დირექტორიისკენ მიმავალი გზა (რომელიც მოგვიანებით გამოჩნდება). თქვენს მიერ მითითებული დირექტორია უნდა შეიცავდეს ფაილს სახელწოდებით „Makefile“ (პროექტის Makefile).</li>
+<li>იმავე გვერდზე, „ინდექსატორის პარამეტრებისთვის ხელსაწყოთა ჯაჭვის“ ქვეშ აირჩიეთ „Cross GCC“. შემდეგ დააჭირეთ ღილაკს „დასრულება“.</li>
+</ul>
+</div>
+<div class="section" id="project-properties">
+<h3>პროექტის თვისებები<a class="headerlink" href="eclipse-setup.html#project-properties" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ახალი პროექტი გამოჩნდება Project Explorer-ში. დააწკაპუნეთ მაუსის მარჯვენა ღილაკით პროექტზე და კონტექსტური მენიუდან აირჩიეთ Properties.</li>
+<li>დააწკაპუნეთ „გარემოს“ თვისებების გვერდზე „C/C++ Build“-ის ქვეშ. დააწკაპუნეთ „დამატება…“-ზე და შეიყვანეთ სახელი. <code class="docutils literal notranslate"><span class="pre">BATCH_BUILD</span></code> და ღირებულება <code class="docutils literal notranslate"><span class="pre">1</span></code>.</li>
+<li>კვლავ დააჭირეთ ღილაკს „დამატება…“ და შეიყვანეთ სახელი <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code>მნიშვნელობა უნდა იყოს სრული გზა, სადაც ESP-IDF არის დაინსტალირებული. Windows-ის მომხმარებლებს შეუძლიათ კოპირება <code class="docutils literal notranslate"><span class="pre">IDF_PATH</span></code> Windows Explorer-დან.</li>
+<li>რედაქტირება <code class="docutils literal notranslate"><span class="pre">PATH</span></code> გარემოს ცვლადი. შეინახეთ მიმდინარე მნიშვნელობა და დაამატეთ გზა Xtensa ინსტრუმენტების ნაკრები ისკენ, რომელიც დაინსტალირებულია IDF დაყენების ნაწილად, თუ ის უკვე არ არის ჩამოთვლილი PATH-ში. ინსტრუმენტების ნაკრები ისკენ მიმავალი ტიპიური გზა ასე გამოიყურება: <code class="docutils literal notranslate"><span class="pre">/home/user-name/esp/xtensa-esp32-elf/bin</span></code>გაითვალისწინეთ, რომ ორწერტილის დამატება გჭირდებათ <code class="docutils literal notranslate"><span class="pre">:</span></code> დამატებული გზის წინ. Windows-ის მომხმარებლებს დასჭირდებათ წინასწარი ჩასმა <code class="docutils literal notranslate"><span class="pre">C:\msys32\mingw32\bin;C:\msys32\opt\xtensa-esp32-elf\bin;C:\msys32\usr\bin</span></code> რომ <code class="docutils literal notranslate"><span class="pre">PATH</span></code> გარემოს ცვლადი (თუ msys32 სხვა დირექტორიაში დააინსტალირეთ, მაშინ ეს ბილიკები უნდა შეცვალოთ, რომ ემთხვეოდეს).</li>
+<li>macOS-ზე დაამატეთ <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> გარემოს ცვლადი და დააყენეთ ის <code class="docutils literal notranslate"><span class="pre">/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages</span></code>ეს იმისთვის კეთდება, რომ სისტემურმა Python-მა, რომელშიც დაყენების ნაბიჯების ნაწილად pyserial-ია დაინსტალირებული, გადაფაროს ნებისმიერი ჩაშენებული Eclipse Python.</li>
+</ul>
+<p><strong>დამატებითი შენიშვნა</strong>თუ IDF_PATH დირექტორია ან პროექტის დირექტორია გარეთ მდებარეობს <code class="docutils literal notranslate"><span class="pre">C:\msys32\home</span></code> დირექტორიაში, თქვენ უნდა მისცეთ მორგებული build ბრძანება C/C++ Build თვისებებში, როგორც: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">${IDF_PATH}/tools/windows/eclipse_make.py</span></code> (გაითვალისწინეთ, რომ ამ მეთოდით შეიძლება მნიშვნელოვნად გაიზარდოს აწყობის დრო.)</p>
+<p>გადადით „C/C++ General“ -&amp;gt; „Preprocessor Include Paths“ თვისებების გვერდზე:</p>
+<ul class="simple">
+<li>დააჭირეთ ღილაკს „პროვაიდერები“</li>
+<li>პროვაიდერების სიაში დააწკაპუნეთ „CDT Cross GCC Built-in Compiler Settings“-ზე. შეცვალეთ „Command to get კომპილაცია r specs“-ით. <code class="docutils literal notranslate"><span class="pre">xtensa-esp32-elf-gcc</span> <span class="pre">${FLAGS}</span> <span class="pre">-std=c++11</span> <span class="pre">-E</span> <span class="pre">-P</span> <span class="pre">-v</span> <span class="pre">-dD</span> <span class="pre">"${INPUTS}"</span></code>.</li>
+<li>პროვაიდერების სიაში დააწკაპუნეთ „CDT GCC Build Output Parser“-ზე და შეცვალეთ „Compiler command pattern“-ით <code class="docutils literal notranslate"><span class="pre">xtensa-esp32-elf-(gcc|g\+\+|c\+\+|cc|cpp|clang)</span></code></li>
+</ul>
+<p>გადადით „C/C++ ზოგადი“ -&amp;gt; „ინდექსატორის“ თვისებების გვერდზე:</p>
+<ul class="simple">
+<li>ამ გვერდზე დანარჩენი პარამეტრების ჩასართავად მონიშნეთ „პროექტის სპეციფიკური პარამეტრების ჩართვა“.</li>
+<li>მოხსენით მონიშვნა „ჩართვების ევრისტიკული გარჩევადობის დაშვება“. როდესაც ეს პარამეტრი ჩართულია, Eclipse ზოგჯერ ვერ პოულობს სწორ სათაურის დირექტორიებს.</li>
+</ul>
+<p>გადადით „C/C++ Build“ -&amp;gt; „Behavior“ თვისებების გვერდზე:</p>
+<ul class="simple">
+<li>რამდენიმე აწყობის დავალების პარალელურად ჩასართავად მონიშნეთ „პარალელური აწყობის ჩართვა“.</li>
+</ul>
+</div>
+<div class="section" id="building-in-eclipse">
+<span id="eclipse-build-project-legacy"></span><h3>შენობა Eclipse-ში<a class="headerlink" href="eclipse-setup.html#building-in-eclipse" title="Permalink to this headline">¶</a></h3>
+<p>პროექტის აწყობამდე, Eclipse-მა შეიძლება აჩვენოს მრავალი შეცდომა და გაფრთხილება განუსაზღვრელი მნიშვნელობების შესახებ. ეს იმიტომ ხდება, რომ ზოგიერთი საწყისი ფაილი ავტომატურად გენერირდება esp-idf აწყობის პროცესის ფარგლებში. ეს შეცდომები და გაფრთხილებები გაქრება პროექტის აწყობის შემდეგ.</p>
+<ul class="simple">
+<li>Eclipse-ში Properties დიალოგური ფანჯრის დასახურად დააჭირეთ ღილაკს OK.</li>
+<li>Eclipse-ის გარეთ, გახსენით ბრძანების ხაზი. გადადით თქვენი პროექტის დირექტორიაში და გაუშვით <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span></code> თქვენი პროექტის esp-idf პარამეტრების კონფიგურაციისთვის. ეს ნაბიჯი ამჟამად Eclipse-ის გარეთ უნდა შესრულდეს.</li>
+</ul>
+<p><em>თუ კონფიგურაციის ეტაპის გაშვების გარეშე ეცდებით აწყობას, esp-idf ბრძანების ხაზზე კონფიგურაციას მოგთხოვთ, თუმცა Eclipse-ს ამის მოგვარება არ შეუძლია, ამიტომ აწყობა გაიჭედება ან ვერ მოხერხდება.</em></p>
+<ul class="simple">
+<li>დაბრუნდით Eclipse-ში, პროექტის ასაგებად აირჩიეთ Project -&amp;gt; Build.</li>
+</ul>
+<p><strong>რჩევა</strong>თუ თქვენი პროექტი უკვე შექმნილია Eclipse-ის გარეთ, შესაძლოა დაგჭირდეთ Project -&amp;gt; Clean-ის გაკეთება Project -&amp;gt; Build-ის არჩევამდე. ეს კეთდება იმისათვის, რომ Eclips-მა ნახოს კომპილაცია r არგუმენტები ყველა საწყისი ფაილისთვის. ის მათ იყენებს სათაურის ჩართვის გზების დასადგენად.</p>
+</div>
+<div class="section" id="flash-from-eclipse">
+<h3>ფლეში Eclipse-დან<a class="headerlink" href="eclipse-setup.html#flash-from-eclipse" title="Permalink to this headline">¶</a></h3>
+<p>თქვენ შეგიძლიათ „make ფლეშ მეხსიერება “-ის სამიზნის ინტეგრირება თქვენს Eclipse პროექტში ფლეშ მეხსიერება თან Eclipse-ის ინტერფეისიდან esptool.py-ის გამოყენებით:</p>
+<ul class="simple">
+<li>დააწკაპუნეთ მარჯვენა ღილაკით თქვენს პროექტზე Project Explorer-ში (მნიშვნელოვანია დარწმუნდეთ, რომ პროექტს არჩევთ და არა პროექტში არსებულ დირექტორიას, წინააღმდეგ შემთხვევაში Eclipse-მა შეიძლება არასწორი Makefile იპოვოს.)</li>
+<li>კონტექსტური მენიუდან აირჩიეთ სამიზნეების შექმნა -&amp;gt; შექმნა….</li>
+<li>სამიზნე სახელად აკრიფეთ „ ფლეშ მეხსიერება “. სხვა პარამეტრები ნაგულისხმევად დატოვეთ.</li>
+<li>ახლა შეგიძლიათ გამოიყენოთ Project -&amp;gt; Build Target -&amp;gt; Build (Shift+F9) ფლეშ მეხსიერება მორგებული სამიზნის ასაშენებლად, რომელიც კომპილაცია და ფლეშ მეხსიერება მოახდენს პროექტის ასაშენებლად.</li>
+</ul>
+<p>გაითვალისწინეთ, რომ სერიული პორტი და ფლეშ მეხსიერება ის სხვა კონფიგურაციის პარამეტრების დასაყენებლად დაგჭირდებათ „make menuconfig “-ის გამოყენება. „make menuconfig “-ს მაინც სჭირდება ბრძანების ხაზის ტერმინალი (იხილეთ თქვენი პლატფორმის ინსტრუქციები).</p>
+<p>დამატების მიზნით, მიჰყევით იგივე ნაბიჯებს <code class="docutils literal notranslate"><span class="pre">bootloader</span></code> და <code class="docutils literal notranslate"><span class="pre">partition_table</span></code> საჭიროების შემთხვევაში, სამიზნეები.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="toolchain-setup-scratch.html" rel="next" title="Customized Setup of Toolchain (Legacy GNU Make)">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="make-project.html" rel="prev" title="Build and Flash with Make (Legacy GNU Make)"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

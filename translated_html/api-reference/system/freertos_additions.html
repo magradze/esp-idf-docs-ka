@@ -1,0 +1,1246 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>უფასო RTOS დამატებები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="mem_alloc.html" rel="next" title="Heap Memory Allocation"/>
+<link href="freertos.html" rel="prev" title="FreeRTOS"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/freertos_additions.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/system/freertos_additions"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/system/freertos_additions.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">სისტემა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app_image_format.html">აპლიკაციის სურათის ფორმატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="efuse.html">eFuse მენეჯერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_err.html">შეცდომის კოდები და დამხმარე ფუნქციები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_https_ota.html">ESP HTTPS OTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_pthread.html">ESP pthread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_event.html">მოვლენების ციკლის ბიბლიოთეკა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="freertos.html">უფასო RTOS</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="freertos_additions.html#">უფასო RTOS დამატებები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="freertos_additions.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos_additions.html#ring-buffers">რგოლის ბუფერები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos_additions.html#ring-buffer-api-reference">რგოლის ბუფერის API მითითება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos_additions.html#hooks">კაუჭები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="freertos_additions.html#hooks-api-reference">ჰუკსის API ცნობარი</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mem_alloc.html">გროვის მეხსიერების განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heap_debug.html">გროვის მეხსიერების გამართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_timer.html">მაღალი გარჩევადობის ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="himem.html">Himem (დიდი გარე SPI ოპერატიული მეხსიერება) API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipc.html">პროცესორებს შორის ზარი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esp_expression_with_stack.html">ფუნქციის გამოძახება გარე სტეკით</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intr_alloc.html">შეწყვეტის განაწილება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="log.html">ლოგირება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">სხვადასხვა სისტემა, API წმ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ota.html">უსადენო განახლებები (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perfmon.html">შესრულების მონიტორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_management.html">ენერგიის მართვა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sleep_modes.html">ძილის რეჟიმები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wdts.html">მეთვალყურე ძაღლები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_time.html">სისტემის დრო</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">სისტემის API</a> »</li>
+<li>უფასო RTOS დამატებები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/system/freertos_additions.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="freertos-additions">
+<h1>უფასო RTOS დამატებები<a class="headerlink" href="freertos_additions.html#freertos-additions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="freertos_additions.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF Free RTOS დაფუძნებულია Free RTOS v8.2.0-ის Xtensa პორტზე, SMP თავსებადობისთვის მნიშვნელოვანი ცვლილებებით (იხ. <a class="reference internal" href="../../api-guides/freertos-smp.html"><span class="doc">ESP-IDF უფასო RTOS SMP ცვლილებები</span></a>). თუმცა, დაემატა ESP-IDF ისთვის დამახასიათებელი სხვადასხვა უფასო RTOS ფუნქცია. მახასიათებლები შემდეგია:</p>
+<p><a class="reference internal" href="freertos_additions.html#ring-buffers"><span class="std std-ref">რგოლის ბუფერები</span></a>რგოლისებრი ბუფერები დაემატა ბუფერის ისეთი ფორმის უზრუნველსაყოფად, რომელსაც შეეძლო ნებისმიერი სიგრძის ჩანაწერების მიღება.</p>
+<p><a class="reference internal" href="freertos_additions.html#hooks"><span class="std std-ref">კაუჭები</span></a>: ESP-IDF უფასო RTOS ჰუკები უზრუნველყოფს დამატებითი Idle და Tick ჰუკების რეგისტრაციის მხარდაჭერას გაშვების დროს. გარდა ამისა, ჰუკები შეიძლება იყოს ასიმეტრიული ორივე CPU-ს შორის.</p>
+</div>
+<div class="section" id="ring-buffers">
+<span id="id1"></span><h2>რგოლის ბუფერები<a class="headerlink" href="freertos_additions.html#ring-buffers" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF Free RTOS რგოლისებრი ბუფერი არის მკაცრად FIFO ბუფერი, რომელიც მხარს უჭერს თვითნებური ზომის ელემენტებს. რგოლისებრი ბუფერები უფრო მეხსიერების ეფექტური ალტერნატივაა Free RTOS რიგებთან შედარებით იმ სიტუაციებში, როდესაც ელემენტების ზომა ცვალებადია. რგოლისებრი ბუფერის ტევადობა არ იზომება იმ ელემენტების რაოდენობით, რომელთა შენახვაც მას შეუძლია, არამედ ელემენტების შესანახად გამოყენებული მეხსიერების რაოდენობით. თქვენ შეგიძლიათ გამოიყენოთ მეხსიერების ნაწილი რგოლისებრ ბუფერზე ელემენტის გასაგზავნად, ან უბრალოდ გამოიყენოთ API თქვენი მონაცემების კოპირებისა და გაგზავნისთვის (გაგზავნის მიხედვით, რომელსაც გამოიძახებთ API ). ეფექტურობის მიზნით,
+<strong>ელემენტები ყოველთვის ამოღებულია რგოლის ბუფერიდან მითითებით.</strong>შედეგად, ყველა ამოღებული ნივთი <em>ასევე უნდა დაბრუნდეს</em> რათა ისინი მთლიანად მოიხსნას რგოლის ბუფერიდან. რგოლის ბუფერები იყოფა შემდეგ სამ ტიპად:</p>
+<p><strong>უგაყოფო</strong> ბუფერები უზრუნველყოფენ, რომ ელემენტი შენახული იქნება მომიჯნავე მეხსიერებაში და არანაირ გარემოებაში არ შეეცდებიან ელემენტის გაყოფას. გამოიყენეთ გაყოფის გარეშე ბუფერები, როდესაც ელემენტებმა უნდა დაიკავონ მომიჯნავე მეხსიერება. <em>მხოლოდ ამ ბუფერის ტიპი საშუალებას გაძლევთ მიიღოთ მონაცემთა ელემენტის მისამართი და დამოუკიდებლად ჩაწეროთ ის ელემენტში.</em></p>
+<p><strong>დაშვება-გაყოფა</strong> ბუფერები საშუალებას მისცემს ელემენტს გაიყოს შეფუთვისას, თუ ეს საშუალებას მისცემს ელემენტს შეინახოს. გაყოფის დაშვების ბუფერები უფრო ეფექტურია მეხსიერების გამოყენებისთვის, ვიდრე გაყოფის გარეშე ბუფერები, მაგრამ მოძიებისას შეუძლიათ ელემენტის ორ ნაწილად დაბრუნება.</p>
+<p><strong>ბაიტური ბუფერები</strong> არ შეინახოთ მონაცემები ცალკეულ ელემენტებად. ყველა მონაცემი ინახება ბაიტების თანმიმდევრობის სახით და შეიძლება გაიგზავნოს ან მოიძებნოს ყოველ ჯერზე. გამოიყენეთ ბაიტური ბუფერები, როდესაც ცალკეული ელემენტების შენარჩუნება არ არის საჭირო (მაგ., ბაიტური ნაკადი).</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გაყოფის გარეშე/გაყოფის დაშვების ბუფერები ყოველთვის შეინახავს ელემენტებს 32-ბიტიან გასწორებულ მისამართებზე. ამიტომ, ელემენტის მოძიებისას, ელემენტის მაჩვენებელი გარანტირებულია 32-ბიტიან გასწორებაზე. ეს განსაკუთრებით სასარგებლოა, როდესაც DMA-სთვის მონაცემების გაგზავნა გჭირდებათ.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">თითოეული ელემენტი, რომელიც შენახულია no-split/allow-split ბუფერებში, <strong>სათაურისთვის დამატებით 8 ბაიტია საჭირო</strong>ელემენტის ზომები ასევე დამრგვალდება 32-ბიტიან გასწორებულ ზომამდე (4 ბაიტის ჯერადი), თუმცა ელემენტის ნამდვილი ზომა ჩაიწერება სათაურში. შექმნისას ასევე დამრგვალდება გაყოფის გარეშე/დაშვებული გაყოფის ბუფერების ზომები.</p>
+</div>
+<div class="section" id="usage">
+<h3>გამოყენება<a class="headerlink" href="freertos_additions.html#usage" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი მაგალითი აჩვენებს -ის გამოყენებას <a class="reference internal" href="freertos_additions.html#_CPPv417xRingbufferCreate6size_t16RingbufferType_t" title="xRingbufferCreate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferCreate()</span></code></a>
+და <a class="reference internal" href="freertos_additions.html#_CPPv415xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t" title="xRingbufferSend"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferSend()</span></code></a> რგოლის ბუფერის შესაქმნელად და შემდეგ მასზე ნივთის გასაგზავნად.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"freertos/ringbuf.h"</span><span class="cp"></span>
+<span class="k">static</span> <span class="kt">char</span> <span class="n">tx_item</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"test_item"</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+    <span class="c1">//Create ring buffer</span>
+    <span class="n">RingbufHandle_t</span> <span class="n">buf_handle</span><span class="p">;</span>
+    <span class="n">buf_handle</span> <span class="o">=</span> <span class="n">xRingbufferCreate</span><span class="p">(</span><span class="mi">1028</span><span class="p">,</span> <span class="n">RINGBUF_TYPE_NOSPLIT</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">buf_handle</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to create ring buffer</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//Send an item</span>
+    <span class="n">UBaseType_t</span> <span class="n">res</span> <span class="o">=</span>  <span class="n">xRingbufferSend</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="n">tx_item</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tx_item</span><span class="p">),</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">pdTRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to send item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>შემდეგი მაგალითი აჩვენებს -ის გამოყენებას <a class="reference internal" href="freertos_additions.html#_CPPv422xRingbufferSendAcquire15RingbufHandle_tPPv6size_t10TickType_t" title="xRingbufferSendAcquire"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferSendAcquire()</span></code></a> და
+<a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferSendComplete15RingbufHandle_tPv" title="xRingbufferSendComplete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferSendComplete()</span></code></a> ნაცვლად <a class="reference internal" href="freertos_additions.html#_CPPv415xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t" title="xRingbufferSend"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferSend()</span></code></a> რგოლის ბუფერზე არსებული მეხსიერებისთვის გამოსაყენებლად (ტიპის <cite>RINGBUF_TYPE_NOSPLIT</cite>) და შემდეგ გაუგზავნეთ ელემენტი მასზე. ეს მეთოდი კიდევ ერთ ნაბიჯს ამატებს, მაგრამ საშუალებას გაძლევთ მიიღოთ ჩასაწერი მეხსიერების მისამართი და თავად ჩაწეროთ მეხსიერებაში.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"freertos/ringbuf.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"soc/lldesc.h"</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">lldesc_t</span> <span class="n">dma_desc</span><span class="p">;</span>
+    <span class="kt">uint8_t</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">dma_item_t</span><span class="p">;</span>
+
+<span class="cp">#define DMA_ITEM_SIZE(N) (sizeof(lldesc_t)+(((N)+3)&amp;(~3)))</span>
+
+<span class="p">...</span>
+
+    <span class="c1">//Retrieve space for DMA descriptor and corresponding data buffer</span>
+    <span class="c1">//This has to be done with SendAcquire, or the address may be different when copy</span>
+    <span class="n">dma_item_t</span> <span class="n">item</span><span class="p">;</span>
+    <span class="n">UBaseType_t</span> <span class="n">res</span> <span class="o">=</span>  <span class="n">xRingbufferSendAcquire</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span>
+                        <span class="o">&amp;</span><span class="n">item</span><span class="p">,</span> <span class="n">DMA_ITEM_SIZE</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">),</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">pdTRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to acquire memory for item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">item</span><span class="o">-&gt;</span><span class="n">dma_desc</span> <span class="o">=</span> <span class="p">(</span><span class="n">lldesc_t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">buffer_size</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">buffer_size</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">eof</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">buf</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">item</span><span class="o">-&gt;</span><span class="n">buf</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="c1">//Actually send to the ring buffer for consumer to use</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">xRingbufferSendComplete</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">pdTRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to send item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>შემდეგი მაგალითი აჩვენებს ნივთის მოძიებას და დაბრუნებას <strong>რგოლის ბუფერის გაყოფის გარეშე</strong>
+გამოყენებით <a class="reference internal" href="freertos_additions.html#_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t" title="xRingbufferReceive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceive()</span></code></a> და <a class="reference internal" href="freertos_additions.html#_CPPv421vRingbufferReturnItem15RingbufHandle_tPv" title="vRingbufferReturnItem"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferReturnItem()</span></code></a></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+    <span class="c1">//Receive an item from no-split ring buffer</span>
+    <span class="kt">size_t</span> <span class="n">item_size</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">xRingbufferReceive</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item_size</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+
+    <span class="c1">//Check received item</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Print item</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">item_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="c1">//Return Item</span>
+        <span class="n">vRingbufferReturnItem</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">item</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//Failed to receive item</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to receive item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>შემდეგი მაგალითი აჩვენებს ნივთის მოძიებას და დაბრუნებას <strong>allow-split რგოლის ბუფერი</strong>
+გამოყენებით <a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t" title="xRingbufferReceiveSplit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveSplit()</span></code></a> და <a class="reference internal" href="freertos_additions.html#_CPPv421vRingbufferReturnItem15RingbufHandle_tPv" title="vRingbufferReturnItem"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferReturnItem()</span></code></a></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+    <span class="c1">//Receive an item from allow-split ring buffer</span>
+    <span class="kt">size_t</span> <span class="n">item_size1</span><span class="p">,</span> <span class="n">item_size2</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">item1</span><span class="p">,</span> <span class="o">*</span><span class="n">item2</span><span class="p">;</span>
+    <span class="n">BaseType_t</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">xRingbufferReceiveSplit</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">item1</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">item2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item_size1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item_size2</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+
+    <span class="c1">//Check received item</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="n">pdTRUE</span> <span class="o">&amp;&amp;</span> <span class="n">item1</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">item_size1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">item1</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">vRingbufferReturnItem</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">item1</span><span class="p">);</span>
+        <span class="c1">//Check if item was split</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">item2</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">item_size2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">item2</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">vRingbufferReturnItem</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">item2</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//Failed to receive item</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to receive item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>შემდეგი მაგალითი აჩვენებს ნივთის მოძიებას და დაბრუნებას <strong>ბაიტური ბუფერი</strong>
+გამოყენებით <a class="reference internal" href="freertos_additions.html#_CPPv422xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t" title="xRingbufferReceiveUpTo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveUpTo()</span></code></a> და <a class="reference internal" href="freertos_additions.html#_CPPv421vRingbufferReturnItem15RingbufHandle_tPv" title="vRingbufferReturnItem"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferReturnItem()</span></code></a></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+    <span class="c1">//Receive data from byte buffer</span>
+    <span class="kt">size_t</span> <span class="n">item_size</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">xRingbufferReceiveUpTo</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item_size</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tx_item</span><span class="p">));</span>
+
+    <span class="c1">//Check received data</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Print item</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">item_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="c1">//Return Item</span>
+        <span class="n">vRingbufferReturnItem</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">item</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//Failed to receive item</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to receive item</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>ზემოთ გამოყენებული ფუნქციების ISR-ის უსაფრთხო ვერსიებისთვის, დარეკეთ <a class="reference internal" href="freertos_additions.html#_CPPv422xRingbufferSendFromISR15RingbufHandle_tPKv6size_tP10BaseType_t" title="xRingbufferSendFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferSendFromISR()</span></code></a>, <a class="reference internal" href="freertos_additions.html#_CPPv425xRingbufferReceiveFromISR15RingbufHandle_tP6size_t" title="xRingbufferReceiveFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveFromISR()</span></code></a>,
+<a class="reference internal" href="freertos_additions.html#_CPPv430xRingbufferReceiveSplitFromISR15RingbufHandle_tPPvPPvP6size_tP6size_t" title="xRingbufferReceiveSplitFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveSplitFromISR()</span></code></a>, <a class="reference internal" href="freertos_additions.html#_CPPv429xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t" title="xRingbufferReceiveUpToFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveUpToFromISR()</span></code></a>და <a class="reference internal" href="freertos_additions.html#_CPPv428vRingbufferReturnItemFromISR15RingbufHandle_tPvP10BaseType_t" title="vRingbufferReturnItemFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferReturnItemFromISR()</span></code></a></p>
+</div>
+<div class="section" id="sending-to-ring-buffer">
+<h3>რინგ ბუფერში გაგზავნა<a class="headerlink" href="freertos_additions.html#sending-to-ring-buffer" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი დიაგრამები ასახავს განსხვავებებს no-split/allow-split ბუფერებსა და bayt ბუფერებს შორის ელემენტების/მონაცემების გაგზავნის თვალსაზრისით. დიაგრამები ვარაუდობენ, რომ სამი ზომის ერთეული <strong>18, 3 და 27 ბაიტი</strong> შესაბამისად იგზავნება ა <strong>128 ბაიტის ბუფერი</strong>.</p>
+<div class="figure align-center" id="id6">
+<div><img height="192" src="../../_images/packetdiag-229d4bda9363cbcb9dba5aced220ddd2e2bbdd07.png" width="896"/></div><p class="caption"><span class="caption-text">ელემენტების გაგზავნა გაყოფის გარეშე/გაყოფის დაშვების რგოლის ბუფერებში</span><a class="headerlink" href="freertos_additions.html#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>გაყოფის გარეშე/დაშვების გაყოფის ბუფერებისთვის, მონაცემთა თითოეულ ელემენტს წინ უძღვის 8 ბაიტის სათაური. გარდა ამისა, თითოეული ელემენტის მიერ დაკავებული სივრცეა <strong>დამრგვალებულია უახლოეს 32-ბიტიან გასწორებულ ზომამდე</strong> 32-ბიტიანი საერთო გასწორების შესანარჩუნებლად. თუმცა, ელემენტის ნამდვილი ზომა ჩაწერილია სათაურში, რომელიც დაბრუნდება ელემენტის მოძიებისას.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, 18, 3 და 27 ბაიტიანი ელემენტებია <strong>დამრგვალებულია 20, 4 და 28 ბაიტამდე</strong>
+შესაბამისად. შემდეგ თითოეული ელემენტის წინ ემატება 8 ბაიტიანი სათაური.</p>
+<div class="figure align-center" id="id7">
+<div><img height="192" src="../../_images/packetdiag-852d48449be96d5ec360e518d8c42e85100e544b.png" width="896"/></div><p class="caption"><span class="caption-text">ელემენტების გაგზავნა ბაიტურ ბუფერებში</span><a class="headerlink" href="freertos_additions.html#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>ბაიტ-ბუფერები მონაცემებს ბაიტების თანმიმდევრობად განიხილავენ და არ იწვევენ რაიმე სახის დამატებით ხარჯებს (სათაურების გარეშე). შედეგად, ბაიტ-ბუფერში გაგზავნილი ყველა მონაცემი ერთ ელემენტად არის გაერთიანებული.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, 18, 3 და 27 ბაიტიანი ელემენტები თანმიმდევრულად იწერება ბაიტ ბუფერში და <strong>გაერთიანდა 48 ბაიტის ერთ ელემენტად</strong>.</p>
+</div>
+<div class="section" id="using-sendacquire-and-sendcomplete">
+<h3>SendAcquire-ისა და SendComplete-ის გამოყენება<a class="headerlink" href="freertos_additions.html#using-sendacquire-and-sendcomplete" title="Permalink to this headline">¶</a></h3>
+<p>უგაყოფო ბუფერებში ელემენტები მიიღება (SendAcquire-ის მიერ) მკაცრი FIFO თანმიმდევრობით და მომხმარებლისთვის მონაცემების ხელმისაწვდომობისთვის ბუფერში უნდა გაიგზავნოს SendComplete-ის მიერ. SendComplete-ის გამოძახების გარეშე შესაძლებელია მრავალი ელემენტის გაგზავნა ან მიღება და ელემენტების შევსება არ არის აუცილებელი მათი მიღების თანმიმდევრობით. თუმცა, მონაცემთა ელემენტების მიღება უნდა მოხდეს FIFO თანმიმდევრობით, ამიტომ SendComplete-ის ყველაზე ადრე შეძენილი ელემენტის გამოუძახებლობა ხელს შეუშლის შემდგომი ელემენტების მიღებას.</p>
+<p>შემდეგი დიაგრამები ასახავს, თუ რა მოხდება, როდესაც SendAcquire/SendComplete ერთი და იგივე თანმიმდევრობით არ მოხდება. დასაწყისში, რგოლის ბუფერში უკვე იგზავნება 16 ბაიტის მოცულობის მონაცემთა ერთეული. შემდეგ SendAcquire გამოიძახება რგოლის ბუფერზე 20, 8, 24 ბაიტის მოცულობის სივრცის შესაძენად.</p>
+<div class="figure align-center" id="id8">
+<div><img height="264" src="../../_images/packetdiag-718453576c52544af92bc947d10cbf4efde8b7ce.png" width="896"/></div><p class="caption"><span class="caption-text">SendAcquire/SendComplete ელემენტები არაგაყოფილი რგოლის ბუფერებში</span><a class="headerlink" href="freertos_additions.html#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>ამის შემდეგ, ჩვენ ვავსებთ (ვიყენებთ) ბუფერებს და ვაგზავნით მათ რგოლის ბუფერში SendComplete-ის მეშვეობით 8, 24, 20 თანმიმდევრობით. როდესაც იგზავნება 8 და 24 ბაიტი მონაცემები, მომხმარებელს მაინც შეუძლია მიიღოს მხოლოდ 16 ბაიტიანი მონაცემთა ერთეული. გამოყენების გამო, თუ 20 ბაიტიანი ერთეული არ არის სრული, ის მიუწვდომელია, ისევე როგორც შემდეგი მონაცემთა ერთეულები.</p>
+<p>როდესაც 20 ბაიტიანი ელემენტი საბოლოოდ დასრულდება, ახლა უკვე შესაძლებელია სამივე მონაცემთა ელემენტის მიღება, 20, 8, 24 ბაიტი თანმიმდევრობით, ბუფერში დასაწყისში არსებული 16 ბაიტიანი ელემენტის შემდეგ.</p>
+<p>Allow-split/byte ბუფერები არ იძლევა SendAcquire/SendComplete-ის გამოყენების საშუალებას, რადგან შეძენილი ბუფერები უნდა იყოს სრული (და არა შეფუთული).</p>
+</div>
+<div class="section" id="wrap-around">
+<h3>შემოხვევა<a class="headerlink" href="freertos_additions.html#wrap-around" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი დიაგრამები ასახავს განსხვავებებს no-split, allow-split და byte ბუფერებს შორის, როდესაც გაგზავნილ ნივთს სჭირდება გადახვევა. დიაგრამები ვარაუდობენ, რომ ბუფერს აქვს <strong>128 ბაიტი</strong>
+თან <strong>56 ბაიტი თავისუფალი სივრცე, რომელიც იხვევა გარშემო</strong> და გაგზავნილი ნივთი <strong>28 ბაიტი</strong>.</p>
+<div class="figure align-center" id="id9">
+<div><img height="192" src="../../_images/packetdiag-b992e69bb6933b7f2782669b1e74a8fa1db22ba1.png" width="896"/></div><p class="caption"><span class="caption-text">გახვეული ბუფერებში, რომლებიც არ არის გახლეჩილი</span><a class="headerlink" href="freertos_additions.html#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>გაყოფის გარეშე ბუფერები <strong>ნივთს მხოლოდ უწყვეტ თავისუფალ სივრცეში ინახავს და არავითარ შემთხვევაში არ გახლეჩს.</strong>როდესაც ბუფერის ბოლოში თავისუფალი სივრცე არასაკმარისია ელემენტისა და მისი სათაურის სრულად შესანახად, ბოლოში თავისუფალი სივრცე იქნება <strong>მონიშნულია, როგორც ყალბი მონაცემები</strong>შემდეგ ბუფერი შემოეხვევა და შეინახავს ელემენტს ბუფერის თავში არსებულ თავისუფალ სივრცეში.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, ბუფერის ბოლოში არსებული 16 ბაიტი თავისუფალი სივრცე არასაკმარისია 28 ბაიტიანი ელემენტის შესანახად. ამიტომ, 16 ბაიტი მონიშნულია, როგორც ფიქტიური მონაცემები და ელემენტი იწერება ბუფერის თავში არსებულ თავისუფალ სივრცეში.</p>
+<div class="figure align-center" id="id10">
+<div><img height="192" src="../../_images/packetdiag-582bf5b0032f8317f08207d4137c6f1fcf4a0dad.png" width="896"/></div><p class="caption"><span class="caption-text">შემოხვევა allow-split ბუფერებში</span><a class="headerlink" href="freertos_additions.html#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>დაშვების გაყოფის ბუფერები შეეცდებიან <strong>ნივთის ორ ნაწილად გაყოფა</strong> როდესაც ბუფერის ბოლოში თავისუფალი სივრცე არასაკმარისია ელემენტის მონაცემებისა და მისი სათაურის შესანახად. გაყოფილი ელემენტის ორივე ნაწილს ექნება საკუთარი სათაური (შესაბამისად, დამატებით 8 ბაიტს გამოიწვევს).</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, ბუფერის ბოლოში არსებული 16 ბაიტი თავისუფალი სივრცე არასაკმარისია 28 ბაიტიანი ელემენტის შესანახად. ამიტომ, ელემენტი იყოფა ორ ნაწილად (8 და 20 ბაიტი) და იწერება ბუფერში ორ ნაწილად.</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">Allow-split ბუფერები გაყოფილი ელემენტის ორივე ნაწილს ორ ცალკეულ ელემენტად განიხილავენ, ამიტომ გამოიძახეთ
+<a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t" title="xRingbufferReceiveSplit"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveSplit()</span></code></a> ნაცვლად <a class="reference internal" href="freertos_additions.html#_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t" title="xRingbufferReceive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceive()</span></code></a> რათა გაყოფილი ელემენტის ორივე ნაწილი ძაფის უსაფრთხო გზით მიიღოთ.</p>
+</div>
+<div class="figure align-center" id="id11">
+<div><img height="192" src="../../_images/packetdiag-d1eb397643630f9b6c078c534e6205c96504df96.png" width="896"/></div><p class="caption"><span class="caption-text">ბაიტ-ბუფერებში გადახვევა</span><a class="headerlink" href="freertos_additions.html#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>ბაიტური ბუფერები <strong>რაც შეიძლება მეტი მონაცემი შეინახეთ ბუფერის ბოლოში არსებულ თავისუფალ სივრცეში</strong>დარჩენილი მონაცემები შემდეგ ბუფერის თავში არსებულ თავისუფალ სივრცეში შეინახება. ბაიტ-ბუფერებში გადახვევისას არანაირი დამატებითი ხარჯი არ წარმოიქმნება.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, ბუფერის ბოლოში არსებული 16 ბაიტი თავისუფალი სივრცე არასაკმარისია 28 ბაიტი მონაცემების სრულად შესანახად. შესაბამისად, თავისუფალი სივრცის 16 ბაიტი მონაცემებით ივსება, ხოლო დარჩენილი 12 ბაიტი ბუფერის თავში არსებულ თავისუფალ სივრცეში იწერება. ბუფერი ახლა მონაცემებს ორ ცალკეულ უწყვეტ ნაწილად შეიცავს და თითოეული უწყვეტი ნაწილი ბაიტიანი ბუფერის მიერ ცალკე ელემენტად დამუშავდება.</p>
+</div>
+<div class="section" id="retrieving-returning">
+<h3>მიღება/დაბრუნება<a class="headerlink" href="freertos_additions.html#retrieving-returning" title="Permalink to this headline">¶</a></h3>
+<p>შემდეგი დიაგრამები ასახავს განსხვავებებს no-split/allow-split და byte ბუფერებს შორის მონაცემების მოძიებასა და დაბრუნებაში.</p>
+<div class="figure align-center" id="id12">
+<div><img height="312" src="../../_images/packetdiag-3285ab0b11eb903834a1ef5ac4d4d5d894d97260.png" width="896"/></div><p class="caption"><span class="caption-text">ელემენტების მოძიება/დაბრუნება no-split/allow-split რგოლის ბუფერებში</span><a class="headerlink" href="freertos_additions.html#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p>ელემენტები no-split/allow-split ბუფერებში არის <strong>მოძიებულია მკაცრი FIFO თანმიმდევრობით</strong> და <strong>უნდა დაბრუნდეს</strong>
+დაკავებული სივრცის გასათავისუფლებლად. დაბრუნებამდე შესაძლებელია რამდენიმე ერთეულის მოძიება და არ არის აუცილებელი, რომ ელემენტები დაბრუნდეს მათი მოძიების თანმიმდევრობით. თუმცა, სივრცის გათავისუფლება უნდა მოხდეს FIFO თანმიმდევრობით, ამიტომ ყველაზე ადრე მოძიებული ერთეულის დაბრუნება ხელს შეუშლის შემდგომი ერთეულების სივრცის გათავისუფლებას.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, <strong>16, 20 და 8 ბაიტიანი ელემენტების მოძიება ხდება FIFO თანმიმდევრობით.</strong>თუმცა, ელემენტები არ ბრუნდება იმ დროს, როდესაც ისინი იქნა აღებული (20, 8, 16). შესაბამისად, სივრცე არ თავისუფლდება პირველი ელემენტის (16 ბაიტი) დაბრუნებამდე.</p>
+<div class="figure align-center" id="id13">
+<div><img height="240" src="../../_images/packetdiag-1bc2f006258b9b40de31e4ceb4b31a347a216b99.png" width="896"/></div><p class="caption"><span class="caption-text">ბაიტ ბუფერებში მონაცემების მოძიება/დაბრუნება</span><a class="headerlink" href="freertos_additions.html#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>ბაიტური ბუფერები <strong>დაბრუნებამდე მრავალჯერადი მოძიების დაუშვებლობა</strong> (ყოველ აღდგენას უნდა მოჰყვეს დაბრუნება, სანამ კიდევ ერთი აღდგენა დაშვებული იქნება). გამოყენებისას <a class="reference internal" href="freertos_additions.html#_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t" title="xRingbufferReceive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceive()</span></code></a> ან
+<a class="reference internal" href="freertos_additions.html#_CPPv425xRingbufferReceiveFromISR15RingbufHandle_tP6size_t" title="xRingbufferReceiveFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveFromISR()</span></code></a>, ყველა უწყვეტად შენახული მონაცემი აღდგება. <a class="reference internal" href="freertos_additions.html#_CPPv422xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t" title="xRingbufferReceiveUpTo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveUpTo()</span></code></a>
+ან <a class="reference internal" href="freertos_additions.html#_CPPv429xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t" title="xRingbufferReceiveUpToFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveUpToFromISR()</span></code></a> შეიძლება გამოყენებულ იქნას მოძიებული ბაიტების მაქსიმალური რაოდენობის შესაზღუდად. რადგან ყოველ მოძიებას უნდა მოჰყვეს დაბრუნება, სივრცე თავისუფლდება მონაცემების დაბრუნებისთანავე.</p>
+<p>ზემოთ მოცემული დიაგრამის მიხედვით, ბუფერის ბოლოში უწყვეტად შენახული 38 ბაიტი მონაცემები ამოღებულია, დაბრუნებული და გათავისუფლებულია. შემდეგი გამოძახება <a class="reference internal" href="freertos_additions.html#_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t" title="xRingbufferReceive"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceive()</span></code></a> ან <a class="reference internal" href="freertos_additions.html#_CPPv425xRingbufferReceiveFromISR15RingbufHandle_tP6size_t" title="xRingbufferReceiveFromISR"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferReceiveFromISR()</span></code></a>
+შემდეგ შემოიხვევა და იგივეს აკეთებს ბუფერის სათავეში შენახული უწყვეტი მონაცემების 30 ბაიტთან.</p>
+</div>
+<div class="section" id="ring-buffers-with-queue-sets">
+<h3>რგოლის ბუფერები რიგის ნაკრებებით<a class="headerlink" href="freertos_additions.html#ring-buffers-with-queue-sets" title="Permalink to this headline">¶</a></h3>
+<p>რგოლის ბუფერების დამატება Free RTOS რიგის ნაკრებებს შესაძლებელია გამოყენებით <a class="reference internal" href="freertos_additions.html#_CPPv428xRingbufferAddToQueueSetRead15RingbufHandle_t16QueueSetHandle_t" title="xRingbufferAddToQueueSetRead"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferAddToQueueSetRead()</span></code></a> ისე, რომ ყოველ ჯერზე, როდესაც რგოლის ბუფერი მიიღებს ელემენტს ან მონაცემს, რიგის ნაკრები ეცნობება. რიგის ნაკრებში დამატების შემდეგ, რგოლის ბუფერიდან ელემენტის ამოღების ყოველ მცდელობას წინ უნდა უძღოდეს ზარი <a class="reference internal" href="freertos.html#_CPPv419xQueueSelectFromSet16QueueSetHandle_tK10TickType_t" title="xQueueSelectFromSet"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xQueueSelectFromSet()</span></code></a>იმის შესამოწმებლად, არის თუ არა არჩეული რიგის ნაკრების წევრი რგოლის ბუფერი, გამოიძახეთ <a class="reference internal" href="freertos_additions.html#_CPPv418xRingbufferCanRead15RingbufHandle_t22QueueSetMemberHandle_t" title="xRingbufferCanRead"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferCanRead()</span></code></a>.</p>
+<p>შემდეგი მაგალითი აჩვენებს რიგის ნაკრების გამოყენებას რგოლის ბუფერებით.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"freertos/queue.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"freertos/ringbuf.h"</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+    <span class="c1">//Create ring buffer and queue set</span>
+    <span class="n">RingbufHandle_t</span> <span class="n">buf_handle</span> <span class="o">=</span> <span class="n">xRingbufferCreate</span><span class="p">(</span><span class="mi">1028</span><span class="p">,</span> <span class="n">RINGBUF_TYPE_NOSPLIT</span><span class="p">);</span>
+    <span class="n">QueueSetHandle_t</span> <span class="n">queue_set</span> <span class="o">=</span> <span class="n">xQueueCreateSet</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+    <span class="c1">//Add ring buffer to queue set</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">xRingbufferAddToQueueSetRead</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="n">queue_set</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pdTRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Failed to add to queue set</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">...</span>
+
+    <span class="c1">//Block on queue set</span>
+    <span class="n">xQueueSetMemberHandle</span> <span class="n">member</span> <span class="o">=</span> <span class="n">xQueueSelectFromSet</span><span class="p">(</span><span class="n">queue_set</span><span class="p">,</span> <span class="n">pdMS_TO_TICKS</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+
+    <span class="c1">//Check if member is ring buffer</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">member</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">xRingbufferCanRead</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span> <span class="o">==</span> <span class="n">pdTRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Member is ring buffer, receive item from ring buffer</span>
+        <span class="kt">size_t</span> <span class="n">item_size</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">xRingbufferReceive</span><span class="p">(</span><span class="n">buf_handle</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">item_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="c1">//Handle item</span>
+        <span class="p">...</span>
+
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ring-buffers-with-static-allocation">
+<h3>სტატიკური განაწილების მქონე რგოლის ბუფერები<a class="headerlink" href="freertos_additions.html#ring-buffers-with-static-allocation" title="Permalink to this headline">¶</a></h3>
+<p>ის <a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t" title="xRingbufferCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferCreateStatic()</span></code></a> შეიძლება გამოყენებულ იქნას რგოლის ბუფერების შესაქმნელად კონკრეტული მეხსიერების მოთხოვნებით (მაგალითად, რგოლის ბუფერის გამოყოფა გარე ოპერატიულ მეხსიერებაში). რგოლის ბუფერის მიერ გამოყენებული მეხსიერების ყველა ბლოკი წინასწარ უნდა იყოს გამოყოფილი ხელით, შემდეგ კი გადაეცეს <a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t" title="xRingbufferCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferCreateStatic()</span></code></a> ინიციალიზაცია უნდა მოხდეს როგორც რგოლის ბუფერი. ეს ბლოკები მოიცავს შემდეგს:</p>
+<ul class="simple">
+<li>რგოლის ბუფერის მონაცემთა სტრუქტურა, რომლის ტიპია <a class="reference internal" href="freertos_additions.html#_CPPv418StaticRingbuffer_t" title="StaticRingbuffer_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">StaticRingbuffer_t</span></code></a></li>
+<li>რგოლის ბუფერის შენახვის არეალის ზომა <code class="docutils literal notranslate"><span class="pre">xBufferSize</span></code>გაითვალისწინეთ, რომ <code class="docutils literal notranslate"><span class="pre">xBufferSize</span></code> უნდა იყოს 32-ბიტიანი გასწორებული გაყოფის გარეშე/გაყოფის დაშვების ბუფერებისთვის.</li>
+</ul>
+<p>ამ ბლოკების განაწილების წესი დამოკიდებული იქნება მომხმარებლის მოთხოვნებზე (მაგ., ყველა ბლოკი სტატიკურად იქნება დეკლარირებული ან დინამიურად იქნება განაწილებული კონკრეტული შესაძლებლობებით, როგორიცაა გარე ოპერატიული მეხსიერება).</p>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">ის <a class="reference internal" href="../kconfig.html#config-freertos-support-static-allocation"><span class="std std-ref">CONFIG_FREE RTOS _SUPPORT_STATIC_ALLOCATION</span></a> ოფცია უნდა იყოს ჩართული <cite>menuconfig</cite> სტატიკურად გამოყოფილი რგოლის ბუფერების ხელმისაწვდომობისთვის.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">შექმნილი რგოლის ბუფერის წაშლისას <a class="reference internal" href="freertos_additions.html#_CPPv423xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t" title="xRingbufferCreateStatic"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">xRingbufferCreateStatic()</span></code></a>, ფუნქცია <a class="reference internal" href="freertos_additions.html#_CPPv417vRingbufferDelete15RingbufHandle_t" title="vRingbufferDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferDelete()</span></code></a> მეხსიერების არცერთ ბლოკს არ გაათავისუფლებს. ეს მომხმარებელმა ხელით უნდა გააკეთოს შემდეგ. <a class="reference internal" href="freertos_additions.html#_CPPv417vRingbufferDelete15RingbufHandle_t" title="vRingbufferDelete"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vRingbufferDelete()</span></code></a> ეწოდება.</p>
+</div>
+<p>ქვემოთ მოცემული კოდის ფრაგმენტი აჩვენებს, რომ რგოლის ბუფერი მთლიანად გამოყოფილია გარე ოპერატიულ მეხსიერებაში.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">"freertos/ringbuf.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"freertos/semphr.h"</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">"esp_heap_caps.h"</span><span class="cp"></span>
+
+<span class="cp">#define BUFFER_SIZE     400      </span><span class="c1">//32-bit aligned size</span>
+<span class="cp">#define BUFFER_TYPE     RINGBUF_TYPE_NOSPLIT</span>
+<span class="p">...</span>
+
+<span class="c1">//Allocate ring buffer data structure and storage area into external RAM</span>
+<span class="n">StaticRingbuffer_t</span> <span class="o">*</span><span class="n">buffer_struct</span> <span class="o">=</span> <span class="p">(</span><span class="n">StaticRingbuffer_t</span> <span class="o">*</span><span class="p">)</span><span class="n">heap_caps_malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">StaticRingbuffer_t</span><span class="p">),</span> <span class="n">MALLOC_CAP_SPIRAM</span><span class="p">);</span>
+<span class="kt">uint8_t</span> <span class="o">*</span><span class="n">buffer_storage</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="n">heap_caps_malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)</span><span class="o">*</span><span class="n">BUFFER_SIZE</span><span class="p">,</span> <span class="n">MALLOC_CAP_SPIRAM</span><span class="p">);</span>
+
+<span class="c1">//Create a ring buffer with manually allocated memory</span>
+<span class="n">RingbufHandle_t</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">xRingbufferCreateStatic</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">,</span> <span class="n">BUFFER_TYPE</span><span class="p">,</span> <span class="n">buffer_storage</span><span class="p">,</span> <span class="n">buffer_struct</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="c1">//Delete the ring buffer after used</span>
+<span class="n">vRingbufferDelete</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="c1">//Manually free all blocks of memory</span>
+<span class="n">free</span><span class="p">(</span><span class="n">buffer_struct</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">buffer_storage</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ring-buffer-api-reference">
+<h2>რგოლის ბუფერის API მითითება<a class="headerlink" href="freertos_additions.html#ring-buffer-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p>იდეალურ შემთხვევაში, რგოლის ბუფერების გამოყენება შესაძლებელია მრავალი დავალების შესასრულებლად SMP რეჟიმში, სადაც <strong>ყველაზე მაღალი პრიორიტეტის მქონე დავალება ყოველთვის პირველ რიგში შესრულდება.</strong> თუმცა, რგოლის ბუფერის ძირითად იმპლემენტაციაში ბინარული სემაფორების გამოყენების გამო, პრიორიტეტის ინვერსია შეიძლება მოხდეს ძალიან სპეციფიკურ გარემოებებში.</p>
+<p>რგოლის ბუფერი არეგულირებს ორობითი სემაფორის მიერ გაგზავნას, რომელიც ენიჭება ყოველთვის, როდესაც რგოლის ბუფერზე თავისუფალი ადგილი თავისუფლდება. უმაღლესი პრიორიტეტის დავალება, რომელიც გაგზავნას ელოდება, განმეორებით დაიკავებს სემაფორას მანამ, სანამ საკმარისი თავისუფალი ადგილი არ გამოჩნდება ან სანამ მისი დრო არ ამოიწურება. იდეალურ შემთხვევაში, ეს ხელს შეუშლის დაბალი პრიორიტეტის მქონე დავალების მომსახურებას, რადგან სემაფორი ყოველთვის უმაღლესი პრიორიტეტის მქონე დავალებას უნდა მიენიჭოს.</p>
+<p>თუმცა, სემაფორის მოპოვების იტერაციებს შორის, არსებობს <strong>კრიტიკულ მონაკვეთში არსებული ხარვეზი</strong> რამაც შეიძლება სხვა დავალება (სხვა ბირთვზე ან კიდევ უფრო მაღალი პრიორიტეტის მქონე) რგოლის ბუფერზე გარკვეული ადგილის გათავისუფლების საშუალება მისცეს და შედეგად სემაფორი მისცეს. ამიტომ, სემაფორი მიენიჭება მანამ, სანამ ყველაზე მაღალი პრიორიტეტის მქონე დავალება სემაფორს ხელახლა მოიპოვებს. ეს გამოიწვევს <strong>სემაფორის მოპოვება ხდება მეორე ყველაზე მაღალი პრიორიტეტის მქონე დავალებით</strong> გაგზავნას ელოდება, რაც პრიორიტეტის ინვერსიას იწვევს.</p>
+<p class="last">ეს გვერდითი ეფექტი მნიშვნელოვნად არ იმოქმედებს რგოლის ბუფერის მუშაობაზე, თუ რგოლის ბუფერის ერთდროულად გამოყენებითი დავალებების რაოდენობა დაბალია და რგოლის ბუფერი მაქსიმალურ სიმძლავრესთან ახლოს არ მუშაობს.</p>
+</div>
+<div class="section" id="header-file">
+<h3>სათაურის ფაილი<a class="headerlink" href="freertos_additions.html#header-file" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_ringbuf/include/freertos/ringbuf.h">esp_ringbuf/include/freertos/ringbuf.h</a></li>
+</ul>
+</div>
+<div class="section" id="functions">
+<h3>ფუნქციები<a class="headerlink" href="freertos_additions.html#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv417xRingbufferCreate6size_t16RingbufferType_t">
+<span id="_CPPv317xRingbufferCreate6size_t16RingbufferType_t"></span><span id="_CPPv217xRingbufferCreate6size_t16RingbufferType_t"></span><span id="xRingbufferCreate__s.RingbufferType_t"></span><span class="target" id="ringbuf_8h_1ac37bae961feef2406fb91d65382b2138"></span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <code class="descname">xRingbufferCreate</code><span class="sig-paren">(</span>size_t <em>xBufferSize</em>, <a class="reference internal" href="freertos_additions.html#_CPPv416RingbufferType_t" title="RingbufferType_t">რინგბუფერის ტიპი_t</a> <em>xBufferType</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv417xRingbufferCreate6size_t16RingbufferType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით რგოლის ბუფერი. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>xBufferSize of no-split/allow-split buffers will be rounded up to the nearest 32-bit aligned size.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A handle to the created ring buffer, or NULL in case of error. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xBufferSize</span></code>ბუფერის ზომა ბაიტებში. გაითვალისწინეთ, რომ ელემენტებს სჭირდებათ ადგილი დამატებითი დატვირთვისთვის no-split/allow-split ბუფერებში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xBufferType</span></code>რგოლის ბუფერის ტიპი, იხილეთ დოკუმენტაცია.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv424xRingbufferCreateNoSplit6size_t6size_t">
+<span id="_CPPv324xRingbufferCreateNoSplit6size_t6size_t"></span><span id="_CPPv224xRingbufferCreateNoSplit6size_t6size_t"></span><span id="xRingbufferCreateNoSplit__s.s"></span><span class="target" id="ringbuf_8h_1adc44b9f85cf0b59566a8281a09010e4f"></span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <code class="descname">xRingbufferCreateNoSplit</code><span class="sig-paren">(</span>size_t <em>xItemSize</em>, size_t <em>xItemNum</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv424xRingbufferCreateNoSplit6size_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით RINGBUF_TYPE_NOSPLIT ტიპის რგოლის ბუფერი ფიქსირებული item_size-სთვის. </p>
+<p>ეს API მსგავსია xRingbufferCreate()-ისა, მაგრამ ის შინაგანად გამოყოფს დამატებით ადგილს სათაურებისთვის.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A RingbufHandle_t handle to the created ring buffer, or NULL in case of error. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xItemSize</span></code>რგოლის ბუფერში მოსათავსებელი თითოეული ნივთის ზომა </li>
+<li><code class="docutils literal notranslate"><span class="pre">xItemNum</span></code>ბუფერში ერთდროულად შესანახი ელემენტების მაქსიმალური რაოდენობა</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t">
+<span id="_CPPv323xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t"></span><span id="_CPPv223xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t"></span><span id="xRingbufferCreateStatic__s.RingbufferType_t.uint8_tP.StaticRingbuffer_tP"></span><span class="target" id="ringbuf_8h_1a32e2a9f97904e382d09af92a460e5335"></span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <code class="descname">xRingbufferCreateStatic</code><span class="sig-paren">(</span>size_t <em>xBufferSize</em>, <a class="reference internal" href="freertos_additions.html#_CPPv416RingbufferType_t" title="RingbufferType_t">რინგბუფერის ტიპი_t</a> <em>xBufferType</em>, uint8_t *<em>pucRingbufferStorage</em>, <a class="reference internal" href="freertos_additions.html#_CPPv418StaticRingbuffer_t" title="StaticRingbuffer_t">StaticRingbuffer_t</a> *<em>pxStaticRingbuffer</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv423xRingbufferCreateStatic6size_t16RingbufferType_tP7uint8_tP18StaticRingbuffer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შექმენით რგოლის ბუფერი, მაგრამ ხელით უზრუნველყავით საჭირო მეხსიერება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The CONFIG_FREERTOS_SUPPORT_STATIC_ALLOCATION option must be enabled for this to be available</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>xBufferSize of no-split/allow-split buffers MUST be 32-bit aligned.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>A handle to the created ring buffer </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xBufferSize</span></code>: ბუფერის ზომა ბაიტებში. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xBufferType</span></code>რგოლის ბუფერის ტიპი, იხილეთ დოკუმენტაცია </li>
+<li><code class="docutils literal notranslate"><span class="pre">pucRingbufferStorage</span></code>: რგოლის ბუფერის შენახვის არეალზე მითითება. შენახვის არე უნდა იყოს იგივე ზომის, რაც მითითებულია xBufferSize-ის მიერ. </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxStaticRingbuffer</span></code>მიუთითებს StaticRingbuffer_t ტიპის სტრუქტურაზე, რომელიც გამოყენებული იქნება რგოლის ბუფერის მონაცემთა სტრუქტურის შესანახად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv415xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t">
+<span id="_CPPv315xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t"></span><span id="_CPPv215xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t"></span><span id="xRingbufferSend__RingbufHandle_t.voidCP.s.TickType_t"></span><span class="target" id="ringbuf_8h_1aae76440d60927e71bfe69ba8b06a6f00"></span>BaseType_t <code class="descname">xRingbufferSend</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, <em class="property">კონსტ</em> void *<em>pvItem</em>, size_t <em>xItemSize</em>, TickType_t <em>xTicksToWait</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv415xRingbufferSend15RingbufHandle_tPKv6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ჩადეთ ნივთი რგოლის ბუფერში. </p>
+<p>სცადეთ ელემენტის ჩასმა რგოლის ბუფერში. ეს ფუნქცია დაიბლოკება მანამ, სანამ საკმარისი თავისუფალი ადგილი არ იქნება ხელმისაწვდომი ან სანამ მისი დრო არ ამოიწურება.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For no-split/allow-split ring buffers, the actual size of memory that the item will occupy will be rounded up to the nearest 32-bit aligned size. This is done to ensure all items are always stored in 32-bit aligned fashion.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ წარმატებას მიაღწევს</li>
+<li>pdFALSE ვადის ამოწურვისას ან როდესაც მონაცემები აღემატება ბუფერის მაქსიმალურ დასაშვებ ზომას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რგოლის ბუფერი ნივთის ჩასასმელად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pvItem</span></code>: ჩასასმელი მონაცემების მაჩვენებელი. NULL დაშვებულია, თუ xItemSize არის 0. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xItemSize</span></code>: ჩასასმელი მონაცემების ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xTicksToWait</span></code>: ტიკები რგოლის ბუფერში ადგილის დასალოდინად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422xRingbufferSendFromISR15RingbufHandle_tPKv6size_tP10BaseType_t">
+<span id="_CPPv322xRingbufferSendFromISR15RingbufHandle_tPKv6size_tP10BaseType_t"></span><span id="_CPPv222xRingbufferSendFromISR15RingbufHandle_tPKv6size_tP10BaseType_t"></span><span id="xRingbufferSendFromISR__RingbufHandle_t.voidCP.s.BaseType_tP"></span><span class="target" id="ringbuf_8h_1ae2fd4a03b4aa32d21dd01039b3371fb0"></span>BaseType_t <code class="descname">xRingbufferSendFromISR</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, <em class="property">კონსტ</em> void *<em>pvItem</em>, size_t <em>xItemSize</em>, BaseType_t *<em>pxHigherPriorityTaskWoken</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv422xRingbufferSendFromISR15RingbufHandle_tPKv6size_tP10BaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ISR-ში ელემენტის რგოლის ბუფერში ჩასმა. </p>
+<p>სცადეთ ელემენტის ISR-დან რგოლის ბუფერში ჩასმა. ეს ფუნქცია დაუყოვნებლივ დაბრუნდება, თუ ბუფერში არასაკმარისი თავისუფალი ადგილია.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>For no-split/allow-split ring buffers, the actual size of memory that the item will occupy will be rounded up to the nearest 32-bit aligned size. This is done to ensure all items are always stored in 32-bit aligned fashion.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ წარმატებას მიაღწევს</li>
+<li>pdFALSE, როდესაც რგოლის ბუფერს ადგილი არ აქვს. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რგოლის ბუფერი ნივთის ჩასასმელად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pvItem</span></code>: ჩასასმელი მონაცემების მაჩვენებელი. NULL დაშვებულია, თუ xItemSize არის 0. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xItemSize</span></code>: ჩასასმელი მონაცემების ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxHigherPriorityTaskWoken</span></code>: თუ ფუნქცია უფრო მაღალი პრიორიტეტის დავალებას გააღვიძებს, მითითებულ მნიშვნელობას pdTRUE მნიშვნელობა მიენიჭება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422xRingbufferSendAcquire15RingbufHandle_tPPv6size_t10TickType_t">
+<span id="_CPPv322xRingbufferSendAcquire15RingbufHandle_tPPv6size_t10TickType_t"></span><span id="_CPPv222xRingbufferSendAcquire15RingbufHandle_tPPv6size_t10TickType_t"></span><span id="xRingbufferSendAcquire__RingbufHandle_t.voidPP.s.TickType_t"></span><span class="target" id="ringbuf_8h_1a57a5ca9c2fb4c4c01b80377c57bf8da3"></span>BaseType_t <code class="descname">xRingbufferSendAcquire</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void **<em>ppvItem</em>, size_t <em>xItemSize</em>, TickType_t <em>xTicksToWait</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv422xRingbufferSendAcquire15RingbufHandle_tPPv6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რგოლის ბუფერიდან მეხსიერების მოპოვება გარე წყაროს მიერ ჩასაწერად და მოგვიანებით გასაგზავნად. </p>
+<p>სცადეთ ბუფერის გამოყოფა რგოლის ბუფერში გასაგზავნი ელემენტისთვის. ეს ფუნქცია დაიბლოკება მანამ, სანამ საკმარისი თავისუფალი ადგილი არ იქნება ხელმისაწვდომი ან სანამ მისი დრო არ ამოიწურება.</p>
+<p>ნივთი, ასევე შემდეგი ნივთები <code class="docutils literal notranslate"><span class="pre">SendAcquire</span></code> ან <code class="docutils literal notranslate"><span class="pre">Send</span></code> მის შემდეგ, მისი წაკითხვა რგოლის ბუფერიდან შეუძლებელი იქნება მანამ, სანამ ეს ელემენტი რეალურად არ გაიგზავნება რგოლის ბუფერში.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only applicable for no-split ring buffers now, the actual size of memory that the item will occupy will be rounded up to the nearest 32-bit aligned size. This is done to ensure all items are always stored in 32-bit aligned fashion.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ წარმატებას მიაღწევს</li>
+<li>pdFALSE ვადის ამოწურვისას ან როდესაც მონაცემები აღემატება ბუფერის მაქსიმალურ დასაშვებ ზომას </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რგოლის ბუფერი მეხსიერების გამოსაყოფად </li>
+<li><code class="docutils literal notranslate"><span class="pre">ppvItem</span></code>ორმაგი მაჩვენებელი შეძენილ მეხსიერებაზე (დაყენებულია NULL-ზე, თუ მეხსიერება არ იქნა აღდგენილი) </li>
+<li><code class="docutils literal notranslate"><span class="pre">xItemSize</span></code>: შესაძენი ნივთის ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xTicksToWait</span></code>: ტიკები რგოლის ბუფერში ადგილის დასალოდინად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423xRingbufferSendComplete15RingbufHandle_tPv">
+<span id="_CPPv323xRingbufferSendComplete15RingbufHandle_tPv"></span><span id="_CPPv223xRingbufferSendComplete15RingbufHandle_tPv"></span><span id="xRingbufferSendComplete__RingbufHandle_t.voidP"></span><span class="target" id="ringbuf_8h_1ace112765fb813e04e07f4b001a7ec04d"></span>BaseType_t <code class="descname">xRingbufferSendComplete</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void *<em>pvItem</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv423xRingbufferSendComplete15RingbufHandle_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რეალურად გაგზავნეთ ელემენტი რგოლის ბუფერში, რომელიც ადრე იყო გამოყოფილი <code class="docutils literal notranslate"><span class="pre">xRingbufferSendAcquire</span></code>. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Only applicable for no-split ring buffers. Only call for items allocated by <code class="docutils literal notranslate"><span class="pre">xRingbufferSendAcquire</span></code>.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ წარმატებას მიაღწევს</li>
+<li>pdFALSE, თუ რაიმე მიზეზით ვერ მოხერხდება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რგოლის ბუფერი ნივთის ჩასასმელად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pvItem</span></code>: მითითება გამოყოფილ მეხსიერებაში ჩასასმელი ელემენტისკენ.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t">
+<span id="_CPPv318xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t"></span><span id="_CPPv218xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t"></span><span id="xRingbufferReceive__RingbufHandle_t.sP.TickType_t"></span><span class="target" id="ringbuf_8h_1a116f93070f64e55d9d4ccbce559e8f88"></span>void *<code class="descname">xRingbufferReceive</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, size_t *<em>pxItemSize</em>, TickType_t <em>xTicksToWait</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv418xRingbufferReceive15RingbufHandle_tP6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ელემენტის ამოღება რგოლის ბუფერიდან. </p>
+<p>სცადეთ ელემენტის ამოღება რგოლის ბუფერიდან. ეს ფუნქცია დაიბლოკება ელემენტის ხელმისაწვდომობის ან მისი ვადის ამოწურვის გარეშე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>A call to vRingbufferReturnItem() is required after this to free the item retrieved.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში, მოძიებული ნივთისკენ მიმავალი მაჩვენებელი; *pxItemSize ივსება ელემენტის სიგრძით.</li>
+<li>NULL დროის ამოწურვისას, *pxItemSize ამ შემთხვევაში ხელუხლებელი რჩება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxItemSize</span></code>: მაჩვენებელი ცვლადზე, რომელშიც ჩაიწერება მოძიებული ელემენტის ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xTicksToWait</span></code>: ტიკები რგოლის ბუფერში ელემენტების დასალოდინად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425xRingbufferReceiveFromISR15RingbufHandle_tP6size_t">
+<span id="_CPPv325xRingbufferReceiveFromISR15RingbufHandle_tP6size_t"></span><span id="_CPPv225xRingbufferReceiveFromISR15RingbufHandle_tP6size_t"></span><span id="xRingbufferReceiveFromISR__RingbufHandle_t.sP"></span><span class="target" id="ringbuf_8h_1af8fd401f09fba532013448333b5471a2"></span>void *<code class="descname">xRingbufferReceiveFromISR</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, size_t *<em>pxItemSize</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv425xRingbufferReceiveFromISR15RingbufHandle_tP6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ISR-ში რგოლის ბუფერიდან ელემენტის ამოღება. </p>
+<p>რგოლის ბუფერიდან ელემენტის მოძიების მცდელობა. ეს ფუნქცია დაუყოვნებლივ აბრუნებს, თუ მოძიებისთვის ხელმისაწვდომი ელემენტები არ არის.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>A call to vRingbufferReturnItemFromISR() is required after this to free the item retrieved. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Byte buffers do not allow multiple retrievals before returning an item</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში, მოძიებული ნივთისკენ მიმავალი მაჩვენებელი; *pxItemSize ივსება ელემენტის სიგრძით.</li>
+<li>NULL, როდესაც რგოლის ბუფერი ცარიელია, *pxItemSize ამ შემთხვევაში ხელუხლებელი რჩება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxItemSize</span></code>: მაჩვენებელი ცვლადზე, რომელშიც ჩაიწერება მოძიებული ელემენტის ზომა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv423xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t">
+<span id="_CPPv323xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t"></span><span id="_CPPv223xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t"></span><span id="xRingbufferReceiveSplit__RingbufHandle_t.voidPP.voidPP.sP.sP.TickType_t"></span><span class="target" id="ringbuf_8h_1ac7312fcb3449a244e651d7a977063340"></span>BaseType_t <code class="descname">xRingbufferReceiveSplit</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void **<em>ppvHeadItem</em>, void **<em>ppvTailItem</em>, size_t *<em>pxHeadItemSize</em>, size_t *<em>pxTailItemSize</em>, TickType_t <em>xTicksToWait</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv423xRingbufferReceiveSplit15RingbufHandle_tPPvPPvP6size_tP6size_t10TickType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაყოფილი ელემენტის მიღება allow-split რგოლის ბუფერიდან. </p>
+<p>სცადეთ გაყოფილი ელემენტის მოძიება allow-split რგოლის ბუფერიდან. თუ ელემენტი არ გაიყოფა, ხელახლა ცდება მხოლოდ ერთი ელემენტი. თუ ელემენტი გაიყოფა, ორივე ნაწილი მოიძებნება. ეს ფუნქცია დაიბლოკება ელემენტის ხელმისაწვდომობამდე ან მისი ვადის ამოწურვამდე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Call(s) to vRingbufferReturnItem() is required after this to free up the item(s) retrieved. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should only be called on allow-split buffers</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ ელემენტი (გაყოფილი ან გაუყოფელი) იქნა მოძიებული</li>
+<li>pdFALSE, როდესაც ელემენტი არ იქნა მოძიებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">ppvHeadItem</span></code>ორმაგი მაჩვენებელი პირველ ნაწილზე (დაყენებულია NULL-ზე, თუ ელემენტები არ იქნა მოძიებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">ppvTailItem</span></code>ორმაგი მაჩვენებელი მეორე ნაწილზე (დაყენებულია NULL-ზე, თუ ელემენტი არ არის გაყოფილი) </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxHeadItemSize</span></code>: პირველი ნაწილის ზომის მაჩვენებელი (უცვლელია, თუ არცერთი ელემენტი არ არის მოძიებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxTailItemSize</span></code>მეორე ნაწილის ზომის მაჩვენებელი (უცვლელია, თუ ელემენტი არ არის გაყოფილი) </li>
+<li><code class="docutils literal notranslate"><span class="pre">xTicksToWait</span></code>: ტიკები რგოლის ბუფერში ელემენტების დასალოდინად.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv430xRingbufferReceiveSplitFromISR15RingbufHandle_tPPvPPvP6size_tP6size_t">
+<span id="_CPPv330xRingbufferReceiveSplitFromISR15RingbufHandle_tPPvPPvP6size_tP6size_t"></span><span id="_CPPv230xRingbufferReceiveSplitFromISR15RingbufHandle_tPPvPPvP6size_tP6size_t"></span><span id="xRingbufferReceiveSplitFromISR__RingbufHandle_t.voidPP.voidPP.sP.sP"></span><span class="target" id="ringbuf_8h_1ad0c7f63214e32ce6edc8e69cc261b305"></span>BaseType_t <code class="descname">xRingbufferReceiveSplitFromISR</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void **<em>ppvHeadItem</em>, void **<em>ppvTailItem</em>, size_t *<em>pxHeadItemSize</em>, size_t *<em>pxTailItemSize</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv430xRingbufferReceiveSplitFromISR15RingbufHandle_tPPvPPvP6size_tP6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაყოფილი ელემენტის მოძიება ISR-ში allow-split რგოლის ბუფერიდან. </p>
+<p>გაყოფილი ელემენტის მოძიების მცდელობა allow-split რგოლის ბუფერიდან. თუ ელემენტი არ არის გაყოფილი, ხელახლა ცდება მხოლოდ ერთი ელემენტი. თუ ელემენტი გაყოფილია, ორივე ნაწილი მოძიებული იქნება. ეს ფუნქცია დაუყოვნებლივ აბრუნებს, თუ მოძიებისთვის ხელმისაწვდომი ელემენტები არ არის.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Calls to vRingbufferReturnItemFromISR() is required after this to free up the item(s) retrieved. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should only be called on allow-split buffers</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, თუ ელემენტი (გაყოფილი ან გაუყოფელი) იქნა მოძიებული</li>
+<li>pdFALSE, როდესაც ელემენტი არ იქნა მოძიებული </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">ppvHeadItem</span></code>ორმაგი მაჩვენებელი პირველ ნაწილზე (დაყენებულია NULL-ზე, თუ ელემენტები არ იქნა მოძიებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">ppvTailItem</span></code>ორმაგი მაჩვენებელი მეორე ნაწილზე (დაყენებულია NULL-ზე, თუ ელემენტი არ არის გაყოფილი) </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxHeadItemSize</span></code>: პირველი ნაწილის ზომის მაჩვენებელი (უცვლელია, თუ არცერთი ელემენტი არ არის მოძიებული) </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxTailItemSize</span></code>მეორე ნაწილის ზომის მაჩვენებელი (უცვლელია, თუ ელემენტი არ არის გაყოფილი)</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv422xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t">
+<span id="_CPPv322xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t"></span><span id="_CPPv222xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t"></span><span id="xRingbufferReceiveUpTo__RingbufHandle_t.sP.TickType_t.s"></span><span class="target" id="ringbuf_8h_1af7b3ce88a0c9e939b5848fd93b23280e"></span>void *<code class="descname">xRingbufferReceiveUpTo</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, size_t *<em>pxItemSize</em>, TickType_t <em>xTicksToWait</em>, size_t <em>xMaxSize</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv422xRingbufferReceiveUpTo15RingbufHandle_tP6size_t10TickType_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბაიტების ამოღება ბაიტების ბუფერიდან, მოსაძებნი ბაიტების მაქსიმალური რაოდენობის მითითებით. </p>
+<p>ბაიტური ბუფერიდან მონაცემების მოძიების მცდელობა, მოძიებადი ბაიტების მაქსიმალური რაოდენობის მითითებით. ეს ფუნქცია დაიბლოკება მოძიებისთვის ხელმისაწვდომი მონაცემების არარსებობამდე ან მისი ვადის ამოწურვამდე.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>A call to vRingbufferReturnItem() is required after this to free up the data retrieved. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should only be called on byte buffers </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Byte buffers do not allow multiple retrievals before returning an item</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში, მოძიებული ნივთისკენ მიმავალი მაჩვენებელი; *pxItemSize ივსება ელემენტის სიგრძით.</li>
+<li>NULL დროის ამოწურვისას, *pxItemSize ამ შემთხვევაში ხელუხლებელი რჩება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxItemSize</span></code>: მაჩვენებელი ცვლადზე, რომელშიც ჩაიწერება მოძიებული ელემენტის ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xTicksToWait</span></code>: ტიკები რგოლის ბუფერში ელემენტების დასალოდინად. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xMaxSize</span></code>დასაბრუნებელი ბაიტების მაქსიმალური რაოდენობა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv429xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t">
+<span id="_CPPv329xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t"></span><span id="_CPPv229xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t"></span><span id="xRingbufferReceiveUpToFromISR__RingbufHandle_t.sP.s"></span><span class="target" id="ringbuf_8h_1abe4e8a840fe24af9a09f72f4f114078a"></span>void *<code class="descname">xRingbufferReceiveUpToFromISR</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, size_t *<em>pxItemSize</em>, size_t <em>xMaxSize</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv429xRingbufferReceiveUpToFromISR15RingbufHandle_tP6size_t6size_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბაიტების ამოღება ბაიტების ბუფერიდან, აღსადგენი ბაიტების მაქსიმალური რაოდენობის მითითებით. ამის გამოძახება ISR-დან. </p>
+<p>ბაიტების ბუფერიდან მოძიების მცდელობა, მოძიებადი ბაიტების მაქსიმალური რაოდენობის მითითებით. ეს ფუნქცია დაუყოვნებლივ დააბრუნებს, თუ მოძიებისთვის მონაცემები არ არის ხელმისაწვდომი.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>A call to vRingbufferReturnItemFromISR() is required after this to free up the data received. </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function should only be called on byte buffers </dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>Byte buffers do not allow multiple retrievals before returning an item</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში, მოძიებული ნივთისკენ მიმავალი მაჩვენებელი; *pxItemSize ივსება ელემენტის სიგრძით.</li>
+<li>NULL, როდესაც რგოლის ბუფერი ცარიელია, *pxItemSize ამ შემთხვევაში ხელუხლებელი რჩება. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი ნივთის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxItemSize</span></code>: მაჩვენებელი ცვლადზე, რომელშიც ჩაიწერება მოძიებული ელემენტის ზომა. </li>
+<li><code class="docutils literal notranslate"><span class="pre">xMaxSize</span></code>დასაბრუნებელი ბაიტების მაქსიმალური რაოდენობა.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv421vRingbufferReturnItem15RingbufHandle_tPv">
+<span id="_CPPv321vRingbufferReturnItem15RingbufHandle_tPv"></span><span id="_CPPv221vRingbufferReturnItem15RingbufHandle_tPv"></span><span id="vRingbufferReturnItem__RingbufHandle_t.voidP"></span><span class="target" id="ringbuf_8h_1af722538176b8c698127696f09a1ee212"></span>void <code class="descname">vRingbufferReturnItem</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void *<em>pvItem</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv421vRingbufferReturnItem15RingbufHandle_tPv" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ადრე მოძიებული ელემენტის რგოლის ბუფერში დაბრუნება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a split item is retrieved, both parts should be returned by calling this function twice </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>რინგის ბუფერი, საიდანაც ელემენტი იქნა აღებული </li>
+<li><code class="docutils literal notranslate"><span class="pre">pvItem</span></code>: ნივთი, რომელიც ადრე იქნა მიღებული</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428vRingbufferReturnItemFromISR15RingbufHandle_tPvP10BaseType_t">
+<span id="_CPPv328vRingbufferReturnItemFromISR15RingbufHandle_tPvP10BaseType_t"></span><span id="_CPPv228vRingbufferReturnItemFromISR15RingbufHandle_tPvP10BaseType_t"></span><span id="vRingbufferReturnItemFromISR__RingbufHandle_t.voidP.BaseType_tP"></span><span class="target" id="ringbuf_8h_1a004bf9e68ca952be9da948dd20cd841a"></span>void <code class="descname">vRingbufferReturnItemFromISR</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, void *<em>pvItem</em>, BaseType_t *<em>pxHigherPriorityTaskWoken</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv428vRingbufferReturnItemFromISR15RingbufHandle_tPvP10BaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ISR-დან ადრე მოძიებული ელემენტის რგოლის ბუფერში დაბრუნება. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>If a split item is retrieved, both parts should be returned by calling this function twice </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>რინგის ბუფერი, საიდანაც ელემენტი იქნა აღებული </li>
+<li><code class="docutils literal notranslate"><span class="pre">pvItem</span></code>: ნივთი, რომელიც ადრე იქნა მიღებული </li>
+<li><code class="docutils literal notranslate"><span class="pre">pxHigherPriorityTaskWoken</span></code>: თუ ფუნქცია უფრო მაღალი პრიორიტეტის დავალებას გააღვიძებს, მითითებულ მნიშვნელობას pdTRUE მნიშვნელობა მიენიჭება.</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv417vRingbufferDelete15RingbufHandle_t">
+<span id="_CPPv317vRingbufferDelete15RingbufHandle_t"></span><span id="_CPPv217vRingbufferDelete15RingbufHandle_t"></span><span id="vRingbufferDelete__RingbufHandle_t"></span><span class="target" id="ringbuf_8h_1aa0cb4958a06ba0051ea55de85e2e05fb"></span>void <code class="descname">vRingbufferDelete</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv417vRingbufferDelete15RingbufHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რგოლის ბუფერის წაშლა. </p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>This function will not deallocate any memory if the ring buffer was created using xRingbufferCreateStatic(). Deallocation must be done manually be the user. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: წასაშლელად ბეჭდის ბუფერი</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425xRingbufferGetMaxItemSize15RingbufHandle_t">
+<span id="_CPPv325xRingbufferGetMaxItemSize15RingbufHandle_t"></span><span id="_CPPv225xRingbufferGetMaxItemSize15RingbufHandle_t"></span><span id="xRingbufferGetMaxItemSize__RingbufHandle_t"></span><span class="target" id="ringbuf_8h_1a3405e9d1e40962ac48398e1f666358da"></span>size_t <code class="descname">xRingbufferGetMaxItemSize</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv425xRingbufferGetMaxItemSize15RingbufHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ელემენტის მაქსიმალური ზომა, რომლის განთავსებაც შესაძლებელია რგოლის ბუფერში. </p>
+<p>ეს ფუნქცია აბრუნებს ელემენტს მაქსიმალურ ზომას, რომელიც შეიძლება ჰქონდეს, თუ ის ცარიელ რგოლის ბუფერში იქნებოდა მოთავსებული.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The max item size for a no-split buffer is limited to ((buffer_size/2)-header_size). This limit is imposed so that an item of max item size can always be sent to the an empty no-split buffer regardless of the internal positions of the buffer’s read/write/free pointers.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Maximum size, in bytes, of an item that can be placed in a ring buffer. </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი მოთხოვნისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv425xRingbufferGetCurFreeSize15RingbufHandle_t">
+<span id="_CPPv325xRingbufferGetCurFreeSize15RingbufHandle_t"></span><span id="_CPPv225xRingbufferGetCurFreeSize15RingbufHandle_t"></span><span id="xRingbufferGetCurFreeSize__RingbufHandle_t"></span><span class="target" id="ringbuf_8h_1a60948d94cba0fd760393bbee276f827b"></span>size_t <code class="descname">xRingbufferGetCurFreeSize</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv425xRingbufferGetCurFreeSize15RingbufHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ბუფერში არსებული ელემენტის/მონაცემებისთვის ხელმისაწვდომი მიმდინარე თავისუფალი ზომა. </p>
+<p>ეს იძლევა რეალურ დროში თავისუფალ სივრცეს რგოლის ბუფერში ელემენტისთვის/მონაცემებისთვის. ეს წარმოადგენს მაქსიმალურ ზომას, რომელიც შეიძლება ჰქონდეს ელემენტს/მონაცემს, თუ ის ამჟამად გაიგზავნება რგოლის ბუფერში.</p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>This API is not thread safe. So, if multiple threads are accessing the same ring buffer, it is the application’s responsibility to ensure atomic access to this API and the subsequent Send</dd>
+<dt><strong>შენიშვნა</strong></dt>
+<dd>An empty no-split buffer has a max current free size for an item that is limited to ((buffer_size/2)-header_size). See API reference for xRingbufferGetMaxItemSize().</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd>Current free size, in bytes, available for an entry </dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერი მოთხოვნისთვის</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv428xRingbufferAddToQueueSetRead15RingbufHandle_t16QueueSetHandle_t">
+<span id="_CPPv328xRingbufferAddToQueueSetRead15RingbufHandle_t16QueueSetHandle_t"></span><span id="_CPPv228xRingbufferAddToQueueSetRead15RingbufHandle_t16QueueSetHandle_t"></span><span id="xRingbufferAddToQueueSetRead__RingbufHandle_t.QueueSetHandle_t"></span><span class="target" id="ringbuf_8h_1ae0ee852c502fdfa3e1a2dc7057200dbc"></span>BaseType_t <code class="descname">xRingbufferAddToQueueSetRead</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, <a class="reference internal" href="freertos.html#_CPPv416QueueSetHandle_t" title="QueueSetHandle_t">QueueSetHandle_t</a> <em>xQueueSet</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv428xRingbufferAddToQueueSetRead15RingbufHandle_t16QueueSetHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაამატეთ რგოლის ბუფერის წაკითხვის სემაფორი რიგის ნაკრებში. </p>
+<p>რგოლის ბუფერის წაკითხვის სემაფორა მიუთითებს, რომ მონაცემები ჩაიწერა რგოლის ბუფერში. ეს ფუნქცია რგოლის ბუფერის წაკითხვის სემაფორას რიგის ნაკრებში ამატებს.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>წარმატების შემთხვევაში pdTRUE, სხვა შემთხვევაში pdFALSE </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რიგის ნაკრებისთვის დასამატებელი რინგის ბუფერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">xQueueSet</span></code>რიგი დაყენებულია რგოლის ბუფერის წაკითხვის სემაფორის დასამატებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418xRingbufferCanRead15RingbufHandle_t22QueueSetMemberHandle_t">
+<span id="_CPPv318xRingbufferCanRead15RingbufHandle_t22QueueSetMemberHandle_t"></span><span id="_CPPv218xRingbufferCanRead15RingbufHandle_t22QueueSetMemberHandle_t"></span><span id="xRingbufferCanRead__RingbufHandle_t.QueueSetMemberHandle_t"></span><span class="target" id="ringbuf_8h_1a548bb9961a3e34970bc633b4926ad3a3"></span>BaseType_t <code class="descname">xRingbufferCanRead</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, <a class="reference internal" href="freertos.html#_CPPv422QueueSetMemberHandle_t" title="QueueSetMemberHandle_t">რიგის ნაკრები წევრის სახელური_t</a> <em>x-წევრი</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv418xRingbufferCanRead15RingbufHandle_t22QueueSetMemberHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>შეამოწმეთ, არის თუ არა არჩეული რიგის ნაკრების წევრი რგოლის ბუფერის წაკითხვის სემაფორი. </p>
+<p>ეს API ამოწმებს, არის თუ არა xQueueSelectFromSet()-დან დაბრუნებული რიგის ნაკრების წევრი ამ რგოლის ბუფერის წასაკითხი სემაფორა. თუ ასეა, ეს მიუთითებს, რომ რგოლის ბუფერში არის ელემენტები, რომლებიც მოძიებას ელოდება.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE, როდესაც სემაფორი რგოლის ბუფერს ეკუთვნის</li>
+<li>pdFALSE სხვა შემთხვევაში. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რგოლის ბუფერი, რომელიც უნდა შემოწმდეს </li>
+<li><code class="docutils literal notranslate"><span class="pre">xMember</span></code>წევრი დაბრუნდა xQueueSelectFromSet-დან</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433xRingbufferRemoveFromQueueSetRead15RingbufHandle_t16QueueSetHandle_t">
+<span id="_CPPv333xRingbufferRemoveFromQueueSetRead15RingbufHandle_t16QueueSetHandle_t"></span><span id="_CPPv233xRingbufferRemoveFromQueueSetRead15RingbufHandle_t16QueueSetHandle_t"></span><span id="xRingbufferRemoveFromQueueSetRead__RingbufHandle_t.QueueSetHandle_t"></span><span class="target" id="ringbuf_8h_1a0723ed44659445f38f256bdae6ef6d68"></span>BaseType_t <code class="descname">xRingbufferRemoveFromQueueSetRead</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, <a class="reference internal" href="freertos.html#_CPPv416QueueSetHandle_t" title="QueueSetHandle_t">QueueSetHandle_t</a> <em>xQueueSet</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv433xRingbufferRemoveFromQueueSetRead15RingbufHandle_t16QueueSetHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>რგოლის ბუფერის წაკითხვის სემაფორის ამოღება რიგის ნაკრებიდან. </p>
+<p>ეს კონკრეტულად აშორებს რგოლის ბუფერის წაკითხვის სემაფორს რიგის ნაკრებიდან. წაკითხვის სემაფორი გამოიყენება იმის საჩვენებლად, თუ როდის ჩაიწერა მონაცემები რგოლის ბუფერში.</p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>pdTRUE წარმატებაზე</li>
+<li>pdFALSE სხვა შემთხვევაში </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რიგის ნაკრებიდან ამოსაღებად რინგის ბუფერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">xQueueSet</span></code>რიგი დაყენებულია რგოლის ბუფერის წაკითხვის სემაფორის მოსაშორებლად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv418vRingbufferGetInfo15RingbufHandle_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_t">
+<span id="_CPPv318vRingbufferGetInfo15RingbufHandle_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_t"></span><span id="_CPPv218vRingbufferGetInfo15RingbufHandle_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_t"></span><span id="vRingbufferGetInfo__RingbufHandle_t.UBaseType_tP.UBaseType_tP.UBaseType_tP.UBaseType_tP.UBaseType_tP"></span><span class="target" id="ringbuf_8h_1adbc87321875905b679740dc0beaa965d"></span>void <code class="descname">vRingbufferGetInfo</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em>, UBaseType_t *<em>uxFree</em>, UBaseType_t *<em>uxRead</em>, UBaseType_t *<em>uxWrite</em>, UBaseType_t *<em>uxAcquire</em>, UBaseType_t *<em>uxItemsWaiting</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv418vRingbufferGetInfo15RingbufHandle_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_tP11UBaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიიღეთ ინფორმაცია რგოლის ბუფერის სტატუსის შესახებ. </p>
+<p>მიიღეთ ინფორმაცია რგოლის ბუფერის მიმდინარე სტატუსის შესახებ, როგორიცაა თავისუფალი/წაკითხვის/ჩაწერის მაჩვენებლის პოზიციები და მოძიებას მომლოდინე ელემენტების რაოდენობა. არგუმენტების დაყენება შესაძლებელია NULL-ზე, თუ ისინი არ არის საჭირო.</p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რიგის ნაკრებიდან ამოსაღებად რინგის ბუფერი </li>
+<li><code class="docutils literal notranslate"><span class="pre">uxFree</span></code>: მაჩვენებლის გამოყენება თავისუფალი მაჩვენებლის პოზიციის შესანახად </li>
+<li><code class="docutils literal notranslate"><span class="pre">uxRead</span></code>: მაჩვენებლის გამოყენება წაკითხული მაჩვენებლის პოზიციის შესანახად </li>
+<li><code class="docutils literal notranslate"><span class="pre">uxWrite</span></code>: მაჩვენებლის გამოყენება მაჩვენებლის ჩაწერის პოზიციის შესანახად </li>
+<li><code class="docutils literal notranslate"><span class="pre">uxAcquire</span></code>: მაჩვენებლის გამოყენება მაჩვენებლის პოზიციის შესანახად </li>
+<li><code class="docutils literal notranslate"><span class="pre">uxItemsWaiting</span></code>: მაჩვენებელი გამოიყენება იმ ელემენტების რაოდენობის შესანახად (ბაიტები ბაიტური ბუფერისთვის), რომლებიც მოლოდინშია მოძიების. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv420xRingbufferPrintInfo15RingbufHandle_t">
+<span id="_CPPv320xRingbufferPrintInfo15RingbufHandle_t"></span><span id="_CPPv220xRingbufferPrintInfo15RingbufHandle_t"></span><span id="xRingbufferPrintInfo__RingbufHandle_t"></span><span class="target" id="ringbuf_8h_1a37d2f839cf6cc1bc3eaea0f5e360214a"></span>void <code class="descname">xRingbufferPrintInfo</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="RingbufHandle_t">RingbufHandle_t</a> <em>xRingbuffer</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv420xRingbufferPrintInfo15RingbufHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გამართვის ფუნქცია რგოლის ბუფერში შიდა მაჩვენებლების დასაბეჭდად. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xRingbuffer</span></code>: რინგის ბუფერის ჩვენება </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="structures">
+<h3>სტრუქტურები<a class="headerlink" href="freertos_additions.html#structures" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv418xSTATIC_RINGBUFFER">
+<span id="_CPPv318xSTATIC_RINGBUFFER"></span><span id="_CPPv218xSTATIC_RINGBUFFER"></span><span id="xSTATIC_RINGBUFFER"></span><span class="target" id="structxSTATIC__RINGBUFFER"></span><em class="property">სტრუქტურა </em><code class="descname">xSTATIC_RINGBUFFER</code><a class="headerlink" href="freertos_additions.html#_CPPv418xSTATIC_RINGBUFFER" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სტრუქტურა, რომლის ზომა ეკვივალენტურია რგოლის ბუფერის მონაცემთა სტრუქტურისა. </p>
+<p>ამ სტრუქტურის შინაარსი არ არის განკუთვნილი პირდაპირი გამოყენებისთვის. ეს სტრუქტურა განკუთვნილია სტატიკურად გამოყოფილი რგოლის ბუფერის შექმნისას გამოსაყენებლად, სადაც ეს სტრუქტურა ზუსტად იმ ზომისაა, რაც საჭიროა რგოლის ბუფერის მართვის მონაცემთა სტრუქტურის შესანახად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The CONFIG_FREERTOS_SUPPORT_STATIC_ALLOCATION option must be enabled for this structure to be available. </dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="type-definitions">
+<h3>ტიპის განმარტებები<a class="headerlink" href="freertos_additions.html#type-definitions" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv415RingbufHandle_t">
+<span id="_CPPv315RingbufHandle_t"></span><span id="_CPPv215RingbufHandle_t"></span><span id="RingbufHandle_t"></span><span class="target" id="ringbuf_8h_1a57eefbea78587c4e9100305df739b9aa"></span><em class="property">typedef </em>void *<code class="descname">RingbufHandle_t</code><a class="headerlink" href="freertos_additions.html#_CPPv415RingbufHandle_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მიუთითეთ, თუ რომელი რგოლის ბუფერების მითითება ხდება. მაგალითად, xRingbufferCreate()-ის გამოძახება აბრუნებს RingbufHandle_t ცვლადს, რომლის გამოყენებაც შემდეგ შესაძლებელია პარამეტრად xRingbufferSend(), xRingbufferReceive()-ისთვის და ა.შ. </p>
+</dd></dl>
+<dl class="type">
+<dt id="_CPPv418StaticRingbuffer_t">
+<span id="_CPPv318StaticRingbuffer_t"></span><span id="_CPPv218StaticRingbuffer_t"></span><span id="StaticRingbuffer_t"></span><span class="target" id="ringbuf_8h_1a9ed90b93bec7021e2b7af5fc29457b4b"></span><em class="property">typedef </em><em class="property">სტრუქტურა</em> <a class="reference internal" href="freertos_additions.html#_CPPv418xSTATIC_RINGBUFFER" title="xSTATIC_RINGBUFFER">xSTATIC_RINGBUFFER</a> <code class="descname">StaticRingbuffer_t</code><a class="headerlink" href="freertos_additions.html#_CPPv418StaticRingbuffer_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>სტრუქტურა, რომლის ზომა ეკვივალენტურია რგოლის ბუფერის მონაცემთა სტრუქტურისა. </p>
+<p>ამ სტრუქტურის შინაარსი არ არის განკუთვნილი პირდაპირი გამოყენებისთვის. ეს სტრუქტურა განკუთვნილია სტატიკურად გამოყოფილი რგოლის ბუფერის შექმნისას გამოსაყენებლად, სადაც ეს სტრუქტურა ზუსტად იმ ზომისაა, რაც საჭიროა რგოლის ბუფერის მართვის მონაცემთა სტრუქტურის შესანახად.</p>
+<p><dl class="docutils">
+<dt><strong>შენიშვნა</strong></dt>
+<dd>The CONFIG_FREERTOS_SUPPORT_STATIC_ALLOCATION option must be enabled for this structure to be available. </dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="enumerations">
+<h3>ჩამოთვლები<a class="headerlink" href="freertos_additions.html#enumerations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv416RingbufferType_t">
+<span id="_CPPv316RingbufferType_t"></span><span id="_CPPv216RingbufferType_t"></span><span id="RingbufferType_t"></span><span class="target" id="ringbuf_8h_1a9b67bb7faec2a6c56a77dad316713601"></span><em class="property">ჩამოთვლა </em><code class="descname">RingbufferType_t</code><a class="headerlink" href="freertos_additions.html#_CPPv416RingbufferType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p><em>ღირებულებები:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv420RINGBUF_TYPE_NOSPLIT">
+<span id="_CPPv320RINGBUF_TYPE_NOSPLIT"></span><span id="_CPPv220RINGBUF_TYPE_NOSPLIT"></span><span class="target" id="ringbuf_8h_1a9b67bb7faec2a6c56a77dad316713601a4700d6ba21034ff3879696f6dac47b20"></span><code class="descname">RINGBUF_TYPE_NOSPLIT</code> = 0<a class="headerlink" href="freertos_additions.html#_CPPv420RINGBUF_TYPE_NOSPLIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>გაყოფის გარეშე ბუფერები ელემენტს მხოლოდ მომიჯნავე მეხსიერებაში შეინახავს და არასდროს გახლეჩს ელემენტს. თითოეული ელემენტი სათაურისთვის 8 ბაიტიან დატვირთვას მოითხოვს და ის ყოველთვის შინაგანად 32-ბიტიან გასწორებულ სივრცეს დაიკავებს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv423RINGBUF_TYPE_ALLOWSPLIT">
+<span id="_CPPv323RINGBUF_TYPE_ALLOWSPLIT"></span><span id="_CPPv223RINGBUF_TYPE_ALLOWSPLIT"></span><span class="target" id="ringbuf_8h_1a9b67bb7faec2a6c56a77dad316713601a7b750ce25a4aac338048d6fbd21d8aa3"></span><code class="descname">RINGBUF_TYPE_ALLOWSPLIT</code><a class="headerlink" href="freertos_additions.html#_CPPv423RINGBUF_TYPE_ALLOWSPLIT" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>საჭიროების შემთხვევაში, Allow-split ბუფერები ელემენტს ორ ნაწილად დაყოფენ მისი შესანახად. თითოეული ელემენტისთვის სათაურისთვის საჭიროა 8 ბაიტიანი დამატებითი დატვირთვა, გაყოფა დამატებით სათაურს იწვევს. თითოეული ელემენტი ყოველთვის შინაგანად დაიკავებს 32-ბიტიან გასწორებულ სივრცეს. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv420RINGBUF_TYPE_BYTEBUF">
+<span id="_CPPv320RINGBUF_TYPE_BYTEBUF"></span><span id="_CPPv220RINGBUF_TYPE_BYTEBUF"></span><span class="target" id="ringbuf_8h_1a9b67bb7faec2a6c56a77dad316713601aba9f519440156ddcc5c0188baaf04978"></span><code class="descname">RINGBUF_TYPE_BYTEBUF</code><a class="headerlink" href="freertos_additions.html#_CPPv420RINGBUF_TYPE_BYTEBUF" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ბაიტ-ბუფერები მონაცემებს ბაიტების თანმიმდევრობის სახით ინახავს და ცალკეულ ელემენტებს არ ინახავენ, ამიტომ ბაიტ-ბუფერებს არანაირი დამატებითი დატვირთვა არ აქვთ. ყველა მონაცემი ინახება ბაიტების თანმიმდევრობის სახით და ყოველ ჯერზე შესაძლებელია ნებისმიერი რაოდენობის ბაიტების გაგზავნა ან მოძიება. </p>
+</dd></dl>
+<dl class="enumerator">
+<dt id="_CPPv416RINGBUF_TYPE_MAX">
+<span id="_CPPv316RINGBUF_TYPE_MAX"></span><span id="_CPPv216RINGBUF_TYPE_MAX"></span><span class="target" id="ringbuf_8h_1a9b67bb7faec2a6c56a77dad316713601aab942f5bceafde09595cf0154d712118"></span><code class="descname">RINGBUF_TYPE_MAX</code><a class="headerlink" href="freertos_additions.html#_CPPv416RINGBUF_TYPE_MAX" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</dd></dl>
+</div>
+</div>
+<div class="section" id="hooks">
+<span id="id2"></span><h2>კაუჭები<a class="headerlink" href="freertos_additions.html#hooks" title="Permalink to this headline">¶</a></h2>
+<p>უფასო RTOS შედგება Idle Hook-ებისა და Tick Hook-ებისგან, რომლებიც საშუალებას იძლევა, Idle Task-სა და Tick Interrupt-ს დაემატოს აპლიკაციის სპეციფიკური ფუნქციონალი. ESP-IDF აქვს საკუთარი Idle და Tick Hook API Vanilla Free RTOS ის მიერ მოწოდებული ჰუკების გარდა. ESP-IDF ჰუკებს აქვთ დამატებითი უპირატესობა, რომ ისინი გაშვების დროის კონფიგურირებადი და ასიმეტრიულია.</p>
+<div class="section" id="vanilla-freertos-hooks">
+<h3>ვანილის ფრი ტერმინალი RTOS კაუჭები<a class="headerlink" href="freertos_additions.html#vanilla-freertos-hooks" title="Permalink to this headline">¶</a></h3>
+<p>Idle და Tick Hooks vanilla Free RTOS ში იმპლემენტირებულია მომხმარებლის მიერ ფუნქციების განსაზღვრის გზით. <code class="docutils literal notranslate"><span class="pre">vApplicationIdleHook()</span></code> და  <code class="docutils literal notranslate"><span class="pre">vApplicationTickHook()</span></code>
+შესაბამისად, აპლიკაციის სადმე. Vanilla Free RTOS გაუშვებს მომხმარებლის მიერ განსაზღვრულ Idle Hook-ს და Tick Hook-ს Idle Task-ისა და Tick Interrupt-ის ყოველ იტერაციაზე, შესაბამისად.</p>
+<p>Vanilla Free RTOS კაუჭები მოიხსენიება, როგორც <strong>მემკვიდრეობითი ჰუკსი</strong> ESP-IDF ში უფასო RTOS . მემკვიდრეობითი კაუჭების ჩასართავად, <a class="reference internal" href="../kconfig.html#config-freertos-legacy-hooks"><span class="std std-ref">CONFIG_FREE RTOS _LEGACY_HOOKS</span></a> ჩართული უნდა იყოს <a class="reference internal" href="../kconfig.html"><span class="doc">პროექტის კონფიგურაცია მენიუ</span></a>.</p>
+<p>რადგან vanilla Free RTOS შექმნილია ერთბირთვიანისთვის, <code class="docutils literal notranslate"><span class="pre">vApplicationIdleHook()</span></code>
+და <code class="docutils literal notranslate"><span class="pre">vApplicationTickHook()</span></code> მისი განსაზღვრა მხოლოდ ერთხელ შეიძლება. თუმცა, ESP32 ბუნებით ორმაგი ბირთვია, ამიტომ ორივე ბირთვისთვის ერთი და იგივე Idle Hook და Tick Hook გამოიყენება (სხვა სიტყვებით რომ ვთქვათ, ორივე ბირთვისთვის კაუჭები სიმეტრიულია).</p>
+</div>
+<div class="section" id="esp-idf-idle-and-tick-hooks">
+<h3>ESP-IDF უმოქმედო და ტკიპის კაუჭები<a class="headerlink" href="freertos_additions.html#esp-idf-idle-and-tick-hooks" title="Permalink to this headline">¶</a></h3>
+<p>ESP32-ის ორბირთვიანი ბუნებიდან გამომდინარე, ზოგიერთ აპლიკაციას შეიძლება საჭირო გახდეს თითოეული ბირთვისთვის ცალკეული ჰუკების ქონა. გარდა ამისა, შესაძლოა საჭირო გახდეს Idle Tasks-ის ან Tick Interrupts-ის მიერ მრავალი ჰუკის შესრულება, რომელთა კონფიგურირება შესაძლებელია გაშვების დროს. ამიტომ, ESP-IDF უზრუნველყოფს საკუთარ hook-ებს API Vanilla Free RTOS ის მიერ მოწოდებული მემკვიდრეობითი ჰუკების გარდა.</p>
+<p>ESP-IDF tick/idle ჰუკები რეგისტრირდება გაშვების დროს და თითოეული tick/idle ჰუკი უნდა დარეგისტრირდეს კონკრეტულ CPU-ზე. როდესაც idle დავალება გაშვებულია/tick შეფერხება ხდება კონკრეტულ CPU-ზე, CPU რიგრიგობით გაუშვებს მის თითოეულ რეგისტრირებულ idle/tick ჰუკს.</p>
+</div>
+</div>
+<div class="section" id="hooks-api-reference">
+<h2>ჰუკსის API ცნობარი<a class="headerlink" href="freertos_additions.html#hooks-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>სათაურის ფაილი<a class="headerlink" href="freertos_additions.html#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/espressif/esp-idf/blob/f91080637/components/esp_common/include/esp_freertos_hooks.h">esp_common/include/esp_freertos_hooks.h</a></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>ფუნქციები<a class="headerlink" href="freertos_additions.html#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv439esp_register_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t">
+<span id="_CPPv339esp_register_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t"></span><span id="_CPPv239esp_register_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t"></span><span id="esp_register_freertos_idle_hook_for_cpu__esp_freertos_idle_cb_t.UBaseType_t"></span><span class="target" id="esp__freertos__hooks_8h_1a87dc39c473fc99a7f2a2b6e501dc10da"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_register_freertos_idle_hook_for_cpu</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_idle_cb_t" title="esp_freertos_idle_cb_t">esp_freertos_idle_cb_t</a> <em>new_idle_cb</em>, UBaseType_t <em>პროცესორის ID</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv439esp_register_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ბირთვის უმოქმედო ჰუკიდან უნდა დარეგისტრირდეს უკუკავშირი. უკუკავშირი უნდა დააბრუნოს true, თუ ის უმოქმედო ჰუკის მიერ უნდა გამოიძახოს ერთხელ შეწყვეტის დროს (ან Free RTOS მონიშნეთ) და false, თუ ის უმოქმედო ჰუკის მიერ უნდა გამოიძახოს განმეორებით, რაც შეიძლება სწრაფად. </p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>Idle callbacks MUST NOT, UNDER ANY CIRCUMSTANCES, CALL A FUNCTION THAT MIGHT BLOCK.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: უკუკავშირი რეგისტრირებულია მითითებული ბირთვის უმოქმედო კაუჭზე.</li>
+<li>ESP_ERR_NO_MEM: მითითებული ბირთვის უმოქმედო კაუჭზე უკუკავშირის რეგისტრაციისთვის ადგილი აღარ არის.</li>
+<li>ESP_ERR_INVALID_ARG: cpuid არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">new_idle_cb</span></code>: უკუკავშირის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpuid</span></code>: ბირთვის id</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431esp_register_freertos_idle_hook22esp_freertos_idle_cb_t">
+<span id="_CPPv331esp_register_freertos_idle_hook22esp_freertos_idle_cb_t"></span><span id="_CPPv231esp_register_freertos_idle_hook22esp_freertos_idle_cb_t"></span><span id="esp_register_freertos_idle_hook__esp_freertos_idle_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1ab55049fb96c8f817891fe37f103f1c6e"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_register_freertos_idle_hook</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_idle_cb_t" title="esp_freertos_idle_cb_t">esp_freertos_idle_cb_t</a> <em>new_idle_cb</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv431esp_register_freertos_idle_hook22esp_freertos_idle_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უკუკავშირი დარეგისტრირდება იმ ბირთვის უმოქმედო ჰუკზე, რომელიც ამ ფუნქციას იძახებს. უკუკავშირი უნდა დააბრუნოს true, თუ ის უნდა გამოიძახოს უმოქმედო ჰუკმა შეწყვეტის დროს ერთხელ (ან Free RTOS მონიშნეთ) და დააბრუნოს false, თუ ის უნდა გამოიძახოს უმოქმედო ჰუკმა რაც შეიძლება სწრაფად. </p>
+<p><dl class="docutils">
+<dt><strong>გაფრთხილება</strong></dt>
+<dd>Idle callbacks MUST NOT, UNDER ANY CIRCUMSTANCES, CALL A FUNCTION THAT MIGHT BLOCK.</dd>
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: უკუკავშირი რეგისტრირებულია გამომძახებელი ბირთვის უმოქმედო კაუჭზე.</li>
+<li>ESP_ERR_NO_MEM: გამომძახებელი ბირთვის უმოქმედო კაუჭზე უკუკავშირის რეგისტრაციისთვის ადგილი აღარ არის. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">new_idle_cb</span></code>: უკუკავშირის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv439esp_register_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t">
+<span id="_CPPv339esp_register_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t"></span><span id="_CPPv239esp_register_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t"></span><span id="esp_register_freertos_tick_hook_for_cpu__esp_freertos_tick_cb_t.UBaseType_t"></span><span class="target" id="esp__freertos__hooks_8h_1a9024955b8cc10aeca2623da338095fb6"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_register_freertos_tick_hook_for_cpu</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_tick_cb_t" title="esp_freertos_tick_cb_t">esp_freertos_tick_cb_t</a> <em>new_tick_cb</em>, UBaseType_t <em>პროცესორის ID</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv439esp_register_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ბირთვის ტიკ ჰუკიდან უკუკავშირის გამოძახების რეგისტრაცია. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: უკუკავშირი რეგისტრირებულია მითითებული ბირთვის ტიკ ჰუკზე</li>
+<li>ESP_ERR_NO_MEM: მითითებული ბირთვის ტიკ ჰუკზე უკუკავშირის რეგისტრაციისთვის ადგილი აღარ არის.</li>
+<li>ESP_ERR_INVALID_ARG: cpuid არასწორია </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">new_tick_cb</span></code>: უკუკავშირის მისაღებად </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpuid</span></code>: ბირთვის id</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv431esp_register_freertos_tick_hook22esp_freertos_tick_cb_t">
+<span id="_CPPv331esp_register_freertos_tick_hook22esp_freertos_tick_cb_t"></span><span id="_CPPv231esp_register_freertos_tick_hook22esp_freertos_tick_cb_t"></span><span id="esp_register_freertos_tick_hook__esp_freertos_tick_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1a47511f75aba5a67833f1b8edeb4d32de"></span><a class="reference internal" href="esp_err.html#_CPPv49esp_err_t" title="esp_err_t">esp_err_t</a> <code class="descname">esp_register_freertos_tick_hook</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_tick_cb_t" title="esp_freertos_tick_cb_t">esp_freertos_tick_cb_t</a> <em>new_tick_cb</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv431esp_register_freertos_tick_hook22esp_freertos_tick_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>დაარეგისტრირეთ უკუკავშირი, რომელიც უნდა გამოიძახოთ გამომძახებელი ბირთვის ტიკ ჰუკიდან. </p>
+<p><dl class="docutils">
+<dt><strong>დაბრუნება</strong></dt>
+<dd><ul class="simple">
+<li>ESP_OK: უკუკავშირი რეგისტრირებულია გამომძახებელი ბირთვის ტიკ ჰუკზე.</li>
+<li>ESP_ERR_NO_MEM: გამომძახებელი ბირთვის ტიკ ჰუკზე უკუკავშირის რეგისტრაციისთვის ადგილი აღარ არის. </li>
+</ul>
+</dd>
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">new_tick_cb</span></code>: უკუკავშირის მისაღებად</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv441esp_deregister_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t">
+<span id="_CPPv341esp_deregister_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t"></span><span id="_CPPv241esp_deregister_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t"></span><span id="esp_deregister_freertos_idle_hook_for_cpu__esp_freertos_idle_cb_t.UBaseType_t"></span><span class="target" id="esp__freertos__hooks_8h_1a45641edb39639eafea05008636295f52"></span>void <code class="descname">esp_deregister_freertos_idle_hook_for_cpu</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_idle_cb_t" title="esp_freertos_idle_cb_t">esp_freertos_idle_cb_t</a> <em>old_idle_cb</em>, UBaseType_t <em>პროცესორის ID</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv441esp_deregister_freertos_idle_hook_for_cpu22esp_freertos_idle_cb_t11UBaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ბირთვის უმოქმედო ჰუკიდან უმოქმედო უკუკავშირის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">old_idle_cb</span></code>რეგისტრაციის გაუქმება უკუკავშირის შემთხვევაში </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpuid</span></code>: ბირთვის id </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_deregister_freertos_idle_hook22esp_freertos_idle_cb_t">
+<span id="_CPPv333esp_deregister_freertos_idle_hook22esp_freertos_idle_cb_t"></span><span id="_CPPv233esp_deregister_freertos_idle_hook22esp_freertos_idle_cb_t"></span><span id="esp_deregister_freertos_idle_hook__esp_freertos_idle_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1ae2769a1322cae5d34f64ed495d1d9528"></span>void <code class="descname">esp_deregister_freertos_idle_hook</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_idle_cb_t" title="esp_freertos_idle_cb_t">esp_freertos_idle_cb_t</a> <em>old_idle_cb</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv433esp_deregister_freertos_idle_hook22esp_freertos_idle_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>უმოქმედო უკუკავშირის რეგისტრაციის გაუქმება. თუ უმოქმედო უკუკავშირი რეგისტრირებულია ორივე ბირთვის უმოქმედო ჰუკებზე, უმოქმედო ჰუკი გაუქმდება ორივე ბირთვიდან. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">old_idle_cb</span></code>რეგისტრაციის გაუქმება უკუკავშირის შემთხვევაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv441esp_deregister_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t">
+<span id="_CPPv341esp_deregister_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t"></span><span id="_CPPv241esp_deregister_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t"></span><span id="esp_deregister_freertos_tick_hook_for_cpu__esp_freertos_tick_cb_t.UBaseType_t"></span><span class="target" id="esp__freertos__hooks_8h_1abe394025617a8d2bf65d8409267d3a81"></span>void <code class="descname">esp_deregister_freertos_tick_hook_for_cpu</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_tick_cb_t" title="esp_freertos_tick_cb_t">esp_freertos_tick_cb_t</a> <em>old_tick_cb</em>, UBaseType_t <em>პროცესორის ID</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv441esp_deregister_freertos_tick_hook_for_cpu22esp_freertos_tick_cb_t11UBaseType_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>მითითებული ბირთვის ტიკ ჰუკიდან ტიკ-კაუკის რეგისტრაციის გაუქმება. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">old_tick_cb</span></code>რეგისტრაციის გაუქმება უკუკავშირის შემთხვევაში </li>
+<li><code class="docutils literal notranslate"><span class="pre">cpuid</span></code>: ბირთვის id </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+<dl class="function">
+<dt id="_CPPv433esp_deregister_freertos_tick_hook22esp_freertos_tick_cb_t">
+<span id="_CPPv333esp_deregister_freertos_tick_hook22esp_freertos_tick_cb_t"></span><span id="_CPPv233esp_deregister_freertos_tick_hook22esp_freertos_tick_cb_t"></span><span id="esp_deregister_freertos_tick_hook__esp_freertos_tick_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1a60462b97f1ae4e7eb4a779584025b344"></span>void <code class="descname">esp_deregister_freertos_tick_hook</code><span class="sig-paren">(</span><a class="reference internal" href="freertos_additions.html#_CPPv422esp_freertos_tick_cb_t" title="esp_freertos_tick_cb_t">esp_freertos_tick_cb_t</a> <em>old_tick_cb</em><span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv433esp_deregister_freertos_tick_hook22esp_freertos_tick_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd><p>ტიკის უკუკავშირის რეგისტრაციის გაუქმება. თუ ტიკის უკუკავშირი რეგისტრირებულია ორივე ბირთვის ტიკ ჰუკებზე, ტიკ ჰუკი გაუქმდება ორივე ბირთვიდან. </p>
+<p><dl class="docutils">
+<dt><strong>პარამეტრები</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">old_tick_cb</span></code>რეგისტრაციის გაუქმება უკუკავშირის შემთხვევაში </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+</div>
+<div class="section" id="id5">
+<h3>ტიპის განმარტებები<a class="headerlink" href="freertos_additions.html#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv422esp_freertos_idle_cb_t">
+<span id="_CPPv322esp_freertos_idle_cb_t"></span><span id="_CPPv222esp_freertos_idle_cb_t"></span><span id="esp_freertos_idle_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1ae00fd6bd0ddcd1d133085a3a9b7a2e7c"></span><em class="property">typedef </em>bool (*<code class="descname">esp_freertos_idle_cb_t</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv422esp_freertos_idle_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+<dl class="type">
+<dt id="_CPPv422esp_freertos_tick_cb_t">
+<span id="_CPPv322esp_freertos_tick_cb_t"></span><span id="_CPPv222esp_freertos_tick_cb_t"></span><span id="esp_freertos_tick_cb_t"></span><span class="target" id="esp__freertos__hooks_8h_1a244a5807ba8e23331818b8bd5e0340f3"></span><em class="property">typedef </em>void (*<code class="descname">esp_freertos_tick_cb_t</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="freertos_additions.html#_CPPv422esp_freertos_tick_cb_t" title="Permalink to this definition">¶</a><br/></dt>
+<dd></dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="mem_alloc.html" rel="next" title="Heap Memory Allocation">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="freertos.html" rel="prev" title="FreeRTOS"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

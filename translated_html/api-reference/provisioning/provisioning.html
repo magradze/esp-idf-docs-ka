@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ერთიანი უზრუნველყოფა — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="wifi_provisioning.html" rel="next" title="Wi-Fi Provisioning"/>
+<link href="protocomm.html" rel="prev" title="Protocol Communication"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/provisioning/provisioning.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/provisioning/provisioning"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/provisioning/provisioning.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../peripherals/index.html">პერიფერიული მოწყობილობები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">უზრუნველყოფა</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="protocomm.html">პროტოკოლის კომუნიკაცია</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="provisioning.html#">ერთიანი უზრუნველყოფა</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#overview">მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#typical-provisioning-process">ტიპიური უზრუნველყოფის პროცესი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#deciding-on-transport">ტრანსპორტის შესახებ გადაწყვეტილების მიღება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#deciding-on-security">უსაფრთხოების შესახებ გადაწყვეტილების მიღება</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#device-discovery">მოწყობილობის აღმოჩენა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#architecture">არქიტექტურა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#security-schemes">უსაფრთხოების სქემები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#sample-code">ნიმუშის კოდი</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provisioning.html#provisioning-tools">უზრუნველყოფის ინსტრუმენტები</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wifi_provisioning.html">Wi-Fi უზრუნველყოფა</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">უზრუნველყოფის API</a> »</li>
+<li>ერთიანი უზრუნველყოფა</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/provisioning/provisioning.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="unified-provisioning">
+<h1>ერთიანი უზრუნველყოფა<a class="headerlink" href="provisioning.html#unified-provisioning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>მიმოხილვა<a class="headerlink" href="provisioning.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>ESP-IDF ში ერთიანი უზრუნველყოფის მხარდაჭერა დეველოპერებს სთავაზობს გაფართოებად მექანიზმს, რათა მათ შეძლონ მოწყობილობის კონფიგურაცია Wi-Fi სერთიფიკატებით და/ან სხვა მორგებული კონფიგურაციით, სხვადასხვა ტრანსპორტისა და სხვადასხვა უსაფრთხოების სქემების გამოყენებით. გამოყენების შემთხვევის მიხედვით, ის უზრუნველყოფს Wi-Fi ქსელის უზრუნველყოფის სრულ და მზა გადაწყვეტას, მაგალითად, iOS და Android აპლიკაციებთან ერთად. ან დეველოპერებს შეუძლიათ გააფართოვონ მოწყობილობის მხარეს და ტელეფონის აპლიკაციის მხარეს არსებული იმპლემენტაციები, რათა დააკმაყოფილონ დამატებითი კონფიგურაციის მონაცემების გაგზავნის მოთხოვნები. ქვემოთ მოცემულია ამ იმპლემენტაციის მნიშვნელოვანი მახასიათებლები.</p>
+<ol class="arabic simple">
+<li><em>გაფართოებადი პროტოკოლი:</em> პროტოკოლი სრულიად მოქნილია და დეველოპერებს სთავაზობს შესაძლებლობას, გაგზავნონ მორგებული კონფიგურაცია უზრუნველყოფის პროცესში. მონაცემთა წარმოდგენაც აპლიკაციის გადასაწყვეტია.</li>
+<li><em>ტრანსპორტირების მოქნილობა:</em> პროტოკოლს შეუძლია იმუშაოს Wi-Fi ზე (SoftAP + HTTP სერვერი) ან BLE-ზე, როგორც ტრანსპორტის პროტოკოლი. ჩარჩო იძლევა ნებისმიერი სხვა ტრანსპორტის მხარდაჭერის მარტივად დამატების შესაძლებლობას, იმ პირობით, რომ ტრანსპორტით მხარდაჭერილია ბრძანება-პასუხის ქცევა.</li>
+<li><em>უსაფრთხოების სქემის მოქნილობა:</em> გასაგებია, რომ თითოეულ შემთხვევაში შეიძლება საჭირო გახდეს განსხვავებული უსაფრთხოების სქემა უზრუნველყოფის პროცესში გაცვლილი მონაცემების დასაცავად. ზოგიერთი აპლიკაცია შეიძლება მუშაობდეს SoftAP-თან, რომელიც დაცულია WPA2-ით ან BLE-სთან „just-works“ დაცვით. ან აპლიკაციებმა შეიძლება ტრანსპორტირება დაუცველად მიიჩნიონ და შეიძლება აპლიკაციის დონის უსაფრთხოება მოითხოვონ. ერთიანი უზრუნველყოფის ჩარჩო საშუალებას აძლევს აპლიკაციას აირჩიოს უსაფრთხოება, როგორც ეს შესაფერისად მიაჩნია.</li>
+<li><em>კომპაქტური მონაცემების წარმოდგენა:</em> პროტოკოლი იყენებს <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google Protobufs</a> როგორც მონაცემთა წარმოდგენა სესიის დაყენებისა და Wi-Fi უზრუნველყოფისთვის. ისინი უზრუნველყოფენ მონაცემთა კომპაქტურ წარმოდგენას და მონაცემების მრავალ პროგრამირების ენაზე მშობლიურ ფორმატში დამუშავების შესაძლებლობას. გთხოვთ გაითვალისწინოთ, რომ მონაცემთა ეს წარმოდგენა არ არის იძულებითი აპლიკაციის სპეციფიკურ მონაცემებზე და დეველოპერებს შეუძლიათ აირჩიონ მათთვის სასურველი წარმოდგენა.</li>
+</ol>
+</div>
+<div class="section" id="typical-provisioning-process">
+<h2>ტიპიური უზრუნველყოფის პროცესი<a class="headerlink" href="provisioning.html#typical-provisioning-process" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id1">
+<div><img height="953" src="../../_images/seqdiag-7a52d6a6844c830acb1cb602031818ffd9c8e66e.png" width="568"/></div><p class="caption"><span class="caption-text">ტიპიური უზრუნველყოფის პროცესი</span><a class="headerlink" href="provisioning.html#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="deciding-on-transport">
+<h2>ტრანსპორტის შესახებ გადაწყვეტილების მიღება<a class="headerlink" href="provisioning.html#deciding-on-transport" title="Permalink to this headline">¶</a></h2>
+<p>ერთიანი უზრუნველყოფის ქვესისტემა მხარს უჭერს Wi-Fi (SoftAP+HTTP სერვერი) და BLE (GATT-ზე დაფუძნებული) ტრანსპორტირების სქემებს. უზრუნველყოფისთვის საუკეთესო ტრანსპორტის შერჩევისას გასათვალისწინებელია შემდეგი პუნქტები.</p>
+<ol class="arabic simple">
+<li>BLE-ზე დაფუძნებულ ტრანსპორტს ის უპირატესობა აქვს, რომ უზრუნველყოფის პროცესში BLE საკომუნიკაციო არხი მოწყობილობასა და კლიენტს შორის ხელუხლებელი რჩება. ეს უზრუნველყოფს უზრუნველყოფის საიმედო უკუკავშირს.</li>
+<li>BLE-ზე დაფუძნებული დებულების იმპლემენტაცია აუმჯობესებს მომხმარებლის გამოცდილებას ტელეფონის აპლიკაციებიდან, რადგან როგორც Android-ზე, ასევე iOS-ზე ტელეფონის აპლიკაციას შეუძლია მოწყობილობის აღმოჩენა და მასთან დაკავშირება მომხმარებლისგან ტელეფონის აპლიკაციიდან გასვლის მოთხოვნის გარეშე.</li>
+<li>თუმცა, BLE ტრანსპორტი გაშვების დროს დაახლოებით 110 კბ მეხსიერებას მოიხმარს. თუ პროდუქტი არ გამოიყენებს BLE ან BT ფუნქციონალს უზრუნველყოფის დასრულების შემდეგ, მეხსიერების თითქმის მთელი ნაწილის აღდგენა და გროვაში დამატება შესაძლებელია.</li>
+<li>SoftAP-ზე დაფუძნებული ტრანსპორტირება მაღალი თავსებადობით ხასიათდება; თუმცა, რადგან SoftAP-სა და სადგურის ინტერფეისს შორის ერთი და იგივე რადიო კავშირია, ტრანსპორტირება არ არის საიმედო იმ ფაზაში, როდესაც ხდება Wi-Fi გარე წვდომის წერტილთან დაკავშირება. ასევე, კლიენტმა შეიძლება სხვა ქსელში დაბრუნდეს, როდესაც SoftAP ცვლის არხს სადგურის დაკავშირების დროს.</li>
+<li>SoftAP ტრანსპორტირებას არ სჭირდება დიდი რაოდენობით დამატებითი მეხსიერება Wi-Fi გამოყენების შემთხვევებისთვის.</li>
+<li>SoftAP-ზე დაფუძნებული უზრუნველყოფა მოითხოვს, რომ ტელეფონის აპლიკაციის მომხმარებელმა iOS-ის შემთხვევაში გადავიდეს „სისტემის პარამეტრებში“, რათა დაუკავშირდეს მოწყობილობაზე განთავსებულ Wi-Fi ქსელს. iOS აპლიკაციებისთვის არ არის ხელმისაწვდომი როგორც აღმოჩენა (სკანირება), ასევე API თან დაკავშირება.</li>
+</ol>
+</div>
+<div class="section" id="deciding-on-security">
+<h2>უსაფრთხოების შესახებ გადაწყვეტილების მიღება<a class="headerlink" href="provisioning.html#deciding-on-security" title="Permalink to this headline">¶</a></h2>
+<p>უსაფრთხოების სქემა უნდა შეირჩეს აპლიკაციის შემქმნელების მიერ ტრანსპორტირებისა და სხვა შეზღუდვების გათვალისწინებით. უზრუნველყოფის უსაფრთხოების პერსპექტივიდან უნდა გავითვალისწინოთ შემდეგი მოსაზრებები: 1. კლიენტის მიერ მოწყობილობაზე გაგზავნილი კონფიგურაციის მონაცემები და პასუხი უნდა იყოს დაცული. 2. კლიენტმა უნდა მოახდინოს იმ მოწყობილობის ავთენტიფიკაცია, რომელთანაც ის არის დაკავშირებული. 3. მოწყობილობის მწარმოებელს შეუძლია აირჩიოს ფლობის დამადასტურებელი საბუთი - უნიკალური საიდუმლო ცნობა თითოეული მოწყობილობისთვის, რომელიც უნდა შეიყვანოს უზრუნველყოფის კლიენტზე, როგორც უსაფრთხოების ზომა, რათა დარწმუნდეს, რომ მომხმარებელს შეუძლია საკუთრებაში არსებული მოწყობილობის უზრუნველყოფა.</p>
+<p>არსებობს უსაფრთხოების სქემების ორი დონე. დეველოპერს შეუძლია აირჩიოს ერთი ან მათი კომბინაცია მოთხოვნების მიხედვით.</p>
+<ol class="arabic simple">
+<li><em>ტრანსპორტის უსაფრთხოება:</em> SoftAP-ის უზრუნველყოფამ შეიძლება აირჩიოს WPA2-ით დაცული უსაფრთხოება უნიკალური თითოეული მოწყობილობის პაროლით. თითოეული მოწყობილობისთვის უნიკალური პაროლი ასევე შეიძლება გამოყენებულ იქნას, როგორც ფლობის დამადასტურებელი საბუთი. BLE-სთვის, „just-works“ უსაფრთხოება შეიძლება გამოყენებულ იქნას ტრანსპორტირების დონის უსაფრთხოებად, მის მიერ უზრუნველყოფილი უსაფრთხოების დონის გაგების შემდეგ.</li>
+<li><em>აპლიკაციის უსაფრთხოება:</em> ერთიანი უზრუნველყოფის ქვესისტემა უზრუნველყოფს აპლიკაციის დონის უსაფრთხოებას (<em>უსაფრთხოება1</em>), რომელიც უზრუნველყოფს მონაცემთა დაცვას და ავთენტიფიკაციას (მფლობელობის დამადასტურებელი საბუთის მეშვეობით), თუ აპლიკაცია არ იყენებს ტრანსპორტირების დონის უსაფრთხოებას ან თუ ტრანსპორტირების დონის უსაფრთხოება არ არის საკმარისი გამოყენების შემთხვევისთვის.</li>
+</ol>
+</div>
+<div class="section" id="device-discovery">
+<h2>მოწყობილობის აღმოჩენა<a class="headerlink" href="provisioning.html#device-discovery" title="Permalink to this headline">¶</a></h2>
+<p>რეკლამირება და მოწყობილობის აღმოჩენა აპლიკაციას ევალება და არჩეული პროტოკოლის მიხედვით, ტელეფონის აპლიკაციებს და მოწყობილობის პროგრამული უზრუნველყოფა აპლიკაციას შეუძლიათ აირჩიონ შესაბამისი მეთოდი რეკლამირებისა და აღმოჩენისთვის.</p>
+<p>SoftAP+HTTP ტრანსპორტირებისთვის, როგორც წესი, აღმოსაჩენად შეიძლება გამოყენებულ იქნას მოწყობილობის მიერ განთავსებული წვდომის წერტილის SSID (ქსელის სახელი).</p>
+<p>BLE სატრანსპორტო მოწყობილობისთვის, აღმოჩენისთვის შეიძლება გამოყენებულ იქნას რეკლამაში შემავალი სახელი ან ძირითადი სერვისი, ან ორივეს კომბინაცია.</p>
+</div>
+<div class="section" id="architecture">
+<h2>არქიტექტურა<a class="headerlink" href="provisioning.html#architecture" title="Permalink to this headline">¶</a></h2>
+<p>ქვემოთ მოცემულ დიაგრამაზე ნაჩვენებია ერთიანი უზრუნველყოფის არქიტექტურა.</p>
+<div class="figure align-center" id="id2">
+<img alt="Unified Provisioning Architecture" src="../../_images/unified_provisioning.png"/>
+<p class="caption"><span class="caption-text">ერთიანი უზრუნველყოფის არქიტექტურა</span></p>
+</div>
+<p>ის ეყრდნობა საბაზისო ფენას, რომელსაც ეწოდება <a class="reference internal" href="protocomm.html"><span class="doc">პროტოკოლის კომუნიკაცია</span></a> (პროტოკოლის კომუნიკაცია), რომელიც უზრუნველყოფს ჩარჩო უსაფრთხოების სქემებისა და ტრანსპორტირების მექანიზმებისთვის. Wi-Fi უზრუნველყოფის დონე იყენებს Protocomm-ს აპლიკაციისთვის მარტივი უკუკავშირის უზრუნველსაყოფად კონფიგურაციის დასაყენებლად და Wi-Fi სტატუსის მისაღებად. აპლიკაციას აქვს კონტროლი ამ უკუკავშირის განხორციელებაზე. გარდა ამისა, აპლიკაციას შეუძლია პირდაპირ გამოიყენოს protocomm მორგებული დამმუშავებლების რეგისტრაციისთვის.</p>
+<p>აპლიკაცია ქმნის პროტოკომის ეგზემპლარს, რომელიც მიმაგრებულია კონკრეტულ ტრანსპორტთან და კონკრეტულ უსაფრთხოების სქემასთან. პროტოკომში თითოეულ ტრანსპორტს აქვს „ბოლო წერტილის“ კონცეფცია, რომელიც შეესაბამება კონკრეტული ტიპის ინფორმაციის კომუნიკაციის ლოგიკურ არხს. მაგალითად, უსაფრთხოების კავშირი ხდება Wi-Fi კონფიგურაციის საბოლოო წერტილისგან განსხვავებულ საბოლოო წერტილზე. თითოეული საბოლოო წერტილი იდენტიფიცირდება სტრიქონის გამოყენებით და საბოლოო წერტილის შიდა წარმოდგენის ცვლილებების მიხედვით ტრანსპორტის შემთხვევაში. SoftAP+HTTP ტრანსპორტის შემთხვევაში, საბოლოო წერტილი შეესაბამება URI-ს, ხოლო BLE-ს შემთხვევაში, საბოლოო წერტილი შეესაბამება GATT მახასიათებელს კონკრეტული UUID-ით. დეველოპერებს შეუძლიათ შექმნან მორგებული საბოლოო წერტილები და დანერგონ დამმუშავებელი მონაცემებისთვის, რომლებიც მიიღება ან იგზავნება იმავე საბოლოო წერტილის მეშვეობით.</p>
+</div>
+<div class="section" id="security-schemes">
+<h2>უსაფრთხოების სქემები<a class="headerlink" href="provisioning.html#security-schemes" title="Permalink to this headline">¶</a></h2>
+<p>ამჟამად, ერთიანი უზრუნველყოფა მხარს უჭერს ორ უსაფრთხოების სქემას: 1. Security0 - უსაფრთხოების გარეშე (დაშიფვრის გარეშე) 2. Security1 - Curve25519-ზე დაფუძნებული გასაღების გაცვლა, საერთო გასაღების წარმოება და მონაცემთა დაშიფვრა AES256-CTR რეჟიმში. ის მხარს უჭერს ორ რეჟიმს:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>ავტორიზებული - ფლობის დამადასტურებელი (PoP) სტრიქონი, რომელიც გამოიყენება სესიის ავტორიზაციისა და საერთო გასაღების მისაღებად.</li>
+<li>ავტორიზაციის გარეშე (Null PoP) - გაზიარებული გასაღები მიღებულია მხოლოდ გასაღების გაცვლის გზით</li>
+</ol>
+</div></blockquote>
+<p>Security1 სქემის დეტალები ნაჩვენებია ქვემოთ მოცემულ თანმიმდევრობის დიაგრამაზე</p>
+<div class="figure align-center" id="id3">
+<div><img height="1023" src="../../_images/seqdiag-58adb9423ef675dbc77e10b36f25f22674b70c96.png" width="695"/></div><p class="caption"><span class="caption-text">უსაფრთხოება1</span><a class="headerlink" href="provisioning.html#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="sample-code">
+<h2>ნიმუშის კოდი<a class="headerlink" href="provisioning.html#sample-code" title="Permalink to this headline">¶</a></h2>
+<p>გთხოვთ, იხილოთ <a class="reference internal" href="protocomm.html"><span class="doc">პროტოკოლის კომუნიკაცია</span></a> და <a class="reference internal" href="wifi_provisioning.html"><span class="doc">Wi-Fi უზრუნველყოფა</span></a> API ის სახელმძღვანელოებისა და კოდის ფრაგმენტებისთვის, რომლებიც მაგალითების გამოყენებას ეხება.</p>
+<p>სხვადასხვა გამოყენების შემთხვევის იმპლემენტაცია შეგიძლიათ იხილოთ მაგალითებად ქვემოთ <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/provisioning">უზრუნველყოფა</a>.</p>
+</div>
+<div class="section" id="provisioning-tools">
+<h2>უზრუნველყოფის ინსტრუმენტები<a class="headerlink" href="provisioning.html#provisioning-tools" title="Permalink to this headline">¶</a></h2>
+<p>დებულების აპლიკაციები ხელმისაწვდომია სხვადასხვა პლატფორმისთვის, საწყის კოდთან ერთად:</p>
+<ul class="simple">
+<li>ანდროიდი: <a class="reference external" href="https://github.com/espressif/esp-idf-provisioning-android">esp-idf-provisioning-android</a></li>
+<li>iOS: <a class="reference external" href="https://github.com/espressif/esp-idf-provisioning-ios">esp-idf-provisioning-ios</a></li>
+<li>Linux/MacOS/Windows: <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/tools/esp_prov">ინსტრუმენტები/esp_prov</a> (Python-ზე დაფუძნებული ბრძანების ხაზის ინსტრუმენტი დებულებისთვის)</li>
+</ul>
+<p>ტელეფონის აპლიკაციები გთავაზობთ მარტივ ინტერფეისს და შესაბამისად, უფრო მომხმარებელზე ორიენტირებულს, ხოლო ბრძანების ხაზის აპლიკაცია სასარგებლოა, როგორც გამართვა ging ინსტრუმენტი დეველოპერებისთვის.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="wifi_provisioning.html" rel="next" title="Wi-Fi Provisioning">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="protocomm.html" rel="prev" title="Protocol Communication"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

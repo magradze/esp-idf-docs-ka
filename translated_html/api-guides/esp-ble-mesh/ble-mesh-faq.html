@@ -1,0 +1,883 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESP-BLE-MESH FAQ — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="ble-mesh-terminology.html" rel="next" title="ESP-BLE-MESH Terminology"/>
+<link href="ble-mesh-architecture.html" rel="prev" title="ESP-BLE-MESH Architecture"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/esp-ble-mesh/ble-mesh-faq.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-guides/esp-ble-mesh/ble-mesh-faq"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-guides/esp-ble-mesh/ble-mesh-faq.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference/index.html">API მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API სახელმძღვანელოები</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../app_trace.html">აპლიკაციის დონის ტრასირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blufi.html">BluFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bootloader.html">ჩატვირთვის სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system.html">სისტემის შექმნა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build-system-legacy.html">სისტემის შექმნა (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../console.html">კონსოლის კომპონენტი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deep-sleep-stub.html">ღრმა ძილის გაღვიძების სტატიები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-handling.html">შეცდომების დამუშავება</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ble-mesh-index.html">ESP-BLE-MESH</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#getting-started-with-esp-ble-mesh">ESP-BLE-MESH-ის გამოყენების დაწყება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-examples">ESP-BLE-MESH მაგალითები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-demo-videos">ESP-BLE-MESH დემო ვიდეოები</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble-mesh-index.html#esp-ble-mesh-faq">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="ble-mesh-index.html#related-documents">დაკავშირებული დოკუმენტები</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-feature-list.html">ESP-BLE-MESH ფუნქციების სია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-architecture.html">ESP-BLE-MESH არქიტექტურა</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="ble-mesh-faq.html#">ESP-BLE-MESH-ის ხშირად დასმული კითხვები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-terminology.html">ESP-BLE-MESH ტერმინოლოგია</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ble-mesh-index.html#bluetooth-sig-documentation">Bluetooth SIG დოკუმენტაცია</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">ESP-MESH ( Wi-Fi )</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core_dump.html">ESP32 ბირთვის ნაგავსაყრელი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event-handling.html">მოვლენების დამუშავება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external-ram.html">გარე SPI-თან დაკავშირებული ოპერატიული მეხსიერება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fatal-errors.html">ფატალური შეცდომები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/flash-encryption.html">ფლეშ დაშიფვრა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos-smp.html">უფასო RTOS SMP ცვლილებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general-notes.html">ზოგადი შენიშვნები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hlinterrupts.html">მაღალი დონის შეფერხებები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jtag-debugging/index.html">JTAG-ის გამართვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linker-script-generation.html">ლინკერის სკრიპტის გენერირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lwip.html">lwIP TCP/IP სტეკი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../partition-tables.html">დანაყოფის ცხრილები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RF_calibration.html">რადიოსიხშირული კალიბრაცია</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../romconsole.html">ROM გამართვა კონსოლი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/secure-boot.html">უსაფრთხო ჩატვირთვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread-local-storage.html">ძაფების ლოკალური საცავი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/index.html">ხელსაწყოები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp.html">ULP კოპროცესორი</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulp-legacy.html">ULP კოპროცესორი (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests-legacy.html">ერთეულის ტესტირება (Legacy GNU Make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../unit-tests.html">ერთეულის ტესტირება</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wifi.html">WiFi დრაივერი</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API სახელმძღვანელოები</a> »</li>
+<li><a href="ble-mesh-index.html">ESP-BLE-MESH</a> »</li>
+<li>ESP-BLE-MESH-ის ხშირად დასმული კითხვები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-guides/esp-ble-mesh/ble-mesh-faq.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="esp-ble-mesh-faq">
+<h1>ESP-BLE-MESH-ის ხშირად დასმული კითხვები<a class="headerlink" href="ble-mesh-faq.html#esp-ble-mesh-faq" title="Permalink to this headline">¶</a></h1>
+<p>ეს დოკუმენტი წარმოადგენს ESP-BLE-MESH-ით შემუშავებასთან დაკავშირებით ხშირად დასმული კითხვების შეჯამებას და დაყოფილია შვიდ ნაწილად:</p>
+<ul class="simple">
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-provisioner-development"><span class="std std-ref">1. პროვაიდერის განვითარება</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-node-development"><span class="std std-ref">2. კვანძის განვითარება</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-ble-mesh-and-wi-fi-coexistence"><span class="std std-ref">3. ESP-BLE-MESH და Wi-Fi თანაარსებობა</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-fast-provisioning"><span class="std std-ref">4. სწრაფი უზრუნველყოფა</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-log-help"><span class="std std-ref">5. ჟურნალის დახმარება</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-example-help"><span class="std std-ref">6. დახმარების მაგალითი</span></a></li>
+<li><a class="reference internal" href="ble-mesh-faq.html#ble-mesh-faq-others"><span class="std std-ref">7. სხვები</span></a></li>
+</ul>
+<p>მომხმარებლებს შეუძლიათ გაეცნონ განყოფილებებს თავიანთ კითხვებზე სწრაფი პასუხების მისაღებად. ეს დოკუმენტი განახლდება სხვადასხვა არხებით შეგროვებული უკუკავშირის საფუძველზე.</p>
+<div class="section" id="provisioner-development">
+<span id="ble-mesh-faq-provisioner-development"></span><h2>1. პროვაიდერის განვითარება<a class="headerlink" href="ble-mesh-faq.html#provisioner-development" title="Permalink to this headline">¶</a></h2>
+<p>როგორც წესი, პროვაიდერი გამოიყენება არამოწოდებული მოწყობილობების უზრუნველსაყოფად და mesh ქსელის ფორმირებისთვის. ხოლო უზრუნველყოფის შემდეგ, არამოწოდებული მოწყობილობების როლები შეიცვლება კვანძის როლებით.</p>
+<div class="section" id="what-is-the-flow-for-an-unprovisioned-device-to-join-esp-ble-mesh-network">
+<h3>1.1 როგორ უნდა შეუერთდეს ESP-BLE-MESH ქსელს არამომარაგებული მოწყობილობა?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-flow-for-an-unprovisioned-device-to-join-esp-ble-mesh-network" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>მოწყობილობისთვის ESP-BLE-MESH ქსელში შესაერთებლად პროვიზერის მეშვეობით ორი ეტაპი არსებობს: პროვიზერვაცია და კონფიგურაცია.</p>
+<ul class="simple">
+<li>უზრუნველყოფის ფაზა გულისხმობს მოწყობილობაზე unicast მისამართის მინიჭებას, NetKey-ის დამატებას და ა.შ. უზრუნველყოფის შედეგად, მოწყობილობა უერთდება ESP-BLE-MESH ქსელს და მისი როლი იცვლება არაუზრუნველყოფილი მოწყობილობიდან კვანძად.</li>
+<li>კონფიგურაციის ფაზა არის კვანძში AppKeys-ის დამატება და შესაბამის მოდელებთან AppKeys-ის დაკავშირება. კონფიგურაციის დროს ზოგიერთი ელემენტი არჩევითია, მათ შორის კვანძში სააბონენტო მისამართების დამატება, პუბლიკაციის ინფორმაციის დაყენება და ა.შ. კონფიგურაციის საშუალებით, კვანძს შეუძლია შეტყობინებების გადაცემა პროვაიდერისთვის და მისგან მიღება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="if-a-provisioner-wants-to-change-states-of-a-node-what-requirements-should-be-met-for-a-provisioner">
+<h3>1.2 თუ პროვაიზერს სურს კვანძის მდგომარეობების შეცვლა, რა მოთხოვნები უნდა დააკმაყოფილოს პროვაიზერმა?<a class="headerlink" href="ble-mesh-faq.html#if-a-provisioner-wants-to-change-states-of-a-node-what-requirements-should-be-met-for-a-provisioner" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>საჭიროა კლიენტის მოდელი, რომელიც შეესაბამება კვანძის სერვერის მოდელს.</li>
+<li>შეტყობინებების დაშიფვრისთვის გამოყენებული NetKey და AppKey უნდა ეკუთვნოდეს როგორც კვანძს, ასევე პროვაიდერს.</li>
+<li>ცნობილი უნდა იყოს კვანძის საკუთრებაში არსებული მისამართი, რომელიც შეიძლება იყოს მისი უნიქასთ მისამართი ან სააბონენტო მისამართი.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-can-netkey-and-appkey-be-used">
+<h3>1.3 როგორ შეიძლება NetKey-ის და AppKey-ის გამოყენება?<a class="headerlink" href="ble-mesh-faq.html#how-can-netkey-and-appkey-be-used" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>NetKey გამოიყენება შეტყობინებების დაშიფვრისთვის ქსელურ დონეზე. ერთი და იგივე NetKey-ის მქონე კვანძები ერთსა და იმავე ქვექსელში იმყოფებიან, ხოლო სხვადასხვა NetKey-ის მქონე კვანძები ერთმანეთთან კომუნიკაციას ვერ ახერხებენ.</li>
+<li>AppKey გამოიყენება ზედა სატრანსპორტო დონეზე შეტყობინებების დაშიფვრისთვის. თუ კლიენტის და სერვერის მოდელები სხვადასხვა AppKeys-ზეა მიბმული, კომუნიკაცია ვერ განხორციელდება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-generate-a-netkey-or-appkey-for-provisioner-can-we-use-a-fixed-netkey-or-appkey">
+<h3>1.4 როგორ შევქმნათ NetKey ან AppKey Provisioner-ისთვის? შეგვიძლია გამოვიყენოთ ფიქსირებული NetKey ან AppKey?<a class="headerlink" href="ble-mesh-faq.html#how-to-generate-a-netkey-or-appkey-for-provisioner-can-we-use-a-fixed-netkey-or-appkey" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_provisioner_add_local_net_keyAL16E_K7uint8_t8uint16_t" title="esp_ble_mesh_provisioner_add_local_net_key"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_add_local_net_key()</span></code></a> შეიძლება გამოყენებულ იქნას ფიქსირებული ან შემთხვევითი მნიშვნელობის მქონე NetKey-ის დასამატებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_provisioner_add_local_app_keyAL16E_K7uint8_t8uint16_t8uint16_t" title="esp_ble_mesh_provisioner_add_local_app_key"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_add_local_app_key()</span></code></a> შეიძლება გამოყენებულ იქნას ფიქსირებული ან შემთხვევითი მნიშვნელობის მქონე AppKey-ის დასამატებლად.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="is-the-unicast-address-of-provisioner-fixed">
+<h3>1.5 ფიქსირებულია თუ არა Provisioner-ის უნიქასთ მისამართი?<a class="headerlink" href="ble-mesh-faq.html#is-the-unicast-address-of-provisioner-fixed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The value of <code class="code docutils literal notranslate"><span class="pre">prov_unicast_addr</span></code> in <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv419esp_ble_mesh_prov_t" title="esp_ble_mesh_prov_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_prov_t</span></code></a> is used to set the unicast address of Provisioner, it can be set only once during initialization and can’t be changed afterwards.</div></blockquote>
+</div>
+<div class="section" id="can-the-address-of-provisioner-serve-as-destination-address-of-the-node-reporting-status-message">
+<h3>1.6 შეიძლება თუ არა პროვიზერის მისამართი იყოს კვანძის სტატუსის შესახებ შეტყობინების დანიშნულების მისამართი?<a class="headerlink" href="ble-mesh-faq.html#can-the-address-of-provisioner-serve-as-destination-address-of-the-node-reporting-status-message" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The unicast address of Provisioner can be set only once during initialization and can’t be changed afterwards. In theory, it can serve as the destination address of the node-reporting-status message, provided that the unicast address of the Provisioner is known by nodes. Nodes can know the unicast address of Provisioner during configuration since Provisioner sends messages to them with its unicast address used as the source address.
+Subscription address can also be used. Provisioner subscribes to a group address or virtual address, and nodes send messages to the subscription address.</div></blockquote>
+</div>
+<div class="section" id="is-the-unicast-address-of-the-node-that-is-firstly-provisioned-by-provisioner-to-esp-ble-mesh-network-fixed">
+<h3>1.7 ფიქსირებულია თუ არა იმ კვანძის უნიქასთ მისამართი, რომელიც პირველად მიეწოდება მიმწოდებელს ESP-BLE-MESH ქსელისთვის?<a class="headerlink" href="ble-mesh-faq.html#is-the-unicast-address-of-the-node-that-is-firstly-provisioned-by-provisioner-to-esp-ble-mesh-network-fixed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The value of <code class="code docutils literal notranslate"><span class="pre">prov_start_address</span></code> in <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv419esp_ble_mesh_prov_t" title="esp_ble_mesh_prov_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_prov_t</span></code></a> is used to set the starting address when the Provisioner provisions unprovisioned devices, i.e. the unicast address of the node it firstly provisioned. It can be set only once during initialization and can’t be changed afterwards.</div></blockquote>
+</div>
+<div class="section" id="is-the-unicast-address-of-the-node-that-mobile-app-firstly-provisioned-fixed">
+<h3>1.8 ფიქსირებულია თუ არა იმ კვანძის უნიქასთ მისამართი, რომელიც მობილური აპლიკაციამ პირველად უზრუნველყო?<a class="headerlink" href="ble-mesh-faq.html#is-the-unicast-address-of-the-node-that-mobile-app-firstly-provisioned-fixed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The App will decide the unicast address, and currently most of them are fixed.</div></blockquote>
+</div>
+<div class="section" id="how-to-know-which-unprovisioned-device-is-the-provisioner-that-is-provisioning-currently">
+<h3>1.9 როგორ გავიგო, რომელი დაუმონტაჟებელი მოწყობილობაა ამჟამად პროვაიდერი, რომელიც პროვაიდერს ახორციელებს?<a class="headerlink" href="ble-mesh-faq.html#how-to-know-which-unprovisioned-device-is-the-provisioner-that-is-provisioning-currently" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The value of <code class="code docutils literal notranslate"><span class="pre">prov_attention</span></code> in <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv419esp_ble_mesh_prov_t" title="esp_ble_mesh_prov_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_prov_t</span></code></a> is used by Provisioner set to unprovisioned device during provisioning. It can be set only once during initialization and can’t be changed afterwards. When the unprovisioned device is joining the mesh network, it can display in a specific way like flashing light to notify Provisioner that it is being provisioned.</div></blockquote>
+</div>
+<div class="section" id="how-many-ways-to-authenticate-the-devices-during-provisioning-which-way-was-used-in-the-provided-examples">
+<h3>1.10 მოწყობილობების ავთენტიფიკაციის რამდენი გზა არსებობს უზრუნველყოფის დროს? რომელი გზა იქნა გამოყენებული <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh">მოწოდებული მაგალითები </a>?<a class="headerlink" href="ble-mesh-faq.html#how-many-ways-to-authenticate-the-devices-during-provisioning-which-way-was-used-in-the-provided-examples" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>There are four authentication methods, i.e. No OOB, Static OOB, Output OOB and Input OOB. In the provided examples, No OOB is used.</div></blockquote>
+</div>
+<div class="section" id="what-information-can-be-carried-by-the-advertising-packets-of-the-unprovisioned-device-before-provisioning-into-the-network">
+<h3>1.11 რა ინფორმაციის გადატანა შეუძლიათ არამომარაგებული მოწყობილობის სარეკლამო პაკეტებს ქსელში ჩართვამდე?<a class="headerlink" href="ble-mesh-faq.html#what-information-can-be-carried-by-the-advertising-packets-of-the-unprovisioned-device-before-provisioning-into-the-network" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>მოწყობილობის UUID</li>
+<li>OOB ინფორმაცია</li>
+<li>URL ჰეში (არასავალდებულო)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="can-such-information-be-used-for-device-identification">
+<h3>1.12 შეიძლება თუ არა ასეთი ინფორმაციის გამოყენება მოწყობილობის იდენტიფიკაციისთვის?<a class="headerlink" href="ble-mesh-faq.html#can-such-information-be-used-for-device-identification" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>For example, each unprovisioned device contains a unique Device UUID, which can be used for device identification.</div></blockquote>
+</div>
+<div class="section" id="how-is-the-unicast-address-assigned-when-the-node-provisioned-by-provisioner-contains-multiple-elements">
+<h3>1.13 როგორ ენიჭება უნიქასთ მისამართი, როდესაც პროვიზერის მიერ უზრუნველყოფილი კვანძი შეიცავს რამდენიმე ელემენტს?<a class="headerlink" href="ble-mesh-faq.html#how-is-the-unicast-address-assigned-when-the-node-provisioned-by-provisioner-contains-multiple-elements" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>პროვიზერი კვანძის პირველადი ელემენტისთვის უნიკასტ მისამართს მიანიჭებს, ხოლო დარჩენილი ელემენტების უნიკასტ მისამართები ერთმანეთის მიყოლებით იზრდება.</li>
+<li>მაგალითად: თუ არამომარაგებულ მოწყობილობას აქვს სამი ელემენტი, ანუ პირველადი ელემენტი, მეორე ელემენტი და მესამე ელემენტი, უზრუნველყოფის შემდეგ, კვანძის პირველადი ელემენტის მისამართია 0x0002, მეორე ელემენტის მისამართია 0x0003, ხოლო მესამე ელემენტის მისამართია 0x0004.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-can-provisioner-get-and-parse-the-composition-data-of-nodes-through-configuration-client-model">
+<h3>1.14 როგორ შეუძლია Provisioner-ს მიიღოს და გააანალიზოს <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-composition"><span class="std std-ref">შემადგენლობის მონაცემები</span></a> კვანძების კონფიგურაციის კლიენტის მოდელის მეშვეობით?<a class="headerlink" href="ble-mesh-faq.html#how-can-provisioner-get-and-parse-the-composition-data-of-nodes-through-configuration-client-model" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>პროვაიდერს შეუძლია მიიღოს კვანძების შემადგენლობის მონაცემები შემდეგი ფუნქციის გამოყენებით: <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-foundation-models"><span class="std std-ref">კონფიგურაციის კლიენტის მოდელი</span></a> API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_set_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_config_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_set_state()</span></code></a> თან <code class="code docutils literal notranslate"><span class="pre">comp_data_get</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_get_state_t" title="esp_ble_mesh_cfg_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_get_state_t</span></code></a> სწორად დაყენება.</li>
+<li>მომხმარებლებს შეუძლიათ მიმართონ შემდეგ კოდს კომპოზიციის მონაცემების გასაანალიზებლად:</li>
+</ul>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdint.h&gt;
+
+//test date: 0C001A0001000800030000010501000000800100001003103F002A00
+//0C00 1A00 0100 0800 0300 0001 05 01 0000 0080 0100 0010 0310 3F002A00
+
+// CID is 0x000C
+// PID is 0x001A
+// VID is 0x0001
+// CRPL is 0x0008
+// Features is 0x0003 – Relay and Friend features.
+// Loc is “front” – 0x0100
+// NumS is 5
+// NumV is 1
+// The Bluetooth SIG Models supported are: 0x0000, 0x8000, 0x0001, 0x1000, 0x1003
+// The Vendor Models supported are: Company Identifier 0x003F and Model Identifier 0x002A
+
+typedef struct {
+    int16_t cid;
+    int16_t pid;
+    int16_t vid;
+    int16_t crpl;
+    int16_t features;
+    int16_t all_models;
+    uint8_t sig_models;
+    uint8_t vnd_models;
+} esp_ble_mesh_composition_head;
+
+typedef struct {
+    uint16_t model_id;
+    uint16_t vendor_id;
+} tsModel;
+
+typedef struct {
+    // reserve space for up to 20 SIG models
+    uint16_t SIG_models[20];
+    uint8_t numSIGModels;
+
+    // reserve space for up to 4 vendor models
+    tsModel Vendor_models[4];
+    uint8_t numVendorModels;
+} esp_ble_mesh_composition_decode;
+
+int decode_comp_data(esp_ble_mesh_composition_head *head, esp_ble_mesh_composition_decode *data, uint8_t *mystr, int size)
+{
+    int pos_sig_base;
+    int pos_vnd_base;
+    int i;
+
+    memcpy(head, mystr, sizeof(*head));
+
+    if(size &lt; sizeof(*head) + head-&gt;sig_models * 2 + head-&gt;vnd_models * 4) {
+        return -1;
+    }
+
+    pos_sig_base = sizeof(*head) - 1;
+
+    for(i = 1; i &lt; head-&gt;sig_models * 2; i = i + 2) {
+        data-&gt;SIG_models[i/2] = mystr[i + pos_sig_base] | (mystr[i + pos_sig_base + 1] &lt;&lt; 8);
+        printf("%d: %4.4x\n", i/2, data-&gt;SIG_models[i/2]);
+    }
+
+    pos_vnd_base = head-&gt;sig_models * 2 + pos_sig_base;
+
+    for(i = 1; i &lt; head-&gt;vnd_models * 2; i = i + 2) {
+        data-&gt;Vendor_models[i/2].model_id = mystr[i + pos_vnd_base] | (mystr[i + pos_vnd_base + 1] &lt;&lt; 8);
+        printf("%d: %4.4x\n", i/2, data-&gt;Vendor_models[i/2].model_id);
+
+        data-&gt;Vendor_models[i/2].vendor_id = mystr[i + pos_vnd_base + 2] | (mystr[i + pos_vnd_base + 3] &lt;&lt; 8);
+        printf("%d: %4.4x\n", i/2, data-&gt;Vendor_models[i/2].vendor_id);
+    }
+
+    return 0;
+}
+
+void app_main(void)
+{
+    esp_ble_mesh_composition_head head = {0};
+    esp_ble_mesh_composition_decode data = {0};
+    uint8_t mystr[] = { 0x0C, 0x00, 0x1A, 0x00,
+                        0x01, 0x00, 0x08, 0x00,
+                        0x03, 0x00, 0x00, 0x01,
+                        0x05, 0x01, 0x00, 0x00,
+                        0x00, 0x80, 0x01, 0x00,
+                        0x00, 0x10, 0x03, 0x10,
+                        0x3F, 0x00, 0x2A, 0x00};
+    int ret;
+
+    ret = decode_comp_data(&amp;head, &amp;data, mystr, sizeof(mystr));
+    if (ret == -1) {
+        printf("decode_comp_data error");
+    }
+}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="how-can-provisioner-further-configure-nodes-through-obtained-composition-data">
+<h3>1.15 როგორ შეუძლია Provisioner-ს კვანძების შემდგომი კონფიგურაცია მიღებული კომპოზიციის მონაცემების მეშვეობით?<a class="headerlink" href="ble-mesh-faq.html#how-can-provisioner-further-configure-nodes-through-obtained-composition-data" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>პროვაიდერი შემდეგ კონფიგურაციას აკეთებს გამოძახებით <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-foundation-models"><span class="std std-ref">კონფიგურაციის კლიენტის მოდელი</span></a> API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_set_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_config_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_set_state()</span></code></a>.</p>
+<ul class="simple">
+<li>დაამატეთ AppKey კვანძებს <code class="code docutils literal notranslate"><span class="pre">app_key_add</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> სწორად დაყენება.</li>
+<li>დაამატეთ სააბონენტო მისამართი კვანძების მოდელებს <code class="code docutils literal notranslate"><span class="pre">model_sub_add</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> სწორად დაყენება.</li>
+<li>კვანძების მოდელებზე პუბლიკაციის ინფორმაციის დაყენება <code class="code docutils literal notranslate"><span class="pre">model_pub_set</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> სწორად დაყენება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="can-nodes-add-corresponding-configurations-for-themselves">
+<h3>1.16 შეუძლიათ თუ არა კვანძებს შესაბამისი კონფიგურაციების დამატება საკუთარი თავისთვის?<a class="headerlink" href="ble-mesh-faq.html#can-nodes-add-corresponding-configurations-for-themselves" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>ეს მეთოდი შეიძლება გამოყენებულ იქნას განსაკუთრებულ შემთხვევებში, მაგალითად, ტესტირების პერიოდში.</p>
+<ul class="simple">
+<li>აქ მოცემულია მაგალითი, რომელიც აჩვენებს, თუ როგორ ამატებენ კვანძები ახალ ჯგუფურ მისამართებს თავიანთი მოდელებისთვის.</li>
+</ul>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span>esp_err_t example_add_fast_prov_group_address(uint16_t model_id, uint16_t group_addr)
+{
+    const esp_ble_mesh_comp_t *comp = NULL;
+    esp_ble_mesh_elem_t *element = NULL;
+    esp_ble_mesh_model_t *model = NULL;
+    int i, j;
+
+    if (!ESP_BLE_MESH_ADDR_IS_GROUP(group_addr)) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    comp = esp_ble_mesh_get_composition_data();
+    if (!comp) {
+        return ESP_FAIL;
+    }
+
+    for (i = 0; i &lt; comp-&gt;element_count; i++) {
+        element = &amp;comp-&gt;elements[i];
+        model = esp_ble_mesh_find_sig_model(element, model_id);
+        if (!model) {
+            continue;
+        }
+        for (j = 0; j &lt; ARRAY_SIZE(model-&gt;groups); j++) {
+            if (model-&gt;groups[j] == group_addr) {
+                break;
+            }
+        }
+        if (j != ARRAY_SIZE(model-&gt;groups)) {
+            ESP_LOGW(TAG, "%s: Group address already exists, element index: %d", __func__, i);
+            continue;
+        }
+        for (j = 0; j &lt; ARRAY_SIZE(model-&gt;groups); j++) {
+            if (model-&gt;groups[j] == ESP_BLE_MESH_ADDR_UNASSIGNED) {
+                model-&gt;groups[j] = group_addr;
+                break;
+            }
+        }
+        if (j == ARRAY_SIZE(model-&gt;groups)) {
+            ESP_LOGE(TAG, "%s: Model is full of group addresses, element index: %d", __func__, i);
+        }
+    }
+
+    return ESP_OK;
+}
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">როდესაც კვანძის NVS მეხსიერება ჩართულია, ამ მეთოდით დამატებული ჯგუფის მისამართი და AppKey არ შეინახება NVS-ში, როდესაც მოწყობილობა ამჟამად გამორთულია. ამ კონფიგურაციის ინფორმაციის შენახვა შესაძლებელია მხოლოდ იმ შემთხვევაში, თუ ისინი კონფიგურირებულია კონფიგურაციის კლიენტის მოდელის მიერ.</p>
+</div>
+</div>
+<div class="section" id="how-does-provisioner-control-nodes-by-grouping">
+<h3>1.17 როგორ აკონტროლებს Provisioner კვანძებს დაჯგუფების გზით?<a class="headerlink" href="ble-mesh-faq.html#how-does-provisioner-control-nodes-by-grouping" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>ზოგადად, ESP-BLE-MESH ქსელში ჯგუფური კონტროლის განსახორციელებლად ორი მიდგომა არსებობს: ჯგუფური მისამართის მიდგომა და ვირტუალური მისამართის მიდგომა. და დავუშვათ, რომ არსებობს 10 მოწყობილობა, ანუ ხუთი მოწყობილობა ლურჯი განათებით და ხუთი მოწყობილობა წითელი განათებით.</p>
+<ul class="simple">
+<li>მეთოდი 1: 5 ლურჯ შუქს შეუძლია ჯგუფურ მისამართზე გამოწერა, 5 წითელ შუქს კი - სხვაზე. სხვადასხვა ჯგუფურ მისამართებზე შეტყობინებების გაგზავნით, Provisioner-ს შეუძლია ჯგუფური კონტროლის განხორციელება.</li>
+<li>მეთოდი 2: 5 ლურჯ შუქს შეუძლია ვირტუალურ მისამართზე გამოწერა, 5 წითელ შუქს კი - სხვაზე. სხვადასხვა ვირტუალურ მისამართზე შეტყობინებების გაგზავნით, Provisioner-ს შეუძლია ჯგუფური კონტროლის განხორციელება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-does-provisioner-add-nodes-to-multiple-subnets">
+<h3>1.18 როგორ ამატებს Provisioner კვანძებს მრავალ ქვექსელში?<a class="headerlink" href="ble-mesh-faq.html#how-does-provisioner-add-nodes-to-multiple-subnets" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Provisioner can add multiple NetKeys to nodes during configuration, and nodes sharing the same NetKey belong to the same subnet. Provisioner can communicate with nodes on different subnets by using different NetKeys.</div></blockquote>
+</div>
+<div class="section" id="how-does-provisioner-know-if-a-node-in-the-mesh-network-is-offline">
+<h3>1.19 როგორ იცის Provisioner-მა, რომ mesh ქსელში კვანძი ოფლაინშია?<a class="headerlink" href="ble-mesh-faq.html#how-does-provisioner-know-if-a-node-in-the-mesh-network-is-offline" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>კვანძი ოფლაინ რეჟიმში, როგორც წესი, განისაზღვრება, როგორც: მდგომარეობა, როდესაც კვანძს არ შეუძლია სათანადოდ დაუკავშირდეს სხვა კვანძებს mesh ქსელში ელექტროენერგიის გათიშვის ან სხვა მიზეზების გამო.</p>
+<p>ESP-BLE-MESH ქსელში კვანძებსა და კვანძებს შორის კავშირი არ არსებობს. ისინი ერთმანეთთან სარეკლამო არხებით ურთიერთობენ.</p>
+<p>აქ მოცემულია მაგალითი, თუ როგორ უნდა აღმოვაჩინოთ, რომ კვანძი ოფლაინშია Provisioner-ის მიერ.</p>
+<ul class="simple">
+<li>კვანძს შეუძლია პერიოდულად გაუგზავნოს გულისცემის შეტყობინებები Provisioner-ს. და თუ Provisioner-მა ვერ მიიღო გულისცემის შეტყობინებები გარკვეულ პერიოდში, კვანძი ოფლაინში გათიშულად ითვლება.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">გულისცემის შეტყობინება უნდა იყოს შედგენილი ერთ პაკეტში (11 ბაიტზე ნაკლები), რათა მისი გადაცემა და მიღება უფრო ეფექტური იყოს.</p>
+</div>
+</div>
+<div class="section" id="what-operations-should-be-performed-when-provisioner-removes-nodes-from-the-network">
+<h3>1.20 რა ოპერაციები უნდა შესრულდეს, როდესაც Provisioner ქსელიდან კვანძებს შლის?<a class="headerlink" href="ble-mesh-faq.html#what-operations-should-be-performed-when-provisioner-removes-nodes-from-the-network" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>როგორც წესი, როდესაც Provisioner ცდილობს კვანძის ამოღებას mesh ქსელიდან, პროცედურა მოიცავს სამ მთავარ ნაბიჯს:</p>
+<ul class="simple">
+<li>პირველ რიგში, Provisioner „შავ სიაში“ ამატებს იმ კვანძს, რომლის ამოღებაც საჭიროა.</li>
+<li>მეორეც, პროვიზერი ასრულებს <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-network-management"><span class="std std-ref">გასაღების განახლების პროცედურა</span></a>.</li>
+<li>და ბოლოს, კვანძი ასრულებს კვანძის გადატვირთვის პროცედურას და გადადის არამომარაგებულ მოწყობილობაზე.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="in-the-key-refresh-procedure-how-does-provisioner-update-the-netkey-owned-by-nodes">
+<h3>1.21 Key Refresh პროცედურაში, როგორ აახლებს Provisioner კვანძების საკუთრებაში არსებულ Netkey-ს?<a class="headerlink" href="ble-mesh-faq.html#in-the-key-refresh-procedure-how-does-provisioner-update-the-netkey-owned-by-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>პროვაიდერი აახლებს კვანძების NetKey-ს გამოყენებით <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-foundation-models"><span class="std std-ref">კონფიგურაციის კლიენტის მოდელი</span></a> API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_set_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_config_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_set_state()</span></code></a> თან <code class="code docutils literal notranslate"><span class="pre">net_key_update</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> სწორად დაყენება.</li>
+<li>პროვიზერი აახლებს კვანძების AppKey-ს გამოყენებით <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-foundation-models"><span class="std std-ref">კონფიგურაციის კლიენტის მოდელი</span></a> API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_set_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_config_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_set_state()</span></code></a> თან <code class="code docutils literal notranslate"><span class="pre">app_key_update</span></code> პარამეტრში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> სწორად დაყენება.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-does-provisioner-manage-nodes-in-the-mesh-network">
+<h3>1.22 როგორ მართავს Provisioner კვანძებს mesh ქსელში?<a class="headerlink" href="ble-mesh-faq.html#how-does-provisioner-manage-nodes-in-the-mesh-network" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>ESP-BLE-MESH implements several functions related to basic node management in the example, such as <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_store_node_info()</span></code>. And ESP-BLE-MESH also provides the API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_provisioner_set_node_nameiPKc" title="esp_ble_mesh_provisioner_set_node_name"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_set_node_name()</span></code></a> which can be used to set the node’s local name and the API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_provisioner_get_node_namei" title="esp_ble_mesh_provisioner_get_node_name"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_get_node_name()</span></code></a> which can be used to get the node’s local name.</div></blockquote>
+</div>
+<div class="section" id="what-does-provisioner-need-when-trying-to-control-the-server-model-of-nodes">
+<h3>1.23 რა სჭირდება Provisioner-ს კვანძების სერვერის მოდელის კონტროლის მცდელობისას?<a class="headerlink" href="ble-mesh-faq.html#what-does-provisioner-need-when-trying-to-control-the-server-model-of-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>კვანძების სერვერის მოდელის მართვამდე, პროვაიდერმა უნდა ჩართოს შესაბამისი კლიენტის მოდელი.</p>
+<p>პროვაიდერმა უნდა დაამატოს თავისი ლოკალური NetKey და AppKey.</p>
+<ul class="simple">
+<li>პროვაიდერმა NetKey-ს API გამოძახებით დაამატა <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_provisioner_add_local_net_keyAL16E_K7uint8_t8uint16_t" title="esp_ble_mesh_provisioner_add_local_net_key"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_add_local_net_key()</span></code></a>.</li>
+<li>პროვაიდერმა დაამატა AppKey API გამოძახებით <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_provisioner_add_local_app_keyAL16E_K7uint8_t8uint16_t8uint16_t" title="esp_ble_mesh_provisioner_add_local_app_key"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_add_local_app_key()</span></code></a>.</li>
+</ul>
+<p>პროვაიდერმა უნდა დააკონფიგურიროს საკუთარი კლიენტის მოდელი.</p>
+<ul class="simple">
+<li>პროვაიდერი AppKey-ს საკუთარ კლიენტის მოდელთან აკავშირებს API გამოძახებით. <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv452esp_ble_mesh_provisioner_bind_app_key_to_local_model8uint16_t8uint16_t8uint16_t8uint16_t" title="esp_ble_mesh_provisioner_bind_app_key_to_local_model"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_provisioner_bind_app_key_to_local_model()</span></code></a>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-does-provisoner-control-the-server-model-of-nodes">
+<h3>1.24 როგორ აკონტროლებს Provisoner კვანძების სერვერის მოდელს?<a class="headerlink" href="ble-mesh-faq.html#how-does-provisoner-control-the-server-model-of-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>ESP-BLE-MESH მხარს უჭერს SIG-განსაზღვრულ ყველა კლიენტის მოდელს. პროვიზერს შეუძლია გამოიყენოს ეს კლიენტის მოდელები კვანძების სერვერის მოდელების სამართავად. კლიენტის მოდელები დაყოფილია 6 კატეგორიად, სადაც თითოეულ კატეგორიას აქვს შესაბამისი ფუნქციები.</p>
+<ul>
+<li><p class="first">კონფიგურაციის კლიენტის მოდელი</p>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_get_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_get_state_t" title="esp_ble_mesh_config_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_get_state_t" title="esp_ble_mesh_cfg_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_get_state_t</span></code></a> კონფიგურაციის სერვერის მოდელის მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_config_client_set_stateP34esp_ble_mesh_client_common_param_tP35esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_config_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_config_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_cfg_client_set_state_t" title="esp_ble_mesh_cfg_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_cfg_client_set_state_t</span></code></a> კონფიგურაციის სერვერის მოდელის მნიშვნელობები.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ჯანმრთელობის კლიენტის მოდელი</p>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_health_client_get_stateP34esp_ble_mesh_client_common_param_tP38esp_ble_mesh_health_client_get_state_t" title="esp_ble_mesh_health_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_health_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_health_client_get_state_t" title="esp_ble_mesh_health_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_health_client_get_state_t</span></code></a> ჯანდაცვის სერვერის მოდელის მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_health_client_set_stateP34esp_ble_mesh_client_common_param_tP38esp_ble_mesh_health_client_set_state_t" title="esp_ble_mesh_health_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_health_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_health_client_set_state_t" title="esp_ble_mesh_health_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_health_client_set_state_t</span></code></a> ჯანდაცვის სერვერის მოდელის მნიშვნელობები.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ზოგადი კლიენტის მოდელები</p>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv437esp_ble_mesh_generic_client_get_stateP34esp_ble_mesh_client_common_param_tP39esp_ble_mesh_generic_client_get_state_t" title="esp_ble_mesh_generic_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_generic_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv439esp_ble_mesh_generic_client_get_state_t" title="esp_ble_mesh_generic_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_generic_client_get_state_t</span></code></a> ზოგადი სერვერის მოდელების მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv437esp_ble_mesh_generic_client_set_stateP34esp_ble_mesh_client_common_param_tP39esp_ble_mesh_generic_client_set_state_t" title="esp_ble_mesh_generic_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_generic_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv439esp_ble_mesh_generic_client_set_state_t" title="esp_ble_mesh_generic_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_generic_client_set_state_t</span></code></a> ზოგადი სერვერის მოდელების მნიშვნელობები.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">განათების კლიენტის მოდელები</p>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_light_client_get_stateP34esp_ble_mesh_client_common_param_tP37esp_ble_mesh_light_client_get_state_t" title="esp_ble_mesh_light_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_light_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv437esp_ble_mesh_light_client_get_state_t" title="esp_ble_mesh_light_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_light_client_get_state_t</span></code></a> განათების სერვერის მოდელების მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_light_client_set_stateP34esp_ble_mesh_client_common_param_tP37esp_ble_mesh_light_client_set_state_t" title="esp_ble_mesh_light_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_light_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv437esp_ble_mesh_light_client_set_state_t" title="esp_ble_mesh_light_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_light_client_set_state_t</span></code></a> განათების სერვერის მოდელების მნიშვნელობები.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">სენსორის კლიენტის მოდელები</p>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_sensor_client_get_stateP34esp_ble_mesh_client_common_param_tP38esp_ble_mesh_sensor_client_get_state_t" title="esp_ble_mesh_sensor_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_sensor_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_sensor_client_get_state_t" title="esp_ble_mesh_sensor_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_sensor_client_get_state_t</span></code></a> სენსორული სერვერის მოდელის მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv436esp_ble_mesh_sensor_client_set_stateP34esp_ble_mesh_client_common_param_tP38esp_ble_mesh_sensor_client_set_state_t" title="esp_ble_mesh_sensor_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_sensor_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv438esp_ble_mesh_sensor_client_set_state_t" title="esp_ble_mesh_sensor_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_sensor_client_set_state_t</span></code></a> სენსორული სერვერის მოდელის მნიშვნელობები.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>Time and Scenes Client Models</dt>
+<dd><ul class="first last simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv440esp_ble_mesh_time_scene_client_get_stateP34esp_ble_mesh_client_common_param_tP42esp_ble_mesh_time_scene_client_get_state_t" title="esp_ble_mesh_time_scene_client_get_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_time_scene_client_get_state()</span></code></a> შეიძლება გამოყენებულ იქნას მისაღებად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_time_scene_client_get_state_t" title="esp_ble_mesh_time_scene_client_get_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_time_scene_client_get_state_t</span></code></a> დროისა და სცენების სერვერის მოდელების მნიშვნელობები.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv440esp_ble_mesh_time_scene_client_set_stateP34esp_ble_mesh_client_common_param_tP42esp_ble_mesh_time_scene_client_set_state_t" title="esp_ble_mesh_time_scene_client_set_state"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_time_scene_client_set_state()</span></code></a> შეიძლება გამოყენებულ იქნას დასაყენებლად <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv442esp_ble_mesh_time_scene_client_set_state_t" title="esp_ble_mesh_time_scene_client_set_state_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">esp_ble_mesh_time_scene_client_set_state_t</span></code></a> დროისა და სცენების სერვერის მოდელების მნიშვნელობები.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="node-development">
+<span id="ble-mesh-faq-node-development"></span><h2>2. კვანძის განვითარება<a class="headerlink" href="ble-mesh-faq.html#node-development" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-kind-of-models-are-included-by-nodes">
+<h3>2.1 რა სახის მოდელებს მოიცავს კვანძები?<a class="headerlink" href="ble-mesh-faq.html#what-kind-of-models-are-included-by-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>ESP-BLE-MESH-ში კვანძები შედგება მოდელების სერიისგან, სადაც თითოეული მოდელი ახორციელებს კვანძის გარკვეულ ფუნქციებს.</li>
+<li>მოდელს ორი ტიპი აქვს: კლიენტის მოდელი და სერვერის მოდელი. კლიენტის მოდელს შეუძლია სერვერის მოდელის მდგომარეობების მიღება და დაყენება.</li>
+<li>მოდელი ასევე შეიძლება დაიყოს SIG მოდელად და გამყიდველის მოდელად. SIG მოდელების ყველა ქცევა ოფიციალურად არის განსაზღვრული, ხოლო გამყიდველის მოდელების ქცევა განისაზღვრება მომხმარებლების მიერ.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="is-the-format-of-messages-corresponding-to-each-model-fixed">
+<h3>2.2 თითოეული მოდელის შესაბამისი შეტყობინებების ფორმატი ფიქსირებულია?<a class="headerlink" href="ble-mesh-faq.html#is-the-format-of-messages-corresponding-to-each-model-fixed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>შეტყობინებები, რომლებიც შედგება opcode-ისა და payload-ისგან, იყოფა opcode-ის მიხედვით.</li>
+<li>მოდელების შესაბამისი შეტყობინებების ტიპი და ფორმატი ფიქსირებულია, რაც ნიშნავს, რომ მოდელებს შორის გადაცემული შეტყობინებები ფიქსირებულია.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="which-functions-can-be-used-to-send-messages-with-the-models-of-nodes">
+<h3>2.3 რომელი ფუნქციების გამოყენებაა შესაძლებელი კვანძების მოდელებით შეტყობინებების გასაგზავნად?<a class="headerlink" href="ble-mesh-faq.html#which-functions-can-be-used-to-send-messages-with-the-models-of-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>კლიენტის მოდელებისთვის, მომხმარებლებს შეუძლიათ გამოიყენონ API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_client_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t7int32_tb23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_client_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_client_model_send_msg()</span></code></a> შეტყობინებების გასაგზავნად.</li>
+<li>სერვერის მოდელებისთვის, მომხმარებლებს შეუძლიათ გამოიყენონ API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_server_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t" title="esp_ble_mesh_server_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_server_model_send_msg()</span></code></a> შეტყობინებების გასაგზავნად.</li>
+<li>გამოქვეყნებისთვის, მომხმარებლები API ს უწოდებენ <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv426esp_ble_mesh_model_publishP20esp_ble_mesh_model_t8uint32_t8uint16_tP7uint8_t23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_model_publish"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_model_publish()</span></code></a> შეტყობინებების გამოსაქვეყნებლად.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-achieve-the-transmission-of-messages-without-packet-loss">
+<h3>2.4 როგორ მივაღწიოთ შეტყობინებების გადაცემას პაკეტების დაკარგვის გარეშე?<a class="headerlink" href="ble-mesh-faq.html#how-to-achieve-the-transmission-of-messages-without-packet-loss" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Acknowledegd message is needed if users want to transmit messages without packet loss. The default time to wait for corresponding response is set in <a class="reference internal" href="../../api-reference/kconfig.html#config-ble-mesh-client-msg-timeout"><span class="std std-ref">CONFIG_BLE_MESH_CLIENT_MSG_TIMEOUT</span></a>. If the sender waits for the response until the timer expires, the corresponding timeout event would be triggered.</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">შენიშვნა</p>
+<p class="last">რეაგირების ვადის დაყენება შესაძლებელია API ში <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_client_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t7int32_tb23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_client_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_client_model_send_msg()</span></code></a>ნაგულისხმევი მნიშვნელობა (4 წამი) გამოყენებული იქნება, თუ პარამეტრი <code class="code docutils literal notranslate"><span class="pre">msg_timeout</span></code> დაყენებულია <strong>0</strong>.</p>
+</div>
+</div>
+<div class="section" id="how-to-send-unacknowledged-messages">
+<h3>2.5 როგორ გავაგზავნოთ დაუდასტურებელი შეტყობინებები?<a class="headerlink" href="ble-mesh-faq.html#how-to-send-unacknowledged-messages" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>კლიენტის მოდელებისთვის, მომხმარებლებს შეუძლიათ გამოიყენონ API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_client_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t7int32_tb23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_client_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_client_model_send_msg()</span></code></a> პარამეტრით <code class="code docutils literal notranslate"><span class="pre">need_rsp</span></code> დაყენებულია <code class="code docutils literal notranslate"><span class="pre">false</span></code> დაუდასტურებელი შეტყობინებების გასაგზავნად.</p>
+<p>სერვერის მოდელებისთვის, API გამოყენებით გაგზავნილი შეტყობინებები <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_server_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t" title="esp_ble_mesh_server_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_server_model_send_msg()</span></code></a> ყოველთვის დაუდასტურებელი შეტყობინებებია.</p>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-add-subscription-address-to-models">
+<h3>2.6 როგორ დავამატოთ სააბონენტო მისამართი მოდელებს?<a class="headerlink" href="ble-mesh-faq.html#how-to-add-subscription-address-to-models" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Subscription address can be added through Configuration Client Model.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-difference-between-messages-sent-and-published-by-models">
+<h3>2.7 რა განსხვავებაა მოდელების მიერ გაგზავნილ და გამოქვეყნებულ შეტყობინებებს შორის?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-difference-between-messages-sent-and-published-by-models" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>API ზე დარეკვით გაგზავნილი შეტყობინებები <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_client_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t7int32_tb23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_client_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_client_model_send_msg()</span></code></a> ან <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv434esp_ble_mesh_server_model_send_msgP20esp_ble_mesh_model_tP22esp_ble_mesh_msg_ctx_t8uint32_t8uint16_tP7uint8_t" title="esp_ble_mesh_server_model_send_msg"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_server_model_send_msg()</span></code></a> გაიგზავნება ქსელის გადაცემის მდგომარეობით განსაზღვრულ ვადაში.</p>
+<p>API დარეკვით გამოქვეყნებული შეტყობინებები <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv426esp_ble_mesh_model_publishP20esp_ble_mesh_model_t8uint32_t8uint16_tP7uint8_t23esp_ble_mesh_dev_role_t" title="esp_ble_mesh_model_publish"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_model_publish()</span></code></a> გამოქვეყნდება მოდელის გამოქვეყნების მდგომარეობით. შეტყობინებების გამოქვეყნება, როგორც წესი, პერიოდულია ან ფიქსირებული რაოდენობის დათვლით. გამოქვეყნების პერიოდი და გამოქვეყნების რაოდენობა კონტროლდება მოდელის გამოქვეყნების მდგომარეობით და მისი კონფიგურაცია შესაძლებელია კონფიგურაციის კლიენტის მოდელის მეშვეობით.</p>
+</div></blockquote>
+</div>
+<div class="section" id="how-many-bytes-can-be-carried-when-sending-unsegmented-messages">
+<h3>2.8 რამდენი ბაიტის გადატანა შეიძლება არასეგმენტირებული შეტყობინებების გაგზავნისას?<a class="headerlink" href="ble-mesh-faq.html#how-many-bytes-can-be-carried-when-sending-unsegmented-messages" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The total payload length (which can be set by users) of unsegmented message is 11 octets, so if the opcode of the message is 2 octets, then the message can carry 9-octets of valid information. For vendor messages, due to the 3-octets opcode, the remaining payload length is 8 octets.</div></blockquote>
+</div>
+<div class="section" id="when-should-the-relay-feature-of-nodes-be-enabled">
+<h3>2.9 როდის უნდა <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-features"><span class="std std-ref">ესტაფეტა</span></a> ჩაირთვება კვანძების ფუნქცია?<a class="headerlink" href="ble-mesh-faq.html#when-should-the-relay-feature-of-nodes-be-enabled" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>მომხმარებლებს შეუძლიათ ჩართონ ყველა კვანძის რელეის ფუნქცია, როდესაც mesh ქსელში აღმოჩენილი კვანძები იშვიათია.</p>
+<p>მკვრივი mesh ქსელისთვის, მომხმარებლებს შეუძლიათ აირჩიონ მხოლოდ რამდენიმე კვანძის Relay ფუნქციის ჩართვა.</p>
+<p>და მომხმარებლებს შეუძლიათ ჩართონ რელეის ფუნქცია სტანდარტულად, თუ mesh ქსელის ზომა უცნობია.</p>
+</div></blockquote>
+</div>
+<div class="section" id="when-should-the-proxy-feature-of-node-be-enabled">
+<h3>2.10 როდის უნდა <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-features"><span class="std std-ref">პროქსი</span></a> ჩაირთვება კვანძის ფუნქცია?<a class="headerlink" href="ble-mesh-faq.html#when-should-the-proxy-feature-of-node-be-enabled" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>If the unprovisioned device is expected to be provisioned by a phone, then it should enable the Proxy feature since almost all the phones do not support sending ESP-BLE-MESH packets through advertising bearer currently. And after the unprovisioned device is provisioned successfully and becoming a Proxy node, it will communicate with the phone using GATT bearer and using advertising bearer to communicate with other nodes in the mesh network.</div></blockquote>
+</div>
+<div class="section" id="how-to-use-the-proxy-filter">
+<h3>2.11 როგორ გამოვიყენოთ პროქსის ფილტრი?<a class="headerlink" href="ble-mesh-faq.html#how-to-use-the-proxy-filter" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The Proxy filter is used to reduce the number of Network PDUs exchanged between a Proxy Client (e.g. the phone) and a Proxy Server (e.g. the node). And with the Proxy filter, Proxy Client can explicitly request to receive only mesh messages with certain destination addresses from Proxy Server.</div></blockquote>
+</div>
+<div class="section" id="when-a-message-can-be-relayed-by-a-relay-node">
+<h3>2.12 როდის შეიძლება შეტყობინების გადაცემა სარელეო კვანძის მიერ?<a class="headerlink" href="ble-mesh-faq.html#when-a-message-can-be-relayed-by-a-relay-node" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>თუ შეტყობინების გადაცემა აუცილებელია, შემდეგი პირობები უნდა დაკმაყოფილდეს.</p>
+<ul class="simple">
+<li>შეტყობინება mesh ქსელშია.</li>
+<li>შეტყობინება არ იგზავნება კვანძის უნიკასტ მისამართზე.</li>
+<li>შეტყობინებაში TTL-ის მნიშვნელობა 1-ზე მეტია.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="if-a-message-is-segmented-into-several-segments-should-the-other-relay-nodes-just-relay-when-one-of-these-segments-is-received-or-wait-until-the-message-is-received-completely">
+<h3>2.13 თუ შეტყობინება რამდენიმე სეგმენტად არის დაყოფილი, სხვა რელეის კვანძებმა უნდა განახორციელონ რელე მხოლოდ ამ სეგმენტებიდან ერთ-ერთის მიღებისთანავე, თუ უნდა დაელოდონ შეტყობინების სრულად მიღებას?<a class="headerlink" href="ble-mesh-faq.html#if-a-message-is-segmented-into-several-segments-should-the-other-relay-nodes-just-relay-when-one-of-these-segments-is-received-or-wait-until-the-message-is-received-completely" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Relay nodes will forward segments when one of them are received rather than keeping waiting until all the segments are received.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-principle-of-reducing-power-consumption-using-low-power-feature">
+<h3>2.14 რა პრინციპით მცირდება ენერგომოხმარება? <a class="reference internal" href="ble-mesh-terminology.html#ble-mesh-terminology-features"><span class="std std-ref">დაბალი სიმძლავრე</span></a> ფუნქცია?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-principle-of-reducing-power-consumption-using-low-power-feature" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>როდესაც რადიო მოსასმენად ჩართულია, მოწყობილობა ენერგიას მოიხმარს. როდესაც კვანძის დაბალი ენერგომოხმარების ფუნქცია ჩართულია, ის უმეტესად გამორთავს რადიოს.</li>
+<li>და საჭიროა თანამშრომლობა დაბალი სიმძლავრის კვანძსა და მეგობარ კვანძს შორის, ამგვარად, დაბალი სიმძლავრის კვანძს შეუძლია შეტყობინებების მიღება შესაბამისი ან დაბალი სიხშირით, მოსმენის გაგრძელების გარეშე.</li>
+<li>როდესაც დაბალი სიმძლავრის კვანძისთვის ახალი შეტყობინებებია, მისი მეგობარი კვანძი შეინახავს ამ შეტყობინებებს. ხოლო დაბალი სიმძლავრის კვანძს შეუძლია მეგობარი კვანძების გამოკითხვა, რათა ნახოს, არის თუ არა ახალი შეტყობინებები ფიქსირებული ინტერვალით.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-continue-the-communication-on-the-network-after-powering-down-and-powering-up-again">
+<h3>2.15 როგორ გავაგრძელოთ ქსელში კომუნიკაცია გამორთვისა და ხელახლა ჩართვის შემდეგ?<a class="headerlink" href="ble-mesh-faq.html#how-to-continue-the-communication-on-the-network-after-powering-down-and-powering-up-again" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Enable the configuration <code class="code docutils literal notranslate"><span class="pre">Store</span> <span class="pre">ESP-BLE-MESH</span> <span class="pre">Node</span> <span class="pre">configuration</span> <span class="pre">persistently</span></code> in <cite>menuconfig</cite>.</div></blockquote>
+</div>
+<div class="section" id="how-to-send-out-the-self-test-results-of-nodes">
+<h3>2.16 როგორ გავაგზავნოთ კვანძების თვითტესტირების შედეგები?<a class="headerlink" href="ble-mesh-faq.html#how-to-send-out-the-self-test-results-of-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>It is recommended that nodes can publish its self-test results periodically through Health Server Model.</div></blockquote>
+</div>
+<div class="section" id="how-to-transmit-information-between-nodes">
+<h3>2.17 როგორ გადავიტანოთ ინფორმაცია კვანძებს შორის?<a class="headerlink" href="ble-mesh-faq.html#how-to-transmit-information-between-nodes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>კვანძებს შორის ინფორმაციის გადაცემის ერთ-ერთი შესაძლო სცენარი არის ის, რომ შესხურების კვანძები გააქტიურდება კვამლის სიგნალიზაციის მიერ მაღალი კვამლის კონცენტრაციის აღმოჩენისთანავე. განხორციელების ორი მიდგომა არსებობს.</p>
+<ul class="simple">
+<li>მიდგომა 1 გულისხმობს, რომ შესხურების კვანძი იწერება ჯგუფურ მისამართზე. როდესაც კვამლის სიგნალიზაცია აღმოაჩენს კვამლის მაღალ კონცენტრაციას, ის გამოაქვეყნებს შეტყობინებას, რომლის დანიშნულების მისამართიც არის შესხურების კვანძის მიერ გამოწერილი ჯგუფური მისამართი.</li>
+<li>მეორე მიდგომა გულისხმობს, რომ Provisioner-ს შეუძლია შესხურების კვანძის უნიკალურ მისამართზე კონფიგურირება მოახდინოს კვამლის სიგნალიზაციისთვის. როდესაც კვამლის მაღალი კონცენტრაცია დაფიქსირდება, კვამლის სიგნალიზაციას შეუძლია შეტყობინებების გაგზავნა შესხურების კვანძში, სადაც შესხურების კვანძის უნიკალურ მისამართს დანიშნულების მისამართად მოიხსენიებენ.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="is-gateway-a-must-for-nodes-communication">
+<h3>2.18 აუცილებელია თუ არა კარიბჭე კვანძებთან კომუნიკაციისთვის?<a class="headerlink" href="ble-mesh-faq.html#is-gateway-a-must-for-nodes-communication" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>სიტუაცია 1: კვანძები მხოლოდ mesh ქსელში ურთიერთობენ. ამ სიტუაციაში არ არის საჭირო კარიბჭე. ESP-BLE-MESH ქსელი დატბორილ ქსელს წარმოადგენს, ქსელში შეტყობინებებს არ აქვთ ფიქსირებული გზები და კვანძებს შეუძლიათ ერთმანეთთან თავისუფლად კომუნიკაცია.</li>
+<li>სიტუაცია 2: თუ მომხმარებლებს სურთ კვანძების დისტანციურად მართვა, მაგალითად, სახლში დაბრუნებამდე ზოგიერთი კვანძის ჩართვა, მაშინ საჭიროა კარიბჭე.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="when-will-the-iv-update-procedure-be-performed">
+<h3>2.19 როდის შესრულდება ინტრავენური განახლების პროცედურა?<a class="headerlink" href="ble-mesh-faq.html#when-will-the-iv-update-procedure-be-performed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>IV Update procedure would be performed once sequence number of messages sent detected by the bottom layer of node reached a critical value.</div></blockquote>
+</div>
+<div class="section" id="how-to-perform-iv-update-procedure">
+<h3>2.20 როგორ შევასრულოთ ინტრავენური განახლების პროცედურა?<a class="headerlink" href="ble-mesh-faq.html#how-to-perform-iv-update-procedure" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Nodes can perform IV Update procedure with Secure Network Beacon.</div></blockquote>
+</div>
+</div>
+<div class="section" id="esp-ble-mesh-and-wi-fi-coexistence">
+<span id="ble-mesh-faq-ble-mesh-and-wi-fi-coexistence"></span><h2>3. ESP-BLE-MESH და Wi-Fi თანაარსებობა<a class="headerlink" href="ble-mesh-faq.html#esp-ble-mesh-and-wi-fi-coexistence" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="which-modes-does-wi-fi-support-when-it-coexists-with-esp-ble-mesh">
+<h3>3.1 რომელ რეჟიმებს უჭერს მხარს Wi-Fi , როდესაც ის ESP-BLE-MESH-თან თანაარსებობს?<a class="headerlink" href="ble-mesh-faq.html#which-modes-does-wi-fi-support-when-it-coexists-with-esp-ble-mesh" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Currently only Wi-Fi station mode supports the coexistence.</div></blockquote>
+</div>
+<div class="section" id="why-is-the-wi-fi-throughput-so-low-when-wi-fi-and-esp-ble-mesh-coexist">
+<h3>3.2 რატომ არის Wi-Fi გამტარუნარიანობა ასეთი დაბალი, როდესაც Wi-Fi და ESP-BLE-MESH თანაარსებობენ?<a class="headerlink" href="ble-mesh-faq.html#why-is-the-wi-fi-throughput-so-low-when-wi-fi-and-esp-ble-mesh-coexist" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>ის <a class="reference external" href="https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/en/latest/hw-reference/get-started-devkitc">ESP32-DevKitC</a> PSRAM-ის გარეშე დაფას შეუძლია გამართულად იმუშაოს, თუმცა მისი გამტარუნარიანობა დაბალია, რადგან მას PSRAM არ აქვს. როდესაც Bluetooth და Wi-Fi თანაარსებობენ, PSRAM-თან ერთად ESP32-DevKitC-ის გამტარუნარიანობა შეიძლება 1 მბიტ/წმ-ზე მეტამდე სტაბილიზდეს.</p>
+<p>და menuconfig ში ზოგიერთი კონფიგურაცია ჩართული უნდა იყოს PSRAM-ის მხარდასაჭერად.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">ESP32-specific</span> <span class="pre">--&gt;</span> <span class="pre">Support</span> <span class="pre">for</span> <span class="pre">external,SPI-connected</span> <span class="pre">RAM</span> <span class="pre">--&gt;</span> <span class="pre">Try</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">memories</span> <span class="pre">of</span> <span class="pre">Wi-Fi</span> <span class="pre">and</span> <span class="pre">LWIP...</span></code></li>
+<li><code class="code docutils literal notranslate"><span class="pre">Bluetooth</span> <span class="pre">--&gt;</span> <span class="pre">Bluedroid</span> <span class="pre">Enable</span> <span class="pre">--&gt;</span> <span class="pre">BT/BLE</span> <span class="pre">will</span> <span class="pre">first</span> <span class="pre">malloc</span> <span class="pre">the</span> <span class="pre">memory</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">PSRAM</span></code></li>
+<li><code class="code docutils literal notranslate"><span class="pre">Bluetooth</span> <span class="pre">--&gt;</span> <span class="pre">Bluedroid</span> <span class="pre">Enable</span> <span class="pre">--&gt;</span> <span class="pre">Use</span> <span class="pre">dynamic</span> <span class="pre">memory</span> <span class="pre">allocation</span> <span class="pre">in</span> <span class="pre">BT/BLE</span> <span class="pre">stack.</span></code></li>
+<li><code class="code docutils literal notranslate"><span class="pre">Bluetooth</span> <span class="pre">--&gt;</span> <span class="pre">Bluetooth</span> <span class="pre">controller</span> <span class="pre">--&gt;</span> <span class="pre">BLE</span> <span class="pre">full</span> <span class="pre">scan</span> <span class="pre">feature</span> <span class="pre">supported.</span></code></li>
+<li><code class="code docutils literal notranslate"><span class="pre">Wi-Fi</span> <span class="pre">--&gt;</span> <span class="pre">Software</span> <span class="pre">controls</span> <span class="pre">Wi-Fi/Bluetooth</span> <span class="pre">coexistence</span> <span class="pre">--&gt;</span> <span class="pre">Wi-Fi</span></code></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="fast-provisioning">
+<span id="ble-mesh-faq-fast-provisioning"></span><h2>4. სწრაფი უზრუნველყოფა<a class="headerlink" href="ble-mesh-faq.html#fast-provisioning" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-is-fast-provisioning-needed">
+<h3>4.1 რატომ არის საჭირო სწრაფი უზრუნველყოფა?<a class="headerlink" href="ble-mesh-faq.html#why-is-fast-provisioning-needed" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Normally when they are several unprovisioned devices, users can provision them one by one. But when it comes to a large number of unprovisioned devices (e.g. 100), provisioning them one by one will take huge amount of time. With fast provisioning, users can provision 100 unprovisioned devices in about 50 seconds.</div></blockquote>
+</div>
+<div class="section" id="why-espblemesh-app-would-wait-for-a-long-time-or-keep-waiting-during-fast-provisioning">
+<h3>4.2 რატომ უნდა ელოდოს EspBleMesh აპლიკაცია დიდხანს ან მუდმივად ელოდოს სწრაფი დატენვის დროს?<a class="headerlink" href="ble-mesh-faq.html#why-espblemesh-app-would-wait-for-a-long-time-or-keep-waiting-during-fast-provisioning" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>After the App provisioned one Proxy node, it will disconnect from the App during fast provisioning, and reconnect with the App when all the nodes are provisioned.</div></blockquote>
+</div>
+<div class="section" id="why-is-the-number-of-node-addresses-displayed-in-the-app-is-more-than-that-of-existing-node-addresses">
+<h3>4.3 რატომ აღემატება აპლიკაციაში ნაჩვენები კვანძების მისამართების რაოდენობა არსებულ კვანძების მისამართების რაოდენობას?<a class="headerlink" href="ble-mesh-faq.html#why-is-the-number-of-node-addresses-displayed-in-the-app-is-more-than-that-of-existing-node-addresses" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Each time after a fast provisioning process, and before starting a new one, the node addresses in the App should be cleared, otherwise the number of the node address will be incorrect.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-usage-of-the-count-value-which-was-input-in-espblemesh-app">
+<h3>4.4 რაში გამოიყენება <strong>დათვლა</strong> მნიშვნელობა, რომელიც შეყვანილი იყო EspBleMesh აპლიკაციაში?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-usage-of-the-count-value-which-was-input-in-espblemesh-app" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The <strong>დათვლა</strong> value is provided to the Proxy node which is provisioned by the App so as to determine when to start Proxy advertising in advance.</div></blockquote>
+</div>
+<div class="section" id="when-will-configuration-client-model-of-the-node-running-ble-mesh-fast-prov-server-example-start-to-work">
+<h3>4.5 როდის გაეშვება კვანძის კონფიგურაციის კლიენტის მოდელი <a class="reference external" href="https://github.com/espressif/esp-idf/tree/f91080637/examples/bluetooth/esp_ble_mesh/ble_mesh_fast_provision/ble_mesh_fast_prov_server">ble_mesh_fast_prov_server </a> მაგალითად, დაიწყებს მუშაობას?<a class="headerlink" href="ble-mesh-faq.html#when-will-configuration-client-model-of-the-node-running-ble-mesh-fast-prov-server-example-start-to-work" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Configuration Client Model will start to work after the Temporary Provisioner functionality is enabled.</div></blockquote>
+</div>
+<div class="section" id="will-the-temporary-provisioner-functionality-be-enabled-all-the-time">
+<h3>4.6 დროებითი პროვაიდერის ფუნქცია მუდმივად ჩართული იქნება?<a class="headerlink" href="ble-mesh-faq.html#will-the-temporary-provisioner-functionality-be-enabled-all-the-time" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>After the nodes receive messages used to turn on/off lights, all the nodes will disable its Temporary Provisioner functionality and become nodes.</div></blockquote>
+</div>
+</div>
+<div class="section" id="log-help">
+<span id="ble-mesh-faq-log-help"></span><h2>5. ჟურნალის დახმარება<a class="headerlink" href="ble-mesh-faq.html#log-help" title="Permalink to this headline">¶</a></h2>
+<p>შეცდომების ან გაფრთხილებების მნიშვნელობის პოვნა შეგიძლიათ ESP-BLE-MESH დასტის ბოლოში.</p>
+<div class="section" id="what-is-the-meaning-of-warning-ran-out-of-retransmit-attempts">
+<h3>5.1 რას ნიშნავს გაფრთხილება? <code class="code docutils literal notranslate"><span class="pre">ran</span> <span class="pre">out</span> <span class="pre">of</span> <span class="pre">retransmit</span> <span class="pre">attempts</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-warning-ran-out-of-retransmit-attempts" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node transmits a segmented message, and due to some reasons, the receiver doesn’t receive the complete message. Then the node will retransmit the message. When the retransmission count reaches the maximum number, which is 4 currently, then this warning will appear.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-warning-duplicate-found-in-network-message-cache">
+<h3>5.2 რას ნიშნავს გაფრთხილება? <code class="code docutils literal notranslate"><span class="pre">Duplicate</span> <span class="pre">found</span> <span class="pre">in</span> <span class="pre">Network</span> <span class="pre">Message</span> <span class="pre">Cache</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-warning-duplicate-found-in-network-message-cache" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node receives a message, it will compare the message with the ones stored in the network cache. If the same has been found in the cache, which means it has been received before, then the message will be dropped.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-warning-incomplete-timer-expired">
+<h3>5.3 რას ნიშნავს გაფრთხილება? <code class="code docutils literal notranslate"><span class="pre">Incomplete</span> <span class="pre">timer</span> <span class="pre">expired</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-warning-incomplete-timer-expired" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node doesn’t receive all the segments of a segmented message during a certain period (e.g. 10 seconds), then the Incomplete timer will expire and this warning will appear.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-warning-no-matching-tx-context-for-ack">
+<h3>5.4 რას ნიშნავს გაფრთხილება? <code class="code docutils literal notranslate"><span class="pre">No</span> <span class="pre">matching</span> <span class="pre">TX</span> <span class="pre">context</span> <span class="pre">for</span> <span class="pre">ack</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-warning-no-matching-tx-context-for-ack" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node receives a segment ack and it doesn’t find any self-send segmented message related with this ack, then this warning will appear.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-warning-no-free-slots-for-new-incoming-segmented-messages">
+<h3>5.5 რას ნიშნავს გაფრთხილება? <code class="code docutils literal notranslate"><span class="pre">No</span> <span class="pre">free</span> <span class="pre">slots</span> <span class="pre">for</span> <span class="pre">new</span> <span class="pre">incoming</span> <span class="pre">segmented</span> <span class="pre">messages</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-warning-no-free-slots-for-new-incoming-segmented-messages" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node has no space for receiving new segmented message, this warning will appear. Users can make the space larger through the configuration <a class="reference internal" href="../../api-reference/kconfig.html#config-ble-mesh-rx-seg-msg-count"><span class="std std-ref">CONFIG_BLE_MESH_RX_SEG_MSG_COUNT</span></a>.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-error-model-not-bound-to-appkey-0x0000">
+<h3>5.6 რას ნიშნავს სიტყვა „შეცდომა“? <code class="code docutils literal notranslate"><span class="pre">Model</span> <span class="pre">not</span> <span class="pre">bound</span> <span class="pre">to</span> <span class="pre">Appkey</span> <span class="pre">0x0000</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-error-model-not-bound-to-appkey-0x0000" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the node sends messages with a model and the model has not been bound to the AppKey with AppKey Index 0x000, then this error will appear.</div></blockquote>
+</div>
+<div class="section" id="what-is-the-meaning-of-error-busy-sending-message-to-dst-xxxx">
+<h3>5.7 რას ნიშნავს სიტყვა „შეცდომა“? <code class="code docutils literal notranslate"><span class="pre">Busy</span> <span class="pre">sending</span> <span class="pre">message</span> <span class="pre">to</span> <span class="pre">DST</span> <span class="pre">xxxx</span></code>?<a class="headerlink" href="ble-mesh-faq.html#what-is-the-meaning-of-error-busy-sending-message-to-dst-xxxx" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>This error means client model of the node has transmitted a message to the target node and now is waiting for a response, users can not send messages to the same node with the same unicast address. After the corresponding response is received or timer is expired, then another message can be sent.</div></blockquote>
+</div>
+</div>
+<div class="section" id="example-help">
+<span id="ble-mesh-faq-example-help"></span><h2>6. დახმარების მაგალითი<a class="headerlink" href="ble-mesh-faq.html#example-help" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-are-the-esp-ble-mesh-callback-functions-classified">
+<h3>6.1 როგორ კლასიფიცირდება ESP-BLE-MESH უკუკავშირის ფუნქციები?<a class="headerlink" href="ble-mesh-faq.html#how-are-the-esp-ble-mesh-callback-functions-classified" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv435esp_ble_mesh_register_prov_callback22esp_ble_mesh_prov_cb_t" title="esp_ble_mesh_register_prov_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_prov_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება უზრუნველყოფისა და ქსელთან დაკავშირებული მოვლენების სამართავად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv444esp_ble_mesh_register_config_client_callback28esp_ble_mesh_cfg_client_cb_t" title="esp_ble_mesh_register_config_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_config_client_callback()</span></code></a> გამოიყენება კონფიგურაციის კლიენტის მოდელთან დაკავშირებული მოვლენების დასამუშავებლად გამოყენებული უკუკავშირის ფუნქციის რეგისტრაციისთვის.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv444esp_ble_mesh_register_config_server_callback28esp_ble_mesh_cfg_server_cb_t" title="esp_ble_mesh_register_config_server_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_config_server_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება კონფიგურაციის სერვერის მოდელთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv444esp_ble_mesh_register_health_client_callback31esp_ble_mesh_health_client_cb_t" title="esp_ble_mesh_register_health_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_health_client_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება ჯანმრთელობის კლიენტის მოდელთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv444esp_ble_mesh_register_health_server_callback31esp_ble_mesh_health_server_cb_t" title="esp_ble_mesh_register_health_server_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_health_server_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება Health Server Model-თან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv445esp_ble_mesh_register_generic_client_callback32esp_ble_mesh_generic_client_cb_t" title="esp_ble_mesh_register_generic_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_generic_client_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება ზოგადი კლიენტის მოდელებთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv443esp_ble_mesh_register_light_client_callback30esp_ble_mesh_light_client_cb_t" title="esp_ble_mesh_register_light_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_light_client_callback()</span></code></a> გამოიყენება განათების კლიენტის მოდელებთან დაკავშირებული მოვლენების დასამუშავებლად გამოყენებული უკუკავშირის ფუნქციის რეგისტრაციისთვის.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv444esp_ble_mesh_register_sensor_client_callback31esp_ble_mesh_sensor_client_cb_t" title="esp_ble_mesh_register_sensor_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_sensor_client_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება სენსორ კლიენტის მოდელთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv448esp_ble_mesh_register_time_scene_client_callback35esp_ble_mesh_time_scene_client_cb_t" title="esp_ble_mesh_register_time_scene_client_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_time_scene_client_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება დროისა და სცენების კლიენტის მოდელებთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+<li>API <a class="reference internal" href="../../api-reference/bluetooth/esp-ble-mesh.html#_CPPv443esp_ble_mesh_register_custom_model_callback23esp_ble_mesh_model_cb_t" title="esp_ble_mesh_register_custom_model_callback"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_ble_mesh_register_custom_model_callback()</span></code></a> გამოიყენება უკუკავშირის ფუნქციის რეგისტრაციისთვის, რომელიც გამოიყენება მომწოდებლის მოდელთან და არარეალიზებული სერვერის მოდელებთან დაკავშირებული მოვლენების დასამუშავებლად.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="others">
+<span id="ble-mesh-faq-others"></span><h2>7. სხვები<a class="headerlink" href="ble-mesh-faq.html#others" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-print-the-message-context">
+<h3>7.1 როგორ დავბეჭდოთ შეტყობინების კონტექსტი?<a class="headerlink" href="ble-mesh-faq.html#how-to-print-the-message-context" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The examples use <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ESP_LOG_BUFFER_HEX()</span></code> to print the message context while the ESP-BLE-MESH protocol stack uses <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bt_hex()</span></code>.</div></blockquote>
+</div>
+<div class="section" id="which-api-can-be-used-to-restart-esp32">
+<h3>7.2 რომელი API შეიძლება გამოყენებულ იქნას ESP32-ის გადასატვირთად?<a class="headerlink" href="ble-mesh-faq.html#which-api-can-be-used-to-restart-esp32" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The API <a class="reference internal" href="../../api-reference/system/system.html#_CPPv411esp_restartv" title="esp_restart"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_restart()</span></code></a>.</div></blockquote>
+</div>
+<div class="section" id="how-to-monitor-the-remaining-space-of-the-stack-of-a-task">
+<h3>7.3 როგორ ვაკონტროლოთ დავალების დასტის დარჩენილი სივრცე?<a class="headerlink" href="ble-mesh-faq.html#how-to-monitor-the-remaining-space-of-the-stack-of-a-task" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The API <a class="reference internal" href="../../api-reference/system/freertos.html#_CPPv49vTaskListPc" title="vTaskList"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">vTaskList()</span></code></a> can be used to print the remaining space of the task stack periodically.</div></blockquote>
+</div>
+<div class="section" id="how-to-change-the-level-of-log-without-changing-the-menuconfig-output-level">
+<h3>7.4 როგორ შევცვალოთ ჟურნალის დონე menuconfig გამომავალი დონის შეცვლის გარეშე?<a class="headerlink" href="ble-mesh-faq.html#how-to-change-the-level-of-log-without-changing-the-menuconfig-output-level" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>The API <a class="reference internal" href="../../api-reference/system/log.html#_CPPv417esp_log_level_setPKc15esp_log_level_t" title="esp_log_level_set"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">esp_log_level_set()</span></code></a> can be used to change the log output level rather than using menuconfig to change it.</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ble-mesh-terminology.html" rel="next" title="ESP-BLE-MESH Terminology">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="ble-mesh-architecture.html" rel="prev" title="ESP-BLE-MESH Architecture"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

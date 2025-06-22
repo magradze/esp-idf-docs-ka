@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SD Pull-up-ის მოთხოვნები — ESP-IDF პროგრამირების სახელმძღვანელო v4.1-dev-2071-gf91080637 დოკუმენტაცია</title>
+<script src="../../_static/js/modernizr.min.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../_static/doctools.js" type="text/javascript"></script>
+<script src="../../_static/language_data.js" type="text/javascript"></script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-doc-embed.js" type="text/javascript"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme_overrides.css" rel="stylesheet" type="text/css"/>
+<link href="../../about.html" rel="author" title="About these documents"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="sdmmc_host.html" rel="next" title="SDMMC Host Driver"/>
+<link href="rmt.html" rel="prev" title="RMT"/>
+<!-- RTD Extra Head -->
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/sd_pullup_requirements.html" rel="canonical"/>
+<link href="https://media.readthedocs.com/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css"/>
+<script src="../../_static/readthedocs-data.js" type="text/javascript"></script>
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "api-reference/peripherals/sd_pullup_requirements"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+<script src="https://media.readthedocs.com/javascript/readthedocs-analytics.js" type="text/javascript"></script>
+<!-- end RTD <extrahead> -->
+<script async="" src="../../../../../../_/static/javascript/readthedocs-addons.js" type="text/javascript"></script><meta content="espressif-esp-idf" name="readthedocs-project-slug"><meta content="latest" name="readthedocs-version-slug"><meta content="/api-reference/peripherals/sd_pullup_requirements.html" name="readthedocs-resolver-filename"/><meta content="200" name="readthedocs-http-status"/></meta></meta></head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> ESP-IDF პროგრამირების სახელმძღვანელო
+          
+
+          
+            
+            <img alt="Logo" class="logo" src="../../_static/espressif-logo.svg"/>
+</a>
+<div class="version">
+                latest
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">დაწყება</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API მითითება</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">ქსელური მუშაობა</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">პერიფერიული მოწყობილობები</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc.html">ანალოგური კომბინაციის კოდი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="can.html">შეიძლება</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">ციფრულ-ანალოგური AC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO (RTC დაბალი სიმძლავრის შეყვანა/გამოყვანის ჩათვლით)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">I2S</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED კონტროლი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">MCPWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">პულსის მრიცხველი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">დისტანციური მართვა</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="sd_pullup_requirements.html#">SD Pull-up-ის მოთხოვნები</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sd_pullup_requirements.html#overview-of-compatibility">თავსებადობის მიმოხილვა</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sd_pullup_requirements.html#solutions">გადაწყვეტილებები</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sd_pullup_requirements.html#related-information">დაკავშირებული ინფორმაცია</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC ჰოსტი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI მასპინძელი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sigmadelta.html">სიგმა-დელტა მოდულაცია</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI ოსტატი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI მონა</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp_sensor.html">ტემპერატურის სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">ტაიმერი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">შეხების სენსორი</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">პროტოკოლები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">უზრუნველყოფა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">შენახვა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">სისტემა</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">კონფიგურაციის პარამეტრები</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">შეცდომის კოდების მითითება</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">ტექნიკის/საშუალებების მითითება</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../esp32s2.html">ESP32-S2-ის წინასწარი გადახედვის მხარდაჭერა</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API სახელმძღვანელოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">ბიბლიოთეკები და ჩარჩოები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">წვლილი შეიტანეთ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ვერსიები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">რესურსები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">საავტორო უფლებები</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">შესახებ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">语言/ენები</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://readthedocs.com/projects/espressif-esp-idf/downloads/">სახელმძღვანელოს ჩამოტვირთვები</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">ESP-IDF პროგრამირების სახელმძღვანელო</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../../index.html">დოკუმენტები</a> »</li>
+<li><a href="../index.html">API მითითება</a> »</li>
+<li><a href="index.html">პერიფერიული მოწყობილობების API</a> »</li>
+<li>SD Pull-up-ის მოთხოვნები</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/espressif/esp-idf/blob/master/docs/en/api-reference/peripherals/sd_pullup_requirements.rst"> რედაქტირება GitHub-ზე</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="sd-pull-up-requirements">
+<h1>SD Pull-up-ის მოთხოვნები<a class="headerlink" href="sd_pullup_requirements.html#sd-pull-up-requirements" title="Permalink to this headline">¶</a></h1>
+<p>Espressif-ის აპარატურული პროდუქტები შექმნილია მრავალჯერადი გამოყენების შემთხვევებისთვის, რომლებიც შეიძლება მოითხოვდეს პინების სხვადასხვა წევის მდგომარეობებს. ამ მიზეზით, გარკვეულ პროდუქტებზე კონკრეტული პინების წევის მდგომარეობის რეგულირება საჭირო იქნება SD ავტობუსში საჭირო წევის უზრუნველსაყოფად.</p>
+<p>SD ბარათის გაშვების მოთხოვნები ვრცელდება იმ შემთხვევებზე, როდესაც ESP32 იყენებს SPI კონტროლერს SD ბარათებთან კომუნიკაციისთვის. როდესაც SD ბარათი მუშაობს SPI რეჟიმში ან 1-ბიტიან SD რეჟიმში, SD ავტობუსის CMD და DATA (DAT0 - DAT3) ხაზები უნდა გაუშვან 10 kOhm რეზისტორებით. მონა მოწყობილობებს ასევე უნდა ჰქონდეთ გაშვების მოდულები ყველა ზემოთ ჩამოთვლილ ხაზზე (მიუხედავად იმისა, დაკავშირებულია თუ არა ეს ხაზები ჰოსტთან), რათა თავიდან აიცილონ SD ბარათების არასწორ მდგომარეობაში შესვლა.</p>
+<p>ნაგულისხმევად, MTDI ჩატვირთვის პინი შეუთავსებელია DAT2 ხაზის გამყვანთან, თუ ფლეშ მეხსიერება ძაბვა 3.3 ვოლტია. დამატებითი ინფორმაციისთვის იხილეთ <a class="reference internal" href="sd_pullup_requirements.html#mtdi-strapping-pin"><span class="std std-ref">MTDI სამაგრი ქინძისთავი</span></a> ქვემოთ.</p>
+<p>ამ დოკუმენტს აქვს შემდეგი სტრუქტურა:</p>
+<ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#overview-of-compatibility">თავსებადობის მიმოხილვა</a> Espressif-ის პროდუქტების პინებზე არსებულ ნაგულისხმევ pull მდგომარეობებსა და SD ავტობუსის მიერ მოთხოვნილ მდგომარეობებს შორის</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#solutions">გადაწყვეტილებები</a> - იდეები თავსებადობის პრობლემების გადაჭრის შესახებ</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#related-information">დაკავშირებული ინფორმაცია</a> - სხვა შესაბამისი ინფორმაცია</li>
+</ul>
+<div class="section" id="overview-of-compatibility">
+<span id="compatibility-overview-espressif-hw-sdio"></span><h2>თავსებადობის მიმოხილვა<a class="headerlink" href="sd_pullup_requirements.html#overview-of-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>ეს განყოფილება იძლევა SDIO-ს (უსაფრთხო ციფრული შეყვანა-გამომავალი) გამოყენებისას შესაძლო თავსებადობის პრობლემების მიმოხილვას. ვინაიდან SD ავტობუსი უნდა იყოს დაკავშირებული pull-up-ებთან, ეს პრობლემები უნდა მოგვარდეს მიუხედავად იმისა, უკავშირდება თუ არა ისინი მასტერს (ჰოსტს) თუ დაქვემდებარებულს (მოწყობილობას). თითოეულ პრობლემას აქვს ბმულები შესაბამის გადაწყვეტასთან. მასპინძლისა და მოწყობილობის გადაწყვეტა შეიძლება განსხვავდებოდეს.</p>
+<div class="section" id="systems-on-a-chip-socs">
+<h3>ჩიპზე დაფუძნებული სისტემები (SoCs)<a class="headerlink" href="sd_pullup_requirements.html#systems-on-a-chip-socs" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ESP32 (გარდა D2WD ვერსიებისა, იხ. <a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">ESP32 მონაცემთა ცხრილი</a>):</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a> 3.3 V ფლეშ მეხსიერება ჩიპის მქონე მოდელებისთვის</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-D2WD:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#no-pull-up-on-gpio12"><span class="std std-ref">GPIO 12 ტერმინალში აწევა აკრძალულია</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="systems-in-packages-sip">
+<h3>სისტემები პაკეტებში (SIP)<a class="headerlink" href="sd_pullup_requirements.html#systems-in-packages-sip" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ESP32-PICO-D4:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="modules">
+<h3>მოდულები<a class="headerlink" href="sd_pullup_requirements.html#modules" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ESP32-WROOM-32 სერია, მათ შორის ESP32-WROOM-32, ESP32-WROOM-32D, ESP32-WROOM-32U და ESP32-SOLO-1</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-WROVER სერია, მათ შორის ESP32-WROVER და ESP32-WROVER-I</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-WROVER-B სერია, მათ შორის ESP32-WROVER-B და ESP32-WROVER-IB</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="development-boards">
+<span id="sdio-dev-kits"></span><h3>განვითარების საბჭოები<a class="headerlink" href="sd_pullup_requirements.html#development-boards" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ESP32-PICO-KIT, მათ შორის PICO-KIT v4.1, v4.0 და v3</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#gpio2-strapping-pin"><span class="std std-ref">ჩამოტვირთვის რეჟიმი არ მუშაობს (მცირე პრობლემა)</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-DevKitC, მათ შორის ESP32-DevKitC v4 და v2</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="sd_pullup_requirements.html#sd-pull-up-no-pull-ups"><span class="std std-ref">აზიდვები არ არის</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#gpio2-strapping-pin"><span class="std std-ref">ჩამოტვირთვის რეჟიმი არ მუშაობს (მცირე პრობლემა)</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP-WROVER-KIT</p>
+<blockquote>
+<div><ul class="simple">
+<li>საჭირო აზიდვები უზრუნველყოფილია</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#pull-up-conflicts-on-gpio13"><span class="std std-ref">GPIO 13-ე ეტაპზე აწევის კონფლიქტები</span></a> (v4.1, v3, v2 და v1)</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a> (v4.1, v2 და v1)</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#gpio2-strapping-pin"><span class="std std-ref">ჩამოტვირთვის რეჟიმი არ მუშაობს (მცირე პრობლემა)</span></a> (ვერსია 2, ვერსია 1)</li>
+</ul>
+<p>თქვენი ESP23-WROVER-KIT-ის ვერსიის დასადგენად შეგიძლიათ შეამოწმოთ, თუ რომელი მოდულია მასზე დამონტაჟებული:</p>
+<ul class="simple">
+<li>ESP32-WROVER-B ვერსია 4.1-ზე</li>
+<li>ESP32-WROVER ვერსია 3-ზე</li>
+<li>ESP32-WROOM-32 v1-სა და v2-ზე</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-LyraTD-MSC</p>
+<blockquote>
+<div><ul class="simple">
+<li>საჭირო აზიდვები უზრუნველყოფილია</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#strapping-conflicts-dat2"><span class="std std-ref">კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ESP32-LyraT</p>
+<blockquote>
+<div><ul class="simple">
+<li>საჭირო აზიდვები უზრუნველყოფილია</li>
+<li><a class="reference internal" href="sd_pullup_requirements.html#pull-up-conflicts-on-gpio13"><span class="std std-ref">GPIO 13-ე ეტაპზე აწევის კონფლიქტები</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="non-espressif-hosts">
+<h3>არა-Espressif მასპინძლები<a class="headerlink" href="sd_pullup_requirements.html#non-espressif-hosts" title="Permalink to this headline">¶</a></h3>
+<p>გთხოვთ, დარწმუნდეთ, რომ თქვენი SDIO ჰოსტი უზრუნველყოფს საჭირო რეგულირების სიგნალებს SD ავტობუსის ყველა სიგნალისთვის.</p>
+</div>
+</div>
+<div class="section" id="solutions">
+<h2>გადაწყვეტილებები<a class="headerlink" href="sd_pullup_requirements.html#solutions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="no-pull-ups">
+<span id="sd-pull-up-no-pull-ups"></span><h3>აზიდვები არ არის<a class="headerlink" href="sd_pullup_requirements.html#no-pull-ups" title="Permalink to this headline">¶</a></h3>
+<p>თუ განვითარების დაფას იყენებთ ამოსაწევი მექანიზმების გარეშე, შეგიძლიათ გააკეთოთ შემდეგი:</p>
+<ul class="simple">
+<li>თუ თქვენი მასპინძელი და დამხმარე მოწყობილობა ცალკე პლატფორმებზეა განთავსებული, ერთ-ერთი მათგანი შეცვალეთ ისეთი პლატით, რომელსაც აქვს pull-up-ები. Espressif-ის pull-up-ების მქონე დეველოპერული პლატების სიისთვის იხილეთ <a class="reference internal" href="sd_pullup_requirements.html#sdio-dev-kits"><span class="std std-ref">განვითარების საბჭოები</span></a>.</li>
+<li>გარე გამაძლიერებლების დასაკავშირებლად, თითოეული პინის მიერთებით, რაც მოითხოვს VDD-ზე გამაძლიერებელს 10 kOhm რეზისტორის მეშვეობით.</li>
+</ul>
+</div>
+<div class="section" id="pull-up-conflicts-on-gpio13">
+<span id="id1"></span><h3>GPIO 13-ე ეტაპზე „გაწევის კონფლიქტები“<a class="headerlink" href="sd_pullup_requirements.html#pull-up-conflicts-on-gpio13" title="Permalink to this headline">¶</a></h3>
+<p>თუ თქვენი მოწყობილობის DAT3 სწორად არ არის აღებული, გაქვთ შემდეგი ვარიანტები:</p>
+<ul class="simple">
+<li>გამოიყენეთ 1-ბიტიანი SD რეჟიმი და დააკავშირეთ მოწყობილობის DAT3 VDD-სთან</li>
+<li>გამოიყენეთ SPI რეჟიმი</li>
+<li><dl class="first docutils">
+<dt>Perform one of the following actions on the GPIO13 pin:</dt>
+<dd><ul class="first last">
+<li>ამოიღეთ ჩამოსაწევი რეზისტორები</li>
+<li>მიამაგრეთ 5 kOhm-ზე ნაკლები სიმძლავრის ამწევი რეზისტორი (რეკომენდებულია 2 kOhm)</li>
+<li>აწიეთ ან ააჩქარეთ ძაბვა ჰოსტის გამოყენებით ან 3.3 ვოლტით VDD-ზე 1-ბიტიანი SD რეჟიმში.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="conflicts-between-bootstrap-and-sdio-on-dat2">
+<span id="strapping-conflicts-dat2"></span><h3>კონფლიქტები Bootstrap-სა და SDIO-ს შორის DAT2-ზე<a class="headerlink" href="sd_pullup_requirements.html#conflicts-between-bootstrap-and-sdio-on-dat2" title="Permalink to this headline">¶</a></h3>
+<p>ESP32-ისა და SDIO პროტოკოლის ჩატვირთვის მოთხოვნებს შორის კონფლიქტია. დეტალებისთვის იხილეთ <a class="reference internal" href="sd_pullup_requirements.html#mtdi-strapping-pin"><span class="std std-ref">MTDI სამაგრი ქინძისთავი</span></a>.</p>
+<p>კონფლიქტის მოსაგვარებლად, თქვენ გაქვთ შემდეგი ვარიანტები:</p>
+<ol class="arabic">
+<li><p class="first">(რეკომენდებულია) დაწვით ფლეშ მეხსიერება ძაბვის შერჩევის eFuse-ები. ეს მუდმივად დააკონფიგურირებს შიდა რეგულატორის გამომავალ ძაბვას 3.3 ვოლტზე და GPIO 12 არ იქნება გამოყენებული, როგორც ჩატვირთვის პინი. ამის შემდეგ, შეაერთეთ გამწევი რეზისტორი GPIO 12-ზე.</p>
+<div class="admonition warning">
+<p class="first admonition-title">გაფრთხილება</p>
+<p class="last">eFuse-ების დაწვა შეუქცევადია! ზემოთ მოცემული პრობლემების სია შესაძლოა მოძველებული იყოს, ამიტომ დარწმუნდით, რომ თქვენს მიერ დაწვულ მოდულს აქვს 3.3 ვ ფლეშ მეხსიერება ჩიპი, ინფორმაციის შემოწმებით. <a class="reference external" href="http://www.espressif.com/">http://www.espressif.com/</a>თუ 1.8 ვოლტიან ფლეშ მეხსიერება ჩიპიან მოდულზე 3.3 ვოლტიან eFuse-ებს დაწვავთ, მოდული ფუნქციონირებას შეწყვეტს.</p>
+</div>
+<p>თუ დარწმუნებული ხართ, რომ eFuses-ის შეუქცევადად ჩაწერა გჭირდებათ, გადადით თქვენს ESP-IDF დირექტორიაში და გაუშვით შემდეგი ბრძანება:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>components/esptool_py/esptool/espefuse.py set_flash_voltage <span class="m">3</span>.3V
+</pre></div>
+</div>
+<p>ეს ბრძანება დაწვავს <cite>XPD_SDIO_TIEH</cite>, <cite>XPD_SDIO_FORCE</cite>და <cite>XPD_SDIO_REG</cite> eFuses. სამივე eFuse-ის 1-მდე დაწვის შემდეგ, შიდა VDD_SDIO ფლეშ მეხსიერება ძაბვის რეგულატორი მუდმივად დაყენდება 3.3 ვოლტზე. თუ ჩაწერა წარმატებით დასრულდება, შემდეგ ჟურნალს ნახავთ:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>espefuse.py v2.6
+Connecting....
+
+Enable internal flash voltage regulator <span class="o">(</span>VDD_SDIO<span class="o">)</span> to <span class="m">3</span>.3 V.
+The following eFuses are burned: XPD_SDIO_FORCE, XPD_SDIO_REG, XPD_SDIO_TIEH.
+This is an irreversible operation.
+Type <span class="s1">'BURN'</span> <span class="o">(</span>all capitals<span class="o">)</span> to <span class="k">continue</span>.
+BURN
+VDD_SDIO setting complete.
+</pre></div>
+</div>
+<p>eFuses-ის სტატუსის შესამოწმებლად, გაუშვით:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>``components/esptool_py/esptool/espefuse.py summary``
+</pre></div>
+</div>
+<p>თუ გაშვებულია ავტომატური ფლეშ მეხსიერება ing სკრიპტიდან, <code class="docutils literal notranslate"><span class="pre">espefuse.py</span></code> აქვს ვარიანტი <code class="docutils literal notranslate"><span class="pre">--do-not-confirm</span></code>.</p>
+<p>დამატებითი ინფორმაციისთვის იხილეთ <a class="reference external" href="https://espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf">ESP32 ტექნიკური საცნობარო სახელმძღვანელო</a> (PDF).</p>
+</li>
+<li><p class="first"><strong>თუ იყენებთ 1-ბიტიან SD რეჟიმს ან SPI რეჟიმს</strong>, გამორთეთ DAT2 პინი და დარწმუნდით, რომ ის მაღლა არის აწეული. ამისათვის გააკეთეთ ერთ-ერთი შემდეგი:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ჰოსტის DAT2 დატოვეთ მცურავი და პირდაპირ დააკავშირეთ მონის DAT2 VDD-სთან.</li>
+<li>დაქვემდებარებული მოწყობილობისთვის, ააწყვეთ პროგრამული უზრუნველყოფა ოფციით <code class="docutils literal notranslate"><span class="pre">SDIO_SLAVE_FLAG_DAT2_DISABLED</span></code> და ხელახლა ფლეშ მეხსიერება თქვენი მოწყობილობა. ეს პარამეტრი დაგეხმარებათ თავიდან აიცილოთ მონა-მოთამაშის DAT2 ხაზზე აღმოჩენა. გაითვალისწინეთ, რომ 4-ბიტიანი SD რეჟიმი აღარ იქნება მხარდაჭერილი სტანდარტული ბარათის საერთო საკონტროლო რეგისტრის (CCCR) მიერ; თუმცა, მასპინძელი ამის შესახებ არ იცის. 4-ბიტიანი SD რეჟიმის გამოყენება უნდა გამორთოთ მასპინძელი მხარის მიერ.</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="no-pull-up-on-gpio12">
+<span id="id2"></span><h3>GPIO 12 ტერმინალში აწევა აკრძალულია<a class="headerlink" href="sd_pullup_requirements.html#no-pull-up-on-gpio12" title="Permalink to this headline">¶</a></h3>
+<p>თქვენი მოდული თავსებადია SDIO პროტოკოლთან. უბრალოდ შეაერთეთ GPIO 12 VDD-სთან 10 kOhm რეზისტორის საშუალებით.</p>
+</div>
+<div class="section" id="download-mode-not-working-minor-issue">
+<span id="gpio2-strapping-pin"></span><h3>ჩამოტვირთვის რეჟიმი არ მუშაობს (მცირე პრობლემა)<a class="headerlink" href="sd_pullup_requirements.html#download-mode-not-working-minor-issue" title="Permalink to this headline">¶</a></h3>
+<p>როდესაც GPIO 2 პინი SD pull-up მოთხოვნების შესაბამისად მაღლა იწევს, თქვენ ვერ შეხვალთ ჩამოტვირთვის რეჟიმში, რადგან GPIO 2 არის ჩატვირთვის პინი, რომელიც ამ შემთხვევაში დაბლა უნდა იყოს აწეული.</p>
+<p>არსებობს შემდეგი გადაწყვეტილებები:</p>
+<ul>
+<li><p class="first">იმ დაფებისთვის, რომლებიც საჭიროებენ GPIO და GPIO პინების შემოკლებას ჯემპერით, დააყენეთ ჯემპერი თავის ადგილზე და ავტომატური გადატვირთვის წრე ჩამოტვირთვის რეჟიმში გადასვლამდე GPIO ს და GPIO ს დაბლა ჩამოიწევს.</p>
+</li>
+<li><p class="first">იმ დაფებისთვის, რომელთა კომპონენტი s მიერთებულია მათ GPIO 2 პინზე (მაგალითად, ჩამოსაწევი რეზისტორები და/ან LED-ები), შეამოწმეთ თქვენი დეველოპერის დაფის სქემა, რათა აღმოაჩინოთ რაიმე, რაც დაკავშირებულია GPIO 2-თან.</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>LED-ები</strong> უმეტეს შემთხვევაში, ეს გავლენას არ მოახდენს მის ფუნქციონირებაზე.</li>
+<li><strong>ჩამოსაწევი რეზისტორები</strong> შეიძლება ხელი შეუშალოს DAT0 სიგნალებს და უნდა მოიხსნას.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>თუ ზემოთ ჩამოთვლილი გადაწყვეტილებები არ მუშაობს თქვენთვის, გთხოვთ, დაადგინოთ, აქვს თუ არა მასპინძელ თუ დამხმარე მოწყობილობას მათ GPIO მოქმედი შეფერხებები, შემდეგ იპოვეთ ეს შეფერხებები და წაშალეთ ისინი.</p>
+</div>
+</div>
+<div class="section" id="related-information">
+<span id="related-info-sdio"></span><h2>დაკავშირებული ინფორმაცია<a class="headerlink" href="sd_pullup_requirements.html#related-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mtdi-strapping-pin">
+<span id="id3"></span><h3>MTDI სამაგრი ქინძისთავი<a class="headerlink" href="sd_pullup_requirements.html#mtdi-strapping-pin" title="Permalink to this headline">¶</a></h3>
+<p>MTDI ( GPIO 12) გამოიყენება როგორც ჩატვირთვის პინი შიდა რეგულატორის (VDD_SDIO) გამომავალი ძაბვის შესარჩევად, რომელიც კვებავს ფლეშ მეხსიერება ჩიპს. ამ პინს აქვს შიდა ჩამოსაწევი ღილაკი, ამიტომ, თუ ის არ არის შეერთებული, გაშვებისას ის დაბალ ძაბვას აჩვენებს, რაც გამოიწვევს ნაგულისხმევი 3.3 ვ ოპერაციის არჩევას.</p>
+<p>ყველა ESP32-WROVER მოდული, ESP32-WROVER-B-ს გარდა, იყენებს 1.8 ვოლტიან ფლეშ მეხსიერება და აქვს შიდა გამაძლიერებლები GPIO ზე 12. სხვა მოდულებს, რომლებიც იყენებენ 3.3 ვოლტიან ფლეშ მეხსიერება , არ აქვთ გამაძლიერებლები ტერმინალ GPIO -ზე 12 და ეს პინი შიგნიდან ოდნავ ქვემოთაა დაწეული.</p>
+<p>SD ბარათის მუშაობისთვის ამ პინზე PULSE-ის დამატებისას გაითვალისწინეთ შემდეგი:</p>
+<ul class="simple">
+<li>იმ დაფებისთვის, რომლებიც არ იყენებენ შიდა რეგულატორს (VDD_SDIO) ფლეშ მეხსიერება კვებისთვის, GPIO 12 შეიძლება მაღლა აწეული იყოს.</li>
+<li>1.8 ვოლტიანი ფლეშ მეხსიერება ჩიპების გამოყენებით დაფებისთვის, GPIO 12 გადატვირთვისას მაღალ ძაბვაზე უნდა იყოს აწეული. ეს სრულად თავსებადია SD ბარათის მუშაობასთან.</li>
+<li>შიდა რეგულატორისა და 3.3 ვოლტიანი ფლეშ მეხსიერება ჩიპის გამოყენებით დაფებზე, GPIO 12 გადატვირთვისას დაბალ ძაბვაზე უნდა იყოს გადაყვანილი. ეს შეუთავსებელია SD ბარათის მუშაობასთან. Espressif-ის დაფების SD ბარათის მუშაობასთან თავსებადობის შესახებ საცნობარო ინფორმაციისთვის იხილეთ <a class="reference internal" href="sd_pullup_requirements.html#compatibility-overview-espressif-hw-sdio"><span class="std std-ref">თავსებადობის მიმოხილვა</span></a>.</li>
+</ul>
+</div>
+<div class="section" id="internal-pull-ups-and-strapping-requirements">
+<h3>შიდა აზიდვებისა და თასმების შეკვრის მოთხოვნები<a class="headerlink" href="sd_pullup_requirements.html#internal-pull-ups-and-strapping-requirements" title="Permalink to this headline">¶</a></h3>
+<p>გარე რეზისტორების გამოყენება ყოველთვის სასურველია. თუმცა, Espressif-ის პროდუქტებს აქვთ შიდა სუსტი ამწევი და დაწევის რეზისტორები, რომელთა ჩართვა და გამოყენება შესაძლებელია გარე რეზისტორების ნაცვლად. გაითვალისწინეთ, რომ ეს გადაწყვეტა ვერ უზრუნველყოფს საიმედო SDIO კომუნიკაციას.</p>
+<p>ამის მიუხედავად, ამ შიდა pull-up-ებისა და strapping-ების მოთხოვნების შესახებ ინფორმაცია მაინც შეიძლება სასარგებლო იყოს. Espressif-ის აპარატურულ პროდუქტებს აქვთ სხვადასხვა სუსტი შიდა pull-up/pull-down კონექტორები, რომლებიც დაკავშირებულია CMD და DATA ქინძისთავებთან. ქვემოთ მოცემულ ცხრილში ნაჩვენებია CMD და DATA ქინძისთავების ნაგულისხმევი pull-up და pull-down მდგომარეობები.</p>
+<p>ცხრილში გამოყენებულია შემდეგი აბრევიატურები:</p>
+<ul class="simple">
+<li><strong>WPU</strong>სუსტი ამოწევა SoC-ის შიგნით</li>
+<li><strong>დღის წესრიგი</strong>სუსტი გამწევი ღილაკი SoC-ის შიგნით</li>
+<li><strong>PU</strong>: ამოწევა Espressif მოდულების შიგნით, მაგრამ SoC-ის გარეთ</li>
+</ul>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">CMD და DATA პინების ნაგულისხმევი აწევა და აწევა</span><a class="headerlink" href="sd_pullup_requirements.html#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%"/>
+<col width="25%"/>
+<col width="25%"/>
+<col width="25%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">GPIO ნომერი</th>
+<th class="head">PIN-ის სახელი</th>
+<th class="head">გაშვების მდგომარეობა</th>
+<th class="head">თასმის მოთხოვნა</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>15</strong></td>
+<td>CMD</td>
+<td>WPU</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td><strong>2</strong></td>
+<td>DAT0</td>
+<td>დღის წესრიგი</td>
+<td>ჩამოტვირთვის რეჟიმისთვის დაბალია</td>
+</tr>
+<tr class="row-even"><td><strong>4</strong></td>
+<td>თარიღი1</td>
+<td>დღის წესრიგი</td>
+<td> </td>
+</tr>
+<tr class="row-odd"><td><strong>12</strong></td>
+<td>DAT2</td>
+<td>PU 1.8 ვოლტიანი ფლეშ მეხსიერება ; WPD 3.3 ვოლტიანი ფლეშ მეხსიერება</td>
+<td>მაღალი 1.8 ვოლტიანი ფლეშ მეხსიერება -ისთვის; დაბალი 3.3 ვოლტიანი ფლეშ მეხსიერება ისთვის</td>
+</tr>
+<tr class="row-even"><td><strong>13</strong></td>
+<td>DAT3</td>
+<td>WPU</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="sdmmc_host.html" rel="next" title="SDMMC Host Driver">შემდეგი <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="rmt.html" rel="prev" title="RMT"><span class="fa fa-arrow-circle-left"></span> წინა</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © საავტორო უფლება 2016 - 2019, Espressif Systems (შანხაი) კომპანია, შპს
+      
+        <span class="commit">
+          რევიზია <code>f9108063</code>.
+        </span>
+</p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">სფინქსი</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">თემა</a> provided by <a href="https://readthedocs.org">წაიკითხეთ დოკუმენტები</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>
